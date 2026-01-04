@@ -189,7 +189,8 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 100, opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed right-0 top-1/2 -translate-y-1/2 z-[300] hidden md:flex flex-col bg-[#1a1a1a] border-l border-y border-white/10 rounded-l-lg shadow-2xl overflow-hidden"
+            className="fixed right-0 top-[20vh] z-[300] hidden md:flex flex-col bg-[#1a1a1a] border-l border-y border-white/10 rounded-l-lg shadow-2xl overflow-hidden w-[54px]"
+            style={{ maxHeight: 'calc(100vh - 20vh - 4rem)' }}
           >
              <button 
                onClick={() => onNavigate('landing')} 
@@ -209,7 +210,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                     <button 
                       key={item.id}
                       onClick={() => onNavigate(item.id)}
-                      className={`group relative h-24 w-12 flex items-center justify-center transition-all duration-300 border-b border-white/5 ${
+                      className={`group relative h-24 w-full flex items-center justify-center transition-all duration-300 border-b border-white/5 ${
                         isActive 
                           ? 'bg-white/10 text-[#C5A059]' 
                           : 'text-[#FFF2EC]/60 hover:text-[#FFF2EC] hover:bg-white/5'
