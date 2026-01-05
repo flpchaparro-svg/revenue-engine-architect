@@ -7,9 +7,9 @@ const TerminalLog: React.FC = () => {
   const [lines, setLines] = useState<string[]>([]);
   
   const allLines = [
-    "> INJECTING_LOCAL_SCHEMA... [DONE]",
-    "> REMOVING_JS_BLOAT... [SAVED 2.1MB]",
-    "> SERVER_RESPONSE: 4.2s -> 0.4s [OPTIMIZED]"
+    "> Added Sydney location tags for Google... [DONE]",
+    "> Removed slow code... [SAVED 2.1MB]",
+    "> Load time: 4.2s → 0.4s [10x FASTER]"
   ];
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const TerminalLog: React.FC = () => {
     <div className="w-full bg-[#1a1a1a] p-6 border-t border-black/10 font-mono text-xs overflow-hidden">
       <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
         <Terminal className="w-3 h-3 text-[#C5A059]" />
-        <span className="text-[#C5A059] uppercase tracking-widest">System_Log // Optimisation_Sequence</span>
+        <span className="text-[#C5A059] uppercase tracking-widest">Build Log // What I Did</span>
       </div>
       <div className="space-y-2">
         {lines.map((line, i) => (
@@ -60,13 +60,13 @@ const Feature_Group7: React.FC = () => {
         {/* --- SECTION HEADER --- */}
         <div className="mb-16 max-w-2xl">
           <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-4 block uppercase font-bold">
-            // PROOF_OF_WORK
+            // REAL RESULTS
           </span>
           <h2 className="font-serif text-4xl md:text-6xl text-[#1a1a1a] leading-[0.95] mb-6">
-            The System in <span className="italic text-[#E21E3F]">Action.</span>
+            See It In <span className="italic text-[#E21E3F]">Action.</span>
           </h2>
           <p className="font-sans text-lg text-[#1a1a1a]/60 leading-relaxed border-l-2 border-[#E21E3F]/30 pl-6">
-            Don't just take my word for it. Analyze the telemetry from a recent deployment.
+            Don't just take my word for it. Here's what happened when I rebuilt a Sydney security company's website.
           </p>
         </div>
 
@@ -109,11 +109,11 @@ const Feature_Group7: React.FC = () => {
               <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-[#C5A059] rounded-full animate-pulse" />
                   <span className="font-mono text-[10px] text-[#C5A059] tracking-widest uppercase">
-                     [ VALIDATING_SYSTEM: ACQUISITION ]
+                     [ WEBSITE REBUILD ]
                   </span>
               </div>
               <span className="font-mono text-[9px] text-white/30 uppercase flex items-center gap-2">
-                  [ CLICK_TO_INSPECT_EVIDENCE ]
+                  [ SEE THE TRANSFORMATION ]
                   <Zap className="w-3 h-3 text-[#C5A059]" />
               </span>
           </div>
@@ -146,7 +146,7 @@ const Feature_Group7: React.FC = () => {
                       <AlertTriangle className="w-8 h-8 text-[#E21E3F] relative z-10" />
                   </div>
                   <div className="text-center">
-                      <div className="font-mono text-[10px] text-[#E21E3F] mb-2 uppercase tracking-widest">Legacy State</div>
+                      <div className="font-mono text-[10px] text-[#E21E3F] mb-2 uppercase tracking-widest">Before</div>
                       <div className="font-serif text-white/60 text-xl mb-1">group7security.com</div>
                       <div className="flex items-center justify-center gap-2 text-xs font-mono text-[#E21E3F] bg-[#E21E3F]/10 px-2 py-1 rounded">
                           <Activity className="w-3 h-3" />
@@ -196,7 +196,7 @@ const Feature_Group7: React.FC = () => {
                       <ShieldCheck className="w-10 h-10 text-[#C5A059] group-hover:text-[#0F766E] transition-colors duration-500 delay-1000" />
                   </motion.div>
                   <div className="text-center">
-                      <div className="font-mono text-[10px] text-[#C5A059] mb-2 uppercase tracking-widest group-hover:text-[#0F766E] transition-colors delay-1000">Authority State</div>
+                      <div className="font-mono text-[10px] text-[#C5A059] mb-2 uppercase tracking-widest group-hover:text-[#0F766E] transition-colors delay-1000">After</div>
                       <div className="font-serif text-white text-2xl mb-1">group7security.com.au</div>
                       <div className="flex items-center justify-center gap-2 text-xs font-mono text-[#0F766E] bg-[#0F766E]/10 px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity delay-1000 duration-500">
                           <Globe className="w-3 h-3" />
@@ -209,7 +209,7 @@ const Feature_Group7: React.FC = () => {
 
           {/* Footer Action */}
           <div className="py-4 border-t border-white/5 bg-black/40 flex items-center justify-center gap-3 text-white group-hover:text-[#C5A059] transition-colors relative z-30">
-               <span className="font-mono text-[10px] uppercase tracking-widest font-bold">Open Case File</span>
+               <span className="font-mono text-[10px] uppercase tracking-widest font-bold">See Full Case Study</span>
                <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
           </div>
 
@@ -240,8 +240,8 @@ const Feature_Group7: React.FC = () => {
                  {/* Modal Header */}
                  <div className="flex justify-between items-center p-6 border-b border-black/10 bg-white shrink-0">
                     <div>
-                      <h3 className="font-serif text-2xl text-[#1a1a1a]">FORENSIC_TURNAROUND: GROUP 7</h3>
-                      <p className="font-mono text-[10px] text-[#1a1a1a]/50 uppercase tracking-widest">[ DOMAIN_AUTHORITY_MIGRATION ]</p>
+                      <h3 className="font-serif text-2xl text-[#1a1a1a]">Case Study: Group 7 Security</h3>
+                      <p className="font-mono text-[10px] text-[#1a1a1a]/50 uppercase tracking-widest">[ WEBSITE + SEO OVERHAUL ]</p>
                     </div>
                     <button 
                       onClick={() => setIsModalOpen(false)}
@@ -254,8 +254,8 @@ const Feature_Group7: React.FC = () => {
                  {/* Modal Body: The Slider & Terminal & Grid */}
                  <div className="flex-grow overflow-y-auto p-0">
                     <EvidenceVisual_Compare 
-                      beforeLabel="OLD SITE (.COM)"
-                      afterLabel="NEW AUTHORITY (.COM.AU)"
+                      beforeLabel="BEFORE: Old .com Site"
+                      afterLabel="AFTER: New .com.au Site"
                     />
                     
                     {/* --- NEW TERMINAL LOG --- */}
@@ -265,19 +265,19 @@ const Feature_Group7: React.FC = () => {
                         <div>
                           <h4 className="font-bold text-[#E21E3F] mb-2 text-sm uppercase tracking-widest">The Problem</h4>
                           <p className="text-sm text-[#1a1a1a]/70 leading-relaxed">
-                            The client was using a generic <strong>.com</strong> domain with zero local SEO targeting. Google assumed they were a global software company, not a Sydney security firm.
+                            They had a slow <strong>.com</strong> website with no local SEO. Google thought they were a global tech company, not a Sydney security firm. Local customers couldn't find them.
                           </p>
                         </div>
                         <div>
-                          <h4 className="font-bold text-[#C5A059] mb-2 text-sm uppercase tracking-widest">The Fix</h4>
+                          <h4 className="font-bold text-[#C5A059] mb-2 text-sm uppercase tracking-widest">What I Did</h4>
                           <p className="text-sm text-[#1a1a1a]/70 leading-relaxed">
-                            We migrated to <strong>.com.au</strong> and rebuilt the site on a high-speed Headless stack. We injected local schema ("Security Guards Sydney") to force Google to recognize the location.
+                            I migrated them to <strong>.com.au</strong> and rebuilt the site from scratch — fast, mobile-first, with proper Sydney location tags so Google knows exactly where they operate.
                           </p>
                         </div>
                         <div>
                           <h4 className="font-bold text-[#0F766E] mb-2 text-sm uppercase tracking-widest">The Result</h4>
                           <p className="text-sm text-[#1a1a1a]/70 leading-relaxed">
-                            <strong>94/100 PageSpeed</strong> score. Immediate increase in local inquiries. The site now loads instantly on mobile, securing jobs while competitors are still loading.
+                            Page load dropped from <strong>4.2s to 0.4s</strong>. Local search rankings improved. The site now converts visitors instead of losing them.
                           </p>
                         </div>
                     </div>

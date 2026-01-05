@@ -65,13 +65,13 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
         {/* 1. HEADER (With Explanatory Copy) */}
         <div className="mb-16 text-center max-w-4xl mx-auto">
             <span className="font-mono text-xs text-[#1a1a1a] tracking-[0.4em] mb-6 block uppercase font-bold">
-              <span className="text-[#E21E3F]">/</span> PROCESS ARCHITECTURE
+              <span className="text-[#E21E3F]">/</span> THE SYSTEM
             </span>
             <h2 className="font-serif text-5xl md:text-6xl text-[#1a1a1a] leading-[0.95] tracking-tighter mb-8">
-              The 7 Pillars of <span className="italic text-[#C5A059]">Authority.</span>
+              7 Ways I Fix Your Business.
             </h2>
             <p className="font-sans text-xl font-light text-[#1a1a1a]/70 leading-relaxed max-w-2xl mx-auto">
-              I don't just build websites. I treat your business as a single, connected engine. By linking your Marketing, Sales, and Operations into one synchronised flow, I eliminate the friction that burns out your people.
+              I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.
             </p>
         </div>
 
@@ -84,7 +84,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
              <div className="absolute top-6 left-6 flex items-center gap-3 z-20">
                <div className="w-2 h-2 rounded-full bg-[#E21E3F] animate-pulse shadow-[0_0_8px_#E21E3F]" />
                <span className="text-[10px] font-mono text-[#E21E3F] tracking-[0.3em] uppercase">
-                 Active_Protocol // {activeService.id}
+                 Active // {SERVICES.findIndex(s => s.id === activeService.id) + 1 < 10 ? '0' : ''}{SERVICES.findIndex(s => s.id === activeService.id) + 1}
                </span>
              </div>
 
@@ -119,7 +119,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                      
                      {/* The Content */}
                      <span className="relative z-10 flex items-center gap-3">
-                        [ EXPLORE PILLAR ]
+                        [ SEE HOW IT WORKS ]
                         <LucideIcons.ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                      </span>
                    </button>
@@ -134,22 +134,22 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
           
           {/* SYSTEM BRACKETS (Desktop Visual Grouping) - HIDDEN ON MOBILE */}
           <div className="absolute inset-0 hidden lg:grid grid-cols-7 gap-2 -top-6 -bottom-4 pointer-events-none">
-             {/* ACQUISITION (Cols 1-3) */}
+             {/* GET CLIENTS (Cols 1-3) */}
              <div className="col-span-3 border-t border-x border-[#E21E3F]/20 bg-[#E21E3F]/5 relative rounded-t-sm">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFF2EC] px-2 font-mono text-[9px] text-[#E21E3F] uppercase tracking-widest font-bold">
-                   SYS_01 [ ACQUISITION ]
+                   SYS_01 [ GET CLIENTS ]
                 </div>
              </div>
-             {/* VELOCITY (Cols 4-6) */}
+             {/* SCALE FASTER (Cols 4-6) */}
              <div className="col-span-3 border-t border-x border-[#C5A059]/20 bg-[#C5A059]/5 relative rounded-t-sm">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFF2EC] px-2 font-mono text-[9px] text-[#C5A059] uppercase tracking-widest font-bold">
-                   SYS_02 [ VELOCITY ]
+                   SYS_02 [ SCALE FASTER ]
                 </div>
              </div>
-             {/* INTELLIGENCE (Col 7) */}
+             {/* SEE CLEARLY (Col 7) */}
              <div className="col-span-1 border-t border-x border-[#1a1a1a]/20 bg-[#1a1a1a]/5 relative rounded-t-sm">
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFF2EC] px-2 font-mono text-[9px] text-[#1a1a1a] uppercase tracking-widest font-bold">
-                   SYS_03
+                   SYS_03 [ SEE CLEARLY ]
                 </div>
              </div>
           </div>

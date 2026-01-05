@@ -1,6 +1,6 @@
 
 import React, { useState, useRef } from 'react';
-import { MoveHorizontal, CheckCircle2, Loader2 } from 'lucide-react';
+import { MoveHorizontal, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
 
 interface EvidenceVisualCompareProps {
   beforeLabel?: string;

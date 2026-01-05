@@ -15,39 +15,39 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
 
   // --- DATA: SYSTEM CODES ---
   const navItems = [
-    { id: 'about', label: 'ORIGIN', fullLabel: 'THE ARCHITECT' },
-    { id: 'architecture', label: 'STACK', fullLabel: 'ARCHITECTURE', hasDropdown: true },
-    { id: 'protocol', label: 'LOGIC', fullLabel: 'PROTOCOL' },
-    { id: 'evidence', label: 'PROOF', fullLabel: 'EVIDENCE' },
+    { id: 'about', label: 'ABOUT', fullLabel: 'THE ARCHITECT' },
+    { id: 'architecture', label: 'SYSTEM', fullLabel: 'THE SYSTEM', hasDropdown: true },
+    { id: 'protocol', label: 'PROCESS', fullLabel: 'THE PROCESS' },
+    { id: 'evidence', label: 'RESULTS', fullLabel: 'THE PROOF' },
   ];
 
   const archPillars = [
     { 
-      system: 'ACQUISITION', 
+      system: 'GET CLIENTS', 
       icon: Target, 
       color: 'text-[#E21E3F]', 
       items: [
-        { id: 'pillar1', name: '01 // Digital Revenue' },
-        { id: 'pillar2', name: '02 // Capture Core' },
-        { id: 'pillar3', name: '03 // Auto-Fulfillment' }
+        { id: 'pillar1', name: '01 // Websites & E-commerce' },
+        { id: 'pillar2', name: '02 // CRM & Lead Tracking' },
+        { id: 'pillar3', name: '03 // Automation' }
       ]
     },
     { 
-      system: 'VELOCITY', 
+      system: 'SCALE FASTER', 
       icon: Zap, 
       color: 'text-[#C5A059]', 
       items: [
-        { id: 'pillar4', name: '04 // AI Agents' },
-        { id: 'pillar5', name: '05 // Media Logistics' },
-        { id: 'pillar6', name: '06 // Internal Adoption' }
+        { id: 'pillar4', name: '04 // AI Assistants' },
+        { id: 'pillar5', name: '05 // Content Systems' },
+        { id: 'pillar6', name: '06 // Team Training' }
       ]
     },
     { 
-      system: 'INTELLIGENCE', 
+      system: 'SEE CLEARLY', 
       icon: BarChart3, 
       color: 'text-[#1a1a1a]', 
       items: [
-        { id: 'pillar7', name: '07 // Control Tower' }
+        { id: 'pillar7', name: '07 // Dashboards & Reporting' }
       ]
     }
   ];
@@ -75,13 +75,18 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
               <div className="font-mono text-[10px] font-bold border border-[#1a1a1a] px-2 py-0.5 bg-[#1a1a1a] text-[#FFF2EC] transition-colors">
                 [FC)
               </div>
-              <div className="hidden md:flex flex-col h-4 overflow-hidden text-[#1a1a1a]">
-                 <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] group-hover:-translate-y-full transition-transform duration-300">
-                   Felipe Chaparro
+              <div className="hidden md:flex items-center h-4 text-[#1a1a1a]">
+                 <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">
+                   Felipe
                  </span>
-                 <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] group-hover:-translate-y-full transition-transform duration-300">
-                   System_Home
-                 </span>
+                 <div className="relative h-4 overflow-hidden ml-2 w-[100px]">
+                   <span className="absolute inset-0 font-mono text-[10px] font-bold uppercase tracking-[0.2em] flex items-center group-hover:-translate-y-full transition-transform duration-300">
+                     Consultancy
+                   </span>
+                   <span className="absolute inset-0 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] flex items-center translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                     Home
+                   </span>
+                 </div>
               </div>
             </button>
 
@@ -170,7 +175,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                >
                  <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-300 cubic-bezier(0.23, 1, 0.32, 1)" />
                  <span className="relative z-10 flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a] group-hover:text-white transition-colors duration-300">
-                   [ INITIATE_AUDIT ]
+                   [ LET'S TALK ]
                    <ArrowRight className="w-3 h-3" />
                  </span>
                </button>
@@ -230,7 +235,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                className="h-32 w-full bg-[#C5A059] flex items-center justify-center hover:bg-white hover:text-[#1a1a1a] transition-colors duration-300 group"
              >
                 <span className="block -rotate-90 whitespace-nowrap font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
-                   [ BOOK ]
+                   [ TALK ]
                 </span>
              </button>
           </motion.div>
@@ -245,7 +250,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
            onClick={() => onNavigate('contact')}
            className={`px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] border border-[#1a1a1a] bg-[#1a1a1a] text-[#FFF2EC] ${scrolled ? 'shadow-lg' : ''}`}
          >
-           [ AUDIT ]
+           [ TALK ]
          </button>
          <button 
            onClick={() => setIsMenuOpen(true)} 
@@ -282,14 +287,14 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                    {item.fullLabel}
                  </button>
                ))}
-               <button onClick={() => { onNavigate('contact'); setIsMenuOpen(false); }} className="text-4xl font-serif text-[#1a1a1a] opacity-50">Initiate Audit</button>
+               <button onClick={() => { onNavigate('contact'); setIsMenuOpen(false); }} className="text-4xl font-serif text-[#1a1a1a] opacity-50">Let's Talk</button>
              </div>
              
              <div className="mt-auto mb-12 border-t border-[#1a1a1a]/10 pt-8">
-               <span className="font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40 block mb-2">System Status</span>
+               <span className="font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40 block mb-2">Response Time</span>
                <div className="flex items-center gap-2 text-[#C5A059] font-mono text-xs uppercase tracking-widest">
                  <div className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
-                 ONLINE
+                 &lt; 24 HRS
                </div>
              </div>
           </motion.div>

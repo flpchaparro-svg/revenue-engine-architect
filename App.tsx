@@ -27,8 +27,7 @@ import { ServiceDetail } from './types';
 import { XCircle } from 'lucide-react';
 
 const TECH_STACK = [
-  'XERO', 'SHOPIFY', 'PYTHON', 'OPENAI_API', 'MAKE', 'HUBSPOT', 
-  'TWILIO', 'SUPABASE', 'KLAVIYO', 'STRIPE_CONNECT'
+  'WEBSITES', 'CRM', 'MARKETING AUTOMATION', 'AI ASSISTANTS', 'CONTENT MARKETING', 'DASHBOARDS'
 ];
 
 // --- HELPERS (GrowthGraph, FrictionVisual, MagneticField) ---
@@ -45,25 +44,18 @@ const GrowthGraph: React.FC = () => {
     const chart = svg.append('g').attr('transform', `translate(${margin.left}, ${margin.top})`);
     const xTicks = [0, 0.25, 0.5, 0.75, 1];
     chart.selectAll('.grid-line').data(xTicks).enter().append('line').attr('x1', d => d * chartWidth).attr('x2', d => d * chartWidth).attr('y1', -10).attr('y2', chartHeight + 10).attr('stroke', '#1a1a1a').attr('stroke-opacity', 0.05).attr('stroke-dasharray', '2,2');
-    const barHeight = 12; const gap = 60;
-    const prodG = chart.append('g').attr('transform', `translate(0, ${chartHeight / 2 - gap / 2})`);
-    prodG.append('text').attr('y', -12).attr('class', 'font-mono text-[9px] uppercase tracking-[0.2em] fill-[#1a1a1a] opacity-40').text('REVENUE_VELOCITY');
-    prodG.append('rect').attr('width', chartWidth).attr('height', barHeight).attr('fill', '#1a1a1a').attr('opacity', 0.03);
-    const prodBar = prodG.append('rect').attr('width', 0).attr('height', barHeight).attr('fill', '#C5A059');
-    const prodVal = prodG.append('text').attr('x', 0).attr('y', barHeight / 2 + 4).attr('class', 'font-mono text-[10px] font-bold fill-[#C5A059]').attr('dx', 8).text('0%');
-    const adminG = chart.append('g').attr('transform', `translate(0, ${chartHeight / 2 + gap / 2})`);
-    adminG.append('text').attr('y', -12).attr('class', 'font-mono text-[9px] uppercase tracking-[0.2em] fill-[#1a1a1a] opacity-40').text('OPERATIONAL_DRAG');
-    adminG.append('rect').attr('width', chartWidth).attr('height', barHeight).attr('fill', '#1a1a1a').attr('opacity', 0.03);
-    const adminBar = adminG.append('rect').attr('width', chartWidth).attr('height', barHeight).attr('fill', '#E21E3F');
-    const adminVal = adminG.append('text').attr('x', chartWidth).attr('y', barHeight / 2 + 4).attr('class', 'font-mono text-[10px] font-bold fill-[#E21E3F]').attr('dx', 8).text('100%');
+    const barHeight = 12;
+    const statG = chart.append('g').attr('transform', `translate(0, ${chartHeight / 2})`);
+    statG.append('text').attr('y', -12).attr('class', 'font-mono text-[9px] uppercase tracking-[0.2em] fill-[#1a1a1a] opacity-40').text('AVERAGE TIME LOST');
+    statG.append('rect').attr('width', chartWidth).attr('height', barHeight).attr('fill', '#1a1a1a').attr('opacity', 0.03);
+    const statBar = statG.append('rect').attr('width', 0).attr('height', barHeight).attr('fill', '#C5A059');
+    const statVal = statG.append('text').attr('x', 0).attr('y', barHeight / 2 + 4).attr('class', 'font-mono text-[10px] font-bold fill-[#C5A059]').attr('dx', 8).text('0 HRS/WEEK');
+    const statSubtext = statG.append('text').attr('x', chartWidth).attr('y', barHeight + 20).attr('class', 'font-mono text-[8px] uppercase tracking-[0.2em] fill-[#1a1a1a] opacity-40').attr('text-anchor', 'end').text('ON MANUAL ADMIN');
     function animate() {
       const duration = 4000; const ease = d3.easeCubicInOut;
-      prodBar.attr('width', 0); prodVal.attr('x', 0).text('0%');
-      adminBar.attr('width', chartWidth); adminVal.attr('x', chartWidth).text('100%');
-      prodBar.transition().duration(duration).ease(ease).attr('width', chartWidth * 0.95);
-      prodVal.transition().duration(duration).ease(ease).attr('x', chartWidth * 0.95).tween('text', function() { const i = d3.interpolate(0, 95); return (t) => { prodVal.text(`${Math.round(i(t))}%`); }; });
-      adminBar.transition().duration(duration).ease(ease).attr('width', chartWidth * 0.12);
-      adminVal.transition().duration(duration).ease(ease).attr('x', chartWidth * 0.12).tween('text', function() { const i = d3.interpolate(100, 12); return (t) => { adminVal.text(`${Math.round(i(t))}%`); }; }).on('end', () => { d3.timeout(animate, 2000); });
+      statBar.attr('width', 0); statVal.attr('x', 0).text('0 HRS/WEEK');
+      statBar.transition().duration(duration).ease(ease).attr('width', chartWidth * 0.75);
+      statVal.transition().duration(duration).ease(ease).attr('x', chartWidth * 0.75).tween('text', function() { const i = d3.interpolate(0, 15); return (t) => { statVal.text(`${Math.round(i(t))} HRS/WEEK`); }; }).on('end', () => { d3.timeout(animate, 2000); });
     }
     animate();
   }, []);
@@ -253,10 +245,10 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v:string)=>void }> = ({ onNa
     
     // ... data ...
     const FRICTION_POINTS = [
-      { id: 'leakage', number: '01', label: 'CRITICAL_FAILURE', title: 'Lead Evaporation', stat: '-$500 / DAY', body: "Demand hits your site and vanishes. Your current form logic is a sieve, not a catcher. You are paying for leads that expire in the inbox." },
-      { id: 'silos', number: '02', label: 'INEFFICIENCY', title: 'The Double-Entry Tax', stat: '15 HRS / WK', body: "Sales types it. Ops types it again. Finance types it a third time. You are paying triple wages for the same data entry errors." },
-      { id: 'trap', number: '03', label: 'BOTTLENECK', title: 'Admin Paralysis', stat: 'GROWTH CAP', body: "You are the 'Chief Admin Officer'. You spend 40% of your week fixing invoices and scheduling instead of steering the ship." },
-      { id: 'blind', number: '04', label: 'HIGH_RISK', title: 'Profit Blindness', stat: 'UNKNOWN', body: "You know your Revenue, but not your Real-Time Margin. You are flying a 747 through a storm with no radar." }
+      { id: 'leakage', number: '01', label: 'REVENUE LEAK', title: 'Lead Evaporation', stat: '-$500 / DAY', body: "Demand hits your site and vanishes. Your website captures names but loses intent. You are paying for leads that go cold in the inbox." },
+      { id: 'silos', number: '02', label: 'TIME LEAK', title: 'The Double-Entry Tax', stat: '15 HRS / WK', body: "Sales types it. Ops types it again. Finance types it a third time. You are paying triple wages for the same data entry errors." },
+      { id: 'trap', number: '03', label: 'GROWTH BLOCKER', title: 'Admin Paralysis', stat: '40% OF YOUR WEEK', body: "You are the 'Chief Admin Officer'. You spend 40% of your week fixing invoices and scheduling instead of steering the ship." },
+      { id: 'blind', number: '04', label: 'BLIND SPOT', title: 'Profit Blindness', stat: 'NO VISIBILITY', body: "You know your Revenue, but not your Real-Time Margin. You are flying a 747 through a storm with no radar." }
     ];
 
     return (
@@ -296,7 +288,7 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v:string)=>void }> = ({ onNa
                             <h3 className="font-serif text-4xl md:text-6xl text-[#1a1a1a] leading-[0.9] mb-12">You have seen the <span className="text-[#E21E3F] italic">leak.</span> <br/>Now see the <span className="text-[#C5A059] italic">fix.</span></h3>
                             <button onClick={() => onNavigate('architecture')} className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300">
                                 <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                                <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ EXPLORE_ARCHITECTURE ]</span>
+                                <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ SEE THE SYSTEM ]</span>
                             </button>
                         </div>
                     </div>
@@ -404,25 +396,25 @@ const App: React.FC = () => {
                       <div className="flex items-center gap-4 mb-10 overflow-hidden justify-center lg:justify-start">
                         <span className="h-[1px] w-12 bg-[#1a1a1a]"></span>
                         <span className="text-xs font-bold tracking-widest uppercase text-[#1a1a1a] mt-[1px]">
-                          SYDNEY BUSINESS GROWTH 
+                          SYDNEY BUSINESS AUTOMATION 
                           <span className="font-mono font-bold ml-2 text-[#C5A059]">
                             [ {scrambleText} ]
                           </span>
                         </span>
                       </div>
                       <h1 className="font-serif text-5xl md:text-8xl lg:text-[6.5rem] leading-[0.9] tracking-tighter text-[#1a1a1a] mb-10">
-                        <div className="overflow-hidden"><span className="block reveal-text">Built on Logic,</span></div>
-                        <div className="overflow-hidden"><span className="block reveal-text" style={{ animationDelay: '0.2s' }}>not <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Guesswork.</span></span></div>
+                        <div className="overflow-hidden"><span className="block reveal-text">Stop Doing</span></div>
+                        <div className="overflow-hidden"><span className="block reveal-text" style={{ animationDelay: '0.2s' }}><span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Everyone's Job.</span></span></div>
                       </h1>
-                      <p className="font-sans text-lg font-normal text-[#1a1a1a]/70 leading-relaxed max-w-2xl border-l border-[#1a1a1a]/20 pl-6 animate-fade-in text-left mx-auto lg:mx-0" style={{ animationDelay: '0.6s' }}>Stop burning your best people. I build the digital systems that exit you from the daily grind. Precision is not optional.</p>
+                      <p className="font-sans text-lg font-normal text-[#1a1a1a]/70 leading-relaxed max-w-2xl border-l border-[#1a1a1a]/20 pl-6 animate-fade-in text-left mx-auto lg:mx-0" style={{ animationDelay: '0.6s' }}>You didn't start a business to chase invoices, re-type data, and answer the same questions all day. I build the systems that do it for you — websites, CRMs, automations, and AI — so you can get back to the work that actually grows revenue.</p>
                       <div className="mt-16 flex flex-col sm:flex-row items-center gap-12 animate-fade-in" style={{ animationDelay: '0.8s' }}>
                         <button onClick={() => handleGlobalNavigate('contact')} className="group relative px-10 py-5 bg-transparent text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-widest font-bold overflow-hidden transition-all duration-300">
                           <div className="absolute inset-0 bg-[#1a1a1a] group-hover:-translate-y-full transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                           <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                          <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ START_DIAGNOSIS ]</span>
+                          <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ LET'S TALK ]</span>
                         </button>
                         <a href="#architecture" onClick={(e) => { e.preventDefault(); document.getElementById('architecture')?.scrollIntoView({behavior: 'smooth'}); }} className="relative group flex items-center gap-3 cursor-pointer">
-                          <span className="font-mono text-xs uppercase tracking-widest text-[#1a1a1a] border-b border-[#1a1a1a] pb-0.5 group-hover:border-b-2 group-hover:pb-1 transition-all duration-300 font-bold">SEE THE SYSTEM</span>
+                          <span className="font-mono text-xs uppercase tracking-widest text-[#1a1a1a] border-b border-[#1a1a1a] pb-0.5 group-hover:border-b-2 group-hover:pb-1 transition-all duration-300 font-bold">SEE HOW IT WORKS</span>
                         </a>
                       </div>
                     </div>
@@ -452,7 +444,7 @@ const App: React.FC = () => {
                   <div className="max-w-[1600px] mx-auto border-t border-l border-[#1a1a1a]/10">
                     <div className="grid grid-cols-1 md:grid-cols-3">
                       <div className="col-span-1 md:col-span-2 p-12 md:p-16 border-r border-b border-[#1a1a1a]/10 flex flex-col justify-center min-h-[350px]">
-                        <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-10 block">01 / THE DIAGNOSIS</span>
+                        <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-10 block">01 / THE PROBLEM</span>
                         <h2 className="font-serif text-5xl md:text-7xl leading-[0.9] text-[#1a1a1a] tracking-tighter">You didn't start your business to become an <br /><span className="italic text-[#1a1a1a]/60">administrative hostage.</span></h2>
                       </div>
                       <div className="col-span-1 border-r border-b border-[#1a1a1a]/10 bg-transparent">
@@ -467,16 +459,16 @@ const App: React.FC = () => {
                         </ul>
                       </div>
                       <div className="col-span-1 p-12 border-r border-b border-[#1a1a1a]/10 bg-[#E21E3F]/5 min-h-[300px]">
-                        <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-8 block">03 / ERROR DETECTED</span>
+                        <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-8 block">03 / THE COST</span>
                         <div className="space-y-4">
-                          <div className="font-sans text-3xl font-bold text-[#E21E3F] uppercase tracking-tighter">BURNING_TALENT</div>
+                          <div className="font-sans text-3xl font-bold text-[#E21E3F] uppercase tracking-tighter">BURNING TALENT</div>
                           <p className="font-sans text-sm text-[#E21E3F]/70 leading-relaxed uppercase tracking-widest">Paying high-value staff to do low-value data entry.</p>
                         </div>
                       </div>
                       <div className="col-span-1 p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[300px] flex flex-col justify-between border-l-2 border-l-[#C5A059]">
-                        <span className="font-mono text-xs uppercase tracking-widest text-[#C5A059] block">04 / RESOLUTION</span>
-                        <p className="font-serif text-2xl md:text-3xl leading-tight mb-8">I engineer the exit. We replace human friction with digital code.</p>
-                        <button onClick={() => document.getElementById('architecture')?.scrollIntoView({behavior: 'smooth'})} className="flex items-center gap-3 font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.3em] hover:text-white transition-colors cursor-pointer group">[ VIEW PROTOCOL ]</button>
+                        <span className="font-mono text-xs uppercase tracking-widest text-[#C5A059] block">04 / THE FIX</span>
+                        <p className="font-serif text-2xl md:text-3xl leading-tight mb-8">I build the systems that do the boring work for you. Your team gets their time back. You get your business back.</p>
+                        <button onClick={() => document.getElementById('architecture')?.scrollIntoView({behavior: 'smooth'})} className="flex items-center gap-3 font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.3em] hover:text-white transition-colors cursor-pointer group">[ SEE HOW IT WORKS ]</button>
                       </div>
                     </div>
                   </div>

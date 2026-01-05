@@ -10,31 +10,31 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
   
   const systems = [
     {
-      label: 'ACQUISITION',
+      label: 'GET CLIENTS',
       icon: Target,
       color: 'text-[#E21E3F]',
       links: [
-        { name: '01 // Digital Revenue', id: 'pillar1' },
-        { name: '02 // Capture Core', id: 'pillar2' },
-        { name: '03 // Auto-Fulfillment', id: 'pillar3' }
+        { name: '01 // Websites & E-commerce', id: 'pillar1' },
+        { name: '02 // CRM & Lead Tracking', id: 'pillar2' },
+        { name: '03 // Automation', id: 'pillar3' }
       ]
     },
     {
-      label: 'VELOCITY',
+      label: 'SCALE FASTER',
       icon: Zap,
       color: 'text-[#C5A059]',
       links: [
-        { name: '04 // AI Agents', id: 'pillar4' },
-        { name: '05 // Media Logistics', id: 'pillar5' },
-        { name: '06 // Internal Adoption', id: 'pillar6' }
+        { name: '04 // AI Assistants', id: 'pillar4' },
+        { name: '05 // Content Systems', id: 'pillar5' },
+        { name: '06 // Team Training', id: 'pillar6' }
       ]
     },
     {
-      label: 'INTELLIGENCE',
+      label: 'SEE CLEARLY',
       icon: BarChart3,
       color: 'text-[#1a1a1a]',
       links: [
-        { name: '07 // Control Tower', id: 'pillar7' }
+        { name: '07 // Dashboards & Reporting', id: 'pillar7' }
       ]
     }
   ];
@@ -53,12 +53,12 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
             <div className="flex items-center gap-3 mb-6">
                <span className="w-2 h-2 bg-[#E21E3F] rounded-full animate-pulse" />
                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#E21E3F] font-bold">
-                 System_Idle
+                 Let's Talk
                </span>
             </div>
             <h2 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tighter">
-              Ready to automate <br />
-              <span className="italic text-white/30">your legacy?</span>
+              Ready to fix <br />
+              <span className="italic text-white/30">the chaos?</span>
             </h2>
           </div>
           
@@ -70,7 +70,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
               >
                 <div className="absolute inset-0 bg-[#FFF2EC] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                 <span className="relative z-10 flex items-center gap-4 group-hover:text-[#1a1a1a] transition-colors duration-500">
-                  [ INITIATE PROTOCOL ]
+                  [ BOOK A CALL ]
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </span>
              </button>
@@ -105,12 +105,12 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
         {/* BOTTOM ROW: METADATA */}
         <div className="flex flex-col md:flex-row justify-between items-end pt-12 border-t border-white/5 opacity-40">
           <div className="flex flex-col gap-2">
-            <span className="font-mono text-[9px] text-white uppercase tracking-[0.4em] font-bold">[FC) Felipe Chaparro</span>
+            <span className="font-mono text-[9px] text-white uppercase tracking-[0.4em] font-bold">[FC) Felipe Consultancy</span>
             <span className="font-mono text-[9px] text-white/60 uppercase tracking-[0.4em]">Engineered in Sydney</span>
           </div>
           
           <div className="flex gap-8 font-mono text-[9px] text-white/20 uppercase tracking-[0.4em] mt-8 md:mt-0">
-              <span className="flex items-center gap-2"><Globe className="w-3 h-3"/> SYD_UTC+11</span>
+              <span className="flex items-center gap-2"><Globe className="w-3 h-3"/> Sydney, Australia</span>
               <span className="flex items-center gap-2"><Terminal className="w-3 h-3"/> v5.4.0</span>
           </div>
         </div>

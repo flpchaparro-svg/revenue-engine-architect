@@ -85,7 +85,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, onViewPillar })
                     </div>
                     <div className="flex-grow">
                       <div className="font-mono text-[10px] text-[#E21E3F] uppercase tracking-[0.2em] font-bold mb-2">
-                        System_Diagnostic
+                        The Question
                       </div>
                       <p className="font-serif text-xl md:text-2xl text-[#1a1a1a] italic leading-tight">
                         "{service.symptom}"
@@ -101,7 +101,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, onViewPillar })
 
                 <div className="mb-12">
                   <span className="text-[#E21E3F] text-[10px] font-mono tracking-[0.4em] font-bold mb-4 block uppercase">
-                    System_Blueprint_2025 // {service.systemGroup || 'CORE'}
+                    Service Overview // {service.systemGroup || 'CORE'}
                   </span>
                   <h2 className="text-5xl lg:text-7xl font-serif font-light leading-none mb-4">
                     {service.title}
@@ -121,7 +121,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, onViewPillar })
                   </div>
 
                   <div className="lg:col-span-5">
-                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] mb-8 border-b border-black/10 pb-2">Technical Features</h3>
+                    <h3 className="text-xs font-bold uppercase tracking-[0.2em] mb-8 border-b border-black/10 pb-2">What You Get</h3>
                     <ul className="space-y-4">
                       {service.features.map((feature, idx) => (
                         <li key={idx} className="flex items-center gap-3">
@@ -146,7 +146,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, onViewPillar })
                     
                     {/* Button Content (Changes Color on Hover) */}
                     <div className="relative z-10 flex items-center gap-4 group-hover:text-[#1a1a1a] transition-colors duration-500">
-                      <span>[ EXPLORE PILLAR PAGE ]</span>
+                      <span>[ SEE FULL DETAILS ]</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </div>
                   </button>

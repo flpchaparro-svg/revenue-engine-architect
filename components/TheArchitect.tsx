@@ -50,7 +50,7 @@ const TheArchitect: React.FC = () => {
               <div className="absolute top-6 left-6 z-20">
                 <div className={`font-mono text-[9px] uppercase tracking-[0.3em] flex items-center gap-3 transition-colors duration-500 ${mode === 'architect' ? 'text-white/60' : 'text-[#C5A059]'}`}>
                    <span className="w-1.5 h-1.5 rounded-full bg-[#E21E3F] animate-pulse" />
-                   SUBJECT: THE_ARCHITECT // STATUS: ONLINE
+                   FELIPE CHAPARRO // SYDNEY
                 </div>
               </div>
 
@@ -66,7 +66,7 @@ const TheArchitect: React.FC = () => {
              {/* PROFILE SWITCH - High Visibility Dashboard Style */}
              <div className="flex flex-col sm:flex-row sm:items-center gap-6 mb-12 border-b border-black/5 pb-8">
               <span className="font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/60 font-bold">
-                // SELECT_PROFILE_VIEW:
+                // VIEW MODE:
               </span>
               
               <div className="flex bg-[#1a1a1a]/5 p-1.5 rounded-sm w-fit">
@@ -104,35 +104,45 @@ const TheArchitect: React.FC = () => {
               >
                  <h2 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.9] mb-10 text-[#1a1a1a] tracking-tight">
                     {mode === 'architect' ? (
-                       <>I don't hire juniors. <br/><span className="italic text-[#1a1a1a]/30">I hire Logic.</span></>
+                       <>One person. <br/><span className="italic text-[#1a1a1a]/30">Ten person output.</span></>
                     ) : (
-                       <>I am a Scientist, <br/><span className="italic text-[#C5A059]">not a Salesman.</span></>
+                       <>I've run businesses. <br/><span className="italic text-[#C5A059]">Not just consulted them.</span></>
                     )}
                  </h2>
                  <p className="font-sans text-xl font-light text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#1a1a1a]/10 pl-8 max-w-xl">
                     {mode === 'architect' 
-                      ? "Traditional agencies are bloated with communication layers. I deliver the output of a 10-person unit with the surgical focus of a single mind. I replace human friction with autonomous code."
-                      : "I connect disciplines. With a background in Chemistry and Jazz, I see business as a reaction that can be engineered. I don't guess; I experiment, measure, and refine until the system sings."
+                      ? "No account managers. No junior handoffs. No endless meetings. You talk directly to the person building your system. I use automation and AI to deliver what agencies need a whole team for."
+                      : "Before I built systems for others, I ran my own café, managed car dealerships, and worked on factory floors. I know what it's like to chase invoices at midnight. I don't give you theory — I give you what actually works."
                     }
                  </p>
 
                  {/* Signature Block */}
-                 <div className="mt-16 pt-10 border-t border-black/5 flex items-center gap-8">
-                    <div>
-                       <p className="font-mono text-[9px] text-black/30 uppercase tracking-[0.3em] mb-1">
-                          {mode === 'architect' ? 'SYSTEM_DESIGNATION' : 'HUMAN_DESIGNATION'}
-                       </p>
-                       <p className={`font-serif text-2xl transition-colors duration-500 ${mode === 'architect' ? 'text-[#1a1a1a]' : 'text-[#C5A059]'}`}>
-                          Felipe Chaparro
-                       </p>
+                 <div className="mt-16 pt-10 border-t border-black/5">
+                    <div className="flex items-center gap-8 mb-8">
+                       <div>
+                          <p className="font-mono text-[9px] text-black/30 uppercase tracking-[0.3em] mb-1">
+                             {mode === 'architect' ? 'The Architect' : 'The Human'}
+                          </p>
+                          <p className={`font-serif text-2xl transition-colors duration-500 ${mode === 'architect' ? 'text-[#1a1a1a]' : 'text-[#C5A059]'}`}>
+                             Felipe Chaparro
+                          </p>
+                       </div>
+                       <a 
+                         href="https://meetings-ap1.hubspot.com/felipe" 
+                         target="_blank"
+                         className={`flex items-center justify-center w-14 h-14 border transition-all duration-300 ${mode === 'architect' ? 'border-black/10 hover:bg-[#1a1a1a] hover:text-white' : 'border-[#C5A059]/30 hover:bg-[#C5A059] hover:text-white'}`}
+                       >
+                          <ArrowUpRight className="w-5 h-5" />
+                       </a>
                     </div>
-                    <a 
-                      href="https://meetings-ap1.hubspot.com/felipe" 
-                      target="_blank"
-                      className={`flex items-center justify-center w-14 h-14 border transition-all duration-300 ${mode === 'architect' ? 'border-black/10 hover:bg-[#1a1a1a] hover:text-white' : 'border-[#C5A059]/30 hover:bg-[#C5A059] hover:text-white'}`}
-                    >
-                       <ArrowUpRight className="w-5 h-5" />
-                    </a>
+                    {/* Footer Stats - Only show in Architect mode */}
+                    {mode === 'architect' && (
+                       <div className="flex flex-wrap gap-4 font-mono text-[9px] text-black/40 uppercase tracking-[0.2em]">
+                          <span>[ RESPONSE: &lt; 24 HRS ]</span>
+                          <span>[ PROJECTS DELIVERED: 50+ ]</span>
+                          <span>[ BASED: SYDNEY ]</span>
+                       </div>
+                    )}
                  </div>
               </motion.div>
             </AnimatePresence>
