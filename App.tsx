@@ -3,12 +3,10 @@ import { motion, AnimatePresence, useScroll, useMotionValueEvent, useAnimationFr
 import * as d3 from 'd3';
 import BentoGrid from './components/BentoGrid';
 import Modal from './components/Modal';
-import D3Background from './components/D3Background';
 import TheArchitect from './components/TheArchitect';
 import BookingCTA from './components/BookingCTA';
 import EvidencePage from './components/EvidencePage';
 import EvidenceVaultPage from './components/EvidenceVaultPage'; // Added Import
-import RevenueAudit from './components/RevenueAudit';
 import AboutPage from './components/AboutPage'; 
 import ArchitecturePage from './components/ArchitecturePage';
 import ProtocolPage from './components/ProtocolPage';
@@ -26,7 +24,7 @@ import HeroVisual from './components/HeroVisual';
 import PageTransition from './components/PageTransition';
 import Feature_Group7 from './components/Feature_Group7';
 import { ServiceDetail } from './types';
-import { ChevronDown, AlertTriangle, Database, Clock, EyeOff, ArrowDown, CheckCircle2, XCircle, ArrowRight } from 'lucide-react';
+import { XCircle } from 'lucide-react';
 
 const TECH_STACK = [
   'XERO', 'SHOPIFY', 'PYTHON', 'OPENAI_API', 'MAKE', 'HUBSPOT', 
@@ -389,7 +387,6 @@ const App: React.FC = () => {
 
   return (
     <div className="bg-[#FFF2EC] selection:bg-[#1a1a1a] selection:text-[#FFF2EC] min-h-screen flex flex-col">
-      <D3Background /> 
       {currentView !== 'contact' && (
         <GlobalHeader currentView={currentView} onNavigate={handleGlobalNavigate} scrolled={scrolled} />
       )}
