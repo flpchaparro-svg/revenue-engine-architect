@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
@@ -11,34 +10,43 @@ interface ProtocolPageProps {
 
 const ProtocolPage: React.FC<ProtocolPageProps> = ({ onBack, onNavigate }) => {
 
+  const principles = [
+    {
+      id: 'p1',
+      label: '01 // CLARITY OVER COMPLEXITY',
+      body: "If I can't explain it to you at a pub, it's too complex. You'll understand every part of your system. If you don't, I haven't done my job."
+    },
+    {
+      id: 'p2',
+      label: '02 // PEOPLE BEFORE TECHNOLOGY',
+      body: "If a new tool makes your team's day harder, it's failed. I build systems that save time. Not add more admin."
+    }
+  ];
+
   const steps = [
     {
       id: '01',
-      title: 'The Friction Audit',
-      subtitle: 'Scientific Diagnosis',
-      text: "We stop guessing. I don't just look at your analytics; I look for 'Minor Labour'—the repetitive tasks burning your team. We map the data leaks to establish a baseline for friction."
+      label: '[ DIAGNOSE ]',
+      title: 'Find the Leaks',
+      text: "I don't guess. I look for the repetitive tasks burning your team. The stuff that eats 15 hours a week. Where data gets typed twice. Where leads go cold. Where profit disappears."
     },
     {
       id: '02',
-      title: 'Agnostic Navigation',
-      subtitle: 'Unbiased Design',
-      text: "I am not a 'HubSpot Partner' or a 'Salesforce Shop'. I am your Navigator. I survey the entire market to find the 'Right Tool for Right Now,' ensuring you never overpay for features you don't need."
+      label: '[ DESIGN ]',
+      title: 'Pick the Right Tools',
+      text: "I'm not locked into HubSpot or Salesforce. I find what actually fits your business. So you're not paying for features you'll never use."
     },
     {
       id: '03',
-      title: 'The Engineering Sprint',
-      subtitle: 'High-Velocity Execution',
-      text: (
-        <>
-          We reject the '6-Month Waterfall'. We build in <strong className="text-[#E21E3F]">Sprints</strong>. Whether it's a 7-day <strong className="text-[#C5A059]">Velocity</strong> build or a 24-hour <strong className="text-black">Terminal</strong> launch, we deploy the asset quickly so you can start generating revenue while we refine the rest.
-        </>
-      )
+      label: '[ BUILD ]',
+      title: 'Ship Fast',
+      text: "No 6-month projects. I build in sprints. You start seeing results in weeks, not quarters. We refine as we go."
     },
     {
       id: '04',
-      title: 'The Adoption Shift',
-      subtitle: 'Behavioral Engineering',
-      text: "Technology fails when humans resist it. I don't just send you a login; I engineer the training (Pillar 6) to ensure your staff prefers the new way. We don't leave until the system is your team's new normal."
+      label: '[ HANDOVER ]',
+      title: 'Make It Stick',
+      text: "Software fails when people don't use it. I build the training so your team actually prefers the new way. I don't leave until it's their new normal."
     }
   ];
 
@@ -58,20 +66,19 @@ const ProtocolPage: React.FC<ProtocolPageProps> = ({ onBack, onNavigate }) => {
             className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            / Return_to_Engine
+            / Return to Home
           </button>
         </div>
 
         {/* HERO */}
         <div className="mb-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ OPERATING_PROTOCOL</span>
+            <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE PROCESS</span>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight mb-8">
-              The Rules of <br />
-              <span className="italic text-black/20">Engagement.</span>
+              How I Work.
             </h1>
             <p className="font-sans text-xl text-[#1a1a1a]/60 leading-relaxed max-w-md border-l-2 border-[#C5A059] pl-6">
-               A strict protocol to move from Chaos to Order.
+              From chaos to order. No fluff.
             </p>
           </div>
           <div className="h-full min-h-[500px] flex items-center justify-center lg:justify-end">
@@ -79,35 +86,22 @@ const ProtocolPage: React.FC<ProtocolPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </div>
 
-        {/* PHILOSOPHY SECTION */}
+        {/* GUIDING PRINCIPLES */}
         <div className="mb-40 max-w-5xl">
-           <h2 className="font-serif text-4xl md:text-5xl leading-tight mb-16 text-[#1a1a1a]">
-             To guarantee results, we break <br/>
-             <span className="italic text-[#E21E3F]">standard agency habits.</span>
-           </h2>
-           
            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
-              <div>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40 mb-4 block font-bold">01 // Clarity over Complexity</span>
-                <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">
-                  If I can't explain the solution to a business owner in a pub, it’s too complex. I reject "Black Box" magic. You will understand every moving part of your engine, or I haven't done my job.
-                </p>
-              </div>
-              
-              <div>
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40 mb-4 block font-bold">02 // Human-First Engineering</span>
-                <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">
-                  Technology serves people, not the other way around. If a new tool makes your staff's life harder, it is a failure of architecture. We build for <strong>Net Time</strong> (No Extra Time) added to their day.
-                </p>
-              </div>
+              {principles.map((principle) => (
+                <div key={principle.id}>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40 mb-4 block font-bold">{principle.label}</span>
+                  <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">
+                    {principle.body}
+                  </p>
+                </div>
+              ))}
            </div>
         </div>
 
-        {/* EXECUTION SEQUENCE */}
+        {/* THE 4 PHASES */}
         <div className="mb-32">
-          <div className="font-mono text-[10px] uppercase tracking-[0.25em] font-bold mb-16 text-[#1a1a1a]/40 border-b border-black/10 pb-4">
-            Execution_Sequence
-          </div>
           <div className="space-y-0 relative border-l border-black/10 ml-4 md:ml-0">
             {steps.map((step, i) => (
               <motion.div 
@@ -124,7 +118,7 @@ const ProtocolPage: React.FC<ProtocolPageProps> = ({ onBack, onNavigate }) => {
                  </div>
                  <div className="flex-grow grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-black/5 pb-12 group-last:border-none">
                     <div className="md:col-span-4">
-                       <span className="font-mono text-[9px] uppercase tracking-widest text-[#C5A059] mb-3 block">{step.subtitle}</span>
+                       <span className="font-mono text-[9px] uppercase tracking-widest text-[#C5A059] mb-3 block">{step.label}</span>
                        <h3 className="font-serif text-4xl text-[#1a1a1a]">{step.title}</h3>
                     </div>
                     <div className="md:col-span-7">
@@ -138,26 +132,30 @@ const ProtocolPage: React.FC<ProtocolPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </div>
 
-        {/* BOTTOM CTA - FIXED: Spacing, Dark Theme, Slide Animation */}
+        {/* BOTTOM CTA */}
         <div className="bg-zinc-900 border border-zinc-800 text-zinc-100 p-12 md:p-24 relative overflow-hidden mb-32 rounded-sm">
            <div className="relative z-10 flex flex-col items-center text-center">
-              <h2 className="font-serif text-5xl md:text-6xl mb-8">Ready to start <br/> the <span className="italic text-[#C5A059]">Process?</span></h2>
+              <h2 className="font-serif text-5xl md:text-6xl mb-8">Ready to start?</h2>
               
               <button 
-                onClick={() => onNavigate('landing', 'booking')}
-                className="group relative px-10 py-5 bg-transparent text-zinc-100 border border-zinc-700 font-mono text-xs uppercase tracking-[0.3em] font-bold overflow-hidden transition-all duration-300 hover:border-zinc-500"
+                onClick={() => onNavigate('contact')}
+                className="group relative px-10 py-5 bg-transparent text-zinc-100 border border-zinc-700 font-mono text-xs uppercase tracking-[0.3em] font-bold overflow-hidden transition-all duration-300 hover:border-zinc-500 mb-4"
               >
                  <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                  <span className="relative z-10 group-hover:text-zinc-900 transition-colors duration-500 flex items-center gap-3">
-                    [ INITIATE_AUDIT ] <ArrowRight className="w-4 h-4" />
+                    [ BOOK A CALL ] <ArrowRight className="w-4 h-4" />
                  </span>
               </button>
+              
+              <p className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest">
+                15 minutes. No sales pitch.
+              </p>
            </div>
         </div>
 
       </div>
-      {/* GLOBAL FOOTER REMOVED (Handled by App.tsx) */}
     </motion.div>
   );
 };
+
 export default ProtocolPage;

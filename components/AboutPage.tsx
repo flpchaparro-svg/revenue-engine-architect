@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Briefcase, Car, Coffee, Code2, Building2, Activity, ArrowRight, GitBranch, Database, Cpu, Users } from 'lucide-react';
+import { ArrowLeft, Briefcase, Car, Coffee, Code2, Building2, Activity, ArrowRight, GitBranch, Database, Cpu, Users, FlaskConical, Award, Wrench, Target, Globe, Quote } from 'lucide-react';
 import AboutVisual_Harmony from './AboutVisual_Harmony';
 import AboutVisual_Distillation from './AboutVisual_Distillation';
 
@@ -19,87 +19,104 @@ const AboutPage: React.FC<AboutPageProps> = ({ onBack, onNavigate }) => {
 
   const content = {
       architect: {
-        label: '/ SYSTEM_SPECIFICATIONS',
+        label: '/ THE ARCHITECT',
         accent: 'text-[#E21E3F]',
         bgAccent: 'bg-[#E21E3F]',
         borderAccent: 'border-[#E21E3F]',
         headline: (
           <>
-            Precision is not <br />
-            <span className="italic text-black/20">Optional.</span>
+            I build the systems that give your team <br />
+            <span className="italic text-black/20">their time back.</span>
           </>
         ),
-        subhead: "The Logic Stream.",
-        description: "I don't sell 'hours'. I sell a sequential engineering process that removes human friction from your business permanently.",
+        subhead: "Most consultants sell ideas. I build infrastructure. The kind that runs while you sleep, captures every lead, and stops your best people from drowning in admin.",
         timeline: [
           {
             id: 'a1',
-            icon: Database,
-            label: 'STEP 01 // THE AUDIT',
-            title: 'Structural Analysis',
-            text: "I strip the business down to its raw data flows. I find where you are 'leaking' revenue through manual entry and double-handling."
+            icon: FlaskConical,
+            label: 'PHASE 01 // THE APPROACH',
+            title: 'Custom Processes, Not Templates',
+            text: "I spent years in chemical research building custom treatment systems for mining and industrial companies. No two companies had the same process. I learned that real solutions are engineered for each situation — never copy-pasted."
           },
           {
             id: 'a2',
-            icon: GitBranch,
-            label: 'STEP 02 // THE BUILD',
-            title: 'Code Injection',
-            text: "I don't patch cracks; I replace the foundation. I install autonomous agents and API bridges that do the work of your admin staff."
+            icon: Award,
+            label: 'PHASE 02 // THE STANDARD',
+            title: 'High Standards, No Shortcuts',
+            text: "Whether it's a CRM setup or a full automation system, I push for precision. In chemistry, if you miss a step, the reaction fails. Same applies to business systems. I don't ship until it works properly."
           },
           {
             id: 'a3',
-            icon: Cpu,
-            label: 'STEP 03 // THE SCALE',
-            title: 'Infinite Output',
-            text: "Once the system is live, it scales without fatigue. Your revenue disconnects from your headcount."
+            icon: Wrench,
+            label: 'PHASE 03 // THE TOOLS',
+            title: 'Enterprise-Grade for Real Businesses',
+            text: "I use the same tools as large agencies — HubSpot, Make.com, AI assistants, dashboards — but for real-world businesses. Tradies, wholesalers, service companies. You don't need to be a tech startup to have professional systems."
+          },
+          {
+            id: 'a4',
+            icon: Target,
+            label: 'PHASE 04 // THE RESULT',
+            title: 'Freedom to Do Your Actual Job',
+            text: "The goal is simple: give people the freedom they need to use their talent. If your sales team is doing data entry, something is broken. I fix that."
           }
+        ],
+        credentials: [
+          { label: '24+ Certifications' },
+          { label: 'HubSpot Marketing Automation' },
+          { label: 'Based in Sydney' },
+          { label: 'Same-Day Response' }
         ],
         image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000",
         imageCaption: "Fig. 01 // Logic_Stream"
       },
       human: {
-        label: '/ OPERATOR_LOGS',
+        label: '/ THE ARCHITECT',
         accent: 'text-[#C5A059]',
         bgAccent: 'bg-[#C5A059]',
         borderAccent: 'border-[#C5A059]',
         headline: (
           <>
-            I haven't just audited <br />
-            <span className="italic text-[#C5A059]">I've run them.</span>
+            From lab coats to spreadsheets <br />
+            <span className="italic text-[#C5A059]">to freedom.</span>
           </>
         ),
-        subhead: "Experience from the Trenches.",
-        description: "I didn't learn business from a textbook. I learned it on the floor of a showroom, behind the bar of my own cafe, and in the boardroom.",
+        subhead: "I've been the person doing the admin at midnight. Running payroll, chasing invoices, managing staff while trying to grow a business. That's why I build systems that actually work for real people.",
         timeline: [
           {
             id: 'h1',
-            icon: Briefcase,
-            label: 'PHASE 01 // THE GENERAL MANAGER',
-            title: 'International Operations',
-            text: "I managed large teams for international companies. I know the stress of payroll, the chaos of people management, and the cost of burnout."
+            icon: FlaskConical,
+            label: 'CHAPTER 01 // THE SCIENTIST',
+            title: 'Started in the Lab',
+            text: "I trained as a chemist in Chile, working on water treatment research for mining companies. Every project needed a custom process — no templates, just problem-solving from scratch. That's where I learned to see systems as reactions that can be engineered."
           },
           {
             id: 'h2',
-            icon: Car,
-            label: 'PHASE 02 // THE LUXURY STANDARD',
-            title: 'Super-Luxury Sales',
-            text: "Selling high-end vehicles taught me that VIP clients demand perfection. I build that same 'White Glove' standard into your digital systems."
+            icon: Coffee,
+            label: 'CHAPTER 02 // THE OWNER',
+            title: 'Built My Own Business',
+            text: "I opened an artistic café in Santiago. Events, classes, artist exhibitions — we built a community space from nothing. I did everything: hiring, payroll, spreadsheets, marketing, inventory. I know what it costs to run a business with your own hands."
           },
           {
             id: 'h3',
-            icon: Coffee,
-            label: 'PHASE 03 // THE BUSINESS OWNER',
-            title: 'The Coffee Business',
-            text: "I put my own capital at risk. I built a business from scratch. I don't treat your budget like 'Play Money' because I know how hard it is to earn."
+            icon: Globe,
+            label: 'CHAPTER 03 // THE OPERATOR',
+            title: 'Managed Across Cultures',
+            text: "I ran an international fitness franchise in Southeast Asia. Different country, different culture, different expectations. I learned to adapt systems to people — not force people into systems. Then luxury car sales in Sydney taught me how to communicate value to high-end clients."
           },
-           {
+          {
             id: 'h4',
-            icon: Users,
-            label: 'PHASE 04 // THE FOUNDATION',
-            title: 'The Discipline',
-            text: "My background in Chemistry (Process) and High-Level Latin Dance (Discipline) taught me that excellence is a habit. If you miss a detail, the reaction fails."
+            icon: Code2,
+            label: 'CHAPTER 04 // THE BUILDER',
+            title: 'Now I Build for Others',
+            text: "After studying marketing automation, front-end development, and business analytics, I put it all together. I build the systems I wish I'd had when I was running my café — so business owners can focus on the work that actually matters."
           }
         ],
+        quote: "Give people the freedom they need to use their talent.",
+        attribution: "— Felipe Chaparro",
+        funFact: {
+          label: "Off the Clock",
+          body: "When I'm not building systems, I play guitar and dance Bachata. Structure and improvisation — that's how I see everything."
+        },
         image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2000",
         imageCaption: "Fig. 02 // The_Operator"
       }
@@ -123,7 +140,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onBack, onNavigate }) => {
             className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            / Return_to_Engine
+            / Return to Home
           </button>
         </div>
 
@@ -157,7 +174,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onBack, onNavigate }) => {
                 }`}
                 style={mode === 'human' ? { boxShadow: '0 -4px 10px rgba(0,0,0,0.05)' } : {}}
               >
-                THE_OPERATOR
+                THE_HUMAN
                 {/* Active Indicator Line */}
                 {mode === 'human' && <motion.div layoutId="underline" className="absolute bottom-0 left-0 w-full h-1 bg-[#C5A059]" />}
               </button>
@@ -205,9 +222,8 @@ const AboutPage: React.FC<AboutPageProps> = ({ onBack, onNavigate }) => {
                   className="space-y-16"
                 >
                   <div className="mb-16">
-                    <h3 className={`font-serif text-3xl mb-6 italic ${current.accent}`}>{current.subhead}</h3>
                     <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed max-w-xl border-l-2 border-black/5 pl-6">
-                      {current.description}
+                      {current.subhead}
                     </p>
                   </div>
 
@@ -239,6 +255,53 @@ const AboutPage: React.FC<AboutPageProps> = ({ onBack, onNavigate }) => {
 
                   </div>
 
+                  {/* ARCHITECT MODE: CREDENTIALS BAR */}
+                  {mode === 'architect' && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="border-t border-b border-black/10 py-8 mt-16"
+                    >
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                        {content.architect.credentials.map((cred, idx) => (
+                          <div key={idx} className="text-center">
+                            <div className="font-mono text-sm font-bold text-[#1a1a1a]">{cred.label}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* HUMAN MODE: QUOTE & FUN FACT */}
+                  {mode === 'human' && (
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="space-y-12 mt-16"
+                    >
+                      {/* QUOTE BLOCK */}
+                      <div className="border-l-4 border-[#C5A059] pl-8 py-8 bg-[#C5A059]/5">
+                        <Quote className="w-8 h-8 text-[#C5A059] mb-4" />
+                        <p className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-4 italic">
+                          "{content.human.quote}"
+                        </p>
+                        <p className="font-mono text-sm text-[#1a1a1a]/60 uppercase tracking-widest">
+                          {content.human.attribution}
+                        </p>
+                      </div>
+
+                      {/* FUN FACT */}
+                      <div className="p-8 border border-black/10 bg-white">
+                        <span className="font-mono text-[9px] uppercase tracking-[0.2em] mb-2 block font-bold text-[#C5A059]">
+                          {content.human.funFact.label}
+                        </span>
+                        <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">
+                          {content.human.funFact.body}
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+
                 </motion.div>
               </AnimatePresence>
            </div>
@@ -246,14 +309,16 @@ const AboutPage: React.FC<AboutPageProps> = ({ onBack, onNavigate }) => {
 
         {/* BOTTOM CTA */}
         <div className="border-t border-black/10 py-32 flex flex-col items-center text-center">
-           <h2 className="font-serif text-5xl md:text-6xl mb-8">Ready to engineer <br/> your <span className={`italic ${current.accent}`}>Legacy?</span></h2>
+           <h2 className="font-serif text-5xl md:text-6xl mb-8">
+             {mode === 'architect' ? "Ready to build your system?" : "Let's talk about your business."}
+           </h2>
            <button 
-             onClick={() => handleNavigate('landing', 'booking')}
+             onClick={() => handleNavigate('contact')}
              className="group relative flex items-center justify-center px-10 py-6 bg-[#1a1a1a] text-[#FFF2EC] font-mono text-xs uppercase tracking-[0.3em] font-bold overflow-hidden transition-all duration-300"
            >
              <div className="absolute inset-0 bg-[#FFF2EC] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
              <span className="relative z-10 flex items-center gap-4 group-hover:text-[#1a1a1a] transition-colors duration-500">
-               [ INITIATE_AUDIT ]
+               [ BOOK A CALL ]
                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
              </span>
            </button>
