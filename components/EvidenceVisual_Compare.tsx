@@ -1,6 +1,6 @@
 
 import React, { useState, useRef } from 'react';
-import { MoveHorizontal, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
+import { MoveHorizontal, CheckCircle2, Loader2 } from 'lucide-react';
 
 interface EvidenceVisualCompareProps {
   beforeLabel?: string;
@@ -74,20 +74,14 @@ const EvidenceVisual_Compare: React.FC<EvidenceVisualCompareProps> = ({
             <div className="w-full max-w-[900px] h-full border border-red-200 relative p-8">
                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center">
                   <Loader2 className="w-12 h-12 text-red-400 animate-spin mb-4" />
-                  <span className="font-mono text-xs text-red-500 bg-white px-2 py-1 border border-red-200">LOADING_SCRIPTS...</span>
                </div>
                
                {/* Disjointed Elements */}
                <div className="absolute top-8 left-8 w-[120%] h-16 bg-red-200/20 rotate-1 border border-red-300/50" />
                <div className="absolute top-32 left-12 w-64 h-64 bg-gray-200 blur-sm border border-red-300 border-dashed flex items-center justify-center">
-                  <span className="text-xs text-red-400 font-mono">IMG_TOO_LARGE.PNG</span>
                </div>
                <div className="absolute top-40 right-20 w-48 h-96 bg-red-100/50 -rotate-2 border border-red-200" />
                
-               <div className="absolute bottom-12 left-12 flex items-center gap-2 text-red-600 font-mono text-xs bg-red-100 px-3 py-1">
-                  <AlertCircle className="w-3 h-3" />
-                  <span>LCP_FAILURE: 4.2s</span>
-               </div>
             </div>
          </div>
       </div>
@@ -100,14 +94,6 @@ const EvidenceVisual_Compare: React.FC<EvidenceVisualCompareProps> = ({
         <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md border border-black/10">
           <MoveHorizontal className="w-4 h-4 text-black/60" />
         </div>
-      </div>
-      
-      {/* LABELS */}
-      <div className="absolute bottom-4 left-4 font-mono text-[9px] bg-red-100 text-red-600 px-2 py-1 border border-red-200">
-         [ {beforeLabel} ]
-      </div>
-      <div className="absolute bottom-4 right-4 font-mono text-[9px] px-2 py-1 border" style={{ backgroundColor: 'rgba(197, 160, 89, 0.1)', color: THEME_COLOR, borderColor: THEME_BORDER }}>
-         [ {afterLabel} ]
       </div>
     </div>
   );

@@ -139,18 +139,6 @@ const TheArchitect: React.FC = () => {
           </div>
 
         </div>
-
-        {/* Discovery-Based Design Footer */}
-        <div className="mt-32 pt-10 border-t border-black/5 flex flex-wrap justify-between items-center gap-8">
-          <div className="flex gap-12 font-mono text-[9px] uppercase tracking-[0.4em] text-black/20 hover:text-black/60 transition-colors duration-700 cursor-help">
-            <span>[ LATENCY: 2ms ]</span>
-            <span>[ THROUGHPUT: 1.4PB/S ]</span>
-            <span>[ UPTIME: 99.99% ]</span>
-          </div>
-          <div className={`font-mono text-[9px] uppercase tracking-[0.4em] font-bold transition-colors duration-500 ${mode === 'architect' ? 'text-[#E21E3F]' : 'text-[#C5A059]'}`}>
-            {mode === 'architect' ? 'CRITICAL_PATH_LOCKED' : 'CREATIVE_STATE_ENGAGED'}
-          </div>
-        </div>
       </div>
     </section>
   );

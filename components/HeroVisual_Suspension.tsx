@@ -41,7 +41,8 @@ const HeroVisual_Suspension: React.FC = () => {
   const state = useRef({
     mouseX: 0,
     currentSway: 0,
-    rotation: 0
+    rotation: 0,
+    coreRotation: 0
   });
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -64,8 +65,9 @@ const HeroVisual_Suspension: React.FC = () => {
     const targetSway = state.current.mouseX * 0.2; // Max sway angle
     state.current.currentSway += (targetSway - state.current.currentSway) * 0.05; // Ease factor
     state.current.rotation = t * 0.0005; // Constant spin
+    state.current.coreRotation = t * -0.0008; // Counter-spin for core
 
-    const { currentSway, rotation } = state.current;
+    const { currentSway, rotation, coreRotation } = state.current;
     
     // 2. Render Stack (5 Cubes)
     // We pivot around the Center Cube (Index 2) for a "Levitating" feel
@@ -115,29 +117,29 @@ const HeroVisual_Suspension: React.FC = () => {
             cubeRefs.current[i]!.setAttribute('stroke-opacity', `${0.3 + Math.abs(currentSway)}`);
         }
 
-        // --- RENDER CORE (Solid Gold Cube inside Index 2) ---
+        // --- RENDER CORE (Wireframe Gold Octahedron/Diamond inside Index 2) ---
         if (i === 2 && coreRef.current) {
-            const cr = CUBE_SIZE * 0.35; // Smaller solid core
+            const cr = CUBE_SIZE * 0.35;
             const coreVerts = [
-                { x: -cr, y: -cr, z: -cr }, { x: cr, y: -cr, z: -cr }, { x: cr, y: cr, z: -cr }, { x: -cr, y: cr, z: -cr },
-                { x: -cr, y: -cr, z: cr }, { x: cr, y: -cr, z: cr }, { x: cr, y: cr, z: cr }, { x: -cr, y: cr, z: cr }
+                { x: 0, y: -cr, z: 0 },   // Top
+                { x: 0, y: cr, z: 0 },    // Bottom
+                { x: -cr, y: 0, z: 0 },   // Left
+                { x: cr, y: 0, z: 0 },    // Right
+                { x: 0, y: 0, z: -cr },   // Front
+                { x: 0, y: 0, z: cr }     // Back
             ];
             
-            // Define solid faces (Front, Right, Top usually visible)
-            // We rotate the core 45deg on X and Z to make it look like a diamond
-            const coreFaces = [
-                [0,1,2,3], // Front
-                [1,5,6,2], // Right
-                [4,0,3,7], // Left
-                [4,5,1,0], // Top
-                [3,2,6,7], // Bottom
-                [7,6,5,4]  // Back
+            // Define edges for octahedron (12 edges connecting vertices)
+            const coreEdges = [
+                [0, 2], [0, 3], [0, 4], [0, 5], // Top to all 4 sides
+                [1, 2], [1, 3], [1, 4], [1, 5], // Bottom to all 4 sides
+                [2, 4], [2, 5],                  // Left to front/back
+                [3, 4], [3, 5]                   // Right to front/back
             ];
 
             const projectedCore = coreVerts.map(v => {
-               // Local Diamond Rotation
-               let { x, y, z } = rotateX(v.x, v.y, v.z, Math.PI/4);
-               ({ x, y, z } = rotateZ(x, y, z, Math.PI/4));
+               // Apply counter-spin rotation (coreRotation)
+               let { x, y, z } = rotateY(v.x, v.y, v.z, coreRotation);
                
                // Apply Global Physics (Same as parent)
                let py = y + yOffset;
@@ -146,13 +148,10 @@ const HeroVisual_Suspension: React.FC = () => {
                return project(spun.x, spun.y, spun.z);
             });
 
-            // Draw Core Faces (Simple painter's algo approximation by just drawing all)
+            // Draw Core Wireframe (edges only)
             let coreD = "";
-            coreFaces.forEach(f => {
-                coreD += `M ${projectedCore[f[0]].x} ${projectedCore[f[0]].y} 
-                          L ${projectedCore[f[1]].x} ${projectedCore[f[1]].y} 
-                          L ${projectedCore[f[2]].x} ${projectedCore[f[2]].y} 
-                          L ${projectedCore[f[3]].x} ${projectedCore[f[3]].y} Z `;
+            coreEdges.forEach(edge => {
+                coreD += `M ${projectedCore[edge[0]].x} ${projectedCore[edge[0]].y} L ${projectedCore[edge[1]].x} ${projectedCore[edge[1]].y} `;
             });
             coreRef.current.setAttribute('d', coreD);
         }
@@ -196,12 +195,15 @@ const HeroVisual_Suspension: React.FC = () => {
              />
            ))}
 
-           {/* SOLID GOLD CORE (Rendered last to appear inside/on top) */}
+           {/* WIREFRAME GOLD CORE (Rendered last to appear inside/on top) */}
            <path 
              ref={coreRef}
-             fill="#C5A059"
-             stroke="none"
-             style={{ filter: 'drop-shadow(0 0 10px rgba(197, 160, 89, 0.5))' }}
+             fill="none"
+             stroke="#C5A059"
+             strokeWidth="1.5"
+             strokeLinecap="round"
+             strokeLinejoin="round"
+             style={{ filter: 'drop-shadow(0 0 6px rgba(197, 160, 89, 0.4))' }}
            />
         </g>
       </svg>

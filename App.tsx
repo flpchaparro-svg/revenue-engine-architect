@@ -289,7 +289,6 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v:string)=>void }> = ({ onNa
                                 <div className="w-full h-48 mt-12 relative flex items-center justify-center">
                                     <div className="absolute inset-0 bg-transparent border-t border-b border-[#1a1a1a]/5" />
                                     <FrictionVisual type={point.id} />
-                                    <div className="absolute bottom-2 left-0 font-mono text-[8px] text-[#1a1a1a]/30 uppercase tracking-widest">FIG. {point.number} - LIVE_DATA</div>
                                 </div>
                             </div>
                         </div>

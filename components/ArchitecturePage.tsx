@@ -5,6 +5,7 @@ import { ArrowLeft, Target, Database, Zap, Cpu, Layers, Users, BarChart3, ArrowR
 import GlobalFooter from './GlobalFooter';
 // FIX: Strict relative import to prevent "Module not found" error
 import HeroVisual_Suspension from './HeroVisual_Suspension';
+import { VizAcquisition, VizVelocity, VizIntelligence } from './ArchitecturePageVisuals';
 
 interface ArchitecturePageProps {
   onBack: () => void;
@@ -131,7 +132,9 @@ const ArchitecturePage: React.FC<ArchitecturePageProps> = ({ onBack, onNavigate 
                 {system.pillars.map((pillar: any) => (
                   pillar.isVisual ? (
                     <div key={pillar.id} className="group p-8 bg-[#1a1a1a]/5 border border-black/5 flex flex-col items-center justify-center relative overflow-hidden h-full min-h-[300px]">
-                        {/* Visual Logic Retained from previous context */}
+                        {pillar.id === 'v1' && <VizAcquisition color={pillar.accent} />}
+                        {pillar.id === 'v2' && <VizVelocity color={pillar.accent} />}
+                        {pillar.id === 'v3' && <VizIntelligence color={pillar.accent} />}
                         <div className="absolute bottom-6 font-mono text-[9px] uppercase tracking-[0.2em] opacity-50" style={{ color: pillar.accent }}>
                            [ {pillar.subtitle} ]
                         </div>
