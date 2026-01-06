@@ -252,22 +252,32 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v:string)=>void }> = ({ onNa
     ];
 
     return (
-        <section ref={sectionRef} className="relative bg-[#FFF2EC] z-30 border-t border-[#1a1a1a]/5">
+        <section ref={sectionRef} className="relative bg-[#FFF2EC] z-30">
+            {/* REMOVED top border here because the section above already has a bottom border */}
             <MagneticField />
-            <div className="max-w-[1450px] mx-auto flex flex-col md:flex-row relative z-10 border-x border-[#1a1a1a]/5 bg-[#FFF2EC]/80 backdrop-blur-sm">
-                <div className="w-full md:w-2/5 h-auto md:h-screen sticky top-0 flex flex-col justify-center px-12 md:px-20 border-r border-[#1a1a1a]/5">
+            
+            {/* CHANGE 1: INCREASED MAX-WIDTH TO 1600px TO MATCH PREVIOUS SECTION */}
+            <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row relative z-10 border-x border-[#1a1a1a]/10 bg-[#FFF2EC]/80 backdrop-blur-sm">
+                
+                {/* LEFT COLUMN */}
+                <div className="w-full md:w-2/5 h-auto md:h-screen sticky top-0 flex flex-col justify-center px-12 md:px-20 border-r border-[#1a1a1a]/10">
                     <div className="max-w-md">
                         <div className="flex items-center justify-between mb-6">
-                            <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest font-bold opacity-70">02 // THE FRICTION AUDIT</span>
+                            {/* CHANGE: Renamed to DEEP DIVE to prevent confusion with previous section numbers */}
+                            <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest font-bold opacity-70">02 // DEEP DIVE AUDIT</span>
                             <span className="font-mono text-xl font-bold text-[#E21E3F]">0{activePoint} / 04</span>
                         </div>
                         <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-[0.9] tracking-tighter mb-8">Where your <br /><span className="text-[#E21E3F]">margin</span> <br /><span className="italic text-[#E21E3F]">evaporates.</span></h2>
                         <p className="font-sans text-lg text-[#1a1a1a]/60 leading-relaxed border-l-2 border-[#E21E3F]/30 pl-6">Your business isn't broken, but it is leaking. These are the 4 silent fracture points where profit disappears before it hits your bank.</p>
                     </div>
                 </div>
+
+                {/* RIGHT COLUMN */}
                 <div className="w-full md:w-3/5 bg-transparent relative">
                     {FRICTION_POINTS.map((point, idx) => (
-                        <div key={point.id} data-index={idx} className="friction-item min-h-[80vh] flex flex-col justify-center p-12 md:p-24 border-b border-[#1a1a1a]/5">
+                        <div key={point.id} data-index={idx} className="friction-item min-h-[80vh] flex flex-col justify-center border-b border-[#1a1a1a]/10 py-24 pr-12 md:pr-24 pl-12 md:pl-20"> 
+                            {/* CHANGE 2: CHANGED PADDING (pl-20) TO MATCH LEFT COLUMN EXACTLY */}
+                            
                             <div className="max-w-xl">
                                 <div className="flex items-center gap-4 mb-4">
                                    <span className="font-serif italic text-4xl opacity-20">{point.number}</span>
@@ -283,7 +293,9 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v:string)=>void }> = ({ onNa
                             </div>
                         </div>
                     ))}
-                    <div className="h-[80vh] flex items-center justify-center p-12 md:p-24 bg-[#FFF2EC]">
+                    
+                    {/* BOTTOM CTA: Aligned to grid */}
+                    <div className="h-[50vh] flex items-center justify-center p-12 md:p-24 bg-[#FFF2EC]">
                         <div className="text-center max-w-2xl">
                             <h3 className="font-serif text-4xl md:text-6xl text-[#1a1a1a] leading-[0.9] mb-12">You have seen the <span className="text-[#E21E3F] italic">leak.</span> <br/>Now see the <span className="text-[#C5A059] italic">fix.</span></h3>
                             <button onClick={() => onNavigate('system')} className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300">
