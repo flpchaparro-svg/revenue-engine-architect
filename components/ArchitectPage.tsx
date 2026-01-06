@@ -4,12 +4,12 @@ import { ArrowLeft, Briefcase, Car, Coffee, Code2, Building2, Activity, ArrowRig
 import AboutVisual_Harmony from './AboutVisual_Harmony';
 import AboutVisual_Distillation from './AboutVisual_Distillation';
 
-interface AboutPageProps {
+interface ArchitectPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
-const AboutPage: React.FC<AboutPageProps> = ({ onBack, onNavigate }) => {
+const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => {
   const [mode, setMode] = useState<'architect' | 'human'>('architect');
 
   const handleNavigate = (view: string, sectionId?: string) => {
@@ -329,4 +329,4 @@ const AboutPage: React.FC<AboutPageProps> = ({ onBack, onNavigate }) => {
   );
 };
 
-export default AboutPage;
+export default ArchitectPage;

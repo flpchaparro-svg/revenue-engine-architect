@@ -9,6 +9,8 @@ import {
   CheckCircle2
 } from 'lucide-react';
 import PillarVisual_Catchment from './PillarVisual_Catchment';
+import FAQSection from './FAQSection';
+import { getFAQsForPillar } from '../constants/faqData';
 
 interface PillarPageProps {
   onBack: () => void;
@@ -173,10 +175,13 @@ const TIERS = {
   }
 };
 
-const PillarPage_Websites: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
+const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('velocity');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  
+  // Get FAQ data for this pillar
+  const { pillarFAQs, systemFAQs, universalFAQs } = getFAQsForPillar('pillar1');
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
@@ -204,7 +209,7 @@ const PillarPage_Websites: React.FC<PillarPageProps> = ({ onBack, onNavigate }) 
         
         {/* NAV BACK */}
         <div className="mb-12">
-          <button onClick={() => onNavigate('architecture')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
+          <button onClick={() => onNavigate('system')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             / Return to The System
           </button>
@@ -412,8 +417,18 @@ const PillarPage_Websites: React.FC<PillarPageProps> = ({ onBack, onNavigate }) 
            </div>
         </div>
       </div>
+
+      {/* FAQ SECTION */}
+      <FAQSection
+        pillarFAQs={pillarFAQs}
+        systemFAQs={systemFAQs}
+        universalFAQs={universalFAQs}
+        accentColor="#C5A059"
+        title="Questions?"
+        subtitle="Everything you need to know about websites and e-commerce."
+      />
     </motion.div>
   );
 };
 
-export default PillarPage_Websites;
+export default Pillar1;

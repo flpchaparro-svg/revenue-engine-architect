@@ -1,6 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import FAQSection from './FAQSection';
+import { getFAQsForPillar } from '../constants/faqData';
 import { 
   ArrowLeft, ArrowRight, CheckCircle2,
   LineChart, Eye, Building2, // Main Icons
@@ -175,9 +177,12 @@ const TIERS = {
   }
 };
 
-const PillarPage_Intelligence: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
+const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('pulse');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
+  
+  // Get FAQ data for this pillar
+  const { pillarFAQs, systemFAQs, universalFAQs } = getFAQsForPillar('pillar7');
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -210,7 +215,7 @@ const PillarPage_Intelligence: React.FC<PillarPageProps> = ({ onBack, onNavigate
         
         {/* NAV BACK */}
         <div className="mb-12">
-          <button onClick={() => onNavigate('architecture')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
+          <button onClick={() => onNavigate('system')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             / Return to The System
           </button>
@@ -490,8 +495,18 @@ const PillarPage_Intelligence: React.FC<PillarPageProps> = ({ onBack, onNavigate
         </div>
 
       </div>
+
+      {/* FAQ SECTION */}
+      <FAQSection
+        pillarFAQs={pillarFAQs}
+        systemFAQs={systemFAQs}
+        universalFAQs={universalFAQs}
+        accentColor="#1a1a1a"
+        title="Questions?"
+        subtitle="Dashboard and reporting FAQs."
+      />
     </motion.div>
   );
 };
 
-export default PillarPage_Intelligence;
+export default Pillar7;

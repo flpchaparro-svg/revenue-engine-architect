@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 import EvidenceVisual_Compare from './EvidenceVisual_Compare';
 
-interface EvidencePageProps {
+interface ProofPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
 }
@@ -91,7 +91,7 @@ const TerminalLog: React.FC = () => {
   );
 };
 
-const EvidencePage: React.FC<EvidencePageProps> = ({ onBack, onNavigate }) => {
+const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-32 relative z-[150] overflow-x-hidden flex flex-col">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow pb-32">
@@ -392,7 +392,7 @@ const EvidencePage: React.FC<EvidencePageProps> = ({ onBack, onNavigate }) => {
                 Group 7 was invisible on Google. Sound familiar? If your website loads slowly or doesn't mention your service area, you're losing jobs to competitors who show up first. I fixed their local SEO — I can fix yours.
               </p>
               <button 
-                onClick={() => onNavigate('architecture')}
+                onClick={() => onNavigate('system')}
                 className="font-mono text-xs text-[#C5A059] uppercase tracking-widest hover:underline"
               >
                 See Pillar 01: Websites & E-commerce →
@@ -405,7 +405,7 @@ const EvidencePage: React.FC<EvidencePageProps> = ({ onBack, onNavigate }) => {
                 Group 7 had no idea which pages were generating leads. They were flying blind. Now they have 100% attribution. If you're spending money on marketing but can't prove what's working, you have the same problem.
               </p>
               <button 
-                onClick={() => onNavigate('architecture')}
+                onClick={() => onNavigate('system')}
                 className="font-mono text-xs text-[#C5A059] uppercase tracking-widest hover:underline"
               >
                 See Pillar 02: CRM & Lead Tracking →
@@ -418,7 +418,7 @@ const EvidencePage: React.FC<EvidencePageProps> = ({ onBack, onNavigate }) => {
                 Group 7 protects $3.2 billion in assets, but their old site looked like a side project. First impressions matter. If your website doesn't match your expertise, you're losing premium clients to competitors who look the part.
               </p>
               <button 
-                onClick={() => onNavigate('architecture')}
+                onClick={() => onNavigate('system')}
                 className="font-mono text-xs text-[#C5A059] uppercase tracking-widest hover:underline"
               >
                 See Pillar 01: Websites & E-commerce →
@@ -431,7 +431,7 @@ const EvidencePage: React.FC<EvidencePageProps> = ({ onBack, onNavigate }) => {
                 Speed isn't vanity — it's money. Group 7's old site was bleeding visitors before they saw anything. A 10x speed improvement means more people see their message, more people enquire, more contracts signed.
               </p>
               <button 
-                onClick={() => onNavigate('architecture')}
+                onClick={() => onNavigate('system')}
                 className="font-mono text-xs text-[#C5A059] uppercase tracking-widest hover:underline"
               >
                 See Pillar 07: Dashboards & Reporting →
@@ -558,4 +558,4 @@ const EvidencePage: React.FC<EvidencePageProps> = ({ onBack, onNavigate }) => {
   );
 };
 
-export default EvidencePage;
+export default ProofPage;

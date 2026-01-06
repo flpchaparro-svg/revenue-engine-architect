@@ -45,7 +45,7 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
             
             {/* The Pathname (Optional Context) */}
             <div className="absolute bottom-12 font-mono text-[9px] text-[#ffffff]/20 uppercase tracking-widest">
-                Loading_Module: {currentView === 'landing' ? 'HOME' : currentView.toUpperCase()}
+                Loading_Module: {currentView === 'homepage' ? 'HOME' : currentView.toUpperCase()}
             </div>
           </motion.div>
         )}

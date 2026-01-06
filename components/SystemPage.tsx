@@ -7,12 +7,12 @@ import GlobalFooter from './GlobalFooter';
 import HeroVisual_Suspension from './HeroVisual_Suspension';
 import { VizAcquisition, VizVelocity, VizIntelligence } from './ArchitecturePageVisuals';
 
-interface ArchitecturePageProps {
+interface SystemPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
-const ArchitecturePage: React.FC<ArchitecturePageProps> = ({ onBack, onNavigate }) => {
+const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
 
   const systems = [
     {
@@ -183,4 +183,4 @@ const ArchitecturePage: React.FC<ArchitecturePageProps> = ({ onBack, onNavigate 
   );
 };
 
-export default ArchitecturePage;
+export default SystemPage;

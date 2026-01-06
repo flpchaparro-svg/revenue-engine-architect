@@ -5,19 +5,19 @@ import BentoGrid from './components/BentoGrid';
 import Modal from './components/Modal';
 import TheArchitect from './components/TheArchitect';
 import BookingCTA from './components/BookingCTA';
-import EvidencePage from './components/EvidencePage';
-import EvidenceVaultPage from './components/EvidenceVaultPage'; // Added Import
-import AboutPage from './components/AboutPage'; 
-import ArchitecturePage from './components/ArchitecturePage';
-import ProtocolPage from './components/ProtocolPage';
+import ProofPage from './components/ProofPage';
+import EvidenceVaultPage from './components/EvidenceVaultPage';
+import ArchitectPage from './components/ArchitectPage'; 
+import SystemPage from './components/SystemPage';
+import ProcessPage from './components/ProcessPage';
 import ContactPage from './components/ContactPage';
-import PillarPage_Websites from './components/PillarPage_Websites';
-import PillarPage_CRM from './components/PillarPage_CRM';
-import PillarPage_Automation from './components/PillarPage_Automation';
-import PillarPage_Cognitive from './components/PillarPage_Cognitive';
-import PillarPage_Media from './components/PillarPage_Media';
-import PillarPage_Adoption from './components/PillarPage_Adoption';
-import PillarPage_Intelligence from './components/PillarPage_Intelligence';
+import Pillar1 from './components/Pillar1';
+import Pillar2 from './components/Pillar2';
+import Pillar3 from './components/Pillar3';
+import Pillar4 from './components/Pillar4';
+import Pillar5 from './components/Pillar5';
+import Pillar6 from './components/Pillar6';
+import Pillar7 from './components/Pillar7';
 import GlobalFooter from './components/GlobalFooter';
 import GlobalHeader from './components/GlobalHeader';
 import HeroVisual from './components/HeroVisual';
@@ -286,7 +286,7 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v:string)=>void }> = ({ onNa
                     <div className="h-[80vh] flex items-center justify-center p-12 md:p-24 bg-[#FFF2EC]">
                         <div className="text-center max-w-2xl">
                             <h3 className="font-serif text-4xl md:text-6xl text-[#1a1a1a] leading-[0.9] mb-12">You have seen the <span className="text-[#E21E3F] italic">leak.</span> <br/>Now see the <span className="text-[#C5A059] italic">fix.</span></h3>
-                            <button onClick={() => onNavigate('architecture')} className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300">
+                            <button onClick={() => onNavigate('system')} className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300">
                                 <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                                 <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ SEE THE SYSTEM ]</span>
                             </button>
@@ -334,8 +334,8 @@ const App: React.FC = () => {
   const [scrambleText, setScrambleText] = useState("ARCHITECT");
   const [isTickerHovered, setIsTickerHovered] = useState(false);
   
-  type ViewState = 'landing' | 'about' | 'architecture' | 'protocol' | 'evidence' | 'evidence-vault' | 'contact' | 'pillar1' | 'pillar2' | 'pillar3' | 'pillar4' | 'pillar5' | 'pillar6' | 'pillar7';
-  const [currentView, setCurrentView] = useState<ViewState>('landing');
+  type ViewState = 'homepage' | 'architect' | 'system' | 'process' | 'proof' | 'evidence-vault' | 'contact' | 'pillar1' | 'pillar2' | 'pillar3' | 'pillar4' | 'pillar5' | 'pillar6' | 'pillar7';
+  const [currentView, setCurrentView] = useState<ViewState>('homepage');
 
   const { scrollY } = useScroll();
   const carouselX = useMotionValue(0);
@@ -346,7 +346,7 @@ const App: React.FC = () => {
   });
 
   useAnimationFrame((t, delta) => {
-    if (currentView !== 'landing') return;
+    if (currentView !== 'homepage') return;
     const speed = isTickerHovered ? 0 : 0.0006;
     let moveBy = speed * delta;
     const currentX = carouselX.get();
@@ -386,7 +386,7 @@ const App: React.FC = () => {
       <PageTransition currentView={currentView}>
         <main className="flex-grow">
           <AnimatePresence mode="wait">
-            {currentView === 'landing' && (
+            {currentView === 'homepage' && (
               <motion.div key="landing" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                 {/* HERO SECTION */}
                 <section id="hero" className="min-h-screen w-full flex items-center pt-20 overflow-hidden relative z-20 content-layer">
@@ -483,30 +483,30 @@ const App: React.FC = () => {
               </motion.div>
             )}
 
-            {currentView === 'about' && <AboutPage onBack={() => handleGlobalNavigate('landing')} onNavigate={handleGlobalNavigate} />}
-            {currentView === 'architecture' && <ArchitecturePage onBack={() => handleGlobalNavigate('landing')} onNavigate={handleGlobalNavigate} />}
-            {currentView === 'protocol' && <ProtocolPage onBack={() => handleGlobalNavigate('landing')} onNavigate={handleGlobalNavigate} />}
-            {currentView === 'evidence' && <EvidencePage onBack={() => handleGlobalNavigate('landing')} onNavigate={handleGlobalNavigate} />}
+            {currentView === 'architect' && <ArchitectPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />}
+            {currentView === 'system' && <SystemPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />}
+            {currentView === 'process' && <ProcessPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />}
+            {currentView === 'proof' && <ProofPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />}
             {/* ADDED ROUTE FOR VAULT */}
-            {currentView === 'evidence-vault' && <EvidenceVaultPage onBack={() => handleGlobalNavigate('evidence')} />}
-            {currentView === 'contact' && <ContactPage onBack={() => handleGlobalNavigate('landing')} />}
+            {currentView === 'evidence-vault' && <EvidenceVaultPage onBack={() => handleGlobalNavigate('proof')} />}
+            {currentView === 'contact' && <ContactPage onBack={() => handleGlobalNavigate('homepage')} />}
             
             {/* PILLARS */}
-            {currentView === 'pillar1' && <PillarPage_Websites onBack={() => handleGlobalNavigate('architecture')} onNavigate={handleGlobalNavigate} />}
-            {currentView === 'pillar2' && <PillarPage_CRM onBack={() => handleGlobalNavigate('architecture')} onNavigate={handleGlobalNavigate} />}
-            {currentView === 'pillar3' && <PillarPage_Automation onBack={() => handleGlobalNavigate('architecture')} onNavigate={handleGlobalNavigate} />}
-            {currentView === 'pillar4' && <PillarPage_Cognitive onBack={() => handleGlobalNavigate('architecture')} onNavigate={handleGlobalNavigate} />}
-            {currentView === 'pillar5' && <PillarPage_Media onBack={() => handleGlobalNavigate('architecture')} onNavigate={handleGlobalNavigate} />}
-            {currentView === 'pillar6' && <PillarPage_Adoption onBack={() => handleGlobalNavigate('architecture')} onNavigate={handleGlobalNavigate} />}
-            {currentView === 'pillar7' && <PillarPage_Intelligence onBack={() => handleGlobalNavigate('architecture')} onNavigate={handleGlobalNavigate} />}
+            {currentView === 'pillar1' && <Pillar1 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />}
+            {currentView === 'pillar2' && <Pillar2 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />}
+            {currentView === 'pillar3' && <Pillar3 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />}
+            {currentView === 'pillar4' && <Pillar4 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />}
+            {currentView === 'pillar5' && <Pillar5 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />}
+            {currentView === 'pillar6' && <Pillar6 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />}
+            {currentView === 'pillar7' && <Pillar7 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />}
 
           </AnimatePresence>
         </main>
       </PageTransition>
 
       {/* FOOTER & MODAL */}
-      {/* GlobalFooter appears on all pages except ArchitecturePage which has its own footer */}
-      {currentView !== 'architecture' && <GlobalFooter onNavigate={handleGlobalNavigate} />}
+      {/* GlobalFooter appears on all pages except SystemPage which has its own footer */}
+      {currentView !== 'system' && <GlobalFooter onNavigate={handleGlobalNavigate} />}
       <Modal service={selectedService} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onViewPillar={(id) => handleGlobalNavigate(id)} />
     </div>
   );

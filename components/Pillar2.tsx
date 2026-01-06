@@ -10,6 +10,8 @@ import {
   User, Check // Additional UI Icons
 } from 'lucide-react';
 import PillarVisual_Network from './PillarVisual_Network';
+import FAQSection from './FAQSection';
+import { getFAQsForPillar } from '../constants/faqData';
 
 interface PillarPageProps {
   onBack: () => void;
@@ -174,9 +176,12 @@ const TIERS = {
   }
 };
 
-const PillarPage_CRM: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
+const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('capture');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
+  
+  // Get FAQ data for this pillar
+  const { pillarFAQs, systemFAQs, universalFAQs } = getFAQsForPillar('pillar2');
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -209,7 +214,7 @@ const PillarPage_CRM: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         
         {/* NAV BACK */}
         <div className="mb-12">
-          <button onClick={() => onNavigate('architecture')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
+          <button onClick={() => onNavigate('system')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             / Return to The System
           </button>
@@ -498,8 +503,18 @@ const PillarPage_CRM: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         </div>
 
       </div>
+
+      {/* FAQ SECTION */}
+      <FAQSection
+        pillarFAQs={pillarFAQs}
+        systemFAQs={systemFAQs}
+        universalFAQs={universalFAQs}
+        accentColor="#C5A059"
+        title="Questions?"
+        subtitle="Common questions about CRM and lead tracking."
+      />
     </motion.div>
   );
 };
 
-export default PillarPage_CRM;
+export default Pillar2;

@@ -1,6 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import FAQSection from './FAQSection';
+import { getFAQsForPillar } from '../constants/faqData';
 import { 
   ArrowLeft, ArrowRight, CheckCircle2,
   Brain, MessageSquare, Shield, Phone, // Main Icons
@@ -175,9 +177,12 @@ const TIERS = {
   }
 };
 
-const PillarPage_Cognitive: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
+const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('concierge');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
+  
+  // Get FAQ data for this pillar
+  const { pillarFAQs, systemFAQs, universalFAQs } = getFAQsForPillar('pillar4');
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -210,7 +215,7 @@ const PillarPage_Cognitive: React.FC<PillarPageProps> = ({ onBack, onNavigate })
         
         {/* NAV BACK */}
         <div className="mb-12">
-          <button onClick={() => onNavigate('architecture')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
+          <button onClick={() => onNavigate('system')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             / Return to The System
           </button>
@@ -478,8 +483,18 @@ const PillarPage_Cognitive: React.FC<PillarPageProps> = ({ onBack, onNavigate })
         </div>
 
       </div>
+
+      {/* FAQ SECTION */}
+      <FAQSection
+        pillarFAQs={pillarFAQs}
+        systemFAQs={systemFAQs}
+        universalFAQs={universalFAQs}
+        accentColor="#C5A059"
+        title="Questions?"
+        subtitle="What you need to know about AI assistants."
+      />
     </motion.div>
   );
 };
 
-export default PillarPage_Cognitive;
+export default Pillar4;

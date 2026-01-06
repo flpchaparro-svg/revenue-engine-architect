@@ -3,12 +3,12 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import ProtocolVisual_Geodesic from './ProtocolVisual_Geodesic';
 
-interface ProtocolPageProps {
+interface ProcessPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
-const ProtocolPage: React.FC<ProtocolPageProps> = ({ onBack, onNavigate }) => {
+const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
 
   const principles = [
     {
@@ -158,4 +158,4 @@ const ProtocolPage: React.FC<ProtocolPageProps> = ({ onBack, onNavigate }) => {
   );
 };
 
-export default ProtocolPage;
+export default ProcessPage;

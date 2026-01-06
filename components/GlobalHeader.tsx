@@ -15,10 +15,10 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
 
   // --- DATA: SYSTEM CODES ---
   const navItems = [
-    { id: 'about', label: 'ABOUT', fullLabel: 'THE ARCHITECT' },
-    { id: 'architecture', label: 'SYSTEM', fullLabel: 'THE SYSTEM', hasDropdown: true },
-    { id: 'protocol', label: 'PROCESS', fullLabel: 'THE PROCESS' },
-    { id: 'evidence', label: 'RESULTS', fullLabel: 'THE PROOF' },
+    { id: 'architect', label: 'ABOUT', fullLabel: 'THE ARCHITECT' },
+    { id: 'system', label: 'SYSTEM', fullLabel: 'THE SYSTEM', hasDropdown: true },
+    { id: 'process', label: 'PROCESS', fullLabel: 'THE PROCESS' },
+    { id: 'proof', label: 'RESULTS', fullLabel: 'THE PROOF' },
   ];
 
   const archPillars = [
@@ -69,7 +69,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
           >
             {/* LOGO */}
             <button 
-              onClick={() => onNavigate('landing')} 
+              onClick={() => onNavigate('homepage')} 
               className="flex items-center gap-3 group z-[310]"
             >
               <div className="font-mono text-[10px] font-bold border border-[#1a1a1a] px-2 py-0.5 bg-[#1a1a1a] text-[#FFF2EC] transition-colors">
@@ -198,9 +198,9 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
             style={{ maxHeight: 'calc(100vh - 20vh - 4rem)' }}
           >
              <button 
-               onClick={() => onNavigate('landing')} 
+               onClick={() => onNavigate('homepage')} 
                className={`p-4 transition-all duration-300 border-b border-white/10 ${
-                 currentView === 'landing' 
+                 currentView === 'homepage' 
                    ? 'bg-[#C5A059] text-[#1a1a1a]' 
                    : 'text-[#FFF2EC] hover:bg-white/5'
                }`}
