@@ -32,7 +32,7 @@ const TIERS = {
   bridge: {
     id: 'bridge',
     label: "TIER 01 // BRIDGE",
-    promise: "We turn messy text into clean data, automatically.",
+    promise: "I turn messy text into clean data, automatically.",
     sprint: "7-DAY SPRINT",
     specs: ['Intelligent Routing', 'Make.com + Claude AI', 'Unstructured Data Parsing', 'Zero-Entry CRM Sync'],
     personas: [
@@ -40,107 +40,107 @@ const TIERS = {
         id: "prisoner",
         icon: FileText,
         title: "The Paperwork Prisoner",
-        examples: "Lawyers, Mortgage Brokers",
+        examples: "Lawyers, Mortgage Brokers, Conveyancers, Migration Agents",
         painTitle: "The Narrative Inbox",
-        painText: "Clients send 500-word emotional emails. You spend billable hours reading them just to extract a date or an asset value.",
-        solution: "An 'Intelligent Paralegal'. We build an AI Bridge that reads the noise, extracts the facts, and updates your case file instantly."
+        painText: "Clients send 500-word emotional emails. You spend billable hours reading them just to extract a date or an asset value. You're billing $400/hr to do admin.",
+        solution: "I build an 'Intelligent Paralegal'. An AI Bridge that reads the noise, extracts the facts, and updates your case file instantly. You bill for thinking, not reading."
       },
       {
         id: "recruiter",
         icon: Briefcase,
         title: "The Drowning Recruiter",
-        examples: "Niche Agencies, HR Depts",
+        examples: "Recruitment Agencies, HR Departments, Labour Hire, Executive Search",
         painTitle: "Resume Parsing Hell",
-        painText: "You live in fear of missing a great candidate because their CV is buried in a generic 'Info@' inbox.",
-        solution: "Resume Extraction Logic. The AI reads every PDF, grades the candidate against your criteria, and creates the profile in your CRM."
+        painText: "You live in fear of missing a great candidate because their CV is buried in a generic 'Info@' inbox. The perfect hire is sitting unread while you scroll.",
+        solution: "I build Resume Extraction Logic. The AI reads every PDF, grades the candidate against your criteria, and creates the profile in your CRM. No more inbox archaeology."
       },
       {
         id: "admin",
         icon: FileJson,
         title: "The Admin Victim",
-        examples: "Property Managers, Logistics",
+        examples: "Property Managers, Logistics Companies, Strata Managers, Fleet Operators",
         painTitle: "The Data Entry Trap",
-        painText: "Manually typing invoice data from PDF attachments into Xero. It's slow, boring, and error-prone.",
-        solution: "Zero-Touch Invoicing. The Bridge detects the invoice, reads the line items, and creates the bill to pay automatically."
+        painText: "You're manually typing invoice data from PDF attachments into Xero. It's slow, boring, and error-prone. One wrong digit and your BAS is wrong.",
+        solution: "I build Zero-Touch Invoicing. The system detects the invoice, reads the line items, and creates the bill in Xero automatically. You approve, not type."
       }
     ]
   },
   behavior: {
     id: 'behavior',
-    label: "TIER 02 // BEHAVIOR",
+    label: "TIER 02 // BEHAVIOUR",
     promise: "The right message, to the right person, at the exact moment of influence.",
     sprint: "7-DAY SPRINT",
-    specs: ['Intent Signal Tracking', 'Segment + HubSpot', 'Dynamic Personalization', 'Event-Driven Logic'],
+    specs: ['Intent Signal Tracking', 'Segment + HubSpot', 'Dynamic Personalisation', 'Event-Driven Logic'],
     personas: [
       {
         id: "hunter",
         icon: Target,
         title: "The Signal Hunter",
-        examples: "Consultants, Wealth Managers",
+        examples: "Consultants, Wealth Managers, Financial Advisors, Business Coaches",
         painTitle: "The Opportunity Gap",
-        painText: "A past prospect visited your Pricing page 3 times this morning, but you have no idea, so you don't call them.",
-        solution: "We build a 'Hot List'. Every morning, you get an alert showing the 5 people who are obsessed with your content right now."
+        painText: "A past prospect visited your Pricing page 3 times this morning. You have no idea, so you don't call them. They sign with your competitor by lunch.",
+        solution: "I build a 'Hot List'. Every morning, you get an alert showing the 5 people who are obsessed with your content right now. You call them first."
       },
       {
         id: "abandon",
         icon: ShoppingCart,
         title: "The Course Creator",
-        examples: "Training Institutes, Educators",
+        examples: "Online Course Creators, Training Institutes, Coaches, RTOs",
         painTitle: "The Cold Cart",
-        painText: "100 people start your checkout form, but only 10 finish. You are losing 90% of your revenue at the finish line.",
-        solution: "Behavioral Recovery. If they type their email but don't pay, the system triggers a hyper-personalized recovery sequence."
+        painText: "100 people start your checkout form, but only 10 finish. You're losing 90% of your revenue at the finish line. They wanted to buy — something stopped them.",
+        solution: "I build Behavioural Recovery. If they type their email but don't pay, the system triggers a personalised recovery sequence. You win back sales you already earned."
       },
       {
         id: "nurture",
         icon: UserX,
-        title: "The Nurture Failure",
-        examples: "B2B SaaS, Agencies",
+        title: "The List Bomber",
+        examples: "B2B Services, Marketing Agencies, Software Companies, Consultancies",
         painTitle: "The Silent List",
-        painText: "You have 5,000 leads but you treat them all the same. You spam them with generic newsletters until they unsubscribe.",
-        solution: "Intent Segmentation. We only email people about what they clicked on. If they read about 'SEO', we send them SEO case studies."
+        painText: "You have 5,000 leads but you treat them all the same. You spam them with generic newsletters until they unsubscribe. Your list is dying from boredom.",
+        solution: "I build Intent Segmentation. The system only emails people about what they clicked on. If they read about 'SEO', they get SEO case studies. Relevance, not spam."
       }
     ]
   },
   content: {
     id: 'content',
     label: "TIER 03 // CONTENT",
-    promise: "Create once, publish everywhere. We multiply your voice.",
+    promise: "Create once, publish everywhere. I multiply your voice.",
     sprint: "5-DAY SPRINT",
     specs: ['Asset Multiplier', 'Make.com + GPT-4o', 'Omni-Channel Distribution', 'Voice-to-Social Pipeline'],
     personas: [
       {
         id: "thought",
         icon: Mic,
-        title: "The Time-Poor Leader",
-        examples: "Surgeons, M&A Partners",
+        title: "The Time-Poor Expert",
+        examples: "Surgeons, M&A Partners, Senior Lawyers, Specialist Consultants",
         painTitle: "The Deep Work Conflict",
-        painText: "You have the expertise, but switching from 'Strategy Mode' to 'Creator Mode' ruins your day. You won't spend Sunday on Canva.",
-        solution: "You provide the 'Signal' (Voice Note). My system provides the 'Noise' (Distribution), turning it into a blog, 5 posts, and a newsletter."
+        painText: "You have the expertise, but switching from 'Strategy Mode' to 'Creator Mode' ruins your day. You won't spend Sunday on Canva. Your knowledge stays locked in your head.",
+        solution: "You provide the 'Signal' — a voice note. I turn it into a blog, 5 posts, and a newsletter. Your expertise gets out without you becoming a content creator."
       },
       {
         id: "omni",
         icon: Video,
-        title: "The Omnipresence Seeker",
-        examples: "Speakers, Podcasters",
+        title: "The Content Hoarder",
+        examples: "Speakers, Podcasters, YouTubers, Conference Presenters",
         painTitle: "Legacy Waste",
-        painText: "You have hours of video sitting on a hard drive doing nothing. You feel like you are 'wasting' your best assets.",
-        solution: "The 'Slicer' Engine. We automatically cut your long-form video into viral shorts and schedule them across all channels."
+        painText: "You have hours of video sitting on a hard drive doing nothing. You're 'wasting' your best assets. Content you already made, collecting dust.",
+        solution: "I build a 'Slicer' Engine. The system cuts your long-form video into shorts and schedules them across all channels. Your archive becomes your content calendar."
       },
       {
         id: "inconsistent",
         icon: CalendarClock,
         title: "The Ghost",
-        examples: "Boutique Agencies",
+        examples: "Boutique Agencies, Solo Consultants, Small Teams, Busy Founders",
         painTitle: "Algorithm Punishment",
-        painText: "You post brilliantly for 3 weeks, then get busy and disappear for 2 months. The algorithm hates you for it.",
-        solution: "Automated Buffering. We build a content queue that drips your content out consistently, even when you are on holiday."
+        painText: "You post brilliantly for 3 weeks, then get busy and disappear for 2 months. The algorithm hates you for it. You start from zero every time.",
+        solution: "I build Automated Buffering. A content queue that drips your posts out consistently, even when you're on holiday. You stay visible without staying online."
       }
     ]
   },
   autopilot: {
     id: 'autopilot',
     label: "TIER 04 // AUTOPILOT",
-    promise: "Zero-Lag Onboarding. Professionalism on Autopilot.",
+    promise: "Zero-Lag Onboarding. Professionalism on autopilot.",
     sprint: "7-DAY SPRINT",
     specs: ['Zero-Lag Onboarding', 'Stripe + Jira + Slack', 'Auto-Project Creation', 'Client Portal Sync'],
     personas: [
@@ -148,19 +148,19 @@ const TIERS = {
         id: "bottleneck",
         icon: Case,
         title: "The Bottleneck Owner",
-        examples: "Agencies, MSPs",
+        examples: "Marketing Agencies, IT Providers (MSPs), Consultancies, Creative Studios",
         painTitle: "The Onboarding Lag",
-        painText: "It takes 3 days to get a new client their folder, Slack invite, and invoice. They feel 'ignored' immediately after paying.",
-        solution: "Instant Launch. The second the contract is signed, the project board is created and the client gets a 'Welcome' video."
+        painText: "It takes 3 days to get a new client their folder, Slack invite, and invoice. They feel 'ignored' immediately after paying. You've already damaged the relationship.",
+        solution: "I build Instant Launch. The second the contract is signed, the project board is created and the client gets a 'Welcome' video. First impressions, automated."
       },
       {
         id: "dataheavy",
         icon: CheckSquare,
-        title: "The Recruiter",
-        examples: "Construction, Nursing",
+        title: "The Compliance Chaser",
+        examples: "Construction Recruitment, Healthcare Recruitment, Labour Hire, Mining",
         painTitle: "The Compliance Chase",
-        painText: "Chasing candidates for 5 different ID documents via email. It slows down placement and frustrates the talent.",
-        solution: "Automated Collection. The system chases the documents via SMS and only alerts you when the file is 100% complete."
+        painText: "You're chasing candidates for 5 different ID documents via email. It slows down placement and frustrates the talent. Your best candidates drop out of the process.",
+        solution: "I build Automated Collection. The system chases documents via SMS and only alerts you when the file is 100% complete. You place candidates, not paperwork."
       },
       {
         id: "provision",
@@ -212,7 +212,7 @@ const PillarPage_Automation: React.FC<PillarPageProps> = ({ onBack, onNavigate }
         <div className="mb-12">
           <button onClick={() => onNavigate('architecture')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            / Return_to_Architecture
+            / Return to The System
           </button>
         </div>
 
@@ -221,19 +221,13 @@ const PillarPage_Automation: React.FC<PillarPageProps> = ({ onBack, onNavigate }
              
              {/* LEFT: CONTENT */}
              <div>
-               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ SYSTEM_03 // VELOCITY</span>
+               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM // GET CLIENTS</span>
                <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight mb-8">
-                 Fulfillment <br />
-                 <span className="italic text-[#E21E3F]">Architecture.</span>
+                 Automation.
                </h1>
                <p className="font-sans text-lg text-[#1a1a1a]/70 max-w-xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                 Revenue should not depend on Headcount. <br/>
-                 We build the digital workforce that handles the admin, so your human team can focus on the <strong>High-Value</strong> work.
+                 Invoices, follow-ups, and data entry — the boring stuff that eats your week. I make it run on autopilot so your team can do real work.
                </p>
-               <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40">
-                  <span>Select your Automation</span>
-                  <ArrowRight className="w-4 h-4" />
-               </div>
              </div>
              
              {/* RIGHT: CONTAINED VISUAL */}
@@ -496,10 +490,10 @@ const PillarPage_Automation: React.FC<PillarPageProps> = ({ onBack, onNavigate }
 
                           {/* ANCHORED BOTTOM CTA (FILL ANIMATION) */}
                           <FillButton 
-                              onClick={() => onNavigate('landing', 'booking')}
+                              onClick={() => onNavigate('contact')}
                               className="w-full py-5 font-mono text-xs uppercase tracking-[0.2em] font-bold mt-auto"
                           >
-                              [ INITIALIZE_PROTOCOL ]
+                              [ BOOK A CALL ]
                               <ArrowRight className="w-3 h-3 ml-2" />
                           </FillButton>
                       </div>

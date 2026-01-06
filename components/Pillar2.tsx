@@ -31,7 +31,7 @@ const TIERS = {
   capture: {
     id: 'capture',
     label: "TIER 01 // CAPTURE",
-    promise: "Stop the Lead Leak. Every inquiry acknowledged in seconds.",
+    promise: "Stop the Lead Leak. Every enquiry acknowledged in seconds.",
     sprint: "3-DAY SPRINT",
     specs: ['Unified Inbox Architecture', 'Missed-Call SMS Automation', 'Google Maps Chat Sync', 'Lead Source Tracking'],
     personas: [
@@ -39,35 +39,35 @@ const TIERS = {
         id: "trades",
         icon: Wrench,
         title: "The Elbow-Deep Tradie",
-        examples: "Emergency Plumbers, Sparkies",
+        examples: "Emergency Plumbers, Sparkies, HVAC, After-Hours Electricians",
         painTitle: "The Silent Competitor",
-        painText: "If a burst pipe emergency calls and you don't answer, that $500 job goes to the next guy on Google in 30 seconds.",
-        solution: "We install a system that texts the customer back the second you miss a call, securing the job while you finish the one you're on."
+        painText: "A burst pipe emergency calls. You don't answer. That $500 job goes to the next guy on Google in 30 seconds. You're losing money while your hands are full.",
+        solution: "I install a system that texts the customer back the second you miss a call, securing the job while you finish the one you're on."
       },
       {
         id: "venue",
         icon: Calendar,
         title: "The Venue Manager",
-        examples: "Weddings, Events, Wellness",
+        examples: "Wedding Venues, Function Centres, Day Spas, Retreat Centres",
         painTitle: "The Ghosting Gap",
-        painText: "A bride enquires on Saturday night. If she doesn't get a response until Monday, she has already booked three other tours.",
-        solution: "We automate a 'VIP Acknowledge' SMS that feels personal, asking for their preferred tour date immediately."
+        painText: "A bride enquires on Saturday night. You don't respond until Monday. She's already booked three other venue tours. You lost a $30k wedding to a slow inbox.",
+        solution: "I automate a 'VIP Acknowledge' SMS that feels personal, asking for their preferred tour date immediately. You respond in seconds without lifting a finger."
       },
       {
         id: "ndis",
         icon: Activity,
         title: "The Care Provider",
-        examples: "NDIS, Allied Health",
-        painTitle: "Data Fragmentation",
-        painText: "Losing a participant's intake form in a messy inbox, leading to funding delays or audit failures.",
-        solution: "Automated Intake. The participant fills it out on their phone, and the data lands in your secure CRM with a perfect audit trail."
+        examples: "NDIS Providers, Allied Health, Disability Services, Support Coordinators",
+        painTitle: "The Audit Nightmare",
+        painText: "You lose a participant's intake form in a messy inbox. Funding gets delayed. The audit fails. You're scrambling through emails at midnight looking for paperwork that should have been filed months ago.",
+        solution: "I build Automated Intake. The participant fills it out on their phone, and the data lands in your secure CRM with a perfect audit trail. No more digging through emails."
       }
     ]
   },
   pipeline: {
     id: 'pipeline',
     label: "TIER 02 // PIPELINE",
-    promise: "Visualize the Money. Stop flying blind.",
+    promise: "Visualise the Money. Stop flying blind.",
     sprint: "5-DAY SPRINT",
     specs: ['Kanban Deal Stages', 'Weighted Revenue Forecasting', 'Rep Accountability Logic', 'Automated Task Reminders'],
     personas: [
@@ -75,71 +75,71 @@ const TIERS = {
         id: "blind",
         icon: TrendingUp,
         title: "The Blind Scaler",
-        examples: "Security Firms, Agencies",
+        examples: "Security Firms, Marketing Agencies, Recruitment, Cleaning Companies",
         painTitle: "The Shadow Pipeline",
-        painText: "Suspecting that reps are keeping deals in personal notebooks. You fear that if a rep leaves, the revenue leaves too.",
-        solution: "Your data is your equity. We build a visual 'Kanban' board where every dollar is tracked. No more hiding deals."
+        painText: "You suspect reps are keeping deals in personal notebooks. If a rep leaves, the revenue leaves too. Your pipeline is held hostage by people who might quit tomorrow.",
+        solution: "Your data is your equity. I build a visual Kanban board where every dollar is tracked. No more hiding deals. When a rep leaves, the pipeline stays."
       },
       {
         id: "velocity",
         icon: Zap,
         title: "The Velocity Director",
-        examples: "Solar, Insurance, Mortgage",
-        painTitle: "Admin Drag",
-        painText: "Reps spending 40% of their day 'updating the system' instead of selling. It causes Operational Entropy.",
-        solution: "One-Click Automation. We automate meeting links and contract generation so reps have no excuse for bad data."
+        examples: "Solar Sales, Insurance Brokers, Mortgage Brokers, Finance",
+        painTitle: "The Admin Drag",
+        painText: "Your reps spend 40% of their day 'updating the system' instead of selling. They hate the CRM. You hate chasing them. Everyone loses.",
+        solution: "I build One-Click Automation. Meeting links, contract generation, follow-up tasks — all automatic. Reps sell more because admin takes seconds, not hours."
       },
       {
         id: "tender",
         icon: FileText,
         title: "The Estimator",
-        examples: "Construction, Civil Eng.",
+        examples: "Construction, Civil Engineering, Commercial Builders, Project Managers",
         painTitle: "The Tender Black Hole",
-        painText: "Sending a $100k bid and forgetting to follow up because you are busy on the next one. You lose millions in 'Silent No's'.",
-        solution: "The 'Nudge Engine'. The second a bid is sent, the system schedules 3 automated follow-ups to close the loop."
+        painText: "You send a $100k bid and forget to follow up because you're busy on the next one. You lose millions in 'Silent No's' — jobs you could have won with one phone call.",
+        solution: "I build a 'Nudge Engine'. The second a bid is sent, the system schedules 3 automated follow-ups to close the loop. No more wondering if they got it."
       }
     ]
   },
   retention: {
     id: 'retention',
     label: "TIER 03 // RETENTION",
-    promise: "Maximize LTV. Stop Renting, Start Owning.",
+    promise: "Maximise LTV. Stop renting customers, start owning them.",
     sprint: "7-DAY SPRINT",
     specs: ['Behavioral Email Flows', 'Churn Prevention Logic', 'VIP Segmentation', 'Cross-Sell Automation'],
     personas: [
       {
         id: "hamster",
         icon: RotateCw,
-        title: "The Merchant",
-        examples: "Fashion, Home, Gadgets",
+        title: "The E-commerce Merchant",
+        examples: "Fashion Retailers, Homewares, Electronics, Gift Shops",
         painTitle: "The Ad-Spend Trap",
-        painText: "You have 10,000 past customers but don't know how to talk to them without paying Zuckerberg for ads again.",
-        solution: "We turn your customer list into a 'Printing Press', reselling to past customers for free via email and SMS."
+        painText: "You have 10,000 past customers but don't know how to talk to them without paying Zuckerberg for ads again. You're renting your own audience.",
+        solution: "I turn your customer list into a 'Printing Press' — reselling to past customers for free via email and SMS. No ad spend required."
       },
       {
         id: "commodity",
         icon: Coffee,
         title: "The Commodity Seller",
-        examples: "Coffee, Supplements",
+        examples: "Coffee Roasters, Supplements, Pet Food, Consumables",
         painTitle: "The Habit Break",
-        painText: "If a cafe owner forgets to order beans on Tuesday, they buy from a local wholesaler and you lose the customer.",
-        solution: "The 'Replenishment Engine'. The system texts them: 'Running low? Reply YES to reorder' before they run out."
+        painText: "If a cafe owner forgets to order beans on Tuesday, they buy from a local wholesaler and you lose the customer. One missed order becomes permanent churn.",
+        solution: "I build a 'Replenishment Engine'. The system texts them: 'Running low? Reply YES to reorder' before they run out. You stay top of mind without lifting a finger."
       },
       {
         id: "subscription",
         icon: CreditCard,
-        title: "The Subscription",
-        examples: "Box Clubs, Retainers",
+        title: "The Subscription Business",
+        examples: "Subscription Boxes, Membership Sites, Retainer Services, SaaS",
         painTitle: "Involuntary Churn",
-        painText: "30% of cancellations aren't people leaving, they are just expired credit cards the system failed to update.",
-        solution: "A 'Dunning Engine'. We chase failed payments with empathy and save the money you've already earned."
+        painText: "30% of your cancellations aren't people leaving — they're just expired credit cards the system failed to update. You're losing customers who wanted to stay.",
+        solution: "I build a 'Dunning Engine'. The system chases failed payments with empathy and saves the money you've already earned. Customers stay without awkward conversations."
       }
     ]
   },
   audit: {
     id: 'audit',
     label: "TIER 04 // AUDIT",
-    promise: "Audit, Rebuild, Consolidate. Delete software you don't need.",
+    promise: "Audit. Rebuild. Consolidate. Delete the software you don't need.",
     sprint: "7-DAY AUDIT",
     specs: ['Full Stack Audit', 'Data Migration Protocols', 'Workflow Optimization', 'Legacy System Retirement'],
     personas: [
@@ -147,28 +147,28 @@ const TIERS = {
         id: "tangled",
         icon: Shuffle,
         title: "The Tangled Exec",
-        examples: "Law, Medical, Engineering",
+        examples: "Law Firms, Medical Practices, Engineering Firms, Accounting",
         painTitle: "Double Entry Hell",
-        painText: "Staff typing a name into Case Management and then manually re-typing it into Xero. It costs $1M/year in lost capacity.",
-        solution: "We find the friction and automate it away, building bridges between your disconnected tools."
+        painText: "Your staff type a name into Case Management and then manually re-type it into Xero. It costs you $1M/year in lost capacity. You're paying senior people to do junior work.",
+        solution: "I find the friction and automate it away, building bridges between your disconnected tools. Your team stops being data entry clerks."
       },
       {
         id: "franchise",
         icon: Globe,
-        title: "The Guardian",
-        examples: "Franchises, Multi-Site",
+        title: "The Franchise Guardian",
+        examples: "Franchise Groups, Multi-Location Retail, Gym Chains, Restaurant Groups",
         painTitle: "Operational Drift",
-        painText: "Every location is doing things differently. Some use spreadsheets, some use sticky notes. The 'Truth' is fragmented.",
-        solution: "A 'Parent-Child' CRM structure. You see the health of your entire brand on one single screen."
+        painText: "Every location does things differently. Some use spreadsheets, some use sticky notes. The 'Truth' is fragmented across 15 different systems. You can't see what's actually happening.",
+        solution: "I build a 'Parent-Child' CRM structure. You see the health of your entire brand on one single screen. Every location, every metric, one dashboard."
       },
       {
         id: "legacy",
         icon: Factory,
         title: "The Manufacturer",
-        examples: "Windows, Cabinets, Food",
+        examples: "Window Manufacturers, Cabinet Makers, Food Production, Industrial",
         painTitle: "Phantom Inventory",
-        painText: "Selling something that isn't in stock because the 'Sales' computer doesn't talk to the 'Warehouse' computer.",
-        solution: "We audit your ERP and CRM to build a bridge. You stop guessing and start selling with confidence."
+        painText: "You sell something that isn't in stock because the 'Sales' computer doesn't talk to the 'Warehouse' computer. You apologise to the customer. Again.",
+        solution: "I audit your ERP and CRM and build the bridge. You stop guessing and start selling with confidence. Real-time stock, real-time sales."
       }
     ]
   }
@@ -211,7 +211,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         <div className="mb-12">
           <button onClick={() => onNavigate('architecture')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            / Return_to_Architecture
+            / Return to The System
           </button>
         </div>
 
@@ -220,14 +220,13 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
              
              {/* LEFT: CONTENT */}
              <div>
-               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ SYSTEM_02 // INTELLIGENCE</span>
+               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM // GET CLIENTS</span>
                <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight mb-8">
-                 CRM Revenue <br />
-                 <span className="italic text-[#E21E3F]">Intelligence.</span>
+                 CRM & Lead <br />
+                 <span className="italic text-[#E21E3F]">Tracking.</span>
                </h1>
                <p className="font-sans text-lg text-[#1a1a1a]/70 max-w-xl border-l-2 border-[#C5A059] pl-6">
-                 If it’s not in the CRM, it didn't happen. <br/>
-                 We transform your business from a chaotic collection of spreadsheets into a synchronized <strong>Nervous System</strong>.
+                 If it's not in the CRM, it didn't happen.
                </p>
              </div>
              
@@ -484,10 +483,10 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
                           {/* ANCHORED BOTTOM CTA (FILL ANIMATION) */}
                           <FillButton 
-                              onClick={() => onNavigate('landing', 'booking')}
+                              onClick={() => onNavigate('contact')}
                               className="w-full py-5 font-mono text-xs uppercase tracking-[0.2em] font-bold mt-auto"
                           >
-                              [ INITIALIZE_PROTOCOL ]
+                              [ BOOK A CALL ]
                               <ArrowRight className="w-3 h-3 ml-2" />
                           </FillButton>
                       </div>

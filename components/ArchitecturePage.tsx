@@ -17,16 +17,16 @@ const ArchitecturePage: React.FC<ArchitecturePageProps> = ({ onBack, onNavigate 
   const systems = [
     {
       id: 'acquisition',
-      label: 'SYSTEM 01 // ACQUISITION',
-      title: 'Acquisition Architecture',
-      description: 'The goal is simple: To capture attention and turn it into data without leaks. We engineer the entry point to ensure every drop of traffic is qualified.',
+      label: 'SYSTEM 01 // GET CLIENTS',
+      title: 'Capture and Convert',
+      description: 'The goal is to turn attention into leads without losing anyone along the way.',
       accent: 'text-[#E21E3F]',
       bgAccent: 'bg-[#E21E3F]',
       borderAccent: 'border-[#E21E3F]',
       pillars: [
-        { id: 'pillar1', icon: Target, title: 'Digital Revenue', subtitle: 'The Catchment', text: 'Most websites are brochures; I build conversion engines. A high-performance digital catchment that feeds the ecosystem.' },
-        { id: 'pillar2', icon: Database, title: 'Capture Core', subtitle: 'The Nervous System', text: 'The single source of truth. If a lead isn\'t tracked, it doesn\'t exist. I build the CRM architecture that remembers every interaction.' },
-        { id: 'pillar3', icon: Zap, title: 'Auto-Fulfillment', subtitle: 'The Hands', text: 'Decoupling revenue from headcount. We automate the "boring" administrative work so your team can focus on the profitable work.' },
+        { id: 'pillar1', icon: Target, title: 'Websites & E-commerce', subtitle: 'The Face', text: 'Most websites are brochures, but I build sites that capture leads, sell products, and feed your CRM automatically.' },
+        { id: 'pillar2', icon: Database, title: 'CRM & Lead Tracking', subtitle: 'The Brain', text: 'If it\'s not in the CRM, it didn\'t happen. I build the system that tracks every lead, every call, and every deal so nothing slips through.' },
+        { id: 'pillar3', icon: Zap, title: 'Automation', subtitle: 'The Muscle', text: 'Invoices, follow-ups, and data entry are the boring stuff that eats your week. I make it run on autopilot so your team can do real work.' },
         // VISUAL CARD 1: DATA INGEST
         { 
           id: 'v1', 
@@ -38,16 +38,16 @@ const ArchitecturePage: React.FC<ArchitecturePageProps> = ({ onBack, onNavigate 
     },
     {
       id: 'velocity',
-      label: 'SYSTEM 02 // VELOCITY',
-      title: 'Velocity Architecture',
-      description: 'The goal is speed. We use AI and Media Infrastructure to increase your output per hour, scaling your responsiveness infinitely.',
+      label: 'SYSTEM 02 // SCALE FASTER',
+      title: 'Multiply Your Output',
+      description: 'The goal is to do more without hiring more, using AI and content systems that work while you sleep.',
       accent: 'text-[#C5A059]',
       bgAccent: 'bg-[#C5A059]',
       borderAccent: 'border-[#C5A059]',
       pillars: [
-        { id: 'pillar4', icon: Cpu, title: 'AI Agents', subtitle: 'The Voice', text: 'Digital Employees. I build Agentic AI that can reason, speak, and qualify leads 24/7 on your behalf.' },
-        { id: 'pillar5', icon: Layers, title: 'Media Logistics', subtitle: 'The Presence', text: 'An asset supply chain. We turn raw expertise into authority assets and distribute them automatically across every channel.' },
-        { id: 'pillar6', icon: Users, title: 'Internal Adoption', subtitle: 'The Culture', text: 'Protocol synchronization. I engineer the behavioral shift using micro-learning to ensure your team actually adopts the tools.' },
+        { id: 'pillar4', icon: Cpu, title: 'AI Assistants', subtitle: 'The Voice', text: 'Bots that answer your phone, reply to enquiries, and qualify leads 24/7, even at 3am when you\'re asleep.' },
+        { id: 'pillar5', icon: Layers, title: 'Content Systems', subtitle: 'The Presence', text: 'One voice note becomes a blog, 5 social posts, and a newsletter, all published automatically across every platform.' },
+        { id: 'pillar6', icon: Users, title: 'Team Training', subtitle: 'The Soul', text: 'New software only works if your team actually uses it, so I build short training videos that make adoption easy.' },
         // VISUAL CARD 2: TURBINE
         { 
           id: 'v2', 
@@ -59,14 +59,14 @@ const ArchitecturePage: React.FC<ArchitecturePageProps> = ({ onBack, onNavigate 
     },
     {
       id: 'intelligence',
-      label: 'SYSTEM 03 // INTELLIGENCE',
-      title: 'Intelligence Architecture',
-      description: 'The goal is clarity. We move you from "gut feeling" to evidence-based growth by visualizing your unit economics in real-time.',
+      label: 'SYSTEM 03 // SEE CLEARLY',
+      title: 'Make Better Decisions',
+      description: 'The goal is to stop guessing and see your numbers in real time so you can steer the business with confidence.',
       accent: 'text-[#1a1a1a]',
       bgAccent: 'bg-[#1a1a1a]',
       borderAccent: 'border-[#1a1a1a]',
       pillars: [
-        { id: 'pillar7', icon: BarChart3, title: 'The Control Tower', subtitle: 'The Eyes', text: 'Vision locked. A centralized executive dashboard that gives you the confidence to steer the ship.' },
+        { id: 'pillar7', icon: BarChart3, title: 'Dashboards & Reporting', subtitle: 'The Eyes', text: 'Revenue, margins, and pipeline all on one screen, updated live, so you\'re not doing spreadsheets at midnight anymore.' },
         // VISUAL CARD 3: RADAR
         { 
           id: 'v3', 
@@ -89,21 +89,20 @@ const ArchitecturePage: React.FC<ArchitecturePageProps> = ({ onBack, onNavigate 
         <div className="flex justify-between items-center mb-24">
           <button onClick={onBack} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            / Return_to_Engine
+            / Return to Home
           </button>
         </div>
 
         {/* HERO SECTION - SPLIT LAYOUT WITH ANIMATION */}
         <div className="mb-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ SYSTEM_ARCHITECTURE</span>
+            <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM</span>
             <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight mb-8">
               I don't sell hours. <br />
               <span className="italic text-black/20">I sell outcomes.</span>
             </h1>
             <p className="font-sans text-xl text-[#1a1a1a]/60 leading-relaxed max-w-xl border-l-2 border-[#C5A059] pl-6">
-              Most agencies sell "Ingredients" (SEO, Design, Ads). I sell "Systems." <br/>
-              A 7-Pillar Architecture designed to remove human friction from your revenue cycle.
+              Most agencies sell you ingredients like SEO, design, and ads. I build complete systems. 7 pillars designed to get the admin off your plate.
             </p>
           </div>
           
@@ -152,7 +151,7 @@ const ArchitecturePage: React.FC<ArchitecturePageProps> = ({ onBack, onNavigate 
                       <h3 className="font-serif text-2xl mb-4 group-hover:translate-x-1 transition-transform duration-300">{pillar.title}</h3>
                       <p className="font-sans text-sm text-[#1a1a1a]/60 leading-relaxed mb-8">{pillar.text}</p>
                       <div className={`mt-auto flex items-center gap-3 font-mono text-[9px] uppercase tracking-widest font-bold opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ${system.accent}`}>
-                        <span>[ VIEW_SPECIFICATIONS ]</span>
+                        <span>[ SEE HOW IT WORKS ]</span>
                         <ArrowRight className="w-3 h-3" />
                       </div>
                       <div className={`absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500 ${system.bgAccent}`} />
@@ -166,14 +165,14 @@ const ArchitecturePage: React.FC<ArchitecturePageProps> = ({ onBack, onNavigate 
 
         {/* BOTTOM CTA */}
         <div className="border-t border-black/10 py-32 flex flex-col items-center text-center">
-           <h2 className="font-serif text-5xl md:text-6xl mb-8">Stop guessing. <br/> Start <span className="italic text-[#E21E3F]">Engineering.</span></h2>
+           <h2 className="font-serif text-5xl md:text-6xl mb-8">Stop guessing and start building.</h2>
            <button 
-             onClick={() => onNavigate('landing', 'booking')}
+             onClick={() => onNavigate('contact')}
              className="group relative flex items-center justify-center px-10 py-6 bg-[#1a1a1a] text-[#FFF2EC] font-mono text-xs uppercase tracking-[0.3em] font-bold overflow-hidden transition-all duration-300"
            >
              <div className="absolute inset-0 bg-[#FFF2EC] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
              <span className="relative z-10 flex items-center gap-4 group-hover:text-[#1a1a1a] transition-colors duration-500">
-               [ INITIATE_AUDIT ]
+               [ BOOK A CALL ]
                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
              </span>
            </button>

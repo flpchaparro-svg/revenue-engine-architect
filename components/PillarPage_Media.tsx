@@ -32,7 +32,7 @@ const TIERS = {
   synthetic: {
     id: 'synthetic',
     label: "TIER 01 // SYNTHETIC",
-    promise: "Your presence is everywhere, but you are nowhere.",
+    promise: "Your presence is everywhere, but you're nowhere.",
     sprint: "7-DAY SPRINT",
     specs: ['Voice Cloning (ElevenLabs)', 'Video Synthesis (HeyGen)', 'Script-to-Screen Logic', 'Anti-Uncanny Protocols'],
     personas: [
@@ -40,28 +40,28 @@ const TIERS = {
         id: "timepoor",
         icon: User,
         title: "The Time-Poor Partner",
-        examples: "Legal, Finance, M&A",
+        examples: "Senior Lawyers, Accountants, Financial Advisors, M&A Partners",
         painTitle: "The Opportunity Cost",
-        painText: "You know video drives trust, but spending 4 hours filming a monthly update costs you $2,000 in billable time.",
-        solution: "We clone your voice and visual persona. You send a text script, and the studio produces the video. You never leave your desk."
+        painText: "You know video drives trust, but spending 4 hours filming a monthly update costs you $2,000 in billable time. You can't afford to be a content creator.",
+        solution: "I clone your voice and visual persona. You send a text script, and the system produces the video. You never leave your desk. Authority without the time sink."
       },
       {
         id: "awkward",
         icon: Video,
-        title: "The Camera-Shy Founder",
-        examples: "SaaS, Engineering",
+        title: "The Camera-Shy Expert",
+        examples: "Engineers, Technical Founders, Introverted Experts, Developers",
         painTitle: "The Charisma Gap",
-        painText: "You are brilliant at code but freeze in front of a lens. You avoid marketing because you hate how you look on camera.",
-        solution: "Perfect delivery, every time. The AI avatar never stutters, never blinks at the wrong time, and always looks professional."
+        painText: "You're brilliant at what you do but freeze in front of a lens. You avoid marketing because you hate how you look on camera. Your expertise stays invisible.",
+        solution: "I build Perfect Delivery. The AI avatar never stutters, never blinks at the wrong time, and always looks professional. You get the visibility without the vulnerability."
       },
       {
         id: "global",
         icon: Globe,
-        title: "The Global CEO",
-        examples: "International Trade",
+        title: "The Global Operator",
+        examples: "Exporters, International Distributors, Multi-National Services",
         painTitle: "The Language Barrier",
-        painText: "You need to speak to stakeholders in Tokyo and Berlin, but you only speak English.",
-        solution: "Instant Translation. We generate your video updates in 10 languages instantly, keeping your voice and lip-sync perfect."
+        painText: "You need to speak to stakeholders in Tokyo and Berlin, but you only speak English. You're losing deals because you can't communicate in their language.",
+        solution: "I build Instant Translation. Your video updates are generated in 10 languages instantly, keeping your voice and lip-sync perfect. You sound local everywhere."
       }
     ]
   },
@@ -76,28 +76,28 @@ const TIERS = {
         id: "frustrated",
         icon: Search,
         title: "The Frustrated Specialist",
-        examples: "Surgeons, Family Law",
+        examples: "Surgeons, Family Lawyers, Specialist Doctors, Niche Consultants",
         painTitle: "The Expertise Void",
-        painText: "Seeing a competitor with 1/10th of your skill ranking higher on Google because they have a better FAQ page.",
-        solution: "We turn your answers into a 50-video 'Knowledge Graph'. Google has no choice but to rank you as the definitive expert."
+        painText: "A competitor with 1/10th of your skill ranks higher on Google because they have a better FAQ page. You're the expert, but Google doesn't know it.",
+        solution: "I turn your answers into a 50-video 'Knowledge Graph'. Google has no choice but to rank you as the definitive expert. Your expertise finally gets seen."
       },
       {
         id: "cowboy",
         icon: Award,
         title: "The Quality Tradie",
-        examples: "Solar, Construction",
+        examples: "Solar Installers, Builders, Electricians, Pool Builders",
         painTitle: "The Trust Deficit",
-        painText: "Clients compare your premium quote to a 'Cowboy's' cheap quote because they don't understand the technical difference.",
-        solution: "Pre-Emptive Education. Your video library explains the risks of 'Cheap Solar' before you even arrive at the house."
+        painText: "Clients compare your premium quote to a cowboy's cheap quote because they don't understand the technical difference. You lose jobs to price, not quality.",
+        solution: "I build Pre-Emptive Education. Your video library explains the risks of cheap work before you even arrive. Clients understand why you cost more — and why it's worth it."
       },
       {
         id: "gatekeeper",
         icon: Linkedin,
-        title: "The B2B Consultant",
-        examples: "Change Management, HR",
+        title: "The Best Kept Secret",
+        examples: "Change Management, HR Consultants, Business Coaches, Strategy Advisors",
         painTitle: "The LinkedIn Void",
-        painText: "You rely on referrals because nobody knows your methodology. You are the 'Best Kept Secret' in your industry.",
-        solution: "Automated Thought Leadership. We flood your niche with high-value clips that prove your methodology works."
+        painText: "You rely on referrals because nobody knows your methodology. You're the 'Best Kept Secret' in your industry. Your pipeline dies when referrals dry up.",
+        solution: "I build Automated Thought Leadership. High-value clips flood your niche, proving your methodology works. You become the obvious choice, not the hidden one."
       }
     ]
   },
@@ -112,28 +112,28 @@ const TIERS = {
         id: "sunday",
         icon: Layers,
         title: "The Sunday Victim",
-        examples: "Solos, Coaches",
+        examples: "Solo Consultants, Coaches, Personal Trainers, Therapists",
         painTitle: "The Burnout Loop",
-        painText: "Spending your entire Sunday evening fighting with Instagram hashtags and resizing photos. It feels like a waste of life.",
-        solution: "The 'Drop Zone'. You drop a video in Drive, and the Grid handles resizing, captions, and posting automatically."
+        painText: "You spend your entire Sunday evening fighting with Instagram hashtags and resizing photos. It feels like a waste of life. You're a business owner, not a social media manager.",
+        solution: "I build a 'Drop Zone'. You drop a video in Drive, and the system handles resizing, captions, and posting automatically. Your Sunday is yours again."
       },
       {
         id: "franchise",
         icon: Globe,
-        title: "The Franchise Lead",
-        examples: "Gym Groups, Retail",
+        title: "The Brand Guardian",
+        examples: "Franchise Groups, Gym Chains, Retail Networks, Restaurant Groups",
         painTitle: "Brand Dilution",
-        painText: "Local franchisees posting low-quality, off-brand content because they don't have access to the good stuff.",
-        solution: "Centralized Command. You publish to 50 local pages instantly from one dashboard, ensuring perfect brand control."
+        painText: "Local franchisees post low-quality, off-brand content because they don't have access to the good stuff. Your brand looks different in every suburb.",
+        solution: "I build Centralised Command. You publish to 50 local pages instantly from one dashboard, ensuring perfect brand control. One brand voice, every location."
       },
       {
         id: "ghost",
         icon: Calendar,
         title: "The Ghost",
-        examples: "Agencies",
+        examples: "Boutique Agencies, Small Teams, Busy Founders, Solo Operators",
         painTitle: "Algorithm Punishment",
-        painText: "You post brilliantly for 3 weeks, then get busy and disappear for 2 months. The algorithm hates you for it.",
-        solution: "Automated Buffering. We build a content queue that drips your content out consistently, even when you are on holiday."
+        painText: "You post brilliantly for 3 weeks, then get busy and disappear for 2 months. The algorithm hates you for it. You start from zero every time.",
+        solution: "I build Automated Buffering. A content queue drips your posts out consistently, even when you're on holiday. You stay visible without staying online."
       }
     ]
   },
@@ -147,29 +147,29 @@ const TIERS = {
       {
         id: "adspend",
         icon: Zap,
-        title: "The Ad Optimizer",
-        examples: "Growth Marketers",
+        title: "The Blocked Marketer",
+        examples: "Marketing Managers, Paid Media Teams, Growth Leads, Campaign Managers",
         painTitle: "The DevOps Wall",
-        painText: "Having a winning ad idea but being told 'We can't update the website until next quarter.' You lose money every day you wait.",
-        solution: "Speedboat Pages. We launch on a subdomain (offer.brand.com) in 24 hours. You never ask IT for permission again."
+        painText: "You have a winning ad idea but IT says 'We can't update the website until next quarter.' You lose money every day you wait. The opportunity window closes.",
+        solution: "I build Speedboat Pages. A landing page on a subdomain (offer.yoursite.com) launches in 24 hours. You never ask IT for permission again."
       },
       {
         id: "event",
         icon: Ticket,
         title: "The Event Runner",
-        examples: "Workshops, Webinars",
+        examples: "Workshop Hosts, Webinar Creators, Conference Organisers, Course Launchers",
         painTitle: "The Ticket Lag",
-        painText: "Trying to sell tickets via a clunky Eventbrite page that doesn't match your brand. It kills the premium vibe.",
-        solution: "Cinematic Microsites. A branded, high-conversion page dedicated purely to selling out your event."
+        painText: "You're selling tickets via a clunky Eventbrite page that doesn't match your brand. It kills the premium vibe. You look cheap before the event even starts.",
+        solution: "I build Cinematic Microsites. A branded, high-conversion page dedicated purely to selling out your event. Your event looks as premium as it is."
       },
       {
         id: "tester",
         icon: Split,
-        title: "The A/B Tester",
-        examples: "E-com Managers",
+        title: "The Testing Victim",
+        examples: "E-commerce Managers, Marketing Directors, Conversion Optimisers",
         painTitle: "Statistical Blindness",
-        painText: "You argue with your team about which headline is better. Nobody knows because you can't test it fast enough.",
-        solution: "Rapid Variant Testing. We launch 4 versions of the offer simultaneously and let the data decide the winner."
+        painText: "You argue with your team about which headline is better. Nobody knows because you can't test it fast enough. Opinions win, not data.",
+        solution: "I build Rapid Variant Testing. Launch both versions in hours, not weeks. Data wins, not opinions. You know what works before the budget runs out."
       }
     ]
   }
@@ -212,7 +212,7 @@ const PillarPage_Media: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => 
         <div className="mb-12">
           <button onClick={() => onNavigate('architecture')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            / Return_to_Architecture
+            / Return to The System
           </button>
         </div>
 
@@ -221,19 +221,13 @@ const PillarPage_Media: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => 
              
              {/* LEFT: CONTENT */}
              <div>
-               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ SYSTEM_05 // PRESENCE</span>
+               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM // SCALE FASTER</span>
                <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight mb-8">
-                 Media <br />
-                 <span className="italic text-[#E21E3F]">Logistics.</span>
+                 Content Systems.
                </h1>
                <p className="font-sans text-lg text-[#1a1a1a]/70 max-w-xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                 We decouple your authority from your physical time. <br/>
-                 We turn one hour of expertise into a month of <strong>Omnipresence</strong> through supply chain engineering.
+                 You talk, I turn it into content. One voice note becomes a blog, 5 social posts, and a newsletter — all published automatically across every platform.
                </p>
-               <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40">
-                  <span>Select your Channel</span>
-                  <ArrowRight className="w-4 h-4" />
-               </div>
              </div>
              
              {/* RIGHT: CONTAINED VISUAL */}
@@ -482,10 +476,10 @@ const PillarPage_Media: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => 
 
                           {/* ANCHORED BOTTOM CTA (FILL ANIMATION) */}
                           <FillButton 
-                              onClick={() => onNavigate('landing', 'booking')}
+                              onClick={() => onNavigate('contact')}
                               className="w-full py-5 font-mono text-xs uppercase tracking-[0.2em] font-bold mt-auto"
                           >
-                              [ INITIALIZE_PROTOCOL ]
+                              [ BOOK A CALL ]
                               <ArrowRight className="w-3 h-3 ml-2" />
                           </FillButton>
                       </div>

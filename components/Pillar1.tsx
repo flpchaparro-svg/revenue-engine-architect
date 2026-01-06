@@ -30,7 +30,7 @@ const TIERS = {
   velocity: {
     id: 'velocity',
     label: "TIER 01 // VELOCITY",
-    promise: "A complete lead-generation machine in 7 days.",
+    promise: "Your phone stops going unanswered in 7 days.",
     sprint: "7-DAY SPRINT",
     specs: ['7-Day Turnaround', 'WordPress + Elementor Pro', 'Mobile-First Conversion Design', 'Basic SEO Foundation'],
     personas: [
@@ -40,17 +40,17 @@ const TIERS = {
         title: "The Urgency Operator",
         examples: "Emergency Plumbers, Locksmiths",
         painTitle: "The $500 Missed Call",
-        painText: "You live by the phone. If you miss a call at 11 PM because you are under a sink, that job goes to the next guy on Google. You are tired of losing money while you work.",
-        solution: "We build a 'Digital Catcher'. It ensures every caller gets an instant SMS response, securing the job while you finish the work."
+        painText: "You live by the phone. If you miss a call at 11 PM because you're under a sink, that job goes to the next guy on Google. You're tired of losing money while you work.",
+        solution: "I build a 'Digital Catcher'. Every caller gets an instant SMS response, securing the job while you finish the work. No more lost leads at 2 AM."
       },
       {
         id: "route",
         icon: Map,
         title: "The Route Operator",
-        examples: "Pest Control, Solar, Cleaning",
-        painTitle: "Driving for Free",
-        painText: "Your biggest fear is spending an hour in Sydney traffic for a quote that goes nowhere. You are getting leads in Penrith when you are working in Bondi.",
-        solution: "We implement 'Postcode Filtering'. You only get leads that are profitable and on your existing route."
+        examples: "Pest Control, Solar Installers, Cleaning Services, Pool Maintenance",
+        painTitle: "The Qualification Time Sink",
+        painText: "You're driving 45 minutes to quote a job only to discover they wanted 'free advice' or their budget is $200 for a $2,000 job. You're burning diesel and daylight on tyre-kickers.",
+        solution: "I act as 'The Gatekeeper'. Conditional logic forms pre-qualify leads so you only talk to high-value clients. Your calendar fills with jobs worth driving to."
       },
       {
         id: "compliance",
@@ -58,8 +58,8 @@ const TIERS = {
         title: "The Professional",
         examples: "NDIS, Boutique Law, Allied Health",
         painTitle: "The 'Free Advice' Trap",
-        painText: "You are drowning in calls from people who have no money or no case, wasting 10 hours a week giving free advice.",
-        solution: "We act as 'The Gatekeeper'. Conditional logic forms pre-qualify leads so you only talk to high-value clients."
+        painText: "You're drowning in calls from people who have no money or no case, wasting 10 hours a week giving free advice.",
+        solution: "I act as 'The Gatekeeper'. Conditional logic forms pre-qualify leads so you only talk to high-value clients."
       }
     ]
   },
@@ -74,10 +74,10 @@ const TIERS = {
         id: "chaos",
         icon: ShoppingBag,
         title: "The Chaos Founder",
-        examples: "Fashion Boutiques, Local Designers",
+        examples: "Fashion Boutiques, Local Designers, Homewares, Gift Shops",
         painTitle: "The Double-Sell Disaster",
-        painText: "Selling the last unique dress in-store at 10 AM and selling it again online at 10:05 AM. It kills your reputation and wastes hours on apologies.",
-        solution: "A 'Single Source of Truth'. We sync your POS and your Website instantly so you never sell what you don't have."
+        painText: "You sell the last unique dress in-store at 10 AM and sell it again online at 10:05 AM. It kills your reputation and wastes hours on apology emails. You're terrified of overselling.",
+        solution: "I build a 'Single Source of Truth'. Your POS and your website sync instantly — you never sell what you don't have. Real-time inventory across every channel."
       },
       {
         id: "logistics",
@@ -85,8 +85,8 @@ const TIERS = {
         title: "The Wholesaler",
         examples: "Auto Parts, Building Materials",
         painTitle: "Shipping Nightmares",
-        painText: "Losing margin because a customer ordered a 50kg machine to a remote area with 'Free Shipping' logic that wasn't set up correctly.",
-        solution: "Dimensional Shipping Logic. We calculate freight costs in real-time so you protect your margin."
+        painText: "You're losing margin because a customer ordered a 50kg machine to a remote area with 'Free Shipping' logic that wasn't set up correctly. Every miscalculated freight cost eats your profit.",
+        solution: "I build Dimensional Shipping Logic. The site calculates freight costs in real-time based on weight, size, and postcode. You protect your margin on every order."
       },
       {
         id: "churn",
@@ -94,8 +94,8 @@ const TIERS = {
         title: "The Subscription",
         examples: "Coffee Clubs, Pet Supplies",
         painTitle: "Involuntary Churn",
-        painText: "30% of your cancellations aren't people leaving; they are just expired credit cards the system failed to update.",
-        solution: "Automated Dunning Engines. We save the relationship automatically before the card fails."
+        painText: "30% of your cancellations aren't people leaving — they're just expired credit cards the system failed to update. You're losing customers who wanted to stay.",
+        solution: "I install Automated Dunning Engines. The system retries failed cards, sends update reminders, and saves the relationship automatically — before you even know there was a problem."
       }
     ]
   },
@@ -110,10 +110,10 @@ const TIERS = {
         id: "precision",
         icon: Compass,
         title: "The Precision Builder",
-        examples: "Luxury Homes, Commercial Architects",
+        examples: "Luxury Home Builders, Commercial Architects, Custom Joinery, High-End Renovations",
         painTitle: "The Portfolio Lag",
-        painText: "You have 4K photos of your work, but your site takes 5 seconds to load them. Clients assume you are 'sloppy' before they even meet you.",
-        solution: "Edge Image Optimization. Your 4K portfolio loads instantly on a phone, proving your precision."
+        painText: "You have 4K photos of stunning work, but your site takes 5 seconds to load them. Clients assume you're 'sloppy' before they even meet you. Your website is destroying the first impression you've spent 20 years building.",
+        solution: "I build Edge Image Optimization. Your 4K portfolio loads instantly on any device. Your work proves your precision — your website finally matches your craftsmanship."
       },
       {
         id: "stakes",
@@ -121,17 +121,17 @@ const TIERS = {
         title: "The High-Stakes Agent",
         examples: "Yacht Brokers, Private Jets",
         painTitle: "The Security Breach",
-        painText: "If your site shows 'Not Secure', your elite clients will never trust you with their sensitive financial data.",
-        solution: "Headless Architecture. No database to hack. A static 'Digital Fortress' that is 100% secure."
+        painText: "If your site shows 'Not Secure', your elite clients will never trust you with their sensitive financial data. One warning message and you've lost a $500k deal.",
+        solution: "I build Headless Architecture. No database to hack. A static 'Digital Fortress' that's 100% secure. Your clients see the padlock, not the warning."
       },
       {
         id: "knowledge",
         icon: BookOpen,
         title: "The Knowledge Hub",
-        examples: "Medical Clinics, Law Firms",
+        examples: "Medical Clinics, Boutique Law Firms, Allied Health, Financial Advisors",
         painTitle: "The Search Sinkhole",
-        painText: "Your site is so bloated that Google is de-ranking your best content. You are losing authority to faster, smaller competitors.",
-        solution: "Core Web Vitals Dominance. We turn your knowledge library into a high-speed search weapon."
+        painText: "Your site is so bloated that Google is de-ranking your best content. You're losing authority to faster, smaller competitors. The advice you spent years writing is invisible.",
+        solution: "I build Core Web Vitals Dominance. Your knowledge library becomes a high-speed search weapon. Google rewards fast sites with visibility — your expertise finally gets seen."
       }
     ]
   },
@@ -148,17 +148,17 @@ const TIERS = {
         title: "The Absolutist",
         examples: "Heritage Brands, Luxury Fashion",
         painTitle: "The Commodity Trap",
-        painText: "If your website looks like a $50 template, you lose the ability to charge 10x the market rate. You fear 'Digital Cheapness'.",
-        solution: "Headless Theatre. No white flashes, no lag. A cinematic journey that maintains your luxury status."
+        painText: "If your website looks like a $50 template, you lose the ability to charge 10x the market rate. You fear 'Digital Cheapness' — a generic site destroys the mystique you've spent decades building.",
+        solution: "I build Headless Theatre. No white flashes, no lag, no template smell. A cinematic journey that maintains your luxury status from the first pixel to the final purchase."
       },
       {
         id: "variant",
         icon: Layers,
         title: "The Visionary",
-        examples: "Custom Furniture, Lighting",
+        examples: "Custom Furniture Makers, Lighting Designers, High-End Kitchen Studios",
         painTitle: "Visualization Paralysis",
-        painText: "Customers won't spend $15k on a sofa if they can't see exactly how the 'Green Velvet' looks with 'Oak Legs'.",
-        solution: "3D Configurators & WebAR. They place the product in their room instantly, removing the doubt."
+        painText: "Customers won't spend $15k on a sofa if they can't see exactly how the 'Green Velvet' looks with 'Oak Legs' in their lounge room. Imagination isn't enough — they need to see it to buy it.",
+        solution: "I build 3D Configurators and WebAR. Customers place your product in their room instantly, choose every option, and remove all doubt. Configuration becomes conversion."
       },
       {
         id: "hotel",
@@ -166,8 +166,8 @@ const TIERS = {
         title: "The Hotelier",
         examples: "Boutique Resorts, Safari Lodges",
         painTitle: "The Commission Drain",
-        painText: "Paying 20% to Booking.com because your own website is too clunky to handle high-value direct bookings.",
-        solution: "Cinematic Booking Engines. Capture the emotion and the full revenue, commission-free."
+        painText: "You're paying 20% to Booking.com because your own website is too clunky to handle high-value direct bookings. The OTAs are eating your margin while you handle the service.",
+        solution: "I build Cinematic Booking Engines. Capture the emotion and the full revenue, commission-free. Your guests book direct because the experience demands it."
       }
     ]
   }
@@ -206,7 +206,7 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         <div className="mb-12">
           <button onClick={() => onNavigate('architecture')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            / Return_to_Architecture
+            / Return to The System
           </button>
         </div>
 
@@ -214,7 +214,7 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
           {/* Left: Text */}
           <div>
-             <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ SYSTEM_01 // ACQUISITION</span>
+             <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM // GET CLIENTS</span>
              <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight mb-8">
                Select your <span className="italic text-[#C5A059]">Engine.</span>
              </h1>
@@ -401,8 +401,8 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                               </ul>
                           </div>
 
-                          <FillButton onClick={() => onNavigate('landing', 'booking')} className="w-full py-5 font-mono text-xs uppercase tracking-[0.2em] font-bold mt-auto">
-                              [ INITIALIZE_PROTOCOL ]
+                          <FillButton onClick={() => onNavigate('contact')} className="w-full py-5 font-mono text-xs uppercase tracking-[0.2em] font-bold mt-auto">
+                              [ BOOK A CALL ]
                               <ArrowRight className="w-3 h-3 ml-2" />
                           </FillButton>
                       </div>

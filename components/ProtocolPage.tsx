@@ -14,12 +14,12 @@ const ProtocolPage: React.FC<ProtocolPageProps> = ({ onBack, onNavigate }) => {
     {
       id: 'p1',
       label: '01 // CLARITY OVER COMPLEXITY',
-      body: "If I can't explain it to you at a pub, it's too complex. You'll understand every part of your system. If you don't, I haven't done my job."
+      body: "If I can't explain it to you at a pub, it's too complex. You'll understand every part of your system, and if you don't, I haven't done my job."
     },
     {
       id: 'p2',
       label: '02 // PEOPLE BEFORE TECHNOLOGY',
-      body: "If a new tool makes your team's day harder, it's failed. I build systems that save time. Not add more admin."
+      body: "If a new tool makes your team's day harder, it's failed. I build systems that save time, not add more admin."
     }
   ];
 
@@ -28,25 +28,25 @@ const ProtocolPage: React.FC<ProtocolPageProps> = ({ onBack, onNavigate }) => {
       id: '01',
       label: '[ DIAGNOSE ]',
       title: 'Find the Leaks',
-      text: "I don't guess. I look for the repetitive tasks burning your team. The stuff that eats 15 hours a week. Where data gets typed twice. Where leads go cold. Where profit disappears."
+      text: "I don't guess. I look for the repetitive tasks burning your team, the stuff that eats 15 hours a week. I find where data gets typed twice, where leads go cold, and where profit disappears before it hits your bank."
     },
     {
       id: '02',
       label: '[ DESIGN ]',
       title: 'Pick the Right Tools',
-      text: "I'm not locked into HubSpot or Salesforce. I find what actually fits your business. So you're not paying for features you'll never use."
+      text: "I'm not locked into HubSpot or Salesforce, so I find what actually fits your business. That way you're not paying for features you'll never use."
     },
     {
       id: '03',
       label: '[ BUILD ]',
       title: 'Ship Fast',
-      text: "No 6-month projects. I build in sprints. You start seeing results in weeks, not quarters. We refine as we go."
+      text: "No 6-month projects that drain your budget before you see results. I build in sprints so you start seeing progress in weeks, not quarters, and we refine as we go."
     },
     {
       id: '04',
       label: '[ HANDOVER ]',
       title: 'Make It Stick',
-      text: "Software fails when people don't use it. I build the training so your team actually prefers the new way. I don't leave until it's their new normal."
+      text: "Software fails when people don't use it. I build the training so your team actually prefers the new way, and I don't leave until it's their new normal."
     }
   ];
 
@@ -78,7 +78,7 @@ const ProtocolPage: React.FC<ProtocolPageProps> = ({ onBack, onNavigate }) => {
               How I Work.
             </h1>
             <p className="font-sans text-xl text-[#1a1a1a]/60 leading-relaxed max-w-md border-l-2 border-[#C5A059] pl-6">
-              From chaos to order. No fluff.
+              A clear path from chaos to order, no fluff.
             </p>
           </div>
           <div className="h-full min-h-[500px] flex items-center justify-center lg:justify-end">
@@ -148,7 +148,7 @@ const ProtocolPage: React.FC<ProtocolPageProps> = ({ onBack, onNavigate }) => {
               </button>
               
               <p className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest">
-                15 minutes. No sales pitch.
+                15 minutes, no sales pitch.
               </p>
            </div>
         </div>

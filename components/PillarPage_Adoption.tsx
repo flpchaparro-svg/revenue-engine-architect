@@ -40,28 +40,28 @@ const TIERS = {
         id: "fleet",
         icon: Truck,
         title: "The Fleet Manager",
-        examples: "Logistics, Removalists",
+        examples: "Logistics Companies, Removalists, Couriers, Delivery Fleets",
         painTitle: "The Unread Bulletin",
-        painText: "Sending critical safety updates via email and knowing that 90% of your drivers never open them because they are on the road.",
-        solution: "We turn your weekly bulletin into a 3-minute private podcast. They listen while they drive, and you get a dashboard proving they heard it."
+        painText: "You send critical safety updates via email knowing 90% of your drivers never open them because they're on the road. Important information hits the bin, not the brain.",
+        solution: "I turn your weekly bulletin into a 3-minute private podcast. They listen while they drive, and you get a dashboard proving they heard it. Information delivered, attention confirmed."
       },
       {
         id: "field",
         icon: HardHat,
         title: "The Field Director",
-        examples: "Solar, Electrical",
+        examples: "Solar Installers, Electricians, HVAC Technicians, Plumbers",
         painTitle: "The Site-Start Lag",
-        painText: "Technicians sitting in their vans for 15 minutes trying to find the 'Installation Guide'. It kills billable time.",
-        solution: "Pre-Arrival Briefs. As they drive to the job, they listen to the specific technical specs. They arrive ready to work."
+        painText: "Your technicians sit in their vans for 15 minutes trying to find the 'Installation Guide'. It kills billable time. You're paying them to search, not work.",
+        solution: "I build Pre-Arrival Briefs. As they drive to the job, they listen to the specific technical specs. They arrive ready to work, not ready to read."
       },
       {
         id: "care",
         icon: Heart,
         title: "The Care Leader",
-        examples: "NDIS, Aged Care",
+        examples: "NDIS Providers, Aged Care Facilities, Disability Services, Home Care",
         painTitle: "Cultural Drift",
-        painText: "Staff feeling like 'just a number' because they only receive cold emails from HQ. You are losing the human connection.",
-        solution: "Monday Encouragement. Clone your voice to deliver personal updates. Hearing the founder's voice builds trust in a way text never can."
+        painText: "Your staff feel like 'just a number' because they only receive cold emails from HQ. You're losing the human connection. Culture dies in the inbox.",
+        solution: "I build Monday Encouragement. Clone your voice to deliver personal updates. Hearing the founder's voice builds trust in a way text never can. Your team feels connected, even remotely."
       }
     ]
   },
@@ -76,35 +76,35 @@ const TIERS = {
         id: "retail",
         icon: Coffee,
         title: "The Retail Manager",
-        examples: "Cafe Groups, Gyms",
+        examples: "Cafe Groups, Gyms, Retail Chains, Hospitality Venues",
         painTitle: "Broken Record Syndrome",
-        painText: "Having to repeat the 'How to close the register' speech for the 50th time this year to a new casual staff member.",
-        solution: "We build a QR Code library behind the counter. A new hire scans it, watches a 60-second video of your clone explaining the task, and does it right."
+        painText: "You repeat the 'How to close the register' speech for the 50th time this year to a new casual. You're a manager, not a broken record.",
+        solution: "I build a QR Code library behind the counter. A new hire scans it, watches a 60-second video of your clone explaining the task, and does it right. You train once, they learn forever."
       },
       {
         id: "warehouse",
         icon: Package,
         title: "The Warehouse Lead",
-        examples: "Wholesale, Manufacturing",
-        painTitle: "Decision Paralysis",
-        painText: "A packer stopping the line because they 'forgot' how to label a dangerous good. It kills your throughput.",
-        solution: "Point-of-Action Knowledge. A sticker on the bench links to a vertical video on 'Packing Protocol'. Search time becomes Pack time."
+        examples: "Wholesale Distributors, Manufacturing, Fulfilment Centres, 3PLs",
+        painTitle: "The Line Stopper",
+        painText: "A packer stops the line because they 'forgot' how to label a dangerous good. It kills your throughput. One confused worker, whole team waiting.",
+        solution: "I build Point-of-Action Knowledge. A sticker on the bench links to a vertical video on 'Packing Protocol'. Search time becomes pack time. The answer is where they work."
       },
       {
         id: "sales",
         icon: TrendingUp,
-        title: "The Sales Director",
-        examples: "Real Estate, Finance",
+        title: "The CRM Police",
+        examples: "Real Estate Agencies, Finance Brokers, Insurance, B2B Sales Teams",
         painTitle: "The CRM Mess",
-        painText: "Spending 5 hours a week cleaning up data because reps 'forgot' the new workflow.",
-        solution: "In-App Nudges. When a rep moves a deal, a video pops up showing exactly which fields to fill. We enforce rules with video, not nagging."
+        painText: "You spend 5 hours a week cleaning up data because reps 'forgot' the new workflow. You're the most expensive data entry clerk in the building.",
+        solution: "I build In-App Nudges. When a rep moves a deal, a video pops up showing exactly which fields to fill. Rules enforced with video, not nagging. Clean data, happy director."
       }
     ]
   },
   visuals: {
     id: 'visuals',
     label: "TIER 03 // VISUALS",
-    promise: "One image is worth 1,000 words. We visualize the invisible.",
+    promise: "One image is worth 1,000 words. I visualise the invisible.",
     sprint: "5-DAY SPRINT",
     specs: ['Napkin.ai Logic', 'Lucidchart Architecture', 'One-Page Cheat Sheets', 'Safety Iconography'],
     personas: [
@@ -112,28 +112,28 @@ const TIERS = {
         id: "exec",
         icon: Briefcase,
         title: "The Non-Tech Exec",
-        examples: "CEOs, Board Members",
+        examples: "CEOs, Board Members, Managing Directors, Business Owners",
         painTitle: "The Invisible Value",
-        painText: "Rejecting a $50k automation project because the IT team explained it poorly. You can't sign off on what you don't understand.",
-        solution: "We turn technical mess into a 'Napkin Sketch'. Customer Pays -> Xero Updates -> Slack Alerts. When you see the flow, you sign the cheque."
+        painText: "You reject a $50k automation project because the IT team explained it poorly. You can't sign off on what you don't understand. Good projects die in confusion.",
+        solution: "I turn technical mess into a 'Napkin Sketch'. Customer Pays → Xero Updates → Slack Alerts. When you see the flow, you sign the cheque. Clarity unlocks budget."
       },
       {
         id: "safety",
         icon: AlertTriangle,
         title: "The Safety Lead",
-        examples: "Construction, Mining",
+        examples: "Construction, Mining, Manufacturing, Industrial Sites",
         painTitle: "The Ignored Manual",
-        painText: "500-page safety binders that act as doorstops. Workers guess the protocol because the manual is unreadable.",
-        solution: "Universal Iconography. High-contrast site posters that tell a worker exactly what to do with zero reading required."
+        painText: "Your 500-page safety binders act as doorstops. Workers guess the protocol because the manual is unreadable. One wrong guess and someone gets hurt.",
+        solution: "I build Universal Iconography. High-contrast site posters that tell a worker exactly what to do with zero reading required. Safety becomes instinct, not homework."
       },
       {
         id: "estimator",
         icon: Calculator,
         title: "The Estimator",
-        examples: "Civil Engineering, Fit-outs",
+        examples: "Civil Engineering, Commercial Fit-outs, Construction, Project Managers",
         painTitle: "The Pricing Error",
-        painText: "A junior estimator missing a variable like 'Traffic Loading' because it was buried on page 10 of a doc.",
-        solution: "Pricing Decision Trees. A visual sheet that asks 3 questions and gives the right multiplier. Juniors can't make mistakes."
+        painText: "Your junior estimator misses a variable like 'Traffic Loading' because it was buried on page 10 of a doc. One missed line, $50k mistake.",
+        solution: "I build Pricing Decision Trees. A visual sheet that asks 3 questions and gives the right multiplier. Juniors can't make mistakes. Accuracy built into the process."
       }
     ]
   },
@@ -148,28 +148,28 @@ const TIERS = {
         id: "billable",
         icon: Clock,
         title: "The Billable Protector",
-        examples: "Lawyers, Consultants",
+        examples: "Senior Lawyers, Partners, Consultants, Accountants",
         painTitle: "The Interruption Drain",
-        painText: "Spending 5 hours a week answering junior questions like 'Where is the precedent for X?'. It kills your billable capacity.",
-        solution: "We clone your brain. The AI knows every precedent in your firm. Juniors ask the bot first, buying back your expensive time."
+        painText: "You spend 5 hours a week answering junior questions like 'Where's the precedent for X?'. It kills your billable capacity. Your $500/hr brain is doing $50/hr work.",
+        solution: "I clone your brain. The AI knows every precedent in your firm. Juniors ask the bot first, buying back your expensive time. You bill more, answer less."
       },
       {
         id: "franchise",
         icon: Store,
         title: "The Franchise Guardian",
-        examples: "Retail Groups, Multi-Site",
+        examples: "Franchise Groups, Retail Chains, Multi-Site Operations, Restaurant Groups",
         painTitle: "Operational Drift",
-        painText: "A manager in Parramatta doing things differently to the one in Bondi because the official guide is too hard to find.",
-        solution: "The Franchise Brain. A manager asks 'What is the Summer Promo setup?' and gets the exact guide instantly. Consistency scales."
+        painText: "Your manager in Parramatta does things differently to the one in Bondi because the official guide is too hard to find. Every location invents its own rules.",
+        solution: "I build The Franchise Brain. A manager asks 'What's the Summer Promo setup?' and gets the exact guide instantly. Consistency scales. One brand, every location."
       },
       {
         id: "compliance",
         icon: ShieldCheck,
-        title: "The Compliance Officer",
-        examples: "High-Risk Trades",
-        painTitle: "The Guesswork Risk",
-        painText: "Living in fear of a safety breach because a worker 'guessed' a technical spec on site.",
-        solution: "Technical Search. A worker asks 'What is the torque setting for X?' and gets the answer in 3 seconds. Search time becomes Safe time."
+        title: "The Compliance Guardian",
+        examples: "Property Managers, Strata, Insurance, Regulated Industries",
+        painTitle: "The Compliance Maze",
+        painText: "Your junior PM asks 'Can we increase the bond for this tenant?' You have to stop work to look up the Residential Tenancy Act. One wrong answer and you're in court.",
+        solution: "I build a Compliance Bot. Tag @CompanyBrain in Slack: 'What's the maximum bond increase in NSW?' and get the answer with a citation to the legislation. Certainty on the fly."
       }
     ]
   }
@@ -212,7 +212,7 @@ const PillarPage_Adoption: React.FC<PillarPageProps> = ({ onBack, onNavigate }) 
         <div className="mb-12">
           <button onClick={() => onNavigate('architecture')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            / Return_to_Architecture
+            / Return to The System
           </button>
         </div>
 
@@ -221,19 +221,13 @@ const PillarPage_Adoption: React.FC<PillarPageProps> = ({ onBack, onNavigate }) 
              
              {/* LEFT: CONTENT */}
              <div>
-               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ SYSTEM_06 // CULTURE</span>
+               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM // SCALE FASTER</span>
                <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight mb-8">
-                 Adoption <br />
-                 <span className="italic text-[#E21E3F]">Architecture.</span>
+                 Team Training.
                </h1>
                <p className="font-sans text-lg text-[#1a1a1a]/70 max-w-xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                 The best software in the world is useless if nobody uses it. <br/>
-                 We engineer the <strong>Behavioral Shift</strong> required to turn "Shelfware" into culture.
+                 New software only works if your team actually uses it. I build short training videos and SOPs that make adoption easy — no 3-hour Zoom calls, no confusion.
                </p>
-               <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40">
-                  <span>Change the Behavior</span>
-                  <ArrowRight className="w-4 h-4" />
-               </div>
              </div>
              
              {/* RIGHT: CONTAINED VISUAL */}
@@ -457,10 +451,10 @@ const PillarPage_Adoption: React.FC<PillarPageProps> = ({ onBack, onNavigate }) 
 
                           {/* ANCHORED BOTTOM CTA (FILL ANIMATION) */}
                           <FillButton 
-                              onClick={() => onNavigate('landing', 'booking')}
+                              onClick={() => onNavigate('contact')}
                               className="w-full py-5 font-mono text-xs uppercase tracking-[0.2em] font-bold mt-auto"
                           >
-                              [ INITIALIZE_PROTOCOL ]
+                              [ BOOK A CALL ]
                               <ArrowRight className="w-3 h-3 ml-2" />
                           </FillButton>
                       </div>

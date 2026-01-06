@@ -31,37 +31,37 @@ const FillButton = ({ children, onClick, className = "" }: { children: React.Rea
 const TIERS = {
   concierge: {
     id: 'concierge',
-    label: "TIER 01 // CONCIERGE",
-    promise: "Customer service that never sleeps and never has a bad day.",
-    sprint: "7-DAY SPRINT",
+    label: "TIER 01 // RESPONDER",
+    promise: "Instant answers. Zero wait time. Your front desk, automated.",
+    sprint: "5-DAY SPRINT",
     specs: ['Voiceflow Logic', 'OpenAI GPT-4o', 'Pinecone Knowledge Base', 'Human-Handoff Protocol'],
     personas: [
       {
-        id: "tirekicker",
-        icon: UserCheck,
-        title: "The Tire Kicker Victim",
-        examples: "Real Estate, Yacht Brokers",
-        painTitle: "The Availability Loop",
-        painText: "Spending hours replying to 'Is this still available?' texts from people with no budget. You hate wasting Saturdays on window shoppers.",
-        solution: "A 'Gatekeeper AI' that demands proof of funds or specific requirements before it ever books a viewing."
-      },
-      {
         id: "overwhelmed",
         icon: Stethoscope,
-        title: "The Practice Manager",
-        examples: "Medical Clinics, Salons",
-        painTitle: "The Reception Bottleneck",
-        painText: "The phone is ringing off the hook while you are trying to check in patients. You miss revenue because you can't be in two places.",
-        solution: "An always-on AI that answers FAQs and books appointments instantly, freeing your staff to manage the room."
+        title: "The Overwhelmed Reception",
+        examples: "Medical Clinics, Dental Practices, Physios, Allied Health",
+        painTitle: "The Monday Morning Surge",
+        painText: "Your phone lines are jammed. Patients sit on hold for 20 minutes, get frustrated, and hang up. Meanwhile, your receptionist is already dealing with someone at the counter.",
+        solution: "I build an always-on AI that answers FAQs and books appointments instantly, freeing your staff to manage the room. Zero hold time, zero missed calls."
       },
       {
         id: "global",
         icon: Globe,
-        title: "The 24/7 Exporter",
-        examples: "SaaS, E-commerce",
+        title: "The Timezone Victim",
+        examples: "E-commerce, Export Businesses, International Services, Online Retailers",
         painTitle: "The Timezone Tax",
-        painText: "Losing deals because your leads are in New York and you are asleep in Sydney. By the time you wake up, they are cold.",
-        solution: "Infinite Scalability. The agent qualifies leads and answers questions 24/7, turning your sleep time into sales time."
+        painText: "You're losing deals because your leads are in New York and you're asleep in Sydney. By the time you wake up, they're cold. Your competitors answered first.",
+        solution: "I build Infinite Scalability. The AI qualifies leads and answers questions 24/7, turning your sleep time into sales time. You wake up to warm leads, not cold ones."
+      },
+      {
+        id: "hotel",
+        icon: UserCheck,
+        title: "The Distracted Concierge",
+        examples: "Boutique Hotels, Resorts, Serviced Apartments, Airbnb Managers",
+        painTitle: "The Check-In Interruption",
+        painText: "Your front desk staff are checking in a guest when the phone rings. They have to ignore the guest in front of them to answer 'What time is breakfast?' It kills the service vibe.",
+        solution: "I build an Invisible Concierge. The AI handles all FAQs instantly — wifi passwords, parking, breakfast times. Your staff focus 100% on the guest in the lobby."
       }
     ]
   },
@@ -76,71 +76,71 @@ const TIERS = {
         id: "bottleneck",
         icon: Users,
         title: "The Bottleneck Founder",
-        examples: "Agencies, Consultancies",
+        examples: "Marketing Agencies, Consultancies, Creative Studios, Professional Services",
         painTitle: "Groundhog Day",
-        painText: "Answering the same 5 questions every week: 'Where is the logo?', 'What is our pricing?'. You are the bottleneck to your own team.",
-        solution: "We clone your brain. The AI knows your entire Google Drive and answers staff questions instantly so you can stay in 'Deep Work'."
+        painText: "You answer the same 5 questions every week: 'Where's the logo?', 'What's our pricing?'. You're the bottleneck to your own team. You can't do deep work because you're everyone's Google.",
+        solution: "I clone your brain. The AI knows your entire Google Drive and answers staff questions instantly so you can stay in 'Deep Work'. Your team gets answers without interrupting you."
       },
       {
         id: "guardian",
         icon: FileCheck,
-        title: "The Operations Lead",
-        examples: "Franchises, Retail Groups",
+        title: "The Policy Guardian",
+        examples: "Franchise Groups, Retail Chains, Multi-Site Operations, Hospitality Groups",
         painTitle: "The Guesswork Risk",
-        painText: "Junior staff guessing the answer to a compliance question because they are too lazy to read the 50-page handbook.",
-        solution: "The 'Truth Engine'. The AI answers with a direct citation to the policy document, ensuring 100% compliance."
+        painText: "Junior staff guess the answer to a compliance question because they won't read the 50-page handbook. One wrong answer and you've got a lawsuit.",
+        solution: "I build a 'Truth Engine'. The AI answers with a direct citation to the policy document, ensuring 100% compliance. No guessing, no liability."
       },
       {
         id: "onboarding",
         icon: Rocket,
         title: "The Rapid Scaler",
-        examples: "High-Growth Tech",
+        examples: "High-Growth Companies, Scaling Agencies, Fast-Hiring Businesses",
         painTitle: "The Training Drag",
-        painText: "It takes 3 months for a new hire to be useful. Senior staff waste hundreds of billable hours training them.",
-        solution: "Just-In-Time Learning. The Analyst acts as an instant mentor, reducing time-to-competency from months to weeks."
+        painText: "It takes 3 months for a new hire to be useful. Your senior staff waste hundreds of billable hours training them. You're paying $150/hr for people to answer basic questions.",
+        solution: "I build Just-In-Time Learning. The AI acts as an instant mentor, reducing time-to-competency from months to weeks. New hires ask the bot, not your best people."
       }
     ]
   },
   compliance: {
     id: 'compliance',
-    label: "TIER 03 // COMPLIANCE",
-    promise: "We architect the right brain for the right job. Safety-first.",
+    label: "TIER 03 // SANCTUARY",
+    promise: "I architect the right brain for the right job. Safety-first.",
     sprint: "14-DAY SPRINT",
     specs: ['Private VPC Hosting', 'PII Redaction Layer', 'Model Agnostic (Llama/Claude)', 'Audit Logs'],
     personas: [
       {
         id: "compliance",
         icon: Lock,
-        title: "The Compliance CTO",
-        examples: "FinTech, Wealth Management",
+        title: "The Shadow AI Fixer",
+        examples: "Wealth Management, Financial Advisors, Accountants, Insurance",
         painTitle: "The Shadow AI Risk",
-        painText: "Knowing your juniors are pasting sensitive client data into public ChatGPT to write reports. It's a ticking regulation time bomb.",
-        solution: "A private 'Walled Garden'. We redact names and PII automatically before the data hits the AI. Speed without the risk."
+        painText: "You know your juniors are pasting sensitive client data into public ChatGPT to write reports. It's a ticking regulation time bomb. One leak and you're in front of ASIC.",
+        solution: "I build a private 'Walled Garden'. Names and PII are redacted automatically before the data hits the AI. Speed without the risk. Your compliance team sleeps at night."
       },
       {
         id: "intellectual",
         icon: Book,
-        title: "The IP Partner",
-        examples: "Law Firms, R&D",
+        title: "The IP Protector",
+        examples: "Law Firms, Patent Attorneys, R&D Companies, Engineering Firms",
         painTitle: "The Data Leak",
-        painText: "Terrified that your proprietary methodology or case files will be used to train a public model, destroying your competitive edge.",
-        solution: "Zero-Retention APIs. We architect environments where your data is processed but never stored or trained on."
+        painText: "You're terrified that your proprietary methodology or case files will be used to train a public model. One leak destroys your competitive edge forever.",
+        solution: "I architect Zero-Retention environments. Your data is processed but never stored or trained on. Your IP stays yours."
       },
       {
         id: "government",
         icon: Building,
-        title: "The Tender Lead",
-        examples: "Government Contractors",
+        title: "The Data Sovereignty Lead",
+        examples: "Government Contractors, Defence Suppliers, Critical Infrastructure",
         painTitle: "Data Sovereignty",
-        painText: "You want to use AI, but the contract says data cannot leave Australia. Public AI models often route through the US.",
-        solution: "Local Sovereignty. We deploy models on AWS Bedrock (Sydney Region) so your data never crosses the border."
+        painText: "You want to use AI, but the contract says data cannot leave Australia. Public AI models route through the US. One wrong API call and you've breached the contract.",
+        solution: "I deploy Local Sovereignty. Models run on AWS Bedrock (Sydney Region) so your data never crosses the border. Australian data stays in Australia."
       }
     ]
   },
   voice: {
     id: 'voice',
     label: "TIER 04 // VOICE",
-    promise: "Never miss a call again. Replaced the 'robot menu' with a human.",
+    promise: "Never miss a call again. I replace the 'robot menu' with a human-sounding agent.",
     sprint: "10-DAY SPRINT",
     specs: ['Sub-1s Latency', 'Australian Accent Cloning', 'Twilio Telephony', 'CRM Action Trigger'],
     personas: [
@@ -148,28 +148,28 @@ const TIERS = {
         id: "muddy",
         icon: Wrench,
         title: "The Muddy Hands Operator",
-        examples: "Emergency Trades",
+        examples: "Emergency Plumbers, Electricians, Locksmiths, HVAC",
         painTitle: "The $500 Missed Call",
-        painText: "You are under a sink or up a ladder. You miss the call, and the customer calls the next plumber on Google. You lose money while you work.",
-        solution: "The AI answers, qualifies the emergency, and texts you the details. You secure the job without washing your hands."
+        painText: "You're under a sink or up a ladder. You miss the call. The customer calls the next plumber on Google. You lose money while you work.",
+        solution: "I build a Voice AI that answers, qualifies the emergency, and texts you the details. You secure the job without washing your hands."
       },
       {
         id: "clinic",
         icon: Activity,
         title: "The After-Hours Clinic",
-        examples: "Vets, Dentists",
+        examples: "Veterinary Clinics, Dental Practices, Medical Centres, Physios",
         painTitle: "The Emergency Gap",
-        painText: "Patients calling at 2 AM need reassurance, not a voicemail beep. Leaving them unheard damages trust.",
-        solution: "AI Triage. The agent answers, assesses urgency, and books the morning slot or escalates true emergencies to the on-call doc."
+        painText: "Patients calling at 2 AM need reassurance, not a voicemail beep. Leaving them unheard damages trust. They call your competitor next time.",
+        solution: "I build AI Triage. The agent answers, assesses urgency, and books the morning slot or escalates true emergencies to the on-call doc. Every caller feels heard."
       },
       {
         id: "sales",
         icon: Headphones,
-        title: "The High-Volume Desk",
-        examples: "Car Dealerships, Solar",
-        painTitle: "The Burnout",
-        painText: "Sales reps burning out answering 50 'junk' calls a day, leaving them no energy to close the real deals.",
-        solution: "The Filter. The AI handles the 90% of noise, passing only the warm, qualified leads to your human team."
+        title: "The Service Bay Director",
+        examples: "Car Dealerships, Mechanics, Tyre Shops, Service Centres",
+        painTitle: "The Status Check Drain",
+        painText: "Mechanics are interrupted every 10 minutes by advisors asking 'Is that BMW ready?' because customers keep calling. It kills your throughput.",
+        solution: "I build a Status Bot. Customers call, get a real-time update on their car, and your mechanics never stop working. Calls answered, techs uninterrupted."
       }
     ]
   }
@@ -212,7 +212,7 @@ const PillarPage_Cognitive: React.FC<PillarPageProps> = ({ onBack, onNavigate })
         <div className="mb-12">
           <button onClick={() => onNavigate('architecture')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            / Return_to_Architecture
+            / Return to The System
           </button>
         </div>
 
@@ -221,19 +221,13 @@ const PillarPage_Cognitive: React.FC<PillarPageProps> = ({ onBack, onNavigate })
              
              {/* LEFT: CONTENT */}
              <div>
-               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ SYSTEM_04 // COGNITION</span>
+               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM // SCALE FASTER</span>
                <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight mb-8">
-                 Cognitive <br />
-                 <span className="italic text-[#E21E3F]">Infrastructure.</span>
+                 AI Assistants.
                </h1>
                <p className="font-sans text-lg text-[#1a1a1a]/70 max-w-xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                 The Voice & Reason of the business. <br/>
-                 We don't just build chatbots; we engineer <strong>Digital Employees</strong> that can reason, speak, and act 24/7.
+                 I build AI bots that answer your phone, reply to enquiries, and qualify leads — 24/7, even while you sleep. They sound human, and they never take a sick day.
                </p>
-               <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40">
-                  <span>Meet your new team</span>
-                  <ArrowRight className="w-4 h-4" />
-               </div>
              </div>
              
              {/* RIGHT: CONTAINED VISUAL */}
@@ -469,10 +463,10 @@ const PillarPage_Cognitive: React.FC<PillarPageProps> = ({ onBack, onNavigate })
 
                           {/* ANCHORED BOTTOM CTA (FILL ANIMATION) */}
                           <FillButton 
-                              onClick={() => onNavigate('landing', 'booking')}
+                              onClick={() => onNavigate('contact')}
                               className="w-full py-5 font-mono text-xs uppercase tracking-[0.2em] font-bold mt-auto"
                           >
-                              [ INITIALIZE_PROTOCOL ]
+                              [ BOOK A CALL ]
                               <ArrowRight className="w-3 h-3 ml-2" />
                           </FillButton>
                       </div>

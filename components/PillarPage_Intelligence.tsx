@@ -34,41 +34,41 @@ const TIERS = {
     label: "TIER 01 // PULSE",
     promise: "Stop guessing, start steering. Your business health on one screen.",
     sprint: "7-DAY SPRINT",
-    specs: ['Google Tag Manager', 'Looker Studio', 'Attribution Modeling', 'Unit Economics'],
+    specs: ['Google Tag Manager', 'Looker Studio', 'Attribution Modelling', 'Unit Economics'],
     personas: [
       {
         id: "scaler",
         icon: Activity,
         title: "The Blind Scaler",
-        examples: "Multi-site Groups, E-com > $5M",
+        examples: "Multi-Site Businesses, E-commerce ($5M+), Scaling Companies",
         painTitle: "The Ad-Spend Trap",
-        painText: "Spending $20k/mo on ads but not knowing which channel (Google vs FB) is actually driving the profit. You are flying without a dashboard.",
-        solution: "We build a Revenue Pulse that shows the 'Unit Economics' of every lead. You know exactly which dollar is making you two."
+        painText: "You spend $20k/mo on ads but don't know which channel (Google vs Meta) is actually driving the profit. You're flying blind. Every month you waste budget on the wrong thing.",
+        solution: "I build a Revenue Pulse that shows the 'Unit Economics' of every lead. You know exactly which dollar is making you two. Ad spend becomes an investment, not a gamble."
       },
       {
         id: "wholesaler",
         icon: TrendingDown,
         title: "The Margin Squeeze",
-        examples: "Distributors, Wholesalers",
+        examples: "Distributors, Wholesalers, Import/Export, Product Businesses",
         painTitle: "Operational Blindness",
-        painText: "High volume, thin margins. You don't know your 'Real Profit' until the accountant finishes the books at the end of the quarter.",
-        solution: "Real-Time Margin Tracking. We link Inventory to Finance so you see the Net Profit on every single order the moment it happens."
+        painText: "High volume, thin margins. You don't know your 'Real Profit' until the accountant finishes the books at the end of the quarter. By then, the damage is done.",
+        solution: "I build Real-Time Margin Tracking. Inventory links to Finance so you see the Net Profit on every single order the moment it happens. No more quarter-end surprises."
       },
       {
         id: "visionary",
         icon: Database,
         title: "The Data Hoarder",
-        examples: "Founders with 'Messy Data'",
+        examples: "Founders, Business Owners, Growing Companies with Multiple Systems",
         painTitle: "Analysis Paralysis",
-        painText: "You have thousands of rows of data in Xero and HubSpot, but you still can't answer: 'If I spend $1,000 more, what happens?'",
-        solution: "The North Star Dashboard. We blend your fragmented data into one single screen that answers the big questions instantly."
+        painText: "You have thousands of rows of data in Xero and HubSpot, but you still can't answer: 'If I spend $1,000 more, what happens?' Data everywhere, answers nowhere.",
+        solution: "I build The North Star Dashboard. Your fragmented data blends into one single screen that answers the big questions instantly. One screen, total clarity."
       }
     ]
   },
   lab: {
     id: 'lab',
     label: "TIER 02 // LAB",
-    promise: "We see what your customers see. We kill the friction.",
+    promise: "I see what your customers see. I kill the friction.",
     sprint: "14-DAY SPRINT",
     specs: ['Microsoft Clarity', 'Rage-Click Analysis', 'UX Forensics', 'Conversion Rate Opt.'],
     personas: [
@@ -76,64 +76,64 @@ const TIERS = {
         id: "leaky",
         icon: Droplets,
         title: "The Leaky Bucket",
-        examples: "E-com Stores, Law Firms",
+        examples: "E-commerce Stores, Law Firms, Service Businesses, Lead Gen Sites",
         painTitle: "Traffic Rich, Profit Poor",
-        painText: "Spending huge money on ads to bring people to a site where 40% of them leave because the 'Contact' button is broken on mobile.",
-        solution: "Forensic Session Recording. We watch the user struggle so you don't have to, giving you a 'Fix List' to stop the bleed."
+        painText: "You spend huge money on ads to bring people to a site where 40% leave because the 'Contact' button is broken on mobile. You're paying for traffic that can't convert.",
+        solution: "I build Forensic Session Recording. The system watches the user struggle so you don't have to, giving you a 'Fix List' to stop the bleed. Every leak found, every dollar saved."
       },
       {
         id: "blind",
         icon: EyeOff,
-        title: "The Guessing Designer",
-        examples: "Marketing Teams",
+        title: "The Opinion Fighter",
+        examples: "Marketing Teams, Designers, Website Owners, E-commerce Managers",
         painTitle: "Aesthetic Bias",
-        painText: "Arguing about button colors based on 'opinion' rather than data. You are redesigning the wrong things.",
-        solution: "Heatmap Evidence. We show you exactly where people are clicking (and where they aren't), ending the debate with cold hard facts."
+        painText: "You argue about button colours based on 'opinion' rather than data. You're redesigning the wrong things. Meetings waste hours on guesses.",
+        solution: "I build Heatmap Evidence. You see exactly where people click (and where they don't), ending the debate with cold hard facts. Data wins, opinions lose."
       },
       {
         id: "friction",
         icon: MousePointerClick,
-        title: "The Form Hater",
-        examples: "Lead Gen Agencies",
+        title: "The Form Abandonment Victim",
+        examples: "Lead Gen Agencies, Service Businesses, Professional Services",
         painTitle: "The Drop-off Cliff",
-        painText: "People start your enquiry form but never finish it. You are losing 70% of your leads at the finish line.",
-        solution: "Field-Level Telemetry. We identify the exact question that causes them to quit and rewrite it to restore flow."
+        painText: "People start your enquiry form but never finish it. You're losing 70% of your leads at the finish line. They wanted to contact you — something stopped them.",
+        solution: "I build Field-Level Telemetry. The system identifies the exact question that causes them to quit. Rewrite it, restore flow. Leads that start, finish."
       }
     ]
   },
   oracle: {
     id: 'oracle',
     label: "TIER 03 // ORACLE",
-    promise: "Predict the Future. Stop reacting, start anticipating.",
+    promise: "Predict the future. Stop reacting, start anticipating.",
     sprint: "21-DAY SPRINT",
-    specs: ['BigQuery + AI', 'Churn Prediction', 'LTV Forecasting', 'Propensity Modeling'],
+    specs: ['BigQuery + AI', 'Churn Prediction', 'LTV Forecasting', 'Propensity Modelling'],
     personas: [
       {
         id: "exit",
         icon: Flag,
         title: "The Exit Founder",
-        examples: "Founders selling in 2 years",
+        examples: "Founders Preparing for Sale, Business Owners Planning Exit, M&A Targets",
         painTitle: "The Valuation Discount",
-        painText: "Buyers pay 4x for 'Predictable Revenue' and only 2x for 'Up and Down' revenue. You need to prove certainty.",
-        solution: "Investor-Grade Forecasting. We prove your 'Net Revenue Retention' and 'Churn Probability' to justify a 10x exit."
+        painText: "Buyers pay 4x for 'Predictable Revenue' and only 2x for 'Up and Down' revenue. You need to prove certainty. Without it, you're leaving millions on the table.",
+        solution: "I build Investor-Grade Forecasting. Your 'Net Revenue Retention' and 'Churn Probability' are proven with data. The numbers justify a higher exit multiple."
       },
       {
         id: "sub",
         icon: Repeat,
-        title: "The Subscription Ops",
-        examples: "SaaS, Retainers, Gyms",
+        title: "The Churn Fighter",
+        examples: "Subscription Businesses, Membership Sites, Gyms, Retainer Services",
         painTitle: "The Silent Churn",
-        painText: "You don't know a customer is unhappy until they cancel. By then, it is too late to save them.",
-        solution: "Behavioral DNA Modeling. We predict who is 'At Risk' based on their usage patterns 30 days before they quit."
+        painText: "You don't know a customer is unhappy until they cancel. By then, it's too late to save them. You could have kept them — if you'd known.",
+        solution: "I build Behavioural DNA Modelling. The system predicts who's 'At Risk' based on their usage patterns 30 days before they quit. Save them before they leave."
       },
       {
         id: "risk",
         icon: ShieldAlert,
-        title: "The Risk Manager",
-        examples: "CFOs, Boards",
+        title: "The Cashflow Forecaster",
+        examples: "CFOs, Finance Directors, Board Members, Business Owners",
         painTitle: "Cashflow Surprises",
-        painText: "Being blindsided by a bad month because your 'Leading Indicators' were actually just 'Lagging Indicators'.",
-        solution: "90-Day Propensity Forecasting. We tell you what your cashflow will be in 3 months with 95% accuracy."
+        painText: "You're blindsided by a bad month because your 'Leading Indicators' were actually just 'Lagging Indicators'. You're steering with a rear-view mirror.",
+        solution: "I build 90-Day Propensity Forecasting. You know what your cashflow will be in 3 months with 95% accuracy. Steer forward, not backward."
       }
     ]
   },
@@ -148,28 +148,28 @@ const TIERS = {
         id: "silo",
         icon: Layers,
         title: "The Siloed Exec",
-        examples: "Mature Firms ($20M+)",
+        examples: "Established Businesses ($20M+), Multi-Department Companies, Scaling Enterprises",
         painTitle: "Fragmented Truth",
-        painText: "Sales doesn't know what Ops is doing. Ops doesn't know what Finance is saying. Your departments are fighting each other.",
-        solution: "The Control Tower. A single 'Nervous System' that links every department into one view. The business acts as one organism."
+        painText: "Sales doesn't know what Ops is doing. Ops doesn't know what Finance is saying. Your departments fight each other instead of working together.",
+        solution: "I build The Control Tower. A single 'Nervous System' that links every department into one view. The business acts as one organism. Total alignment, total clarity."
       },
       {
         id: "governance",
         icon: Scale,
-        title: "The Compliance Lead",
-        examples: "FinTech, Medical",
+        title: "The Data Risk Manager",
+        examples: "Financial Services, Medical Practices, Regulated Industries, Insurance",
         painTitle: "The Data Risk",
-        painText: "Having sensitive client data scattered across 50 spreadsheets. It's a security nightmare waiting to happen.",
-        solution: "SOC2 Compliant Governance. We centralize your data into a secure Warehouse with strict access controls."
+        painText: "You have sensitive client data scattered across 50 spreadsheets. It's a security nightmare waiting to happen. One breach and you're front-page news.",
+        solution: "I build SOC2 Compliant Governance. Your data centralises into a secure Warehouse with strict access controls. Secure, auditable, compliant."
       },
       {
         id: "global",
         icon: Globe,
         title: "The HQ Director",
-        examples: "Franchise Groups",
+        examples: "Franchise Groups, Multi-Location Businesses, National Operations",
         painTitle: "Local Blindness",
-        painText: "You can't see what the Perth branch is doing until the monthly report. You are steering a giant ship with no radar.",
-        solution: "Global Command Center. Real-time visibility into every location, allowing you to spot issues instantly."
+        painText: "You can't see what the Perth branch is doing until the monthly report. You're steering a giant ship with no radar. Problems grow in the dark.",
+        solution: "I build a Global Command Centre. Every location, every metric, one dashboard. You see problems the moment they start, not the month they end."
       }
     ]
   }
@@ -212,7 +212,7 @@ const PillarPage_Intelligence: React.FC<PillarPageProps> = ({ onBack, onNavigate
         <div className="mb-12">
           <button onClick={() => onNavigate('architecture')} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            / Return_to_Architecture
+            / Return to The System
           </button>
         </div>
 
@@ -221,19 +221,13 @@ const PillarPage_Intelligence: React.FC<PillarPageProps> = ({ onBack, onNavigate
              
              {/* LEFT: CONTENT */}
              <div>
-               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ SYSTEM_07 // VISION</span>
+               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM // SEE CLEARLY</span>
                <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight mb-8">
-                 Intelligence <br />
-                 <span className="italic text-[#E21E3F]">Architecture.</span>
+                 Dashboards & Reporting.
                </h1>
                <p className="font-sans text-lg text-[#1a1a1a]/70 max-w-xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                 The Eyes of the Business. <br/>
-                 We replace "Gut Feeling" with a <strong>Control Tower</strong> that shows you exactly where your profit is coming from.
+                 Stop guessing. I build dashboards that show revenue, margins, and pipeline on one screen — updated live — so you can steer the business with confidence.
                </p>
-               <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40">
-                  <span>Activate Sensors</span>
-                  <ArrowRight className="w-4 h-4" />
-               </div>
              </div>
              
              {/* RIGHT: CONTAINED VISUAL */}
@@ -481,10 +475,10 @@ const PillarPage_Intelligence: React.FC<PillarPageProps> = ({ onBack, onNavigate
 
                           {/* ANCHORED BOTTOM CTA (FILL ANIMATION) */}
                           <FillButton 
-                              onClick={() => onNavigate('landing', 'booking')}
+                              onClick={() => onNavigate('contact')}
                               className="w-full py-5 font-mono text-xs uppercase tracking-[0.2em] font-bold mt-auto"
                           >
-                              [ INITIALIZE_PROTOCOL ]
+                              [ BOOK A CALL ]
                               <ArrowRight className="w-3 h-3 ml-2" />
                           </FillButton>
                       </div>

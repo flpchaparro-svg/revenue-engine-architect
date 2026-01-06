@@ -62,3 +62,4 @@ export const VizIntelligence = ({ color }: { color: string }) => (
   </div>
 );
 
+
