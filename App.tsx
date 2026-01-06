@@ -11,8 +11,8 @@ import AboutPage from './components/AboutPage';
 import ArchitecturePage from './components/ArchitecturePage';
 import ProtocolPage from './components/ProtocolPage';
 import ContactPage from './components/ContactPage';
-import Pillar1 from './components/Pillar1';
-import Pillar2 from './components/Pillar2';
+import PillarPage_Websites from './components/PillarPage_Websites';
+import PillarPage_CRM from './components/PillarPage_CRM';
 import PillarPage_Automation from './components/PillarPage_Automation';
 import PillarPage_Cognitive from './components/PillarPage_Cognitive';
 import PillarPage_Media from './components/PillarPage_Media';
@@ -492,8 +492,8 @@ const App: React.FC = () => {
             {currentView === 'contact' && <ContactPage onBack={() => handleGlobalNavigate('landing')} />}
             
             {/* PILLARS */}
-            {currentView === 'pillar1' && <Pillar1 onBack={() => handleGlobalNavigate('architecture')} onNavigate={handleGlobalNavigate} />}
-            {currentView === 'pillar2' && <Pillar2 onBack={() => handleGlobalNavigate('architecture')} onNavigate={handleGlobalNavigate} />}
+            {currentView === 'pillar1' && <PillarPage_Websites onBack={() => handleGlobalNavigate('architecture')} onNavigate={handleGlobalNavigate} />}
+            {currentView === 'pillar2' && <PillarPage_CRM onBack={() => handleGlobalNavigate('architecture')} onNavigate={handleGlobalNavigate} />}
             {currentView === 'pillar3' && <PillarPage_Automation onBack={() => handleGlobalNavigate('architecture')} onNavigate={handleGlobalNavigate} />}
             {currentView === 'pillar4' && <PillarPage_Cognitive onBack={() => handleGlobalNavigate('architecture')} onNavigate={handleGlobalNavigate} />}
             {currentView === 'pillar5' && <PillarPage_Media onBack={() => handleGlobalNavigate('architecture')} onNavigate={handleGlobalNavigate} />}

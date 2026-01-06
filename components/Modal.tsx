@@ -25,19 +25,9 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, onViewPillar })
   if (!service) return null;
 
   const handlePillarNavigation = () => {
-    const mapping: Record<string, string> = {
-      'pillar-1': 'pillar1',
-      'pillar-2': 'pillar2',
-      'pillar-3': 'pillar3',
-      'pillar-4': 'pillar4',
-      'pillar-5': 'pillar5',
-      'pillar-6': 'pillar6',
-      'pillar-7': 'pillar7'
-    };
-
-    const pillarId = mapping[service.id];
-    if (pillarId) {
-      onViewPillar(pillarId);
+    // IDs now match directly, no mapping needed
+    if (service.id) {
+      onViewPillar(service.id);
       onClose();
     }
   };

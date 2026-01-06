@@ -173,7 +173,7 @@ const TIERS = {
   }
 };
 
-const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
+const PillarPage_Websites: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('velocity');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -416,4 +416,4 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   );
 };
 
-export default Pillar1;
+export default PillarPage_Websites;

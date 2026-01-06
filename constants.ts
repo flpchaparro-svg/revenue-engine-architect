@@ -10,7 +10,7 @@ export const COLORS = {
 
 export const SERVICES: ServiceDetail[] = [
   {
-    id: 'pillar-1',
+    id: 'pillar1',
     title: 'WEBSITES & E-COMMERCE',
     subtitle: 'The Face',
     technicalLabel: '[ YOUR ONLINE STOREFRONT ]',
@@ -23,7 +23,7 @@ export const SERVICES: ServiceDetail[] = [
     icon: 'Target',
   },
   {
-    id: 'pillar-2',
+    id: 'pillar2',
     title: 'CRM & LEAD TRACKING',
     subtitle: 'The Brain',
     technicalLabel: '[ NEVER LOSE A LEAD ]',
@@ -36,7 +36,7 @@ export const SERVICES: ServiceDetail[] = [
     icon: 'Database',
   },
   {
-    id: 'pillar-3',
+    id: 'pillar3',
     title: 'AUTOMATION',
     subtitle: 'The Muscle',
     technicalLabel: '[ INVOICES & ADMIN ON AUTOPILOT ]',
@@ -49,7 +49,7 @@ export const SERVICES: ServiceDetail[] = [
     icon: 'Zap',
   },
   {
-    id: 'pillar-4',
+    id: 'pillar4',
     title: 'AI ASSISTANTS',
     subtitle: 'The Voice',
     technicalLabel: '[ BOTS THAT TALK & THINK ]',
@@ -62,7 +62,7 @@ export const SERVICES: ServiceDetail[] = [
     icon: 'Cpu',
   },
   {
-    id: 'pillar-5',
+    id: 'pillar5',
     title: 'CONTENT SYSTEMS',
     subtitle: 'The Presence',
     technicalLabel: '[ CREATE ONCE, POST EVERYWHERE ]',
@@ -75,7 +75,7 @@ export const SERVICES: ServiceDetail[] = [
     icon: 'Layers',
   },
   {
-    id: 'pillar-6',
+    id: 'pillar6',
     title: 'TEAM TRAINING',
     subtitle: 'The Soul',
     technicalLabel: '[ MAKE YOUR TEAM USE IT ]',
@@ -88,7 +88,7 @@ export const SERVICES: ServiceDetail[] = [
     icon: 'Users',
   },
   {
-    id: 'pillar-7',
+    id: 'pillar7',
     title: 'DASHBOARDS & REPORTING',
     subtitle: 'The Eyes',
     technicalLabel: '[ SEE YOUR NUMBERS IN REAL-TIME ]',

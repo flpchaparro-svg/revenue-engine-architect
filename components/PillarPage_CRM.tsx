@@ -174,7 +174,7 @@ const TIERS = {
   }
 };
 
-const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
+const PillarPage_CRM: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('capture');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
@@ -502,4 +502,4 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   );
 };
 
-export default Pillar2;
+export default PillarPage_CRM;
