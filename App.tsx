@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useSpring, useTransform, useVelocity } from 'framer-motion';
 import * as d3 from 'd3';
 import BentoGrid from './components/BentoGrid';
 import Modal from './components/Modal';
@@ -223,91 +223,279 @@ const FrictionVisual: React.FC<{ type: string }> = ({ type }) => {
 // ... (Rest of existing Helpers: FrictionAuditSection, BookAuditButton) ...
 // Keeping existing helper code as is, only updating the App component return structure.
 
-const FrictionAuditSection: React.FC<{ onNavigate: (v:string)=>void }> = ({ onNavigate }) => {
-    const sectionRef = useRef<HTMLDivElement>(null);
-    const [activePoint, setActivePoint] = useState(1);
+// --- DATA ---
+const AUDIT_DATA = [
+  {
+    id: '01',
+    title: 'Lead Evaporation',
+    metric: '-$500 / DAY',
+    description: "Demand hits your site and vanishes. Your website captures names but loses intent. You are paying for leads that go cold in the inbox.",
+    type: 'data'
+  },
+  {
+    id: '02',
+    title: 'The Double-Entry Tax',
+    metric: '15 HRS / WK',
+    description: "Sales types it. Ops types it again. Finance types it a third time. You are paying triple wages for the same data entry errors.",
+    type: 'data'
+  },
+  {
+    id: '03',
+    title: 'Admin Paralysis',
+    metric: '40% OF YOUR WEEK',
+    description: "You are the 'Chief Admin Officer'. You spend 40% of your week fixing invoices and scheduling instead of steering the ship.",
+    type: 'data'
+  },
+  {
+    id: '04',
+    title: 'Profit Blindness',
+    metric: 'NO VISIBILITY',
+    description: "You know your Revenue, but not your Real-Time Margin. You are flying a 747 through a storm with no radar.",
+    type: 'data'
+  },
+  {
+    id: '05',
+    title: 'You see the leak.',
+    metric: 'Now see the fix.',
+    description: "",
+    type: 'cta'
+  }
+];
 
-    useEffect(() => {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const idx = Number(entry.target.getAttribute('data-index'));
-                    if (!isNaN(idx)) setActivePoint(idx + 1);
-                }
-            });
-        }, { threshold: 0.5 });
+// --- SUB-COMPONENTS ---
 
-        const items = document.querySelectorAll('.friction-item');
-        items.forEach(el => observer.observe(el));
+/**
+ * AuditCubeVisual
+ * Renders the geometric cube that rotates with scroll.
+ * Rotation is mapped to scroll progress so it aligns (0, 90, 180...) with each card.
+ */
+interface AuditCubeVisualProps {
+  scrollYProgress: ReturnType<typeof useScroll>['scrollYProgress'];
+}
 
-        return () => observer.disconnect();
-    }, []);
-    
-    // ... data ...
-    const FRICTION_POINTS = [
-      { id: 'leakage', number: '01', label: 'REVENUE LEAK', title: 'Lead Evaporation', stat: '-$500 / DAY', body: "Demand hits your site and vanishes. Your website captures names but loses intent. You are paying for leads that go cold in the inbox." },
-      { id: 'silos', number: '02', label: 'TIME LEAK', title: 'The Double-Entry Tax', stat: '15 HRS / WK', body: "Sales types it. Ops types it again. Finance types it a third time. You are paying triple wages for the same data entry errors." },
-      { id: 'trap', number: '03', label: 'GROWTH BLOCKER', title: 'Admin Paralysis', stat: '40% OF YOUR WEEK', body: "You are the 'Chief Admin Officer'. You spend 40% of your week fixing invoices and scheduling instead of steering the ship." },
-      { id: 'blind', number: '04', label: 'BLIND SPOT', title: 'Profit Blindness', stat: 'NO VISIBILITY', body: "You know your Revenue, but not your Real-Time Margin. You are flying a 747 through a storm with no radar." }
-    ];
+const AuditCubeVisual: React.FC<AuditCubeVisualProps> = ({ scrollYProgress }) => {
+  // Map scroll (0-1) to rotation (0-450 degrees)
+  // This ensures the cube always lands on a flat side when the scroll snaps.
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 450]);
 
-    return (
-        <section ref={sectionRef} className="relative bg-[#FFF2EC] z-30">
-            {/* REMOVED top border here because the section above already has a bottom border */}
-            <MagneticField />
-            
-            {/* CHANGE 1: INCREASED MAX-WIDTH TO 1600px TO MATCH PREVIOUS SECTION */}
-            <div className="max-w-[1600px] mx-auto flex flex-col md:flex-row relative z-10 border-x border-[#1a1a1a]/10 bg-[#FFF2EC]/80 backdrop-blur-sm">
-                
-                {/* LEFT COLUMN */}
-                <div className="w-full md:w-2/5 h-auto md:h-screen sticky top-0 flex flex-col justify-center px-12 md:px-20 border-r border-[#1a1a1a]/10">
-                    <div className="max-w-md">
-                        <div className="flex items-center justify-between mb-6">
-                            {/* CHANGE: Renamed to DEEP DIVE to prevent confusion with previous section numbers */}
-                            <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest font-bold opacity-70">02 // DEEP DIVE AUDIT</span>
-                            <span className="font-mono text-xl font-bold text-[#E21E3F]">0{activePoint} / 04</span>
-                        </div>
-                        <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-[0.9] tracking-tighter mb-8">Where your <br /><span className="text-[#E21E3F]">margin</span> <br /><span className="italic text-[#E21E3F]">evaporates.</span></h2>
-                        <p className="font-sans text-lg text-[#1a1a1a]/60 leading-relaxed border-l-2 border-[#E21E3F]/30 pl-6">Your business isn't broken, but it is leaking. These are the 4 silent fracture points where profit disappears before it hits your bank.</p>
+  return (
+    <div className="relative w-24 h-24 md:w-32 md:h-32 mb-10 border-2 border-[#1a1a1a] bg-transparent">
+      
+      {/* Inner Rotating Cube - Controlled by Scroll */}
+      <motion.div 
+        className="absolute inset-0 border-2 border-[#1a1a1a] bg-transparent"
+        style={{ rotate }}
+      >
+         {/* Center anchor dot */}
+        <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-[#1a1a1a] -translate-x-1/2 -translate-y-1/2" />
+      </motion.div>
+
+      {/* Grid Overlay - Static */}
+      <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 pointer-events-none">
+        <div className="border-r border-b border-[#1a1a1a]/10"></div>
+        <div className="border-b border-[#1a1a1a]/10"></div>
+        <div className="border-r border-[#1a1a1a]/10"></div>
+        <div className=""></div>
+      </div>
+    </div>
+  );
+};
+
+/**
+ * Card Component
+ * Handles the layout and individual opacity transition for a single card.
+ */
+interface CardProps {
+  data: typeof AUDIT_DATA[0];
+  index: number;
+  total: number;
+  scrollYProgress: ReturnType<typeof useScroll>['scrollYProgress'];
+  onNavigate?: (v: string) => void;
+}
+
+const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavigate }) => {
+  // Opacity Logic
+  // We use ranges to fade cards in/out. Because of the "Snap" behavior we add later,
+  // the user will always land exactly on the 1.0 opacity state.
+  
+  let opacityRangeInput: number[] = [];
+  let opacityRangeOutput: number[] = [];
+
+  if (index === 0) {
+    opacityRangeInput = [0, 0.2, 0.4];
+    opacityRangeOutput = [1, 1, 0];
+  } else if (index === total - 1) {
+    opacityRangeInput = [0.8, 1.0];
+    opacityRangeOutput = [0, 1];
+  } else {
+    const inStart = index * 0.2; 
+    const inEnd = inStart + 0.2;
+    const outEnd = inEnd + 0.2;
+    opacityRangeInput = [inStart, inEnd, outEnd];
+    opacityRangeOutput = [0, 1, 0];
+  }
+
+  const opacity = useTransform(scrollYProgress, opacityRangeInput, opacityRangeOutput);
+  const zIndex = index * 10;
+  
+  // Enable pointer events only when visible to prevent clicking hidden buttons
+  const pointerEvents = useTransform(opacity, v => v > 0.5 ? 'auto' : 'none');
+
+  return (
+    <motion.div
+      style={{ opacity, zIndex, pointerEvents }}
+      className="absolute inset-0 w-full h-full flex flex-col justify-center bg-[#FFF2EC]"
+    >
+      <div className="w-full h-full p-6 md:p-12 lg:p-20 flex flex-col justify-center">
+        
+        {data.type === 'cta' ? (
+           // --- CTA CARD (FIXED: REDUCED SIZE) ---
+           <div className="flex flex-col items-center justify-center text-center h-full max-w-4xl mx-auto">
+              {/* Reduced from text-8xl to text-5xl/6xl for minimalism */}
+              <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-tight mb-10">
+                You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
+                <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
+              </h2>
+              <button 
+                onClick={() => onNavigate && onNavigate('system')}
+                className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300 hover:border-[#C5A059]"
+              >
+                 <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
+                 <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ SEE THE SYSTEM ]</span>
+              </button>
+           </div>
+        ) : (
+           // --- DATA CARD LAYOUT ---
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
+              {/* Text Content */}
+              <div className="flex flex-col space-y-6 md:space-y-8">
+                 <div className="flex items-center gap-4">
+                    <span className="font-serif text-5xl md:text-6xl text-[#1a1a1a]/10 italic font-bold">
+                       {data.id}
+                    </span>
+                    <div className="h-px flex-1 bg-[#1a1a1a]/20"></div>
+                    <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest border border-[#E21E3F]/30 px-2 py-1">
+                       Audit_Point
+                    </span>
+                 </div>
+                 
+                 <div>
+                    <h3 className="font-serif text-5xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-[0.9] mb-6">
+                       {data.title}
+                    </h3>
+                    <div className="inline-block bg-[#E21E3F]/10 px-4 py-2">
+                       <span className="font-mono text-xl md:text-2xl text-[#E21E3F] font-bold tracking-tight">
+                          {data.metric}
+                       </span>
                     </div>
-                </div>
+                 </div>
 
-                {/* RIGHT COLUMN */}
-                <div className="w-full md:w-3/5 bg-transparent relative">
-                    {FRICTION_POINTS.map((point, idx) => (
-                        <div key={point.id} data-index={idx} className="friction-item min-h-[80vh] flex flex-col justify-center border-b border-[#1a1a1a]/10 py-24 pr-12 md:pr-24 pl-12 md:pl-20"> 
-                            {/* CHANGE 2: CHANGED PADDING (pl-20) TO MATCH LEFT COLUMN EXACTLY */}
-                            
-                            <div className="max-w-xl">
-                                <div className="flex items-center gap-4 mb-4">
-                                   <span className="font-serif italic text-4xl opacity-20">{point.number}</span>
-                                   <span className="font-mono text-xs text-red-600 border border-red-600/20 px-2 py-1 rounded-full font-bold">[{point.label}]</span>
-                                </div>
-                                <h3 className="font-serif text-4xl md:text-5xl mb-4 text-[#1a1a1a] tracking-tight leading-none">{point.title}</h3>
-                                <div className="font-mono text-xl text-red-600 font-bold mb-6">{point.stat}</div>
-                                <p className="font-sans text-lg md:text-xl opacity-70 mb-10 border-l-2 border-red-600/20 pl-6 leading-relaxed font-light">{point.body}</p>
-                                <div className="w-full h-48 mt-12 relative flex items-center justify-center">
-                                    <div className="absolute inset-0 bg-transparent border-t border-b border-[#1a1a1a]/5" />
-                                    <FrictionVisual type={point.id} />
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                    
-                    {/* BOTTOM CTA: Aligned to grid */}
-                    <div className="h-[50vh] flex items-center justify-center p-12 md:p-24 bg-[#FFF2EC]">
-                        <div className="text-center max-w-2xl">
-                            <h3 className="font-serif text-4xl md:text-6xl text-[#1a1a1a] leading-[0.9] mb-12">You have seen the <span className="text-[#E21E3F] italic">leak.</span> <br/>Now see the <span className="text-[#C5A059] italic">fix.</span></h3>
-                            <button onClick={() => onNavigate('system')} className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300">
-                                <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                                <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ SEE THE SYSTEM ]</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
+                 <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed max-w-md border-l-2 border-[#E21E3F]/20 pl-6">
+                    {data.description}
+                 </p>
+              </div>
+
+              {/* Visual Content (Cube) */}
+              <div className="hidden lg:flex items-center justify-center h-full min-h-[400px]">
+                 <AuditCubeVisual scrollYProgress={scrollYProgress} />
+              </div>
+           </div>
+        )}
+      </div>
+    </motion.div>
+  );
+};
+
+// --- MAIN SECTION ---
+
+const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ onNavigate }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  return (
+    // FIX 1: Enforce Snap Scrolling on the main container
+    <section 
+        ref={containerRef} 
+        className="relative h-[600vh] bg-[#FFF2EC] z-30 snap-y snap-mandatory"
+    >
+       
+       {/* Snap Anchors: 
+           These invisible divs tell the browser exactly where to stop. 
+           This prevents the user from stopping in the "messy middle". 
+       */}
+       <div className="absolute inset-0 flex flex-col pointer-events-none z-0">
+          {[...Array(6)].map((_, i) => (
+             <div 
+                key={i} 
+                className="h-screen w-full snap-start" 
+                style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}
+             />
+          ))}
+       </div>
+
+      {/* Sticky Viewport */}
+      <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col md:flex-row z-10 border-t border-[#1a1a1a]/10">
+        
+        {/* Left Panel (Static) */}
+        <div className="w-full md:w-[450px] md:h-full border-b md:border-b-0 md:border-r border-[#1a1a1a]/10 bg-[#FFF2EC] p-8 md:p-12 lg:p-16 flex flex-col justify-between shrink-0 z-50">
+           <div>
+              <div className="mb-8 font-mono text-xs text-[#E21E3F] tracking-[0.2em] uppercase flex items-center gap-2">
+                 <div className="w-2 h-2 bg-[#E21E3F]"></div>
+                 02 // THE FRICTION AUDIT
+              </div>
+              <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[0.95] text-[#1a1a1a] mb-8">
+                 Where your <br/>
+                 <span className="text-[#E21E3F]">margin</span> <br/>
+                 <span className="italic">evaporates.</span>
+              </h1>
+              <div className="w-12 h-1 bg-[#1a1a1a] mb-8"></div>
+              <p className="font-sans text-sm md:text-base text-[#1a1a1a]/60 leading-relaxed max-w-xs">
+                 Your business isn't broken, but it is leaking. These are the 4 silent fracture points where profit disappears before it hits your bank.
+              </p>
+           </div>
+           
+           {/* Audit Progress Indicator */}
+           <div className="hidden md:block">
+              <div className="font-mono text-[10px] text-[#1a1a1a]/40 uppercase mb-2">Audit Progress</div>
+              <div className="w-full h-1 bg-[#1a1a1a]/10 relative overflow-hidden">
+                 <motion.div 
+                    className="h-full bg-[#E21E3F]" 
+                    style={{ scaleX: scrollYProgress, transformOrigin: 'left' }}
+                 />
+              </div>
+              <div className="mt-2 text-right font-mono text-[10px] text-[#1a1a1a]">
+                 <motion.span>
+                    {useTransform(scrollYProgress, v => `${Math.min(100, Math.round(v * 100))}%`)}
+                 </motion.span>
+              </div>
+           </div>
+        </div>
+
+        {/* Right Panel (Dynamic) */}
+        <div className="flex-1 relative h-full overflow-hidden bg-[#FFF2EC]">
+           {AUDIT_DATA.map((data, index) => (
+             <Card 
+               key={data.id}
+               data={data}
+               index={index}
+               total={AUDIT_DATA.length}
+               scrollYProgress={scrollYProgress}
+               onNavigate={onNavigate}
+             />
+           ))}
+           
+           {/* Grid Texture Overlay */}
+           <div className="absolute inset-0 pointer-events-none opacity-5 z-0" 
+             style={{ backgroundImage: `radial-gradient(#1a1a1a 1px, transparent 1px)`, backgroundSize: '24px 24px' }} 
+           />
+        </div>
+        
+      </div>
+    </section>
+  );
 };
 
 const BookAuditButton: React.FC<{ onNavigate: (v: string) => void }> = ({ onNavigate }) => {
