@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, ArrowDownRight, Globe, Database, Zap, Bot, Video, Users, BarChart3, ChevronRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Globe, Database, Zap, Bot, Video, Users, BarChart3 } from 'lucide-react';
 import GlobalFooter from './GlobalFooter';
 import HeroVisual_Suspension from './HeroVisual_Suspension';
 import FAQSection from './FAQSection';
 import { getSystemPageFAQs } from '../constants/faqData';
 import Modal from './Modal';
 import { ServiceDetail } from '../types';
-import ViewportViz from './ViewportViz';
 
 interface SystemPageProps {
   onBack: () => void;
@@ -18,9 +17,9 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
   const [selectedPillar, setSelectedPillar] = useState<ServiceDetail | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-  // State for the "Active" visual (Hover on Desktop, Auto-Cycle on Mobile)
+  // DESKTOP ONLY: Tracks which card is hovered to update the Sticky Display Box
+  // Default: Pillar 1 (so the box isn't empty on load)
   const [activeHoverPillar, setActiveHoverPillar] = useState<string>('pillar1');
-  const [isAutoCycling, setIsAutoCycling] = useState(false);
 
   const systemFAQs = getSystemPageFAQs();
 
@@ -154,52 +153,15 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
     }
   ];
 
-  // Helper to find pillar data for the Display Box
+  // Helper to find pillar data for the Display Box (Desktop Only)
   const getAllPillars = () => systems.flatMap(s => s.pillars);
   const getActivePillarData = () => getAllPillars().find(p => p.id === activeHoverPillar) || getAllPillars()[0];
   const activeData = getActivePillarData();
 
-  // --- LOGIC: AUTO-CYCLE ON MOBILE/TABLET ---
-  useEffect(() => {
-    const handleResize = () => {
-      // If screen is smaller than Desktop (1024px), enable auto-cycling
-      if (window.innerWidth < 1024) {
-        setIsAutoCycling(true);
-      } else {
-        setIsAutoCycling(false);
-      }
-    };
-    
-    // Initial check & Listener
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useEffect(() => {
-    if (!isAutoCycling) return;
-    
-    const allPillarIds = getAllPillars().map(p => p.id);
-    const interval = setInterval(() => {
-      setActiveHoverPillar(current => {
-        const currentIndex = allPillarIds.indexOf(current);
-        const nextIndex = (currentIndex + 1) % allPillarIds.length;
-        return allPillarIds[nextIndex];
-      });
-    }, 4000); // 4 Seconds per Card
-
-    return () => clearInterval(interval);
-  }, [isAutoCycling]);
-
-
-  // --- LOGIC: HANDLE CLICKS BASED ON DEVICE ---
   const handlePillarClick = (pillar: any) => {
-    // Update active hover pillar immediately so display box shows the clicked pillar
-    setActiveHoverPillar(pillar.id);
-    
-    // Check if window is strictly Desktop (>= 1024px)
+    // Desktop Check
     const isDesktop = window.innerWidth >= 1024;
-
+    
     if (isDesktop) {
       // DESKTOP: Open Modal
       const modalData: ServiceDetail = {
@@ -215,7 +177,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
       setSelectedPillar(modalData);
       setIsModalOpen(true);
     } else {
-      // MOBILE / TABLET: Go straight to page (NO POPUP)
+      // MOBILE: Navigate to page
       onNavigate(pillar.id);
     }
   };
@@ -252,41 +214,34 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </div>
 
-        {/* --- DESKTOP DISPLAY BOX (Sticky Visualizer) --- */}
-        {activeData && (
-          <div className="hidden lg:block mb-8 sticky top-32 z-40">
-             <div className="bg-[#1a1a1a] text-[#FFF2EC] p-6 rounded-sm shadow-2xl flex items-center justify-between border border-white/10 relative overflow-hidden">
-                {/* Background Visual */}
-                <div className="absolute inset-0 opacity-20">
-                  <ViewportViz type={activeData.visualPrompt || 'catchment'} />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a] via-[#1a1a1a]/95 to-transparent" />
-                
-                <div className="relative z-10 flex items-center gap-8 flex-1">
-                   <div className="flex items-center gap-3">
-                      <div className="w-3 h-3 rounded-full bg-[#E21E3F] animate-pulse" />
-                      <span className="font-mono text-[10px] uppercase tracking-widest text-white/50">
-                         Active_Protocol // {activeData.title}
-                      </span>
-                   </div>
-                   <div className="h-4 w-[1px] bg-white/20" />
-                   <span className="font-mono text-[10px] uppercase tracking-widest text-[#C5A059]">
-                      {activeData.techLabel}
-                   </span>
-                </div>
-                <div className="relative z-10 flex items-center gap-4">
-                   <p className="text-sm font-sans opacity-70 italic max-w-md text-right hidden xl:block">
-                     "{activeData.description}"
-                   </p>
-                   <button className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-sm text-[9px] font-mono uppercase tracking-widest transition-colors">
-                     [ SEE HOW IT WORKS ]
-                   </button>
-                </div>
-             </div>
-          </div>
-        )}
+        {/* --- DESKTOP DISPLAY BOX (Sticky) --- */}
+        {/* Hidden on Mobile, Block on Large Screens */}
+        <div className="hidden lg:block mb-8 sticky top-32 z-40">
+           <div className="bg-[#1a1a1a] text-[#FFF2EC] p-6 rounded-sm shadow-2xl flex items-center justify-between border border-white/10">
+              <div className="flex items-center gap-8">
+                 <div className="flex items-center gap-3">
+                    <div className="w-3 h-3 rounded-full bg-[#E21E3F] animate-pulse" />
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-white/50">
+                       Active_Protocol // {activeData.title}
+                    </span>
+                 </div>
+                 <div className="h-4 w-[1px] bg-white/20" />
+                 <span className="font-mono text-[10px] uppercase tracking-widest text-[#C5A059]">
+                    {activeData.techLabel}
+                 </span>
+              </div>
+              <div className="flex items-center gap-4">
+                 <p className="text-sm font-sans opacity-70 italic max-w-md text-right hidden xl:block">
+                   "{activeData.description}"
+                 </p>
+                 <button className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-sm text-[9px] font-mono uppercase tracking-widest transition-colors">
+                   [ SEE HOW IT WORKS ]
+                 </button>
+              </div>
+           </div>
+        </div>
 
-        {/* SYSTEMS GRID (GROUPED) */}
+        {/* SYSTEMS GRID */}
         <div className="space-y-24 mb-32">
           {systems.map((system) => (
             <div key={system.id} className="relative group/system">
@@ -309,61 +264,107 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
               {/* PILLARS GRID */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {system.pillars.map((pillar: any) => {
-                  // Active if hovered (desktop) OR if auto-cycle matches (mobile)
-                  const isActive = activeHoverPillar === pillar.id;
                   
+                  // DESKTOP: Check if this card is the hovered one
+                  const isHovered = activeHoverPillar === pillar.id;
+
                   return (
                     <button 
                       key={pillar.id} 
                       onClick={() => handlePillarClick(pillar)}
-                      onMouseEnter={() => {
-                        if (!isAutoCycling) setActiveHoverPillar(pillar.id);
-                      }}
-                      className={`group relative text-left p-8 border transition-all duration-500 flex flex-col items-start h-full w-full min-h-[320px] rounded-sm overflow-hidden
-                        ${isActive 
-                          ? 'bg-[#1a1a1a] border-[#C5A059] shadow-xl scale-[1.02] z-10' 
-                          : 'bg-white border-black/5 hover:border-black/20'
-                        }
+                      onMouseEnter={() => setActiveHoverPillar(pillar.id)} // Only affects Desktop logic
+                      
+                      // --- THE HYBRID STYLING STRATEGY ---
+                      // BASE (Mobile/Tablet): Always Black (#1a1a1a), Gold Borders, White Text.
+                      // LG (Desktop): Resets to White, applies Hover effect.
+                      className={`
+                        group relative text-left p-8 transition-all duration-300 flex flex-col items-start h-full w-full min-h-[320px] rounded-sm overflow-hidden z-10
+                        
+                        /* MOBILE / TABLET STYLES (Default) */
+                        bg-[#1a1a1a] border border-[#C5A059] shadow-xl
+
+                        /* DESKTOP STYLES (LG override) */
+                        lg:bg-white lg:border-black/5 lg:shadow-none
+                        lg:hover:bg-[#1a1a1a] lg:hover:border-[#C5A059] lg:hover:scale-[1.02] lg:hover:shadow-2xl
+                        
+                        /* Desktop Active State (Matches Hover) */
+                        ${isHovered ? 'lg:bg-[#1a1a1a] lg:border-[#C5A059] lg:scale-[1.02] lg:shadow-2xl' : ''}
                       `}
                     >
-                      {/* Active Progress Bar (Mobile Only) */}
-                      {isActive && isAutoCycling && (
-                        <div className="absolute top-0 left-0 w-full h-1 bg-[#C5A059]/20">
-                          <motion.div 
-                            initial={{ width: "0%" }}
-                            animate={{ width: "100%" }}
-                            transition={{ duration: 4, ease: "linear" }}
-                            className="h-full bg-[#C5A059]"
-                          />
-                        </div>
-                      )}
+                      
+                      {/* --- INTERNAL ELEMENTS --- */}
 
-                      <div className="flex justify-between items-start w-full mb-8">
-                         <span className={`font-mono text-xl font-light ${isActive ? 'text-white/30' : 'text-black/20'}`}>
+                      {/* 1. Background Grid (Visible on Mobile OR Desktop Hover) */}
+                      <div className={`absolute inset-0 pointer-events-none opacity-20 bg-[size:20px_20px] bg-[linear-gradient(rgba(197,160,89,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(197,160,89,0.05)_1px,transparent_1px)]
+                        /* Always show on Mobile, Hide on Desktop Default, Show on Desktop Hover */
+                        lg:opacity-0 lg:group-hover:opacity-20
+                        ${isHovered ? 'lg:opacity-20' : ''}
+                      `} />
+
+                      {/* 2. Top Row: Number & Icon */}
+                      <div className="flex justify-between items-start w-full mb-8 relative z-10">
+                         {/* Number: White/30 on Mobile -> Black/20 on Desktop -> White/30 on Desktop Hover */}
+                         <span className={`font-mono text-xl font-light 
+                            text-white/30 
+                            lg:text-black/20 lg:group-hover:text-white/30
+                            ${isHovered ? 'lg:text-white/30' : ''}
+                         `}>
                            {pillar.number}
                          </span>
-                         <div className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors duration-500 ${isActive ? 'bg-white/10 text-[#C5A059]' : 'bg-black/5 text-[#1a1a1a]'}`}>
+                         
+                         {/* Icon Box: Dark/Gold on Mobile -> Gray/Black on Desktop -> Dark/Gold on Desktop Hover */}
+                         <div className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors duration-300
+                            bg-white/10 text-[#C5A059]
+                            lg:bg-black/5 lg:text-[#1a1a1a]
+                            lg:group-hover:bg-white/10 lg:group-hover:text-[#C5A059]
+                            ${isHovered ? 'lg:bg-white/10 lg:text-[#C5A059]' : ''}
+                         `}>
                            <pillar.icon className="w-5 h-5" />
                          </div>
                       </div>
 
-                      <span className={`font-mono text-[9px] uppercase tracking-[0.2em] mb-3 block transition-colors duration-500 ${isActive ? 'text-[#C5A059]' : 'text-[#E21E3F]'}`}>
+                      {/* 3. Tech Label */}
+                      <span className={`font-mono text-[9px] uppercase tracking-[0.2em] mb-3 block relative z-10 transition-colors
+                        text-[#C5A059]
+                        lg:text-[#E21E3F]
+                        lg:group-hover:text-[#C5A059]
+                        ${isHovered ? 'lg:text-[#C5A059]' : ''}
+                      `}>
                         {pillar.techLabel}
                       </span>
                       
-                      <h3 className={`font-serif text-2xl mb-4 leading-none transition-colors duration-500 ${isActive ? 'text-white' : 'text-[#1a1a1a]'}`}>
+                      {/* 4. Title */}
+                      <h3 className={`font-serif text-2xl mb-4 leading-none relative z-10 transition-colors
+                        text-white
+                        lg:text-[#1a1a1a]
+                        lg:group-hover:text-white
+                        ${isHovered ? 'lg:text-white' : ''}
+                      `}>
                         {pillar.title}
                       </h3>
                       
-                      <p className={`font-sans text-sm leading-relaxed mb-8 transition-colors duration-500 ${isActive ? 'text-white/60' : 'text-[#1a1a1a]/60'}`}>
+                      {/* 5. Description */}
+                      <p className={`font-sans text-sm leading-relaxed mb-8 relative z-10 transition-colors
+                        text-white/60
+                        lg:text-[#1a1a1a]/60
+                        lg:group-hover:text-white/60
+                        ${isHovered ? 'lg:text-white/60' : ''}
+                      `}>
                         {pillar.description}
                       </p>
                       
-                      <div className={`mt-auto flex items-center gap-3 font-mono text-[9px] uppercase tracking-widest font-bold transition-all duration-300 ${isActive ? 'text-[#C5A059]' : 'text-[#1a1a1a] opacity-50'}`}>
+                      {/* 6. CTA */}
+                      <div className={`mt-auto flex items-center gap-3 font-mono text-[9px] uppercase tracking-widest font-bold relative z-10 transition-all duration-300
+                        text-[#C5A059]
+                        lg:text-[#1a1a1a] lg:opacity-50
+                        lg:group-hover:text-[#C5A059] lg:group-hover:opacity-100
+                        ${isHovered ? 'lg:text-[#C5A059] lg:opacity-100' : ''}
+                      `}>
                         <span className="hidden lg:inline">[ SEE FULL DETAILS ]</span>
                         <span className="lg:hidden">[ TAP TO VIEW ]</span>
-                        <ArrowRight className={`w-3 h-3 ${isActive ? 'translate-x-1' : ''}`} />
+                        <ArrowRight className={`w-3 h-3 group-hover:translate-x-1 transition-transform`} />
                       </div>
+
                     </button>
                   );
                 })}
@@ -399,20 +400,13 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
       
       <GlobalFooter onNavigate={onNavigate} />
 
-      {/* MODAL: Only opens on Desktop via handlePillarClick logic */}
+      {/* MODAL */}
       <AnimatePresence>
         {isModalOpen && selectedPillar && (
           <Modal
             service={selectedPillar}
             isOpen={isModalOpen}
-            onClose={() => {
-              // Just close the modal - stay on SystemPage, preserve activeHoverPillar state
-              setIsModalOpen(false);
-              // Keep the activeHoverPillar set to the clicked pillar so display box remains visible
-              if (selectedPillar?.id) {
-                setActiveHoverPillar(selectedPillar.id);
-              }
-            }}
+            onClose={() => setIsModalOpen(false)}
             onViewPillar={(pillarId) => {
               setIsModalOpen(false);
               onNavigate(pillarId);
