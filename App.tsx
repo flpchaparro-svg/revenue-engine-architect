@@ -405,22 +405,12 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ o
   return (
     <section ref={containerRef} className="relative h-[600vh] bg-[#FFF2EC] z-30">
        
-       {/* CRITICAL FIX: GLOBAL STYLE INJECTION 
-          This forces the browser to treat the window as a snap-container.
-          Without this, the 'snap-start' elements below are ignored by the window.
-       */}
-       <style>{`
-         html {
-           scroll-snap-type: y mandatory;
-         }
-       `}</style>
-
-       {/* Snap Anchors: Invisible divs that force strict stops */}
+       {/* Snap Anchors: Invisible divs that create snap points within this section only */}
        <div className="absolute inset-0 flex flex-col pointer-events-none z-0">
           {[...Array(6)].map((_, i) => (
              <div 
                 key={i} 
-                className="h-screen w-full snap-start" 
+                className="h-screen w-full" 
                 style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}
              />
           ))}
