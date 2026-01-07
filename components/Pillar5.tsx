@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import PillarVisual_Broadcast from './PillarVisual_Broadcast';
 import FAQSection from './FAQSection';
-import { getFAQsForPillar } from '../constants/faqData';
+import { getPillarFAQs } from '../constants/faqData';
 
 interface PillarPageProps {
   onBack: () => void;
@@ -182,6 +182,9 @@ const Pillar5: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
+  
+  // Get FAQ data for this pillar
+  const pillarFAQs = getPillarFAQs('pillar5');
 
   // Reset persona and restart autoplay when tier changes
   useEffect(() => {
@@ -496,12 +499,11 @@ const Pillar5: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
       {/* FAQ SECTION */}
       <FAQSection
-        pillarFAQs={pillarFAQs}
-        systemFAQs={systemFAQs}
-        universalFAQs={universalFAQs}
+        faqs={pillarFAQs}
         accentColor="#C5A059"
-        title="Questions?"
-        subtitle="How content systems work for your business."
+        title="Questions about content?"
+        subtitle="Common questions about content systems."
+        onNavigate={onNavigate}
       />
     </motion.div>
   );

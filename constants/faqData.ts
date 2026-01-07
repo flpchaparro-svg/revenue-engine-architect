@@ -1,8 +1,12 @@
 // =============================================================================
-// FAQ DATA — ALL QUESTIONS & ANSWERS
+// FAQ DATA — UPDATED STRUCTURE
 // =============================================================================
-// This file contains all Q&A content for the website.
-// Import into FAQSection component and pillar pages.
+// 
+// STRATEGY:
+// - System Page (SystemPage.tsx) → Universal Q&A (12 questions)
+// - Pillar Pages → Pillar-specific Q&A ONLY (5 questions each)
+// 
+// This avoids duplicate content and puts the right questions in the right place.
 // =============================================================================
 
 export interface FAQ {
@@ -12,16 +16,33 @@ export interface FAQ {
 }
 
 // =============================================================================
-// UNIVERSAL QUESTIONS — Appear on ALL pillar pages
+// SYSTEM PAGE QUESTIONS
+// =============================================================================
+// These appear ONLY on SystemPage.tsx (The System page)
+// They answer the big "should I do this?" questions
 // =============================================================================
 
-export const universalFAQs: FAQ[] = [
+export const systemPageFAQs: FAQ[] = [
   {
     id: 'need-all-pillars',
     question: 'Do I need all 7 pillars?',
     answer: `No. Most businesses start with just one or two. Each pillar is designed to work standalone — you pick what you need now, and add more later if it makes sense.
 
 Think of it like renovating a house — you don't have to redo the kitchen, bathroom, AND bedroom at once. Start where the pain is worst.`
+  },
+  {
+    id: 'which-pillar-first',
+    question: 'Which pillar should I start with?',
+    answer: `It depends on where you're losing the most time or money:
+
+• Losing leads? Start with Pillar 01 (Website) or Pillar 02 (CRM)
+• Drowning in admin? Start with Pillar 03 (Automation)
+• Missing calls or enquiries? Start with Pillar 04 (AI Assistants)
+• No time for marketing? Start with Pillar 05 (Content Systems)
+• Team not using your tools? Start with Pillar 06 (Training)
+• Flying blind on numbers? Start with Pillar 07 (Dashboards)
+
+Not sure? Book a call and I'll help you figure it out.`
   },
   {
     id: 'combine-services',
@@ -33,43 +54,13 @@ I'll tell you honestly if combining makes sense or if you should do one first.`
   {
     id: 'project-timeline',
     question: 'How long does a typical project take?',
-    answer: `It depends on which service, but most projects are delivered in sprints:
+    answer: `Most projects are delivered in sprints:
 
 • Quick wins: 3-7 days (lead capture, basic automations)
 • Core builds: 7-14 days (websites, CRM setup, AI bots)
 • Complex projects: 21-30+ days (custom builds, multi-system integration)
 
 I don't do 6-month projects that drain your budget before you see results. You'll see progress in weeks, not quarters.`
-  },
-  {
-    id: 'what-you-provide',
-    question: 'What do I need to provide?',
-    answer: `I do the heavy lifting. You provide:
-
-• Access to your existing systems (logins, admin rights)
-• 1-2 hours for a kickoff call to understand your business
-• Quick responses to questions as we build
-• Feedback during the review stages
-
-You don't need to prepare documents, write briefs, or project manage. That's my job.`
-  },
-  {
-    id: 'existing-systems',
-    question: 'Will this work with my existing systems?',
-    answer: `Almost certainly yes. I'm tool-agnostic — I don't force you into HubSpot or Salesforce if something else fits better. I work with whatever you've got (Xero, MYOB, Shopify, WordPress, Google Sheets, you name it) and build bridges between them.
-
-If something truly can't connect, I'll tell you upfront before you spend money.`
-  },
-  {
-    id: 'after-project',
-    question: 'What happens after the project is done?',
-    answer: `You own everything. I hand over:
-
-• Full access to all systems I build
-• Training videos so your team knows how to use it
-• Documentation for future reference
-
-I'm not trying to lock you in. If you want ongoing support, we can arrange that. If you want to run it yourself, you'll be fully equipped.`
   },
   {
     id: 'pricing',
@@ -88,6 +79,36 @@ I'll tell you honestly if the ROI doesn't make sense for your situation.`
 You talk directly to the person building your system. No account managers in between, no explaining the same thing twice to different people.
 
 I use automation and AI to deliver what agencies need a whole team for — but the thinking, the strategy, and the quality control is all me.`
+  },
+  {
+    id: 'what-you-provide',
+    question: 'What do I need to provide?',
+    answer: `I do the heavy lifting. You provide:
+
+• Access to your existing systems (logins, admin rights)
+• 1-2 hours for a kickoff call to understand your business
+• Quick responses to questions as we build
+• Feedback during the review stages
+
+You don't need to prepare documents, write briefs, or project manage. That's my job.`
+  },
+  {
+    id: 'existing-systems',
+    question: 'Will this work with my existing tools?',
+    answer: `Almost certainly yes. I'm tool-agnostic — I don't force you into HubSpot or Salesforce if something else fits better. I work with whatever you've got (Xero, MYOB, Shopify, WordPress, Google Sheets, you name it) and build bridges between them.
+
+If something truly can't connect, I'll tell you upfront before you spend money.`
+  },
+  {
+    id: 'after-project',
+    question: 'What happens after the project is done?',
+    answer: `You own everything. I hand over:
+
+• Full access to all systems I build
+• Training videos so your team knows how to use it
+• Documentation for future reference
+
+I'm not trying to lock you in. If you want ongoing support, we can arrange that. If you want to run it yourself, you'll be fully equipped.`
   },
   {
     id: 'burned-before',
@@ -111,100 +132,26 @@ Here's how I'm different:
 Start with something contained — a lead capture form, a simple automation, a quick dashboard. See how I work, how fast things move, and whether the results are real.
 
 If it works, we do more. If it doesn't, you've risked very little.`
+  },
+  {
+    id: 'how-systems-connect',
+    question: 'How do the 3 systems work together?',
+    answer: `Think of it as a flow:
+
+• GET CLIENTS (Pillars 1-3): Brings people in and captures their details
+• SCALE FASTER (Pillars 4-6): Multiplies your output without multiplying your hours
+• SEE CLEARLY (Pillar 7): Shows you what's working and what's not
+
+You don't need all three to start. But when they're connected, your business runs smoother — leads flow in, work gets done automatically, and you see the results in real-time.`
   }
 ];
 
-// =============================================================================
-// SYSTEM QUESTIONS — Different for each of the 3 systems
-// =============================================================================
-
-export const systemFAQs = {
-  // System 01: GET CLIENTS (Pillars 1, 2, 3)
-  getClients: [
-    {
-      id: 'existing-website',
-      question: 'I already have a website. Do I need a new one?',
-      answer: `Not necessarily. If your current site loads fast, works on mobile, and captures leads properly, we might just need to connect it to a CRM and add some automation.
-
-I'll audit what you have first. Sometimes a few tweaks beat a full rebuild. I'll tell you honestly which option makes sense.`
-    },
-    {
-      id: 'website-vs-crm',
-      question: "What's the difference between a website and a CRM?",
-      answer: `Think of it this way:
-
-• Website (Pillar 01): Your shopfront. It attracts people and captures their details.
-• CRM (Pillar 02): Your brain. It remembers every lead, tracks every conversation, and reminds you to follow up.
-
-You can have a website without a CRM — but you'll lose leads in spreadsheets and inboxes. The two work best together.`
-    },
-    {
-      id: 'referral-business',
-      question: 'My business runs on referrals. Do I really need lead capture?',
-      answer: `Referrals are great — but even referral-based businesses leak leads. Someone gets your name, checks your website, doesn't see a clear way to contact you... and forgets.
-
-A simple capture system makes sure every referral that lands on your site becomes a conversation. It's not about replacing referrals — it's about not wasting them.`
-    }
-  ],
-
-  // System 02: SCALE FASTER (Pillars 4, 5, 6)
-  scaleFaster: [
-    {
-      id: 'ai-impersonal',
-      question: 'Will AI make my business feel impersonal?',
-      answer: `Only if it's done badly. The AI I build isn't meant to replace human connection — it handles the repetitive stuff (FAQs, appointment booking, after-hours enquiries) so your team can spend MORE time on meaningful conversations.
-
-Your customers get instant responses instead of hold music. Your staff get time back to actually help people. Everyone wins.`
-    },
-    {
-      id: 'not-tech-savvy',
-      question: "I'm not tech-savvy. Will I be able to manage these tools?",
-      answer: `You won't need to manage them day-to-day — that's the point. Once built, they run automatically.
-
-If you need to change something (like updating your FAQ answers), I'll show you how, or handle it for you. Most clients check in once a month, if that.`
-    },
-    {
-      id: 'ai-mistakes',
-      question: 'What if the AI says something wrong to a customer?',
-      answer: `This is the most common concern, and it's valid. Here's how I handle it:
-
-• Guardrails: I set strict boundaries on what the AI can and can't say
-• Handoff rules: If someone asks something complex, the AI passes them to a human
-• Testing: Before launch, we test edge cases and fix issues
-• Monitoring: You can see every conversation and flag problems
-
-No AI is perfect, but a well-built one makes far fewer mistakes than an overworked receptionist juggling three phone lines.`
-    }
-  ],
-
-  // System 03: SEE CLEARLY (Pillar 7)
-  seeClearly: [
-    {
-      id: 'existing-reports',
-      question: 'I already have reports in Xero/MYOB. Why do I need a dashboard?',
-      answer: `Those reports show you what happened inside ONE system. A dashboard shows you the whole picture:
-
-• How many leads came in (CRM)
-• How many converted to sales (Shopify)
-• What the profit margin was (Xero)
-• All on one screen, in real-time
-
-Instead of logging into three systems and manually comparing numbers, you see everything at a glance.`
-    },
-    {
-      id: 'dashboard-useful',
-      question: 'Will I actually use this, or is it another tool collecting dust?',
-      answer: `That's up to you — but I design dashboards to be useful, not impressive.
-
-I'll ask: "What decision do you need to make every week?" Then I build the dashboard to answer THAT question, not to show 50 metrics no one cares about.
-
-If you're making decisions by gut feeling right now, a simple dashboard will change your life. If you're already data-driven, we make it faster.`
-    }
-  ]
-};
 
 // =============================================================================
-// PILLAR-SPECIFIC QUESTIONS — Unique to each pillar
+// PILLAR-SPECIFIC QUESTIONS
+// =============================================================================
+// These appear ONLY on their respective pillar page
+// They answer the "tell me more about THIS service" questions
 // =============================================================================
 
 export const pillarFAQs = {
@@ -227,7 +174,7 @@ I'll help you pick the right tier based on your business, not upsell you.`
     },
     {
       id: 'p1-mobile',
-      question: 'Will my new website work properly on phones?',
+      question: 'Will my website work properly on mobile?',
       answer: `Yes — and not as an afterthought. I design mobile-first because that's where most of your visitors are (often 70%+).
 
 Your site will load fast, look good, and work properly on phones. If someone fills out a form on their phone at 11pm, it works.`
@@ -605,32 +552,20 @@ Everyone sees what they need — no more, no less.`
   ]
 };
 
+
 // =============================================================================
-// HELPER: Get FAQs for a specific pillar
+// HELPER FUNCTIONS
 // =============================================================================
 
-export const getFAQsForPillar = (pillarId: string) => {
-  // Determine which system this pillar belongs to
-  let systemQuestions: FAQ[] = [];
-  
-  if (['pillar1', 'pillar2', 'pillar3'].includes(pillarId)) {
-    systemQuestions = systemFAQs.getClients;
-  } else if (['pillar4', 'pillar5', 'pillar6'].includes(pillarId)) {
-    systemQuestions = systemFAQs.scaleFaster;
-  } else if (pillarId === 'pillar7') {
-    systemQuestions = systemFAQs.seeClearly;
-  }
+// Get FAQs for System Page (SystemPage.tsx)
+export const getSystemPageFAQs = () => systemPageFAQs;
 
-  // Get pillar-specific questions
+// Get FAQs for a specific Pillar Page
+export const getPillarFAQs = (pillarId: string): FAQ[] => {
   const pillarKey = pillarId as keyof typeof pillarFAQs;
-  const pillarQuestions = pillarFAQs[pillarKey] || [];
-
-  return {
-    pillarFAQs: pillarQuestions,
-    systemFAQs: systemQuestions,
-    universalFAQs: universalFAQs
-  };
+  return pillarFAQs[pillarKey] || [];
 };
+
 
 // =============================================================================
 // SEO: Generate FAQPage Schema
@@ -650,4 +585,3 @@ export const generateFAQSchema = (faqs: FAQ[]) => {
     }))
   };
 };
-

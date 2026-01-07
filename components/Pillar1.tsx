@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import PillarVisual_Catchment from './PillarVisual_Catchment';
 import FAQSection from './FAQSection';
-import { getFAQsForPillar } from '../constants/faqData';
+import { getPillarFAQs } from '../constants/faqData';
 
 interface PillarPageProps {
   onBack: () => void;
@@ -181,7 +181,7 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   
   // Get FAQ data for this pillar
-  const { pillarFAQs, systemFAQs, universalFAQs } = getFAQsForPillar('pillar1');
+  const pillarFAQs = getPillarFAQs('pillar1');
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
@@ -420,12 +420,11 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
       {/* FAQ SECTION */}
       <FAQSection
-        pillarFAQs={pillarFAQs}
-        systemFAQs={systemFAQs}
-        universalFAQs={universalFAQs}
+        faqs={pillarFAQs}
         accentColor="#C5A059"
-        title="Questions?"
-        subtitle="Everything you need to know about websites and e-commerce."
+        title="Questions about websites?"
+        subtitle="Common questions about websites and e-commerce."
+        onNavigate={onNavigate}
       />
     </motion.div>
   );

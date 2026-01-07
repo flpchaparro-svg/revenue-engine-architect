@@ -1,8 +1,8 @@
 // =============================================================================
-// FAQ SECTION COMPONENT
+// FAQ SECTION COMPONENT — SIMPLIFIED
 // =============================================================================
 // Reusable FAQ accordion component with SEO schema markup.
-// Import into any pillar page and pass the appropriate FAQ data.
+// Use on System Page (12 questions) and Pillar Pages (5 questions each).
 // =============================================================================
 
 import React, { useState, useEffect } from 'react';
@@ -11,26 +11,23 @@ import { ChevronDown, HelpCircle } from 'lucide-react';
 import { FAQ, generateFAQSchema } from '../constants/faqData';
 
 interface FAQSectionProps {
-  pillarFAQs: FAQ[];
-  systemFAQs: FAQ[];
-  universalFAQs: FAQ[];
-  accentColor?: string; // e.g., '#C5A059', '#E21E3F'
+  faqs: FAQ[];
+  accentColor?: string;
   title?: string;
   subtitle?: string;
+  showBookingCTA?: boolean;
+  onNavigate?: (view: string, sectionId?: string) => void;
 }
 
 const FAQSection: React.FC<FAQSectionProps> = ({
-  pillarFAQs,
-  systemFAQs,
-  universalFAQs,
+  faqs,
   accentColor = '#C5A059',
   title = 'Questions?',
-  subtitle = 'Everything you need to know before we start building.'
+  subtitle = 'Everything you need to know before we start.',
+  showBookingCTA = true,
+  onNavigate
 }) => {
   const [openId, setOpenId] = useState<string | null>(null);
-
-  // Combine all FAQs in order: Pillar-specific first, then System, then Universal
-  const allFAQs = [...pillarFAQs, ...systemFAQs, ...universalFAQs];
 
   // Inject FAQPage schema for SEO
   useEffect(() => {
@@ -42,14 +39,14 @@ const FAQSection: React.FC<FAQSectionProps> = ({
     const script = document.createElement('script');
     script.type = 'application/ld+json';
     script.setAttribute('data-faq-schema', 'true');
-    script.textContent = JSON.stringify(generateFAQSchema(allFAQs));
+    script.textContent = JSON.stringify(generateFAQSchema(faqs));
     document.head.appendChild(script);
 
     return () => {
       const schema = document.querySelector('script[data-faq-schema]');
       if (schema) schema.remove();
     };
-  }, [allFAQs]);
+  }, [faqs]);
 
   const toggleFAQ = (id: string) => {
     setOpenId(openId === id ? null : id);
@@ -82,7 +79,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
 
         {/* FAQ ACCORDION */}
         <div className="space-y-3">
-          {allFAQs.map((faq, index) => (
+          {faqs.map((faq, index) => (
             <motion.div
               key={faq.id}
               id={`faq-${faq.id}`}
@@ -106,9 +103,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                   transition={{ duration: 0.2 }}
                   className="flex-shrink-0"
                 >
-                  <ChevronDown 
-                    className="w-5 h-5 text-[#1a1a1a]/40" 
-                  />
+                  <ChevronDown className="w-5 h-5 text-[#1a1a1a]/40" />
                 </motion.div>
               </button>
 
@@ -125,10 +120,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                     <div className="px-6 pb-6 border-t border-black/5">
                       <div 
                         className="pt-4 text-[#1a1a1a]/70 leading-relaxed whitespace-pre-line"
-                        style={{ 
-                          fontSize: '0.95rem',
-                          lineHeight: '1.7'
-                        }}
+                        style={{ fontSize: '0.95rem', lineHeight: '1.7' }}
                       >
                         {faq.answer}
                       </div>
@@ -147,22 +139,23 @@ const FAQSection: React.FC<FAQSectionProps> = ({
         </div>
 
         {/* BOTTOM CTA */}
-        <div className="mt-12 pt-8 border-t border-black/10 text-center">
-          <p className="text-[#1a1a1a]/50 text-sm mb-4">
-            Still have questions?
-          </p>
-          <a
-            href="#booking"
-            className="inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] font-bold hover:opacity-70 transition-opacity"
-            style={{ color: accentColor }}
-          >
-            [ BOOK A 15-MIN CALL ]
-          </a>
-        </div>
+        {showBookingCTA && (
+          <div className="mt-12 pt-8 border-t border-black/10 text-center">
+            <p className="text-[#1a1a1a]/50 text-sm mb-4">
+              Still have questions?
+            </p>
+            <button
+              onClick={() => onNavigate?.('homepage', 'booking')}
+              className="inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] font-bold hover:opacity-70 transition-opacity cursor-pointer"
+              style={{ color: accentColor }}
+            >
+              [ BOOK A 15-MIN CALL ]
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
 };
 
 export default FAQSection;
-

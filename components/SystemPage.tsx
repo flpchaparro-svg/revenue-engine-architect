@@ -6,6 +6,8 @@ import GlobalFooter from './GlobalFooter';
 // FIX: Strict relative import to prevent "Module not found" error
 import HeroVisual_Suspension from './HeroVisual_Suspension';
 import { VizAcquisition, VizVelocity, VizIntelligence } from './ArchitecturePageVisuals';
+import FAQSection from './FAQSection';
+import { getSystemPageFAQs } from '../constants/faqData';
 
 interface SystemPageProps {
   onBack: () => void;
@@ -13,6 +15,7 @@ interface SystemPageProps {
 }
 
 const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
+  const systemFAQs = getSystemPageFAQs();
 
   const systems = [
     {
@@ -178,6 +181,16 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
            </button>
         </div>
       </div>
+      
+      {/* FAQ Section */}
+      <FAQSection
+        faqs={systemFAQs}
+        accentColor="#C5A059"
+        title="Questions?"
+        subtitle="Everything you need to know before choosing a service."
+        onNavigate={onNavigate}
+      />
+      
       <GlobalFooter onNavigate={onNavigate} />
     </motion.div>
   );

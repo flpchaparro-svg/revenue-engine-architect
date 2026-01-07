@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import FAQSection from './FAQSection';
-import { getFAQsForPillar } from '../constants/faqData';
+import { getPillarFAQs } from '../constants/faqData';
 import { 
   ArrowLeft, ArrowRight, CheckCircle2,
   LineChart, Eye, Building2, // Main Icons
@@ -182,7 +182,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
   
   // Get FAQ data for this pillar
-  const { pillarFAQs, systemFAQs, universalFAQs } = getFAQsForPillar('pillar7');
+  const pillarFAQs = getPillarFAQs('pillar7');
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -498,12 +498,11 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
       {/* FAQ SECTION */}
       <FAQSection
-        pillarFAQs={pillarFAQs}
-        systemFAQs={systemFAQs}
-        universalFAQs={universalFAQs}
+        faqs={pillarFAQs}
         accentColor="#1a1a1a"
-        title="Questions?"
-        subtitle="Dashboard and reporting FAQs."
+        title="Questions about dashboards?"
+        subtitle="Common questions about dashboards and reporting."
+        onNavigate={onNavigate}
       />
     </motion.div>
   );
