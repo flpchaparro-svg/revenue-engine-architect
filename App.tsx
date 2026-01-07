@@ -266,8 +266,7 @@ const AUDIT_DATA = [
 
 /**
  * AuditCubeVisual
- * Renders the geometric cube that rotates with scroll.
- * Rotation is mapped to scroll progress so it aligns (0, 90, 180...) with each card.
+ * The rotating wireframe cube (Sandbox version).
  */
 interface AuditCubeVisualProps {
   scrollYProgress: ReturnType<typeof useScroll>['scrollYProgress'];
@@ -275,22 +274,19 @@ interface AuditCubeVisualProps {
 
 const AuditCubeVisual: React.FC<AuditCubeVisualProps> = ({ scrollYProgress }) => {
   // Map scroll (0-1) to rotation (0-450 degrees)
-  // This ensures the cube always lands on a flat side when the scroll snaps.
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 450]);
 
   return (
     <div className="relative w-24 h-24 md:w-32 md:h-32 mb-10 border-2 border-[#1a1a1a] bg-transparent">
-      
-      {/* Inner Rotating Cube - Controlled by Scroll */}
+      {/* Inner Rotating Cube */}
       <motion.div 
         className="absolute inset-0 border-2 border-[#1a1a1a] bg-transparent"
         style={{ rotate }}
       >
-         {/* Center anchor dot */}
-        <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-[#1a1a1a] -translate-x-1/2 -translate-y-1/2" />
+         <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-[#1a1a1a] -translate-x-1/2 -translate-y-1/2" />
       </motion.div>
 
-      {/* Grid Overlay - Static */}
+      {/* Grid Overlay */}
       <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 pointer-events-none">
         <div className="border-r border-b border-[#1a1a1a]/10"></div>
         <div className="border-b border-[#1a1a1a]/10"></div>
@@ -303,7 +299,6 @@ const AuditCubeVisual: React.FC<AuditCubeVisualProps> = ({ scrollYProgress }) =>
 
 /**
  * Card Component
- * Handles the layout and individual opacity transition for a single card.
  */
 interface CardProps {
   data: typeof AUDIT_DATA[0];
@@ -314,10 +309,7 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavigate }) => {
-  // Opacity Logic
-  // We use ranges to fade cards in/out. Because of the "Snap" behavior we add later,
-  // the user will always land exactly on the 1.0 opacity state.
-  
+  // Opacity Logic: Fade in/out based on index
   let opacityRangeInput: number[] = [];
   let opacityRangeOutput: number[] = [];
 
@@ -337,8 +329,6 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
 
   const opacity = useTransform(scrollYProgress, opacityRangeInput, opacityRangeOutput);
   const zIndex = index * 10;
-  
-  // Enable pointer events only when visible to prevent clicking hidden buttons
   const pointerEvents = useTransform(opacity, v => v > 0.5 ? 'auto' : 'none');
 
   return (
@@ -349,9 +339,8 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
       <div className="w-full h-full p-6 md:p-12 lg:p-20 flex flex-col justify-center">
         
         {data.type === 'cta' ? (
-           // --- CTA CARD (FIXED: REDUCED SIZE) ---
+           // --- CTA CARD (FIXED: Reduced Size) ---
            <div className="flex flex-col items-center justify-center text-center h-full max-w-4xl mx-auto">
-              {/* Reduced from text-8xl to text-5xl/6xl for minimalism */}
               <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-tight mb-10">
                 You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
                 <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
@@ -367,7 +356,6 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
         ) : (
            // --- DATA CARD LAYOUT ---
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
-              {/* Text Content */}
               <div className="flex flex-col space-y-6 md:space-y-8">
                  <div className="flex items-center gap-4">
                     <span className="font-serif text-5xl md:text-6xl text-[#1a1a1a]/10 italic font-bold">
@@ -395,7 +383,6 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
                  </p>
               </div>
 
-              {/* Visual Content (Cube) */}
               <div className="hidden lg:flex items-center justify-center h-full min-h-[400px]">
                  <AuditCubeVisual scrollYProgress={scrollYProgress} />
               </div>
@@ -416,16 +403,19 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ o
   });
 
   return (
-    // FIX 1: Enforce Snap Scrolling on the main container
-    <section 
-        ref={containerRef} 
-        className="relative h-[600vh] bg-[#FFF2EC] z-30 snap-y snap-mandatory"
-    >
+    <section ref={containerRef} className="relative h-[600vh] bg-[#FFF2EC] z-30">
        
-       {/* Snap Anchors: 
-           These invisible divs tell the browser exactly where to stop. 
-           This prevents the user from stopping in the "messy middle". 
+       {/* CRITICAL FIX: GLOBAL STYLE INJECTION 
+          This forces the browser to treat the window as a snap-container.
+          Without this, the 'snap-start' elements below are ignored by the window.
        */}
+       <style>{`
+         html {
+           scroll-snap-type: y mandatory;
+         }
+       `}</style>
+
+       {/* Snap Anchors: Invisible divs that force strict stops */}
        <div className="absolute inset-0 flex flex-col pointer-events-none z-0">
           {[...Array(6)].map((_, i) => (
              <div 
