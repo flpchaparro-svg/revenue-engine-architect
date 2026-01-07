@@ -229,6 +229,7 @@ const AUDIT_DATA = [
     id: '01',
     title: 'Lead Evaporation',
     metric: '-$500 / DAY',
+    label: 'REVENUE LEAK',
     description: "Demand hits your site and vanishes. Your website captures names but loses intent. You are paying for leads that go cold in the inbox.",
     type: 'data'
   },
@@ -236,6 +237,7 @@ const AUDIT_DATA = [
     id: '02',
     title: 'The Double-Entry Tax',
     metric: '15 HRS / WK',
+    label: 'TIME LEAK',
     description: "Sales types it. Ops types it again. Finance types it a third time. You are paying triple wages for the same data entry errors.",
     type: 'data'
   },
@@ -243,6 +245,7 @@ const AUDIT_DATA = [
     id: '03',
     title: 'Admin Paralysis',
     metric: '40% OF YOUR WEEK',
+    label: 'GROWTH BLOCKER',
     description: "You are the 'Chief Admin Officer'. You spend 40% of your week fixing invoices and scheduling instead of steering the ship.",
     type: 'data'
   },
@@ -250,6 +253,7 @@ const AUDIT_DATA = [
     id: '04',
     title: 'Profit Blindness',
     metric: 'NO VISIBILITY',
+    label: 'BLIND SPOT',
     description: "You know your Revenue, but not your Real-Time Margin. You are flying a 747 through a storm with no radar.",
     type: 'data'
   },
@@ -273,7 +277,8 @@ interface AuditCubeVisualProps {
 }
 
 const AuditCubeVisual: React.FC<AuditCubeVisualProps> = ({ scrollYProgress }) => {
-  // Map scroll (0-1) to rotation (0-450 degrees)
+  // Map scroll (0-1) to rotation (0-450 degrees).
+  // At 0.0, 0.2, 0.4, 0.6, 0.8, 1.0 the cube will be "Whole" (Flat face).
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 450]);
 
   return (
@@ -309,29 +314,48 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavigate }) => {
-  // LOGIC UPDATE: Tightened curves to prevent overlap ("Ghosting")
-  const step = 0.2; // 1.0 / 5 items
-  const center = index * step + (step / 2); // Center point of this card
   
-  // Fade In cleanly BEFORE the center, Fade Out cleanly AFTER.
-  // This leaves tiny gaps between cards rather than overlaps.
-  const fadeInStart = (index * step) - 0.05;
-  const fadeInEnd = index * step + 0.05;
-  const fadeOutStart = ((index + 1) * step) - 0.05;
-  const fadeOutEnd = ((index + 1) * step) + 0.05;
+  // Custom Ranges based on specific User Requirements:
+  // 0.0: Card 1
+  // 0.2: Card 2
+  // 0.4: Card 3
+  // 0.6: Card 3 (Hold)
+  // 0.8: Card 4
+  // 1.0: CTA
+  
+  let opacityRangeInput: number[] = [];
+  let opacityRangeOutput: number[] = [];
 
-  let opacityRangeInput = [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd];
-  let opacityRangeOutput = [0, 1, 1, 0];
-
-  // Special case: First card starts visible
-  if (index === 0) {
-    opacityRangeInput = [0, 0.2, 0.25];
-    opacityRangeOutput = [1, 1, 0];
-  }
-  // Special case: Last card stays visible
-  else if (index === total - 1) {
-    opacityRangeInput = [0.75, 0.8, 1];
-    opacityRangeOutput = [0, 1, 1];
+  switch (index) {
+    case 0: // Card 1 (0% -> 10% Fade Out)
+      opacityRangeInput = [0, 0.1, 0.15];
+      opacityRangeOutput = [1, 1, 0];
+      break;
+      
+    case 1: // Card 2 (Peak at 20%)
+      opacityRangeInput = [0.1, 0.2, 0.3];
+      opacityRangeOutput = [0, 1, 0];
+      break;
+      
+    case 2: // Card 3 (Peak at 40%, Hold until 60%)
+      // Visible from 0.3 to 0.7 to cover both 40% and 60% marks
+      opacityRangeInput = [0.3, 0.4, 0.6, 0.7];
+      opacityRangeOutput = [0, 1, 1, 0];
+      break;
+      
+    case 3: // Card 4 (Peak at 80%)
+      opacityRangeInput = [0.7, 0.8, 0.9];
+      opacityRangeOutput = [0, 1, 0];
+      break;
+      
+    case 4: // CTA (Peak at 100%)
+      opacityRangeInput = [0.9, 1.0];
+      opacityRangeOutput = [0, 1];
+      break;
+      
+    default:
+      opacityRangeInput = [0, 1];
+      opacityRangeOutput = [0, 0];
   }
 
   const opacity = useTransform(scrollYProgress, opacityRangeInput, opacityRangeOutput);
@@ -370,7 +394,7 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
                     </span>
                     <div className="h-px flex-1 bg-[#1a1a1a]/20"></div>
                     <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest border border-[#E21E3F]/30 px-2 py-1">
-                       Audit_Point
+                       [{data.label}]
                     </span>
                  </div>
                  
