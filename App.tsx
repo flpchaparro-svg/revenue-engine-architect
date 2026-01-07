@@ -277,9 +277,8 @@ interface AuditCubeVisualProps {
 }
 
 const AuditCubeVisual: React.FC<AuditCubeVisualProps> = ({ scrollYProgress }) => {
-  // Map scroll (0-1) to rotation (0-450 degrees).
-  // At 0.0, 0.2, 0.4, 0.6, 0.8, 1.0 the cube will be "Whole" (Flat face).
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 450]);
+  // Map 0-100% scroll to 0-360 degrees (4 steps of 90 deg)
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
 
   return (
     <div className="relative w-24 h-24 md:w-32 md:h-32 mb-10 border-2 border-[#1a1a1a] bg-transparent">
@@ -315,47 +314,21 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavigate }) => {
   
-  // Custom Ranges based on specific User Requirements:
-  // 0.0: Card 1
-  // 0.2: Card 2
-  // 0.4: Card 3
-  // 0.6: Card 3 (Hold)
-  // 0.8: Card 4
-  // 1.0: CTA
+  // LOGIC: 5 Cards spaced by 25% intervals (0.0, 0.25, 0.50, 0.75, 1.0)
+  const step = 0.25;
+  const peak = index * step;
   
-  let opacityRangeInput: number[] = [];
-  let opacityRangeOutput: number[] = [];
+  // Clean cross-fades centered on the peak
+  let opacityRangeInput = [peak - step, peak, peak + step];
+  let opacityRangeOutput = [0, 1, 0];
 
-  switch (index) {
-    case 0: // Card 1 (0% -> 10% Fade Out)
-      opacityRangeInput = [0, 0.1, 0.15];
-      opacityRangeOutput = [1, 1, 0];
-      break;
-      
-    case 1: // Card 2 (Peak at 20%)
-      opacityRangeInput = [0.1, 0.2, 0.3];
-      opacityRangeOutput = [0, 1, 0];
-      break;
-      
-    case 2: // Card 3 (Peak at 40%, Hold until 60%)
-      // Visible from 0.3 to 0.7 to cover both 40% and 60% marks
-      opacityRangeInput = [0.3, 0.4, 0.6, 0.7];
-      opacityRangeOutput = [0, 1, 1, 0];
-      break;
-      
-    case 3: // Card 4 (Peak at 80%)
-      opacityRangeInput = [0.7, 0.8, 0.9];
-      opacityRangeOutput = [0, 1, 0];
-      break;
-      
-    case 4: // CTA (Peak at 100%)
-      opacityRangeInput = [0.9, 1.0];
-      opacityRangeOutput = [0, 1];
-      break;
-      
-    default:
-      opacityRangeInput = [0, 1];
-      opacityRangeOutput = [0, 0];
+  // Adjust for First and Last cards to stay visible at edges
+  if (index === 0) {
+    opacityRangeInput = [0, 0.1, 0.25]; // Fade out as it moves to 25%
+    opacityRangeOutput = [1, 1, 0];
+  } else if (index === total - 1) {
+    opacityRangeInput = [0.75, 0.9, 1]; // Fade in from 75%
+    opacityRangeOutput = [0, 1, 1];
   }
 
   const opacity = useTransform(scrollYProgress, opacityRangeInput, opacityRangeOutput);
@@ -434,18 +407,19 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ o
   });
 
   return (
-    <section ref={containerRef} className="relative h-[600vh] bg-[#FFF2EC] z-30">
+    // Height 500vh = 1 viewport sticky + 4 scrollable viewports (4 steps of 25%)
+    <section ref={containerRef} className="relative h-[500vh] bg-[#FFF2EC] z-30">
        
-       {/* FIX: Use 'proximity' instead of 'mandatory' to prevent the trap */}
+       {/* Use 'proximity' to snap to cards but allow easy exit at 100% */}
        <style>{`
          html {
            scroll-snap-type: y proximity;
          }
        `}</style>
 
-       {/* Snap Anchors */}
+       {/* Snap Anchors: 5 Points (0, 25, 50, 75, 100) */}
        <div className="absolute inset-0 flex flex-col pointer-events-none z-0">
-          {[...Array(6)].map((_, i) => (
+          {[...Array(5)].map((_, i) => (
              <div 
                 key={i} 
                 className="h-screen w-full snap-start" 
