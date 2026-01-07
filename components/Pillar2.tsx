@@ -9,7 +9,7 @@ import {
   Shuffle, Globe, Factory, // Tier 4 Icons
   User, Check // Additional UI Icons
 } from 'lucide-react';
-import PillarVisual_Network from './PillarVisual_Network';
+import PillarVisual_Magnet from './PillarVisual_Magnet';
 import FAQSection from './FAQSection';
 import { getPillarFAQs } from '../constants/faqData';
 
@@ -235,10 +235,10 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                </p>
              </div>
              
-             {/* RIGHT: CONTAINED VISUAL */}
-             <div className="relative w-full max-w-[350px] h-[300px] mx-auto opacity-90 flex items-center justify-center overflow-hidden">
+             {/* RIGHT: CONTAINED VISUAL - EXPANDED SIZE */}
+             <div className="relative w-full max-w-[500px] h-[450px] mx-auto opacity-90 flex items-center justify-center overflow-hidden">
                 {/* The visual sits inside this strictly sized box */}
-                <PillarVisual_Network />
+                <PillarVisual_Magnet />
              </div>
         </div>
 

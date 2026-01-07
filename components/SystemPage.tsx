@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Globe, Database, Zap, Bot, Video, Users, BarChart3 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowDownRight, Globe, Database, Zap, Bot, Video, Users, BarChart3 } from 'lucide-react';
 import GlobalFooter from './GlobalFooter';
 import HeroVisual_Suspension from './HeroVisual_Suspension';
 import FAQSection from './FAQSection';
 import { getSystemPageFAQs } from '../constants/faqData';
 import Modal from './Modal';
 import { ServiceDetail } from '../types';
+import { VizAcquisition, VizVelocity, VizIntelligence } from './ArchitecturePageVisuals';
 
 interface SystemPageProps {
   onBack: () => void;
@@ -72,6 +73,13 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
           symptom: "How many hours are you losing to repeat tasks?",
           visualPrompt: 'helix',
           features: ['Auto-Invoicing', 'Task Triggers', 'System-to-System Sync']
+        },
+        // VISUAL CARD 1: ACQUISITION
+        { 
+          id: 'v1', 
+          isVisual: true, 
+          subtitle: 'Active_Listening', 
+          accent: '#E21E3F' 
         }
       ]
     },
@@ -123,6 +131,13 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
           symptom: "Is your team actually using the tools you bought?",
           visualPrompt: 'turbine',
           features: ['Bite-Sized Videos', 'Step-by-Step Guides', 'Team Q&A Library']
+        },
+        // VISUAL CARD 2: VELOCITY
+        { 
+          id: 'v2', 
+          isVisual: true, 
+          subtitle: 'Processing_Cycles', 
+          accent: '#C5A059' 
         }
       ]
     },
@@ -148,15 +163,18 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
           symptom: "Are you steering the business by gut feeling?",
           visualPrompt: 'radar',
           features: ['Live Revenue Tracking', 'Forecasting & Projections', 'One-Screen Business Health']
+        },
+        // VISUAL CARD 3: INTELLIGENCE
+        { 
+          id: 'v3', 
+          isVisual: true, 
+          subtitle: 'Predictive_Model', 
+          accent: '#1a1a1a' 
         }
       ]
     }
   ];
 
-  // Helper to find pillar data for the Display Box (Desktop Only)
-  const getAllPillars = () => systems.flatMap(s => s.pillars);
-  const getActivePillarData = () => getAllPillars().find(p => p.id === activeHoverPillar) || getAllPillars()[0];
-  const activeData = getActivePillarData();
 
   const handlePillarClick = (pillar: any) => {
     // Desktop Check
@@ -214,179 +232,64 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </div>
 
-        {/* --- DESKTOP DISPLAY BOX (Sticky) --- */}
-        {/* Hidden on Mobile, Block on Large Screens */}
-        <div className="hidden lg:block mb-8 sticky top-32 z-40">
-           <div className="bg-[#1a1a1a] text-[#FFF2EC] p-6 rounded-sm shadow-2xl flex items-center justify-between border border-white/10">
-              <div className="flex items-center gap-8">
-                 <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 rounded-full bg-[#E21E3F] animate-pulse" />
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-white/50">
-                       Active_Protocol // {activeData.title}
-                    </span>
-                 </div>
-                 <div className="h-4 w-[1px] bg-white/20" />
-                 <span className="font-mono text-[10px] uppercase tracking-widest text-[#C5A059]">
-                    {activeData.techLabel}
-                 </span>
-              </div>
-              <div className="flex items-center gap-4">
-                 <p className="text-sm font-sans opacity-70 italic max-w-md text-right hidden xl:block">
-                   "{activeData.description}"
-                 </p>
-                 <button className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-sm text-[9px] font-mono uppercase tracking-widest transition-colors">
-                   [ SEE HOW IT WORKS ]
-                 </button>
-              </div>
-           </div>
-        </div>
-
-        {/* SYSTEMS GRID */}
-        <div className="space-y-24 mb-32">
+        {/* SYSTEMS GRID - GitHub Layout */}
+        <div className="space-y-32 mb-32">
           {systems.map((system) => (
-            <div key={system.id} className="relative group/system">
-              
-              {/* SYSTEM HEADER */}
-              <div className="flex flex-col md:flex-row md:items-end justify-between border-b border-black/10 pb-6 mb-8 gap-6">
-                 <div>
-                   <div className={`font-mono text-[10px] uppercase tracking-[0.25em] font-bold mb-4 ${system.accent}`}>
-                      {system.label}
-                   </div>
-                   <h2 className="font-serif text-4xl text-[#1a1a1a]">{system.title}</h2>
-                 </div>
-                 <div className="md:max-w-md md:text-right">
-                    <p className="font-sans text-sm text-[#1a1a1a]/60 leading-relaxed">
-                      {system.description}
-                    </p>
-                 </div>
+            <div key={system.id} className="grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-black/5 pt-12 relative group/system">
+              {/* LEFT COLUMN: System Info */}
+              <div className="lg:col-span-4 relative flex flex-col">
+                <div className={`font-mono text-[10px] uppercase tracking-[0.25em] font-bold mb-6 ${system.accent}`}>{system.label}</div>
+                <h2 className="font-serif text-4xl mb-6">{system.title}</h2>
+                <p className="font-sans text-lg text-[#1a1a1a]/60 leading-relaxed max-w-md">{system.description}</p>
+                <div className="mt-auto hidden lg:block relative h-12 w-full">
+                   <ArrowDownRight className={`w-8 h-8 ${system.accent} opacity-50 absolute bottom-0 left-0`} />
+                   <div className={`absolute top-1/2 left-10 right-[-48px] h-[1px] opacity-20 ${system.bgAccent}`} />
+                   <div className={`absolute top-1/2 right-[-48px] w-1 h-1 rounded-full ${system.bgAccent} opacity-40`} />
+                </div>
               </div>
-
-              {/* PILLARS GRID */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {system.pillars.map((pillar: any) => {
-                  
-                  // DESKTOP: Check if this card is the hovered one
-                  const isHovered = activeHoverPillar === pillar.id;
-
-                  return (
+              
+              {/* RIGHT COLUMN: 2x2 Grid of Pillars */}
+              <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+                {system.pillars.map((pillar: any) => (
+                  pillar.isVisual ? (
+                    <div key={pillar.id} className="group p-0 bg-[#1a1a1a]/5 border border-black/5 flex flex-col items-center justify-center relative overflow-hidden h-full min-h-[300px]">
+                        {/* ANIMATION CONTAINER */}
+                        <div className="absolute inset-0 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity duration-700">
+                           {pillar.id === 'v1' && <VizAcquisition color="#E21E3F" />}
+                           {pillar.id === 'v2' && <VizVelocity color="#C5A059" />}
+                           {pillar.id === 'v3' && <VizIntelligence color="#1a1a1a" />}
+                        </div>
+                        
+                        <div className="absolute bottom-6 font-mono text-[9px] uppercase tracking-[0.2em] opacity-50 z-10 bg-white/50 px-2 py-1 backdrop-blur-md rounded-sm" style={{ color: pillar.accent }}>
+                           [ {pillar.subtitle} ]
+                        </div>
+                    </div>
+                  ) : (
                     <button 
                       key={pillar.id} 
                       onClick={() => handlePillarClick(pillar)}
-                      onMouseEnter={() => setActiveHoverPillar(pillar.id)} // Only affects Desktop logic
-                      
-                      // --- THE HYBRID STYLING STRATEGY ---
-                      // BASE (Mobile/Tablet): Always Black (#1a1a1a), Gold Borders, White Text.
-                      // LG (Desktop): Resets to White, applies Hover effect.
-                      className={`
-                        group relative text-left p-8 transition-all duration-300 flex flex-col items-start h-full w-full min-h-[320px] rounded-sm overflow-hidden z-10
-                        
-                        /* MOBILE / TABLET STYLES (Default) */
-                        bg-[#1a1a1a] border border-[#C5A059] shadow-xl
-
-                        /* DESKTOP STYLES (LG override) */
-                        lg:bg-white lg:border-black/5 lg:shadow-none
-                        lg:hover:bg-[#1a1a1a] lg:hover:border-[#C5A059] lg:hover:scale-[1.02] lg:hover:shadow-2xl
-                        
-                        /* Desktop Active State (Matches Hover) */
-                        ${isHovered ? 'lg:bg-[#1a1a1a] lg:border-[#C5A059] lg:scale-[1.02] lg:shadow-2xl' : ''}
-                      `}
+                      onMouseEnter={() => setActiveHoverPillar(pillar.id)}
+                      className="group text-left p-8 bg-white border border-black/5 hover:border-black/20 hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col items-start h-full w-full"
                     >
-                      
-                      {/* --- INTERNAL ELEMENTS --- */}
-
-                      {/* 1. Background Grid (Visible on Mobile OR Desktop Hover) */}
-                      <div className={`absolute inset-0 pointer-events-none opacity-20 bg-[size:20px_20px] bg-[linear-gradient(rgba(197,160,89,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(197,160,89,0.05)_1px,transparent_1px)]
-                        /* Always show on Mobile, Hide on Desktop Default, Show on Desktop Hover */
-                        lg:opacity-0 lg:group-hover:opacity-20
-                        ${isHovered ? 'lg:opacity-20' : ''}
-                      `} />
-
-                      {/* 2. Top Row: Number & Icon */}
-                      <div className="flex justify-between items-start w-full mb-8 relative z-10">
-                         {/* Number: White/30 on Mobile -> Black/20 on Desktop -> White/30 on Desktop Hover */}
-                         <span className={`font-mono text-xl font-light 
-                            text-white/30 
-                            lg:text-black/20 lg:group-hover:text-white/30
-                            ${isHovered ? 'lg:text-white/30' : ''}
-                         `}>
-                           {pillar.number}
-                         </span>
-                         
-                         {/* Icon Box: Dark/Gold on Mobile -> Gray/Black on Desktop -> Dark/Gold on Desktop Hover */}
-                         <div className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors duration-300
-                            bg-white/10 text-[#C5A059]
-                            lg:bg-black/5 lg:text-[#1a1a1a]
-                            lg:group-hover:bg-white/10 lg:group-hover:text-[#C5A059]
-                            ${isHovered ? 'lg:bg-white/10 lg:text-[#C5A059]' : ''}
-                         `}>
-                           <pillar.icon className="w-5 h-5" />
-                         </div>
+                      <div className={`w-10 h-10 mb-6 flex items-center justify-center rounded-full bg-black/5 ${system.accent}`}>
+                        <pillar.icon className="w-5 h-5" />
                       </div>
-
-                      {/* 3. Tech Label */}
-                      <span className={`font-mono text-[9px] uppercase tracking-[0.2em] mb-3 block relative z-10 transition-colors
-                        text-[#C5A059]
-                        lg:text-[#E21E3F]
-                        lg:group-hover:text-[#C5A059]
-                        ${isHovered ? 'lg:text-[#C5A059]' : ''}
-                      `}>
-                        {pillar.techLabel}
-                      </span>
-                      
-                      {/* 4. Title */}
-                      <h3 className={`font-serif text-2xl mb-4 leading-none relative z-10 transition-colors
-                        text-white
-                        lg:text-[#1a1a1a]
-                        lg:group-hover:text-white
-                        ${isHovered ? 'lg:text-white' : ''}
-                      `}>
-                        {pillar.title}
-                      </h3>
-                      
-                      {/* 5. Description */}
-                      <p className={`font-sans text-sm leading-relaxed mb-8 relative z-10 transition-colors
-                        text-white/60
-                        lg:text-[#1a1a1a]/60
-                        lg:group-hover:text-white/60
-                        ${isHovered ? 'lg:text-white/60' : ''}
-                      `}>
-                        {pillar.description}
-                      </p>
-                      
-                      {/* 6. CTA */}
-                      <div className={`mt-auto flex items-center gap-3 font-mono text-[9px] uppercase tracking-widest font-bold relative z-10 transition-all duration-300
-                        text-[#C5A059]
-                        lg:text-[#1a1a1a] lg:opacity-50
-                        lg:group-hover:text-[#C5A059] lg:group-hover:opacity-100
-                        ${isHovered ? 'lg:text-[#C5A059] lg:opacity-100' : ''}
-                      `}>
-                        <span className="hidden lg:inline">[ SEE FULL DETAILS ]</span>
-                        <span className="lg:hidden">[ TAP TO VIEW ]</span>
-                        <ArrowRight className={`w-3 h-3 group-hover:translate-x-1 transition-transform`} />
+                      <span className={`font-mono text-[9px] uppercase tracking-[0.2em] mb-2 block ${system.accent} opacity-70`}>{pillar.subtitle}</span>
+                      <h3 className="font-serif text-2xl mb-4 group-hover:translate-x-1 transition-transform duration-300">{pillar.title}</h3>
+                      <p className="font-sans text-sm text-[#1a1a1a]/60 leading-relaxed mb-8">{pillar.description}</p>
+                      <div className={`mt-auto flex items-center gap-3 font-mono text-[9px] uppercase tracking-widest font-bold opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ${system.accent}`}>
+                        <span>[ SEE HOW IT WORKS ]</span>
+                        <ArrowRight className="w-3 h-3" />
                       </div>
-
+                      <div className={`absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500 ${system.bgAccent}`} />
                     </button>
-                  );
-                })}
+                  )
+                ))}
               </div>
             </div>
           ))}
         </div>
 
-        {/* BOTTOM CTA */}
-        <div className="border-t border-black/10 py-32 flex flex-col items-center text-center">
-           <h2 className="font-serif text-5xl md:text-6xl mb-8">Stop guessing and start building.</h2>
-           <button 
-             onClick={() => onNavigate('contact')}
-             className="group relative flex items-center justify-center px-10 py-6 bg-[#1a1a1a] text-[#FFF2EC] font-mono text-xs uppercase tracking-[0.3em] font-bold overflow-hidden transition-all duration-300"
-           >
-             <div className="absolute inset-0 bg-[#FFF2EC] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-             <span className="relative z-10 flex items-center gap-4 group-hover:text-[#1a1a1a] transition-colors duration-500">
-               [ BOOK A CALL ]
-               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-             </span>
-           </button>
-        </div>
       </div>
       
       {/* FAQ Section */}

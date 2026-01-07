@@ -228,8 +228,8 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
              </p>
           </div>
           
-          {/* Right: Visual Animation (Restored) */}
-          <div className="relative w-full max-w-[350px] h-[350px] mx-auto opacity-90">
+          {/* Right: Visual Animation - INCREASED SIZE TO 450px */}
+          <div className="relative w-full max-w-[450px] h-[450px] mx-auto opacity-90 flex items-center justify-center">
              <PillarVisual_Catchment />
           </div>
         </div>

@@ -1,14 +1,14 @@
 // =============================================================================
-// FAQ SECTION COMPONENT — SIMPLIFIED
+// FAQ SECTION COMPONENT — GITHUB DESIGN
 // =============================================================================
-// Reusable FAQ accordion component with SEO schema markup.
-// Use on System Page (12 questions) and Pillar Pages (5 questions each).
+// Based on IntelligenceQA design from Pillar7 on GitHub
+// Preserves existing copy and title/subtitle design
 // =============================================================================
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, HelpCircle } from 'lucide-react';
-import { FAQ, generateFAQSchema } from '../constants/faqData';
+import { ArrowRight, Cpu } from 'lucide-react';
+import { FAQ } from '../constants/faqData';
 
 interface FAQSectionProps {
   faqs: FAQ[];
@@ -27,129 +27,144 @@ const FAQSection: React.FC<FAQSectionProps> = ({
   showBookingCTA = true,
   onNavigate
 }) => {
-  const [openId, setOpenId] = useState<string | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  // Inject FAQPage schema for SEO
-  useEffect(() => {
-    const existingSchema = document.querySelector('script[data-faq-schema]');
-    if (existingSchema) {
-      existingSchema.remove();
-    }
+  // Safety check: ensure activeIndex is valid
+  if (!faqs || faqs.length === 0) {
+    return null;
+  }
 
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.setAttribute('data-faq-schema', 'true');
-    script.textContent = JSON.stringify(generateFAQSchema(faqs));
-    document.head.appendChild(script);
-
-    return () => {
-      const schema = document.querySelector('script[data-faq-schema]');
-      if (schema) schema.remove();
-    };
-  }, [faqs]);
-
-  const toggleFAQ = (id: string) => {
-    setOpenId(openId === id ? null : id);
-  };
+  // Ensure activeIndex is within bounds
+  const safeActiveIndex = Math.min(activeIndex, faqs.length - 1);
 
   return (
-    <section id="faq" className="py-24 px-6 md:px-12 lg:px-20 bg-[#FAFAFA] border-t border-black/5">
-      <div className="max-w-[900px] mx-auto">
+    <section id="faq" className="py-24 px-6 md:px-12 lg:px-20 bg-[#FFF2EC]">
+      <div className="max-w-[1600px] mx-auto">
         
-        {/* HEADER */}
-        <div className="mb-12">
-          <div className="flex items-center gap-3 mb-4">
-            <HelpCircle className="w-5 h-5" style={{ color: accentColor }} />
+        {/* HEADER - Keep existing title/subtitle design */}
+        <div className="mb-16 border-b border-black/10 pb-8 flex items-end justify-between">
+          <div>
             <span 
-              className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold"
+              className="font-mono text-xs tracking-widest mb-4 block uppercase font-bold"
               style={{ color: accentColor }}
             >
-              FAQ
+              // FAQ
             </span>
+            <h2 className="font-serif text-4xl md:text-5xl text-[#1a1a1a]">
+              {title} <span className="italic" style={{ color: accentColor }}>Answered.</span>
+            </h2>
+            {subtitle && (
+              <p className="text-[#1a1a1a]/60 max-w-xl mt-4">
+                {subtitle}
+              </p>
+            )}
           </div>
-          
-          <h2 className="font-serif text-4xl md:text-5xl mb-4">
-            {title} <span className="italic" style={{ color: accentColor }}>Answered.</span>
-          </h2>
-          
-          <p className="text-[#1a1a1a]/60 max-w-xl">
-            {subtitle}
-          </p>
         </div>
 
-        {/* FAQ ACCORDION */}
-        <div className="space-y-3">
-          {faqs.map((faq, index) => (
-            <motion.div
-              key={faq.id}
-              id={`faq-${faq.id}`}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-              className="border border-black/10 bg-white overflow-hidden"
-            >
-              {/* QUESTION BUTTON */}
-              <button
-                onClick={() => toggleFAQ(faq.id)}
-                className="w-full px-6 py-5 flex justify-between items-center text-left hover:bg-[#FAFAFA] transition-colors group"
-                aria-expanded={openId === faq.id}
-                aria-controls={`answer-${faq.id}`}
-              >
-                <span className="font-sans text-base md:text-lg font-medium pr-4 group-hover:translate-x-1 transition-transform">
-                  {faq.question}
-                </span>
-                <motion.div
-                  animate={{ rotate: openId === faq.id ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="flex-shrink-0"
-                >
-                  <ChevronDown className="w-5 h-5 text-[#1a1a1a]/40" />
-                </motion.div>
-              </button>
-
-              {/* ANSWER */}
-              <AnimatePresence initial={false}>
-                {openId === faq.id && (
-                  <motion.div
-                    id={`answer-${faq.id}`}
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] }}
+        {/* Q&A SPLIT LAYOUT - GitHub Design */}
+        <div className="w-full bg-transparent border-y border-black/10 mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[600px]">
+            
+            {/* LEFT: QUESTIONS LIST */}
+            <div className="lg:col-span-5 border-r border-black/10 flex flex-col">
+              {faqs.map((faq, index) => {
+                const isActive = safeActiveIndex === index;
+                return (
+                  <button
+                    key={faq.id}
+                    onClick={() => setActiveIndex(index)}
+                    onMouseEnter={() => setActiveIndex(index)}
+                    className="relative w-full px-8 py-6 text-left group overflow-hidden border-b border-black/5 last:border-b-0 flex items-center justify-between gap-4"
                   >
-                    <div className="px-6 pb-6 border-t border-black/5">
-                      <div 
-                        className="pt-4 text-[#1a1a1a]/70 leading-relaxed whitespace-pre-line"
-                        style={{ fontSize: '0.95rem', lineHeight: '1.7' }}
+                    {/* GOLD WIPE BACKGROUND - Smoother Transition (1s) */}
+                    <div 
+                      className={`absolute inset-0 transition-transform duration-1000 origin-left ease-[cubic-bezier(0.23,1,0.32,1)] ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
+                      style={{ backgroundColor: accentColor }}
+                    />
+
+                    {/* CONTENT */}
+                    <div className="relative z-10 flex items-baseline gap-4 pr-4">
+                      <span className={`font-mono text-[9px] uppercase tracking-widest transition-colors duration-700 ${isActive ? 'text-[#1a1a1a] font-bold' : 'group-hover:text-[#1a1a1a] group-hover:font-bold'}`}
+                        style={!isActive ? { color: accentColor } : {}}
                       >
-                        {faq.answer}
-                      </div>
-                      
-                      {/* ACCENT BAR */}
-                      <div 
-                        className="w-12 h-1 mt-6 rounded-full"
-                        style={{ backgroundColor: accentColor }}
-                      />
+                        Q. {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <span className={`font-serif text-lg leading-tight transition-colors duration-700 ${isActive ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/60 group-hover:text-[#1a1a1a]'}`}>
+                        {faq.question}
+                      </span>
                     </div>
+                    
+                    {/* ACTIVE INDICATOR */}
+                    <div className={`relative z-10 transition-all duration-700 ${isActive ? 'opacity-100 translate-x-0 text-[#1a1a1a]' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-[#1a1a1a]'}`}>
+                      <ArrowRight className="w-4 h-4" />
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* RIGHT: ANSWER TERMINAL - BLACK BG */}
+            <div className="lg:col-span-7 bg-[#1a1a1a] text-[#FFF2EC] p-12 lg:p-16 flex flex-col justify-center relative overflow-hidden">
+              
+              <div className="relative z-10">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={safeActiveIndex}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.4, ease: "circOut" }}
+                  >
+                    <div className="flex items-center gap-3 mb-8 opacity-60">
+                      <Cpu className="w-4 h-4" style={{ color: accentColor }} />
+                      <span 
+                        className="font-mono text-[9px] uppercase tracking-[0.3em]"
+                        style={{ color: accentColor }}
+                      >
+                        QUERY_RESOLVED // {faqs[safeActiveIndex].id.toUpperCase()}
+                      </span>
+                    </div>
+                    
+                    <h3 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-tight text-[#FFF2EC] mb-8">
+                      {faqs[safeActiveIndex].question}
+                    </h3>
+                    
+                    <div 
+                      className="w-16 h-1 mb-8"
+                      style={{ backgroundColor: accentColor }}
+                    />
+                    
+                    <p className="font-sans text-xl font-light text-[#FFF2EC]/70 leading-relaxed border-l pl-6 whitespace-pre-line"
+                      style={{ borderColor: accentColor }}
+                    >
+                      {faqs[safeActiveIndex].answer}
+                    </p>
                   </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          ))}
+                </AnimatePresence>
+              </div>
+            </div>
+
+          </div>
         </div>
 
-        {/* BOTTOM CTA */}
+        {/* CTA SECTION - GitHub Design */}
         {showBookingCTA && (
-          <div className="mt-12 pt-8 border-t border-black/10 text-center">
-            <p className="text-[#1a1a1a]/50 text-sm mb-4">
-              Still have questions?
-            </p>
+          <div className="border-t border-black/10 py-32 flex flex-col items-center text-center">
+            <h2 className="font-serif text-5xl md:text-6xl mb-8 text-[#1a1a1a]">
+              Still have <span className="italic" style={{ color: accentColor }}>questions?</span>
+            </h2>
             <button
-              onClick={() => onNavigate?.('homepage', 'booking')}
-              className="inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] font-bold hover:opacity-70 transition-opacity cursor-pointer"
-              style={{ color: accentColor }}
+              onClick={() => onNavigate?.('contact')}
+              className="group relative overflow-hidden bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] px-12 py-6 font-mono text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300"
             >
-              [ BOOK A 15-MIN CALL ]
+              <div 
+                className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
+                style={{ backgroundColor: accentColor }}
+              />
+              <span className="relative z-10 flex items-center justify-center gap-3">
+                [ BOOK A 15-MIN CALL ]
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </span>
             </button>
           </div>
         )}

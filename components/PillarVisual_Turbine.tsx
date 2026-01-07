@@ -1,45 +1,244 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef } from 'react';
 
 const PillarVisual_Turbine: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = canvas.width = canvas.parentElement?.clientWidth || 600;
+    let height = canvas.height = 500;
+
+    // --- CONFIGURATION ---
+    const CUBE_SIZE = 40; 
+    const SPEED = 1.2; 
+    const SPACING = 100;
+    const VIEW_ANGLE = 0.25; // Side-view schematic
+
+    // State
+    let time = 0;
+
+    interface Cube {
+        x: number; 
+        offsetY: number; 
+        rotX: number;
+        rotY: number;
+        rotZ: number;
+        id: number;
+    }
+
+    // Initialize cubes
+    const cubes: Cube[] = [];
+    const totalCubes = 10;
+    for(let i=0; i<totalCubes; i++) {
+        cubes.push({
+            x: (i * SPACING) - 400,
+            offsetY: (Math.random() - 0.5) * 60,
+            rotX: Math.random() * Math.PI,
+            rotY: Math.random() * Math.PI,
+            rotZ: Math.random() * Math.PI,
+            id: i
+        });
+    }
+
+    // --- PROJECTION HELPER ---
+    const project = (x: number, y: number, z: number) => {
+        const isoX = x + z * 0.5; 
+        const isoY = y + z * VIEW_ANGLE; 
+
+        return {
+            x: width / 2 + isoX,
+            y: height / 2 + isoY 
+        };
+    };
+
+    // Draw a Cube
+    const drawCube = (c: Cube, processed: boolean) => {
+        const r = CUBE_SIZE / 2;
+        const verts = [
+            {x:-r, y:-r, z:-r}, {x:r, y:-r, z:-r}, {x:r, y:r, z:-r}, {x:-r, y:r, z:-r}, // Front
+            {x:-r, y:-r, z:r}, {x:r, y:-r, z:r}, {x:r, y:r, z:r}, {x:-r, y:r, z:r}       // Back
+        ];
+
+        // Rotation Matrix
+        const rotate = (p: {x:number, y:number, z:number}, rx:number, ry:number, rz:number) => {
+            // X
+            let y = p.y*Math.cos(rx) - p.z*Math.sin(rx);
+            let z = p.y*Math.sin(rx) + p.z*Math.cos(rx);
+            let x = p.x;
+            // Y
+            let x2 = x*Math.cos(ry) + z*Math.sin(ry);
+            z = -x*Math.sin(ry) + z*Math.cos(ry);
+            x = x2;
+            // Z
+            let x3 = x*Math.cos(rz) - y*Math.sin(rz);
+            y = x*Math.sin(rz) + y*Math.cos(rz);
+            x = x3;
+            return {x, y, z};
+        };
+
+        const projectedVerts = verts.map(v => {
+            const rot = rotate(v, c.rotX, c.rotY, c.rotZ);
+            return project(c.x + rot.x, rot.y + c.offsetY, rot.z);
+        });
+
+        // Faces Definition (Indices of verts)
+        const faces = [
+            [0,1,2,3], [4,5,6,7], [0,1,5,4], [2,3,7,6], [0,3,7,4], [1,2,6,5]
+        ];
+
+        ctx.lineJoin = 'round';
+
+        if (processed) {
+            // --- PROCESSED: PURE GOLD WIREFRAME (NO FILL) ---
+            ctx.strokeStyle = '#C5A059';
+            ctx.lineWidth = 1.5;
+
+            faces.forEach(f => {
+                ctx.beginPath();
+                ctx.moveTo(projectedVerts[f[0]].x, projectedVerts[f[0]].y);
+                ctx.lineTo(projectedVerts[f[1]].x, projectedVerts[f[1]].y);
+                ctx.lineTo(projectedVerts[f[2]].x, projectedVerts[f[2]].y);
+                ctx.lineTo(projectedVerts[f[3]].x, projectedVerts[f[3]].y);
+                ctx.closePath();
+                ctx.stroke();
+            });
+            
+            // Add internal highlight (Core Dot)
+            const center = project(c.x, c.offsetY, 0);
+            ctx.fillStyle = '#C5A059';
+            ctx.beginPath();
+            ctx.arc(center.x, center.y, 1.5, 0, Math.PI*2);
+            ctx.fill();
+
+        } else {
+            // --- RAW: PURE INK WIREFRAME (NO FILL) ---
+            ctx.strokeStyle = 'rgba(26, 26, 26, 0.4)';
+            ctx.lineWidth = 1;
+
+            faces.forEach(f => {
+                ctx.beginPath();
+                ctx.moveTo(projectedVerts[f[0]].x, projectedVerts[f[0]].y);
+                ctx.lineTo(projectedVerts[f[1]].x, projectedVerts[f[1]].y);
+                ctx.lineTo(projectedVerts[f[2]].x, projectedVerts[f[2]].y);
+                ctx.lineTo(projectedVerts[f[3]].x, projectedVerts[f[3]].y);
+                ctx.closePath();
+                ctx.stroke();
+            });
+        }
+    };
+
+    const animate = () => {
+        time += 0.01;
+        ctx.clearRect(0, 0, width, height);
+
+        // --- DRAW TRACK ---
+        // A clean horizon line
+        const start = project(-500, 20, 0);
+        const end = project(500, 20, 0);
+        
+        ctx.beginPath();
+        ctx.moveTo(start.x, start.y);
+        ctx.lineTo(end.x, end.y);
+        ctx.strokeStyle = 'rgba(26, 26, 26, 0.1)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // --- DRAW GATE (The Processor) ---
+        // Vertical scanner
+        const gateX = 0;
+        const gh = 120; // Gate height
+        
+        const top = project(gateX, -gh/2, 0);
+        const bot = project(gateX, gh/2, 0);
+
+        // Gate Beam (Behind - Very subtle)
+        // Keep beam slightly visible to define the transition point
+        const grad = ctx.createLinearGradient(top.x, top.y, bot.x, bot.y);
+        grad.addColorStop(0, 'rgba(197, 160, 89, 0)');
+        grad.addColorStop(0.5, 'rgba(197, 160, 89, 0.2)');
+        grad.addColorStop(1, 'rgba(197, 160, 89, 0)');
+        
+        ctx.fillStyle = grad;
+        ctx.fillRect(top.x - 1, top.y, 2, bot.y - top.y);
+
+        // --- UPDATE & DRAW CUBES ---
+        cubes.forEach(c => {
+            // Move
+            c.x += SPEED;
+            
+            // Loop
+            if (c.x > 400) {
+                c.x = -400;
+                c.offsetY = (Math.random() - 0.5) * 60;
+                c.rotX = Math.random() * Math.PI;
+                c.rotY = Math.random() * Math.PI;
+                c.rotZ = Math.random() * Math.PI;
+            }
+
+            const isProcessed = c.x > 0;
+            
+            // Interpolate state
+            if (c.x > -60 && c.x < 60) {
+                const t = (c.x + 60) / 120;
+                // Easing alignment
+                c.rotX *= (1 - t) * 0.95;
+                c.rotY *= (1 - t) * 0.95;
+                c.rotZ *= (1 - t) * 0.95;
+                c.offsetY *= 0.9;
+            } else if (isProcessed) {
+                // Lock perfectly
+                c.rotX = 0; c.rotY = 0; c.rotZ = 0; c.offsetY = 0;
+            } else {
+                // Tumble
+                c.rotX += 0.02; c.rotY += 0.01;
+            }
+
+            drawCube(c, isProcessed);
+        });
+
+        // Gate Scanner Overlay (Front)
+        // Thin bright line
+        ctx.fillStyle = '#C5A059';
+        ctx.fillRect(top.x, top.y, 1, bot.y - top.y);
+
+        requestAnimationFrame(animate);
+    };
+
+    const animId = requestAnimationFrame(animate);
+
+    const handleResize = () => {
+        if (!canvas.parentElement) return;
+        width = canvas.width = canvas.parentElement.clientWidth;
+        height = canvas.height = canvas.parentElement.clientHeight;
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+        cancelAnimationFrame(animId);
+        window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   return (
-    <div className="w-full h-[500px] flex items-center justify-center relative overflow-hidden">
-      
-      {/* Outer Ring */}
-      <motion.div 
-        animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute w-[400px] h-[400px] border border-[#1a1a1a]/20 rounded-full border-dashed"
-      />
-      
-      {/* Middle Ring (Counter-Rotate) */}
-      <motion.div 
-        animate={{ rotate: -360 }}
-        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-        className="absolute w-[280px] h-[280px] border border-[#1a1a1a]/40 rounded-full flex items-center justify-center"
-      >
-        <div className="w-2 h-2 bg-[#1a1a1a] rounded-full absolute top-0" />
-        <div className="w-2 h-2 bg-[#1a1a1a] rounded-full absolute bottom-0" />
-      </motion.div>
-
-      {/* Inner Ring (Fast) */}
-      <motion.div 
-        animate={{ rotate: 360 }}
-        transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-        className="absolute w-[180px] h-[180px] border-2 border-[#1a1a1a] rounded-full border-t-transparent border-l-transparent"
-      />
-
-      {/* The Core (Pulsing) */}
-      <motion.div 
-        animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute w-12 h-12 bg-[#C5A059] rounded-full blur-sm"
-      />
-      <div className="absolute w-8 h-8 bg-[#C5A059] rounded-full" />
-
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 font-mono text-[9px] text-[#1a1a1a]/30 uppercase tracking-widest pointer-events-none">
-        [ KINETIC_ENGINE // ONLINE ]
-      </div>
+    <div ref={containerRef} className="w-full h-full bg-[#FFF2EC] relative overflow-hidden flex items-center justify-center border border-[#1a1a1a]/5 rounded-sm">
+        <canvas ref={canvasRef} className="block" />
+        
+        {/* Technical Overlay */}
+        <div className="absolute bottom-6 flex flex-col items-center gap-1 pointer-events-none opacity-60">
+            <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#1a1a1a] mb-1">
+                AUTOMATION_PIPELINE // ACTIVE
+            </div>
+            <div className="flex gap-2">
+                <div className="w-1 h-3 bg-[#1a1a1a]/20" />
+                <div className="w-1 h-3 bg-[#1a1a1a]/40" />
+                <div className="w-1 h-3 bg-[#C5A059]" /> 
+            </div>
+        </div>
     </div>
   );
 };

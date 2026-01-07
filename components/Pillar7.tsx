@@ -12,7 +12,7 @@ import {
   Layers, Scale, Globe, // Tier 4 Icons
   Check // UI Icons
 } from 'lucide-react';
-import PillarVisual_Radar from './PillarVisual_Radar';
+import PillarVisual_Dashboard from './PillarVisual_Dashboard';
 
 interface PillarPageProps {
   onBack: () => void;
@@ -235,10 +235,10 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                </p>
              </div>
              
-             {/* RIGHT: CONTAINED VISUAL */}
-             <div className="relative w-full max-w-[350px] h-[300px] mx-auto opacity-90 flex items-center justify-center overflow-hidden">
+             {/* RIGHT: CONTAINED VISUAL - EXPANDED SIZE */}
+             <div className="relative w-full max-w-[500px] h-[450px] mx-auto opacity-90 flex items-center justify-center overflow-hidden">
                 {/* The visual sits inside this strictly sized box */}
-                <PillarVisual_Radar />
+                <PillarVisual_Dashboard />
              </div>
         </div>
 
@@ -499,7 +499,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       {/* FAQ SECTION */}
       <FAQSection
         faqs={pillarFAQs}
-        accentColor="#1a1a1a"
+        accentColor="#C5A059"
         title="Questions about dashboards?"
         subtitle="Common questions about dashboards and reporting."
         onNavigate={onNavigate}
