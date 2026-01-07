@@ -17,16 +17,13 @@ interface SystemPageProps {
 const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
   const [selectedPillar, setSelectedPillar] = useState<ServiceDetail | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeHoverPillar, setActiveHoverPillar] = useState<string>('pillar1'); // Default to first pillar active
+  
+  // State for the "Active" visual (Hover on Desktop, Auto-Cycle on Mobile)
+  const [activeHoverPillar, setActiveHoverPillar] = useState<string>('pillar1');
+  const [isAutoCycling, setIsAutoCycling] = useState(false);
 
   const systemFAQs = getSystemPageFAQs();
 
-  // Ensure first pillar is active on mount (for tablet/desktop)
-  useEffect(() => {
-    setActiveHoverPillar('pillar1');
-  }, []);
-
-  // --- DATA: COMPLETE COPY IMPLEMENTATION ---
   const systems = [
     {
       id: 'sys_01',
@@ -159,11 +156,41 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
 
   // Helper to find pillar data for the Display Box
   const getAllPillars = () => systems.flatMap(s => s.pillars);
-  const getActivePillarData = () => {
-    const allPillars = getAllPillars();
-    return allPillars.find(p => p.id === activeHoverPillar) || allPillars[0] || null;
-  };
+  const getActivePillarData = () => getAllPillars().find(p => p.id === activeHoverPillar) || getAllPillars()[0];
   const activeData = getActivePillarData();
+
+  // --- LOGIC: AUTO-CYCLE ON MOBILE/TABLET ---
+  useEffect(() => {
+    const handleResize = () => {
+      // If screen is smaller than Desktop (1024px), enable auto-cycling
+      if (window.innerWidth < 1024) {
+        setIsAutoCycling(true);
+      } else {
+        setIsAutoCycling(false);
+      }
+    };
+    
+    // Initial check & Listener
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (!isAutoCycling) return;
+    
+    const allPillarIds = getAllPillars().map(p => p.id);
+    const interval = setInterval(() => {
+      setActiveHoverPillar(current => {
+        const currentIndex = allPillarIds.indexOf(current);
+        const nextIndex = (currentIndex + 1) % allPillarIds.length;
+        return allPillarIds[nextIndex];
+      });
+    }, 4000); // 4 Seconds per Card
+
+    return () => clearInterval(interval);
+  }, [isAutoCycling]);
+
 
   // --- LOGIC: HANDLE CLICKS BASED ON DEVICE ---
   const handlePillarClick = (pillar: any) => {
@@ -225,37 +252,37 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </div>
 
-        {/* --- DISPLAY BOX (Sticky Visualizer) - Visible on all screens --- */}
+        {/* --- DESKTOP DISPLAY BOX (Sticky Visualizer) --- */}
         {activeData && (
-          <div className="mb-8 sticky top-32 z-40">
-           <div className="bg-[#1a1a1a] text-[#FFF2EC] p-6 rounded-sm shadow-2xl flex items-center justify-between border border-white/10 relative overflow-hidden">
-              {/* Background Visual */}
-              <div className="absolute inset-0 opacity-20">
-                <ViewportViz type={activeData.visualPrompt} />
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a] via-[#1a1a1a]/95 to-transparent" />
-              
-              <div className="relative z-10 flex items-center gap-8 flex-1">
-                 <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 rounded-full bg-[#E21E3F] animate-pulse" />
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-white/50">
-                       Active_Protocol // {activeData.title}
-                    </span>
-                 </div>
-                 <div className="h-4 w-[1px] bg-white/20" />
-                 <span className="font-mono text-[10px] uppercase tracking-widest text-[#C5A059]">
-                    {activeData.techLabel}
-                 </span>
-              </div>
-              <div className="relative z-10 flex items-center gap-4">
-                 <p className="text-sm font-sans opacity-70 italic max-w-md text-right hidden xl:block">
-                   "{activeData.description}"
-                 </p>
-                 <button className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-sm text-[9px] font-mono uppercase tracking-widest transition-colors">
-                   [ SEE HOW IT WORKS ]
-                 </button>
-              </div>
-           </div>
+          <div className="hidden lg:block mb-8 sticky top-32 z-40">
+             <div className="bg-[#1a1a1a] text-[#FFF2EC] p-6 rounded-sm shadow-2xl flex items-center justify-between border border-white/10 relative overflow-hidden">
+                {/* Background Visual */}
+                <div className="absolute inset-0 opacity-20">
+                  <ViewportViz type={activeData.visualPrompt || 'catchment'} />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#1a1a1a] via-[#1a1a1a]/95 to-transparent" />
+                
+                <div className="relative z-10 flex items-center gap-8 flex-1">
+                   <div className="flex items-center gap-3">
+                      <div className="w-3 h-3 rounded-full bg-[#E21E3F] animate-pulse" />
+                      <span className="font-mono text-[10px] uppercase tracking-widest text-white/50">
+                         Active_Protocol // {activeData.title}
+                      </span>
+                   </div>
+                   <div className="h-4 w-[1px] bg-white/20" />
+                   <span className="font-mono text-[10px] uppercase tracking-widest text-[#C5A059]">
+                      {activeData.techLabel}
+                   </span>
+                </div>
+                <div className="relative z-10 flex items-center gap-4">
+                   <p className="text-sm font-sans opacity-70 italic max-w-md text-right hidden xl:block">
+                     "{activeData.description}"
+                   </p>
+                   <button className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-sm text-[9px] font-mono uppercase tracking-widest transition-colors">
+                     [ SEE HOW IT WORKS ]
+                   </button>
+                </div>
+             </div>
           </div>
         )}
 
@@ -281,50 +308,58 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
 
               {/* PILLARS GRID */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {system.pillars.map((pillar: any, index: number) => {
-                  // First pillar (pillar1) should always be active on initial load
+                {system.pillars.map((pillar: any) => {
+                  // Active if hovered (desktop) OR if auto-cycle matches (mobile)
                   const isActive = activeHoverPillar === pillar.id;
+                  
                   return (
                     <button 
                       key={pillar.id} 
                       onClick={() => handlePillarClick(pillar)}
-                      onMouseEnter={() => setActiveHoverPillar(pillar.id)}
-                      className={`group relative text-left p-8 border transition-all duration-300 flex flex-col items-start h-full w-full min-h-[320px] rounded-sm overflow-hidden
+                      onMouseEnter={() => {
+                        if (!isAutoCycling) setActiveHoverPillar(pillar.id);
+                      }}
+                      className={`group relative text-left p-8 border transition-all duration-500 flex flex-col items-start h-full w-full min-h-[320px] rounded-sm overflow-hidden
                         ${isActive 
                           ? 'bg-[#1a1a1a] border-[#C5A059] shadow-xl scale-[1.02] z-10' 
                           : 'bg-white border-black/5 hover:border-black/20'
                         }
                       `}
                     >
+                      {/* Active Progress Bar (Mobile Only) */}
+                      {isActive && isAutoCycling && (
+                        <div className="absolute top-0 left-0 w-full h-1 bg-[#C5A059]/20">
+                          <motion.div 
+                            initial={{ width: "0%" }}
+                            animate={{ width: "100%" }}
+                            transition={{ duration: 4, ease: "linear" }}
+                            className="h-full bg-[#C5A059]"
+                          />
+                        </div>
+                      )}
+
                       <div className="flex justify-between items-start w-full mb-8">
                          <span className={`font-mono text-xl font-light ${isActive ? 'text-white/30' : 'text-black/20'}`}>
                            {pillar.number}
                          </span>
-                         <div className={`w-10 h-10 flex items-center justify-center rounded-full ${isActive ? 'bg-white/10 text-[#C5A059]' : 'bg-black/5 text-[#1a1a1a]'}`}>
+                         <div className={`w-10 h-10 flex items-center justify-center rounded-full transition-colors duration-500 ${isActive ? 'bg-white/10 text-[#C5A059]' : 'bg-black/5 text-[#1a1a1a]'}`}>
                            <pillar.icon className="w-5 h-5" />
                          </div>
                       </div>
 
-                      <span className={`font-mono text-[9px] uppercase tracking-[0.2em] mb-3 block ${isActive ? 'text-[#C5A059]' : 'text-[#E21E3F]'}`}>
+                      <span className={`font-mono text-[9px] uppercase tracking-[0.2em] mb-3 block transition-colors duration-500 ${isActive ? 'text-[#C5A059]' : 'text-[#E21E3F]'}`}>
                         {pillar.techLabel}
                       </span>
                       
-                      <h3 className={`font-serif text-2xl mb-4 leading-none ${isActive ? 'text-white' : 'text-[#1a1a1a]'}`}>
+                      <h3 className={`font-serif text-2xl mb-4 leading-none transition-colors duration-500 ${isActive ? 'text-white' : 'text-[#1a1a1a]'}`}>
                         {pillar.title}
                       </h3>
                       
-                      <p className={`font-sans text-sm leading-relaxed mb-8 ${isActive ? 'text-white/60' : 'text-[#1a1a1a]/60'}`}>
+                      <p className={`font-sans text-sm leading-relaxed mb-8 transition-colors duration-500 ${isActive ? 'text-white/60' : 'text-[#1a1a1a]/60'}`}>
                         {pillar.description}
                       </p>
                       
-                      <div
-                        className={
-                          `mt-auto flex items-center gap-3 font-mono text-[9px] uppercase tracking-widest font-bold transition-all duration-300 ` +
-                          (isActive
-                            ? 'text-[#C5A059] opacity-100 translate-y-0'
-                            : 'text-[#1a1a1a] opacity-50 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0')
-                        }
-                      >
+                      <div className={`mt-auto flex items-center gap-3 font-mono text-[9px] uppercase tracking-widest font-bold transition-all duration-300 ${isActive ? 'text-[#C5A059]' : 'text-[#1a1a1a] opacity-50'}`}>
                         <span className="hidden lg:inline">[ SEE FULL DETAILS ]</span>
                         <span className="lg:hidden">[ TAP TO VIEW ]</span>
                         <ArrowRight className={`w-3 h-3 ${isActive ? 'translate-x-1' : ''}`} />
