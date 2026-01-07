@@ -40,7 +40,12 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, onViewPillar })
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={onClose}
+            onClick={(e) => {
+              // Only close if clicking directly on backdrop, not on modal content
+              if (e.target === e.currentTarget) {
+                onClose();
+              }
+            }}
             className="fixed inset-0 bg-black/95 backdrop-blur-xl"
           />
           
@@ -58,8 +63,12 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, onViewPillar })
                  <ViewportViz type={service.visualPrompt} />
                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] to-transparent opacity-60" />
                  <button 
-                  onClick={onClose}
-                  className="absolute top-6 right-6 p-2 bg-white/10 hover:bg-white/20 transition-colors rounded-full text-white z-50"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onClose();
+                  }}
+                  className="absolute top-6 right-6 p-3 bg-white/20 hover:bg-white/30 backdrop-blur-sm transition-colors rounded-full text-white z-[200] shadow-lg border border-white/20"
+                  aria-label="Close modal"
                 >
                   <X className="w-6 h-6" />
                 </button>
