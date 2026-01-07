@@ -309,22 +309,29 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavigate }) => {
-  // Opacity Logic: Fade in/out based on index
-  let opacityRangeInput: number[] = [];
-  let opacityRangeOutput: number[] = [];
+  // LOGIC UPDATE: Tightened curves to prevent overlap ("Ghosting")
+  const step = 0.2; // 1.0 / 5 items
+  const center = index * step + (step / 2); // Center point of this card
+  
+  // Fade In cleanly BEFORE the center, Fade Out cleanly AFTER.
+  // This leaves tiny gaps between cards rather than overlaps.
+  const fadeInStart = (index * step) - 0.05;
+  const fadeInEnd = index * step + 0.05;
+  const fadeOutStart = ((index + 1) * step) - 0.05;
+  const fadeOutEnd = ((index + 1) * step) + 0.05;
 
+  let opacityRangeInput = [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd];
+  let opacityRangeOutput = [0, 1, 1, 0];
+
+  // Special case: First card starts visible
   if (index === 0) {
-    opacityRangeInput = [0, 0.2, 0.4];
+    opacityRangeInput = [0, 0.2, 0.25];
     opacityRangeOutput = [1, 1, 0];
-  } else if (index === total - 1) {
-    opacityRangeInput = [0.8, 1.0];
-    opacityRangeOutput = [0, 1];
-  } else {
-    const inStart = index * 0.2; 
-    const inEnd = inStart + 0.2;
-    const outEnd = inEnd + 0.2;
-    opacityRangeInput = [inStart, inEnd, outEnd];
-    opacityRangeOutput = [0, 1, 0];
+  }
+  // Special case: Last card stays visible
+  else if (index === total - 1) {
+    opacityRangeInput = [0.75, 0.8, 1];
+    opacityRangeOutput = [0, 1, 1];
   }
 
   const opacity = useTransform(scrollYProgress, opacityRangeInput, opacityRangeOutput);
@@ -405,13 +412,20 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ o
   return (
     <section ref={containerRef} className="relative h-[600vh] bg-[#FFF2EC] z-30">
        
-       {/* Snap Anchors: Invisible divs that create snap points within this section only */}
+       {/* FIX: Use 'proximity' instead of 'mandatory' to prevent the trap */}
+       <style>{`
+         html {
+           scroll-snap-type: y proximity;
+         }
+       `}</style>
+
+       {/* Snap Anchors */}
        <div className="absolute inset-0 flex flex-col pointer-events-none z-0">
           {[...Array(6)].map((_, i) => (
              <div 
                 key={i} 
-                className="h-screen w-full" 
-                style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}
+                className="h-screen w-full snap-start" 
+                style={{ scrollSnapAlign: 'start', scrollSnapStop: 'normal' }}
              />
           ))}
        </div>
