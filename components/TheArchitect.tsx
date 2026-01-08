@@ -38,7 +38,7 @@ const TheArchitect: React.FC = () => {
                     muted
                     playsInline
                  >
-                    <source src="/videos/about-section.mp4" type="video/mp4" />
+                    <source src="/videos/revenue-engine-architecture-system-About-video.webm" type="video/webm" />
                     Your browser does not support the video tag.
                  </video>
                  {/* Vignette Overlay */}
