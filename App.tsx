@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useSpring, useTransform, useVelocity } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
 import * as d3 from 'd3';
 import BentoGrid from './components/BentoGrid';
 import Modal from './components/Modal';
@@ -30,7 +30,7 @@ const TECH_STACK = [
   'WEBSITES', 'CRM', 'MARKETING AUTOMATION', 'AI ASSISTANTS', 'CONTENT MARKETING', 'DASHBOARDS'
 ];
 
-// --- HELPERS (GrowthGraph, FrictionVisual, MagneticField) ---
+// --- HELPERS (GrowthGraph) ---
 const GrowthGraph: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -60,164 +60,6 @@ const GrowthGraph: React.FC = () => {
     animate();
   }, []);
   return <div ref={containerRef} className="w-full h-full min-h-[300px] flex items-center justify-center bg-transparent" />;
-};
-
-const MagneticField: React.FC = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-    const particles: {x:number, y:number, bx:number, by:number}[] = [];
-    const spacing = 100;
-    const rows = Math.ceil(height / spacing);
-    const cols = Math.ceil(width / spacing);
-    for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-            particles.push({ x: i * spacing, y: j * spacing, bx: i * spacing, by: j * spacing });
-        }
-    }
-    let mouse = { x: -1000, y: -1000 };
-    const handleMove = (e: MouseEvent) => {
-        const rect = canvas.getBoundingClientRect();
-        mouse.x = e.clientX - rect.left;
-        mouse.y = e.clientY - rect.top;
-    };
-    window.addEventListener('mousemove', handleMove);
-    const animate = () => {
-        ctx.clearRect(0, 0, width, height);
-        particles.forEach(p => {
-            const dx = mouse.x - p.x;
-            const dy = mouse.y - p.y;
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            const force = Math.max(0, 300 - dist) / 300;
-            const angle = Math.atan2(dy, dx);
-            const moveX = Math.cos(angle) * force * -40;
-            const moveY = Math.sin(angle) * force * -40;
-            p.x += (p.bx + moveX - p.x) * 0.1;
-            p.y += (p.by + moveY - p.y) * 0.1;
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, 1.2, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(26, 26, 26, ${0.05 + force * 0.1})`;
-            ctx.fill();
-        });
-        requestAnimationFrame(animate);
-    };
-    animate();
-    const handleResize = () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; };
-    window.addEventListener('resize', handleResize);
-    return () => { window.removeEventListener('mousemove', handleMove); window.removeEventListener('resize', handleResize); };
-  }, []);
-  return <canvas ref={canvasRef} className="absolute inset-0 z-0 pointer-events-none" />;
-};
-
-const FrictionVisual: React.FC<{ type: string }> = ({ type }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const container = containerRef.current;
-    // Cleanup
-    d3.select(container).selectAll('*').remove();
-    
-    const width = container.clientWidth || 600;
-    const height = container.clientHeight || 400;
-    const svg = d3.select(container).append('svg')
-      .attr('width', '100%')
-      .attr('height', '100%')
-      .attr('viewBox', `0 0 ${width} ${height}`)
-      .style('overflow', 'visible');
-      
-    const g = svg.append('g').attr('transform', `translate(${width/2}, ${height/2})`);
-    const ink = '#1a1a1a';
-    const alert = '#E21E3F';
-
-    // 1. LEAKAGE: Continuous smooth flow upwards
-    if (type === 'leakage') {
-       // Base
-       g.append('line').attr('x1', -50).attr('x2', 50).attr('y1', 60).attr('y2', 60).attr('stroke', ink).attr('stroke-width', 2).attr('opacity', 0.2);
-       
-       const particleGroup = g.append('g');
-       const emitParticle = () => {
-         particleGroup.append('circle')
-           .attr('cx', (Math.random() - 0.5) * 60)
-           .attr('cy', 60)
-           .attr('r', Math.random() * 2 + 1)
-           .attr('fill', alert)
-           .attr('opacity', 0.8)
-           .transition().duration(2500).ease(d3.easeSinOut)
-           .attr('cy', -80) // Float up
-           .attr('opacity', 0)
-           .remove();
-       };
-       // High frequency emission for "Flow" feel
-       const timer = d3.interval(emitParticle, 100); 
-       return () => timer.stop();
-    }
-
-    // 2. SILOS: Fluid repulsion/attraction (Organic)
-    else if (type === 'silos') {
-       const c1 = g.append('circle').attr('r', 15).attr('fill', 'none').attr('stroke', ink).attr('stroke-width', 2);
-       const c2 = g.append('circle').attr('r', 15).attr('fill', 'none').attr('stroke', ink).attr('stroke-width', 2);
-       
-       // Center marker (The gap)
-       g.append('line').attr('y1', -20).attr('y2', 20).attr('stroke', alert).attr('stroke-width', 1).attr('stroke-dasharray', '2,2');
-
-       d3.timer((t) => {
-          // Smooth sine wave movement
-          const x = 30 + Math.sin(t * 0.002) * 15;
-          c1.attr('cx', -x);
-          c2.attr('cx', x);
-          // Pulse opacity
-          const op = 0.5 + Math.sin(t * 0.005) * 0.3;
-          c1.attr('opacity', op);
-          c2.attr('opacity', op);
-       });
-    }
-
-    // 3. TRAP: Heavy Breathing (Square)
-    else if (type === 'trap') {
-       const rect = g.append('rect')
-         .attr('x', -30).attr('y', -30)
-         .attr('width', 60).attr('height', 60)
-         .attr('fill', 'none')
-         .attr('stroke', ink).attr('stroke-width', 2);
-       
-       const inner = g.append('rect')
-         .attr('x', -10).attr('y', -10)
-         .attr('width', 20).attr('height', 20)
-         .attr('fill', alert).attr('opacity', 0.8);
-
-       d3.timer((t) => {
-          // Slow, heavy breathe
-          const scale = 1 + Math.sin(t * 0.001) * 0.1;
-          rect.attr('transform', `scale(${scale})`);
-          // Inner box rotates slowly
-          inner.attr('transform', `rotate(${t * 0.05})`);
-       });
-    }
-
-    // 4. BLIND: Searching Radar (Scanning)
-    else if (type === 'blind') {
-       const radar = g.append('circle').attr('r', 40).attr('fill', 'none').attr('stroke', ink).attr('stroke-width', 1).attr('opacity', 0.3);
-       const scanLine = g.append('line').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', -40).attr('stroke', alert).attr('stroke-width', 2);
-       
-       d3.timer((t) => {
-          scanLine.attr('transform', `rotate(${t * 0.1})`);
-          // Random blips
-          if (Math.random() > 0.95) {
-             g.append('circle')
-               .attr('cx', (Math.random()-0.5)*60)
-               .attr('cy', (Math.random()-0.5)*60)
-               .attr('r', 2).attr('fill', ink).attr('opacity', 1)
-               .transition().duration(500).attr('opacity', 0).remove();
-          }
-       });
-    }
-  }, [type]);
-  return <div ref={containerRef} className="w-full h-full" />;
 };
 
 // ... (Rest of existing Helpers: FrictionAuditSection, BookAuditButton) ...
