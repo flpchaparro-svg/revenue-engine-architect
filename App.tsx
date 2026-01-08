@@ -277,8 +277,8 @@ interface AuditCubeVisualProps {
 }
 
 const AuditCubeVisual: React.FC<AuditCubeVisualProps> = ({ scrollYProgress }) => {
-  // Map 0-100% scroll to 0-360 degrees (4 steps of 90 deg)
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
+  // FASTER ROTATION: 0 to 720 degrees (2 full spins)
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 720]);
 
   return (
     <div className="relative w-24 h-24 md:w-32 md:h-32 mb-10 border-2 border-[#1a1a1a] bg-transparent">
@@ -313,34 +313,50 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavigate }) => {
-  
-  // LOGIC: 5 Cards spaced by 25% intervals (0.0, 0.25, 0.50, 0.75, 1.0)
-  const step = 0.25;
+  const step = 0.25; // 100% / 4 intervals
   const peak = index * step;
   
-  // Clean cross-fades centered on the peak
-  let opacityRangeInput = [peak - step, peak, peak + step];
-  let opacityRangeOutput = [0, 1, 0];
+  // RANGE DEFINITION:
+  // The card is "active" during a window of +/- 0.25 (one full step).
+  // It enters from (peak - 0.25) and exits at (peak + 0.25).
+  const range = [peak - step, peak, peak + step];
 
-  // Adjust for First and Last cards to stay visible at edges
-  if (index === 0) {
-    opacityRangeInput = [0, 0.1, 0.25]; // Fade out as it moves to 25%
-    opacityRangeOutput = [1, 1, 0];
-  } else if (index === total - 1) {
-    opacityRangeInput = [0.75, 0.9, 1]; // Fade in from 75%
-    opacityRangeOutput = [0, 1, 1];
-  }
+  // 1. ROTATION: -90deg (bottom) -> 0deg (flat) -> 90deg (top)
+  const rotateX = useTransform(scrollYProgress, range, [-90, 0, 90]);
+  
+  // 2. OPACITY: Fade in, hold, sharp fade out
+  // We cut opacity to 0 at +/- 0.20 to prevent "messy overlap" at the extremes
+  const opacity = useTransform(scrollYProgress, 
+    [peak - 0.25, peak - 0.15, peak, peak + 0.15, peak + 0.25], 
+    [0, 1, 1, 1, 0]
+  );
 
-  const opacity = useTransform(scrollYProgress, opacityRangeInput, opacityRangeOutput);
-  const zIndex = index * 10;
+  // 3. SCALE: Slight depth effect (0.8 -> 1 -> 0.8) moves it "back" in space
+  const scale = useTransform(scrollYProgress, range, [0.8, 1, 0.8]);
+
+  // 4. VERTICAL OFFSET: Helps the "wheel" feeling by moving y concurrently
+  const y = useTransform(scrollYProgress, range, ["50%", "0%", "-50%"]);
+
+  // 5. Z-INDEX & POINTER EVENTS
+  // Only the active card is clickable and on top
+  const zIndex = useTransform(scrollYProgress, [peak - 0.01, peak + 0.01], [0, 10]); // Low z-index unless active
   const pointerEvents = useTransform(opacity, v => v > 0.5 ? 'auto' : 'none');
 
   return (
     <motion.div
-      style={{ opacity, zIndex, pointerEvents }}
-      className="absolute inset-0 w-full h-full flex flex-col justify-center bg-[#FFF2EC]"
+      style={{ 
+        opacity, 
+        rotateX, 
+        scale, 
+        y, 
+        zIndex, 
+        pointerEvents,
+        transformStyle: "preserve-3d", // Crucial for 3D effect
+        backfaceVisibility: "hidden"    // Crucial: Hides text when rotated behind
+      }}
+      className="absolute inset-0 w-full h-full flex flex-col justify-center bg-[#FFF2EC] origin-center"
     >
-      <div className="w-full h-full p-6 md:p-12 lg:p-20 flex flex-col justify-center">
+      <div className="w-full h-full p-6 md:p-12 lg:p-20 flex flex-col justify-center max-w-[1600px] mx-auto">
         
         {data.type === 'cta' ? (
            // --- CTA CARD (FIXED: Reduced Size) ---
@@ -410,20 +426,15 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ o
     // Height 500vh = 1 viewport sticky + 4 scrollable viewports (4 steps of 25%)
     <section ref={containerRef} className="relative h-[500vh] bg-[#FFF2EC] z-30">
        
-       {/* Use 'proximity' to snap to cards but allow easy exit at 100% */}
-       <style>{`
-         html {
-           scroll-snap-type: y proximity;
-         }
-       `}</style>
-
-       {/* Snap Anchors: 5 Points (0, 25, 50, 75, 100) */}
+       {/* Snap Anchors: Strictly placed to force 5 stops */}
+       {/* Removed inline style tag that modifies global html - this was causing site collapse */}
        <div className="absolute inset-0 flex flex-col pointer-events-none z-0">
           {[...Array(5)].map((_, i) => (
              <div 
                 key={i} 
                 className="h-screen w-full snap-start" 
-                style={{ scrollSnapAlign: 'start', scrollSnapStop: 'normal' }}
+                // Ensure strict snapping
+                style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}
              />
           ))}
        </div>
@@ -466,8 +477,11 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ o
            </div>
         </div>
 
-        {/* Right Panel (Dynamic) */}
-        <div className="flex-1 relative h-full overflow-hidden bg-[#FFF2EC]">
+        {/* Right Panel (Dynamic 3D Scene) */}
+        <div 
+            className="flex-1 relative h-full overflow-hidden bg-[#FFF2EC]"
+            style={{ perspective: "1000px" }} // ADDS 3D DEPTH
+        >
            {AUDIT_DATA.map((data, index) => (
              <Card 
                key={data.id}

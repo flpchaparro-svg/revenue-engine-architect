@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Briefcase, Car, Coffee, Code2, Building2, Activity, ArrowRight, GitBranch, Database, Cpu, Users, FlaskConical, Award, Wrench, Target, Globe, Quote } from 'lucide-react';
-import AboutVisual_Harmony from './AboutVisual_Harmony';
-import AboutVisual_Distillation from './AboutVisual_Distillation';
 
 interface ArchitectPageProps {
   onBack: () => void;
@@ -196,18 +194,40 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
         {/* SPLIT LAYOUT */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mb-32">
            
-           {/* LEFT: VISUAL (Harmony Visual for Architect / Distillation for Human) */}
+           {/* LEFT: VIDEOS (9:16 ratio) */}
            <div className="lg:col-span-5 hidden lg:block">
               <AnimatePresence mode="wait">
                 <motion.div 
                   key={mode}
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                  className={`sticky top-32 aspect-[3/4] relative overflow-hidden transition-all duration-700 border border-black/10 ${mode === 'architect' ? 'bg-[#FFF2EC]' : 'bg-[#FFF2EC]'}`}
+                  className="sticky top-32 space-y-6"
                 >
                   {mode === 'architect' ? (
-                    <AboutVisual_Harmony />
+                    <div className="aspect-[9/16] relative overflow-hidden border border-black/10 bg-[#1a1a1a]">
+                      <video
+                        className="w-full h-full object-cover"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                      >
+                        <source src="/videos/architect-mode.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
                   ) : (
-                    <AboutVisual_Distillation />
+                    <div className="aspect-[9/16] relative overflow-hidden border border-black/10 bg-[#1a1a1a]">
+                      <video
+                        className="w-full h-full object-cover"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                      >
+                        <source src="/videos/human-mode.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
                   )}
                 </motion.div>
               </AnimatePresence>

@@ -17,31 +17,30 @@ const TheArchitect: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5 relative group"
+            className="lg:col-span-5 relative group lg:sticky lg:top-1/2 lg:-translate-y-1/2 lg:self-start"
           >
             {/* Structural Frame */}
             <div className={`absolute -inset-4 border border-[#1a1a1a]/10 transition-all duration-1000 ${mode === 'architect' ? 'opacity-100' : 'opacity-30'}`} />
             <div className={`absolute -inset-1 border border-[#1a1a1a] transition-all duration-1000 ${mode === 'architect' ? 'border-[#1a1a1a]' : 'border-[#C5A059]'}`} />
 
-            <div className="aspect-[3/4] bg-[#1a1a1a] relative overflow-hidden shadow-2xl">
-              {/* The Living Image */}
+            <div className="aspect-[9/16] bg-[#1a1a1a] relative overflow-hidden shadow-2xl">
+              {/* Video in 9:16 ratio */}
               <motion.div
-                className={`w-full h-full relative transition-all duration-1000 ${mode === 'architect' ? 'grayscale contrast-125' : 'grayscale-0 contrast-100 sepia-[0.2]'}`}
-                animate={{ 
-                  scale: [1, 1.05, 1],
-                  x: [0, -10, 0] // Subtle parallax movement
-                }}
-                transition={{ 
-                  duration: 20, 
-                  repeat: Infinity, 
-                  ease: "easeInOut" 
-                }}
+                className="w-full h-full relative"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
               >
-                 <img 
-                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200"
-                    alt="The Architect"
+                 <video
                     className="w-full h-full object-cover"
-                 />
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                 >
+                    <source src="/videos/about-section.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                 </video>
                  {/* Vignette Overlay */}
                  <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-60" />
               </motion.div>
