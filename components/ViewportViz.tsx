@@ -3,9 +3,10 @@ import * as d3 from 'https://esm.sh/d3@7';
 
 interface ViewportVizProps {
   type: string;
+  color?: string;
 }
 
-const ViewportViz: React.FC<ViewportVizProps> = ({ type }) => {
+const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
@@ -55,7 +56,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type }) => {
       }
 
       const svg = d3.select(svgRef.current);
-      const gold = '#C5A059';
+      const strokeColor = color;
       const strokeW = 1.25;
 
       // Clear previous scene
@@ -75,7 +76,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type }) => {
           .data(d3.range(rings))
           .enter().append('circle')
           .attr('fill', 'none')
-          .attr('stroke', gold)
+          .attr('stroke', strokeColor)
           .attr('stroke-width', strokeW)
           .attr('opacity', (d) => 0.7 - (d * 0.08));
 
@@ -132,11 +133,11 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type }) => {
             .merge(lines as any)
             .attr('x1', d => d.s.x).attr('y1', d => d.s.y)
             .attr('x2', d => d.t.x).attr('y2', d => d.t.y)
-            .attr('stroke', gold).attr('stroke-width', strokeW).attr('opacity', d => d.o * 0.5);
+            .attr('stroke', strokeColor).attr('stroke-width', strokeW).attr('opacity', d => d.o * 0.5);
           lines.exit().remove();
 
           const dots = nodeG.selectAll('circle').data(nodes);
-          dots.enter().append('circle').attr('r', 2.5).attr('fill', gold)
+          dots.enter().append('circle').attr('r', 2.5).attr('fill', strokeColor)
             .merge(dots as any)
             .attr('cx', d => d.x).attr('cy', d => d.y);
           dots.exit().remove();
@@ -167,7 +168,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type }) => {
                 .attr('x1', x).attr('y1', y)
                 .attr('x2', x + Math.cos(angle) * len)
                 .attr('y2', y + Math.sin(angle) * len)
-                .attr('stroke', gold)
+                .attr('stroke', strokeColor)
                 .attr('stroke-width', strokeW)
                 .attr('opacity', 0.32);
             }
@@ -195,14 +196,14 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type }) => {
             g.append('circle')
               .attr('cx', x).attr('cy', y)
               .attr('r', 1.8)
-              .attr('fill', gold)
+              .attr('fill', strokeColor)
               .attr('opacity', 0.7);
 
             if (Math.random() > 0.94) {
               g.append('line')
                 .attr('x1', width/2 + mx).attr('y1', height/2 + my)
                 .attr('x2', x).attr('y2', y)
-                .attr('stroke', gold).attr('stroke-width', strokeW * 0.45).attr('opacity', 0.2);
+                .attr('stroke', strokeColor).attr('stroke-width', strokeW * 0.45).attr('opacity', 0.2);
             }
           });
         });
@@ -228,7 +229,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type }) => {
               .attr('width', barW - 12)
               .attr('height', h)
               .attr('fill', 'none')
-              .attr('stroke', gold)
+              .attr('stroke', strokeColor)
               .attr('stroke-width', strokeW)
               .attr('opacity', 0.6);
           });
@@ -249,7 +250,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type }) => {
             g.append('path')
               .attr('d', line(points as any))
               .attr('fill', 'none')
-              .attr('stroke', gold)
+              .attr('stroke', strokeColor)
               .attr('stroke-width', strokeW)
               .attr('opacity', 0.7 - i * 0.15);
           }
@@ -274,13 +275,13 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type }) => {
             
             g.append('path')
               .attr('d', arc as any)
-              .attr('fill', gold)
+              .attr('fill', strokeColor)
               .attr('opacity', 0.6)
               .attr('transform', `translate(${center.x}, ${center.y})`);
           }
           
-          g.append('line').attr('x1', 0).attr('y1', center.y).attr('x2', width).attr('y2', center.y).attr('stroke', gold).attr('opacity', 0.22);
-          g.append('line').attr('x1', center.x).attr('y1', 0).attr('x2', center.x).attr('y2', height).attr('stroke', gold).attr('opacity', 0.22);
+          g.append('line').attr('x1', 0).attr('y1', center.y).attr('x2', width).attr('y2', center.y).attr('stroke', strokeColor).attr('opacity', 0.22);
+          g.append('line').attr('x1', center.x).attr('y1', 0).attr('x2', center.x).attr('y2', height).attr('stroke', strokeColor).attr('opacity', 0.22);
         });
       };
 
@@ -306,7 +307,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type }) => {
       if (timerRef.current) timerRef.current.stop();
       resizeObserver.disconnect();
     };
-  }, [type]);
+  }, [type, color]);
 
   return (
     <div ref={containerRef} className="w-full h-full bg-[#1a1a1a] relative overflow-hidden">

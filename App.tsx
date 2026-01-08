@@ -667,7 +667,15 @@ const App: React.FC = () => {
                 </motion.section>
 
                 <FrictionAuditSection onNavigate={handleGlobalNavigate} />
-                <BentoGrid onServiceClick={(s) => { setSelectedService(s); setIsModalOpen(true); }} />
+                <BentoGrid onServiceClick={(s) => {
+                  // Desktop: Open Modal, Mobile/Tablet: Navigate directly
+                  if (window.innerWidth >= 1024) {
+                    setSelectedService(s);
+                    setIsModalOpen(true);
+                  } else {
+                    handleGlobalNavigate(s.id);
+                  }
+                }} />
                 <TheArchitect />
                 <Feature_Group7 />
                 <BookingCTA />
