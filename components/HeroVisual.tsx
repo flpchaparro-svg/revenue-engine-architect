@@ -57,8 +57,8 @@ const HeroVisual: React.FC = () => {
   // Density: 100
   const { verts: targetVerts, connections } = useMemo(() => generateDenseGeometry(100), []);
   
-  // Motion: Faster Snap (Stiffness 20)
-  const progress = useSpring(0, { stiffness: 20, damping: 35, mass: 1 });
+  // Motion: Faster Snap (Stiffness increased for quicker assembly)
+  const progress = useSpring(0, { stiffness: 40, damping: 30, mass: 0.8 });
   
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -79,8 +79,8 @@ const HeroVisual: React.FC = () => {
   const [frame, setFrame] = React.useState(0);
 
   useEffect(() => {
-    // Trigger slightly faster
-    const timer = setTimeout(() => progress.set(1), 300);
+    // Trigger faster for earlier assembly
+    const timer = setTimeout(() => progress.set(1), 100);
     
     const handleMouseMove = (e: MouseEvent) => {
       const x = (e.clientX / window.innerWidth - 0.5) * 0.3; 
