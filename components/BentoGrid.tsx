@@ -277,12 +277,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                      viewport={{ once: true, margin: "-10%" }}
                      className="lg:hidden absolute inset-0 z-0 flex flex-col justify-end"
                    >
-                       {/* MOBILE LOADING BAR - ANIMATED ON HOVER (TOP) */}
-                       <div className="absolute top-0 left-0 w-full h-1 bg-white/10 z-20">
-                          <div 
-                            className={`h-full ${style.indicatorColor} w-0 group-hover:w-full transition-all duration-1000 ease-out`}
-                          />
-                       </div>
+                       {/* MOBILE LOADING BAR - REMOVED ON MOBILE/TABLET FOR PERFORMANCE */}
                        
                        {/* Full Background Animation */}
                        <div className="absolute inset-0 z-0 opacity-100">
@@ -324,7 +319,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                              {service.description}
                            </motion.p>
                            
-                           {/* Mobile Button - Matches Desktop Display Button */}
+                           {/* Mobile Button - Gold at all times, no hover effects for performance */}
                            <motion.button
                              initial={{ y: 20, opacity: 0 }}
                              whileInView={{ y: 0, opacity: 1 }}
@@ -334,10 +329,9 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                                e.stopPropagation();
                                onServiceClick(service);
                              }}
-                             className={`group relative px-8 py-4 font-mono text-[10px] uppercase tracking-[0.3em] font-bold overflow-hidden border transition-colors w-full md:w-auto ${style.buttonBorder} ${style.buttonText}`}
+                             className={`px-8 py-4 font-mono text-[10px] uppercase tracking-[0.3em] font-bold border w-full md:w-auto border-[#C5A059] bg-[#C5A059] text-[#1a1a1a]`}
                            >
-                             <div className={`absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1) ${style.buttonHoverBg}`} />
-                             <span className={`relative z-10 flex items-center justify-center gap-3 transition-colors ${style.buttonHoverText}`}>
+                             <span className="flex items-center justify-center gap-3">
                                 [ EXPLORE PILLAR ]
                                 <LucideIcons.ArrowRight className="w-4 h-4" />
                              </span>
