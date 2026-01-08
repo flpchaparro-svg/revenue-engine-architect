@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, AlertTriangle, ArrowRight, Activity, Globe, Zap, X, Terminal } from 'lucide-react';
 import EvidenceVisual_Compare from './EvidenceVisual_Compare';
@@ -52,6 +53,18 @@ const TerminalLog: React.FC = () => {
 
 const Feature_Group7: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isModalOpen]);
 
   return (
     <section className="w-full bg-[#FFF2EC] py-32 border-y border-black/5 relative z-20">
@@ -215,10 +228,10 @@ const Feature_Group7: React.FC = () => {
 
         </motion.div>
 
-        {/* --- THE EVIDENCE MODAL --- */}
-        <AnimatePresence>
-          {isModalOpen && (
-            <div className="fixed inset-0 z-[9999] flex items-center justify-center px-4 md:px-8">
+        {/* --- THE EVIDENCE MODAL (Rendered via Portal) --- */}
+        {isModalOpen && createPortal(
+          <AnimatePresence mode="wait">
+            <div key="modal" className="fixed inset-0 z-[9999] flex items-center justify-center px-4 md:px-8">
               
               {/* Backdrop */}
               <motion.div 
@@ -234,7 +247,8 @@ const Feature_Group7: React.FC = () => {
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
-                className="relative w-full max-w-6xl bg-[#FFF2EC] overflow-hidden shadow-2xl rounded-sm max-h-[90vh] flex flex-col"
+                onClick={(e) => e.stopPropagation()}
+                className="relative w-full max-w-6xl bg-[#FFF2EC] overflow-hidden shadow-2xl rounded-sm max-h-[90vh] flex flex-col z-10"
               >
                  
                  {/* Modal Header */}
@@ -285,8 +299,9 @@ const Feature_Group7: React.FC = () => {
 
               </motion.div>
             </div>
-          )}
-        </AnimatePresence>
+          </AnimatePresence>,
+          document.body
+        )}
       </div>
     </section>
   );

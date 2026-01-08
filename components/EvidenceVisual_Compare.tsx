@@ -53,7 +53,7 @@ const EvidenceVisual_Compare: React.FC<EvidenceVisualCompareProps> = ({
   return (
     <div 
       ref={containerRef}
-      className="w-full h-[500px] relative overflow-hidden cursor-col-resize select-none border border-black/10 bg-white"
+      className="w-full aspect-video md:h-[500px] md:aspect-auto relative overflow-hidden cursor-col-resize select-none border border-black/10 bg-white"
       onMouseMove={handleMouseMove}
       onTouchMove={handleTouchMove}
     >
