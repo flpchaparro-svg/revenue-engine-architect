@@ -1,5 +1,5 @@
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 import { MoveHorizontal } from 'lucide-react';
 
 interface EvidenceVisualCompareProps {
@@ -30,6 +30,26 @@ const EvidenceVisual_Compare: React.FC<EvidenceVisualCompareProps> = ({
     setSliderPosition(percent);
   };
 
+  // Calculate clip-path for before image (clips from right)
+  const clipPath = useMemo(() => {
+    return `inset(0 ${100 - sliderPosition}% 0 0)`;
+  }, [sliderPosition]);
+
+  // Smart fading for labels
+  const beforeLabelOpacity = useMemo(() => {
+    if (sliderPosition < 15) {
+      return Math.max(0, sliderPosition / 15);
+    }
+    return 1;
+  }, [sliderPosition]);
+
+  const afterLabelOpacity = useMemo(() => {
+    if (sliderPosition > 85) {
+      return Math.max(0, (100 - sliderPosition) / 15);
+    }
+    return 1;
+  }, [sliderPosition]);
+
   return (
     <div 
       ref={containerRef}
@@ -46,25 +66,43 @@ const EvidenceVisual_Compare: React.FC<EvidenceVisualCompareProps> = ({
         />
       </div>
 
-      {/* --- BEFORE IMAGE (Clipped Overlay / Messy) --- */}
-      <div 
-        className="absolute inset-0 border-r-2 border-white overflow-hidden"
-        style={{ width: `${sliderPosition}%` }}
-      >
+      {/* --- BEFORE IMAGE (Clipped using clip-path) --- */}
+      <div className="absolute inset-0">
         <img 
           src="/images/group7-before.webp" 
           alt={beforeLabel}
           className="w-full h-full object-cover"
-          style={{ width: '100vw' }}
+          style={{ clipPath }}
         />
       </div>
 
-      {/* --- SLIDER HANDLE --- */}
+      {/* --- FLOATING LABELS --- */}
+      {/* BEFORE Label (Top-Left) */}
       <div 
-        className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize z-50 flex items-center justify-center shadow-xl"
+        className="absolute top-4 left-4 z-40 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm transition-opacity duration-200"
+        style={{ opacity: beforeLabelOpacity }}
+      >
+        <span className="text-white text-xs font-mono uppercase tracking-wider">
+          BEFORE
+        </span>
+      </div>
+
+      {/* AFTER Label (Top-Right) */}
+      <div 
+        className="absolute top-4 right-4 z-40 px-3 py-1.5 rounded-full bg-[#FFF2EC]/90 backdrop-blur-sm transition-opacity duration-200"
+        style={{ opacity: afterLabelOpacity }}
+      >
+        <span className="text-[#C5A059] text-xs font-mono uppercase tracking-wider font-semibold">
+          AFTER
+        </span>
+      </div>
+
+      {/* --- SLIDER HANDLE & DIVIDER --- */}
+      <div 
+        className="absolute top-0 bottom-0 w-px bg-white cursor-ew-resize z-50 flex items-center justify-center shadow-lg"
         style={{ left: `${sliderPosition}%` }}
       >
-        <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md border border-black/10">
+        <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg">
           <MoveHorizontal className="w-4 h-4 text-black/60" />
         </div>
       </div>
