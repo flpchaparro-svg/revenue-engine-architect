@@ -442,7 +442,8 @@ const App: React.FC = () => {
                   <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-20">
                     <div className="lg:col-span-12 flex flex-col justify-center items-center lg:items-start text-center lg:text-left">
                       <div className="flex items-center gap-4 mb-10 overflow-hidden justify-center lg:justify-start">
-                        <span className="h-[1px] w-12 bg-[#1a1a1a]"></span>
+                        {/* Shorter line on mobile, full length on desktop */}
+                        <span className="h-[1px] w-6 md:w-12 bg-[#1a1a1a]"></span>
                         <span className="text-xs font-bold tracking-widest uppercase text-[#1a1a1a] mt-[1px]">
                           SYDNEY BUSINESS AUTOMATION 
                           <span className="font-mono font-bold ml-2 text-[#C5A059]">
