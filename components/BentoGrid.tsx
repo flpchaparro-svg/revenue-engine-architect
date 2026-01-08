@@ -179,7 +179,11 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                />
              </div>
 
-             <ViewportViz type={activeService.visualPrompt} color={getVizColor(activeService.systemGroup || 'GET CLIENTS')} />
+             <ViewportViz 
+               key={activeService.id} 
+               type={activeService.visualPrompt} 
+               color={getVizColor(activeService.systemGroup || 'GET CLIENTS')} 
+             />
              
              {/* Content Overlay */}
              <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12 z-20 pointer-events-none flex flex-col items-start justify-end h-full">

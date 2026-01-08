@@ -1,6 +1,6 @@
 
 import React, { useState, useRef } from 'react';
-import { MoveHorizontal, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
+import { MoveHorizontal } from 'lucide-react';
 
 interface EvidenceVisualCompareProps {
   beforeLabel?: string;
@@ -30,11 +30,6 @@ const EvidenceVisual_Compare: React.FC<EvidenceVisualCompareProps> = ({
     setSliderPosition(percent);
   };
 
-  // Color Constants
-  const THEME_COLOR = '#C5A059'; // Gold instead of Teal
-  const THEME_BG = 'rgba(197, 160, 89, 0.05)';
-  const THEME_BORDER = 'rgba(197, 160, 89, 0.2)';
-
   return (
     <div 
       ref={containerRef}
@@ -43,47 +38,25 @@ const EvidenceVisual_Compare: React.FC<EvidenceVisualCompareProps> = ({
       onTouchMove={handleTouchMove}
     >
       {/* --- AFTER IMAGE (Background / Clean) --- */}
-      <div className="absolute inset-0 flex items-center justify-center p-12" style={{ backgroundColor: THEME_BG }}>
-         {/* CSS Wireframe: The "Perfect" Architecture */}
-         <div className="w-full h-full border grid grid-cols-12 gap-4 p-8 relative" style={{ borderColor: THEME_BORDER }}>
-            <div className="absolute top-4 right-4 text-white font-mono text-[10px] px-2 py-1 flex items-center gap-2" style={{ backgroundColor: THEME_COLOR }}>
-               <CheckCircle2 className="w-3 h-3" /> SCORE: 100
-            </div>
-            {/* Header */}
-            <div className="col-span-12 h-12" style={{ backgroundColor: 'rgba(197, 160, 89, 0.1)', borderColor: THEME_BORDER, borderWidth: '1px' }} />
-            {/* Hero Content */}
-            <div className="col-span-6 h-64 border flex items-center justify-center" style={{ backgroundColor: 'rgba(197, 160, 89, 0.1)', borderColor: THEME_BORDER }}>
-               <div className="font-mono text-xs" style={{ color: 'rgba(197, 160, 89, 0.6)' }}>IMG_OPTIMIZED.WEBP</div>
-            </div>
-            <div className="col-span-6 h-64 flex flex-col gap-4">
-               <div className="h-8 w-3/4" style={{ backgroundColor: 'rgba(197, 160, 89, 0.2)' }} />
-               <div className="h-4 w-full" style={{ backgroundColor: 'rgba(197, 160, 89, 0.1)' }} />
-               <div className="h-4 w-5/6" style={{ backgroundColor: 'rgba(197, 160, 89, 0.1)' }} />
-               <div className="h-12 w-1/3 mt-auto" style={{ backgroundColor: THEME_COLOR }} />
-            </div>
-         </div>
+      <div className="absolute inset-0">
+        <img 
+          src="/images/group7-after.webp" 
+          alt={afterLabel}
+          className="w-full h-full object-cover"
+        />
       </div>
 
       {/* --- BEFORE IMAGE (Clipped Overlay / Messy) --- */}
       <div 
-        className="absolute inset-0 bg-red-50/80 border-r-2 border-white overflow-hidden"
+        className="absolute inset-0 border-r-2 border-white overflow-hidden"
         style={{ width: `${sliderPosition}%` }}
       >
-         <div className="w-full h-full absolute inset-0 p-12" style={{ width: '100vw' }}> 
-            {/* CSS Wireframe: The "Broken" Architecture */}
-            <div className="w-full max-w-[900px] h-full border border-red-200 relative p-8">
-               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center">
-                  <Loader2 className="w-12 h-12 text-red-400 animate-spin mb-4" />
-               </div>
-               
-               {/* Disjointed Elements */}
-               <div className="absolute top-8 left-8 w-[120%] h-16 bg-red-200/20 rotate-1 border border-red-300/50" />
-               <div className="absolute top-32 left-12 w-64 h-64 bg-gray-200 blur-sm border border-red-300 border-dashed flex items-center justify-center">
-               </div>
-               <div className="absolute top-40 right-20 w-48 h-96 bg-red-100/50 -rotate-2 border border-red-200" />
-               
-            </div>
-         </div>
+        <img 
+          src="/images/group7-before.webp" 
+          alt={beforeLabel}
+          className="w-full h-full object-cover"
+          style={{ width: '100vw' }}
+        />
       </div>
 
       {/* --- SLIDER HANDLE --- */}

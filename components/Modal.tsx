@@ -24,6 +24,15 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, onViewPillar })
 
   if (!service) return null;
 
+  // Map systemGroup to color (same logic as BentoGrid)
+  const getVizColor = (systemGroup: string | undefined): string => {
+    if (!systemGroup) return '#C5A059'; // Default gold
+    if (systemGroup === 'GET CLIENTS') return '#E21E3F'; // Red for pillars 1-3
+    if (systemGroup === 'SCALE FASTER') return '#C5A059'; // Gold for pillars 4-6
+    if (systemGroup === 'SEE CLEARLY') return '#FFFFFF'; // White for pillar 7
+    return '#C5A059'; // Default gold
+  };
+
   const handlePillarNavigation = () => {
     if (service.id) {
       onViewPillar(service.id);
@@ -64,7 +73,11 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, onViewPillar })
                   
                   {/* Header Visual */}
                   <div className="h-48 bg-[#1a1a1a] relative border-b border-black/10 overflow-hidden shrink-0">
-                     <ViewportViz type={service.visualPrompt} />
+                     <ViewportViz 
+                       key={service.id} 
+                       type={service.visualPrompt} 
+                       color={getVizColor(service.systemGroup)} 
+                     />
                      <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] to-transparent opacity-60" />
                      
                      {/* CLOSE BUTTON - Absolute top right */}
