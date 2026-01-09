@@ -125,29 +125,12 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
     }
   };
 
-  // Phase 4: Gold Dot Seal Reappears
-  const goldDotSealVariants = {
-    initial: { 
-      opacity: 0,
-      scale: 0
-    },
-    appear: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.3,
-        ease: [0.34, 1.56, 0.64, 1], // Pop effect
-        delay: 1.8
-      }
-    }
-  };
-
-  const handleSealComplete = () => {
-    // After seal appears (1.8s delay + 0.3s duration = 2.1s), wait then trigger exit
+  const handleSubtitleComplete = () => {
+    // After subtitle animation completes (1.2s delay + 0.5s duration = 1.7s), wait then trigger exit
     setTimeout(() => {
       setIsLoading(false);
       sessionStorage.setItem('has_loaded', 'true');
-    }, 400); // Small pause before exit (total ~2.5s)
+    }, 800); // Small pause before exit (total ~2.5s)
   };
 
   return (
@@ -206,19 +189,11 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
                 variants={subtitleVariants}
                 initial="initial"
                 animate="reveal"
+                onAnimationComplete={handleSubtitleComplete}
                 className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#FFF2EC] mt-2"
               >
                 SYDNEY BUSINESS AUTOMATION
               </motion.div>
-
-              {/* Phase 4: Gold Dot Seal - Reappears at Bottom */}
-              <motion.div
-                variants={goldDotSealVariants}
-                initial="initial"
-                animate="appear"
-                onAnimationComplete={handleSealComplete}
-                className="w-1.5 h-1.5 rounded-full bg-[#C5A059] mt-4"
-              />
             </div>
           </motion.div>
         )}
