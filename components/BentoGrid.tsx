@@ -5,6 +5,18 @@ import { SERVICES } from '../constants';
 import { ServiceDetail } from '../types';
 import ViewportViz from './ViewportViz';
 
+// Helper hook to detect mobile
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+  return isMobile;
+};
+
 interface BentoGridProps {
   onServiceClick: (service: ServiceDetail) => void;
 }
@@ -132,6 +144,7 @@ const TechnicalLabel: React.FC<{ active: boolean; text: string; accentColor: str
 const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
   const [activeId, setActiveId] = useState<string>(SERVICES[0].id);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const isMobile = useIsMobile();
 
   const activeService = SERVICES.find(s => s.id === activeId) || SERVICES[0];
   const activeSystemGroup = mapSystemGroup(activeService.systemGroup || 'GET CLIENTS');
@@ -283,12 +296,14 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                    >
                        {/* MOBILE LOADING BAR - REMOVED ON MOBILE/TABLET FOR PERFORMANCE */}
                        
-                       {/* Full Background Animation */}
-                       <div className="absolute inset-0 z-0 opacity-100">
-                           <ViewportViz type={service.visualPrompt} color={getVizColor(service.systemGroup || 'GET CLIENTS')} />
-                           {/* Gradient Overlay for Text Readability - LIGHTER GRADIENT */}
-                           <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/20 to-transparent" />
-                       </div>
+                       {/* Full Background Animation - Only render if actually on mobile */}
+                       {isMobile && (
+                         <div className="absolute inset-0 z-0 opacity-100">
+                             <ViewportViz type={service.visualPrompt} color={getVizColor(service.systemGroup || 'GET CLIENTS')} />
+                             {/* Gradient Overlay for Text Readability - LIGHTER GRADIENT */}
+                             <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/20 to-transparent" />
+                         </div>
+                       )}
 
                        {/* Content Layer */}
                        <div className="relative z-10 p-6 md:p-8 w-full flex flex-col items-start pb-8 md:pb-12">

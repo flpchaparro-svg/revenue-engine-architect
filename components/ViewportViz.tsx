@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import * as d3 from 'https://esm.sh/d3@7';
+import * as d3 from 'd3';
+import { useInView } from 'framer-motion';
 
 interface ViewportVizProps {
   type: string;
@@ -9,28 +10,16 @@ interface ViewportVizProps {
 const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
-  const mouseRef = useRef({ x: 0, y: 0 });
-
-  // Mouse Tracking
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const container = containerRef.current;
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      mouseRef.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
-      };
-    };
-
-    container.addEventListener('mousemove', handleMouseMove);
-    return () => container.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+  
+  // PERFORMANCE FIX: Detect if component is visible
+  // We add a margin so it starts slightly before coming on screen
+  const isInView = useInView(containerRef, { margin: "0px 0px 50px 0px" });
 
   // Visualization Logic
   useEffect(() => {
-    if (!containerRef.current) return;
+    // If the component is not in view or container is missing, do not run the expensive D3 logic
+    if (!containerRef.current || !isInView) return;
+    
     const container = containerRef.current;
     let timer: d3.Timer;
 
@@ -302,7 +291,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
         if (timer) timer.stop(); 
         observer.disconnect();
     };
-  }, [type, color]);
+  }, [type, color, isInView]); // Re-run when view status changes
 
   return (
     <div ref={containerRef} className="w-full h-full bg-transparent relative overflow-hidden">
