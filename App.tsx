@@ -30,6 +30,24 @@ const TECH_STACK = [
   'WEBSITES', 'CRM', 'MARKETING AUTOMATION', 'AI ASSISTANTS', 'CONTENT MARKETING', 'DASHBOARDS'
 ];
 
+// --- HOOK: SCREEN SIZE CHECK ---
+const useIsDesktop = () => {
+  const [isDesktop, setIsDesktop] = useState(true);
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      setIsDesktop(window.innerWidth >= 1024); // 1024px is the 'lg' breakpoint
+    }
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+    // Call handler right away so state gets updated with initial window size
+    handleResize();
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return isDesktop;
+}
+
 // --- HELPERS (GrowthGraph) ---
 const GrowthGraph: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -145,6 +163,7 @@ const AuditCubeVisual: React.FC<AuditCubeVisualProps> = ({ scrollYProgress }) =>
 
 /**
  * Card Component
+ * Updated for Mobile/Desktop Switching
  */
 interface CardProps {
   data: typeof AUDIT_DATA[0];
@@ -152,38 +171,93 @@ interface CardProps {
   total: number;
   scrollYProgress: ReturnType<typeof useScroll>['scrollYProgress'];
   onNavigate?: (v: string) => void;
+  isDesktop: boolean;
 }
 
-const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavigate }) => {
-  const step = 0.25; // 100% / 4 intervals
+const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavigate, isDesktop }) => {
+  // DESKTOP LOGIC (Animation Ranges)
+  const step = 0.25; 
   const peak = index * step;
-  
-  // RANGE DEFINITION:
-  // The card is "active" during a window of +/- 0.25 (one full step).
-  // It enters from (peak - 0.25) and exits at (peak + 0.25).
   const range = [peak - step, peak, peak + step];
-
-  // 1. ROTATION: -90deg (bottom) -> 0deg (flat) -> 90deg (top)
-  const rotateX = useTransform(scrollYProgress, range, [-90, 0, 90]);
   
-  // 2. OPACITY: Fade in, hold, sharp fade out
-  // We cut opacity to 0 at +/- 0.20 to prevent "messy overlap" at the extremes
+  const rotateX = useTransform(scrollYProgress, range, [-90, 0, 90]);
   const opacity = useTransform(scrollYProgress, 
     [peak - 0.25, peak - 0.15, peak, peak + 0.15, peak + 0.25], 
     [0, 1, 1, 1, 0]
   );
-
-  // 3. SCALE: Slight depth effect (0.8 -> 1 -> 0.8) moves it "back" in space
   const scale = useTransform(scrollYProgress, range, [0.8, 1, 0.8]);
-
-  // 4. VERTICAL OFFSET: Helps the "wheel" feeling by moving y concurrently
   const y = useTransform(scrollYProgress, range, ["50%", "0%", "-50%"]);
-
-  // 5. Z-INDEX & POINTER EVENTS
-  // Only the active card is clickable and on top
-  const zIndex = useTransform(scrollYProgress, [peak - 0.01, peak + 0.01], [0, 10]); // Low z-index unless active
+  const zIndex = useTransform(scrollYProgress, [peak - 0.01, peak + 0.01], [0, 10]);
   const pointerEvents = useTransform(opacity, v => v > 0.5 ? 'auto' : 'none');
 
+  // --- CONTENT RENDERER (Shared) ---
+  const renderContent = () => (
+    <div className="w-full h-full p-6 md:p-12 lg:p-20 flex flex-col justify-center max-w-[1600px] mx-auto">
+      {data.type === 'cta' ? (
+         <div className="flex flex-col items-center justify-center text-center h-full max-w-4xl mx-auto py-12 md:py-0">
+            <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-tight mb-10">
+              You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
+              <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
+            </h2>
+            <button 
+              onClick={() => onNavigate && onNavigate('system')}
+              className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300 hover:border-[#C5A059]"
+            >
+               <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
+               <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ SEE THE SYSTEM ]</span>
+            </button>
+         </div>
+      ) : (
+         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
+            <div className="flex flex-col space-y-6 md:space-y-8">
+               <div className="flex items-center gap-4">
+                  <span className="font-serif text-5xl md:text-6xl text-[#1a1a1a]/10 italic font-bold">
+                     {data.id}
+                  </span>
+                  <div className="h-px flex-1 bg-[#1a1a1a]/20"></div>
+                  <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest border border-[#E21E3F]/30 px-2 py-1">
+                     [{data.label}]
+                  </span>
+               </div>
+               
+               <div>
+                  <h3 className="font-serif text-4xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-[0.9] mb-6">
+                     {data.title}
+                  </h3>
+                  <div className="inline-block bg-[#E21E3F]/10 px-4 py-2">
+                     <span className="font-mono text-lg md:text-2xl text-[#E21E3F] font-bold tracking-tight">
+                        {data.metric}
+                     </span>
+                  </div>
+               </div>
+
+               <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed max-w-md border-l-2 border-[#E21E3F]/20 pl-6">
+                  {data.description}
+               </p>
+            </div>
+
+            {isDesktop && (
+              <div className="hidden lg:flex items-center justify-center h-full min-h-[400px]">
+                 <AuditCubeVisual scrollYProgress={scrollYProgress} />
+              </div>
+            )}
+         </div>
+      )}
+    </div>
+  );
+
+  // --- RETURN MOBILE OR DESKTOP WRAPPER ---
+  
+  if (!isDesktop) {
+    // MOBILE: Static vertical stack
+    return (
+      <div className="relative w-full border-b border-[#1a1a1a]/10 last:border-0 bg-[#FFF2EC] min-h-[50vh] flex flex-col justify-center">
+         {renderContent()}
+      </div>
+    );
+  }
+
+  // DESKTOP: 3D Animated Card
   return (
     <motion.div
       style={{ 
@@ -193,99 +267,52 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
         y, 
         zIndex, 
         pointerEvents,
-        transformStyle: "preserve-3d", // Crucial for 3D effect
-        backfaceVisibility: "hidden"    // Crucial: Hides text when rotated behind
+        transformStyle: "preserve-3d",
+        backfaceVisibility: "hidden"
       }}
       className="absolute inset-0 w-full h-full flex flex-col justify-center bg-[#FFF2EC] origin-center"
     >
-      <div className="w-full h-full p-6 md:p-12 lg:p-20 flex flex-col justify-center max-w-[1600px] mx-auto">
-        
-        {data.type === 'cta' ? (
-           // --- CTA CARD (FIXED: Reduced Size) ---
-           <div className="flex flex-col items-center justify-center text-center h-full max-w-4xl mx-auto">
-              <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-tight mb-10">
-                You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
-                <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
-              </h2>
-              <button 
-                onClick={() => onNavigate && onNavigate('system')}
-                className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300 hover:border-[#C5A059]"
-              >
-                 <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                 <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ SEE THE SYSTEM ]</span>
-              </button>
-           </div>
-        ) : (
-           // --- DATA CARD LAYOUT ---
-           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
-              <div className="flex flex-col space-y-6 md:space-y-8">
-                 <div className="flex items-center gap-4">
-                    <span className="font-serif text-5xl md:text-6xl text-[#1a1a1a]/10 italic font-bold">
-                       {data.id}
-                    </span>
-                    <div className="h-px flex-1 bg-[#1a1a1a]/20"></div>
-                    <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest border border-[#E21E3F]/30 px-2 py-1">
-                       [{data.label}]
-                    </span>
-                 </div>
-                 
-                 <div>
-                    <h3 className="font-serif text-5xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-[0.9] mb-6">
-                       {data.title}
-                    </h3>
-                    <div className="inline-block bg-[#E21E3F]/10 px-4 py-2">
-                       <span className="font-mono text-xl md:text-2xl text-[#E21E3F] font-bold tracking-tight">
-                          {data.metric}
-                       </span>
-                    </div>
-                 </div>
-
-                 <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed max-w-md border-l-2 border-[#E21E3F]/20 pl-6">
-                    {data.description}
-                 </p>
-              </div>
-
-              <div className="hidden lg:flex items-center justify-center h-full min-h-[400px]">
-                 <AuditCubeVisual scrollYProgress={scrollYProgress} />
-              </div>
-           </div>
-        )}
-      </div>
+      {renderContent()}
     </motion.div>
   );
 };
 
-// --- MAIN SECTION ---
+// --- MAIN SECTION: FrictionAudit ---
 
 const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ onNavigate }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isDesktop = useIsDesktop(); // Use our hook
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
 
   return (
-    // Height 500vh = 1 viewport sticky + 4 scrollable viewports (4 steps of 25%)
-    <section ref={containerRef} className="relative h-[500vh] bg-[#FFF2EC] z-30">
+    // CONDITIONAL HEIGHT: Auto on Mobile, 500vh on Desktop
+    <section 
+        ref={containerRef} 
+        className={`relative bg-[#FFF2EC] z-30 ${isDesktop ? 'h-[500vh]' : 'h-auto py-20'}`}
+    >
        
-       {/* Snap Anchors: Strictly placed to force 5 stops */}
-       {/* Removed inline style tag that modifies global html - this was causing site collapse */}
-       <div className="absolute inset-0 flex flex-col pointer-events-none z-0">
-          {[...Array(5)].map((_, i) => (
-             <div 
-                key={i} 
-                className="h-screen w-full snap-start" 
-                // Ensure strict snapping
-                style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}
-             />
-          ))}
-       </div>
+       {/* Snap Anchors (Desktop Only) */}
+       {isDesktop && (
+         <div className="absolute inset-0 flex flex-col pointer-events-none z-0">
+            {[...Array(5)].map((_, i) => (
+               <div 
+                  key={i} 
+                  className="h-screen w-full snap-start" 
+                  style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}
+               />
+            ))}
+         </div>
+       )}
 
-      {/* Sticky Viewport */}
-      <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col md:flex-row z-10 border-t border-[#1a1a1a]/10">
+      {/* Main Container */}
+      <div className={`${isDesktop ? 'sticky top-0 h-screen overflow-hidden' : 'relative h-auto'} w-full flex flex-col md:flex-row z-10 border-t border-[#1a1a1a]/10`}>
         
-        {/* Left Panel (Static) */}
-        <div className="w-full md:w-[450px] md:h-full border-b md:border-b-0 md:border-r border-[#1a1a1a]/10 bg-[#FFF2EC] p-8 md:p-12 lg:p-16 flex flex-col justify-between shrink-0 z-50">
+        {/* Left Panel (Title) */}
+        <div className={`w-full md:w-[450px] border-b md:border-b-0 md:border-r border-[#1a1a1a]/10 bg-[#FFF2EC] p-8 md:p-12 lg:p-16 flex flex-col justify-between shrink-0 z-50 ${isDesktop ? 'md:h-full' : 'h-auto'}`}>
            <div>
               <div className="mb-8 font-mono text-xs text-[#E21E3F] tracking-[0.2em] uppercase flex items-center gap-2">
                  <div className="w-2 h-2 bg-[#E21E3F]"></div>
@@ -302,27 +329,29 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ o
               </p>
            </div>
            
-           {/* Audit Progress Indicator */}
-           <div className="hidden md:block">
-              <div className="font-mono text-[10px] text-[#1a1a1a]/40 uppercase mb-2">Audit Progress</div>
-              <div className="w-full h-1 bg-[#1a1a1a]/10 relative overflow-hidden">
-                 <motion.div 
-                    className="h-full bg-[#E21E3F]" 
-                    style={{ scaleX: scrollYProgress, transformOrigin: 'left' }}
-                 />
-              </div>
-              <div className="mt-2 text-right font-mono text-[10px] text-[#1a1a1a]">
-                 <motion.span>
-                    {useTransform(scrollYProgress, v => `${Math.min(100, Math.round(v * 100))}%`)}
-                 </motion.span>
-              </div>
-           </div>
+           {/* Progress (Desktop Only) */}
+           {isDesktop && (
+             <div className="hidden md:block">
+                <div className="font-mono text-[10px] text-[#1a1a1a]/40 uppercase mb-2">Audit Progress</div>
+                <div className="w-full h-1 bg-[#1a1a1a]/10 relative overflow-hidden">
+                   <motion.div 
+                      className="h-full bg-[#E21E3F]" 
+                      style={{ scaleX: scrollYProgress, transformOrigin: 'left' }}
+                   />
+                </div>
+                <div className="mt-2 text-right font-mono text-[10px] text-[#1a1a1a]">
+                   <motion.span>
+                      {useTransform(scrollYProgress, v => `${Math.min(100, Math.round(v * 100))}%`)}
+                   </motion.span>
+                </div>
+             </div>
+           )}
         </div>
 
-        {/* Right Panel (Dynamic 3D Scene) */}
+        {/* Right Panel (Cards) */}
         <div 
-            className="flex-1 relative h-full overflow-hidden bg-[#FFF2EC]"
-            style={{ perspective: "1000px" }} // ADDS 3D DEPTH
+            className={`flex-1 relative bg-[#FFF2EC] ${isDesktop ? 'h-full overflow-hidden' : 'h-auto flex flex-col'}`}
+            style={isDesktop ? { perspective: "1000px" } : {}}
         >
            {AUDIT_DATA.map((data, index) => (
              <Card 
@@ -332,13 +361,15 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ o
                total={AUDIT_DATA.length}
                scrollYProgress={scrollYProgress}
                onNavigate={onNavigate}
+               isDesktop={isDesktop}
              />
            ))}
            
-           {/* Grid Texture Overlay */}
-           <div className="absolute inset-0 pointer-events-none opacity-5 z-0" 
-             style={{ backgroundImage: `radial-gradient(#1a1a1a 1px, transparent 1px)`, backgroundSize: '24px 24px' }} 
-           />
+           {isDesktop && (
+             <div className="absolute inset-0 pointer-events-none opacity-5 z-0" 
+               style={{ backgroundImage: `radial-gradient(#1a1a1a 1px, transparent 1px)`, backgroundSize: '24px 24px' }} 
+             />
+           )}
         </div>
         
       </div>
