@@ -4,14 +4,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 const PageTransition: React.FC<{ children: React.ReactNode, currentView: string }> = ({ children, currentView }) => {
   // Session Check: Only show preloader on first visit
   const [isLoading, setIsLoading] = useState(() => {
-    const hasLoaded = sessionStorage.getItem('has_loaded');
-    return !hasLoaded;
+    // Check sessionStorage immediately on mount
+    if (typeof window !== 'undefined') {
+      const hasLoaded = sessionStorage.getItem('has_loaded');
+      return !hasLoaded;
+    }
+    return true; // Default to showing preloader if window is not available
   });
 
   useEffect(() => {
-    const hasLoaded = sessionStorage.getItem('has_loaded');
-    if (hasLoaded) {
-      setIsLoading(false);
+    // Double-check on mount (for mobile timing issues)
+    if (typeof window !== 'undefined') {
+      const hasLoaded = sessionStorage.getItem('has_loaded');
+      if (hasLoaded === 'true') {
+        setIsLoading(false);
+      }
     }
   }, []);
 
@@ -142,7 +149,16 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
             variants={containerVariants}
             initial="initial"
             exit="exit"
-            className="fixed inset-0 z-[9999] bg-[#1a1a1a] flex flex-col items-center justify-center overflow-hidden shadow-2xl"
+            className="preloader-container fixed top-0 left-0 right-0 bottom-0 w-screen z-[9999] bg-[#1a1a1a] flex flex-col items-center justify-center overflow-hidden shadow-2xl"
+            style={{ 
+              position: 'fixed',
+              width: '100vw',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              WebkitOverflowScrolling: 'touch' // Smooth scrolling on iOS
+            }}
           >
             {/* Centered Container */}
             <div className="relative flex flex-col items-center justify-center">

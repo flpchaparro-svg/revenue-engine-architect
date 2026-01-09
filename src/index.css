@@ -25,3 +25,16 @@ body {
   background-color: #C5A059;
   border-radius: 4px;
 }
+
+/* Mobile viewport height fallback for preloader */
+@supports (height: 100dvh) {
+  .preloader-container {
+    height: 100dvh;
+  }
+}
+
+@supports not (height: 100dvh) {
+  .preloader-container {
+    height: 100vh;
+  }
+}
