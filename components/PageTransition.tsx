@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const PageTransition: React.FC<{ children: React.ReactNode, currentView: string }> = ({ children, currentView }) => {
-  // 1. SAFE SESSION CHECK
   const [isLoading, setIsLoading] = useState(() => {
     if (typeof window === 'undefined') return false; 
     try {
@@ -14,12 +13,13 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
   });
 
   useEffect(() => {
-    // 2. SAFETY TIMER: Reduced to 2.5s (Fail-safe for mobile lags)
-    // If the animation gets stuck, this forces the site to open.
+    // SAFETY TIMER: 
+    // We give it a minimum of 1.2s so the user sees the "Pulse" at least once.
+    // Max of 2.5s for safety.
     const safetyTimer = setTimeout(() => {
       setIsLoading(false);
       if (typeof window !== 'undefined') sessionStorage.setItem('has_loaded', 'true');
-    }, 2500);
+    }, 2000); 
 
     return () => clearTimeout(safetyTimer);
   }, []);
@@ -28,7 +28,8 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
     window.scrollTo(0, 0);
   };
 
-  // --- ANIMATION VARIANTS (Faster Timing) ---
+  // --- ANIMATION VARIANTS (Parallel / Instant) ---
+
   const containerVariants = {
     initial: { opacity: 1, y: 0 },
     exit: { 
@@ -40,46 +41,69 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
     }
   };
 
+  // 1. The Wrapper Pulses while waiting
+  const totemWrapperVariants = {
+    initial: { scale: 1 },
+    pulse: {
+      scale: [1, 1.02, 1],
+      opacity: [1, 0.8, 1],
+      transition: {
+        duration: 2,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: 0.6 // Start pulsing after assembly
+      }
+    }
+  };
+
+  // 2. Fast Drop
   const goldDotDropVariants = {
     initial: { y: '-100vh', opacity: 1 },
-    drop: { y: 0, transition: { duration: 0.6, ease: "easeIn" } },
-    impact: { scale: 0, opacity: 0, transition: { duration: 0.01, delay: 0.6 } }
+    drop: { y: 0, transition: { duration: 0.4, ease: "easeIn" } }, // Faster drop (0.4s)
+    impact: { scale: 0, opacity: 0, transition: { duration: 0.01, delay: 0.4 } }
   };
+
+  // 3. Everything Explodes Out AT ONCE (Delay 0.4s)
+  const commonTransition = { type: "spring", stiffness: 200, damping: 20, delay: 0.42 };
 
   const redLineVariants = {
     initial: { width: 0, opacity: 0 },
-    expand: { width: 260, opacity: 1, transition: { type: "spring", stiffness: 300, damping: 20, delay: 0.6 } }
+    expand: { width: 260, opacity: 1, transition: commonTransition }
   };
 
   const logoVariants = {
-    initial: { y: 20, opacity: 0 },
-    reveal: { y: 0, opacity: 1, transition: { duration: 0.5, ease: "easeOut", delay: 0.7 } }
+    initial: { y: 15, opacity: 0 },
+    reveal: { y: 0, opacity: 1, transition: commonTransition }
   };
 
   const titleVariants = {
-    initial: { y: -20, opacity: 0 },
-    reveal: { y: 0, opacity: 1, transition: { duration: 0.5, ease: "easeOut", delay: 0.7 } }
+    initial: { y: -15, opacity: 0 },
+    reveal: { y: 0, opacity: 1, transition: commonTransition }
   };
 
   const subtitleVariants = {
     initial: { opacity: 0 },
-    reveal: { 
-        opacity: 0.6, 
-        transition: { 
-            duration: 0.5, 
-            delay: 1.0 // Started earlier (was 1.2s)
-        } 
-    }
+    reveal: { opacity: 0.6, transition: { duration: 0.4, delay: 0.6 } } // Slight delay for hierarchy
   };
 
-  // 3. EXIT TRIGGER
-  const handleSequenceComplete = () => {
-    // Wait only 0.3s (was 0.8s) so it feels INSTANT
-    setTimeout(() => {
-      setIsLoading(false);
-      if (typeof window !== 'undefined') sessionStorage.setItem('has_loaded', 'true');
-    }, 300); 
-  };
+  // Logic to dismiss earlier if load is fast
+  useEffect(() => {
+    // If the browser reports "load" event (everything ready), we can dismiss 
+    // BUT we wait at least 1.2s so the animation plays fully.
+    const handleLoad = () => {
+        setTimeout(() => {
+            setIsLoading(false);
+            if (typeof window !== 'undefined') sessionStorage.setItem('has_loaded', 'true');
+        }, 1200);
+    };
+    
+    if (document.readyState === 'complete') {
+        handleLoad();
+    } else {
+        window.addEventListener('load', handleLoad);
+        return () => window.removeEventListener('load', handleLoad);
+    }
+  }, []);
 
   return (
     <div className="relative min-h-screen w-full">
@@ -92,29 +116,38 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
             exit="exit"
             className="fixed inset-0 z-[9999] bg-[#1a1a1a] flex flex-col items-center justify-center overflow-hidden shadow-2xl"
           >
-             <div className="relative flex flex-col items-center justify-center">
+             {/* PULSING WRAPPER */}
+             <motion.div 
+                className="relative flex flex-col items-center justify-center"
+                variants={totemWrapperVariants}
+                animate="pulse"
+             >
+              {/* Drop */}
               <motion.div variants={goldDotDropVariants} initial="initial" animate={["drop", "impact"]} className="absolute w-1.5 h-1.5 rounded-full bg-[#C5A059] z-50" />
               
+              {/* Logo */}
               <div className="overflow-hidden mb-4">
                 <motion.div variants={logoVariants} initial="initial" animate="reveal" className="bg-[#FFF2EC] text-[#1a1a1a] font-mono text-xs font-bold px-2 py-1">[FC)</motion.div>
               </div>
               
+              {/* Line */}
               <motion.div variants={redLineVariants} initial="initial" animate="expand" className="h-[1px] bg-[#E21E3F] mx-auto" />
               
+              {/* Title */}
               <div className="overflow-hidden mt-4 mb-2">
                  <motion.div variants={titleVariants} initial="initial" animate="reveal" className="font-serif text-3xl md:text-4xl text-[#FFF2EC] italic">Revenue Engine</motion.div>
               </div>
               
+              {/* Subtitle */}
               <motion.div 
                 variants={subtitleVariants} 
                 initial="initial" 
                 animate="reveal" 
-                onAnimationComplete={handleSequenceComplete}
                 className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#FFF2EC]"
               >
                 SYDNEY BUSINESS AUTOMATION
               </motion.div>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
