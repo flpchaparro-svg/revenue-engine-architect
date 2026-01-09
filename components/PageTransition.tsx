@@ -21,11 +21,11 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
 
   // Animation Variants for Clean Orchestration
   const containerVariants = {
-    initial: { opacity: 1 },
+    initial: { opacity: 1, y: 0 },
     exit: { 
-      opacity: 0,
+      y: '-100%',
       transition: { 
-        duration: 0.6, 
+        duration: 0.8, 
         ease: [0.76, 0, 0.24, 1]
       }
     }
@@ -125,7 +125,7 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
     setTimeout(() => {
       setIsLoading(false);
       sessionStorage.setItem('session_loaded', 'true');
-    }, 600); // Wait for exit fade duration
+    }, 800); // Wait for exit curtain lift duration
   };
 
   return (
@@ -137,7 +137,7 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
             variants={containerVariants}
             initial="initial"
             exit="exit"
-            className="fixed inset-0 z-[9999] bg-[#FFF2EC] flex flex-col items-center justify-center overflow-hidden"
+            className="fixed inset-0 z-[9999] bg-[#FFF2EC] flex flex-col items-center justify-center overflow-hidden shadow-2xl"
           >
             {/* Centered Container */}
             <div className="relative flex flex-col items-center justify-center">
