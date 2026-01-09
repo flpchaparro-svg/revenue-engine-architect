@@ -2,31 +2,33 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const PageTransition: React.FC<{ children: React.ReactNode, currentView: string }> = ({ children, currentView }) => {
-  // Session Check: Only show preloader on first visit
+  // 1. SAFE SESSION CHECK
   const [isLoading, setIsLoading] = useState(() => {
-    // Check sessionStorage immediately on mount
-    if (typeof window !== 'undefined') {
+    if (typeof window === 'undefined') return false; 
+    try {
       const hasLoaded = sessionStorage.getItem('has_loaded');
       return !hasLoaded;
+    } catch (e) {
+      return false;
     }
-    return true; // Default to showing preloader if window is not available
   });
 
   useEffect(() => {
-    // Double-check on mount (for mobile timing issues)
-    if (typeof window !== 'undefined') {
-      const hasLoaded = sessionStorage.getItem('has_loaded');
-      if (hasLoaded === 'true') {
-        setIsLoading(false);
-      }
-    }
+    // 2. SAFETY TIMER: Reduced to 2.5s (Fail-safe for mobile lags)
+    // If the animation gets stuck, this forces the site to open.
+    const safetyTimer = setTimeout(() => {
+      setIsLoading(false);
+      if (typeof window !== 'undefined') sessionStorage.setItem('has_loaded', 'true');
+    }, 2500);
+
+    return () => clearTimeout(safetyTimer);
   }, []);
 
   const handleExitComplete = () => {
-    // Cleanup after exit completes
+    window.scrollTo(0, 0);
   };
 
-  // Animation Variants for Dark Totem Reveal
+  // --- ANIMATION VARIANTS (Faster Timing) ---
   const containerVariants = {
     initial: { opacity: 1, y: 0 },
     exit: { 
@@ -38,106 +40,45 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
     }
   };
 
-  // Phase 1: Gold Dot Falls
   const goldDotDropVariants = {
-    initial: { 
-      y: '-100vh', 
-      opacity: 1,
-      scale: 1
-    },
-    drop: { 
-      y: 0,
-      transition: { 
-        duration: 0.6, 
-        ease: "easeIn"
-      }
-    },
-    impact: {
-      scale: 0,
-      opacity: 0,
-      transition: {
-        duration: 0.1,
-        delay: 0.6 // Disappears on impact
-      }
-    }
+    initial: { y: '-100vh', opacity: 1 },
+    drop: { y: 0, transition: { duration: 0.6, ease: "easeIn" } },
+    impact: { scale: 0, opacity: 0, transition: { duration: 0.01, delay: 0.6 } }
   };
 
-  // Phase 2: Red Line Expands
   const redLineVariants = {
-    initial: { 
-      width: 0,
-      opacity: 0
-    },
-    expand: {
-      width: 260,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 200,
-        damping: 15,
-        bounce: 0.4,
-        delay: 0.6 // Starts when dot hits
-      }
-    }
+    initial: { width: 0, opacity: 0 },
+    expand: { width: 260, opacity: 1, transition: { type: "spring", stiffness: 300, damping: 20, delay: 0.6 } }
   };
 
-  // Phase 3: Logo Pops Up
   const logoVariants = {
-    initial: { 
-      y: 20,
-      opacity: 0,
-      clipPath: "inset(100% 0 0 0)"
-    },
-    reveal: {
-      y: 0,
-      opacity: 1,
-      clipPath: "inset(0% 0 0 0)",
-      transition: {
-        duration: 0.5,
-        ease: [0.76, 0, 0.24, 1],
-        delay: 0.7 // After line expands
-      }
-    }
+    initial: { y: 20, opacity: 0 },
+    reveal: { y: 0, opacity: 1, transition: { duration: 0.5, ease: "easeOut", delay: 0.7 } }
   };
 
-  // Phase 3: Title Drops Down
   const titleVariants = {
-    initial: { 
-      y: -20,
-      opacity: 0,
-      clipPath: "inset(0 0 100% 0)"
-    },
-    reveal: {
-      y: 0,
-      opacity: 1,
-      clipPath: "inset(0 0 0% 0)",
-      transition: {
-        duration: 0.5,
-        ease: [0.76, 0, 0.24, 1],
-        delay: 0.7 // After line expands
-      }
-    }
+    initial: { y: -20, opacity: 0 },
+    reveal: { y: 0, opacity: 1, transition: { duration: 0.5, ease: "easeOut", delay: 0.7 } }
   };
 
-  // Phase 3: Subtitle Fades In
   const subtitleVariants = {
     initial: { opacity: 0 },
-    reveal: {
-      opacity: 0.6,
-      transition: {
-        duration: 0.5,
-        ease: [0.76, 0, 0.24, 1],
-        delay: 1.2 // After logo and title reveal
-      }
+    reveal: { 
+        opacity: 0.6, 
+        transition: { 
+            duration: 0.5, 
+            delay: 1.0 // Started earlier (was 1.2s)
+        } 
     }
   };
 
-  const handleSubtitleComplete = () => {
-    // After subtitle animation completes (1.2s delay + 0.5s duration = 1.7s), wait then trigger exit
+  // 3. EXIT TRIGGER
+  const handleSequenceComplete = () => {
+    // Wait only 0.3s (was 0.8s) so it feels INSTANT
     setTimeout(() => {
       setIsLoading(false);
-      sessionStorage.setItem('has_loaded', 'true');
-    }, 800); // Small pause before exit (total ~2.5s)
+      if (typeof window !== 'undefined') sessionStorage.setItem('has_loaded', 'true');
+    }, 300); 
   };
 
   return (
@@ -149,64 +90,27 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
             variants={containerVariants}
             initial="initial"
             exit="exit"
-            className="preloader-container fixed top-0 left-0 right-0 bottom-0 w-screen z-[9999] bg-[#1a1a1a] flex flex-col items-center justify-center overflow-hidden shadow-2xl"
-            style={{ 
-              position: 'fixed',
-              width: '100vw',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              WebkitOverflowScrolling: 'touch' // Smooth scrolling on iOS
-            }}
+            className="fixed inset-0 z-[9999] bg-[#1a1a1a] flex flex-col items-center justify-center overflow-hidden shadow-2xl"
           >
-            {/* Centered Container */}
-            <div className="relative flex flex-col items-center justify-center">
+             <div className="relative flex flex-col items-center justify-center">
+              <motion.div variants={goldDotDropVariants} initial="initial" animate={["drop", "impact"]} className="absolute w-1.5 h-1.5 rounded-full bg-[#C5A059] z-50" />
               
-              {/* Phase 1: Gold Dot - Falls from Top */}
-              <motion.div
-                variants={goldDotDropVariants}
-                initial="initial"
-                animate={["drop", "impact"]}
-                className="absolute w-4 h-4 rounded-full bg-[#C5A059] z-50"
-              />
-
-              {/* Phase 3: Logo [FC) - Pops Up from Line */}
-              <motion.div
-                variants={logoVariants}
-                initial="initial"
-                animate="reveal"
-                className="bg-[#FFF2EC] text-[#1a1a1a] font-mono text-xs font-bold px-2 py-1 mb-4"
-              >
-                [FC)
-              </motion.div>
-
-              {/* Phase 2: Red Line - Expands from Center */}
-              <motion.div
-                variants={redLineVariants}
-                initial="initial"
-                animate="expand"
-                className="h-[1px] bg-[#E21E3F] mx-auto"
-                style={{ transformOrigin: 'center' }}
-              />
-
-              {/* Phase 3: Title - Drops Down from Line */}
-              <motion.div
-                variants={titleVariants}
-                initial="initial"
-                animate="reveal"
-                className="font-serif text-3xl md:text-4xl text-[#FFF2EC] italic mb-2 mt-4"
-              >
-                Revenue Engine
-              </motion.div>
-
-              {/* Phase 3: Subtitle - Fades In */}
-              <motion.div
-                variants={subtitleVariants}
-                initial="initial"
-                animate="reveal"
-                onAnimationComplete={handleSubtitleComplete}
-                className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#FFF2EC] mt-2"
+              <div className="overflow-hidden mb-4">
+                <motion.div variants={logoVariants} initial="initial" animate="reveal" className="bg-[#FFF2EC] text-[#1a1a1a] font-mono text-xs font-bold px-2 py-1">[FC)</motion.div>
+              </div>
+              
+              <motion.div variants={redLineVariants} initial="initial" animate="expand" className="h-[1px] bg-[#E21E3F] mx-auto" />
+              
+              <div className="overflow-hidden mt-4 mb-2">
+                 <motion.div variants={titleVariants} initial="initial" animate="reveal" className="font-serif text-3xl md:text-4xl text-[#FFF2EC] italic">Revenue Engine</motion.div>
+              </div>
+              
+              <motion.div 
+                variants={subtitleVariants} 
+                initial="initial" 
+                animate="reveal" 
+                onAnimationComplete={handleSequenceComplete}
+                className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#FFF2EC]"
               >
                 SYDNEY BUSINESS AUTOMATION
               </motion.div>
@@ -215,7 +119,6 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
         )}
       </AnimatePresence>
 
-      {/* The Page Content */}
       <div className="relative z-0">
         {children}
       </div>
