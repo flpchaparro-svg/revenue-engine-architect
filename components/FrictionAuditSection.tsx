@@ -61,7 +61,10 @@ const AuditCubeVisual: React.FC<AuditCubeVisualProps> = ({ scrollYProgress }) =>
       {/* Inner Rotating Cube */}
       <motion.div 
         className="absolute inset-0 border-2 border-[#1a1a1a] bg-transparent"
-        style={{ rotate }}
+        style={{ 
+          rotate,
+          willChange: "transform" // Optimize rotation performance
+        }}
       >
          <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-[#1a1a1a] -translate-x-1/2 -translate-y-1/2" />
       </motion.div>
@@ -128,7 +131,8 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
         zIndex, 
         pointerEvents,
         transformStyle: "preserve-3d", // Crucial for 3D effect
-        backfaceVisibility: "hidden"    // Crucial: Hides text when rotated behind
+        backfaceVisibility: "hidden",    // Crucial: Hides text when rotated behind
+        willChange: "opacity, transform" // Hint browser to promote to GPU for performance
       }}
       className="absolute inset-0 w-full h-full flex flex-col justify-center bg-[#FFF2EC] origin-center"
     >

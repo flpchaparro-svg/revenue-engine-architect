@@ -267,6 +267,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
             animate={{ opacity: 1, x: '0%' }} 
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            style={{ willChange: "transform" }} // Optimize transform performance
             className="fixed inset-0 bg-[#FFF2EC] z-[400] flex flex-col pt-32 px-8"
           >
              <button 

@@ -1,44 +1,52 @@
 import React, { useEffect, useRef, useMemo } from 'react';
-import { useSpring, useMotionValue, useTransform } from 'framer-motion';
 
-// --- 3D MATH HELPERS ---
-interface Point3D { 
-  x: number; 
-  y: number; 
-  z: number; 
+// --- CONFIGURATION ---
+const PROJECT_SCALE = 350;
+const GOLD_COLOR = '#C5A059';
+const INK_COLOR = '#1a1a1a';
+const PARTICLE_COUNT = 100; // Keep 100 for desktop, safe for canvas
+
+interface Point3D {
+  x: number;
+  y: number;
+  z: number;
   id: number;
   color: string;
   baseSize: number;
+  // Store chaotic start positions directly in the point to simplify logic
+  startX: number;
+  startY: number;
+  startZ: number;
 }
 interface Connection { p1: number; p2: number }
 
-const PROJECT_SCALE = 350;
-
-// 1. Generate Denser Sphere (100 Nodes)
-const generateDenseGeometry = (count: number) => {
+// 1. Generate Geometry (Pure Math)
+const generateGeometry = () => {
   const verts: Point3D[] = [];
   const phi = Math.PI * (3 - Math.sqrt(5)); 
 
-  for (let i = 0; i < count; i++) {
-    const y = 1 - (i / (count - 1)) * 2; 
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    const y = 1 - (i / (PARTICLE_COUNT - 1)) * 2; 
     const radius = Math.sqrt(1 - y * y);
     const theta = phi * i;
 
     const x = Math.cos(theta) * radius;
     const z = Math.sin(theta) * radius;
 
-    // Body: 20% Gold Nodes, 80% Ink Nodes
     const isGold = Math.random() > 0.8;
     
     verts.push({ 
       x, y, z, 
       id: i,
-      color: isGold ? '#C5A059' : '#1a1a1a',
-      baseSize: isGold ? 4.5 : 2.5 
+      color: isGold ? GOLD_COLOR : INK_COLOR,
+      baseSize: isGold ? 4.5 : 2.5,
+      // Chaos Positions
+      startX: (Math.random() - 0.5) * 5,
+      startY: (Math.random() - 0.5) * 5,
+      startZ: (Math.random() - 0.5) * 5,
     });
   }
 
-  // Connections (Tuned for 100 nodes)
   const connections: Connection[] = [];
   for (let i = 0; i < verts.length; i++) {
     for (let j = i + 1; j < verts.length; j++) {
@@ -57,240 +65,201 @@ const HeroVisual: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // Density: 100
-  const { verts: targetVerts, connections } = useMemo(() => generateDenseGeometry(100), []);
-  
-  // Motion: Faster Snap (Stiffness increased for quicker assembly)
-  const progress = useSpring(0, { stiffness: 40, damping: 30, mass: 0.8 });
-  
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const rotateX = useSpring(mouseY, { stiffness: 40, damping: 30 });
-  const rotateY = useSpring(mouseX, { stiffness: 40, damping: 30 });
-
-  // Chaos Start Positions
-  const startVerts = useMemo(() => {
-    return targetVerts.map((_, i) => ({
-      x: (Math.random() - 0.5) * 5, 
-      y: (Math.random() - 0.5) * 5,
-      z: (Math.random() - 0.5) * 5,
-      id: i
-    }));
-  }, [targetVerts]);
-
-  const projectedPoints = useRef<Point3D[]>(targetVerts.map(v => ({ ...v })));
-
-  const lineOpacity = useTransform(progress, [0.5, 1], [0, 0.5]);
-  const shadowOpacity = useTransform(progress, [0.2, 1], [0, 0.4]);
+  // Stable Geometry
+  const { verts, connections } = useMemo(() => generateGeometry(), []);
 
   useEffect(() => {
-    // Trigger assembly animation
-    progress.set(0);
-    const timer = setTimeout(() => {
-      progress.set(1);
-    }, 50);
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 0.3; 
-      const y = (e.clientY / window.innerHeight - 0.5) * 0.3;
-      mouseX.set(x);
-      mouseY.set(y);
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      clearTimeout(timer);
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [progress, mouseX, mouseY]);
-
-  // Setup Canvas
-  useEffect(() => {
-    if (!canvasRef.current || !containerRef.current) return;
-
     const canvas = canvasRef.current;
     const container = containerRef.current;
-    const ctx = canvas.getContext('2d');
+    if (!canvas || !container) return;
+
+    const ctx = canvas.getContext('2d', { alpha: true });
     if (!ctx) return;
 
-    // Helper function to get size
-    const getSize = () => {
-      const rect = container.getBoundingClientRect();
-      const calculatedSize = Math.min(rect.width || 900, rect.height || 900, 900);
-      return calculatedSize > 0 ? calculatedSize : 900;
-    };
-
-    // Initialize canvas size
-    const initCanvas = () => {
-      const dpr = window.devicePixelRatio || 1;
-      const size = getSize();
-      
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      canvas.width = size * dpr;
-      canvas.height = size * dpr;
-      ctx.scale(dpr, dpr);
-      canvas.style.width = `${size}px`;
-      canvas.style.height = `${size}px`;
-      
-      return size;
-    };
-
-    let size = initCanvas();
-    const centerX = size / 2;
-    const centerY = size / 2;
-
-    // Create shadow gradient
-    const createShadowGradient = (cx: number, cy: number) => {
-      const gradient = ctx.createRadialGradient(cx, cy + 380, 0, cx, cy + 380, 200);
-      gradient.addColorStop(0, 'rgba(26, 26, 26, 0.6)');
-      gradient.addColorStop(1, 'rgba(26, 26, 26, 0)');
-      return gradient;
-    };
-
-    let shadowGradient = createShadowGradient(centerX, centerY);
-    let animationFrameId: number;
+    // State for Animation
     let startTime = performance.now();
+    let animationFrameId: number;
+    
+    // Mouse State
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetRotX = 0;
+    let targetRotY = 0;
+    let currentRotX = 0;
+    let currentRotY = 0;
 
-    const render = (timestamp: number) => {
-      const elapsed = (timestamp - startTime) / 1000;
+    // Handle Resize
+    const resize = () => {
+      const rect = container.getBoundingClientRect();
+      // Fallback to window size if container is collapsed (layout bug prevention)
+      const width = rect.width || window.innerWidth; 
+      const height = rect.height || window.innerHeight;
       
-      // Re-check size in case container resized
-      const currentSize = getSize();
-      if (currentSize !== size && currentSize > 0) {
-        size = currentSize;
-        const dpr = window.devicePixelRatio || 1;
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        canvas.width = size * dpr;
-        canvas.height = size * dpr;
-        ctx.scale(dpr, dpr);
-        canvas.style.width = `${size}px`;
-        canvas.style.height = `${size}px`;
-        shadowGradient = createShadowGradient(size / 2, size / 2);
-      }
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.scale(dpr, dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+    };
+
+    // Handle Mouse
+    const onMouseMove = (e: MouseEvent) => {
+      // Normalize mouse -0.5 to 0.5
+      mouseX = (e.clientX / window.innerWidth - 0.5);
+      mouseY = (e.clientY / window.innerHeight - 0.5);
+    };
+
+    // --- RENDER LOOP ---
+    const render = (now: number) => {
+      const elapsed = (now - startTime) / 1000; // seconds
       
-      const cx = size / 2;
-      const cy = size / 2;
-      ctx.clearRect(0, 0, size, size);
+      // 1. Calculate Progress (Ease Out Cubic)
+      // Runs from 0 to 1 over 2.5 seconds (slower, more elegant)
+      let progress = Math.min(1, elapsed / 2.5);
+      progress = 1 - Math.pow(1 - progress, 3); // Cubic ease out
 
-      // Get progress - use manual animation as fallback
-      let p = Math.max(0, Math.min(1, progress.get()));
-      if (elapsed > 0.1 && p < 0.01) {
-        // Manual animation if spring doesn't work
-        p = Math.min(1, (elapsed - 0.1) / 1.5);
-        if (p >= 1) progress.set(1);
-      }
+      // 2. Smooth Rotation Physics
+      const targetX = mouseY * 0.5; // Scale down sensitivity
+      const targetY = mouseX * 0.5;
       
-      const rx = rotateX.get() + elapsed * 0.08; 
-      const ry = rotateY.get() + elapsed * 0.15;
-      const lineOp = Math.max(0, Math.min(1, lineOpacity.get()));
-      const shadowOp = Math.max(0, Math.min(1, shadowOpacity.get()));
+      // Lerp current rotation towards target
+      currentRotX += (targetX - currentRotX) * 0.05;
+      currentRotY += (targetY - currentRotY) * 0.05;
 
-      // Update projected points
-      projectedPoints.current = targetVerts.map((target, i) => {
-        const start = startVerts[i];
-        let x = start.x + (target.x - start.x) * p;
-        let y = start.y + (target.y - start.y) * p;
-        let z = start.z + (target.z - start.z) * p;
+      // Auto spin + Mouse interaction
+      const rotX = currentRotX + elapsed * 0.05;
+      const rotY = currentRotY + elapsed * 0.1;
 
+      // 3. Clear Canvas
+      const width = canvas.width / (window.devicePixelRatio || 1);
+      const height = canvas.height / (window.devicePixelRatio || 1);
+      const cx = width / 2;
+      const cy = height / 2;
+      
+      ctx.clearRect(0, 0, width, height);
+
+      // 4. Project Points
+      const projected = verts.map(p => {
+        // Interpolate Position (Chaos -> Sphere)
+        let x = p.startX + (p.x - p.startX) * progress;
+        let y = p.startY + (p.y - p.startY) * progress;
+        let z = p.startZ + (p.z - p.startZ) * progress;
+
+        // Rotation
         // Rotate Y
-        let x1 = x * Math.cos(ry) - z * Math.sin(ry);
-        let z1 = z * Math.cos(ry) + x * Math.sin(ry);
+        let x1 = x * Math.cos(rotY) - z * Math.sin(rotY);
+        let z1 = z * Math.cos(rotY) + x * Math.sin(rotY);
         // Rotate X
-        let y1 = y * Math.cos(rx) - z1 * Math.sin(rx);
-        let z2 = z1 * Math.cos(rx) + y * Math.sin(rx);
+        let y1 = y * Math.cos(rotX) - z1 * Math.sin(rotX);
+        let z2 = z1 * Math.cos(rotX) + y * Math.sin(rotX);
 
-        return { ...target, x: x1, y: y1, z: z2 };
+        // Simple 3D projection
+        // We use PROJECT_SCALE as a pseudo-FOV
+        return {
+          x: cx + x1 * PROJECT_SCALE,
+          y: cy + y1 * PROJECT_SCALE,
+          z: z2,
+          color: p.color,
+          baseSize: p.baseSize
+        };
       });
 
-      // Draw Shadow
-      if (shadowOp > 0 && p > 0) {
+      // 5. Draw Shadow
+      if (progress > 0.1) {
         ctx.save();
-        ctx.globalAlpha = shadowOp * p;
-        ctx.fillStyle = shadowGradient;
+        const shadowOp = Math.min(0.4, progress * 0.4);
+        ctx.globalAlpha = shadowOp;
+        
+        // Dynamic gradient based on current size
+        const grad = ctx.createRadialGradient(cx, cy + 380, 0, cx, cy + 380, 200);
+        grad.addColorStop(0, 'rgba(26,26,26, 0.8)');
+        grad.addColorStop(1, 'rgba(26,26,26, 0)');
+        
+        ctx.fillStyle = grad;
         ctx.beginPath();
-        ctx.ellipse(cx, cy + 380, 200 * p, 30 * p, 0, 0, 2 * Math.PI);
+        // Scale shadow with progress
+        ctx.ellipse(cx, cy + 380, 200 * progress, 30 * progress, 0, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
       }
 
-      // Draw Connections
-      if (lineOp > 0 && p > 0.5) {
-        ctx.strokeStyle = '#C5A059';
-        ctx.lineWidth = 1.0;
+      // 6. Draw Connections
+      const lineOp = Math.max(0, (progress - 0.5) * 2); // Start fading in halfway
+      if (lineOp > 0.01) {
+        ctx.strokeStyle = GOLD_COLOR;
+        ctx.lineWidth = 1; // Keep thin for elegance
         
-        connections.forEach((conn) => {
-          const p1 = projectedPoints.current[conn.p1];
-          const p2 = projectedPoints.current[conn.p2];
-          const depth = (p1.z + p2.z) / 2;
+        // Batch drawing for performance
+        ctx.beginPath();
+        for (let i = 0; i < connections.length; i++) {
+          const p1 = projected[connections[i].p1];
+          const p2 = projected[connections[i].p2];
           
-          ctx.globalAlpha = lineOp * (0.4 + depth * 0.3);
-          ctx.beginPath();
-          ctx.moveTo(cx + p1.x * PROJECT_SCALE, cy + p1.y * PROJECT_SCALE);
-          ctx.lineTo(cx + p2.x * PROJECT_SCALE, cy + p2.y * PROJECT_SCALE);
-          ctx.stroke();
-        });
+          // Optimization: Depth check
+          const depth = (p1.z + p2.z) / 2;
+          if (depth < -2) continue; // Don't draw very far back lines
+
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+        }
+        // Apply global alpha for lines
+        ctx.globalAlpha = lineOp * 0.15; 
+        ctx.stroke();
       }
 
-      // Draw Nodes
-      const sortedPoints = [...projectedPoints.current].sort((a, b) => b.z - a.z);
+      // 7. Draw Nodes (Sorted by Z)
+      projected.sort((a, b) => a.z - b.z); // Painter's algorithm
       
-      sortedPoints.forEach((pt) => {
-        const x = cx + pt.x * PROJECT_SCALE;
-        const y = cy + pt.y * PROJECT_SCALE;
-        const radius = pt.baseSize + (pt.z * 1.5);
-        const opacity = 0.8 + pt.z * 0.2;
-
-        ctx.save();
-        ctx.globalAlpha = opacity;
-        ctx.fillStyle = pt.color;
+      for (let i = 0; i < projected.length; i++) {
+        const p = projected[i];
         
-        if (pt.color === '#C5A059') {
-          ctx.shadowColor = 'rgba(197, 160, 89, 0.6)';
-          ctx.shadowBlur = 4;
-        } else {
-          ctx.shadowBlur = 0;
-        }
+        // Size attenuation
+        // z range is roughly -1 to 1.
+        // scale 0.5 at back, 1.5 at front
+        const scale = 1 + (p.z * 0.3);
+        const r = Math.max(0, p.baseSize * scale * progress);
 
+        if (r < 0.5) continue;
+
+        ctx.globalAlpha = Math.min(1, 0.6 + p.z * 0.4); // Fade back nodes
+        ctx.fillStyle = p.color;
+        
         ctx.beginPath();
-        ctx.arc(x, y, radius, 0, 2 * Math.PI);
+        ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
         ctx.fill();
-        ctx.restore();
-      });
+
+        // Optional: Glow for gold nodes in front
+        if (p.color === GOLD_COLOR && p.z > 0.2) {
+            ctx.shadowColor = 'rgba(197, 160, 89, 0.5)';
+            ctx.shadowBlur = 10;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+        }
+      }
 
       animationFrameId = requestAnimationFrame(render);
     };
 
-    // Start render loop
-    animationFrameId = requestAnimationFrame(render);
-
-    // Handle Resize
-    const observer = new ResizeObserver(() => {
-      const newSize = getSize();
-      if (newSize > 0 && newSize !== size) {
-        size = newSize;
-        const dpr = window.devicePixelRatio || 1;
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-        canvas.width = newSize * dpr;
-        canvas.height = newSize * dpr;
-        ctx.scale(dpr, dpr);
-        canvas.style.width = `${newSize}px`;
-        canvas.style.height = `${newSize}px`;
-        shadowGradient = createShadowGradient(size / 2, size / 2);
-      }
-    });
-    observer.observe(container);
+    // Init
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', onMouseMove);
+    resize();
+    render(performance.now());
 
     return () => {
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      observer.disconnect();
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('mousemove', onMouseMove);
+      cancelAnimationFrame(animationFrameId);
     };
-  }, [targetVerts, startVerts, connections, progress, rotateX, rotateY, lineOpacity, shadowOpacity]);
+  }, [verts, connections]);
 
   return (
     <div 
       ref={containerRef}
-      className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+      className="absolute inset-0 z-0 w-full h-full pointer-events-none select-none overflow-hidden"
     >
-      <canvas ref={canvasRef} className="block" />
+      <canvas ref={canvasRef} className="block w-full h-full" />
     </div>
   );
 };
