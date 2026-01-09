@@ -137,6 +137,11 @@ const HeroVisual: React.FC = () => {
       const cx = width / 2;
       const cy = height / 2;
       
+      // Adaptive scale based on screen size (mobile-friendly)
+      // Use the smaller dimension to ensure sphere fits on all screens
+      const minDimension = Math.min(width, height);
+      const adaptiveScale = minDimension * 0.35; // 35% of smallest dimension
+      
       ctx.clearRect(0, 0, width, height);
 
       // 4. Project Points
@@ -154,32 +159,36 @@ const HeroVisual: React.FC = () => {
         let y1 = y * Math.cos(rotX) - z1 * Math.sin(rotX);
         let z2 = z1 * Math.cos(rotX) + y * Math.sin(rotX);
 
-        // Simple 3D projection
-        // We use PROJECT_SCALE as a pseudo-FOV
+        // Simple 3D projection with adaptive scale
         return {
-          x: cx + x1 * PROJECT_SCALE,
-          y: cy + y1 * PROJECT_SCALE,
+          x: cx + x1 * adaptiveScale,
+          y: cy + y1 * adaptiveScale,
           z: z2,
           color: p.color,
           baseSize: p.baseSize
         };
       });
 
-      // 5. Draw Shadow
+      // 5. Draw Shadow (adaptive size)
       if (progress > 0.1) {
         ctx.save();
         const shadowOp = Math.min(0.4, progress * 0.4);
         ctx.globalAlpha = shadowOp;
         
+        // Adaptive shadow size based on screen
+        const shadowRadius = adaptiveScale * 0.6;
+        const shadowHeight = adaptiveScale * 0.09;
+        const shadowY = cy + adaptiveScale * 1.1;
+        
         // Dynamic gradient based on current size
-        const grad = ctx.createRadialGradient(cx, cy + 380, 0, cx, cy + 380, 200);
+        const grad = ctx.createRadialGradient(cx, shadowY, 0, cx, shadowY, shadowRadius);
         grad.addColorStop(0, 'rgba(26,26,26, 0.8)');
         grad.addColorStop(1, 'rgba(26,26,26, 0)');
         
         ctx.fillStyle = grad;
         ctx.beginPath();
         // Scale shadow with progress
-        ctx.ellipse(cx, cy + 380, 200 * progress, 30 * progress, 0, 0, Math.PI * 2);
+        ctx.ellipse(cx, shadowY, shadowRadius * progress, shadowHeight * progress, 0, 0, Math.PI * 2);
         ctx.fill();
         ctx.restore();
       }
