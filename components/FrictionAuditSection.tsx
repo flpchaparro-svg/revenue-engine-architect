@@ -260,12 +260,15 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
             style={{ perspective: "1000px" }} // ADDS 3D DEPTH on desktop
         >
            {/* Mobile: Simple vertical stack */}
-           <div className="md:hidden flex flex-col">
+           <div className="md:hidden flex flex-col border-t border-[#1a1a1a]/10">
              {AUDIT_DATA.map((data, index) => (
-               <div key={data.id} className="w-full bg-[#FFF2EC] py-12 px-6">
+               <div 
+                 key={data.id} 
+                 className="w-full bg-[#FFF2EC] min-h-[50vh] border-b border-[#1a1a1a]/10 flex flex-col justify-center py-12 px-6"
+               >
                  <div className="w-full max-w-[1600px] mx-auto">
                    {data.type === 'cta' ? (
-                     <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto py-8">
+                     <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto py-12">
                        <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-tight mb-10">
                          You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
                          <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
@@ -281,7 +284,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                    ) : (
                      <div className="flex flex-col space-y-4">
                        <div className="flex items-center gap-4">
-                         <span className="font-serif text-4xl md:text-6xl text-[#1a1a1a]/10 italic font-bold">
+                         <span className="font-serif text-4xl md:text-6xl text-[#1a1a1a]/20 italic font-bold">
                            {data.id}
                          </span>
                          <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest border border-[#E21E3F]/30 px-2 py-1">
@@ -294,7 +297,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                            {data.title}
                          </h3>
                          <div className="inline-block bg-[#E21E3F]/10 px-4 py-2">
-                           <span className="font-mono text-base md:text-2xl text-[#E21E3F] font-bold tracking-tight">
+                           <span className="font-mono text-lg md:text-2xl text-[#E21E3F] font-bold tracking-tight">
                              {data.metric}
                            </span>
                          </div>
