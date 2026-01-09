@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useMemo } from 'react';
-import { motion, useSpring, useMotionValue, useAnimationFrame, useTransform } from 'framer-motion';
+import { useSpring, useMotionValue, useTransform } from 'framer-motion';
 
 // --- 3D MATH HELPERS ---
 interface Point3D { 
@@ -54,6 +54,9 @@ const generateDenseGeometry = (count: number) => {
 };
 
 const HeroVisual: React.FC = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  
   // Density: 100
   const { verts: targetVerts, connections } = useMemo(() => generateDenseGeometry(100), []);
   
@@ -76,11 +79,16 @@ const HeroVisual: React.FC = () => {
   }, [targetVerts]);
 
   const projectedPoints = useRef<Point3D[]>(targetVerts.map(v => ({ ...v })));
-  const [frame, setFrame] = React.useState(0);
+
+  const lineOpacity = useTransform(progress, [0.5, 1], [0, 0.5]);
+  const shadowOpacity = useTransform(progress, [0.2, 1], [0, 0.4]);
 
   useEffect(() => {
-    // Trigger faster for earlier assembly
-    const timer = setTimeout(() => progress.set(1), 100);
+    // Trigger assembly animation
+    progress.set(0);
+    const timer = setTimeout(() => {
+      progress.set(1);
+    }, 50);
     
     const handleMouseMove = (e: MouseEvent) => {
       const x = (e.clientX / window.innerWidth - 0.5) * 0.3; 
@@ -93,89 +101,196 @@ const HeroVisual: React.FC = () => {
       clearTimeout(timer);
       window.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
+  }, [progress, mouseX, mouseY]);
 
-  useAnimationFrame((time) => {
-    const p = progress.get();
-    const rx = rotateX.get() + time * 0.00008; 
-    const ry = rotateY.get() + time * 0.00015;
+  // Setup Canvas
+  useEffect(() => {
+    if (!canvasRef.current || !containerRef.current) return;
 
-    projectedPoints.current = targetVerts.map((target, i) => {
-      const start = startVerts[i];
-      // Interpolate
-      let x = start.x + (target.x - start.x) * p;
-      let y = start.y + (target.y - start.y) * p;
-      let z = start.z + (target.z - start.z) * p;
+    const canvas = canvasRef.current;
+    const container = containerRef.current;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-      // Rotate Y
-      let x1 = x * Math.cos(ry) - z * Math.sin(ry);
-      let z1 = z * Math.cos(ry) + x * Math.sin(ry);
-      // Rotate X
-      let y1 = y * Math.cos(rx) - z1 * Math.sin(rx);
-      let z2 = z1 * Math.cos(rx) + y * Math.sin(rx);
+    // Helper function to get size
+    const getSize = () => {
+      const rect = container.getBoundingClientRect();
+      const calculatedSize = Math.min(rect.width || 900, rect.height || 900, 900);
+      return calculatedSize > 0 ? calculatedSize : 900;
+    };
 
-      return { ...target, x: x1, y: y1, z: z2 };
+    // Initialize canvas size
+    const initCanvas = () => {
+      const dpr = window.devicePixelRatio || 1;
+      const size = getSize();
+      
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      canvas.width = size * dpr;
+      canvas.height = size * dpr;
+      ctx.scale(dpr, dpr);
+      canvas.style.width = `${size}px`;
+      canvas.style.height = `${size}px`;
+      
+      return size;
+    };
+
+    let size = initCanvas();
+    const centerX = size / 2;
+    const centerY = size / 2;
+
+    // Create shadow gradient
+    const createShadowGradient = (cx: number, cy: number) => {
+      const gradient = ctx.createRadialGradient(cx, cy + 380, 0, cx, cy + 380, 200);
+      gradient.addColorStop(0, 'rgba(26, 26, 26, 0.6)');
+      gradient.addColorStop(1, 'rgba(26, 26, 26, 0)');
+      return gradient;
+    };
+
+    let shadowGradient = createShadowGradient(centerX, centerY);
+    let animationFrameId: number;
+    let startTime = performance.now();
+
+    const render = (timestamp: number) => {
+      const elapsed = (timestamp - startTime) / 1000;
+      
+      // Re-check size in case container resized
+      const currentSize = getSize();
+      if (currentSize !== size && currentSize > 0) {
+        size = currentSize;
+        const dpr = window.devicePixelRatio || 1;
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        canvas.width = size * dpr;
+        canvas.height = size * dpr;
+        ctx.scale(dpr, dpr);
+        canvas.style.width = `${size}px`;
+        canvas.style.height = `${size}px`;
+        shadowGradient = createShadowGradient(size / 2, size / 2);
+      }
+      
+      const cx = size / 2;
+      const cy = size / 2;
+      ctx.clearRect(0, 0, size, size);
+
+      // Get progress - use manual animation as fallback
+      let p = Math.max(0, Math.min(1, progress.get()));
+      if (elapsed > 0.1 && p < 0.01) {
+        // Manual animation if spring doesn't work
+        p = Math.min(1, (elapsed - 0.1) / 1.5);
+        if (p >= 1) progress.set(1);
+      }
+      
+      const rx = rotateX.get() + elapsed * 0.08; 
+      const ry = rotateY.get() + elapsed * 0.15;
+      const lineOp = Math.max(0, Math.min(1, lineOpacity.get()));
+      const shadowOp = Math.max(0, Math.min(1, shadowOpacity.get()));
+
+      // Update projected points
+      projectedPoints.current = targetVerts.map((target, i) => {
+        const start = startVerts[i];
+        let x = start.x + (target.x - start.x) * p;
+        let y = start.y + (target.y - start.y) * p;
+        let z = start.z + (target.z - start.z) * p;
+
+        // Rotate Y
+        let x1 = x * Math.cos(ry) - z * Math.sin(ry);
+        let z1 = z * Math.cos(ry) + x * Math.sin(ry);
+        // Rotate X
+        let y1 = y * Math.cos(rx) - z1 * Math.sin(rx);
+        let z2 = z1 * Math.cos(rx) + y * Math.sin(rx);
+
+        return { ...target, x: x1, y: y1, z: z2 };
+      });
+
+      // Draw Shadow
+      if (shadowOp > 0 && p > 0) {
+        ctx.save();
+        ctx.globalAlpha = shadowOp * p;
+        ctx.fillStyle = shadowGradient;
+        ctx.beginPath();
+        ctx.ellipse(cx, cy + 380, 200 * p, 30 * p, 0, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // Draw Connections
+      if (lineOp > 0 && p > 0.5) {
+        ctx.strokeStyle = '#C5A059';
+        ctx.lineWidth = 1.0;
+        
+        connections.forEach((conn) => {
+          const p1 = projectedPoints.current[conn.p1];
+          const p2 = projectedPoints.current[conn.p2];
+          const depth = (p1.z + p2.z) / 2;
+          
+          ctx.globalAlpha = lineOp * (0.4 + depth * 0.3);
+          ctx.beginPath();
+          ctx.moveTo(cx + p1.x * PROJECT_SCALE, cy + p1.y * PROJECT_SCALE);
+          ctx.lineTo(cx + p2.x * PROJECT_SCALE, cy + p2.y * PROJECT_SCALE);
+          ctx.stroke();
+        });
+      }
+
+      // Draw Nodes
+      const sortedPoints = [...projectedPoints.current].sort((a, b) => b.z - a.z);
+      
+      sortedPoints.forEach((pt) => {
+        const x = cx + pt.x * PROJECT_SCALE;
+        const y = cy + pt.y * PROJECT_SCALE;
+        const radius = pt.baseSize + (pt.z * 1.5);
+        const opacity = 0.8 + pt.z * 0.2;
+
+        ctx.save();
+        ctx.globalAlpha = opacity;
+        ctx.fillStyle = pt.color;
+        
+        if (pt.color === '#C5A059') {
+          ctx.shadowColor = 'rgba(197, 160, 89, 0.6)';
+          ctx.shadowBlur = 4;
+        } else {
+          ctx.shadowBlur = 0;
+        }
+
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.restore();
+      });
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    // Start render loop
+    animationFrameId = requestAnimationFrame(render);
+
+    // Handle Resize
+    const observer = new ResizeObserver(() => {
+      const newSize = getSize();
+      if (newSize > 0 && newSize !== size) {
+        size = newSize;
+        const dpr = window.devicePixelRatio || 1;
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        canvas.width = newSize * dpr;
+        canvas.height = newSize * dpr;
+        ctx.scale(dpr, dpr);
+        canvas.style.width = `${newSize}px`;
+        canvas.style.height = `${newSize}px`;
+        shadowGradient = createShadowGradient(size / 2, size / 2);
+      }
     });
-    setFrame(time);
-  });
+    observer.observe(container);
 
-  const lineOpacity = useTransform(progress, [0.5, 1], [0, 0.5]);
-  const shadowOpacity = useTransform(progress, [0.2, 1], [0, 0.4]);
+    return () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
+    };
+  }, [targetVerts, startVerts, connections, progress, rotateX, rotateY, lineOpacity, shadowOpacity]);
 
   return (
-    <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-      <svg className="w-full h-full max-w-[900px] max-h-[900px]" viewBox="-450 -450 900 900">
-        <defs>
-          <radialGradient id="shadowGrad" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0%" stopColor="#1a1a1a" stopOpacity="0.6" />
-            <stop offset="100%" stopColor="#1a1a1a" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-
-        {/* SHADOW (Grounding) */}
-        <motion.ellipse 
-          cx="0" 
-          cy="380" 
-          rx="200" 
-          ry="30" 
-          fill="url(#shadowGrad)" 
-          style={{ opacity: shadowOpacity, scale: progress }} 
-        />
-
-        {/* Lines */}
-        <motion.g style={{ opacity: lineOpacity, stroke: '#C5A059', strokeWidth: 1.0 }}>
-          {connections.map((conn, i) => {
-            const p1 = projectedPoints.current[conn.p1];
-            const p2 = projectedPoints.current[conn.p2];
-            const depth = (p1.z + p2.z) / 2; 
-            return (
-              <line 
-                key={i}
-                x1={p1.x * PROJECT_SCALE} 
-                y1={p1.y * PROJECT_SCALE} 
-                x2={p2.x * PROJECT_SCALE} 
-                y2={p2.y * PROJECT_SCALE} 
-                strokeOpacity={0.4 + depth * 0.3} 
-              />
-            );
-          })}
-        </motion.g>
-
-        {/* Nodes */}
-        {projectedPoints.current.map((pt, i) => (
-          <motion.circle
-            key={pt.id}
-            cx={pt.x * PROJECT_SCALE}
-            cy={pt.y * PROJECT_SCALE}
-            r={pt.baseSize + (pt.z * 1.5)} 
-            fill={pt.color}
-            filter={pt.color === '#C5A059' ? 'drop-shadow(0px 0px 4px rgba(197, 160, 89, 0.6))' : 'none'}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.8 + pt.z * 0.2 }} 
-            transition={{ duration: 1 }}
-          />
-        ))}
-      </svg>
+    <div 
+      ref={containerRef}
+      className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+    >
+      <canvas ref={canvasRef} className="block" />
     </div>
   );
 };
