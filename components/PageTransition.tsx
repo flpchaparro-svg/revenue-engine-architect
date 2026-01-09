@@ -2,81 +2,185 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const PageTransition: React.FC<{ children: React.ReactNode, currentView: string }> = ({ children, currentView }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  // Session Check: Only show preloader on first visit
+  const [isLoading, setIsLoading] = useState(() => {
+    const sessionLoaded = sessionStorage.getItem('session_loaded');
+    return !sessionLoaded;
+  });
 
-  // Smart Session Check: Only show preloader on first visit
   useEffect(() => {
-    const hasVisited = sessionStorage.getItem('revenue-engine-visited');
-    
-    if (!hasVisited) {
-      // First visit: Show preloader
-      setIsLoading(true);
-      sessionStorage.setItem('revenue-engine-visited', 'true');
-    } else {
-      // Returning/Navigating: Skip preloader
+    const sessionLoaded = sessionStorage.getItem('session_loaded');
+    if (sessionLoaded) {
       setIsLoading(false);
     }
-  }, []); // Only run once on mount, not on route changes
+  }, []);
 
-  const handleAnimationComplete = () => {
-    // Exit animation complete: Hide preloader
+  const handleExitComplete = () => {
+    sessionStorage.setItem('session_loaded', 'true');
     setIsLoading(false);
+  };
+
+  // Animation Variants for Clean Orchestration
+  const containerVariants = {
+    initial: { opacity: 1 },
+    exit: { 
+      opacity: 0,
+      transition: { 
+        duration: 0.6, 
+        ease: [0.76, 0, 0.24, 1],
+        delay: 2.5
+      }
+    }
+  };
+
+  const goldDotVariants = {
+    initial: { 
+      y: -300, 
+      opacity: 1,
+      scale: 1
+    },
+    drop: { 
+      y: 0,
+      transition: { 
+        duration: 0.8, 
+        ease: "easeIn" // Heavy gravity
+      }
+    },
+    impact: {
+      scale: 0,
+      opacity: 0,
+      transition: {
+        duration: 0.1,
+        delay: 0.8 // Disappears on impact
+      }
+    }
+  };
+
+  const redLineVariants = {
+    initial: { 
+      width: 0,
+      opacity: 0
+    },
+    expand: {
+      width: 240,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 200,
+        damping: 15,
+        bounce: 0.3,
+        delay: 0.8 // Starts when dot hits
+      }
+    }
+  };
+
+  const logoVariants = {
+    initial: { 
+      y: 20,
+      opacity: 0,
+      clipPath: "inset(100% 0 0 0)"
+    },
+    reveal: {
+      y: 0,
+      opacity: 1,
+      clipPath: "inset(0% 0 0 0)",
+      transition: {
+        duration: 0.6,
+        ease: [0.76, 0, 0.24, 1],
+        delay: 1.2 // After line expands
+      }
+    }
+  };
+
+  const titleVariants = {
+    initial: { 
+      y: -20,
+      opacity: 0,
+      clipPath: "inset(0 0 100% 0)"
+    },
+    reveal: {
+      y: 0,
+      opacity: 1,
+      clipPath: "inset(0 0 0% 0)",
+      transition: {
+        duration: 0.6,
+        ease: [0.76, 0, 0.24, 1],
+        delay: 1.2 // After line expands
+      }
+    }
+  };
+
+  const subtitleVariants = {
+    initial: { opacity: 0 },
+    reveal: {
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: [0.76, 0, 0.24, 1],
+        delay: 2.0 // After logo and title reveal
+      }
+    }
   };
 
   return (
     <div className="relative min-h-screen w-full">
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="wait" onExitComplete={handleExitComplete}>
         {isLoading && (
           <motion.div
-            key="signature-preloader"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
-            onAnimationComplete={handleAnimationComplete}
-            className="fixed inset-0 z-[9999] bg-[#FFF2EC] flex flex-col items-center justify-center"
+            key="ignition-preloader"
+            variants={containerVariants}
+            initial="initial"
+            exit="exit"
+            className="fixed inset-0 z-[9999] bg-[#FFF2EC] flex flex-col items-center justify-center overflow-hidden"
           >
-            {/* Container for centered content */}
-            <div className="relative w-full max-w-2xl px-8 flex flex-col items-center justify-center">
+            {/* Centered Container */}
+            <div className="relative flex flex-col items-center justify-center">
               
-              {/* The Red Line - Draws horizontally */}
-              <div className="relative w-full h-[1px] mb-8">
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ 
-                    duration: 1.2, 
-                    ease: [0.76, 0, 0.24, 1],
-                    delay: 0.2
-                  }}
-                  className="absolute inset-0 origin-left bg-[#E21E3F]"
-                  style={{ transformOrigin: 'left center' }}
-                />
-                
-                {/* Gold Square - Pops in at the end */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ 
-                    duration: 0.3,
-                    ease: [0.34, 1.56, 0.64, 1], // Pop effect
-                    delay: 1.4 // After line finishes
-                  }}
-                  className="absolute top-1/2 right-0 -translate-y-1/2 translate-x-1/2 w-[6px] h-[6px] bg-[#C5A059]"
-                />
-              </div>
-
-              {/* The Text - Fades in upward */}
+              {/* Phase 1 & 2: Gold Dot - Falls and Disappears on Impact */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  duration: 0.8,
-                  ease: [0.76, 0, 0.24, 1],
-                  delay: 1.2 // Starts as line finishes
-                }}
-                className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] tracking-tight"
+                variants={goldDotVariants}
+                initial="initial"
+                animate={["drop", "impact"]}
+                className="absolute w-4 h-4 rounded-full bg-[#C5A059] z-50"
+              />
+
+              {/* Phase 3: Logo [FC) - Reveals Upwards from Line */}
+              <motion.div
+                variants={logoVariants}
+                initial="initial"
+                animate="reveal"
+                className="bg-[#1a1a1a] text-[#FFF2EC] font-mono text-xs font-bold px-2 py-1 mb-4"
+              >
+                [FC)
+              </motion.div>
+
+              {/* Phase 2: Red Line - Expands from Center (Shockwave) */}
+              <motion.div
+                variants={redLineVariants}
+                initial="initial"
+                animate="expand"
+                className="h-[2px] bg-[#E21E3F] mx-auto"
+                style={{ transformOrigin: 'center' }}
+              />
+
+              {/* Phase 3: Title - Reveals Downwards from Line */}
+              <motion.div
+                variants={titleVariants}
+                initial="initial"
+                animate="reveal"
+                className="font-serif text-3xl md:text-4xl text-[#1a1a1a] italic mb-2 mt-4"
               >
                 Revenue Engine
+              </motion.div>
+
+              {/* Phase 4: Subtitle - Fades In */}
+              <motion.div
+                variants={subtitleVariants}
+                initial="initial"
+                animate="reveal"
+                className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#1a1a1a] mt-2"
+              >
+                SYDNEY BUSINESS AUTOMATION
               </motion.div>
             </div>
           </motion.div>
