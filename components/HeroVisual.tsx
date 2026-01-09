@@ -135,7 +135,10 @@ const HeroVisual: React.FC = () => {
       const width = canvas.width / (window.devicePixelRatio || 1);
       const height = canvas.height / (window.devicePixelRatio || 1);
       const cx = width / 2;
-      const cy = height / 2;
+      
+      // Adaptive vertical positioning: On mobile, position sphere higher to avoid CTA overlap
+      const isMobile = width < 768; // md breakpoint
+      const cy = isMobile ? height * 0.35 : height / 2; // 35% from top on mobile, centered on desktop
       
       // Adaptive scale based on screen size (mobile-friendly)
       // Use the smaller dimension to ensure sphere fits on all screens
