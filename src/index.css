@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  /* Set the root background to DARK CHARCOAL to match the preloader */
+  background-color: #1a1a1a;
+  color: #1a1a1a;
+}
+
+body {
+  margin: 0;
+  /* Ensure body is also dark to prevent the 'White Flash' on mobile */
+  background-color: #1a1a1a; 
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optional: Ensure the scrollbar matches the dark theme initially */
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: #1a1a1a;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #C5A059;
+  border-radius: 4px;
+}
