@@ -265,27 +265,25 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ o
   });
 
   return (
-    // Height 500vh = 1 viewport sticky + 4 scrollable viewports (4 steps of 25%)
-    <section ref={containerRef} className="relative h-[500vh] bg-[#FFF2EC] z-30">
+    // Height: Auto on mobile, 500vh on desktop for scroll animation
+    <section ref={containerRef} className="relative h-auto md:h-[500vh] bg-[#FFF2EC] z-30">
        
-       {/* Snap Anchors: Strictly placed to force 5 stops */}
-       {/* Removed inline style tag that modifies global html - this was causing site collapse */}
-       <div className="absolute inset-0 flex flex-col pointer-events-none z-0">
+       {/* Snap Anchors: Desktop only - Strictly placed to force 5 stops */}
+       <div className="hidden md:block absolute inset-0 flex flex-col pointer-events-none z-0">
           {[...Array(5)].map((_, i) => (
              <div 
                 key={i} 
                 className="h-screen w-full snap-start" 
-                // Ensure strict snapping
                 style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}
              />
           ))}
        </div>
 
-      {/* Sticky Viewport */}
-      <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-col md:flex-row z-10 border-t border-[#1a1a1a]/10">
+      {/* Mobile Layout: Vertical Stack | Desktop: Sticky Side-by-Side */}
+      <div className="md:sticky md:top-0 w-full md:h-screen md:overflow-hidden flex flex-col md:flex-row z-10 border-t border-[#1a1a1a]/10">
         
         {/* Left Panel (Static) */}
-        <div className="w-full md:w-[450px] md:h-full border-b md:border-b-0 md:border-r border-[#1a1a1a]/10 bg-[#FFF2EC] p-8 md:p-12 lg:p-16 flex flex-col justify-between shrink-0 z-50">
+        <div className="w-full md:w-[450px] md:h-full border-b md:border-b-0 md:border-r border-[#1a1a1a]/10 bg-[#FFF2EC] p-8 md:p-12 lg:p-16 flex flex-col justify-between shrink-0 z-50 min-h-[60vh] md:min-h-0">
            <div>
               <div className="mb-8 font-mono text-xs text-[#E21E3F] tracking-[0.2em] uppercase flex items-center gap-2">
                  <div className="w-2 h-2 bg-[#E21E3F]"></div>
@@ -319,26 +317,81 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ o
            </div>
         </div>
 
-        {/* Right Panel (Dynamic 3D Scene) */}
+        {/* Right Panel: Mobile (Vertical Stack) | Desktop (Dynamic 3D Scene) */}
         <div 
-            className="flex-1 relative h-full overflow-hidden bg-[#FFF2EC]"
-            style={{ perspective: "1000px" }} // ADDS 3D DEPTH
+            className="flex-1 relative md:h-full bg-[#FFF2EC] md:overflow-hidden"
+            style={{ perspective: "1000px" }} // ADDS 3D DEPTH on desktop
         >
-           {AUDIT_DATA.map((data, index) => (
-             <Card 
-               key={data.id}
-               data={data}
-               index={index}
-               total={AUDIT_DATA.length}
-               scrollYProgress={scrollYProgress}
-               onNavigate={onNavigate}
+           {/* Mobile: Simple vertical stack */}
+           <div className="md:hidden flex flex-col">
+             {AUDIT_DATA.map((data, index) => (
+               <div key={data.id} className="w-full border-b border-[#1a1a1a]/10 last:border-0 bg-[#FFF2EC] py-12 px-6">
+                 <div className="w-full max-w-[1600px] mx-auto">
+                   {data.type === 'cta' ? (
+                     <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto py-8">
+                       <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-tight mb-10">
+                         You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
+                         <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
+                       </h2>
+                       <button 
+                         onClick={() => onNavigate && onNavigate('system')}
+                         className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300 hover:border-[#C5A059]"
+                       >
+                         <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
+                         <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ SEE THE SYSTEM ]</span>
+                       </button>
+                     </div>
+                   ) : (
+                     <div className="flex flex-col space-y-4">
+                       <div className="flex items-center gap-4">
+                         <span className="font-serif text-4xl md:text-6xl text-[#1a1a1a]/10 italic font-bold">
+                           {data.id}
+                         </span>
+                         <div className="h-px flex-1 bg-[#1a1a1a]/20"></div>
+                         <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest border border-[#E21E3F]/30 px-2 py-1">
+                           [{data.label}]
+                         </span>
+                       </div>
+                       
+                       <div>
+                         <h3 className="font-serif text-3xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-[0.9] mb-4">
+                           {data.title}
+                         </h3>
+                         <div className="inline-block bg-[#E21E3F]/10 px-4 py-2">
+                           <span className="font-mono text-base md:text-2xl text-[#E21E3F] font-bold tracking-tight">
+                             {data.metric}
+                           </span>
+                         </div>
+                       </div>
+
+                       <p className="font-sans text-sm md:text-lg text-[#1a1a1a]/70 leading-relaxed max-w-md border-l-2 border-[#E21E3F]/20 pl-4">
+                         {data.description}
+                       </p>
+                     </div>
+                   )}
+                 </div>
+               </div>
+             ))}
+           </div>
+
+           {/* Desktop: 3D Animated Cards */}
+           <div className="hidden md:block relative h-full overflow-hidden">
+             {AUDIT_DATA.map((data, index) => (
+               <Card 
+                 key={data.id}
+                 data={data}
+                 index={index}
+                 total={AUDIT_DATA.length}
+                 scrollYProgress={scrollYProgress}
+                 onNavigate={onNavigate}
+               />
+             ))}
+             
+             {/* Grid Texture Overlay */}
+             <div className="absolute inset-0 pointer-events-none opacity-5 z-0" 
+               style={{ backgroundImage: `radial-gradient(#1a1a1a 1px, transparent 1px)`, backgroundSize: '24px 24px' }} 
              />
-           ))}
-           
-           {/* Grid Texture Overlay */}
-           <div className="absolute inset-0 pointer-events-none opacity-5 z-0" 
-             style={{ backgroundImage: `radial-gradient(#1a1a1a 1px, transparent 1px)`, backgroundSize: '24px 24px' }} 
-           />
+           </div>
         </div>
         
       </div>

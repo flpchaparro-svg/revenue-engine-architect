@@ -109,7 +109,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
             <span className="font-mono text-[9px] text-white/60 uppercase tracking-[0.4em]">Engineered in Sydney</span>
           </div>
           
-          <div className="flex gap-8 font-mono text-[9px] text-white/20 uppercase tracking-[0.4em] mt-8 md:mt-0">
+          <div className="flex gap-8 font-mono text-[9px] text-white/60 uppercase tracking-[0.4em] mt-8 md:mt-0">
               <span className="flex items-center gap-2"><Globe className="w-3 h-3"/> Sydney, Australia</span>
               <span className="flex items-center gap-2"><Terminal className="w-3 h-3"/> v5.4.0</span>
           </div>
