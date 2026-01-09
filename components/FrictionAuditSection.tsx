@@ -142,7 +142,7 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
                 <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
               </h2>
               <button 
-                onClick={() => onNavigate && onNavigate('system')}
+                onClick={() => document.getElementById('bento')?.scrollIntoView({ behavior: 'smooth' })}
                 className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300 hover:border-[#C5A059]"
               >
                  <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
@@ -205,13 +205,13 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
     // Height: Auto on mobile, 500vh on desktop for scroll animation
     <section ref={containerRef} className="relative h-auto md:h-[500vh] bg-[#FFF2EC] z-30">
        
-       {/* Snap Anchors: Desktop only - Strictly placed to force 5 stops */}
+       {/* Snap Anchors: Desktop only - Allows momentum scrolling */}
        <div className="hidden md:block absolute inset-0 flex flex-col pointer-events-none z-0">
           {[...Array(5)].map((_, i) => (
              <div 
                 key={i} 
                 className="h-screen w-full snap-start" 
-                style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}
+                style={{ scrollSnapAlign: 'start', scrollSnapStop: 'normal' }}
              />
           ))}
        </div>
@@ -274,7 +274,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                          <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
                        </h2>
                        <button 
-                         onClick={() => onNavigate && onNavigate('system')}
+                         onClick={() => document.getElementById('bento')?.scrollIntoView({ behavior: 'smooth' })}
                          className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300 hover:border-[#C5A059]"
                        >
                          <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />

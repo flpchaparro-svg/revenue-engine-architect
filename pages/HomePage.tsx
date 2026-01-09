@@ -143,7 +143,9 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
       </motion.section>
 
       <FrictionAuditSection onNavigate={onNavigate} />
-      <BentoGrid onServiceClick={onServiceClick || ((s) => onNavigate(s.id))} />
+      <div id="bento">
+        <BentoGrid onServiceClick={onServiceClick || ((s) => onNavigate(s.id))} />
+      </div>
       <TheArchitect />
       <Feature_Group7 />
       <BookingCTA />
