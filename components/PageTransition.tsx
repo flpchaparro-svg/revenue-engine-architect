@@ -16,8 +16,7 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
   }, []);
 
   const handleExitComplete = () => {
-    sessionStorage.setItem('session_loaded', 'true');
-    setIsLoading(false);
+    // Cleanup after exit completes
   };
 
   // Animation Variants for Clean Orchestration
@@ -27,8 +26,7 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
       opacity: 0,
       transition: { 
         duration: 0.6, 
-        ease: [0.76, 0, 0.24, 1],
-        delay: 2.5
+        ease: [0.76, 0, 0.24, 1]
       }
     }
   };
@@ -122,6 +120,14 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
     }
   };
 
+  const handleSubtitleComplete = () => {
+    // After subtitle animation completes (2.0s delay + 0.5s duration = 2.5s), trigger exit
+    setTimeout(() => {
+      setIsLoading(false);
+      sessionStorage.setItem('session_loaded', 'true');
+    }, 600); // Wait for exit fade duration
+  };
+
   return (
     <div className="relative min-h-screen w-full">
       <AnimatePresence mode="wait" onExitComplete={handleExitComplete}>
@@ -178,6 +184,7 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
                 variants={subtitleVariants}
                 initial="initial"
                 animate="reveal"
+                onAnimationComplete={handleSubtitleComplete}
                 className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#1a1a1a] mt-2"
               >
                 SYDNEY BUSINESS AUTOMATION
