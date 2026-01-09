@@ -3,15 +3,15 @@
 @tailwind utilities;
 
 :root {
-  /* Set the root background to DARK CHARCOAL to match the preloader */
-  background-color: #1a1a1a;
+  /* Default to cream background - preloader will override if needed */
+  background-color: #FFF2EC;
   color: #1a1a1a;
 }
 
 body {
   margin: 0;
-  /* Ensure body is also dark to prevent the 'White Flash' on mobile */
-  background-color: #1a1a1a; 
+  /* Default to cream background - app will set its own background */
+  background-color: #FFF2EC; 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

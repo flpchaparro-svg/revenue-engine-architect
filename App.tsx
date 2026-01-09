@@ -174,7 +174,66 @@ interface CardProps {
   isDesktop: boolean;
 }
 
-const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavigate, isDesktop }) => {
+// Mobile Card (No motion hooks - safe for mobile)
+const MobileCard: React.FC<{ data: typeof AUDIT_DATA[0], onNavigate?: (v: string) => void }> = ({ data, onNavigate }) => {
+  const renderContent = () => (
+    <div className="w-full h-full p-6 md:p-12 lg:p-20 flex flex-col justify-center max-w-[1600px] mx-auto">
+      {data.type === 'cta' ? (
+         <div className="flex flex-col items-center justify-center text-center h-full max-w-4xl mx-auto py-12 md:py-0">
+            <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-tight mb-10">
+              You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
+              <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
+            </h2>
+            <button 
+              onClick={() => onNavigate && onNavigate('system')}
+              className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300 hover:border-[#C5A059]"
+            >
+               <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
+               <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ SEE THE SYSTEM ]</span>
+            </button>
+         </div>
+      ) : (
+         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
+            <div className="flex flex-col space-y-6 md:space-y-8">
+               <div className="flex items-center gap-4">
+                  <span className="font-serif text-5xl md:text-6xl text-[#1a1a1a]/10 italic font-bold">
+                     {data.id}
+                  </span>
+                  <div className="h-px flex-1 bg-[#1a1a1a]/20"></div>
+                  <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest border border-[#E21E3F]/30 px-2 py-1">
+                     [{data.label}]
+                  </span>
+               </div>
+               
+               <div>
+                  <h3 className="font-serif text-4xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-[0.9] mb-6">
+                     {data.title}
+                  </h3>
+                  <div className="inline-block bg-[#E21E3F]/10 px-4 py-2">
+                     <span className="font-mono text-lg md:text-2xl text-[#E21E3F] font-bold tracking-tight">
+                        {data.metric}
+                     </span>
+                  </div>
+               </div>
+
+               <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed max-w-md border-l-2 border-[#E21E3F]/20 pl-6">
+                  {data.description}
+               </p>
+            </div>
+         </div>
+      )}
+    </div>
+  );
+
+  return (
+    <div className="relative w-full border-b border-[#1a1a1a]/10 last:border-0 bg-[#FFF2EC] min-h-[50vh] flex flex-col justify-center">
+      {renderContent()}
+    </div>
+  );
+};
+
+// Desktop Card (With motion hooks)
+const DesktopCard: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavigate }) => {
   // DESKTOP LOGIC (Animation Ranges)
   const step = 0.25; 
   const peak = index * step;
@@ -236,28 +295,14 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
                </p>
             </div>
 
-            {isDesktop && (
-              <div className="hidden lg:flex items-center justify-center h-full min-h-[400px]">
-                 <AuditCubeVisual scrollYProgress={scrollYProgress} />
-              </div>
-            )}
+            <div className="hidden lg:flex items-center justify-center h-full min-h-[400px]">
+               <AuditCubeVisual scrollYProgress={scrollYProgress} />
+            </div>
          </div>
       )}
     </div>
   );
 
-  // --- RETURN MOBILE OR DESKTOP WRAPPER ---
-  
-  if (!isDesktop) {
-    // MOBILE: Static vertical stack
-    return (
-      <div className="relative w-full border-b border-[#1a1a1a]/10 last:border-0 bg-[#FFF2EC] min-h-[50vh] flex flex-col justify-center">
-         {renderContent()}
-      </div>
-    );
-  }
-
-  // DESKTOP: 3D Animated Card
   return (
     <motion.div
       style={{ 
@@ -277,16 +322,31 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
   );
 };
 
+// Main Card Component (Routes to Mobile or Desktop)
+const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavigate, isDesktop }) => {
+  if (!isDesktop) {
+    return <MobileCard data={data} onNavigate={onNavigate} />;
+  }
+  return <DesktopCard data={data} index={index} total={total} scrollYProgress={scrollYProgress} onNavigate={onNavigate} isDesktop={isDesktop} />;
+};
+
 // --- MAIN SECTION: FrictionAudit ---
 
 const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ onNavigate }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isDesktop = useIsDesktop(); // Use our hook
   
-  const { scrollYProgress } = useScroll({
+  // Always call useScroll with a valid target (hooks must be called unconditionally)
+  const { scrollYProgress: realScrollProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"]
   });
+  
+  // Create a dummy scroll progress for mobile (always 0.5 so cards are visible)
+  const dummyScrollProgress = useMotionValue(0.5);
+  
+  // Use real scroll on desktop, dummy on mobile
+  const scrollYProgress = isDesktop ? realScrollProgress : dummyScrollProgress;
 
   return (
     // CONDITIONAL HEIGHT: Auto on Mobile, 500vh on Desktop

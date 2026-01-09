@@ -1,7 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+// import { motion, AnimatePresence } from 'framer-motion';
 
 const PageTransition: React.FC<{ children: React.ReactNode, currentView: string }> = ({ children, currentView }) => {
+  // PRELOADER TEMPORARILY DISABLED - Will re-enable at end of project
+  // All preloader code is preserved below in comments for easy restoration
+
+  return (
+    <div className="relative min-h-screen w-full">
+      {/* Always render children - no preloader */}
+      <div className="relative z-0">
+        {children}
+      </div>
+    </div>
+  );
+
+  /* ============================================
+     PRELOADER CODE (COMMENTED OUT - TO RE-ENABLE LATER)
+     ============================================
+  
   const [isLoading, setIsLoading] = useState(() => {
     if (typeof window === 'undefined') return false; 
     try {
@@ -13,22 +29,25 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
   });
 
   useEffect(() => {
-    // SAFETY TIMER: 
-    // We give it a minimum of 1.2s so the user sees the "Pulse" at least once.
-    // Max of 2.5s for safety.
-    const safetyTimer = setTimeout(() => {
-      setIsLoading(false);
-      if (typeof window !== 'undefined') sessionStorage.setItem('has_loaded', 'true');
-    }, 2000); 
+    if (isLoading) {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+        try {
+          if (typeof window !== 'undefined') {
+            sessionStorage.setItem('has_loaded', 'true');
+          }
+        } catch (e) {
+          // Ignore storage errors
+        }
+      }, 2400);
 
-    return () => clearTimeout(safetyTimer);
-  }, []);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading]);
 
   const handleExitComplete = () => {
     window.scrollTo(0, 0);
   };
-
-  // --- ANIMATION VARIANTS (Parallel / Instant) ---
 
   const containerVariants = {
     initial: { opacity: 1, y: 0 },
@@ -41,30 +60,26 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
     }
   };
 
-  // 1. The Wrapper Pulses while waiting
   const totemWrapperVariants = {
-    initial: { scale: 1 },
+    initial: { opacity: 1 },
     pulse: {
-      scale: [1, 1.02, 1],
-      opacity: [1, 0.8, 1],
+      opacity: [1, 0.5, 1],
       transition: {
-        duration: 2,
+        duration: 2.0,
         repeat: Infinity,
         ease: "easeInOut",
-        delay: 0.6 // Start pulsing after assembly
+        delay: 0.5
       }
     }
   };
 
-  // 2. Fast Drop
   const goldDotDropVariants = {
     initial: { y: '-100vh', opacity: 1 },
-    drop: { y: 0, transition: { duration: 0.4, ease: "easeIn" } }, // Faster drop (0.4s)
-    impact: { scale: 0, opacity: 0, transition: { duration: 0.01, delay: 0.4 } }
+    drop: { y: 0, transition: { duration: 0.5, ease: "easeIn" } },
+    impact: { scale: 0, opacity: 0, transition: { duration: 0.01, delay: 0.5 } }
   };
 
-  // 3. Everything Explodes Out AT ONCE (Delay 0.4s)
-  const commonTransition = { type: "spring", stiffness: 200, damping: 20, delay: 0.42 };
+  const commonTransition = { type: "spring", stiffness: 200, damping: 20, delay: 0.55 };
 
   const redLineVariants = {
     initial: { width: 0, opacity: 0 },
@@ -83,27 +98,11 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
 
   const subtitleVariants = {
     initial: { opacity: 0 },
-    reveal: { opacity: 0.6, transition: { duration: 0.4, delay: 0.6 } } // Slight delay for hierarchy
-  };
-
-  // Logic to dismiss earlier if load is fast
-  useEffect(() => {
-    // If the browser reports "load" event (everything ready), we can dismiss 
-    // BUT we wait at least 1.2s so the animation plays fully.
-    const handleLoad = () => {
-        setTimeout(() => {
-            setIsLoading(false);
-            if (typeof window !== 'undefined') sessionStorage.setItem('has_loaded', 'true');
-        }, 1200);
-    };
-    
-    if (document.readyState === 'complete') {
-        handleLoad();
-    } else {
-        window.addEventListener('load', handleLoad);
-        return () => window.removeEventListener('load', handleLoad);
+    reveal: { 
+        opacity: 0.6, 
+        transition: { duration: 0.5, delay: 0.7 } 
     }
-  }, []);
+  };
 
   return (
     <div className="relative min-h-screen w-full">
@@ -116,29 +115,23 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
             exit="exit"
             className="fixed inset-0 z-[9999] bg-[#1a1a1a] flex flex-col items-center justify-center overflow-hidden shadow-2xl"
           >
-             {/* PULSING WRAPPER */}
              <motion.div 
                 className="relative flex flex-col items-center justify-center"
                 variants={totemWrapperVariants}
                 animate="pulse"
              >
-              {/* Drop */}
               <motion.div variants={goldDotDropVariants} initial="initial" animate={["drop", "impact"]} className="absolute w-1.5 h-1.5 rounded-full bg-[#C5A059] z-50" />
               
-              {/* Logo */}
               <div className="overflow-hidden mb-4">
                 <motion.div variants={logoVariants} initial="initial" animate="reveal" className="bg-[#FFF2EC] text-[#1a1a1a] font-mono text-xs font-bold px-2 py-1">[FC)</motion.div>
               </div>
               
-              {/* Line */}
               <motion.div variants={redLineVariants} initial="initial" animate="expand" className="h-[1px] bg-[#E21E3F] mx-auto" />
               
-              {/* Title */}
               <div className="overflow-hidden mt-4 mb-2">
                  <motion.div variants={titleVariants} initial="initial" animate="reveal" className="font-serif text-3xl md:text-4xl text-[#FFF2EC] italic">Revenue Engine</motion.div>
               </div>
               
-              {/* Subtitle */}
               <motion.div 
                 variants={subtitleVariants} 
                 initial="initial" 
@@ -157,6 +150,8 @@ const PageTransition: React.FC<{ children: React.ReactNode, currentView: string 
       </div>
     </div>
   );
+  
+  ============================================ */
 };
 
 export default PageTransition;
