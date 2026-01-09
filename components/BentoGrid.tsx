@@ -146,18 +146,18 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
   };
 
   return (
-    <section id="architecture" className="py-32 px-6 lg:px-12 bg-[#FFF2EC] border-t border-[#1a1a1a]/10">
+    <section id="architecture" className="py-16 md:py-32 px-6 lg:px-12 bg-[#FFF2EC] border-t border-[#1a1a1a]/10">
       <div className="max-w-screen-2xl mx-auto">
         
         {/* 1. HEADER - Keep your existing copy */}
-        <div className="mb-16 text-center max-w-4xl mx-auto">
-            <span className="font-mono text-xs text-[#1a1a1a] tracking-[0.4em] mb-6 block uppercase font-bold">
+        <div className="mb-12 md:mb-16 text-center max-w-4xl mx-auto">
+            <span className="font-mono text-xs text-[#1a1a1a] tracking-[0.4em] mb-4 md:mb-6 block uppercase font-bold">
               <span className="text-[#E21E3F]">/</span> THE SYSTEM
             </span>
-            <h2 className="font-serif text-5xl md:text-6xl text-[#1a1a1a] leading-[0.95] tracking-tighter mb-8">
+            <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-[0.95] tracking-tighter mb-6 md:mb-8">
               7 Ways I Fix Your Business.
             </h2>
-            <p className="font-sans text-xl font-light text-[#1a1a1a]/70 leading-relaxed max-w-2xl mx-auto">
+            <p className="font-sans text-base md:text-xl font-light text-[#1a1a1a]/70 leading-relaxed max-w-2xl mx-auto px-4 md:px-0">
               I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.
             </p>
         </div>
@@ -269,7 +269,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                     ${style.cardBg} ${style.cardBorder}
                     ${isActive ? 'shadow-2xl -translate-y-2 z-10 scale-[1.02] border-opacity-100' : 'hover:brightness-110 hover:scale-[1.01] border-opacity-30'}
                     /* Heights for mobile vs desktop */
-                    min-h-[500px] lg:min-h-[160px]
+                    min-h-[400px] lg:min-h-[160px]
                   `}
                 >
                    {/* =======================================================
@@ -291,14 +291,14 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                        </div>
 
                        {/* Content Layer */}
-                       <div className="relative z-10 p-8 w-full flex flex-col items-start pb-12">
+                       <div className="relative z-10 p-6 md:p-8 w-full flex flex-col items-start pb-8 md:pb-12">
                            
                            {/* System Label - Animated */}
                            <motion.div 
                              initial={{ y: 20, opacity: 0 }}
                              whileInView={{ y: 0, opacity: 1 }}
                              transition={{ duration: 0.5, delay: 0.1 }}
-                             className={`mb-3 font-mono text-[9px] uppercase tracking-widest ${style.accent} opacity-90`}
+                             className={`mb-2 md:mb-3 font-mono text-[9px] uppercase tracking-widest ${style.accent} opacity-90`}
                            >
                               [{service.systemGroup || 'SYSTEM_UNDEFINED'}]
                            </motion.div>
@@ -308,7 +308,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                              initial={{ y: 20, opacity: 0 }}
                              whileInView={{ y: 0, opacity: 1 }}
                              transition={{ duration: 0.5, delay: 0.2 }}
-                             className={`text-4xl font-serif mb-4 leading-none tracking-tighter text-white drop-shadow-md`}
+                             className={`text-3xl md:text-4xl font-serif mb-3 md:mb-4 leading-none tracking-tighter text-white drop-shadow-md`}
                            >
                               {service.title}
                            </motion.h3>
@@ -318,7 +318,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                              initial={{ y: 20, opacity: 0 }}
                              whileInView={{ y: 0, opacity: 1 }}
                              transition={{ duration: 0.5, delay: 0.3 }}
-                             className="text-sm font-sans font-light leading-relaxed mb-8 text-white/90 max-w-md drop-shadow-sm"
+                             className="text-sm font-sans font-light leading-relaxed mb-6 md:mb-8 text-white/90 max-w-md drop-shadow-sm"
                            >
                              {service.description}
                            </motion.p>
