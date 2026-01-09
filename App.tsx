@@ -325,7 +325,7 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ o
            {/* Mobile: Simple vertical stack */}
            <div className="md:hidden flex flex-col">
              {AUDIT_DATA.map((data, index) => (
-               <div key={data.id} className="w-full border-b border-[#1a1a1a]/10 last:border-0 bg-[#FFF2EC] py-12 px-6">
+               <div key={data.id} className="w-full bg-[#FFF2EC] py-12 px-6">
                  <div className="w-full max-w-[1600px] mx-auto">
                    {data.type === 'cta' ? (
                      <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto py-8">
@@ -347,7 +347,6 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ o
                          <span className="font-serif text-4xl md:text-6xl text-[#1a1a1a]/10 italic font-bold">
                            {data.id}
                          </span>
-                         <div className="h-px flex-1 bg-[#1a1a1a]/20"></div>
                          <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest border border-[#E21E3F]/30 px-2 py-1">
                            [{data.label}]
                          </span>
@@ -364,7 +363,7 @@ const FrictionAuditSection: React.FC<{ onNavigate: (v: string) => void }> = ({ o
                          </div>
                        </div>
 
-                       <p className="font-sans text-sm md:text-lg text-[#1a1a1a]/70 leading-relaxed max-w-md border-l-2 border-[#E21E3F]/20 pl-4">
+                       <p className="font-sans text-sm md:text-lg text-[#1a1a1a]/70 leading-relaxed max-w-md pl-0">
                          {data.description}
                        </p>
                      </div>
