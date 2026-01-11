@@ -232,9 +232,9 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                {AUDIT_DATA.map((data, index) => (
                   <div 
                      key={data.id}
-                     // FIX: min-h-full forces the card to match the EXACT height of the scroll container (60% of screen).
-                     // This acts as the "Floor Length Curtain" so Card 05 completely covers Card 04.
-                     className="sticky top-0 bg-[#FFF2EC] border-b border-[#1a1a1a]/10 min-h-full w-full flex flex-col"
+                     // FIX: min-h-[65vh] guarantees the card is TALLER than the 60% (approx 60vh) container.
+                     // This ensures Card 05 fully obscures previous cards (Floor Length Curtain effect).
+                     className="sticky top-0 bg-[#FFF2EC] border-b border-[#1a1a1a]/10 min-h-[65vh] w-full flex flex-col"
                      style={{ 
                         zIndex: index + 1
                      }}

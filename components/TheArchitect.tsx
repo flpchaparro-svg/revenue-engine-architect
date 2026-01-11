@@ -7,7 +7,7 @@ const TheArchitect: React.FC = () => {
 
   return (
     <section id="origins" className="w-full bg-[#FFF2EC] py-32 lg:py-64 px-6 md:px-12 lg:px-20 relative z-30 overflow-hidden border-t border-black/5">
-      <div className="max-w-[1400px] mx-auto relative">
+      <div className="max-w-[1600px] mx-auto relative">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 relative items-center">
           
