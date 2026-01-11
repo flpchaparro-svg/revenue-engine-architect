@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-// 1. Same logic as before
-export type GraphState = 'idle' | 'bottleneck' | 'tax' | 'grind' | 'cost' | 'fix' | 'problem';
+// Removed 'problem' to prevent the "bleach" duplicate state
+export type GraphState = 'idle' | 'bottleneck' | 'tax' | 'grind' | 'cost' | 'fix';
 
 interface GrowthGraphProps {
   currentState: GraphState;
@@ -38,7 +38,7 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
     // --- NO BACKGROUND GRID. NO DOTS. NO LINES. ---
 
     // --- THE ELEMENTS ---
-    const barY = 40; // Start lower to give more space
+    const barY = 0;
     
     // 1. The Track (Simple, thin grey line)
     chart.append('rect')
@@ -57,18 +57,18 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
         .attr('width', 0)
         .attr('opacity', 1);
 
-    // 3. The Label (Above) - Use font-mono to match Friction Audit section
+    // 3. The Label
     const labelText = chart.append('text')
         .attr('x', 0)
-        .attr('y', barY - 20) // Increased spacing from bar
-        .attr('class', 'font-mono text-xs font-bold uppercase tracking-widest') // Match Friction Audit
+        .attr('y', barY - 15)
+        .attr('class', 'font-sans text-xs font-bold uppercase tracking-widest')
         .style('fill', '#1a1a1a');
 
-    // 4. The Value (Below) - Use font-mono to match Friction Audit section
+    // 4. The Value
     const valueText = chart.append('text')
         .attr('x', 0)
-        .attr('y', barY + 50) // Increased spacing from bar
-        .attr('class', 'font-mono text-xl md:text-2xl font-bold tracking-tight') // Match Friction Audit metric style
+        .attr('y', barY + 45)
+        .attr('class', 'font-serif text-4xl leading-none')
         .style('fill', '#1a1a1a');
 
     // Store refs
@@ -86,14 +86,12 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
     
     const { activeBar, valueText, labelText, chartWidth } = svgRef.current;
 
-    // CONFIGURATION (Logic preserved, text cleaned)
-    // CONFIGURATION
+    // CONFIGURATION (Removed the duplicate 'problem' state)
     const config = {
-        // DEFAULT / PROBLEM
+        // IDLE: The Baseline (Average Admin Load)
         idle: { label: 'Average Admin Load', value: 65, color: '#E21E3F', text: '15 hrs/wk' },
-        problem: { label: 'Administrative Hostage', value: 65, color: '#E21E3F', text: '15 hrs/wk' },
         
-        // SYMPTOMS (Specific Data)
+        // SYMPTOMS
         bottleneck: { 
             label: 'Deep Work Lost',   
             value: 40, 
@@ -129,7 +127,7 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
     // 1. Label
     labelText.text(target.label)
         .transition().duration(duration)
-        .style('fill', target.color === '#C5A059' ? '#C5A059' : '#1a1a1a'); // Gold or Black (cleaner than Red text)
+        .style('fill', target.color === '#C5A059' ? '#C5A059' : '#1a1a1a');
 
     // 2. Bar
     activeBar

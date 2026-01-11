@@ -44,8 +44,9 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
       // Only run this loop on mobile. Desktop relies on Hover.
       if (!isMobile) return;
 
-      // Define the "Red" states to cycle through (Cards 1, 2, 3)
-      const scannerStates: GraphState[] = ['problem', 'bottleneck', 'tax', 'grind', 'cost'];
+      // UPDATED LOOP: Removed 'problem' (redundant) and 'idle'.
+      // Now it only loops through states that have DIFFERENT numbers.
+      const scannerStates: GraphState[] = ['bottleneck', 'tax', 'grind', 'cost'];
       let currentIndex = 0;
 
       // Start the loop
@@ -269,8 +270,8 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
           <div className="grid grid-cols-1 md:grid-cols-3">
             {/* 01: THE PROBLEM (Span 2) */}
             <div 
-              onMouseEnter={() => handleGraphHover('problem')} // Shows Average Admin Load
-              onMouseLeave={handleGraphLeave}
+              // REMOVED: onMouseEnter={() => setGraphState('problem')} 
+              // This fixes the "bleach" effect. The graph now stays stable on "Average Admin Load"
               className="col-span-1 md:col-span-2 p-6 md:p-12 lg:p-16 border-r border-b border-[#1a1a1a]/10 flex flex-col justify-center min-h-[250px] md:min-h-[350px] transition-colors duration-300 hover:bg-[#1a1a1a]/5 group"
             >
               <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-6 md:mb-10 block">01 / THE PROBLEM</span>
