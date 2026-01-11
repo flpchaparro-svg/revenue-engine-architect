@@ -24,12 +24,13 @@ const TerminalLog: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full bg-[#1a1a1a] p-6 border-t border-black/10 font-mono text-xs overflow-hidden">
+    // UPGRADE: Increased p-6 to p-8, font size base for better readability
+    <div className="w-full bg-[#1a1a1a] p-8 border-t border-black/10 font-mono text-sm overflow-hidden">
       <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
-        <Terminal className="w-3 h-3 text-[#C5A059]" />
+        <Terminal className="w-4 h-4 text-[#C5A059]" />
         <span className="text-[#C5A059] uppercase tracking-widest">Build Log // What I Did</span>
       </div>
-      <div className="space-y-2">
+      <div className="space-y-3">
         {lines.map((line, i) => (
           <motion.div 
             key={i}
@@ -37,7 +38,7 @@ const TerminalLog: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             className="text-white/80"
           >
-            <span className="text-[#0F766E] mr-2">➜</span>
+            <span className="text-[#0F766E] mr-3">➜</span>
             {line}
           </motion.div>
         ))}
@@ -67,18 +68,20 @@ const Feature_Group7: React.FC = () => {
   }, [isModalOpen]);
 
   return (
-    <section className="w-full bg-[#FFF2EC] py-32 border-y border-black/5 relative z-20">
+    <section className="w-full bg-[#FFF2EC] py-24 md:py-32 border-y border-black/5 relative z-20">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
         
         {/* --- SECTION HEADER --- */}
-        <div className="mb-16 max-w-2xl">
-          <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-4 block uppercase font-bold">
+        <div className="mb-16 md:mb-24 max-w-3xl">
+          <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">
             // REAL RESULTS
           </span>
-          <h2 className="font-serif text-4xl md:text-6xl text-[#1a1a1a] leading-[0.95] mb-6">
+          {/* UPGRADE: Standardized to text-7xl */}
+          <h2 className="font-serif text-5xl md:text-7xl text-[#1a1a1a] leading-[0.95] mb-8">
             See It In <span className="italic text-[#E21E3F]">Action.</span>
           </h2>
-          <p className="font-sans text-lg text-[#1a1a1a]/60 leading-relaxed border-l-2 border-[#E21E3F]/30 pl-6">
+          {/* UPGRADE: Standardized to text-xl */}
+          <p className="font-sans text-lg md:text-xl text-[#1a1a1a]/60 leading-relaxed border-l-2 border-[#E21E3F]/30 pl-6">
             Don't just take my word for it. Here's what happened when I rebuilt a Sydney security company's website.
           </p>
         </div>
@@ -125,43 +128,42 @@ const Feature_Group7: React.FC = () => {
                      [ WEBSITE REBUILD ]
                   </span>
               </div>
-              <span className="font-mono text-[9px] text-white/30 uppercase flex items-center gap-2">
+              <span className="font-mono text-[10px] text-white/30 uppercase flex items-center gap-2">
                   [ SEE THE TRANSFORMATION ]
                   <Zap className="w-3 h-3 text-[#C5A059]" />
               </span>
           </div>
 
           {/* The Transformation Engine (Visual Abstract) */}
-          <div className="p-8 md:p-16 relative min-h-[350px] flex flex-col md:flex-row items-center justify-between gap-8 md:gap-0">
+          <div className="p-8 md:p-16 relative min-h-[350px] flex flex-col md:flex-row items-center justify-between gap-12 md:gap-0">
               
               {/* Background Grid */}
               <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-50" />
 
               {/* NODE A: LEGACY (Left - Validated Early) */}
               <motion.div 
-                className="relative z-10 flex flex-col items-center gap-4"
+                className="relative z-10 flex flex-col items-center gap-6"
                 variants={{
                   idle: { filter: "grayscale(100%)", opacity: 0.5, scale: 1 },
                   scan: { 
                     filter: "grayscale(0%)", 
                     opacity: 1, 
                     scale: 1.05, 
-                    transition: { duration: 0.4, delay: 0.3 } // Hits early
+                    transition: { duration: 0.4, delay: 0.3 } 
                   }
                 }}
               >
-                  <div className="w-20 h-20 rounded-full border border-[#E21E3F]/50 flex items-center justify-center bg-[#E21E3F]/5 relative overflow-hidden">
-                      {/* Inner Glow */}
+                  <div className="w-24 h-24 rounded-full border border-[#E21E3F]/50 flex items-center justify-center bg-[#E21E3F]/5 relative overflow-hidden">
                       <motion.div 
                         className="absolute inset-0 bg-[#E21E3F]/20" 
                         variants={{ idle: { opacity: 0 }, scan: { opacity: 1, transition: { delay: 0.3 } } }} 
                       />
-                      <AlertTriangle className="w-8 h-8 text-[#E21E3F] relative z-10" />
+                      <AlertTriangle className="w-10 h-10 text-[#E21E3F] relative z-10" />
                   </div>
                   <div className="text-center">
-                      <div className="font-mono text-[10px] text-[#E21E3F] mb-2 uppercase tracking-widest">Before</div>
-                      <div className="font-serif text-white/60 text-xl mb-1">group7security.com</div>
-                      <div className="flex items-center justify-center gap-2 text-xs font-mono text-[#E21E3F] bg-[#E21E3F]/10 px-2 py-1 rounded">
+                      <div className="font-mono text-xs text-[#E21E3F] mb-2 uppercase tracking-widest">Before</div>
+                      <div className="font-serif text-white/60 text-2xl mb-2">group7security.com</div>
+                      <div className="flex items-center justify-center gap-2 text-xs font-mono text-[#E21E3F] bg-[#E21E3F]/10 px-3 py-1.5 rounded">
                           <Activity className="w-3 h-3" />
                           <span>4.2s Load</span>
                       </div>
@@ -175,8 +177,8 @@ const Feature_Group7: React.FC = () => {
                       animate={{ left: ['-30%', '130%'] }}
                       transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                   />
-                  <div className="relative z-10 bg-[#1a1a1a] border border-[#C5A059]/30 px-4 py-2 rounded-full flex items-center gap-3">
-                      <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest">
+                  <div className="relative z-10 bg-[#1a1a1a] border border-[#C5A059]/30 px-6 py-3 rounded-full flex items-center gap-3">
+                      <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-widest font-bold">
                           VIEW TRANSFORMATION
                       </span>
                   </div>
@@ -184,18 +186,18 @@ const Feature_Group7: React.FC = () => {
 
               {/* NODE B: AUTHORITY (Right - Validated Late) */}
               <motion.div 
-                className="relative z-10 flex flex-col items-center gap-4"
+                className="relative z-10 flex flex-col items-center gap-6"
                 variants={{
                   idle: { scale: 1, opacity: 0.5 },
                   scan: { 
                     scale: 1.05, 
                     opacity: 1, 
-                    transition: { duration: 0.4, delay: 1.2 } // Hits late
+                    transition: { duration: 0.4, delay: 1.2 } 
                   }
                 }}
               >
                   <motion.div 
-                    className="w-24 h-24 rounded-full border-2 flex items-center justify-center relative overflow-hidden"
+                    className="w-28 h-28 rounded-full border-2 flex items-center justify-center relative overflow-hidden"
                     variants={{
                       idle: { borderColor: '#333', backgroundColor: 'rgba(0,0,0,0)' },
                       scan: { 
@@ -206,12 +208,12 @@ const Feature_Group7: React.FC = () => {
                       }
                     }}
                   >
-                      <ShieldCheck className="w-10 h-10 text-[#C5A059] group-hover:text-[#0F766E] transition-colors duration-500 delay-1000" />
+                      <ShieldCheck className="w-12 h-12 text-[#C5A059] group-hover:text-[#0F766E] transition-colors duration-500 delay-1000" />
                   </motion.div>
                   <div className="text-center">
-                      <div className="font-mono text-[10px] text-[#C5A059] mb-2 uppercase tracking-widest group-hover:text-[#0F766E] transition-colors delay-1000">After</div>
-                      <div className="font-serif text-white text-2xl mb-1">group7security.com.au</div>
-                      <div className="flex items-center justify-center gap-2 text-xs font-mono text-[#0F766E] bg-[#0F766E]/10 px-3 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity delay-1000 duration-500">
+                      <div className="font-mono text-xs text-[#C5A059] mb-2 uppercase tracking-widest group-hover:text-[#0F766E] transition-colors delay-1000">After</div>
+                      <div className="font-serif text-white text-3xl mb-2">group7security.com.au</div>
+                      <div className="flex items-center justify-center gap-2 text-xs font-mono text-[#0F766E] bg-[#0F766E]/10 px-4 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity delay-1000 duration-500">
                           <Globe className="w-3 h-3" />
                           <span>0.4s Load</span>
                       </div>
@@ -221,19 +223,18 @@ const Feature_Group7: React.FC = () => {
           </div>
 
           {/* Footer Action */}
-          <div className="py-4 border-t border-white/5 bg-black/40 flex items-center justify-center gap-3 text-white group-hover:text-[#C5A059] transition-colors relative z-30">
-               <span className="font-mono text-[10px] uppercase tracking-widest font-bold">See Full Case Study</span>
-               <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+          <div className="py-5 border-t border-white/5 bg-black/40 flex items-center justify-center gap-3 text-white group-hover:text-[#C5A059] transition-colors relative z-30">
+               <span className="font-mono text-xs uppercase tracking-widest font-bold">See Full Case Study</span>
+               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </div>
 
         </motion.div>
 
-        {/* --- THE EVIDENCE MODAL (Rendered via Portal) --- */}
+        {/* --- THE EVIDENCE MODAL --- */}
         {isModalOpen && createPortal(
           <AnimatePresence mode="wait">
             <div key="modal" className="fixed inset-0 z-[9999] flex items-center justify-center px-4 md:px-8">
               
-              {/* Backdrop */}
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -242,7 +243,6 @@ const Feature_Group7: React.FC = () => {
                 className="absolute inset-0 bg-black/90 backdrop-blur-md"
               />
 
-              {/* Modal Content */}
               <motion.div 
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -251,11 +251,10 @@ const Feature_Group7: React.FC = () => {
                 className="relative w-full max-w-6xl bg-[#FFF2EC] overflow-hidden shadow-2xl rounded-sm max-h-[90vh] flex flex-col z-10"
               >
                  
-                 {/* Modal Header */}
                  <div className="flex justify-between items-center p-6 border-b border-black/10 bg-white shrink-0">
                     <div>
-                      <h3 className="font-serif text-2xl text-[#1a1a1a]">Case Study: Group 7 Security</h3>
-                      <p className="font-mono text-[10px] text-[#1a1a1a]/50 uppercase tracking-widest">[ WEBSITE + SEO OVERHAUL ]</p>
+                      <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a]">Case Study: Group 7 Security</h3>
+                      <p className="font-mono text-[10px] text-[#1a1a1a]/50 uppercase tracking-widest mt-1">[ WEBSITE + SEO OVERHAUL ]</p>
                     </div>
                     <button 
                       onClick={() => setIsModalOpen(false)}
@@ -265,32 +264,31 @@ const Feature_Group7: React.FC = () => {
                     </button>
                  </div>
 
-                 {/* Modal Body: The Slider & Terminal & Grid */}
                  <div className="flex-grow overflow-y-auto p-0">
                     <EvidenceVisual_Compare 
                       beforeLabel="BEFORE: Old .com Site"
                       afterLabel="AFTER: New .com.au Site"
                     />
                     
-                    {/* --- NEW TERMINAL LOG --- */}
                     <TerminalLog />
 
+                    {/* UPGRADE: Increased text sizes in the grid */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 md:p-12 bg-white border-t border-black/10">
                         <div>
-                          <h4 className="font-bold text-[#E21E3F] mb-2 text-sm uppercase tracking-widest">The Problem</h4>
-                          <p className="text-sm text-[#1a1a1a]/70 leading-relaxed">
+                          <h4 className="font-bold text-[#E21E3F] mb-3 text-sm uppercase tracking-widest">The Problem</h4>
+                          <p className="text-base text-[#1a1a1a]/70 leading-relaxed">
                             They had a slow <strong>.com</strong> website with no local SEO. Google thought they were a global tech company, not a Sydney security firm. Local customers couldn't find them.
                           </p>
                         </div>
                         <div>
-                          <h4 className="font-bold text-[#C5A059] mb-2 text-sm uppercase tracking-widest">What I Did</h4>
-                          <p className="text-sm text-[#1a1a1a]/70 leading-relaxed">
+                          <h4 className="font-bold text-[#C5A059] mb-3 text-sm uppercase tracking-widest">What I Did</h4>
+                          <p className="text-base text-[#1a1a1a]/70 leading-relaxed">
                             I migrated them to <strong>.com.au</strong> and rebuilt the site from scratch — fast, mobile-first, with proper Sydney location tags so Google knows exactly where they operate.
                           </p>
                         </div>
                         <div>
-                          <h4 className="font-bold text-[#0F766E] mb-2 text-sm uppercase tracking-widest">The Result</h4>
-                          <p className="text-sm text-[#1a1a1a]/70 leading-relaxed">
+                          <h4 className="font-bold text-[#0F766E] mb-3 text-sm uppercase tracking-widest">The Result</h4>
+                          <p className="text-base text-[#1a1a1a]/70 leading-relaxed">
                             Page load dropped from <strong>4.2s to 0.4s</strong>. Local search rankings improved. The site now converts visitors instead of losing them.
                           </p>
                         </div>
