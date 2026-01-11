@@ -287,76 +287,77 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                 >
                    {/* =======================================================
                        MOBILE CONTENT (Visible < lg) - FULL DISPLAY STYLE
+                       Only render if actually on mobile to prevent hidden rendering on desktop
                    ======================================================= */}
-                   <motion.div 
-                     initial={{ opacity: 0 }}
-                     whileInView={{ opacity: 1 }}
-                     viewport={{ once: true, margin: "-10%" }}
-                     className="lg:hidden absolute inset-0 z-0 flex flex-col justify-end"
-                   >
-                       {/* MOBILE LOADING BAR - REMOVED ON MOBILE/TABLET FOR PERFORMANCE */}
-                       
-                       {/* Full Background Animation - Only render if actually on mobile */}
-                       {isMobile && (
+                   {isMobile && (
+                     <motion.div 
+                       initial={{ opacity: 0 }}
+                       whileInView={{ opacity: 1 }}
+                       viewport={{ once: true, margin: "-10%" }}
+                       className="lg:hidden absolute inset-0 z-0 flex flex-col justify-end"
+                     >
+                         {/* MOBILE LOADING BAR - REMOVED ON MOBILE/TABLET FOR PERFORMANCE */}
+                         
+                         {/* Full Background Animation */}
                          <div className="absolute inset-0 z-0 opacity-100">
                              <ViewportViz type={service.visualPrompt} color={getVizColor(service.systemGroup || 'GET CLIENTS')} />
                              {/* Gradient Overlay for Text Readability - LIGHTER GRADIENT */}
                              <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-[#1a1a1a]/20 to-transparent" />
                          </div>
-                       )}
 
-                       {/* Content Layer */}
-                       <div className="relative z-10 p-6 md:p-8 w-full flex flex-col items-start pb-8 md:pb-12">
-                           
-                           {/* System Label - Animated */}
-                           <motion.div 
-                             initial={{ y: 20, opacity: 0 }}
-                             whileInView={{ y: 0, opacity: 1 }}
-                             transition={{ duration: 0.5, delay: 0.1 }}
-                             className={`mb-2 md:mb-3 font-mono text-[9px] uppercase tracking-widest ${style.accent} opacity-90`}
-                           >
-                              [{service.systemGroup || 'SYSTEM_UNDEFINED'}]
-                           </motion.div>
+                         {/* Content Layer */}
+                         <div className="relative z-10 p-6 md:p-8 w-full flex flex-col items-start pb-8 md:pb-12">
+                             
+                             {/* System Label - Animated */}
+                             <motion.div 
+                               initial={{ y: 20, opacity: 0 }}
+                               whileInView={{ y: 0, opacity: 1 }}
+                               transition={{ duration: 0.5, delay: 0.1 }}
+                               className={`mb-2 md:mb-3 font-mono text-[9px] uppercase tracking-widest ${style.accent} opacity-90`}
+                             >
+                                [{service.systemGroup || 'SYSTEM_UNDEFINED'}]
+                             </motion.div>
 
-                           {/* Big Title - Animated */}
-                           <motion.h3 
-                             initial={{ y: 20, opacity: 0 }}
-                             whileInView={{ y: 0, opacity: 1 }}
-                             transition={{ duration: 0.5, delay: 0.2 }}
-                             className={`text-3xl md:text-4xl font-serif mb-3 md:mb-4 leading-none tracking-tighter text-white drop-shadow-md`}
-                           >
-                              {service.title}
-                           </motion.h3>
+                             {/* Big Title - Animated */}
+                             <motion.h3 
+                               initial={{ y: 20, opacity: 0 }}
+                               whileInView={{ y: 0, opacity: 1 }}
+                               transition={{ duration: 0.5, delay: 0.2 }}
+                               className={`text-3xl md:text-4xl font-serif mb-3 md:mb-4 leading-none tracking-tighter text-white drop-shadow-md`}
+                             >
+                                {service.title}
+                             </motion.h3>
 
-                           {/* Description - Animated */}
-                           <motion.p 
-                             initial={{ y: 20, opacity: 0 }}
-                             whileInView={{ y: 0, opacity: 1 }}
-                             transition={{ duration: 0.5, delay: 0.3 }}
-                             className="text-sm font-sans font-light leading-relaxed mb-6 md:mb-8 text-white/90 max-w-md drop-shadow-sm"
-                           >
-                             {service.description}
-                           </motion.p>
-                           
-                           {/* Mobile Button - Gold at all times, no hover effects for performance */}
-                           <motion.button
-                             initial={{ y: 20, opacity: 0 }}
-                             whileInView={{ y: 0, opacity: 1 }}
-                             transition={{ duration: 0.5, delay: 0.4 }}
-                             whileTap={{ scale: 0.95 }}
-                             onClick={(e) => {
-                               e.stopPropagation();
-                               onServiceClick(service);
-                             }}
-                             className={`px-8 py-4 font-mono text-[10px] uppercase tracking-[0.3em] font-bold border w-full md:w-auto border-[#C5A059] bg-[#C5A059] text-[#1a1a1a]`}
-                           >
-                             <span className="flex items-center justify-center gap-3">
-                                [ EXPLORE PILLAR ]
-                                <LucideIcons.ArrowRight className="w-4 h-4" />
-                             </span>
-                           </motion.button>
-                       </div>
-                   </motion.div>
+                             {/* Description - Animated */}
+                             <motion.p 
+                               initial={{ y: 20, opacity: 0 }}
+                               whileInView={{ y: 0, opacity: 1 }}
+                               transition={{ duration: 0.5, delay: 0.3 }}
+                               className="text-sm font-sans font-light leading-relaxed mb-6 md:mb-8 text-white/90 max-w-md drop-shadow-sm"
+                             >
+                               {service.description}
+                             </motion.p>
+                             
+                             {/* Mobile Button - Gold at all times, no hover effects for performance */}
+                             <motion.button
+                               initial={{ y: 20, opacity: 0 }}
+                               whileInView={{ y: 0, opacity: 1 }}
+                               transition={{ duration: 0.5, delay: 0.4 }}
+                               whileTap={{ scale: 0.95 }}
+                               onClick={(e) => {
+                                 e.stopPropagation();
+                                 onServiceClick(service);
+                               }}
+                               className={`px-8 py-4 font-mono text-[10px] uppercase tracking-[0.3em] font-bold border w-full md:w-auto border-[#C5A059] bg-[#C5A059] text-[#1a1a1a]`}
+                             >
+                               <span className="flex items-center justify-center gap-3">
+                                  [ EXPLORE PILLAR ]
+                                  <LucideIcons.ArrowRight className="w-4 h-4" />
+                               </span>
+                             </motion.button>
+                         </div>
+                     </motion.div>
+                   )}
 
                    {/* =======================================================
                        DESKTOP CONTENT (Visible >= lg) - COMPACT CARD

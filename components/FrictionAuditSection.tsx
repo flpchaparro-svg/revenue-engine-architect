@@ -132,7 +132,7 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
         pointerEvents,
         transformStyle: "preserve-3d", // Crucial for 3D effect
         backfaceVisibility: "hidden",    // Crucial: Hides text when rotated behind
-        willChange: "opacity, transform" // Hint browser to promote to GPU for performance
+        willChange: "transform, opacity" // FIX: Optimize scroll performance on Vercel deployments
       }}
       className="absolute inset-0 w-full h-full flex flex-col justify-center bg-[#FFF2EC] origin-center"
     >

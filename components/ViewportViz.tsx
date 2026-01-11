@@ -10,18 +10,30 @@ interface ViewportVizProps {
 const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const timerRef = useRef<d3.Timer | null>(null);
   
   // Keep the InView optimization
   const isInView = useInView(containerRef, { margin: "0px 0px 100px 0px" });
 
   useEffect(() => {
     // 1. Setup Canvas & Context
-    if (!containerRef.current || !canvasRef.current || !isInView) return;
+    if (!containerRef.current || !canvasRef.current) return;
     
     const container = containerRef.current;
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
+
+    // Stop any existing timer from previous render
+    if (timerRef.current) {
+      timerRef.current.stop();
+      timerRef.current = null;
+    }
+    
+    // Early return if not in view - animations won't start
+    if (!isInView) {
+      return;
+    }
 
     // Handle High DPI (Retina) Displays for crisp lines
     const dpr = window.devicePixelRatio || 1;
@@ -52,8 +64,6 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
     };
     const rgb = hexToRgb(color);
 
-    let timer: d3.Timer;
-
     // --- RENDERERS (Canvas Version) ---
 
     // 1. GEOMETRIC
@@ -63,7 +73,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
       const count = 5;
       const lineGen = d3.line().context(ctx); // Use D3 to draw to Context
 
-      timer = d3.timer((elapsed) => {
+      timerRef.current = d3.timer((elapsed) => {
         ctx.clearRect(0, 0, width, height); // Clear frame
         const t = elapsed * 0.0003;
 
@@ -107,7 +117,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
       const cy = height / 2;
       const satelliteCount = 8;
 
-      timer = d3.timer((elapsed) => {
+      timerRef.current = d3.timer((elapsed) => {
         ctx.clearRect(0, 0, width, height);
         const t = elapsed * 0.0002;
 
@@ -185,7 +195,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
         paths.push(path);
       }
 
-      timer = d3.timer((elapsed) => {
+      timerRef.current = d3.timer((elapsed) => {
         ctx.clearRect(0, 0, width, height);
 
         paths.forEach((p, i) => {
@@ -223,7 +233,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
         vy: (Math.random() - 0.5) * 0.4
       }));
 
-      timer = d3.timer(() => {
+      timerRef.current = d3.timer(() => {
         ctx.clearRect(0, 0, width, height);
 
         // Update positions
@@ -268,7 +278,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
       const bars = 24;
       const barW = width / bars;
       
-      timer = d3.timer((elapsed) => {
+      timerRef.current = d3.timer((elapsed) => {
         ctx.clearRect(0, 0, width, height);
         ctx.strokeStyle = color;
         ctx.lineWidth = 1.0;
@@ -289,7 +299,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
       const lineGen = d3.line().curve(d3.curveBasis).context(ctx);
       const layers = 6;
 
-      timer = d3.timer((elapsed) => {
+      timerRef.current = d3.timer((elapsed) => {
         ctx.clearRect(0, 0, width, height);
         ctx.strokeStyle = color;
         ctx.lineWidth = 1.0;
@@ -315,7 +325,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
       const cy = height / 2;
       const maxR = Math.min(width, height) * 0.35;
 
-      timer = d3.timer((elapsed) => {
+      timerRef.current = d3.timer((elapsed) => {
         ctx.clearRect(0, 0, width, height);
 
         // Static Rings
@@ -369,7 +379,10 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
 
     // Handle Resize
     const observer = new ResizeObserver(() => {
-      if (timer) timer.stop();
+      if (timerRef.current) {
+        timerRef.current.stop();
+        timerRef.current = null;
+      }
       const rect = container.getBoundingClientRect();
       const dpr = window.devicePixelRatio || 1;
       canvas.width = rect.width * dpr;
@@ -393,7 +406,10 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
     observer.observe(container);
 
     return () => {
-      if (timer) timer.stop();
+      if (timerRef.current) {
+        timerRef.current.stop();
+        timerRef.current = null;
+      }
       observer.disconnect();
     };
 
