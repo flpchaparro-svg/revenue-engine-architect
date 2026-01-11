@@ -23,7 +23,7 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const [scrambleText, setScrambleText] = useState("ARCHITECT");
   const [isTickerHovered, setIsTickerHovered] = useState(false);
-  const [diagnosisState, setDiagnosisState] = useState<'idle' | 'bottleneck' | 'tax' | 'grind'>('idle');
+  const [graphState, setGraphState] = useState<'idle' | 'bottleneck' | 'tax' | 'grind' | 'cost' | 'fix' | 'problem'>('idle');
   const scrollLineY = useMotionValue(-100); // Start at top (-100%)
   const scrollLineSpeed = useMotionValue(0.067); // Base speed: % per ms (for 3s duration: 200% in 3000ms)
 
@@ -198,65 +198,59 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 h-16 md:h-32 w-[1px] bg-[#1a1a1a]/10" />
         <div className="max-w-[1600px] mx-auto border-t border-l border-[#1a1a1a]/10">
           <div className="grid grid-cols-1 md:grid-cols-3">
-            {/* 01 / THE PROBLEM - Original Copy with Hover Effect */}
-            <div className="col-span-1 md:col-span-2 p-6 md:p-12 lg:p-16 border-r border-b border-[#1a1a1a]/10 flex flex-col justify-center min-h-[250px] md:min-h-[350px] group">
+            {/* 01: THE PROBLEM (Span 2) */}
+            <div 
+              onMouseEnter={() => setGraphState('problem')} // Shows Average Admin Load
+              onMouseLeave={() => setGraphState('idle')}
+              className="col-span-1 md:col-span-2 p-6 md:p-12 lg:p-16 border-r border-b border-[#1a1a1a]/10 flex flex-col justify-center min-h-[250px] md:min-h-[350px] transition-colors duration-300 hover:bg-[#1a1a1a]/5 group"
+            >
               <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-6 md:mb-10 block">01 / THE PROBLEM</span>
-              <h2 className="font-serif text-3xl md:text-5xl lg:text-7xl leading-[0.9] text-[#1a1a1a] tracking-tighter">You didn't start your business to become an <br className="hidden md:block" /><span className="italic text-[#1a1a1a]/60 group-hover:text-[#E21E3F] transition-colors duration-300">administrative hostage.</span></h2>
+              <h2 className="font-serif text-3xl md:text-5xl lg:text-7xl leading-[0.9] text-[#1a1a1a] tracking-tighter">
+                You didn't start your business to become an <br className="hidden md:block" />
+                <span className="italic text-[#1a1a1a]/60 group-hover:text-[#E21E3F] transition-colors duration-300">administrative hostage.</span>
+              </h2>
             </div>
-            
-            {/* GrowthGraph - Original */}
-            <div className="col-span-1 border-r border-b border-[#1a1a1a]/10 bg-transparent">
-              <GrowthGraph />
+
+            {/* GRAPH CONTAINER (Span 1) */}
+            <div className="col-span-1 border-r border-b border-[#1a1a1a]/10 bg-transparent flex items-center justify-center p-6">
+              <GrowthGraph currentState={graphState} />
             </div>
-            
-            {/* 02 / SYMPTOMS - Interactive Controller with Original Copy */}
-            <div className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 min-h-[200px] md:min-h-[300px] flex flex-col">
+
+            {/* 02: SYMPTOMS (Span 1) */}
+            <div 
+              onMouseEnter={() => setGraphState('bottleneck')}
+              onMouseLeave={() => setGraphState('idle')}
+              className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 min-h-[200px] md:min-h-[300px] hover:bg-[#1a1a1a]/5 transition-colors duration-300"
+            >
               <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-6 md:mb-8 block">02 / SYMPTOMS</span>
-              
-              <div className="space-y-4 md:space-y-6">
-                <motion.div
-                  onMouseEnter={() => setDiagnosisState('bottleneck')}
-                  onMouseLeave={() => setDiagnosisState('idle')}
-                  className="group relative flex items-start gap-3 md:gap-4 p-2 rounded-sm transition-colors duration-300 hover:bg-[#1a1a1a]/5"
-                >
-                  {/* Active Indicator Line */}
-                  <div className={`absolute left-0 top-0 bottom-0 w-[2px] bg-[#E21E3F] transition-transform duration-300 origin-top ${diagnosisState === 'bottleneck' ? 'scale-y-100' : 'scale-y-0'}`} />
-                  <XCircle className={`w-4 h-4 md:w-5 md:h-5 shrink-0 mt-0.5 transition-colors duration-300 ${diagnosisState === 'bottleneck' ? 'text-[#E21E3F]' : 'text-[#E21E3F]'}`} />
+              <ul className="space-y-4 md:space-y-6">
+                <li className="flex items-start gap-3 md:gap-4">
+                  <XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5" />
                   <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70">
-                    <strong className={`transition-colors duration-300 ${diagnosisState === 'bottleneck' ? 'text-[#E21E3F]' : 'text-[#1a1a1a]'}`}>The Bottleneck Boss:</strong> You are answering questions instead of doing deep work.
+                    <strong className="text-[#1a1a1a]">The Bottleneck Boss:</strong> You are answering questions instead of doing deep work.
                   </div>
-                </motion.div>
-                
-                <motion.div
-                  onMouseEnter={() => setDiagnosisState('tax')}
-                  onMouseLeave={() => setDiagnosisState('idle')}
-                  className="group relative flex items-start gap-3 md:gap-4 p-2 rounded-sm transition-colors duration-300 hover:bg-[#1a1a1a]/5"
-                >
-                  {/* Active Indicator Line */}
-                  <div className={`absolute left-0 top-0 bottom-0 w-[2px] bg-[#E21E3F] transition-transform duration-300 origin-top ${diagnosisState === 'tax' ? 'scale-y-100' : 'scale-y-0'}`} />
-                  <XCircle className={`w-4 h-4 md:w-5 md:h-5 shrink-0 mt-0.5 transition-colors duration-300 ${diagnosisState === 'tax' ? 'text-[#E21E3F]' : 'text-[#E21E3F]'}`} />
+                </li>
+                <li className="flex items-start gap-3 md:gap-4">
+                  <XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5" />
                   <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70">
-                    <strong className={`transition-colors duration-300 ${diagnosisState === 'tax' ? 'text-[#E21E3F]' : 'text-[#1a1a1a]'}`}>The Double-Entry Tax:</strong> Typing the same data into two different apps.
+                    <strong className="text-[#1a1a1a]">The Double-Entry Tax:</strong> Typing the same data into two different apps.
                   </div>
-                </motion.div>
-                
-                <motion.div
-                  onMouseEnter={() => setDiagnosisState('grind')}
-                  onMouseLeave={() => setDiagnosisState('idle')}
-                  className="group relative flex items-start gap-3 md:gap-4 p-2 rounded-sm transition-colors duration-300 hover:bg-[#1a1a1a]/5"
-                >
-                  {/* Active Indicator Line */}
-                  <div className={`absolute left-0 top-0 bottom-0 w-[2px] bg-[#E21E3F] transition-transform duration-300 origin-top ${diagnosisState === 'grind' ? 'scale-y-100' : 'scale-y-0'}`} />
-                  <XCircle className={`w-4 h-4 md:w-5 md:h-5 shrink-0 mt-0.5 transition-colors duration-300 ${diagnosisState === 'grind' ? 'text-[#E21E3F]' : 'text-[#E21E3F]'}`} />
+                </li>
+                <li className="flex items-start gap-3 md:gap-4">
+                  <XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5" />
                   <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70">
-                    <strong className={`transition-colors duration-300 ${diagnosisState === 'grind' ? 'text-[#E21E3F]' : 'text-[#1a1a1a]'}`}>The Sunday Grind:</strong> Invoicing and admin eating your weekends.
+                    <strong className="text-[#1a1a1a]">The Sunday Grind:</strong> Invoicing and admin eating your weekends.
                   </div>
-                </motion.div>
-              </div>
+                </li>
+              </ul>
             </div>
-            
-            {/* 03 / THE COST - Original Copy with Hover Effect */}
-            <div className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#E21E3F]/5 min-h-[200px] md:min-h-[300px] relative overflow-hidden group">
+
+            {/* 03: THE COST (Span 1) */}
+            <div 
+              onMouseEnter={() => setGraphState('cost')}
+              onMouseLeave={() => setGraphState('idle')}
+              className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#E21E3F]/5 min-h-[200px] md:min-h-[300px] hover:bg-[#E21E3F]/10 transition-colors duration-300 relative overflow-hidden group"
+            >
               {/* Hover Effect: Background darkens slightly */}
               <div className="absolute inset-0 bg-[#E21E3F]/0 group-hover:bg-[#E21E3F]/10 transition-colors duration-500" />
               
@@ -266,10 +260,14 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
                 <p className="font-sans text-xs md:text-sm text-[#E21E3F]/70 leading-relaxed uppercase tracking-widest">Paying high-value staff to do low-value data entry.</p>
               </div>
             </div>
-            
-            {/* 04 / THE FIX - Original Copy with Hover Effect */}
-            <div className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[200px] md:min-h-[300px] flex flex-col justify-between border-l-2 border-l-[#C5A059] group">
-              <span className="font-mono text-xs uppercase tracking-widest text-[#C5A059] block mb-4 md:mb-0">04 / THE FIX</span>
+
+            {/* 04: THE FIX (Span 1 - The Black One) */}
+            <div 
+              onMouseEnter={() => setGraphState('fix')}
+              onMouseLeave={() => setGraphState('idle')}
+              className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[200px] md:min-h-[300px] flex flex-col justify-between border-l-2 border-l-[#C5A059] group"
+            >
+              <span className="font-mono text-xs uppercase tracking-widest text-[#C5A059] group-hover:text-white transition-colors duration-300 block mb-4 md:mb-0">04 / THE FIX</span>
               <p className="font-serif text-xl md:text-2xl lg:text-3xl leading-tight mb-6 md:mb-8">I build the systems that do the boring work for you. Your team gets their time back. <span className="group-hover:text-[#C5A059] transition-colors duration-300">You get your business back.</span></p>
               <button onClick={() => document.getElementById('architecture')?.scrollIntoView({behavior: 'smooth'})} className="flex items-center gap-3 font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.3em] hover:text-white transition-colors cursor-pointer group">[ SEE HOW IT WORKS ]</button>
             </div>
