@@ -1,11 +1,10 @@
-
 import React, { useRef } from 'react';
 import { useAnimationFrame } from 'framer-motion';
 
 const CUBE_SIZE = 60;
 const STACK_GAP = 65; 
 const FL = 850; 
-const CUBE_COUNT = 5;
+const CUBE_COUNT = 7;
 
 // --- MATH HELPERS ---
 const rotateX = (x: number, y: number, z: number, angle: number) => {
@@ -64,18 +63,17 @@ const HeroVisual_Suspension: React.FC = () => {
     // 1. Update Physics (Smooth Lerp)
     const targetSway = state.current.mouseX * 0.2; // Max sway angle
     state.current.currentSway += (targetSway - state.current.currentSway) * 0.05; // Ease factor
-    state.current.rotation = t * 0.0005; // Constant spin
-    state.current.coreRotation = t * -0.0008; // Counter-spin for core
+    state.current.rotation = t * 0.0005; // Constant spin for stack (Clockwise)
+    state.current.coreRotation = t * -0.0008; // Counter-spin for core (Negative)
 
     const { currentSway, rotation, coreRotation } = state.current;
     
-    // 2. Render Stack (5 Cubes)
-    // We pivot around the Center Cube (Index 2) for a "Levitating" feel
-    const pivotIndex = 2; 
+    // 2. Render Structure (7 Cubes forming a "7")
+    const pivotIndex = 2; // The Diamond/Core remains at the center of the stem
 
     for (let i = 0; i < CUBE_COUNT; i++) {
         const r = CUBE_SIZE / 2;
-        // Base Vertices
+        // Base Vertices (Cube)
         const verts = [
             { x: -r, y: -r, z: -r }, { x: r, y: -r, z: -r }, { x: r, y: r, z: -r }, { x: -r, y: r, z: -r }, // Front
             { x: -r, y: -r, z: r }, { x: r, y: -r, z: r }, { x: r, y: r, z: r }, { x: -r, y: r, z: r }      // Back
@@ -88,15 +86,34 @@ const HeroVisual_Suspension: React.FC = () => {
             [0,4], [1,5], [2,6], [3,7]
         ];
 
-        const yOffset = (i - pivotIndex) * STACK_GAP; // Relative to center
+        // --- CALCULATE POSITION ---
+        let cx = 0;
+        let cy = 0;
 
-        // Transform
+        if (i <= 4) {
+            // STEM (Indices 0, 1, 2, 3, 4)
+            // Diagonal Slant: Top Right (0) to Bottom Left (4)
+            const slant = 25; 
+            cy = (i - pivotIndex) * STACK_GAP; // 2 is center (0)
+            cx = (pivotIndex - i) * slant;     // 0 moves right (+), 4 moves left (-)
+        } else {
+            // TOP BAR (Indices 5, 6)
+            // Attaches to Top of Stem (Index 0) and extends LEFT
+            const c0y = (0 - pivotIndex) * STACK_GAP; // Y of Cube 0
+            const c0x = (pivotIndex - 0) * 25;        // X of Cube 0
+            
+            const barOffset = i - 4; // 1 for Cube 5, 2 for Cube 6
+            cy = c0y;
+            cx = c0x - (barOffset * STACK_GAP);
+        }
+
+        // Transform Cube
         const projected = verts.map(v => {
-            let px = v.x;
-            let py = v.y + yOffset;
+            let px = v.x + cx;
+            let py = v.y + cy;
             let pz = v.z;
 
-            // Rigid Sway (Rotate whole column around Z axis)
+            // Rigid Sway (Rotate whole structure around (0,0) pivot)
             const swayed = rotateZ(px, py, pz, -currentSway); 
             px = swayed.x; py = swayed.y; pz = swayed.z;
 
@@ -106,7 +123,7 @@ const HeroVisual_Suspension: React.FC = () => {
             return project(spun.x, spun.y, spun.z);
         });
 
-        // Draw Wireframe
+        // Draw Cube Wireframe
         if (cubeRefs.current[i]) {
             let d = "";
             edges.forEach(edge => {
@@ -118,40 +135,44 @@ const HeroVisual_Suspension: React.FC = () => {
         }
 
         // --- RENDER CORE (Wireframe Gold Octahedron/Diamond inside Index 2) ---
-        if (i === 2 && coreRef.current) {
-            const cr = CUBE_SIZE * 0.35;
+        if (i === pivotIndex && coreRef.current) {
+            const cr = CUBE_SIZE * 0.35; // Size: 35% of the box
+            
+            // Octahedron Vertices (Diamond Shape)
             const coreVerts = [
-                { x: 0, y: -cr, z: 0 },   // Top
-                { x: 0, y: cr, z: 0 },    // Bottom
-                { x: -cr, y: 0, z: 0 },   // Left
-                { x: cr, y: 0, z: 0 },    // Right
-                { x: 0, y: 0, z: -cr },   // Front
-                { x: 0, y: 0, z: cr }     // Back
+                { x: 0, y: -cr, z: 0 },  // Top
+                { x: 0, y: cr, z: 0 },   // Bottom
+                { x: -cr, y: 0, z: 0 },  // Mid Left
+                { x: cr, y: 0, z: 0 },   // Mid Right
+                { x: 0, y: 0, z: -cr },  // Mid Front
+                { x: 0, y: 0, z: cr }    // Mid Back
             ];
             
-            // Define edges for octahedron (12 edges connecting vertices)
+            // Connect Top to Equator, Bottom to Equator, and Equator Ring
             const coreEdges = [
-                [0, 2], [0, 3], [0, 4], [0, 5], // Top to all 4 sides
-                [1, 2], [1, 3], [1, 4], [1, 5], // Bottom to all 4 sides
-                [2, 4], [2, 5],                  // Left to front/back
-                [3, 4], [3, 5]                   // Right to front/back
+                [0,2], [0,3], [0,4], [0,5], // Top Pyramid
+                [1,2], [1,3], [1,4], [1,5], // Bottom Pyramid
+                [2,4], [4,3], [3,5], [5,2]  // Equator Ring
             ];
 
             const projectedCore = coreVerts.map(v => {
-               // Apply counter-spin rotation (coreRotation)
-               let { x, y, z } = rotateY(v.x, v.y, v.z, coreRotation);
+               // 1. Position in stack (0 for index 2 because cx,cy are 0)
+               let px = v.x + cx;
+               let py = v.y + cy;
+               let pz = v.z;
+
+               // 2. Apply Sway (Stays locked inside the swaying box)
+               const swayed = rotateZ(px, py, pz, -currentSway);
                
-               // Apply Global Physics (Same as parent)
-               let py = y + yOffset;
-               const swayed = rotateZ(x, py, z, -currentSway);
-               const spun = rotateY(swayed.x, swayed.y, swayed.z, rotation);
+               // 3. Apply Independent Spin (Counter-Rotation)
+               const spun = rotateY(swayed.x, swayed.y, swayed.z, coreRotation);
+               
                return project(spun.x, spun.y, spun.z);
             });
 
-            // Draw Core Wireframe (edges only)
             let coreD = "";
             coreEdges.forEach(edge => {
-                coreD += `M ${projectedCore[edge[0]].x} ${projectedCore[edge[0]].y} L ${projectedCore[edge[1]].x} ${projectedCore[edge[1]].y} `;
+               coreD += `M ${projectedCore[edge[0]].x} ${projectedCore[edge[0]].y} L ${projectedCore[edge[1]].x} ${projectedCore[edge[1]].y} `;
             });
             coreRef.current.setAttribute('d', coreD);
         }
@@ -182,8 +203,8 @@ const HeroVisual_Suspension: React.FC = () => {
              style={{ filter: 'blur(8px)', transition: 'transform 0.1s linear' }} 
            />
 
-           {/* WIREFRAME CUBES */}
-           {[0, 1, 2, 3, 4].map(i => (
+           {/* WIREFRAME CUBES (Black) - 7 Cubes */}
+           {[0, 1, 2, 3, 4, 5, 6].map(i => (
              <path 
                key={i}
                ref={(el) => { cubeRefs.current[i] = el; }}
@@ -195,7 +216,7 @@ const HeroVisual_Suspension: React.FC = () => {
              />
            ))}
 
-           {/* WIREFRAME GOLD CORE (Rendered last to appear inside/on top) */}
+           {/* WIREFRAME GOLD DIAMOND (Transparent) */}
            <path 
              ref={coreRef}
              fill="none"
@@ -203,7 +224,7 @@ const HeroVisual_Suspension: React.FC = () => {
              strokeWidth="1.5"
              strokeLinecap="round"
              strokeLinejoin="round"
-             style={{ filter: 'drop-shadow(0 0 6px rgba(197, 160, 89, 0.4))' }}
+             style={{ filter: 'drop-shadow(0 0 5px rgba(197, 160, 89, 0.4))' }}
            />
         </g>
       </svg>
