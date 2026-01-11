@@ -208,11 +208,11 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
          </div>
       </div>
 
-      {/* MOBILE LAYOUT (40/60 Split) */}
-      <div className="md:hidden relative h-[100dvh] flex flex-col overflow-hidden border-t border-[#1a1a1a]/10">
+      {/* MOBILE LAYOUT (CSS Sticky - No Scroll Traps) */}
+      <div className="md:hidden relative border-t border-[#1a1a1a]/10">
          
-         {/* TOP 40%: Header (Static) */}
-         <div className="h-[40%] flex-none w-full bg-[#FFF2EC] border-b border-[#1a1a1a]/10 p-6 flex flex-col justify-center relative z-20">
+         {/* HEADER (Sticky at Top - 40% Height) */}
+         <div className="sticky top-0 h-[40vh] w-full bg-[#FFF2EC] border-b border-[#1a1a1a]/10 p-6 flex flex-col justify-center z-10">
             <div className="font-mono text-[10px] text-[#E21E3F] tracking-[0.2em] uppercase mb-4">
                / THE FRICTION AUDIT
             </div>
@@ -226,66 +226,60 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
             </p>
          </div>
 
-         {/* BOTTOM 60%: Scrollable Cards */}
-         <div className="h-[60%] flex-1 overflow-y-auto bg-[#FFF2EC] relative z-10 scroll-smooth">
-            <div className="flex flex-col">
-               {AUDIT_DATA.map((data, index) => (
-                  <div 
-                     key={data.id}
-                     // FIX: min-h-[65vh] guarantees the card is TALLER than the 60% (approx 60vh) container.
-                     // This ensures Card 05 fully obscures previous cards (Floor Length Curtain effect).
-                     className="sticky top-0 bg-[#FFF2EC] border-b border-[#1a1a1a]/10 min-h-[65vh] w-full flex flex-col"
-                     style={{ 
-                        zIndex: index + 1
-                     }}
-                  >
-                     {/* CARD CONTENT */}
-                     {data.type === 'cta' ? (
-                        // CTA CARD
-                        <div className="flex flex-col items-center justify-center text-center flex-1 px-6 bg-[#FFF2EC]">
-                           <h2 className="font-serif text-3xl text-[#1a1a1a] leading-tight mb-8">
-                              You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
-                              <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
-                           </h2>
-                           <button onClick={() => document.getElementById('bento')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-4 bg-[#1a1a1a] text-[#FFF2EC] font-mono text-[10px] uppercase tracking-[0.2em] font-bold">
-                              [ SEE THE SYSTEM ]
-                           </button>
+         {/* CARDS (Stacked below Header) */}
+         <div className="relative z-20">
+            {AUDIT_DATA.map((data, index) => (
+               <div 
+                  key={data.id}
+                  // STICKY LOGIC: Sticks at 40vh (right below the 40vh header)
+                  // HEIGHT: 60vh (fills the rest of the screen)
+                  className="sticky top-[40vh] h-[60vh] w-full bg-[#FFF2EC] border-b border-[#1a1a1a]/10 flex flex-col"
+                  style={{ zIndex: 20 + index }}
+               >
+                  {/* CARD CONTENT */}
+                  {data.type === 'cta' ? (
+                     // CTA CARD - Centered Content
+                     <div className="flex flex-col items-center justify-center text-center h-full px-6 bg-[#FFF2EC]">
+                        <h2 className="font-serif text-3xl text-[#1a1a1a] leading-tight mb-8">
+                           You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
+                           <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
+                        </h2>
+                        <button onClick={() => document.getElementById('bento')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-4 bg-[#1a1a1a] text-[#FFF2EC] font-mono text-[10px] uppercase tracking-[0.2em] font-bold">
+                           [ SEE THE SYSTEM ]
+                        </button>
+                     </div>
+                  ) : (
+                     // DATA CARD - Top Aligned with padding (No massive whitespace)
+                     <div className="flex flex-col h-full px-6 pt-10 pb-6 bg-[#FFF2EC]">
+                        {/* Eyebrow */}
+                        <div className="flex items-center gap-3 mb-4 opacity-80">
+                           <span className="font-mono text-xs text-[#E21E3F] font-bold">{data.id}</span>
+                           <div className="w-8 h-px bg-[#E21E3F]/30"></div>
+                           <span className="font-mono text-[10px] text-[#E21E3F] uppercase tracking-widest">
+                              {data.label}
+                           </span>
                         </div>
-                     ) : (
-                        // DATA CARD
-                        <div className="flex flex-col flex-1 p-6 justify-center bg-[#FFF2EC]">
-                           {/* Eyebrow */}
-                           <div className="flex items-center gap-3 mb-4 opacity-80">
-                              <span className="font-mono text-xs text-[#E21E3F] font-bold">{data.id}</span>
-                              <div className="w-8 h-px bg-[#E21E3F]/30"></div>
-                              <span className="font-mono text-[10px] text-[#E21E3F] uppercase tracking-widest">
-                                 {data.label}
-                              </span>
-                           </div>
 
-                           {/* Title */}
-                           <h3 className="font-serif text-3xl text-[#1a1a1a] leading-[0.9] mb-4">
-                              {data.title}
-                           </h3>
+                        {/* Title */}
+                        <h3 className="font-serif text-3xl text-[#1a1a1a] leading-[0.9] mb-4">
+                           {data.title}
+                        </h3>
 
-                           {/* Metric */}
-                           <div className="mb-4">
-                              <span className="font-mono text-xl text-[#E21E3F] font-bold tracking-tight bg-[#E21E3F]/5 px-2 py-1">
-                                 {data.metric}
-                              </span>
-                           </div>
-
-                           {/* Description */}
-                           <p className="font-sans text-sm text-[#1a1a1a]/70 leading-relaxed border-l border-[#E21E3F]/20 pl-4 max-w-[90%]">
-                              {data.description}
-                           </p>
+                        {/* Metric */}
+                        <div className="mb-4">
+                           <span className="font-mono text-xl text-[#E21E3F] font-bold tracking-tight bg-[#E21E3F]/5 px-2 py-1">
+                              {data.metric}
+                           </span>
                         </div>
-                     )}
-                  </div>
-               ))}
-               
-               {/* No bottom spacer needed because the last card is min-h-full and covers everything */}
-            </div>
+
+                        {/* Description */}
+                        <p className="font-sans text-sm text-[#1a1a1a]/70 leading-relaxed border-l border-[#E21E3F]/20 pl-4 max-w-[90%]">
+                           {data.description}
+                        </p>
+                     </div>
+                  )}
+               </div>
+            ))}
          </div>
 
       </div>
