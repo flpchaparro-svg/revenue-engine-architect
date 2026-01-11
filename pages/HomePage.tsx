@@ -8,7 +8,7 @@ import Feature_Group7 from '../components/Feature_Group7';
 import BookingCTA from '../components/BookingCTA';
 import BookAuditButton from '../components/BookAuditButton';
 import FrictionAuditSection from '../components/FrictionAuditSection';
-import GrowthGraph from '../components/GrowthGraph';
+import GrowthGraph, { GraphState } from '../components/GrowthGraph';
 import { ServiceDetail } from '../types';
 
 const TECH_STACK = [
@@ -23,11 +23,54 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const [scrambleText, setScrambleText] = useState("ARCHITECT");
   const [isTickerHovered, setIsTickerHovered] = useState(false);
-  const [graphState, setGraphState] = useState<'idle' | 'bottleneck' | 'tax' | 'grind' | 'cost' | 'fix' | 'problem'>('idle');
+  const [graphState, setGraphState] = useState<GraphState>('idle');
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const autoRotateIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const isMobileRef = useRef(false);
   
-  // Stable hover handler to prevent flickering
-  const handleGraphHover = (state: typeof graphState) => {
+  // --- MOBILE GRAPH AUTO-ROTATION ---
+  useEffect(() => {
+    // Check if we are on mobile (using width < 768px as standard breakpoint)
+    const checkMobile = () => {
+      const isMobile = window.innerWidth < 768;
+      isMobileRef.current = isMobile;
+      
+      // Clear any existing interval
+      if (autoRotateIntervalRef.current) {
+        clearInterval(autoRotateIntervalRef.current);
+        autoRotateIntervalRef.current = null;
+      }
+      
+      // Only run this loop on mobile. Desktop relies on Hover.
+      if (!isMobile) return;
+
+      // Define the "Red" states to cycle through (Cards 1, 2, 3)
+      const scannerStates: GraphState[] = ['problem', 'bottleneck', 'tax', 'grind', 'cost'];
+      let currentIndex = 0;
+
+      // Start the loop
+      autoRotateIntervalRef.current = setInterval(() => {
+        setGraphState(scannerStates[currentIndex]);
+        currentIndex = (currentIndex + 1) % scannerStates.length;
+      }, 2500); // Change every 2.5 seconds (enough time to read)
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      if (autoRotateIntervalRef.current) {
+        clearInterval(autoRotateIntervalRef.current);
+      }
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+  
+  // Stable hover handler to prevent flickering (Desktop only)
+  const handleGraphHover = (state: GraphState) => {
+    // On mobile, don't interfere with auto-rotation
+    if (isMobileRef.current) return;
+    
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
     }
@@ -35,6 +78,9 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   };
   
   const handleGraphLeave = () => {
+    // On mobile, don't interfere with auto-rotation
+    if (isMobileRef.current) return;
+    
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
     }
