@@ -38,47 +38,86 @@ export const VizAcquisition = ({ color }: { color: string }) => (
   </div>
 );
 
+// --- SYSTEM 02: VELOCITY (THE TURBINE) ---
 export const VizVelocity = ({ color }: { color: string }) => (
-  <div className="w-32 h-32 relative flex items-center justify-center" style={{ perspective: '800px' }}>
-    <div className="absolute w-2.5 h-2.5 rounded-full shadow-[0_0_15px_currentColor]" style={{ backgroundColor: color, color: color }} />
+  <div className="w-32 h-32 relative flex items-center justify-center">
+    {/* Static Core */}
+    <div className="absolute w-1 h-1 rounded-full" style={{ backgroundColor: color }} />
+
+    {/* Inner Rotor - Fast Spin */}
     <motion.div
-      className="absolute w-24 h-24 border rounded-full"
-      style={{ borderColor: color, borderWidth: '1px' }}
-      animate={{ rotateY: 360 }}
-      transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-    >
-       <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full" style={{ backgroundColor: color }} />
-    </motion.div>
-    <motion.div
-      className="absolute w-28 h-28 border rounded-full"
-      style={{ borderColor: color, borderWidth: '1px' }}
-      animate={{ rotateX: 360, rotateZ: 360 }}
-      transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+      className="absolute w-16 h-16 border-dashed rounded-full border-t border-r border-transparent"
+      style={{ borderTopColor: color, borderRightColor: color, borderWidth: '1px' }}
+      animate={{ rotate: 360 }}
+      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
     />
+
+    {/* Middle Rotor - Medium Counter-Clockwise Spin */}
     <motion.div
-      className="absolute w-28 h-28 border rounded-full opacity-60"
+      className="absolute w-24 h-24 border rounded-full opacity-30"
       style={{ borderColor: color, borderWidth: '1px' }}
-      animate={{ rotateX: -360, rotateY: 180 }}
-      transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+      animate={{ rotate: -360, scale: [1, 1.02, 1] }} // Subtle throb + spin
+      transition={{ 
+        rotate: { duration: 8, repeat: Infinity, ease: "linear" },
+        scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+      }}
+    >
+        {/* Orbital marker detail */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-current" />
+    </motion.div>
+
+    {/* Outer Field - Slow Spin */}
+    <motion.div
+      className="absolute w-32 h-32 border border-dashed rounded-full opacity-20"
+      style={{ borderColor: color, borderWidth: '1px' }}
+      animate={{ rotate: 360 }}
+      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
     />
   </div>
 );
 
+// =============================================================================
+// SYSTEM 03: INTELLIGENCE (THE FOCUS)
+// Concept: "Clarity". Instead of a radar searching blindly, this visualises
+// data points stabilising and a "lock-on" reticle finding the target.
+// =============================================================================
 export const VizIntelligence = ({ color }: { color: string }) => (
-  <div className="w-32 h-32 relative flex items-center justify-center border rounded-full" style={{ borderColor: `${color}33` }}>
-    <div className="absolute w-full h-[1px]" style={{ backgroundColor: `${color}33` }} />
-    <div className="absolute h-full w-[1px]" style={{ backgroundColor: `${color}33` }} />
+  <div className="w-32 h-32 relative flex items-center justify-center">
+    
+    {/* The Data Grid (Background) */}
+    <div className="absolute w-24 h-24 grid grid-cols-2 grid-rows-2 opacity-20" style={{ borderColor: color }}>
+        <div className="border-r border-b" style={{ borderColor: color }}></div>
+        <div className="border-b" style={{ borderColor: color }}></div>
+        <div className="border-r" style={{ borderColor: color }}></div>
+        <div></div>
+    </div>
+
+    {/* The Target Brackets (Locking On Animation) */}
     <motion.div
-      className="absolute w-1/2 h-[2px] top-1/2 left-1/2 origin-left"
-      style={{ backgroundColor: color }}
-      animate={{ rotate: 360 }}
-      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+       className="absolute w-16 h-16 border-t border-l"
+       style={{ borderColor: color, borderWidth: '1px' }}
+       animate={{ 
+         top: ['20%', '28%', '28%'], 
+         left: ['20%', '28%', '28%'] 
+       }}
+       transition={{ duration: 3, repeat: Infinity, times: [0, 0.2, 1], ease: "steps(3)" }}
     />
     <motion.div
-        className="absolute w-2 h-2 rounded-full"
-        style={{ backgroundColor: color, top: '25%', right: '25%' }}
-        animate={{ opacity: [0, 1, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
+       className="absolute w-16 h-16 border-b border-r"
+       style={{ borderColor: color, borderWidth: '1px' }}
+       animate={{ 
+         bottom: ['20%', '28%', '28%'], 
+         right: ['20%', '28%', '28%'] 
+       }}
+       transition={{ duration: 3, repeat: Infinity, times: [0, 0.2, 1], ease: "steps(3)" }}
+    />
+
+    {/* The Variable (Blinking Data Point) */}
+    <motion.div
+        className="absolute w-1.5 h-1.5 rounded-full"
+        style={{ backgroundColor: color }}
+        animate={{ opacity: [0, 1, 0, 1, 1, 0] }} // Glitchy digital blink
+        transition={{ duration: 2, repeat: Infinity, times: [0, 0.1, 0.2, 0.3, 0.9, 1] }}
     />
   </div>
 );
