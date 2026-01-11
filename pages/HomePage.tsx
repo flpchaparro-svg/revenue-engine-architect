@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
-import { XCircle } from 'lucide-react';
+import { XCircle, ArrowRight } from 'lucide-react';
 import HeroVisual from '../components/HeroVisual';
 import BentoGrid from '../components/BentoGrid';
 import TheArchitect from '../components/TheArchitect';
@@ -23,10 +23,89 @@ interface HomePageProps {
 const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const [scrambleText, setScrambleText] = useState("ARCHITECT");
   const [isTickerHovered, setIsTickerHovered] = useState(false);
+  const [diagnosisState, setDiagnosisState] = useState<'idle' | 'bottleneck' | 'tax' | 'grind'>('idle');
+  const scrollLineY = useMotionValue(-100); // Start at top (-100%)
+  const scrollLineSpeed = useMotionValue(0.067); // Base speed: % per ms (for 3s duration: 200% in 3000ms)
 
   const { scrollY } = useScroll();
   const carouselX = useMotionValue(0);
   const xPercent = useTransform(carouselX, (value) => `${value}%`);
+  
+  // Track scroll velocity to accelerate scroll line
+  const scrollVelocityRef = useRef(0);
+  const lastScrollYRef = useRef(0);
+  const lastTimeRef = useRef(Date.now());
+  const decayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Manual animation loop for continuous line movement
+  useAnimationFrame((time, delta) => {
+    const currentY = scrollLineY.get();
+    const speed = scrollLineSpeed.get();
+    
+    // Move line down continuously
+    // Speed is in % per second, delta is in ms, so convert: speed * (delta / 1000)
+    // For 3s base duration: need to move 200% (from -100% to +100%) in 3000ms = 0.067% per ms
+    // For 1.5s fast duration: 200% in 1500ms = 0.133% per ms
+    // So base speed should be around 0.067, max around 0.133
+    let newY = currentY + (speed * delta);
+    
+    // Loop back to top when it reaches bottom
+    if (newY >= 100) {
+      newY = -100;
+    }
+    
+    scrollLineY.set(newY);
+  });
+  
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const now = Date.now();
+    const timeDelta = now - lastTimeRef.current;
+    const scrollDelta = Math.abs(latest - lastScrollYRef.current);
+    
+    if (timeDelta > 0 && timeDelta < 200) {
+      const velocity = scrollDelta / timeDelta; // pixels per millisecond
+      scrollVelocityRef.current = velocity;
+      
+      // Clear existing decay timeout when scrolling
+      if (decayTimeoutRef.current) {
+        clearTimeout(decayTimeoutRef.current);
+        decayTimeoutRef.current = null;
+      }
+      
+      // Subtle acceleration: Base speed 0.067, can go up to 0.133 when scrolling
+      // Base: 0.067 (% per ms) = 3s duration (200% in 3000ms)
+      // Fast: 0.133 (% per ms) = 1.5s duration (200% in 1500ms)
+      const baseSpeed = 0.067;
+      const maxSpeed = 0.133;
+      const speedMultiplier = Math.min(1, velocity * 12);
+      const newSpeed = baseSpeed + (speedMultiplier * (maxSpeed - baseSpeed));
+      
+      scrollLineSpeed.set(newSpeed);
+      
+      // Return to normal speed when scrolling stops
+      decayTimeoutRef.current = setTimeout(() => {
+        // Gradually return to base speed
+        const returnToBase = () => {
+          const currentSpeed = scrollLineSpeed.get();
+          if (currentSpeed <= baseSpeed + 0.01) {
+            scrollLineSpeed.set(baseSpeed); // Reached base speed
+            return;
+          }
+          const next = Math.max(baseSpeed, currentSpeed - 0.02);
+          scrollLineSpeed.set(next);
+          // Continue decaying if not at base speed
+          if (next > baseSpeed + 0.01) {
+            setTimeout(returnToBase, 50);
+          }
+        };
+        returnToBase();
+        scrollVelocityRef.current = 0;
+      }, 100);
+    }
+    
+    lastScrollYRef.current = latest;
+    lastTimeRef.current = now;
+  });
 
   useAnimationFrame((t, delta) => {
     const speed = isTickerHovered ? 0 : 0.0006;
@@ -91,8 +170,12 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
           </div>
         </div>
         {/* FIX #5: Reverted to bottom-0 to attach line to the ticker stripe */}
+        {/* Interactive scroll line: accelerates when user scrolls, continuous movement */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-16 w-[1px] bg-[#1a1a1a]/10 overflow-hidden">
-          <motion.div initial={{ y: '-100%' }} animate={{ y: '100%' }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }} className="absolute inset-0 bg-[#1a1a1a]/40" />
+          <motion.div 
+            style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
+            className="absolute inset-0 bg-[#1a1a1a]/40 w-full h-full" 
+          />
         </div>
       </section>
 
@@ -115,31 +198,79 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 h-16 md:h-32 w-[1px] bg-[#1a1a1a]/10" />
         <div className="max-w-[1600px] mx-auto border-t border-l border-[#1a1a1a]/10">
           <div className="grid grid-cols-1 md:grid-cols-3">
-            <div className="col-span-1 md:col-span-2 p-6 md:p-12 lg:p-16 border-r border-b border-[#1a1a1a]/10 flex flex-col justify-center min-h-[250px] md:min-h-[350px]">
+            {/* 01 / THE PROBLEM - Original Copy with Hover Effect */}
+            <div className="col-span-1 md:col-span-2 p-6 md:p-12 lg:p-16 border-r border-b border-[#1a1a1a]/10 flex flex-col justify-center min-h-[250px] md:min-h-[350px] group">
               <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-6 md:mb-10 block">01 / THE PROBLEM</span>
-              <h2 className="font-serif text-3xl md:text-5xl lg:text-7xl leading-[0.9] text-[#1a1a1a] tracking-tighter">You didn't start your business to become an <br className="hidden md:block" /><span className="italic text-[#1a1a1a]/60">administrative hostage.</span></h2>
+              <h2 className="font-serif text-3xl md:text-5xl lg:text-7xl leading-[0.9] text-[#1a1a1a] tracking-tighter">You didn't start your business to become an <br className="hidden md:block" /><span className="italic text-[#1a1a1a]/60 group-hover:text-[#E21E3F] transition-colors duration-300">administrative hostage.</span></h2>
             </div>
+            
+            {/* GrowthGraph - Original */}
             <div className="col-span-1 border-r border-b border-[#1a1a1a]/10 bg-transparent">
               <GrowthGraph />
             </div>
-            <div className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 min-h-[200px] md:min-h-[300px]">
+            
+            {/* 02 / SYMPTOMS - Interactive Controller with Original Copy */}
+            <div className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 min-h-[200px] md:min-h-[300px] flex flex-col">
               <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-6 md:mb-8 block">02 / SYMPTOMS</span>
-              <ul className="space-y-4 md:space-y-6">
-                <li className="flex items-start gap-3 md:gap-4"><XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5" /><div className="font-sans text-base md:text-lg text-[#1a1a1a]/70"><strong className="text-[#1a1a1a]">The Bottleneck Boss:</strong> You are answering questions instead of doing deep work.</div></li>
-                <li className="flex items-start gap-3 md:gap-4"><XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5" /><div className="font-sans text-base md:text-lg text-[#1a1a1a]/70"><strong className="text-[#1a1a1a]">The Double-Entry Tax:</strong> Typing the same data into two different apps.</div></li>
-                <li className="flex items-start gap-3 md:gap-4"><XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5" /><div className="font-sans text-base md:text-lg text-[#1a1a1a]/70"><strong className="text-[#1a1a1a]">The Sunday Grind:</strong> Invoicing and admin eating your weekends.</div></li>
-              </ul>
+              
+              <div className="space-y-4 md:space-y-6">
+                <motion.div
+                  onMouseEnter={() => setDiagnosisState('bottleneck')}
+                  onMouseLeave={() => setDiagnosisState('idle')}
+                  className="group relative flex items-start gap-3 md:gap-4 p-2 rounded-sm transition-colors duration-300 hover:bg-[#1a1a1a]/5"
+                >
+                  {/* Active Indicator Line */}
+                  <div className={`absolute left-0 top-0 bottom-0 w-[2px] bg-[#E21E3F] transition-transform duration-300 origin-top ${diagnosisState === 'bottleneck' ? 'scale-y-100' : 'scale-y-0'}`} />
+                  <XCircle className={`w-4 h-4 md:w-5 md:h-5 shrink-0 mt-0.5 transition-colors duration-300 ${diagnosisState === 'bottleneck' ? 'text-[#E21E3F]' : 'text-[#E21E3F]'}`} />
+                  <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70">
+                    <strong className={`transition-colors duration-300 ${diagnosisState === 'bottleneck' ? 'text-[#E21E3F]' : 'text-[#1a1a1a]'}`}>The Bottleneck Boss:</strong> You are answering questions instead of doing deep work.
+                  </div>
+                </motion.div>
+                
+                <motion.div
+                  onMouseEnter={() => setDiagnosisState('tax')}
+                  onMouseLeave={() => setDiagnosisState('idle')}
+                  className="group relative flex items-start gap-3 md:gap-4 p-2 rounded-sm transition-colors duration-300 hover:bg-[#1a1a1a]/5"
+                >
+                  {/* Active Indicator Line */}
+                  <div className={`absolute left-0 top-0 bottom-0 w-[2px] bg-[#E21E3F] transition-transform duration-300 origin-top ${diagnosisState === 'tax' ? 'scale-y-100' : 'scale-y-0'}`} />
+                  <XCircle className={`w-4 h-4 md:w-5 md:h-5 shrink-0 mt-0.5 transition-colors duration-300 ${diagnosisState === 'tax' ? 'text-[#E21E3F]' : 'text-[#E21E3F]'}`} />
+                  <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70">
+                    <strong className={`transition-colors duration-300 ${diagnosisState === 'tax' ? 'text-[#E21E3F]' : 'text-[#1a1a1a]'}`}>The Double-Entry Tax:</strong> Typing the same data into two different apps.
+                  </div>
+                </motion.div>
+                
+                <motion.div
+                  onMouseEnter={() => setDiagnosisState('grind')}
+                  onMouseLeave={() => setDiagnosisState('idle')}
+                  className="group relative flex items-start gap-3 md:gap-4 p-2 rounded-sm transition-colors duration-300 hover:bg-[#1a1a1a]/5"
+                >
+                  {/* Active Indicator Line */}
+                  <div className={`absolute left-0 top-0 bottom-0 w-[2px] bg-[#E21E3F] transition-transform duration-300 origin-top ${diagnosisState === 'grind' ? 'scale-y-100' : 'scale-y-0'}`} />
+                  <XCircle className={`w-4 h-4 md:w-5 md:h-5 shrink-0 mt-0.5 transition-colors duration-300 ${diagnosisState === 'grind' ? 'text-[#E21E3F]' : 'text-[#E21E3F]'}`} />
+                  <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70">
+                    <strong className={`transition-colors duration-300 ${diagnosisState === 'grind' ? 'text-[#E21E3F]' : 'text-[#1a1a1a]'}`}>The Sunday Grind:</strong> Invoicing and admin eating your weekends.
+                  </div>
+                </motion.div>
+              </div>
             </div>
-            <div className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#E21E3F]/5 min-h-[200px] md:min-h-[300px]">
-              <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-6 md:mb-8 block">03 / THE COST</span>
-              <div className="space-y-3 md:space-y-4">
+            
+            {/* 03 / THE COST - Original Copy with Hover Effect */}
+            <div className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#E21E3F]/5 min-h-[200px] md:min-h-[300px] relative overflow-hidden group">
+              {/* Hover Effect: Background darkens slightly */}
+              <div className="absolute inset-0 bg-[#E21E3F]/0 group-hover:bg-[#E21E3F]/10 transition-colors duration-500" />
+              
+              <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-6 md:mb-8 block relative z-10">03 / THE COST</span>
+              <div className="space-y-3 md:space-y-4 relative z-10">
                 <div className="font-sans text-2xl md:text-3xl font-bold text-[#E21E3F] uppercase tracking-tighter">BURNING TALENT</div>
                 <p className="font-sans text-xs md:text-sm text-[#E21E3F]/70 leading-relaxed uppercase tracking-widest">Paying high-value staff to do low-value data entry.</p>
               </div>
             </div>
-            <div className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[200px] md:min-h-[300px] flex flex-col justify-between border-l-2 border-l-[#C5A059]">
+            
+            {/* 04 / THE FIX - Original Copy with Hover Effect */}
+            <div className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[200px] md:min-h-[300px] flex flex-col justify-between border-l-2 border-l-[#C5A059] group">
               <span className="font-mono text-xs uppercase tracking-widest text-[#C5A059] block mb-4 md:mb-0">04 / THE FIX</span>
-              <p className="font-serif text-xl md:text-2xl lg:text-3xl leading-tight mb-6 md:mb-8">I build the systems that do the boring work for you. Your team gets their time back. You get your business back.</p>
+              <p className="font-serif text-xl md:text-2xl lg:text-3xl leading-tight mb-6 md:mb-8">I build the systems that do the boring work for you. Your team gets their time back. <span className="group-hover:text-[#C5A059] transition-colors duration-300">You get your business back.</span></p>
               <button onClick={() => document.getElementById('architecture')?.scrollIntoView({behavior: 'smooth'})} className="flex items-center gap-3 font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.3em] hover:text-white transition-colors cursor-pointer group">[ SEE HOW IT WORKS ]</button>
             </div>
           </div>
