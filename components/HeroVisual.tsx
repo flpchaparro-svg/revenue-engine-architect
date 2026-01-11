@@ -136,9 +136,13 @@ const HeroVisual: React.FC = () => {
       const height = canvas.height / (window.devicePixelRatio || 1);
       const cx = width / 2;
       
-      // Adaptive vertical positioning: On mobile, position sphere higher to avoid CTA overlap
-      const isMobile = width < 768; // md breakpoint
-      const cy = isMobile ? height * 0.35 : height / 2; // 35% from top on mobile, centered on desktop
+      // Adaptive vertical positioning: 
+      // Mobile: 40% from top (moved lower so shadow sits between copy and CTA)
+      // Desktop: 45% from top (lifted from 50% to clear bottom ticker)
+      const isMobile = width < 768; 
+      // FIX APPLIED: Changed height / 2 to height * 0.45 for desktop lift
+      // Mobile: Moved to 40% to position shadow between copy and CTA
+      const cy = isMobile ? height * 0.40 : height * 0.45;
       
       // Adaptive scale based on screen size (mobile-friendly)
       // Use the smaller dimension to ensure sphere fits on all screens
@@ -175,13 +179,17 @@ const HeroVisual: React.FC = () => {
       // 5. Draw Shadow (adaptive size)
       if (progress > 0.1) {
         ctx.save();
-        const shadowOp = Math.min(0.4, progress * 0.4);
+        // FIX APPLIED: Reduced max opacity to 0.2 globally for a subtle look
+        const maxOpacity = 0.2;
+        const shadowOp = Math.min(maxOpacity, progress * maxOpacity);
         ctx.globalAlpha = shadowOp;
         
         // Adaptive shadow size based on screen
         const shadowRadius = adaptiveScale * 0.6;
         const shadowHeight = adaptiveScale * 0.09;
-        const shadowY = cy + adaptiveScale * 1.1;
+        
+        // Shadow distance: 1.25 for a bit more separation from sphere
+        const shadowY = cy + adaptiveScale * 1.25;
         
         // Dynamic gradient based on current size
         const grad = ctx.createRadialGradient(cx, shadowY, 0, cx, shadowY, shadowRadius);
@@ -196,7 +204,7 @@ const HeroVisual: React.FC = () => {
         ctx.restore();
       }
 
-      // 6. Draw Connections
+      // 6. Draw Connections (more transparent on mobile)
       const lineOp = Math.max(0, (progress - 0.5) * 2); // Start fading in halfway
       if (lineOp > 0.01) {
         ctx.strokeStyle = GOLD_COLOR;
@@ -215,13 +223,17 @@ const HeroVisual: React.FC = () => {
           ctx.moveTo(p1.x, p1.y);
           ctx.lineTo(p2.x, p2.y);
         }
-        // Apply global alpha for lines
-        ctx.globalAlpha = lineOp * 0.15; 
+        // Apply global alpha for lines (more transparent on mobile)
+        ctx.globalAlpha = lineOp * (isMobile ? 0.08 : 0.15); 
         ctx.stroke();
       }
 
       // 7. Draw Nodes (Sorted by Z)
       projected.sort((a, b) => a.z - b.z); // Painter's algorithm
+      
+      // Reduce opacity on mobile for better text readability
+      const baseOpacity = isMobile ? 0.3 : 0.6; // Much more transparent on mobile
+      const opacityRange = isMobile ? 0.2 : 0.4; // Smaller range on mobile
       
       for (let i = 0; i < projected.length; i++) {
         const p = projected[i];
@@ -234,17 +246,17 @@ const HeroVisual: React.FC = () => {
 
         if (r < 0.5) continue;
 
-        ctx.globalAlpha = Math.min(1, 0.6 + p.z * 0.4); // Fade back nodes
+        ctx.globalAlpha = Math.min(1, baseOpacity + p.z * opacityRange); // More transparent on mobile
         ctx.fillStyle = p.color;
         
         ctx.beginPath();
         ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
         ctx.fill();
 
-        // Optional: Glow for gold nodes in front
+        // Optional: Glow for gold nodes in front (reduced on mobile)
         if (p.color === GOLD_COLOR && p.z > 0.2) {
-            ctx.shadowColor = 'rgba(197, 160, 89, 0.5)';
-            ctx.shadowBlur = 10;
+            ctx.shadowColor = isMobile ? 'rgba(197, 160, 89, 0.2)' : 'rgba(197, 160, 89, 0.5)';
+            ctx.shadowBlur = isMobile ? 5 : 10;
             ctx.fill();
             ctx.shadowBlur = 0;
         }

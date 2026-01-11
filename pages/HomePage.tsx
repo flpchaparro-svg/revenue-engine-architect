@@ -57,7 +57,9 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   return (
     <>
       {/* HERO SECTION */}
-      <section id="hero" className="min-h-screen w-full flex items-center pt-16 md:pt-20 overflow-hidden relative z-20 content-layer">
+      {/* FIX #1: pt-28 for mobile breathing room */}
+      {/* FIX #3: min-h-[100svh] to fix mobile browser bar cutting off bottom content */}
+      <section id="hero" className="min-h-[100svh] w-full flex items-center pt-28 md:pt-20 overflow-hidden relative z-20 content-layer">
         <HeroVisual />
         <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 relative z-20">
           <div className="lg:col-span-12 flex flex-col justify-start md:justify-center items-center lg:items-start text-center lg:text-left pt-8 md:pt-0">
@@ -70,12 +72,13 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
                 </span>
               </span>
             </div>
-            <h1 className="font-serif text-4xl md:text-8xl lg:text-[6.5rem] leading-[0.9] tracking-tighter text-[#1a1a1a] mb-4 md:mb-10">
+            {/* FIX #1: leading-[1.1] for mobile readability */}
+            <h1 className="font-serif text-4xl md:text-8xl lg:text-[6.5rem] leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-4 md:mb-10">
               <div className="overflow-hidden"><span className="block reveal-text">Stop Doing</span></div>
               <div className="overflow-hidden"><span className="block reveal-text" style={{ animationDelay: '0.2s' }}><span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Everyone's Job.</span></span></div>
             </h1>
-            <p className="font-sans text-base md:text-lg font-normal text-[#1a1a1a]/70 leading-relaxed max-w-2xl border-l border-[#1a1a1a]/20 pl-4 md:pl-6 animate-fade-in text-left mx-auto lg:mx-0 mb-6 md:mb-0" style={{ animationDelay: '0.6s' }}>You didn't start a business to chase invoices, re-type data, and answer the same questions all day. I build the systems that do it for you — websites, CRMs, automations, and AI — so you can get back to the work that actually grows revenue.</p>
-            <div className="mt-6 md:mt-16 flex flex-col sm:flex-row items-center gap-6 md:gap-12 animate-fade-in relative z-30" style={{ animationDelay: '0.8s' }}>
+            <p className="font-sans text-base md:text-lg font-normal text-[#1a1a1a]/70 leading-relaxed max-w-2xl border-l border-[#1a1a1a]/20 pl-4 md:pl-6 animate-fade-in text-left mx-auto lg:mx-0 mb-12 md:mb-0" style={{ animationDelay: '0.6s' }}>You didn't start a business to chase invoices, re-type data, and answer the same questions all day. I build the systems that do it for you — websites, CRMs, automations, and AI — so you can get back to the work that actually grows revenue.</p>
+            <div className="mt-8 md:mt-16 flex flex-col sm:flex-row items-center gap-6 md:gap-12 animate-fade-in relative z-30" style={{ animationDelay: '0.8s' }}>
               <button onClick={() => onNavigate('contact')} className="group relative px-10 py-5 bg-transparent text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-widest font-bold overflow-hidden transition-all duration-300">
                 <div className="absolute inset-0 bg-[#1a1a1a] group-hover:-translate-y-full transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                 <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
@@ -87,6 +90,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
             </div>
           </div>
         </div>
+        {/* FIX #5: Reverted to bottom-0 to attach line to the ticker stripe */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-16 w-[1px] bg-[#1a1a1a]/10 overflow-hidden">
           <motion.div initial={{ y: '-100%' }} animate={{ y: '100%' }} transition={{ duration: 3, repeat: Infinity, ease: 'linear' }} className="absolute inset-0 bg-[#1a1a1a]/40" />
         </div>
