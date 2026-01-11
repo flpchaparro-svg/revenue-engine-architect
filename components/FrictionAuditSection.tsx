@@ -157,18 +157,20 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
 
          <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-row z-10 border-t border-[#1a1a1a]/10">
            {/* Desktop Left Panel - UPGRADED TYPOGRAPHY */}
-           <div className="w-[500px] h-full border-r border-[#1a1a1a]/10 bg-[#FFF2EC] p-12 xl:p-16 flex flex-col justify-between shrink-0 z-50">
+           <div className="w-[450px] xl:w-[500px] h-full border-r border-[#1a1a1a]/10 bg-[#FFF2EC] p-12 xl:p-16 flex flex-col justify-between shrink-0 z-50">
               <div>
                  <div className="mb-8 font-mono text-xs text-[#E21E3F] tracking-[0.2em] uppercase flex items-center gap-2">
                     / THE FRICTION AUDIT
                  </div>
-                 <h1 className="font-serif text-6xl xl:text-7xl leading-[0.95] text-[#1a1a1a] mb-10">
+                 {/* FIXED: Smooth scaling 5xl -> 6xl -> 7xl */}
+                 <h1 className="font-serif text-5xl md:text-6xl lg:text-6xl xl:text-7xl leading-[0.95] text-[#1a1a1a] mb-8">
                     Where your <br/>
                     <span className="text-[#E21E3F]">margin</span> <br/>
                     <span className="italic">evaporates.</span>
                  </h1>
-                 <div className="w-16 h-1 bg-[#1a1a1a] mb-10"></div>
-                 <p className="font-sans text-xl text-[#1a1a1a]/60 leading-relaxed max-w-sm">
+                 <div className="w-12 h-1 bg-[#1a1a1a] mb-8"></div>
+                 {/* FIXED: Text-base to lg/xl */}
+                 <p className="font-sans text-base md:text-lg xl:text-xl text-[#1a1a1a]/60 leading-relaxed max-w-xs">
                     Your business isn't broken, but it is leaking. These are the 4 silent fracture points where profit disappears before it hits your bank.
                  </p>
               </div>
@@ -212,16 +214,18 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
       <div className="md:hidden relative border-t border-[#1a1a1a]/10">
          
          {/* HEADER (Sticky at Top - 40% Height) */}
-         <div className="sticky top-0 h-[45vh] w-full bg-[#FFF2EC] border-b border-[#1a1a1a]/10 p-6 flex flex-col justify-center z-10">
-            <div className="font-mono text-xs text-[#E21E3F] tracking-[0.2em] uppercase mb-4">
+         <div className="sticky top-0 h-[40vh] w-full bg-[#FFF2EC] border-b border-[#1a1a1a]/10 p-6 flex flex-col justify-center z-10">
+            <div className="font-mono text-[10px] text-[#E21E3F] tracking-[0.2em] uppercase mb-4">
                / THE FRICTION AUDIT
             </div>
-            <h1 className="font-serif text-5xl leading-[0.95] text-[#1a1a1a] mb-6">
+            {/* FIXED: Increased to text-4xl for mobile impact */}
+            <h1 className="font-serif text-4xl leading-[0.95] text-[#1a1a1a] mb-4">
                Where your <br/>
                <span className="text-[#E21E3F]">margin</span> <br/>
                <span className="italic">evaporates.</span>
             </h1>
-            <p className="font-sans text-lg text-[#1a1a1a]/60 leading-relaxed max-w-[90%]">
+            {/* FIXED: Increased from text-xs to text-sm */}
+            <p className="font-sans text-sm text-[#1a1a1a]/60 leading-relaxed max-w-[280px]">
                These are the 4 fracture points where profit disappears.
             </p>
          </div>

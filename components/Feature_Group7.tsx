@@ -72,15 +72,15 @@ const Feature_Group7: React.FC = () => {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
         
         {/* --- SECTION HEADER --- */}
-        <div className="mb-16 md:mb-24 max-w-3xl">
-          <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">
+        <div className="mb-16 max-w-2xl">
+          <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-4 block uppercase font-bold">
             // REAL RESULTS
           </span>
-          {/* UPGRADE: Standardized to text-7xl */}
-          <h2 className="font-serif text-5xl md:text-7xl text-[#1a1a1a] leading-[0.95] mb-8">
+          {/* FIXED: Smooth scaling 4xl -> 5xl -> 7xl */}
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-[#1a1a1a] leading-[0.95] mb-6">
             See It In <span className="italic text-[#E21E3F]">Action.</span>
           </h2>
-          {/* UPGRADE: Standardized to text-xl */}
+          {/* FIXED: Body text smooth scaling */}
           <p className="font-sans text-lg md:text-xl text-[#1a1a1a]/60 leading-relaxed border-l-2 border-[#E21E3F]/30 pl-6">
             Don't just take my word for it. Here's what happened when I rebuilt a Sydney security company's website.
           </p>
