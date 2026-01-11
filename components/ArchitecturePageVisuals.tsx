@@ -76,48 +76,21 @@ export const VizVelocity = ({ color }: { color: string }) => (
   </div>
 );
 
-// =============================================================================
-// SYSTEM 03: INTELLIGENCE (THE FOCUS)
-// Concept: "Clarity". Instead of a radar searching blindly, this visualises
-// data points stabilising and a "lock-on" reticle finding the target.
-// =============================================================================
 export const VizIntelligence = ({ color }: { color: string }) => (
-  <div className="w-32 h-32 relative flex items-center justify-center">
-    
-    {/* The Data Grid (Background) */}
-    <div className="absolute w-24 h-24 grid grid-cols-2 grid-rows-2 opacity-20" style={{ borderColor: color }}>
-        <div className="border-r border-b" style={{ borderColor: color }}></div>
-        <div className="border-b" style={{ borderColor: color }}></div>
-        <div className="border-r" style={{ borderColor: color }}></div>
-        <div></div>
-    </div>
-
-    {/* The Target Brackets (Locking On Animation) */}
+  <div className="w-32 h-32 relative flex items-center justify-center border rounded-full" style={{ borderColor: `${color}33` }}>
+    <div className="absolute w-full h-[1px]" style={{ backgroundColor: `${color}33` }} />
+    <div className="absolute h-full w-[1px]" style={{ backgroundColor: `${color}33` }} />
     <motion.div
-       className="absolute w-16 h-16 border-t border-l"
-       style={{ borderColor: color, borderWidth: '1px' }}
-       animate={{ 
-         top: ['20%', '28%', '28%'], 
-         left: ['20%', '28%', '28%'] 
-       }}
-       transition={{ duration: 3, repeat: Infinity, times: [0, 0.2, 1], ease: "steps(3)" }}
+      className="absolute w-1/2 h-[2px] top-1/2 left-1/2 origin-left"
+      style={{ backgroundColor: color }}
+      animate={{ rotate: 360 }}
+      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
     />
     <motion.div
-       className="absolute w-16 h-16 border-b border-r"
-       style={{ borderColor: color, borderWidth: '1px' }}
-       animate={{ 
-         bottom: ['20%', '28%', '28%'], 
-         right: ['20%', '28%', '28%'] 
-       }}
-       transition={{ duration: 3, repeat: Infinity, times: [0, 0.2, 1], ease: "steps(3)" }}
-    />
-
-    {/* The Variable (Blinking Data Point) */}
-    <motion.div
-        className="absolute w-1.5 h-1.5 rounded-full"
-        style={{ backgroundColor: color }}
-        animate={{ opacity: [0, 1, 0, 1, 1, 0] }} // Glitchy digital blink
-        transition={{ duration: 2, repeat: Infinity, times: [0, 0.1, 0.2, 0.3, 0.9, 1] }}
+        className="absolute w-2 h-2 rounded-full"
+        style={{ backgroundColor: color, top: '25%', right: '25%' }}
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
     />
   </div>
 );
