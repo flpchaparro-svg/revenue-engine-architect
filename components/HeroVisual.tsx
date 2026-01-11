@@ -137,12 +137,11 @@ const HeroVisual: React.FC = () => {
       const cx = width / 2;
       
       // Adaptive vertical positioning: 
-      // Mobile: 40% from top (moved lower so shadow sits between copy and CTA)
-      // Desktop: 45% from top (lifted from 50% to clear bottom ticker)
+      // Mobile: 28% from top (sits behind "Stop Doing" headline, acts like a halo)
+      // Desktop: 45% from top (centered properly)
       const isMobile = width < 768; 
-      // FIX APPLIED: Changed height / 2 to height * 0.45 for desktop lift
-      // Mobile: Moved to 40% to position shadow between copy and CTA
-      const cy = isMobile ? height * 0.40 : height * 0.45;
+      // THE FIX: Mobile sphere moved to 28% to frame the headline and leave bottom clean
+      const cy = isMobile ? height * 0.28 : height * 0.45;
       
       // Adaptive scale based on screen size (mobile-friendly)
       // Use the smaller dimension to ensure sphere fits on all screens
@@ -179,8 +178,8 @@ const HeroVisual: React.FC = () => {
       // 5. Draw Shadow (adaptive size)
       if (progress > 0.1) {
         ctx.save();
-        // FIX APPLIED: Reduced max opacity to 0.2 globally for a subtle look
-        const maxOpacity = 0.2;
+        // More transparent on mobile, normal on desktop
+        const maxOpacity = isMobile ? 0.1 : 0.2;
         const shadowOp = Math.min(maxOpacity, progress * maxOpacity);
         ctx.globalAlpha = shadowOp;
         
@@ -223,8 +222,8 @@ const HeroVisual: React.FC = () => {
           ctx.moveTo(p1.x, p1.y);
           ctx.lineTo(p2.x, p2.y);
         }
-        // Apply global alpha for lines (more transparent on mobile)
-        ctx.globalAlpha = lineOp * (isMobile ? 0.08 : 0.15); 
+        // Apply global alpha for lines (more transparent on mobile for cleaner screen)
+        ctx.globalAlpha = lineOp * (isMobile ? 0.06 : 0.15); 
         ctx.stroke();
       }
 

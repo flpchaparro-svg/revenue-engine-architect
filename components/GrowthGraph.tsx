@@ -38,7 +38,7 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
     // --- NO BACKGROUND GRID. NO DOTS. NO LINES. ---
 
     // --- THE ELEMENTS ---
-    const barY = 0;
+    const barY = 60; // Move bar down to give more space above and below
     
     // 1. The Track (Simple, thin grey line)
     chart.append('rect')
@@ -57,18 +57,18 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
         .attr('width', 0)
         .attr('opacity', 1);
 
-    // 3. The Label
+    // 3. The Label - Use font-mono to match Friction Audit section, increased spacing
     const labelText = chart.append('text')
         .attr('x', 0)
-        .attr('y', barY - 15)
-        .attr('class', 'font-sans text-xs font-bold uppercase tracking-widest')
+        .attr('y', barY - 30) // More space from bar
+        .attr('class', 'font-mono text-xs font-bold uppercase tracking-widest') // Match Friction Audit
         .style('fill', '#1a1a1a');
 
-    // 4. The Value
+    // 4. The Value - Use font-mono to match Friction Audit section, increased spacing
     const valueText = chart.append('text')
         .attr('x', 0)
-        .attr('y', barY + 45)
-        .attr('class', 'font-serif text-4xl leading-none')
+        .attr('y', barY + 60) // More space from bar
+        .attr('class', 'font-mono text-xl md:text-2xl font-bold tracking-tight') // Match Friction Audit metric style
         .style('fill', '#1a1a1a');
 
     // Store refs
