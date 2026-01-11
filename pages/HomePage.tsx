@@ -24,6 +24,24 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const [scrambleText, setScrambleText] = useState("ARCHITECT");
   const [isTickerHovered, setIsTickerHovered] = useState(false);
   const [graphState, setGraphState] = useState<'idle' | 'bottleneck' | 'tax' | 'grind' | 'cost' | 'fix' | 'problem'>('idle');
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Stable hover handler to prevent flickering
+  const handleGraphHover = (state: typeof graphState) => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    setGraphState(state);
+  };
+  
+  const handleGraphLeave = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current);
+    }
+    hoverTimeoutRef.current = setTimeout(() => {
+      setGraphState('idle');
+    }, 50); // Small delay to prevent flicker when moving between items
+  };
   const scrollLineY = useMotionValue(-100); // Start at top (-100%)
   const scrollLineSpeed = useMotionValue(0.067); // Base speed: % per ms (for 3s duration: 200% in 3000ms)
 
@@ -130,7 +148,12 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
         iterations += 1;
       }, 60);
     }, 7000);
-    return () => clearInterval(scrambleInterval);
+    return () => {
+      clearInterval(scrambleInterval);
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
   }, []);
 
   return (
@@ -200,8 +223,8 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
           <div className="grid grid-cols-1 md:grid-cols-3">
             {/* 01: THE PROBLEM (Span 2) */}
             <div 
-              onMouseEnter={() => setGraphState('problem')} // Shows Average Admin Load
-              onMouseLeave={() => setGraphState('idle')}
+              onMouseEnter={() => handleGraphHover('problem')} // Shows Average Admin Load
+              onMouseLeave={handleGraphLeave}
               className="col-span-1 md:col-span-2 p-6 md:p-12 lg:p-16 border-r border-b border-[#1a1a1a]/10 flex flex-col justify-center min-h-[250px] md:min-h-[350px] transition-colors duration-300 hover:bg-[#1a1a1a]/5 group"
             >
               <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-6 md:mb-10 block">01 / THE PROBLEM</span>
@@ -217,38 +240,53 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
             </div>
 
             {/* 02: SYMPTOMS (Span 1) */}
-            <div 
-              onMouseEnter={() => setGraphState('bottleneck')}
-              onMouseLeave={() => setGraphState('idle')}
-              className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 min-h-[200px] md:min-h-[300px] hover:bg-[#1a1a1a]/5 transition-colors duration-300"
-            >
+            <div className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 min-h-[200px] md:min-h-[300px] flex flex-col">
               <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-6 md:mb-8 block">02 / SYMPTOMS</span>
               <ul className="space-y-4 md:space-y-6">
-                <li className="flex items-start gap-3 md:gap-4">
-                  <XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5" />
-                  <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70">
+                
+                {/* Item 1: Bottleneck */}
+                <li 
+                  onMouseEnter={() => handleGraphHover('bottleneck')}
+                  onMouseLeave={handleGraphLeave}
+                  className="flex items-start gap-3 md:gap-4 p-2 -ml-2 rounded-sm hover:bg-[#1a1a1a]/5 transition-colors duration-200"
+                >
+                  <XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5 pointer-events-none" />
+                  <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70 pointer-events-none">
                     <strong className="text-[#1a1a1a]">The Bottleneck Boss:</strong> You are answering questions instead of doing deep work.
                   </div>
                 </li>
-                <li className="flex items-start gap-3 md:gap-4">
-                  <XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5" />
-                  <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70">
+
+                {/* Item 2: Tax */}
+                <li 
+                  onMouseEnter={() => handleGraphHover('tax')}
+                  onMouseLeave={handleGraphLeave}
+                  className="flex items-start gap-3 md:gap-4 p-2 -ml-2 rounded-sm hover:bg-[#1a1a1a]/5 transition-colors duration-200"
+                >
+                  <XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5 pointer-events-none" />
+                  <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70 pointer-events-none">
                     <strong className="text-[#1a1a1a]">The Double-Entry Tax:</strong> Typing the same data into two different apps.
                   </div>
                 </li>
-                <li className="flex items-start gap-3 md:gap-4">
-                  <XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5" />
-                  <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70">
+
+                {/* Item 3: Grind */}
+                <li 
+                  onMouseEnter={() => handleGraphHover('grind')}
+                  onMouseLeave={handleGraphLeave}
+                  className="flex items-start gap-3 md:gap-4 p-2 -ml-2 rounded-sm hover:bg-[#1a1a1a]/5 transition-colors duration-200"
+                >
+                  <XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5 pointer-events-none" />
+                  <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70 pointer-events-none">
                     <strong className="text-[#1a1a1a]">The Sunday Grind:</strong> Invoicing and admin eating your weekends.
                   </div>
                 </li>
+
               </ul>
             </div>
 
             {/* 03: THE COST (Span 1) */}
             <div 
-              onMouseEnter={() => setGraphState('cost')}
-              onMouseLeave={() => setGraphState('idle')}
+              onMouseEnter={() => handleGraphHover('cost')}
+              onMouseLeave={handleGraphLeave}
               className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#E21E3F]/5 min-h-[200px] md:min-h-[300px] hover:bg-[#E21E3F]/10 transition-colors duration-300 relative overflow-hidden group"
             >
               {/* Hover Effect: Background darkens slightly */}
@@ -263,12 +301,12 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
 
             {/* 04: THE FIX (Span 1 - The Black One) */}
             <div 
-              onMouseEnter={() => setGraphState('fix')}
-              onMouseLeave={() => setGraphState('idle')}
+              onMouseEnter={() => handleGraphHover('fix')}
+              onMouseLeave={handleGraphLeave}
               className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[200px] md:min-h-[300px] flex flex-col justify-between border-l-2 border-l-[#C5A059] group"
             >
-              <span className="font-mono text-xs uppercase tracking-widest text-[#C5A059] group-hover:text-white transition-colors duration-300 block mb-4 md:mb-0">04 / THE FIX</span>
-              <p className="font-serif text-xl md:text-2xl lg:text-3xl leading-tight mb-6 md:mb-8">I build the systems that do the boring work for you. Your team gets their time back. <span className="group-hover:text-[#C5A059] transition-colors duration-300">You get your business back.</span></p>
+              <span className="font-mono text-xs uppercase tracking-widest text-[#C5A059] block mb-4 md:mb-0">04 / THE FIX</span>
+              <p className="font-serif text-xl md:text-2xl lg:text-3xl leading-tight mb-6 md:mb-8 group-hover:text-[#C5A059] transition-colors duration-300">I build the systems that do the boring work for you. Your team gets their time back. <span className="text-white">You get your business back.</span></p>
               <button onClick={() => document.getElementById('architecture')?.scrollIntoView({behavior: 'smooth'})} className="flex items-center gap-3 font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.3em] hover:text-white transition-colors cursor-pointer group">[ SEE HOW IT WORKS ]</button>
             </div>
           </div>

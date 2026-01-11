@@ -11,6 +11,7 @@ interface GrowthGraphProps {
 const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<any>(null);
+  const previousStateRef = useRef<GraphState | null>(null);
 
   // 1. SETUP (Runs once)
   useEffect(() => {
@@ -79,16 +80,43 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
   // 2. UPDATE (Runs on hover)
   useEffect(() => {
     if (!svgRef.current) return;
+    // Prevent unnecessary updates if state hasn't changed
+    if (previousStateRef.current === currentState) return;
+    previousStateRef.current = currentState;
+    
     const { activeBar, valueText, labelText, chartWidth } = svgRef.current;
 
     // CONFIGURATION (Logic preserved, text cleaned)
+    // CONFIGURATION
     const config = {
+        // DEFAULT / PROBLEM
         idle: { label: 'Average Admin Load', value: 65, color: '#E21E3F', text: '15 hrs/wk' },
-        problem: { label: 'Average Admin Load', value: 65, color: '#E21E3F', text: '15 hrs/wk' },
-        bottleneck: { label: 'Focus Loss', value: 45, color: '#E21E3F', text: '-20% Output' },
-        tax: { label: 'Error Probability', value: 30, color: '#E21E3F', text: 'High Risk' },
-        grind: { label: 'Personal Time Lost', value: 80, color: '#E21E3F', text: 'Weekends' },
-        cost: { label: 'Capital Waste', value: 95, color: '#E21E3F', text: '$120k / yr' },
+        problem: { label: 'Administrative Hostage', value: 65, color: '#E21E3F', text: '15 hrs/wk' },
+        
+        // SYMPTOMS (Specific Data)
+        bottleneck: { 
+            label: 'Deep Work Lost',   
+            value: 40, 
+            color: '#E21E3F', 
+            text: '-20% Focus' 
+        },
+        tax: { 
+            label: 'Redundant Labor',  
+            value: 30, 
+            color: '#E21E3F', 
+            text: 'Double Entry' 
+        },
+        grind: { 
+            label: 'Weekend Sacrifice', 
+            value: 80, 
+            color: '#E21E3F', 
+            text: '0 Hrs Off' 
+        },
+        
+        // COST
+        cost: { label: 'Capital Burn', value: 95, color: '#E21E3F', text: '$120k / yr' },
+        
+        // FIX
         fix: { label: 'System Efficiency', value: 5, color: '#C5A059', text: 'Optimized' }
     };
 

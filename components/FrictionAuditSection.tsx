@@ -227,8 +227,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
         <div className="w-full md:w-[450px] md:h-full border-b md:border-b-0 md:border-r border-[#1a1a1a]/10 bg-[#FFF2EC] p-6 md:p-8 lg:p-12 xl:p-16 flex flex-col justify-between shrink-0 z-50 min-h-[50vh] md:min-h-0">
            <div>
               <div className="mb-6 md:mb-8 font-mono text-xs text-[#E21E3F] tracking-[0.2em] uppercase flex items-center gap-2">
-                 <div className="w-2 h-2 bg-[#E21E3F]"></div>
-                 02 // THE FRICTION AUDIT
+                 / THE FRICTION AUDIT
               </div>
               <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-[0.95] text-[#1a1a1a] mb-6 md:mb-8">
                  Where your <br/>
@@ -263,51 +262,59 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
             className="flex-1 relative md:h-full bg-[#FFF2EC] md:overflow-hidden"
             style={{ perspective: "1000px" }} // ADDS 3D DEPTH on desktop
         >
-           {/* Mobile: Simple vertical stack */}
-           <div className="md:hidden flex flex-col border-t border-[#1a1a1a]/10">
+           {/* MOBILE: THE CASE FILE STACK */}
+           <div className="md:hidden flex flex-col px-4 pb-24 pt-4">
              {AUDIT_DATA.map((data, index) => (
                <div 
                  key={data.id} 
-                 className="w-full bg-[#FFF2EC] min-h-[50vh] border-b border-[#1a1a1a]/10 flex flex-col justify-center py-12 px-6"
+                 className="sticky bg-[#FFF2EC] border border-[#1a1a1a]/10 shadow-[-4px_4px_0px_rgba(0,0,0,0.05)] mb-6 overflow-hidden flex flex-col"
+                 style={{ 
+                    top: `${100 + (index * 10)}px`, // Stagger the top offset so they stack visibly
+                    minHeight: '400px', // Ensure enough height for content
+                    zIndex: index + 1
+                 }}
                >
-                 <div className="w-full max-w-[1600px] mx-auto">
+                 {/* Mobile Card Header - Styled like a File Tab */}
+                 <div className="border-b border-[#1a1a1a]/10 bg-[#1a1a1a]/5 p-4 flex justify-between items-center">
+                    <span className="font-mono text-[10px] text-[#E21E3F] uppercase tracking-widest">
+                       CASE FILE {data.id}
+                    </span>
+                    {data.type !== 'cta' && (
+                        <div className="w-2 h-2 rounded-full bg-[#E21E3F] animate-pulse"></div>
+                    )}
+                 </div>
+
+                 {/* Mobile Card Body */}
+                 <div className="p-6 flex flex-col flex-1 justify-center">
                    {data.type === 'cta' ? (
-                     <div className="flex flex-col items-center justify-center text-center max-w-4xl mx-auto py-12">
-                       <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-tight mb-10">
+                     <div className="text-center py-8">
+                       <h2 className="font-serif text-3xl text-[#1a1a1a] leading-tight mb-8">
                          You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
                          <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
                        </h2>
                        <button 
                          onClick={() => document.getElementById('bento')?.scrollIntoView({ behavior: 'smooth' })}
-                         className="group relative inline-flex items-center justify-center px-10 py-5 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300 hover:border-[#C5A059]"
+                         className="w-full py-4 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-[10px] uppercase tracking-[0.2em] font-bold"
                        >
-                         <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                         <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ SEE THE SYSTEM ]</span>
+                         [ SEE THE SYSTEM ]
                        </button>
                      </div>
                    ) : (
                      <div className="flex flex-col space-y-4">
-                       <div className="flex items-center gap-4">
-                         <span className="font-serif text-4xl md:text-6xl text-[#1a1a1a]/20 italic font-bold">
-                           {data.id}
-                         </span>
-                         <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest border border-[#E21E3F]/30 px-2 py-1">
-                           [{data.label}]
-                         </span>
-                       </div>
-                       
                        <div>
-                         <h3 className="font-serif text-3xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-[0.9] mb-4">
+                         <span className="font-mono text-[9px] text-[#1a1a1a]/40 border border-[#1a1a1a]/10 px-1 py-0.5 rounded-sm">
+                           STATUS: {data.label}
+                         </span>
+                         <h3 className="font-serif text-3xl text-[#1a1a1a] leading-[0.9] mt-3 mb-3">
                            {data.title}
                          </h3>
-                         <div className="inline-block bg-[#E21E3F]/10 px-4 py-2">
-                           <span className="font-mono text-lg md:text-2xl text-[#E21E3F] font-bold tracking-tight">
+                         <div className="inline-block bg-[#E21E3F]/10 px-2 py-1">
+                           <span className="font-mono text-lg text-[#E21E3F] font-bold tracking-tight">
                              {data.metric}
                            </span>
                          </div>
                        </div>
-
-                       <p className="font-sans text-sm md:text-lg text-[#1a1a1a]/70 leading-relaxed max-w-md pl-0">
+                       <p className="font-sans text-sm text-[#1a1a1a]/70 leading-relaxed border-l border-[#E21E3F]/20 pl-4">
                          {data.description}
                        </p>
                      </div>
