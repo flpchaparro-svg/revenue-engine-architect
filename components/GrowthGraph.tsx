@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-// Removed 'problem' to prevent the "bleach" duplicate state
 export type GraphState = 'idle' | 'bottleneck' | 'tax' | 'grind' | 'cost' | 'fix';
 
 interface GrowthGraphProps {
@@ -21,10 +20,8 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
 
     const width = 400; 
     const height = 240;
-    // Tighter margins, cleaner look
     const margin = { top: 80, right: 20, bottom: 40, left: 20 };
     const chartWidth = width - margin.left - margin.right;
-    const chartHeight = height - margin.top - margin.bottom;
     
     const svg = d3.select(containerRef.current)
       .append('svg')
@@ -35,17 +32,15 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
       
     const chart = svg.append('g').attr('transform', `translate(${margin.left}, ${margin.top})`);
     
-    // --- NO BACKGROUND GRID. NO DOTS. NO LINES. ---
-
     // --- THE ELEMENTS ---
-    const barY = 60; // Move bar down to give more space above and below
+    const barY = 60; 
     
     // 1. The Track (Simple, thin grey line)
     chart.append('rect')
         .attr('x', 0)
-        .attr('y', barY + 10) // Center active bar on this
+        .attr('y', barY + 10) 
         .attr('width', chartWidth)
-        .attr('height', 1) // 1px thin line
+        .attr('height', 1) 
         .attr('fill', '#1a1a1a')
         .attr('opacity', 0.1);
 
@@ -53,25 +48,24 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
     const activeBar = chart.append('rect')
         .attr('x', 0)
         .attr('y', barY)
-        .attr('height', 20) // Substantial but clean
+        .attr('height', 20)
         .attr('width', 0)
         .attr('opacity', 1);
 
-    // 3. The Label - Use font-mono to match Friction Audit section, increased spacing
+    // 3. The Label - Use font-mono to match Friction Audit section
     const labelText = chart.append('text')
         .attr('x', 0)
-        .attr('y', barY - 30) // More space from bar
-        .attr('class', 'font-mono text-xs font-bold uppercase tracking-widest') // Match Friction Audit
+        .attr('y', barY - 30) 
+        .attr('class', 'font-mono text-xs font-bold uppercase tracking-widest') 
         .style('fill', '#1a1a1a');
 
-    // 4. The Value - Use font-mono to match Friction Audit section, increased spacing
+    // 4. The Value - Use font-mono to match Friction Audit section
     const valueText = chart.append('text')
         .attr('x', 0)
-        .attr('y', barY + 60) // More space from bar
-        .attr('class', 'font-mono text-xl md:text-2xl font-bold tracking-tight') // Match Friction Audit metric style
+        .attr('y', barY + 60) 
+        .attr('class', 'font-mono text-xl md:text-2xl font-bold tracking-tight') 
         .style('fill', '#1a1a1a');
 
-    // Store refs
     svgRef.current = { activeBar, valueText, labelText, chartWidth };
 
     return () => { d3.select(containerRef.current).selectAll('*').remove(); };
@@ -80,15 +74,13 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
   // 2. UPDATE (Runs on hover)
   useEffect(() => {
     if (!svgRef.current) return;
-    // Prevent unnecessary updates if state hasn't changed
     if (previousStateRef.current === currentState) return;
     previousStateRef.current = currentState;
     
     const { activeBar, valueText, labelText, chartWidth } = svgRef.current;
 
-    // CONFIGURATION (Removed the duplicate 'problem' state)
     const config = {
-        // IDLE: The Baseline (Average Admin Load)
+        // IDLE: The Baseline
         idle: { label: 'Average Admin Load', value: 65, color: '#E21E3F', text: '15 hrs/wk' },
         
         // SYMPTOMS

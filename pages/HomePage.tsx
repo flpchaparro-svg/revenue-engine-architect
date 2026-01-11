@@ -206,13 +206,14 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   return (
     <>
       {/* HERO SECTION */}
-      <section id="hero" className="min-h-[100svh] w-full flex items-center pt-32 md:pt-20 overflow-hidden relative z-20 content-layer">
+      {/* FIXED: Mobile line positioning and centering */}
+      <section id="hero" className="min-h-[100svh] w-full flex items-center pt-24 md:pt-20 relative z-20 content-layer">
         <HeroVisual />
         <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 relative z-20">
-          <div className="lg:col-span-12 flex flex-col justify-start md:justify-center items-center lg:items-start text-center lg:text-left pt-8 md:pt-0">
+          <div className="lg:col-span-12 flex flex-col justify-center items-center lg:items-start text-center lg:text-left h-full">
             
             {/* EYEBROW */}
-            <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-center lg:justify-start">
+            <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden">
               <span className="text-xs font-mono font-bold tracking-widest uppercase text-[#1a1a1a]">/</span>
               <span className="text-xs font-mono font-bold tracking-widest uppercase text-[#1a1a1a] mt-[1px]">
                 SYDNEY BUSINESS AUTOMATION 
@@ -228,7 +229,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
               <div className="overflow-hidden"><span className="block reveal-text" style={{ animationDelay: '0.2s' }}><span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Everyone's Job.</span></span></div>
             </h1>
 
-            {/* BODY COPY: Fixed Responsive Scaling (lg -> xl) */}
+            {/* BODY COPY: Fixed Responsive Scaling */}
             <p className="font-sans text-lg md:text-lg lg:text-xl font-normal text-[#1a1a1a]/70 leading-relaxed max-w-2xl border-l-2 border-[#C5A059] pl-6 animate-fade-in text-left mx-auto lg:mx-0 mb-12 md:mb-0" style={{ animationDelay: '0.6s' }}>
               You didn't start a business to chase invoices, re-type data, and answer the same questions all day. I build the systems that do it for you — websites, CRMs, automations, and AI — so you can get back to the work that actually grows revenue.
             </p>
@@ -240,15 +241,17 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
                 <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                 <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ LET'S TALK ]</span>
               </button>
-              <a href="#architecture" onClick={(e) => { e.preventDefault(); document.getElementById('architecture')?.scrollIntoView({behavior: 'smooth'}); }} className="relative group flex items-center gap-3 cursor-pointer">
+              
+              {/* FIXED: Scroll Button anchor */}
+              <a href="#architecture" id="scroll-trigger" onClick={(e) => { e.preventDefault(); document.getElementById('architecture')?.scrollIntoView({behavior: 'smooth'}); }} className="relative group flex items-center gap-3 cursor-pointer">
                 <span className="font-mono text-xs uppercase tracking-widest text-[#1a1a1a] border-b border-[#1a1a1a] pb-0.5 group-hover:border-b-2 group-hover:pb-1 transition-all duration-300 font-bold">SEE HOW IT WORKS</span>
               </a>
             </div>
           </div>
         </div>
         
-        {/* SCROLL LINE (Unchanged) */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-16 w-[1px] bg-[#1a1a1a]/10 overflow-hidden">
+        {/* SCROLL LINE - FIXED Position to track from the button area properly */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-16 md:h-24 w-[1px] bg-[#1a1a1a]/10 overflow-hidden">
           <motion.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
             className="absolute inset-0 bg-[#1a1a1a]/40 w-full h-full" 
@@ -272,103 +275,86 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
       </div>
 
       {/* DIAGNOSIS SECTION (Global #01) */}
-      <motion.section id="diagnosis" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} className="w-full bg-[#FFF2EC] py-16 md:py-32 px-6 md:px-12 lg:px-20 relative z-30 overflow-hidden">
+      <motion.section id="diagnosis" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} className="w-full bg-[#FFF2EC] py-16 md:py-24 lg:py-32 px-6 md:px-12 lg:px-20 relative z-30 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 h-16 md:h-32 w-[1px] bg-[#1a1a1a]/10" />
         <div className="max-w-[1600px] mx-auto border-t border-l border-[#1a1a1a]/10">
           <div className="grid grid-cols-1 md:grid-cols-3">
-            {/* 01: THE PROBLEM (Span 2) */}
-            <div 
-              // REMOVED: onMouseEnter={() => setGraphState('problem')} 
-              // This fixes the "bleach" effect. The graph now stays stable on "Average Admin Load"
-              className="col-span-1 md:col-span-2 p-6 md:p-12 lg:p-16 border-r border-b border-[#1a1a1a]/10 flex flex-col justify-center min-h-[250px] md:min-h-[350px] transition-colors duration-300 hover:bg-[#1a1a1a]/5 group"
-            >
+            
+            {/* 01: THE PROBLEM */}
+            <div className="col-span-1 md:col-span-2 p-8 md:p-12 lg:p-16 border-r border-b border-[#1a1a1a]/10 flex flex-col justify-center min-h-[300px] md:min-h-[400px] transition-colors duration-300 hover:bg-[#1a1a1a]/5 group">
               <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-6 md:mb-10 block">01 / THE PROBLEM</span>
-              <h2 className="font-serif text-3xl md:text-5xl lg:text-7xl leading-[0.9] text-[#1a1a1a] tracking-tighter">
+              {/* FIXED: Intermediate text size text-5xl for laptops */}
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.9] text-[#1a1a1a] tracking-tighter">
                 You didn't start your business to become an <br className="hidden md:block" />
                 <span className="italic text-[#1a1a1a]/60 group-hover:text-[#E21E3F] transition-colors duration-300">administrative hostage.</span>
               </h2>
             </div>
 
-            {/* GRAPH CONTAINER (Span 1) */}
-            <div className="col-span-1 border-r border-b border-[#1a1a1a]/10 bg-transparent flex items-center justify-center p-6">
+            {/* GRAPH CONTAINER */}
+            <div className="col-span-1 border-r border-b border-[#1a1a1a]/10 bg-transparent flex items-center justify-center p-8">
               <GrowthGraph currentState={graphState} />
             </div>
 
-            {/* 02: SYMPTOMS (Span 1) */}
-            <div className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 min-h-[200px] md:min-h-[300px] flex flex-col">
+            {/* 02: SYMPTOMS */}
+            <div className="col-span-1 p-8 md:p-12 border-r border-b border-[#1a1a1a]/10 min-h-[300px] md:min-h-[400px] flex flex-col">
               <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-6 md:mb-8 block">02 / SYMPTOMS</span>
-              <ul className="space-y-4 md:space-y-6">
-                
-                {/* Item 1: Bottleneck */}
-                <li 
-                  onMouseEnter={() => handleGraphHover('bottleneck')}
-                  onMouseLeave={handleGraphLeave}
-                  className="flex items-start gap-3 md:gap-4 p-2 -ml-2 rounded-sm hover:bg-[#1a1a1a]/5 transition-colors duration-200"
-                >
-                  <XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5 pointer-events-none" />
-                  <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70 pointer-events-none">
-                    <strong className="text-[#1a1a1a]">The Bottleneck Boss:</strong> You are answering questions instead of doing deep work.
+              <ul className="space-y-6">
+                <li onMouseEnter={() => handleGraphHover('bottleneck')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
+                  <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
+                  {/* FIXED: Text size intermediate for laptops */}
+                  <div className="font-sans text-base md:text-lg lg:text-xl text-[#1a1a1a]/70 pointer-events-none leading-relaxed">
+                    <strong className="text-[#1a1a1a] block mb-1">The Bottleneck Boss</strong>
+                    You are answering questions instead of doing deep work.
                   </div>
                 </li>
-
-                {/* Item 2: Tax */}
-                <li 
-                  onMouseEnter={() => handleGraphHover('tax')}
-                  onMouseLeave={handleGraphLeave}
-                  className="flex items-start gap-3 md:gap-4 p-2 -ml-2 rounded-sm hover:bg-[#1a1a1a]/5 transition-colors duration-200"
-                >
-                  <XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5 pointer-events-none" />
-                  <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70 pointer-events-none">
-                    <strong className="text-[#1a1a1a]">The Double-Entry Tax:</strong> Typing the same data into two different apps.
+                <li onMouseEnter={() => handleGraphHover('tax')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
+                  <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
+                  <div className="font-sans text-base md:text-lg lg:text-xl text-[#1a1a1a]/70 pointer-events-none leading-relaxed">
+                    <strong className="text-[#1a1a1a] block mb-1">The Double-Entry Tax</strong>
+                    Typing the same data into two different apps.
                   </div>
                 </li>
-
-                {/* Item 3: Grind */}
-                <li 
-                  onMouseEnter={() => handleGraphHover('grind')}
-                  onMouseLeave={handleGraphLeave}
-                  className="flex items-start gap-3 md:gap-4 p-2 -ml-2 rounded-sm hover:bg-[#1a1a1a]/5 transition-colors duration-200"
-                >
-                  <XCircle className="w-4 h-4 md:w-5 md:h-5 text-[#E21E3F] shrink-0 mt-0.5 pointer-events-none" />
-                  <div className="font-sans text-base md:text-lg text-[#1a1a1a]/70 pointer-events-none">
-                    <strong className="text-[#1a1a1a]">The Sunday Grind:</strong> Invoicing and admin eating your weekends.
+                <li onMouseEnter={() => handleGraphHover('grind')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
+                  <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
+                  <div className="font-sans text-base md:text-lg lg:text-xl text-[#1a1a1a]/70 pointer-events-none leading-relaxed">
+                    <strong className="text-[#1a1a1a] block mb-1">The Sunday Grind</strong>
+                    Invoicing and admin eating your weekends.
                   </div>
                 </li>
-
               </ul>
             </div>
 
-            {/* 03: THE COST (Span 1) */}
-            <div 
-              onMouseEnter={() => handleGraphHover('cost')}
-              onMouseLeave={handleGraphLeave}
-              className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#E21E3F]/5 min-h-[200px] md:min-h-[300px] hover:bg-[#E21E3F]/10 transition-colors duration-300 relative overflow-hidden group"
-            >
-              {/* Hover Effect: Background darkens slightly */}
+            {/* 03: THE COST */}
+            <div onMouseEnter={() => handleGraphHover('cost')} onMouseLeave={handleGraphLeave} className="col-span-1 p-8 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#E21E3F]/5 min-h-[250px] md:min-h-[400px] hover:bg-[#E21E3F]/10 transition-colors duration-300 relative overflow-hidden group flex flex-col justify-center">
               <div className="absolute inset-0 bg-[#E21E3F]/0 group-hover:bg-[#E21E3F]/10 transition-colors duration-500" />
-              
-              <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-6 md:mb-8 block relative z-10">03 / THE COST</span>
-              <div className="space-y-3 md:space-y-4 relative z-10">
-                <div className="font-sans text-2xl md:text-3xl font-bold text-[#E21E3F] uppercase tracking-tighter">BURNING TALENT</div>
-                <p className="font-sans text-xs md:text-sm text-[#E21E3F]/70 leading-relaxed uppercase tracking-widest">Paying high-value staff to do low-value data entry.</p>
+              <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-6 block relative z-10">03 / THE COST</span>
+              <div className="space-y-4 relative z-10">
+                <div className="font-sans text-3xl md:text-4xl font-bold text-[#E21E3F] uppercase tracking-tighter">BURNING TALENT</div>
+                <p className="font-sans text-sm md:text-base text-[#E21E3F]/80 leading-relaxed uppercase tracking-widest font-medium max-w-xs">
+                  Paying high-value staff to do low-value data entry.
+                </p>
               </div>
             </div>
 
-            {/* 04: THE FIX (Span 1 - The Black One) */}
-            <div 
-              onMouseEnter={() => handleGraphHover('fix')}
-              onMouseLeave={handleGraphLeave}
-              className="col-span-1 p-6 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[200px] md:min-h-[300px] flex flex-col justify-between border-l-2 border-l-[#C5A059] group"
-            >
+            {/* 04: THE FIX */}
+            <div onMouseEnter={() => handleGraphHover('fix')} onMouseLeave={handleGraphLeave} className="col-span-1 p-8 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[250px] md:min-h-[400px] flex flex-col justify-between border-l-2 border-l-[#C5A059] group">
               <span className="font-mono text-xs uppercase tracking-widest text-[#C5A059] block mb-4 md:mb-0">04 / THE FIX</span>
-              <p className="font-serif text-xl md:text-2xl lg:text-3xl leading-tight mb-6 md:mb-8 group-hover:text-[#C5A059] transition-colors duration-300">I build the systems that do the boring work for you. Your team gets their time back. <span className="text-white">You get your business back.</span></p>
-              <button onClick={() => document.getElementById('architecture')?.scrollIntoView({behavior: 'smooth'})} className="flex items-center gap-3 font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.3em] hover:text-white transition-colors cursor-pointer group">[ SEE HOW IT WORKS ]</button>
+              <p className="font-serif text-2xl md:text-3xl leading-tight mb-6 md:mb-8 group-hover:text-[#C5A059] transition-colors duration-300">
+                I build the systems that do the boring work for you. <br/><br/>
+                <span className="text-white/60 text-xl">You get your business back.</span>
+              </p>
+              <button onClick={() => document.getElementById('architecture')?.scrollIntoView({behavior: 'smooth'})} className="flex items-center gap-3 font-mono text-xs text-[#C5A059] uppercase tracking-[0.3em] hover:text-white transition-colors cursor-pointer group">
+                [ SEE HOW IT WORKS ]
+              </button>
             </div>
           </div>
         </div>
       </motion.section>
 
-      <FrictionAuditSection onNavigate={onNavigate} />
+      {/* --- REST OF SECTIONS --- */}
+      <div id="architecture">
+         <FrictionAuditSection onNavigate={onNavigate} />
+      </div>
       <div id="bento">
         <BentoGrid onServiceClick={onServiceClick || ((s) => onNavigate(s.id))} />
       </div>

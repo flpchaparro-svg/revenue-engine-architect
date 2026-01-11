@@ -97,7 +97,8 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
       <div className="w-full h-full p-6 md:p-12 lg:p-20 flex flex-col justify-center max-w-[1600px] mx-auto">
         {data.type === 'cta' ? (
            <div className="flex flex-col items-center justify-center text-center h-full max-w-4xl mx-auto">
-              <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-tight mb-10">
+              {/* FIXED: Reduced to text-7xl max to be smaller than Hero (8xl) */}
+              <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-tight tracking-tighter mb-10">
                 You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
                 <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
               </h2>
@@ -110,17 +111,21 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
               <div className="flex flex-col space-y-8 md:space-y-10">
                  <div className="flex items-center gap-4">
-                    <span className="font-serif text-6xl md:text-7xl text-[#1a1a1a]/10 italic font-bold">{data.id}</span>
+                    {/* FIXED: Explicit font-serif and color consistency */}
+                    <span className="font-serif text-5xl md:text-6xl text-[#1a1a1a]/10 italic font-bold">{data.id}</span>
                     <div className="h-px flex-1 bg-[#1a1a1a]/20"></div>
+                    {/* FIXED: Explicit font-mono */}
                     <span className="font-mono text-sm text-[#E21E3F] uppercase tracking-widest border border-[#E21E3F]/30 px-3 py-1">[{data.label}]</span>
                  </div>
                  <div>
-                    <h3 className="font-serif text-6xl md:text-7xl lg:text-8xl text-[#1a1a1a] leading-[0.9] mb-8">{data.title}</h3>
+                    {/* FIXED: Added tracking-tighter to match Hero. Capped at 7xl to respect hierarchy. */}
+                    <h3 className="font-serif text-5xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-[0.9] tracking-tighter mb-8">{data.title}</h3>
                     <div className="inline-block bg-[#E21E3F]/10 px-6 py-3">
-                       <span className="font-mono text-2xl md:text-3xl text-[#E21E3F] font-bold tracking-tight">{data.metric}</span>
+                       <span className="font-mono text-xl md:text-2xl text-[#E21E3F] font-bold tracking-tight">{data.metric}</span>
                     </div>
                  </div>
-                 <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed max-w-xl border-l-2 border-[#E21E3F]/20 pl-8">{data.description}</p>
+                 {/* FIXED: Body text consistent with Hero (text-xl on large screens) */}
+                 <p className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-xl border-l-2 border-[#E21E3F]/20 pl-8">{data.description}</p>
               </div>
               <div className="hidden lg:flex items-center justify-center h-full min-h-[400px]">
                  <AuditCubeVisual scrollYProgress={scrollYProgress} />
@@ -147,7 +152,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
   return (
     <section ref={containerRef} className="relative bg-[#FFF2EC] z-30">
        
-      {/* DESKTOP LAYOUT (Unchanged - Horizontal/3D) */}
+      {/* DESKTOP LAYOUT */}
       <div className="hidden md:flex relative h-[500vh]">
          <div className="absolute inset-0 flex flex-col pointer-events-none z-0">
             {[...Array(5)].map((_, i) => (
@@ -156,21 +161,20 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
          </div>
 
          <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-row z-10 border-t border-[#1a1a1a]/10">
-           {/* Desktop Left Panel - UPGRADED TYPOGRAPHY */}
+           {/* Desktop Left Panel */}
            <div className="w-[450px] xl:w-[500px] h-full border-r border-[#1a1a1a]/10 bg-[#FFF2EC] p-12 xl:p-16 flex flex-col justify-between shrink-0 z-50">
               <div>
                  <div className="mb-8 font-mono text-xs text-[#E21E3F] tracking-[0.2em] uppercase flex items-center gap-2">
                     / THE FRICTION AUDIT
                  </div>
-                 {/* FIXED: Smooth scaling 5xl -> 6xl -> 7xl */}
-                 <h1 className="font-serif text-5xl md:text-6xl lg:text-6xl xl:text-7xl leading-[0.95] text-[#1a1a1a] mb-8">
+                 {/* FIXED: Added tracking-tighter and capped size */}
+                 <h1 className="font-serif text-5xl xl:text-6xl leading-[0.95] text-[#1a1a1a] tracking-tighter mb-10">
                     Where your <br/>
                     <span className="text-[#E21E3F]">margin</span> <br/>
                     <span className="italic">evaporates.</span>
                  </h1>
-                 <div className="w-12 h-1 bg-[#1a1a1a] mb-8"></div>
-                 {/* FIXED: Text-base to lg/xl */}
-                 <p className="font-sans text-base md:text-lg xl:text-xl text-[#1a1a1a]/60 leading-relaxed max-w-xs">
+                 <div className="w-16 h-1 bg-[#1a1a1a] mb-10"></div>
+                 <p className="font-sans text-lg xl:text-xl text-[#1a1a1a]/60 leading-relaxed max-w-sm">
                     Your business isn't broken, but it is leaking. These are the 4 silent fracture points where profit disappears before it hits your bank.
                  </p>
               </div>
@@ -210,41 +214,36 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
          </div>
       </div>
 
-      {/* MOBILE LAYOUT (CSS Sticky - No Scroll Traps) */}
+      {/* MOBILE LAYOUT */}
       <div className="md:hidden relative border-t border-[#1a1a1a]/10">
          
-         {/* HEADER (Sticky at Top - 40% Height) */}
-         <div className="sticky top-0 h-[40vh] w-full bg-[#FFF2EC] border-b border-[#1a1a1a]/10 p-6 flex flex-col justify-center z-10">
-            <div className="font-mono text-[10px] text-[#E21E3F] tracking-[0.2em] uppercase mb-4">
+         {/* HEADER */}
+         <div className="sticky top-0 h-[45vh] w-full bg-[#FFF2EC] border-b border-[#1a1a1a]/10 p-6 flex flex-col justify-center z-10">
+            <div className="font-mono text-xs text-[#E21E3F] tracking-[0.2em] uppercase mb-4">
                / THE FRICTION AUDIT
             </div>
-            {/* FIXED: Increased to text-4xl for mobile impact */}
-            <h1 className="font-serif text-4xl leading-[0.95] text-[#1a1a1a] mb-4">
+            {/* FIXED: Explicit font-serif and tracking-tighter on Mobile */}
+            <h1 className="font-serif text-4xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
                Where your <br/>
                <span className="text-[#E21E3F]">margin</span> <br/>
                <span className="italic">evaporates.</span>
             </h1>
-            {/* FIXED: Increased from text-xs to text-sm */}
-            <p className="font-sans text-sm text-[#1a1a1a]/60 leading-relaxed max-w-[280px]">
+            <p className="font-sans text-base text-[#1a1a1a]/60 leading-relaxed max-w-[90%]">
                These are the 4 fracture points where profit disappears.
             </p>
          </div>
 
-         {/* CARDS (Stacked below Header) */}
+         {/* CARDS */}
          <div className="relative z-20">
             {AUDIT_DATA.map((data, index) => (
                <div 
                   key={data.id}
-                  // STICKY LOGIC: Sticks at 45vh (right below the header)
-                  // HEIGHT: 55vh (fills the rest of the screen)
                   className="sticky top-[45vh] h-[55vh] w-full bg-[#FFF2EC] border-b border-[#1a1a1a]/10 flex flex-col shadow-[-10px_0_20px_rgba(0,0,0,0.05)]"
                   style={{ zIndex: 20 + index }}
                >
-                  {/* CARD CONTENT */}
                   {data.type === 'cta' ? (
-                     // CTA CARD - Centered Content
                      <div className="flex flex-col items-center justify-center text-center h-full px-6 bg-[#FFF2EC]">
-                        <h2 className="font-serif text-4xl text-[#1a1a1a] leading-tight mb-8">
+                        <h2 className="font-serif text-3xl text-[#1a1a1a] leading-tight tracking-tighter mb-8">
                            You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
                            <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
                         </h2>
@@ -253,31 +252,24 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                         </button>
                      </div>
                   ) : (
-                     // DATA CARD - Top Aligned with padding
                      <div className="flex flex-col h-full px-6 pt-8 pb-6 bg-[#FFF2EC]">
-                        {/* Eyebrow */}
                         <div className="flex items-center gap-3 mb-6 opacity-80">
-                           <span className="font-mono text-sm text-[#E21E3F] font-bold">{data.id}</span>
+                           <span className="font-serif text-xl italic font-bold text-[#E21E3F]">{data.id}</span>
                            <div className="w-8 h-px bg-[#E21E3F]/30"></div>
                            <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest">
                               {data.label}
                            </span>
                         </div>
-
-                        {/* Title */}
-                        <h3 className="font-serif text-4xl text-[#1a1a1a] leading-[0.9] mb-4">
+                        {/* FIXED: Mobile Card Title Typography */}
+                        <h3 className="font-serif text-3xl text-[#1a1a1a] leading-[0.9] tracking-tighter mb-4">
                            {data.title}
                         </h3>
-
-                        {/* Metric */}
                         <div className="mb-6">
-                           <span className="font-mono text-2xl text-[#E21E3F] font-bold tracking-tight bg-[#E21E3F]/5 px-3 py-1">
+                           <span className="font-mono text-xl text-[#E21E3F] font-bold tracking-tight bg-[#E21E3F]/5 px-3 py-1">
                               {data.metric}
                            </span>
                         </div>
-
-                        {/* Description */}
-                        <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#E21E3F]/20 pl-4 max-w-[95%]">
+                        <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#E21E3F]/20 pl-4 max-w-[95%]">
                            {data.description}
                         </p>
                      </div>
