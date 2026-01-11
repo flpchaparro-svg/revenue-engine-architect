@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Globe, Database, Zap, Bot, Video, Users, BarChart3, ChevronDown, LayoutGrid } from 'lucide-react';
 import GlobalFooter from './GlobalFooter';
@@ -9,71 +9,151 @@ import Modal from './Modal';
 import { ServiceDetail } from '../types';
 import { VizAcquisition, VizVelocity, VizIntelligence } from './ArchitecturePageVisuals';
 
-// --- ANIMATION VARIANTS (ELEGANT & SCROLL-TRIGGERED) ---
+// --- TYPES & INTERFACES ---
+interface SystemPillar extends Partial<ServiceDetail> {
+  id: string;
+  number?: string;
+  icon?: React.ElementType;
+  title?: string;
+  subtitle: string;
+  techLabel?: string;
+  description?: string;
+  isVisual?: boolean;
+  systemGroup?: string;
+  symptom?: string;
+  visualPrompt?: string;
+  features?: string[];
+}
 
-// 1. Hero Section: Staggers its children when scrolled into view
+interface SystemCategory {
+  id: string;
+  label: string;
+  tabLabel: string;
+  title: string;
+  description: string;
+  accent: string;
+  bgAccent: string;
+  borderAccent: string;
+  hex: string;
+  pillars: SystemPillar[];
+}
+
+// --- DATA CONSTANTS ---
+const SYSTEMS_DATA: SystemCategory[] = [
+  {
+    id: 'sys_01',
+    label: 'SYS_01 [ ACQUISITION ]',
+    tabLabel: 'GET CLIENTS',
+    title: 'Capture and Convert',
+    description: 'The goal is to turn attention into leads without losing anyone along the way.',
+    accent: 'text-[#E21E3F]',
+    bgAccent: 'bg-[#E21E3F]',
+    borderAccent: 'border-[#E21E3F]',
+    hex: '#E21E3F',
+    pillars: [
+      { 
+        id: 'pillar1', number: '01', icon: Globe, title: 'WEBSITES & E-COMMERCE', subtitle: 'The Face', techLabel: '[ YOUR ONLINE STOREFRONT ]',
+        description: 'Sites that capture leads and sell products, not just look pretty.',
+        systemGroup: 'ACQUISITION', symptom: "Are you losing leads in spreadsheets?", visualPrompt: 'catchment',
+        features: ['Smart Lead Forms', 'Inventory Sync', 'Fast, Mobile-First Design']
+      },
+      { 
+        id: 'pillar2', number: '02', icon: Database, title: 'CRM & LEAD TRACKING', subtitle: 'The Brain', techLabel: '[ NEVER LOSE A LEAD ]',
+        description: 'Track every lead, every call, every deal. Nothing slips through.',
+        systemGroup: 'ACQUISITION', symptom: "Do you know exactly where every deal is stuck?", visualPrompt: 'network',
+        features: ['Pipeline Visibility', 'Automated Follow-Ups', 'One Source of Truth']
+      },
+      { 
+        id: 'pillar3', number: '03', icon: Zap, title: 'AUTOMATION', subtitle: 'The Muscle', techLabel: '[ ADMIN ON AUTOPILOT ]',
+        description: 'Invoices, follow-ups, data entry, all on autopilot.',
+        systemGroup: 'ACQUISITION', symptom: "How many hours are you losing to repeat tasks?", visualPrompt: 'helix',
+        features: ['Auto-Invoicing', 'Task Triggers', 'System-to-System Sync']
+      },
+      { id: 'v1', isVisual: true, subtitle: 'Active_Listening' }
+    ]
+  },
+  {
+    id: 'sys_02',
+    label: 'SYS_02 [ VELOCITY ]',
+    tabLabel: 'SCALE FASTER',
+    title: 'Multiply Your Output',
+    description: 'The goal is to do more without hiring more, using AI and content systems that work while you sleep.',
+    accent: 'text-[#C5A059]',
+    bgAccent: 'bg-[#C5A059]',
+    borderAccent: 'border-[#C5A059]',
+    hex: '#C5A059',
+    pillars: [
+      { 
+        id: 'pillar4', number: '04', icon: Bot, title: 'AI ASSISTANTS', subtitle: 'The Voice', techLabel: '[ BOTS THAT THINK ]',
+        description: 'Answer calls and enquiries 24/7, even while you sleep.',
+        systemGroup: 'VELOCITY', symptom: "Are you missing calls after hours?", visualPrompt: 'brain',
+        features: ['24/7 Availability', 'Lead Qualification', 'Appointment Booking']
+      },
+      { 
+        id: 'pillar5', number: '05', icon: Video, title: 'CONTENT SYSTEMS', subtitle: 'The Presence', techLabel: '[ POST EVERYWHERE ]',
+        description: 'One voice note → blog, socials, newsletter. Auto-published.',
+        systemGroup: 'VELOCITY', symptom: "Do you know what to post but never find the time?", visualPrompt: 'broadcast',
+        features: ['Voice-to-Content', 'Auto-Publishing', 'Multi-Platform Distribution']
+      },
+      { 
+        id: 'pillar6', number: '06', icon: Users, title: 'TEAM TRAINING', subtitle: 'The Soul', techLabel: '[ TEAM ADOPTION ]',
+        description: 'Short training that makes your team actually use the tools.',
+        systemGroup: 'VELOCITY', symptom: "Is your team actually using the tools you bought?", visualPrompt: 'turbine',
+        features: ['Bite-Sized Videos', 'Step-by-Step Guides', 'Team Q&A Library']
+      },
+      { id: 'v2', isVisual: true, subtitle: 'Processing_Cycles' }
+    ]
+  },
+  {
+    id: 'sys_03',
+    label: 'SYS_03',
+    tabLabel: 'SEE CLEARLY',
+    title: 'Make Better Decisions',
+    description: 'The goal is to stop guessing and see your numbers in real time so you can steer the business.',
+    accent: 'text-[#1a1a1a]',
+    bgAccent: 'bg-[#1a1a1a]',
+    borderAccent: 'border-[#1a1a1a]',
+    hex: '#1a1a1a',
+    pillars: [
+      { 
+        id: 'pillar7', number: '07', icon: BarChart3, title: 'DASHBOARDS & REPORTING', subtitle: 'The Eyes', techLabel: '[ REAL-TIME DATA ]',
+        description: 'Revenue, margins, pipeline, one screen, live.',
+        systemGroup: 'INTELLIGENCE', symptom: "Are you steering the business by gut feeling?", visualPrompt: 'radar',
+        features: ['Live Revenue Tracking', 'Forecasting & Projections', 'One-Screen Business Health']
+      },
+      { id: 'v3', isVisual: true, subtitle: 'Predictive_Model' }
+    ]
+  }
+];
+
+// --- ANIMATION VARIANTS ---
 const heroContainer = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { 
-      staggerChildren: 0.15, 
-      delayChildren: 0.2 
-    }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } }
 };
 
 const heroItem = {
   hidden: { y: 30, opacity: 0 },
-  visible: { 
-    y: 0, 
-    opacity: 1,
-    transition: { 
-      type: "spring", 
-      stiffness: 40, // Low stiffness = elegant/slow
-      damping: 20    // High damping = no bounce, just smooth landing
-    } 
-  }
+  visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 40, damping: 20 } }
 };
 
-// 2. Console Wrapper: Waits for scroll, then reveals sidebar
 const consoleWrapper = {
   hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: "easeOut" }
-  }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
 };
 
-// 3. Console Content: Triggers every time you switch tabs
 const tabContent = {
   hidden: { opacity: 0, x: 20 },
   visible: {
-    opacity: 1,
-    x: 0,
-    transition: { 
-      staggerChildren: 0.1, 
-      delayChildren: 0.05,
-      type: "spring",
-      stiffness: 50,
-      damping: 20
-    }
+    opacity: 1, x: 0,
+    transition: { staggerChildren: 0.1, delayChildren: 0.05, type: "spring", stiffness: 50, damping: 20 }
   },
-  exit: { 
-    opacity: 0, 
-    x: -10, 
-    transition: { duration: 0.2 } 
-  }
+  exit: { opacity: 0, x: -10, transition: { duration: 0.2 } }
 };
 
 const staggerItem = {
   hidden: { y: 20, opacity: 0 },
-  visible: { 
-    y: 0, 
-    opacity: 1,
-    transition: { type: "spring", stiffness: 50, damping: 20 } 
-  }
+  visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 50, damping: 20 } }
 };
 
 
@@ -87,162 +167,31 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
   const [selectedPillar, setSelectedPillar] = useState<ServiceDetail | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeHoverPillar, setActiveHoverPillar] = useState<string | null>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   const systemFAQs = getSystemPageFAQs();
+  const activeSystem = SYSTEMS_DATA.find(s => s.id === activeSystemId) || SYSTEMS_DATA[0];
 
-  // --- DATA ---
-  const systems = [
-    {
-      id: 'sys_01',
-      label: 'SYS_01 [ ACQUISITION ]',
-      tabLabel: 'GET CLIENTS',
-      title: 'Capture and Convert',
-      description: 'The goal is to turn attention into leads without losing anyone along the way.',
-      accent: 'text-[#E21E3F]',
-      bgAccent: 'bg-[#E21E3F]',
-      borderAccent: 'border-[#E21E3F]',
-      hex: '#E21E3F',
-      pillars: [
-        { 
-          id: 'pillar1', 
-          number: '01', 
-          icon: Globe, 
-          title: 'WEBSITES & E-COMMERCE', 
-          subtitle: 'The Face', 
-          techLabel: '[ YOUR ONLINE STOREFRONT ]',
-          description: 'Sites that capture leads and sell products — not just look pretty.',
-          systemGroup: 'ACQUISITION',
-          symptom: "Are you losing leads in spreadsheets?",
-          visualPrompt: 'catchment',
-          features: ['Smart Lead Forms', 'Inventory Sync', 'Fast, Mobile-First Design']
-        },
-        { 
-          id: 'pillar2', 
-          number: '02', 
-          icon: Database, 
-          title: 'CRM & LEAD TRACKING', 
-          subtitle: 'The Brain', 
-          techLabel: '[ NEVER LOSE A LEAD ]',
-          description: 'Track every lead, every call, every deal. Nothing slips through.',
-          systemGroup: 'ACQUISITION',
-          symptom: "Do you know exactly where every deal is stuck?",
-          visualPrompt: 'network',
-          features: ['Pipeline Visibility', 'Automated Follow-Ups', 'One Source of Truth']
-        },
-        { 
-          id: 'pillar3', 
-          number: '03', 
-          icon: Zap, 
-          title: 'AUTOMATION', 
-          subtitle: 'The Muscle', 
-          techLabel: '[ ADMIN ON AUTOPILOT ]',
-          description: 'Invoices, follow-ups, data entry — all on autopilot.',
-          systemGroup: 'ACQUISITION',
-          symptom: "How many hours are you losing to repeat tasks?",
-          visualPrompt: 'helix',
-          features: ['Auto-Invoicing', 'Task Triggers', 'System-to-System Sync']
-        },
-        // VISUAL CARD
-        { id: 'v1', isVisual: true, subtitle: 'Active_Listening' }
-      ]
-    },
-    {
-      id: 'sys_02',
-      label: 'SYS_02 [ VELOCITY ]',
-      tabLabel: 'SCALE FASTER',
-      title: 'Multiply Your Output',
-      description: 'The goal is to do more without hiring more, using AI and content systems that work while you sleep.',
-      accent: 'text-[#C5A059]',
-      bgAccent: 'bg-[#C5A059]',
-      borderAccent: 'border-[#C5A059]',
-      hex: '#C5A059',
-      pillars: [
-        { 
-          id: 'pillar4', 
-          number: '04', 
-          icon: Bot, 
-          title: 'AI ASSISTANTS', 
-          subtitle: 'The Voice', 
-          techLabel: '[ BOTS THAT THINK ]',
-          description: 'Answer calls and enquiries 24/7 — even while you sleep.',
-          systemGroup: 'VELOCITY',
-          symptom: "Are you missing calls after hours?",
-          visualPrompt: 'brain',
-          features: ['24/7 Availability', 'Lead Qualification', 'Appointment Booking']
-        },
-        { 
-          id: 'pillar5', 
-          number: '05', 
-          icon: Video, 
-          title: 'CONTENT SYSTEMS', 
-          subtitle: 'The Presence', 
-          techLabel: '[ POST EVERYWHERE ]',
-          description: 'One voice note → blog, socials, newsletter. Auto-published.',
-          systemGroup: 'VELOCITY',
-          symptom: "Do you know what to post but never find the time?",
-          visualPrompt: 'broadcast',
-          features: ['Voice-to-Content', 'Auto-Publishing', 'Multi-Platform Distribution']
-        },
-        { 
-          id: 'pillar6', 
-          number: '06', 
-          icon: Users, 
-          title: 'TEAM TRAINING', 
-          subtitle: 'The Soul', 
-          techLabel: '[ TEAM ADOPTION ]',
-          description: 'Short training that makes your team actually use the tools.',
-          systemGroup: 'VELOCITY',
-          symptom: "Is your team actually using the tools you bought?",
-          visualPrompt: 'turbine',
-          features: ['Bite-Sized Videos', 'Step-by-Step Guides', 'Team Q&A Library']
-        },
-        // VISUAL CARD
-        { id: 'v2', isVisual: true, subtitle: 'Processing_Cycles' }
-      ]
-    },
-    {
-      id: 'sys_03',
-      label: 'SYS_03',
-      tabLabel: 'SEE CLEARLY',
-      title: 'Make Better Decisions',
-      description: 'The goal is to stop guessing and see your numbers in real time so you can steer the business.',
-      accent: 'text-[#1a1a1a]',
-      bgAccent: 'bg-[#1a1a1a]',
-      borderAccent: 'border-[#1a1a1a]',
-      hex: '#1a1a1a',
-      pillars: [
-        { 
-          id: 'pillar7', 
-          number: '07', 
-          icon: BarChart3, 
-          title: 'DASHBOARDS & REPORTING', 
-          subtitle: 'The Eyes', 
-          techLabel: '[ REAL-TIME DATA ]',
-          description: 'Revenue, margins, pipeline — one screen, live.',
-          systemGroup: 'INTELLIGENCE',
-          symptom: "Are you steering the business by gut feeling?",
-          visualPrompt: 'radar',
-          features: ['Live Revenue Tracking', 'Forecasting & Projections', 'One-Screen Business Health']
-        },
-        // VISUAL CARD
-        { id: 'v3', isVisual: true, subtitle: 'Predictive_Model' }
-      ]
-    }
-  ];
+  // Accurate check for desktop to prevent hydration mismatches or resize bugs
+  useEffect(() => {
+    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
+    checkDesktop();
+    window.addEventListener('resize', checkDesktop);
+    return () => window.removeEventListener('resize', checkDesktop);
+  }, []);
 
-  const activeSystem = systems.find(s => s.id === activeSystemId) || systems[0];
-
-  const handlePillarClick = (pillar: any) => {
-    if (window.innerWidth >= 1024) {
+  const handlePillarClick = (pillar: SystemPillar) => {
+    // Systematic check: Only open modal if we are strictly in desktop mode
+    if (isDesktop) {
       const modalData: ServiceDetail = {
         id: pillar.id,
-        title: pillar.title,
+        title: pillar.title || '',
         subtitle: pillar.subtitle,
-        description: pillar.description,
-        systemGroup: pillar.systemGroup,
-        symptom: pillar.symptom,
+        description: pillar.description || '',
+        systemGroup: pillar.systemGroup || '',
+        symptom: pillar.symptom || '',
         visualPrompt: pillar.visualPrompt,
-        features: pillar.features,
+        features: pillar.features || [],
       };
       setSelectedPillar(modalData);
       setIsModalOpen(true);
@@ -252,11 +201,13 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-32 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col font-sans">
+    // FIX 1: Reduced pt-32 to pt-24 (mobile) and pt-28 (desktop) to bring content higher up
+    <div className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-24 lg:pt-28 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col font-sans">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow">
         
         {/* NAV BACK */}
-        <div className="flex justify-between items-center mb-16">
+        {/* FIX 2: Reduced mb-16 to mb-8/mb-12 to pull the Hero/Eyebrow closer to the nav */}
+        <div className="flex justify-between items-center mb-8 lg:mb-12">
           <button onClick={onBack} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             / Return to Home
@@ -267,12 +218,14 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
         <motion.div 
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }} // Waits until 30% is visible
+          viewport={{ once: true, amount: 0.3 }}
           variants={heroContainer}
           className="mb-16 md:mb-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
         >
           <div>
-            <motion.span variants={heroItem} className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM</motion.span>
+            <motion.span variants={heroItem} className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">
+              / THE SYSTEM
+            </motion.span>
             <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight mb-8">
               7 Ways I Fix <br />
               <span className="italic text-black/20">Your Business.</span>
@@ -281,7 +234,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
               I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.
             </motion.p>
           </div>
-          <motion.div variants={heroItem} className="h-full flex items-center justify-center lg:justify-end min-h-[500px] relative">
+          <motion.div variants={heroItem} className="h-full flex items-center justify-center lg:justify-end min-h-[300px] lg:min-h-[500px] relative">
              <HeroVisual_Suspension />
           </motion.div>
         </motion.div>
@@ -292,13 +245,13 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
           variants={consoleWrapper}
-          className="w-full hidden lg:flex min-h-[800px] border-t border-black/10 pt-12 mb-32"
+          className="w-full hidden lg:flex min-h-[600px] border-t border-black/10 pt-12 mb-32"
         >
             
             {/* SIDEBAR NAVIGATION (25%) */}
             <div className="w-1/4 pr-8 flex flex-col gap-3">
               <div className="font-mono text-[9px] uppercase tracking-widest opacity-40 mb-4 pl-6">Select System</div>
-              {systems.map((sys) => {
+              {SYSTEMS_DATA.map((sys) => {
                 const isActive = activeSystemId === sys.id;
                 return (
                   <button 
@@ -356,7 +309,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
 
                    {/* PILLARS GRID (Staggered Children) */}
                    <div className="grid grid-cols-2 gap-6 pb-12">
-                      {activeSystem.pillars.map((pillar: any) => (
+                      {activeSystem.pillars.map((pillar) => (
                         <motion.div key={pillar.id} variants={staggerItem} className="h-full">
                           {pillar.isVisual ? (
                             // VISUAL CARD
@@ -380,7 +333,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
                             >
                               <div className="flex justify-between w-full mb-6">
                                 <div className={`w-10 h-10 flex items-center justify-center rounded-full bg-black/5 ${activeSystem.accent}`}>
-                                  <pillar.icon className="w-5 h-5" />
+                                  {pillar.icon && <pillar.icon className="w-5 h-5" />}
                                 </div>
                                 <span className={`font-mono text-[10px] opacity-30`}>{pillar.number}</span>
                               </div>
@@ -412,7 +365,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
 
         {/* --- MOBILE ACCORDION (Stacked) --- */}
         <div className="lg:hidden flex flex-col gap-4 mb-32">
-           {systems.map((sys) => {
+           {SYSTEMS_DATA.map((sys) => {
              const isOpen = activeSystemId === sys.id;
              return (
                <motion.div 
@@ -460,7 +413,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
                               </p>
                               
                               <div className="space-y-4">
-                                 {sys.pillars.map((pillar: any) => (
+                                 {sys.pillars.map((pillar) => (
                                     !pillar.isVisual && (
                                        <div 
                                           key={pillar.id} 
@@ -468,7 +421,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
                                           className="bg-[#FFF2EC] p-6 rounded-lg border border-black/5 active:scale-[0.98] transition-transform"
                                        >
                                           <div className="flex items-center gap-3 mb-3">
-                                             <pillar.icon className={`w-4 h-4 ${sys.accent}`} />
+                                             {pillar.icon && <pillar.icon className={`w-4 h-4 ${sys.accent}`} />}
                                              <span className="font-mono text-[9px] uppercase tracking-widest opacity-60">{pillar.subtitle}</span>
                                           </div>
                                           <h4 className="font-serif text-xl mb-2">{pillar.title}</h4>

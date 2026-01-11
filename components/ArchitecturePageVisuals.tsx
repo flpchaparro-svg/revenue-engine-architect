@@ -1,17 +1,38 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+// --- SYSTEM 01: ACQUISITION (THE MAGNET) ---
 export const VizAcquisition = ({ color }: { color: string }) => (
   <div className="w-32 h-32 relative flex items-center justify-center">
-    <div className="absolute w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
-    {[0, 1, 2].map(i => (
+    {/* Core: The Business/Trap - Glowing Center */}
+    <div className="absolute w-1.5 h-1.5 rounded-full z-10" style={{ backgroundColor: color, boxShadow: `0 0 15px ${color}` }} />
+    
+    {/* Ring 1: The Net (Breathing) */}
+    <motion.div
+      className="absolute border rounded-full opacity-40"
+      style={{ borderColor: color, width: '40px', height: '40px', borderWidth: '1px' }}
+      animate={{ scale: [1, 1.1, 1], opacity: [0.4, 0.2, 0.4] }}
+      transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+    />
+
+    {/* Incoming Signals (The Leads) - Moving INWARD */}
+    {[0, 1, 2].map((i) => (
       <motion.div
         key={i}
-        className="absolute inset-0 border rounded-full"
-        style={{ borderColor: color }}
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: [0, 0.5, 0], scale: [0.5, 1, 1.2] }}
-        transition={{ duration: 3, repeat: Infinity, delay: i * 1, ease: "easeOut" }}
+        className="absolute border rounded-full"
+        style={{ borderColor: color, borderWidth: '0.5px' }}
+        initial={{ width: '100px', height: '100px', opacity: 0 }}
+        animate={{ 
+          width: '4px', 
+          height: '4px', 
+          opacity: [0, 0.8, 0] 
+        }}
+        transition={{ 
+          duration: 3, 
+          repeat: Infinity, 
+          delay: i * 1, 
+          ease: "circIn" // Accelerates as it gets closer (Gravity effect)
+        }}
       />
     ))}
   </div>
