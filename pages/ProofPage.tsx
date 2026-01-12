@@ -5,7 +5,7 @@ import {
   MapPin, Award, Terminal, CheckCircle2, Globe, Clock, FileText,
   TrendingUp, AlertTriangle, Target, BarChart3
 } from 'lucide-react';
-import EvidenceVisual_Compare from './EvidenceVisual_Compare';
+import EvidenceVisual_Compare from '../components/EvidenceVisual_Compare';
 
 interface ProofPageProps {
   onBack: () => void;

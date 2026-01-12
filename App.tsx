@@ -10,12 +10,12 @@ import { useScroll, useMotionValueEvent } from 'framer-motion';
 
 // 1. LAZY LOAD HEAVY PAGES
 const HomePage = lazy(() => import('./pages/HomePage'));
-const ArchitectPage = lazy(() => import('./components/ArchitectPage'));
+const ArchitectPage = lazy(() => import('./pages/ArchitectPage'));
 const SystemPage = lazy(() => import('./pages/System/SystemPage'));
-const ProcessPage = lazy(() => import('./components/ProcessPage'));
-const ProofPage = lazy(() => import('./components/ProofPage'));
-const EvidenceVaultPage = lazy(() => import('./components/EvidenceVaultPage'));
-const ContactPage = lazy(() => import('./components/ContactPage'));
+const ProcessPage = lazy(() => import('./pages/ProcessPage'));
+const ProofPage = lazy(() => import('./pages/ProofPage'));
+const EvidenceVaultPage = lazy(() => import('./pages/EvidenceVaultPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
 const Pillar1 = lazy(() => import('./pages/System/Pillar1'));
 const Pillar2 = lazy(() => import('./pages/System/Pillar2'));
 const Pillar3 = lazy(() => import('./pages/System/Pillar3'));

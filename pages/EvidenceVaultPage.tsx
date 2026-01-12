@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ShieldCheck, Database, Zap, Activity, ArrowRight, CheckCircle2, X } from 'lucide-react';
-import EvidenceVisual_Compare from './EvidenceVisual_Compare';
+import EvidenceVisual_Compare from '../components/EvidenceVisual_Compare';
 
 interface EvidenceVaultPageProps {
   onBack: () => void;

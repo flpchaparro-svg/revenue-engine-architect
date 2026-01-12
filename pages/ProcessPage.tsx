@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import ProtocolVisual_Geodesic from './ProtocolVisual_Geodesic';
+import ProtocolVisual_Geodesic from '../components/ProtocolVisual_Geodesic';
 
 interface ProcessPageProps {
   onBack: () => void;
