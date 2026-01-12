@@ -11,18 +11,18 @@ import { useScroll, useMotionValueEvent } from 'framer-motion';
 // 1. LAZY LOAD HEAVY PAGES
 const HomePage = lazy(() => import('./pages/HomePage'));
 const ArchitectPage = lazy(() => import('./components/ArchitectPage'));
-const SystemPage = lazy(() => import('./components/SystemPage'));
+const SystemPage = lazy(() => import('./pages/System/SystemPage'));
 const ProcessPage = lazy(() => import('./components/ProcessPage'));
 const ProofPage = lazy(() => import('./components/ProofPage'));
 const EvidenceVaultPage = lazy(() => import('./components/EvidenceVaultPage'));
 const ContactPage = lazy(() => import('./components/ContactPage'));
-const Pillar1 = lazy(() => import('./components/Pillar1'));
-const Pillar2 = lazy(() => import('./components/Pillar2'));
-const Pillar3 = lazy(() => import('./components/Pillar3'));
-const Pillar4 = lazy(() => import('./components/Pillar4'));
-const Pillar5 = lazy(() => import('./components/Pillar5'));
-const Pillar6 = lazy(() => import('./components/Pillar6'));
-const Pillar7 = lazy(() => import('./components/Pillar7'));
+const Pillar1 = lazy(() => import('./pages/System/Pillar1'));
+const Pillar2 = lazy(() => import('./pages/System/Pillar2'));
+const Pillar3 = lazy(() => import('./pages/System/Pillar3'));
+const Pillar4 = lazy(() => import('./pages/System/Pillar4'));
+const Pillar5 = lazy(() => import('./pages/System/Pillar5'));
+const Pillar6 = lazy(() => import('./pages/System/Pillar6'));
+const Pillar7 = lazy(() => import('./pages/System/Pillar7'));
 
 const App: React.FC = () => {
   const location = useLocation();

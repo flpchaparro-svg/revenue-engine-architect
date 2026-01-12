@@ -172,11 +172,12 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
       {/* 1. HERO SECTION */}
       <section id="hero" aria-label="Hero Section" className="min-h-[100svh] w-full flex items-center pt-32 md:pt-20 overflow-hidden relative z-20 content-layer">
         
-        {/* HERO VISUAL - Force lower Z-index context here, or ensure content is higher */}
-        <div className="absolute inset-0 z-0">
+        {/* HERO VISUAL - FIX: Changed from z-0 to z-1 to sit ABOVE the scroll line */}
+        <div className="absolute inset-0 z-[1]">
            <HeroVisual />
         </div>
 
+        {/* CONTENT - z-20 sits above everything */}
         <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 relative z-20">
           <div className="lg:col-span-12 flex flex-col justify-start md:justify-center items-center lg:items-start text-center lg:text-left pt-8 md:pt-0">
             
@@ -190,13 +191,13 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
               </span>
             </div>
 
-            {/* HEADLINE: Responsive fixes */}
+            {/* HEADLINE */}
             <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
               <div className="overflow-hidden"><span className="block reveal-text">Stop Doing</span></div>
               <div className="overflow-hidden"><span className="block reveal-text" style={{ animationDelay: '0.2s' }}><span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Everyone's Job.</span></span></div>
             </h1>
 
-            {/* BODY COPY: Responsive fixes */}
+            {/* BODY COPY */}
             <p className="font-sans text-lg md:text-lg lg:text-xl font-normal text-[#1a1a1a]/70 leading-relaxed max-w-2xl border-l-2 border-[#C5A059] pl-6 animate-fade-in text-left mx-auto lg:mx-0 mb-12 md:mb-0" style={{ animationDelay: '0.6s' }}>
               You didn't start a business to chase invoices, re-type data, and answer the same questions all day. I build the systems that do it for you — websites, CRMs, automations, and AI — so you can get back to the work that actually grows revenue.
             </p>
@@ -214,10 +215,8 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
           </div>
         </div>
         
-        {/* SCROLL LINE: FIXED */}
-        {/* 1. Added z-0 to ensure it sits behind the shadow/content if overlapping */}
-        {/* 2. Reduced height to h-8 md:h-10 to stop it from physically touching the shadow */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-8 md:h-10 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
+        {/* SCROLL LINE: z-0 puts it BEHIND the z-1 HeroVisual (Shadow) */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
           <motion.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
             className="absolute inset-0 bg-[#1a1a1a]/40 w-full h-full" 
@@ -248,7 +247,6 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
             {/* 01: THE PROBLEM */}
             <div className="col-span-1 md:col-span-2 p-8 md:p-12 lg:p-16 border-r border-b border-[#1a1a1a]/10 flex flex-col justify-center min-h-[300px] md:min-h-[400px] transition-colors duration-300 hover:bg-[#1a1a1a]/5 group">
               <span className="font-mono text-xs uppercase tracking-widest text-[#E21E3F] mb-6 md:mb-10 block">01 / THE PROBLEM</span>
-              {/* HEADLINE: Intermediate size text-5xl for laptops */}
               <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.9] text-[#1a1a1a] tracking-tighter">
                 You didn't start your business to become an <br className="hidden md:block" />
                 <span className="italic text-[#1a1a1a]/60 group-hover:text-[#E21E3F] transition-colors duration-300">administrative hostage.</span>

@@ -1,18 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import FAQSection from '../../components/FAQSection';
+import { getPillarFAQs } from '../../constants/faqData';
 import { 
   ArrowLeft, ArrowRight, CheckCircle2,
-  Bot, Mail, Share2, Workflow, // Main Icons
-  FileText, Briefcase, FileJson, // Tier 1 Icons
-  Target, ShoppingCart, UserX, // Tier 2 Icons
-  Mic, Video, CalendarClock, // Tier 3 Icons
-  Briefcase as Case, CheckSquare, Server, // Tier 4 Icons
+  Brain, MessageSquare, Shield, Phone, // Main Icons
+  UserCheck, Stethoscope, Globe, // Tier 1 Icons
+  Users, FileCheck, Rocket, // Tier 2 Icons
+  Lock, Book, Building, // Tier 3 Icons
+  Wrench, Activity, Headphones, // Tier 4 Icons
   Check // UI Icons
 } from 'lucide-react';
-import PillarVisual_Turbine from './PillarVisual_Turbine';
-import FAQSection from './FAQSection';
-import { getPillarFAQs } from '../constants/faqData';
+import PillarVisual_Brain from '../../components/PillarVisual_Brain';
 
 interface PillarPageProps {
   onBack: () => void;
@@ -31,158 +31,158 @@ const FillButton = ({ children, onClick, className = "" }: { children: React.Rea
 );
 
 const TIERS = {
-  bridge: {
-    id: 'bridge',
-    label: "TIER 01 // BRIDGE",
-    promise: "I turn messy text into clean data, automatically.",
-    sprint: "7-DAY SPRINT",
-    specs: ['Intelligent Routing', 'Make.com + Claude AI', 'Unstructured Data Parsing', 'Zero-Entry CRM Sync'],
-    personas: [
-      {
-        id: "prisoner",
-        icon: FileText,
-        title: "The Paperwork Prisoner",
-        examples: "Lawyers, Mortgage Brokers, Conveyancers, Migration Agents",
-        painTitle: "The Narrative Inbox",
-        painText: "Clients send 500-word emotional emails. You spend billable hours reading them just to extract a date or an asset value. You're billing $400/hr to do admin.",
-        solution: "I build an 'Intelligent Paralegal'. An AI Bridge that reads the noise, extracts the facts, and updates your case file instantly. You bill for thinking, not reading."
-      },
-      {
-        id: "recruiter",
-        icon: Briefcase,
-        title: "The Drowning Recruiter",
-        examples: "Recruitment Agencies, HR Departments, Labour Hire, Executive Search",
-        painTitle: "Resume Parsing Hell",
-        painText: "You live in fear of missing a great candidate because their CV is buried in a generic 'Info@' inbox. The perfect hire is sitting unread while you scroll.",
-        solution: "I build Resume Extraction Logic. The AI reads every PDF, grades the candidate against your criteria, and creates the profile in your CRM. No more inbox archaeology."
-      },
-      {
-        id: "admin",
-        icon: FileJson,
-        title: "The Admin Victim",
-        examples: "Property Managers, Logistics Companies, Strata Managers, Fleet Operators",
-        painTitle: "The Data Entry Trap",
-        painText: "You're manually typing invoice data from PDF attachments into Xero. It's slow, boring, and error-prone. One wrong digit and your BAS is wrong.",
-        solution: "I build Zero-Touch Invoicing. The system detects the invoice, reads the line items, and creates the bill in Xero automatically. You approve, not type."
-      }
-    ]
-  },
-  behavior: {
-    id: 'behavior',
-    label: "TIER 02 // BEHAVIOUR",
-    promise: "The right message, to the right person, at the exact moment of influence.",
-    sprint: "7-DAY SPRINT",
-    specs: ['Intent Signal Tracking', 'Segment + HubSpot', 'Dynamic Personalisation', 'Event-Driven Logic'],
-    personas: [
-      {
-        id: "hunter",
-        icon: Target,
-        title: "The Signal Hunter",
-        examples: "Consultants, Wealth Managers, Financial Advisors, Business Coaches",
-        painTitle: "The Opportunity Gap",
-        painText: "A past prospect visited your Pricing page 3 times this morning. You have no idea, so you don't call them. They sign with your competitor by lunch.",
-        solution: "I build a 'Hot List'. Every morning, you get an alert showing the 5 people who are obsessed with your content right now. You call them first."
-      },
-      {
-        id: "abandon",
-        icon: ShoppingCart,
-        title: "The Course Creator",
-        examples: "Online Course Creators, Training Institutes, Coaches, RTOs",
-        painTitle: "The Cold Cart",
-        painText: "100 people start your checkout form, but only 10 finish. You're losing 90% of your revenue at the finish line. They wanted to buy — something stopped them.",
-        solution: "I build Behavioural Recovery. If they type their email but don't pay, the system triggers a personalised recovery sequence. You win back sales you already earned."
-      },
-      {
-        id: "nurture",
-        icon: UserX,
-        title: "The List Bomber",
-        examples: "B2B Services, Marketing Agencies, Software Companies, Consultancies",
-        painTitle: "The Silent List",
-        painText: "You have 5,000 leads but you treat them all the same. You spam them with generic newsletters until they unsubscribe. Your list is dying from boredom.",
-        solution: "I build Intent Segmentation. The system only emails people about what they clicked on. If they read about 'SEO', they get SEO case studies. Relevance, not spam."
-      }
-    ]
-  },
-  content: {
-    id: 'content',
-    label: "TIER 03 // CONTENT",
-    promise: "Create once, publish everywhere. I multiply your voice.",
+  concierge: {
+    id: 'concierge',
+    label: "TIER 01 // RESPONDER",
+    promise: "Instant answers. Zero wait time. Your front desk, automated.",
     sprint: "5-DAY SPRINT",
-    specs: ['Asset Multiplier', 'Make.com + GPT-4o', 'Omni-Channel Distribution', 'Voice-to-Social Pipeline'],
+    specs: ['Voiceflow Logic', 'OpenAI GPT-4o', 'Pinecone Knowledge Base', 'Human-Handoff Protocol'],
     personas: [
       {
-        id: "thought",
-        icon: Mic,
-        title: "The Time-Poor Expert",
-        examples: "Surgeons, M&A Partners, Senior Lawyers, Specialist Consultants",
-        painTitle: "The Deep Work Conflict",
-        painText: "You have the expertise, but switching from 'Strategy Mode' to 'Creator Mode' ruins your day. You won't spend Sunday on Canva. Your knowledge stays locked in your head.",
-        solution: "You provide the 'Signal' — a voice note. I turn it into a blog, 5 posts, and a newsletter. Your expertise gets out without you becoming a content creator."
+        id: "overwhelmed",
+        icon: Stethoscope,
+        title: "The Overwhelmed Reception",
+        examples: "Medical Clinics, Dental Practices, Physios, Allied Health",
+        painTitle: "The Monday Morning Surge",
+        painText: "Your phone lines are jammed. Patients sit on hold for 20 minutes, get frustrated, and hang up. Meanwhile, your receptionist is already dealing with someone at the counter.",
+        solution: "I build an always-on AI that answers FAQs and books appointments instantly, freeing your staff to manage the room. Zero hold time, zero missed calls."
       },
       {
-        id: "omni",
-        icon: Video,
-        title: "The Content Hoarder",
-        examples: "Speakers, Podcasters, YouTubers, Conference Presenters",
-        painTitle: "Legacy Waste",
-        painText: "You have hours of video sitting on a hard drive doing nothing. You're 'wasting' your best assets. Content you already made, collecting dust.",
-        solution: "I build a 'Slicer' Engine. The system cuts your long-form video into shorts and schedules them across all channels. Your archive becomes your content calendar."
+        id: "global",
+        icon: Globe,
+        title: "The Timezone Victim",
+        examples: "E-commerce, Export Businesses, International Services, Online Retailers",
+        painTitle: "The Timezone Tax",
+        painText: "You're losing deals because your leads are in New York and you're asleep in Sydney. By the time you wake up, they're cold. Your competitors answered first.",
+        solution: "I build Infinite Scalability. The AI qualifies leads and answers questions 24/7, turning your sleep time into sales time. You wake up to warm leads, not cold ones."
       },
       {
-        id: "inconsistent",
-        icon: CalendarClock,
-        title: "The Ghost",
-        examples: "Boutique Agencies, Solo Consultants, Small Teams, Busy Founders",
-        painTitle: "Algorithm Punishment",
-        painText: "You post brilliantly for 3 weeks, then get busy and disappear for 2 months. The algorithm hates you for it. You start from zero every time.",
-        solution: "I build Automated Buffering. A content queue that drips your posts out consistently, even when you're on holiday. You stay visible without staying online."
+        id: "hotel",
+        icon: UserCheck,
+        title: "The Distracted Concierge",
+        examples: "Boutique Hotels, Resorts, Serviced Apartments, Airbnb Managers",
+        painTitle: "The Check-In Interruption",
+        painText: "Your front desk staff are checking in a guest when the phone rings. They have to ignore the guest in front of them to answer 'What time is breakfast?' It kills the service vibe.",
+        solution: "I build an Invisible Concierge. The AI handles all FAQs instantly — wifi passwords, parking, breakfast times. Your staff focus 100% on the guest in the lobby."
       }
     ]
   },
-  autopilot: {
-    id: 'autopilot',
-    label: "TIER 04 // AUTOPILOT",
-    promise: "Zero-Lag Onboarding. Professionalism on autopilot.",
+  analyst: {
+    id: 'analyst',
+    label: "TIER 02 // ANALYST",
+    promise: "Your team's collective brain, searchable in seconds.",
     sprint: "7-DAY SPRINT",
-    specs: ['Zero-Lag Onboarding', 'Stripe + Jira + Slack', 'Auto-Project Creation', 'Client Portal Sync'],
+    specs: ['Private Company Brain', 'Slack/Teams Integration', 'Zero-Hallucination Guard', 'SOP Ingestion'],
     personas: [
       {
         id: "bottleneck",
-        icon: Case,
-        title: "The Bottleneck Owner",
-        examples: "Marketing Agencies, IT Providers (MSPs), Consultancies, Creative Studios",
-        painTitle: "The Onboarding Lag",
-        painText: "It takes 3 days to get a new client their folder, Slack invite, and invoice. They feel 'ignored' immediately after paying. You've already damaged the relationship.",
-        solution: "I build Instant Launch. The second the contract is signed, the project board is created and the client gets a 'Welcome' video. First impressions, automated."
+        icon: Users,
+        title: "The Bottleneck Founder",
+        examples: "Marketing Agencies, Consultancies, Creative Studios, Professional Services",
+        painTitle: "Groundhog Day",
+        painText: "You answer the same 5 questions every week: 'Where's the logo?', 'What's our pricing?'. You're the bottleneck to your own team. You can't do deep work because you're everyone's Google.",
+        solution: "I clone your brain. The AI knows your entire Google Drive and answers staff questions instantly so you can stay in 'Deep Work'. Your team gets answers without interrupting you."
       },
       {
-        id: "dataheavy",
-        icon: CheckSquare,
-        title: "The Compliance Chaser",
-        examples: "Construction Recruitment, Healthcare Recruitment, Labour Hire, Mining",
-        painTitle: "The Compliance Chase",
-        painText: "You're chasing candidates for 5 different ID documents via email. It slows down placement and frustrates the talent. Your best candidates drop out of the process.",
-        solution: "I build Automated Collection. The system chases documents via SMS and only alerts you when the file is 100% complete. You place candidates, not paperwork."
+        id: "guardian",
+        icon: FileCheck,
+        title: "The Policy Guardian",
+        examples: "Franchise Groups, Retail Chains, Multi-Site Operations, Hospitality Groups",
+        painTitle: "The Guesswork Risk",
+        painText: "Junior staff guess the answer to a compliance question because they won't read the 50-page handbook. One wrong answer and you've got a lawsuit.",
+        solution: "I build a 'Truth Engine'. The AI answers with a direct citation to the policy document, ensuring 100% compliance. No guessing, no liability."
       },
       {
-        id: "provision",
-        icon: Server,
-        title: "The SaaS Founder",
-        examples: "Software Tools, Platforms",
-        painTitle: "Access Delay",
-        painText: "A customer pays for your tool, but a human has to manually create their account. They want to use it NOW.",
-        solution: "The Provisioning Hook. Payment triggers Account Creation instantly. Revenue is decoupled from human effort."
+        id: "onboarding",
+        icon: Rocket,
+        title: "The Rapid Scaler",
+        examples: "High-Growth Companies, Scaling Agencies, Fast-Hiring Businesses",
+        painTitle: "The Training Drag",
+        painText: "It takes 3 months for a new hire to be useful. Your senior staff waste hundreds of billable hours training them. You're paying $150/hr for people to answer basic questions.",
+        solution: "I build Just-In-Time Learning. The AI acts as an instant mentor, reducing time-to-competency from months to weeks. New hires ask the bot, not your best people."
+      }
+    ]
+  },
+  compliance: {
+    id: 'compliance',
+    label: "TIER 03 // SANCTUARY",
+    promise: "I architect the right brain for the right job. Safety-first.",
+    sprint: "14-DAY SPRINT",
+    specs: ['Private VPC Hosting', 'PII Redaction Layer', 'Model Agnostic (Llama/Claude)', 'Audit Logs'],
+    personas: [
+      {
+        id: "compliance",
+        icon: Lock,
+        title: "The Shadow AI Fixer",
+        examples: "Wealth Management, Financial Advisors, Accountants, Insurance",
+        painTitle: "The Shadow AI Risk",
+        painText: "You know your juniors are pasting sensitive client data into public ChatGPT to write reports. It's a ticking regulation time bomb. One leak and you're in front of ASIC.",
+        solution: "I build a private 'Walled Garden'. Names and PII are redacted automatically before the data hits the AI. Speed without the risk. Your compliance team sleeps at night."
+      },
+      {
+        id: "intellectual",
+        icon: Book,
+        title: "The IP Protector",
+        examples: "Law Firms, Patent Attorneys, R&D Companies, Engineering Firms",
+        painTitle: "The Data Leak",
+        painText: "You're terrified that your proprietary methodology or case files will be used to train a public model. One leak destroys your competitive edge forever.",
+        solution: "I architect Zero-Retention environments. Your data is processed but never stored or trained on. Your IP stays yours."
+      },
+      {
+        id: "government",
+        icon: Building,
+        title: "The Data Sovereignty Lead",
+        examples: "Government Contractors, Defence Suppliers, Critical Infrastructure",
+        painTitle: "Data Sovereignty",
+        painText: "You want to use AI, but the contract says data cannot leave Australia. Public AI models route through the US. One wrong API call and you've breached the contract.",
+        solution: "I deploy Local Sovereignty. Models run on AWS Bedrock (Sydney Region) so your data never crosses the border. Australian data stays in Australia."
+      }
+    ]
+  },
+  voice: {
+    id: 'voice',
+    label: "TIER 04 // VOICE",
+    promise: "Never miss a call again. I replace the 'robot menu' with a human-sounding agent.",
+    sprint: "10-DAY SPRINT",
+    specs: ['Sub-1s Latency', 'Australian Accent Cloning', 'Twilio Telephony', 'CRM Action Trigger'],
+    personas: [
+      {
+        id: "muddy",
+        icon: Wrench,
+        title: "The Muddy Hands Operator",
+        examples: "Emergency Plumbers, Electricians, Locksmiths, HVAC",
+        painTitle: "The $500 Missed Call",
+        painText: "You're under a sink or up a ladder. You miss the call. The customer calls the next plumber on Google. You lose money while you work.",
+        solution: "I build a Voice AI that answers, qualifies the emergency, and texts you the details. You secure the job without washing your hands."
+      },
+      {
+        id: "clinic",
+        icon: Activity,
+        title: "The After-Hours Clinic",
+        examples: "Veterinary Clinics, Dental Practices, Medical Centres, Physios",
+        painTitle: "The Emergency Gap",
+        painText: "Patients calling at 2 AM need reassurance, not a voicemail beep. Leaving them unheard damages trust. They call your competitor next time.",
+        solution: "I build AI Triage. The agent answers, assesses urgency, and books the morning slot or escalates true emergencies to the on-call doc. Every caller feels heard."
+      },
+      {
+        id: "sales",
+        icon: Headphones,
+        title: "The Service Bay Director",
+        examples: "Car Dealerships, Mechanics, Tyre Shops, Service Centres",
+        painTitle: "The Status Check Drain",
+        painText: "Mechanics are interrupted every 10 minutes by advisors asking 'Is that BMW ready?' because customers keep calling. It kills your throughput.",
+        solution: "I build a Status Bot. Customers call, get a real-time update on their car, and your mechanics never stop working. Calls answered, techs uninterrupted."
       }
     ]
   }
 };
 
-const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
-  const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('bridge');
+const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
+  const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('concierge');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
   
   // Get FAQ data for this pillar
-  const pillarFAQs = getPillarFAQs('pillar3');
+  const pillarFAQs = getPillarFAQs('pillar4');
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -226,25 +226,25 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
              
              {/* LEFT: CONTENT */}
              <div>
-               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM // GET CLIENTS</span>
+               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM // SCALE FASTER</span>
                <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight mb-8">
-                 Automation.
+                 AI Assistants.
                </h1>
                <p className="font-sans text-lg text-[#1a1a1a]/70 max-w-xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                 Invoices, follow-ups, and data entry — the boring stuff that eats your week. I make it run on autopilot so your team can do real work.
+                 I build AI bots that answer your phone, reply to enquiries, and qualify leads — 24/7, even while you sleep. They sound human, and they never take a sick day.
                </p>
              </div>
              
              {/* RIGHT: CONTAINED VISUAL - EXPANDED SIZE */}
              <div className="relative w-full max-w-[500px] h-[450px] mx-auto opacity-90 flex items-center justify-center overflow-hidden">
                 {/* The visual sits inside this strictly sized box */}
-                <PillarVisual_Turbine />
+                <PillarVisual_Brain />
              </div>
         </div>
 
         {/* --- UNIFIED DASHBOARD CONTAINER --- */}
         <div className="mb-12">
-           <h2 className="font-serif text-4xl md:text-5xl mb-6 text-[#1a1a1a]">Choose your Engine.</h2>
+           <h2 className="font-serif text-4xl md:text-5xl mb-6 text-[#1a1a1a]">Choose your Agent.</h2>
         </div>
 
         <div className="border border-black/10 bg-white shadow-sm mb-32">
@@ -376,105 +376,78 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                               {/* MICRO-VISUALS */}
                               <div className="h-40 w-full mb-8 bg-white border border-black/5 rounded-sm flex items-center justify-center relative overflow-hidden shadow-inner">
                                   
-                                  {/* TIER 1: CHAOS TO ORDER (Bridge) */}
-                                  {activeTier === 'bridge' && (
+                                  {/* TIER 1: GATEKEEPER FILTER (Concierge) */}
+                                  {activeTier === 'concierge' && (
                                     <div className="relative w-full h-full flex items-center justify-center">
-                                        {/* Chaos Particles Left */}
-                                        {[0,1,2].map(i => (
+                                        {/* Incoming Particles */}
+                                        {[0, 1, 2].map(i => (
                                             <motion.div 
                                                 key={i}
-                                                className="absolute w-2 h-2 bg-[#E21E3F] rounded-full"
+                                                className={`absolute w-3 h-3 rounded-full ${i === 1 ? 'bg-[#C5A059]' : 'bg-black/20'}`}
                                                 animate={{ 
-                                                    x: [-50, -20, -50], 
-                                                    y: [Math.random()*40-20, Math.random()*40-20, Math.random()*40-20],
-                                                    opacity: [1, 0]
+                                                    x: [-60, 0, i === 1 ? 60 : 0],
+                                                    opacity: [0, 1, i === 1 ? 1 : 0]
                                                 }}
-                                                transition={{ duration: 2, repeat: Infinity, delay: i*0.5 }}
+                                                transition={{ duration: 2, repeat: Infinity, delay: i * 0.6 }}
                                             />
                                         ))}
-                                        
-                                        {/* Funnel/Filter */}
-                                        <div className="w-1 h-12 bg-black/10 mx-4" />
-
-                                        {/* Ordered Grid Right */}
-                                        <div className="grid grid-cols-2 gap-2">
-                                            {[0,1,2,3].map(i => (
-                                                <motion.div 
-                                                    key={i}
-                                                    className="w-4 h-4 border border-[#C5A059] bg-[#C5A059]/20"
-                                                    initial={{ opacity: 0, scale: 0 }}
-                                                    animate={{ opacity: 1, scale: 1 }}
-                                                    transition={{ duration: 0.5, delay: 1 + i*0.2, repeat: Infinity, repeatDelay: 2 }}
-                                                />
-                                            ))}
+                                        {/* The Gate */}
+                                        <div className="h-16 w-1 bg-[#1a1a1a] mx-auto relative">
+                                            <div className="absolute top-1/2 -left-2 w-5 h-1 bg-[#1a1a1a]" />
                                         </div>
                                     </div>
                                   )}
 
-                                  {/* TIER 2: RADAR BLIP (Behavior) */}
-                                  {activeTier === 'behavior' && (
+                                  {/* TIER 2: SEARCH NETWORK (Analyst) */}
+                                  {activeTier === 'analyst' && (
                                     <div className="relative w-full h-full flex items-center justify-center">
-                                        <motion.div 
-                                            className="absolute w-32 h-32 border border-[#C5A059]/30 rounded-full"
-                                            animate={{ scale: [0.5, 1.2], opacity: [1, 0] }}
-                                            transition={{ duration: 2, repeat: Infinity }}
-                                        />
-                                        <motion.div 
-                                            className="absolute w-20 h-20 border border-[#C5A059]/50 rounded-full"
-                                            animate={{ scale: [0.5, 1.2], opacity: [1, 0] }}
-                                            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                                        />
-                                        <div className="w-2 h-2 bg-[#C5A059] rounded-full shadow-[0_0_10px_#C5A059]" />
-                                        {/* Blip */}
-                                        <motion.div 
-                                            className="absolute w-1.5 h-1.5 bg-red-500 rounded-full"
-                                            animate={{ opacity: [0, 1, 0], x: [20, 30], y: [-20, -30] }}
-                                            transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                                        />
-                                    </div>
-                                  )}
-
-                                  {/* TIER 3: MULTIPLIER (Content) */}
-                                  {activeTier === 'content' && (
-                                    <div className="relative w-full h-full flex items-center justify-center">
-                                        {/* Center Node */}
-                                        <div className="w-8 h-8 bg-[#1a1a1a] rounded-full z-10 flex items-center justify-center text-white text-[8px]">
-                                            IN
+                                        <div className="w-12 h-12 border border-[#C5A059] rounded-full flex items-center justify-center z-10 bg-white">
+                                            <Brain className="w-6 h-6 text-[#C5A059]" />
                                         </div>
-                                        {/* Spawning Nodes */}
+                                        {/* Satellites */}
                                         {[0, 1, 2, 3].map(i => (
                                             <motion.div 
                                                 key={i}
-                                                className="absolute w-6 h-6 bg-[#C5A059] rounded-full flex items-center justify-center text-[6px] text-white"
+                                                className="absolute w-2 h-2 bg-[#1a1a1a] rounded-full"
                                                 animate={{ 
-                                                    x: [0, Math.cos(i * 1.57) * 40], 
+                                                    x: [0, Math.cos(i * 1.57) * 40],
                                                     y: [0, Math.sin(i * 1.57) * 40],
-                                                    opacity: [0, 1, 0]
+                                                    scale: [0, 1]
                                                 }}
-                                                transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-                                            >
-                                                x{i+1}
-                                            </motion.div>
+                                                transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+                                            />
                                         ))}
                                     </div>
                                   )}
 
-                                  {/* TIER 4: HANDSHAKE GEARS (Autopilot) */}
-                                  {activeTier === 'autopilot' && (
-                                    <div className="relative w-full h-full flex items-center justify-center gap-1">
+                                  {/* TIER 3: SHIELD PULSE (Compliance) */}
+                                  {activeTier === 'compliance' && (
+                                    <div className="relative w-full h-full flex items-center justify-center">
+                                        <Shield className="w-10 h-10 text-[#1a1a1a] z-10" />
                                         <motion.div 
-                                            animate={{ rotate: 360 }}
-                                            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                                            className="w-12 h-12 border-2 border-dashed border-[#1a1a1a] rounded-full"
+                                            className="absolute w-12 h-12 border border-[#C5A059] rounded-full"
+                                            animate={{ scale: [1, 1.5], opacity: [1, 0] }}
+                                            transition={{ duration: 2, repeat: Infinity }}
                                         />
                                         <motion.div 
-                                            animate={{ rotate: -360 }}
-                                            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                                            className="w-12 h-12 border-2 border-dashed border-[#C5A059] rounded-full"
+                                            className="absolute w-16 h-16 border border-[#C5A059] rounded-full"
+                                            animate={{ scale: [1, 1.5], opacity: [1, 0] }}
+                                            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
                                         />
-                                        <div className="absolute">
-                                            <Check className="w-6 h-6 text-[#C5A059] drop-shadow-md" />
-                                        </div>
+                                    </div>
+                                  )}
+
+                                  {/* TIER 4: WAVEFORM (Voice) */}
+                                  {activeTier === 'voice' && (
+                                    <div className="flex items-center gap-1 h-12">
+                                        {[1, 2, 3, 4, 5, 4, 3, 2, 1].map((h, i) => (
+                                            <motion.div 
+                                                key={i}
+                                                className="w-2 bg-[#E21E3F] rounded-full"
+                                                animate={{ height: [10, h * 8, 10] }}
+                                                transition={{ duration: 1, repeat: Infinity, delay: i * 0.1 }}
+                                            />
+                                        ))}
                                     </div>
                                   )}
                               </div>
@@ -515,12 +488,12 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       <FAQSection
         faqs={pillarFAQs}
         accentColor="#C5A059"
-        title="Questions about automation?"
-        subtitle="Common questions about business automation."
+        title="Questions about AI?"
+        subtitle="Common questions about AI assistants."
         onNavigate={onNavigate}
       />
     </motion.div>
   );
 };
 
-export default Pillar3;
+export default Pillar4;

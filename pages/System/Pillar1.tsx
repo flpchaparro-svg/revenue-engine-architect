@@ -8,9 +8,9 @@ import {
   Gem, Layers, Star,
   CheckCircle2
 } from 'lucide-react';
-import PillarVisual_Catchment from './PillarVisual_Catchment';
-import FAQSection from './FAQSection';
-import { getPillarFAQs } from '../constants/faqData';
+import PillarVisual_Catchment from '../../components/PillarVisual_Catchment';
+import FAQSection from '../../components/FAQSection';
+import { getPillarFAQs } from '../../constants/faqData';
 
 interface PillarPageProps {
   onBack: () => void;

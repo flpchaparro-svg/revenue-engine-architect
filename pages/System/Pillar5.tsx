@@ -10,9 +10,9 @@ import {
   Zap, Ticket, Split, // Tier 4 Icons (Terminal)
   Check // UI Icons
 } from 'lucide-react';
-import PillarVisual_MediaGrid from './PillarVisual_MediaGrid';
-import FAQSection from './FAQSection';
-import { getPillarFAQs } from '../constants/faqData';
+import PillarVisual_MediaGrid from '../../components/PillarVisual_MediaGrid';
+import FAQSection from '../../components/FAQSection';
+import { getPillarFAQs } from '../../constants/faqData';
 
 interface PillarPageProps {
   onBack: () => void;

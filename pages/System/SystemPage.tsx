@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Globe, Database, Zap, Bot, Video, Users, BarChart3, ChevronDown, LayoutGrid } from 'lucide-react';
-import GlobalFooter from './GlobalFooter';
-import HeroVisual_Suspension from './HeroVisual_Suspension';
-import FAQSection from './FAQSection';
-import { getSystemPageFAQs } from '../constants/faqData';
-import Modal from './Modal';
-import { ServiceDetail } from '../types';
-import { VizAcquisition, VizVelocity, VizIntelligence } from './ArchitecturePageVisuals';
+import GlobalFooter from '../../components/GlobalFooter';
+import HeroVisual_Suspension from '../../components/HeroVisual_Suspension';
+import FAQSection from '../../components/FAQSection';
+import { getSystemPageFAQs } from '../../constants/faqData';
+import Modal from '../../components/Modal';
+import { ServiceDetail } from '../../types';
+import { VizAcquisition, VizVelocity, VizIntelligence } from '../../components/ArchitecturePageVisuals';
 
 // --- TYPES & INTERFACES ---
 interface SystemPillar extends Partial<ServiceDetail> {

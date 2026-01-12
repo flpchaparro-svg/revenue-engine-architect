@@ -1,18 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import FAQSection from './FAQSection';
-import { getPillarFAQs } from '../constants/faqData';
+import FAQSection from '../../components/FAQSection';
+import { getPillarFAQs } from '../../constants/faqData';
 import { 
   ArrowLeft, ArrowRight, CheckCircle2,
-  Brain, MessageSquare, Shield, Phone, // Main Icons
-  UserCheck, Stethoscope, Globe, // Tier 1 Icons
-  Users, FileCheck, Rocket, // Tier 2 Icons
-  Lock, Book, Building, // Tier 3 Icons
-  Wrench, Activity, Headphones, // Tier 4 Icons
+  LineChart, Eye, Building2, // Main Icons
+  Activity, TrendingDown, Database, // Tier 1 Icons
+  Droplets, EyeOff, MousePointerClick, // Tier 2 Icons
+  Flag, Repeat, ShieldAlert, // Tier 3 Icons
+  Layers, Scale, Globe, // Tier 4 Icons
   Check // UI Icons
 } from 'lucide-react';
-import PillarVisual_Brain from './PillarVisual_Brain';
+import PillarVisual_Dashboard from '../../components/PillarVisual_Dashboard';
 
 interface PillarPageProps {
   onBack: () => void;
@@ -31,158 +31,158 @@ const FillButton = ({ children, onClick, className = "" }: { children: React.Rea
 );
 
 const TIERS = {
-  concierge: {
-    id: 'concierge',
-    label: "TIER 01 // RESPONDER",
-    promise: "Instant answers. Zero wait time. Your front desk, automated.",
-    sprint: "5-DAY SPRINT",
-    specs: ['Voiceflow Logic', 'OpenAI GPT-4o', 'Pinecone Knowledge Base', 'Human-Handoff Protocol'],
+  pulse: {
+    id: 'pulse',
+    label: "TIER 01 // PULSE",
+    promise: "Stop guessing, start steering. Your business health on one screen.",
+    sprint: "7-DAY SPRINT",
+    specs: ['Google Tag Manager', 'Looker Studio', 'Attribution Modelling', 'Unit Economics'],
     personas: [
       {
-        id: "overwhelmed",
-        icon: Stethoscope,
-        title: "The Overwhelmed Reception",
-        examples: "Medical Clinics, Dental Practices, Physios, Allied Health",
-        painTitle: "The Monday Morning Surge",
-        painText: "Your phone lines are jammed. Patients sit on hold for 20 minutes, get frustrated, and hang up. Meanwhile, your receptionist is already dealing with someone at the counter.",
-        solution: "I build an always-on AI that answers FAQs and books appointments instantly, freeing your staff to manage the room. Zero hold time, zero missed calls."
+        id: "scaler",
+        icon: Activity,
+        title: "The Blind Scaler",
+        examples: "Multi-Site Businesses, E-commerce ($5M+), Scaling Companies",
+        painTitle: "The Ad-Spend Trap",
+        painText: "You spend $20k/mo on ads but don't know which channel (Google vs Meta) is actually driving the profit. You're flying blind. Every month you waste budget on the wrong thing.",
+        solution: "I build a Revenue Pulse that shows the 'Unit Economics' of every lead. You know exactly which dollar is making you two. Ad spend becomes an investment, not a gamble."
+      },
+      {
+        id: "wholesaler",
+        icon: TrendingDown,
+        title: "The Margin Squeeze",
+        examples: "Distributors, Wholesalers, Import/Export, Product Businesses",
+        painTitle: "Operational Blindness",
+        painText: "High volume, thin margins. You don't know your 'Real Profit' until the accountant finishes the books at the end of the quarter. By then, the damage is done.",
+        solution: "I build Real-Time Margin Tracking. Inventory links to Finance so you see the Net Profit on every single order the moment it happens. No more quarter-end surprises."
+      },
+      {
+        id: "visionary",
+        icon: Database,
+        title: "The Data Hoarder",
+        examples: "Founders, Business Owners, Growing Companies with Multiple Systems",
+        painTitle: "Analysis Paralysis",
+        painText: "You have thousands of rows of data in Xero and HubSpot, but you still can't answer: 'If I spend $1,000 more, what happens?' Data everywhere, answers nowhere.",
+        solution: "I build The North Star Dashboard. Your fragmented data blends into one single screen that answers the big questions instantly. One screen, total clarity."
+      }
+    ]
+  },
+  lab: {
+    id: 'lab',
+    label: "TIER 02 // LAB",
+    promise: "I see what your customers see. I kill the friction.",
+    sprint: "14-DAY SPRINT",
+    specs: ['Microsoft Clarity', 'Rage-Click Analysis', 'UX Forensics', 'Conversion Rate Opt.'],
+    personas: [
+      {
+        id: "leaky",
+        icon: Droplets,
+        title: "The Leaky Bucket",
+        examples: "E-commerce Stores, Law Firms, Service Businesses, Lead Gen Sites",
+        painTitle: "Traffic Rich, Profit Poor",
+        painText: "You spend huge money on ads to bring people to a site where 40% leave because the 'Contact' button is broken on mobile. You're paying for traffic that can't convert.",
+        solution: "I build Forensic Session Recording. The system watches the user struggle so you don't have to, giving you a 'Fix List' to stop the bleed. Every leak found, every dollar saved."
+      },
+      {
+        id: "blind",
+        icon: EyeOff,
+        title: "The Opinion Fighter",
+        examples: "Marketing Teams, Designers, Website Owners, E-commerce Managers",
+        painTitle: "Aesthetic Bias",
+        painText: "You argue about button colours based on 'opinion' rather than data. You're redesigning the wrong things. Meetings waste hours on guesses.",
+        solution: "I build Heatmap Evidence. You see exactly where people click (and where they don't), ending the debate with cold hard facts. Data wins, opinions lose."
+      },
+      {
+        id: "friction",
+        icon: MousePointerClick,
+        title: "The Form Abandonment Victim",
+        examples: "Lead Gen Agencies, Service Businesses, Professional Services",
+        painTitle: "The Drop-off Cliff",
+        painText: "People start your enquiry form but never finish it. You're losing 70% of your leads at the finish line. They wanted to contact you — something stopped them.",
+        solution: "I build Field-Level Telemetry. The system identifies the exact question that causes them to quit. Rewrite it, restore flow. Leads that start, finish."
+      }
+    ]
+  },
+  oracle: {
+    id: 'oracle',
+    label: "TIER 03 // ORACLE",
+    promise: "Predict the future. Stop reacting, start anticipating.",
+    sprint: "21-DAY SPRINT",
+    specs: ['BigQuery + AI', 'Churn Prediction', 'LTV Forecasting', 'Propensity Modelling'],
+    personas: [
+      {
+        id: "exit",
+        icon: Flag,
+        title: "The Exit Founder",
+        examples: "Founders Preparing for Sale, Business Owners Planning Exit, M&A Targets",
+        painTitle: "The Valuation Discount",
+        painText: "Buyers pay 4x for 'Predictable Revenue' and only 2x for 'Up and Down' revenue. You need to prove certainty. Without it, you're leaving millions on the table.",
+        solution: "I build Investor-Grade Forecasting. Your 'Net Revenue Retention' and 'Churn Probability' are proven with data. The numbers justify a higher exit multiple."
+      },
+      {
+        id: "sub",
+        icon: Repeat,
+        title: "The Churn Fighter",
+        examples: "Subscription Businesses, Membership Sites, Gyms, Retainer Services",
+        painTitle: "The Silent Churn",
+        painText: "You don't know a customer is unhappy until they cancel. By then, it's too late to save them. You could have kept them — if you'd known.",
+        solution: "I build Behavioural DNA Modelling. The system predicts who's 'At Risk' based on their usage patterns 30 days before they quit. Save them before they leave."
+      },
+      {
+        id: "risk",
+        icon: ShieldAlert,
+        title: "The Cashflow Forecaster",
+        examples: "CFOs, Finance Directors, Board Members, Business Owners",
+        painTitle: "Cashflow Surprises",
+        painText: "You're blindsided by a bad month because your 'Leading Indicators' were actually just 'Lagging Indicators'. You're steering with a rear-view mirror.",
+        solution: "I build 90-Day Propensity Forecasting. You know what your cashflow will be in 3 months with 95% accuracy. Steer forward, not backward."
+      }
+    ]
+  },
+  tower: {
+    id: 'tower',
+    label: "TIER 04 // TOWER",
+    promise: "Total Command. The business steers itself while you watch.",
+    sprint: "30+ DAY SPRINT",
+    specs: ['Fractional CDO', 'Data Governance', 'Multi-Source Sync', 'Executive Control'],
+    personas: [
+      {
+        id: "silo",
+        icon: Layers,
+        title: "The Siloed Exec",
+        examples: "Established Businesses ($20M+), Multi-Department Companies, Scaling Enterprises",
+        painTitle: "Fragmented Truth",
+        painText: "Sales doesn't know what Ops is doing. Ops doesn't know what Finance is saying. Your departments fight each other instead of working together.",
+        solution: "I build The Control Tower. A single 'Nervous System' that links every department into one view. The business acts as one organism. Total alignment, total clarity."
+      },
+      {
+        id: "governance",
+        icon: Scale,
+        title: "The Data Risk Manager",
+        examples: "Financial Services, Medical Practices, Regulated Industries, Insurance",
+        painTitle: "The Data Risk",
+        painText: "You have sensitive client data scattered across 50 spreadsheets. It's a security nightmare waiting to happen. One breach and you're front-page news.",
+        solution: "I build SOC2 Compliant Governance. Your data centralises into a secure Warehouse with strict access controls. Secure, auditable, compliant."
       },
       {
         id: "global",
         icon: Globe,
-        title: "The Timezone Victim",
-        examples: "E-commerce, Export Businesses, International Services, Online Retailers",
-        painTitle: "The Timezone Tax",
-        painText: "You're losing deals because your leads are in New York and you're asleep in Sydney. By the time you wake up, they're cold. Your competitors answered first.",
-        solution: "I build Infinite Scalability. The AI qualifies leads and answers questions 24/7, turning your sleep time into sales time. You wake up to warm leads, not cold ones."
-      },
-      {
-        id: "hotel",
-        icon: UserCheck,
-        title: "The Distracted Concierge",
-        examples: "Boutique Hotels, Resorts, Serviced Apartments, Airbnb Managers",
-        painTitle: "The Check-In Interruption",
-        painText: "Your front desk staff are checking in a guest when the phone rings. They have to ignore the guest in front of them to answer 'What time is breakfast?' It kills the service vibe.",
-        solution: "I build an Invisible Concierge. The AI handles all FAQs instantly — wifi passwords, parking, breakfast times. Your staff focus 100% on the guest in the lobby."
-      }
-    ]
-  },
-  analyst: {
-    id: 'analyst',
-    label: "TIER 02 // ANALYST",
-    promise: "Your team's collective brain, searchable in seconds.",
-    sprint: "7-DAY SPRINT",
-    specs: ['Private Company Brain', 'Slack/Teams Integration', 'Zero-Hallucination Guard', 'SOP Ingestion'],
-    personas: [
-      {
-        id: "bottleneck",
-        icon: Users,
-        title: "The Bottleneck Founder",
-        examples: "Marketing Agencies, Consultancies, Creative Studios, Professional Services",
-        painTitle: "Groundhog Day",
-        painText: "You answer the same 5 questions every week: 'Where's the logo?', 'What's our pricing?'. You're the bottleneck to your own team. You can't do deep work because you're everyone's Google.",
-        solution: "I clone your brain. The AI knows your entire Google Drive and answers staff questions instantly so you can stay in 'Deep Work'. Your team gets answers without interrupting you."
-      },
-      {
-        id: "guardian",
-        icon: FileCheck,
-        title: "The Policy Guardian",
-        examples: "Franchise Groups, Retail Chains, Multi-Site Operations, Hospitality Groups",
-        painTitle: "The Guesswork Risk",
-        painText: "Junior staff guess the answer to a compliance question because they won't read the 50-page handbook. One wrong answer and you've got a lawsuit.",
-        solution: "I build a 'Truth Engine'. The AI answers with a direct citation to the policy document, ensuring 100% compliance. No guessing, no liability."
-      },
-      {
-        id: "onboarding",
-        icon: Rocket,
-        title: "The Rapid Scaler",
-        examples: "High-Growth Companies, Scaling Agencies, Fast-Hiring Businesses",
-        painTitle: "The Training Drag",
-        painText: "It takes 3 months for a new hire to be useful. Your senior staff waste hundreds of billable hours training them. You're paying $150/hr for people to answer basic questions.",
-        solution: "I build Just-In-Time Learning. The AI acts as an instant mentor, reducing time-to-competency from months to weeks. New hires ask the bot, not your best people."
-      }
-    ]
-  },
-  compliance: {
-    id: 'compliance',
-    label: "TIER 03 // SANCTUARY",
-    promise: "I architect the right brain for the right job. Safety-first.",
-    sprint: "14-DAY SPRINT",
-    specs: ['Private VPC Hosting', 'PII Redaction Layer', 'Model Agnostic (Llama/Claude)', 'Audit Logs'],
-    personas: [
-      {
-        id: "compliance",
-        icon: Lock,
-        title: "The Shadow AI Fixer",
-        examples: "Wealth Management, Financial Advisors, Accountants, Insurance",
-        painTitle: "The Shadow AI Risk",
-        painText: "You know your juniors are pasting sensitive client data into public ChatGPT to write reports. It's a ticking regulation time bomb. One leak and you're in front of ASIC.",
-        solution: "I build a private 'Walled Garden'. Names and PII are redacted automatically before the data hits the AI. Speed without the risk. Your compliance team sleeps at night."
-      },
-      {
-        id: "intellectual",
-        icon: Book,
-        title: "The IP Protector",
-        examples: "Law Firms, Patent Attorneys, R&D Companies, Engineering Firms",
-        painTitle: "The Data Leak",
-        painText: "You're terrified that your proprietary methodology or case files will be used to train a public model. One leak destroys your competitive edge forever.",
-        solution: "I architect Zero-Retention environments. Your data is processed but never stored or trained on. Your IP stays yours."
-      },
-      {
-        id: "government",
-        icon: Building,
-        title: "The Data Sovereignty Lead",
-        examples: "Government Contractors, Defence Suppliers, Critical Infrastructure",
-        painTitle: "Data Sovereignty",
-        painText: "You want to use AI, but the contract says data cannot leave Australia. Public AI models route through the US. One wrong API call and you've breached the contract.",
-        solution: "I deploy Local Sovereignty. Models run on AWS Bedrock (Sydney Region) so your data never crosses the border. Australian data stays in Australia."
-      }
-    ]
-  },
-  voice: {
-    id: 'voice',
-    label: "TIER 04 // VOICE",
-    promise: "Never miss a call again. I replace the 'robot menu' with a human-sounding agent.",
-    sprint: "10-DAY SPRINT",
-    specs: ['Sub-1s Latency', 'Australian Accent Cloning', 'Twilio Telephony', 'CRM Action Trigger'],
-    personas: [
-      {
-        id: "muddy",
-        icon: Wrench,
-        title: "The Muddy Hands Operator",
-        examples: "Emergency Plumbers, Electricians, Locksmiths, HVAC",
-        painTitle: "The $500 Missed Call",
-        painText: "You're under a sink or up a ladder. You miss the call. The customer calls the next plumber on Google. You lose money while you work.",
-        solution: "I build a Voice AI that answers, qualifies the emergency, and texts you the details. You secure the job without washing your hands."
-      },
-      {
-        id: "clinic",
-        icon: Activity,
-        title: "The After-Hours Clinic",
-        examples: "Veterinary Clinics, Dental Practices, Medical Centres, Physios",
-        painTitle: "The Emergency Gap",
-        painText: "Patients calling at 2 AM need reassurance, not a voicemail beep. Leaving them unheard damages trust. They call your competitor next time.",
-        solution: "I build AI Triage. The agent answers, assesses urgency, and books the morning slot or escalates true emergencies to the on-call doc. Every caller feels heard."
-      },
-      {
-        id: "sales",
-        icon: Headphones,
-        title: "The Service Bay Director",
-        examples: "Car Dealerships, Mechanics, Tyre Shops, Service Centres",
-        painTitle: "The Status Check Drain",
-        painText: "Mechanics are interrupted every 10 minutes by advisors asking 'Is that BMW ready?' because customers keep calling. It kills your throughput.",
-        solution: "I build a Status Bot. Customers call, get a real-time update on their car, and your mechanics never stop working. Calls answered, techs uninterrupted."
+        title: "The HQ Director",
+        examples: "Franchise Groups, Multi-Location Businesses, National Operations",
+        painTitle: "Local Blindness",
+        painText: "You can't see what the Perth branch is doing until the monthly report. You're steering a giant ship with no radar. Problems grow in the dark.",
+        solution: "I build a Global Command Centre. Every location, every metric, one dashboard. You see problems the moment they start, not the month they end."
       }
     ]
   }
 };
 
-const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
-  const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('concierge');
+const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
+  const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('pulse');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
   
   // Get FAQ data for this pillar
-  const pillarFAQs = getPillarFAQs('pillar4');
+  const pillarFAQs = getPillarFAQs('pillar7');
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isHovering, setIsHovering] = useState(false);
 
@@ -226,25 +226,25 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
              
              {/* LEFT: CONTENT */}
              <div>
-               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM // SCALE FASTER</span>
+               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM // SEE CLEARLY</span>
                <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight mb-8">
-                 AI Assistants.
+                 Dashboards & Reporting.
                </h1>
                <p className="font-sans text-lg text-[#1a1a1a]/70 max-w-xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                 I build AI bots that answer your phone, reply to enquiries, and qualify leads — 24/7, even while you sleep. They sound human, and they never take a sick day.
+                 Stop guessing. I build dashboards that show revenue, margins, and pipeline on one screen — updated live — so you can steer the business with confidence.
                </p>
              </div>
              
              {/* RIGHT: CONTAINED VISUAL - EXPANDED SIZE */}
              <div className="relative w-full max-w-[500px] h-[450px] mx-auto opacity-90 flex items-center justify-center overflow-hidden">
                 {/* The visual sits inside this strictly sized box */}
-                <PillarVisual_Brain />
+                <PillarVisual_Dashboard />
              </div>
         </div>
 
         {/* --- UNIFIED DASHBOARD CONTAINER --- */}
         <div className="mb-12">
-           <h2 className="font-serif text-4xl md:text-5xl mb-6 text-[#1a1a1a]">Choose your Agent.</h2>
+           <h2 className="font-serif text-4xl md:text-5xl mb-6 text-[#1a1a1a]">Gain Clarity.</h2>
         </div>
 
         <div className="border border-black/10 bg-white shadow-sm mb-32">
@@ -376,78 +376,90 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                               {/* MICRO-VISUALS */}
                               <div className="h-40 w-full mb-8 bg-white border border-black/5 rounded-sm flex items-center justify-center relative overflow-hidden shadow-inner">
                                   
-                                  {/* TIER 1: GATEKEEPER FILTER (Concierge) */}
-                                  {activeTier === 'concierge' && (
-                                    <div className="relative w-full h-full flex items-center justify-center">
-                                        {/* Incoming Particles */}
-                                        {[0, 1, 2].map(i => (
-                                            <motion.div 
-                                                key={i}
-                                                className={`absolute w-3 h-3 rounded-full ${i === 1 ? 'bg-[#C5A059]' : 'bg-black/20'}`}
-                                                animate={{ 
-                                                    x: [-60, 0, i === 1 ? 60 : 0],
-                                                    opacity: [0, 1, i === 1 ? 1 : 0]
-                                                }}
-                                                transition={{ duration: 2, repeat: Infinity, delay: i * 0.6 }}
-                                            />
-                                        ))}
-                                        {/* The Gate */}
-                                        <div className="h-16 w-1 bg-[#1a1a1a] mx-auto relative">
-                                            <div className="absolute top-1/2 -left-2 w-5 h-1 bg-[#1a1a1a]" />
+                                  {/* TIER 1: PULSE (Graph) */}
+                                  {activeTier === 'pulse' && (
+                                    <div className="relative w-full h-full flex items-center justify-center px-12">
+                                        <div className="w-full h-16 flex items-end justify-between gap-1">
+                                            {[0.2, 0.4, 0.3, 0.6, 0.5, 0.8, 0.7, 0.9, 0.4, 0.6].map((h, i) => (
+                                                <motion.div 
+                                                    key={i}
+                                                    className="w-full bg-[#C5A059]"
+                                                    initial={{ height: 0 }}
+                                                    animate={{ height: `${h * 100}%` }}
+                                                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                                                />
+                                            ))}
                                         </div>
+                                        <div className="absolute top-0 left-0 w-full h-[1px] bg-red-500/20" />
                                     </div>
                                   )}
 
-                                  {/* TIER 2: SEARCH NETWORK (Analyst) */}
-                                  {activeTier === 'analyst' && (
+                                  {/* TIER 2: LAB (Heatmap) */}
+                                  {activeTier === 'lab' && (
+                                    <div className="relative w-full h-full grid grid-cols-6 grid-rows-4 gap-1 p-4">
+                                        {[...Array(24)].map((_, i) => (
+                                            <motion.div 
+                                                key={i}
+                                                className="rounded-sm"
+                                                animate={{ 
+                                                    backgroundColor: ['#f0f0f0', Math.random() > 0.7 ? '#E21E3F' : '#f0f0f0', '#f0f0f0'] 
+                                                }}
+                                                transition={{ duration: 2, repeat: Infinity, delay: Math.random() }}
+                                            />
+                                        ))}
+                                        <MousePointerClick className="absolute top-1/2 left-1/2 w-6 h-6 text-[#1a1a1a] animate-bounce" />
+                                    </div>
+                                  )}
+
+                                  {/* TIER 3: ORACLE (Prediction Line) */}
+                                  {activeTier === 'oracle' && (
                                     <div className="relative w-full h-full flex items-center justify-center">
-                                        <div className="w-12 h-12 border border-[#C5A059] rounded-full flex items-center justify-center z-10 bg-white">
-                                            <Brain className="w-6 h-6 text-[#C5A059]" />
+                                        <svg className="w-full h-full overflow-visible">
+                                            <motion.path
+                                                d="M 20 80 Q 60 70 100 50 T 180 20"
+                                                fill="none"
+                                                stroke="#1a1a1a"
+                                                strokeWidth="2"
+                                                initial={{ pathLength: 0 }}
+                                                animate={{ pathLength: 1 }}
+                                                transition={{ duration: 2 }}
+                                            />
+                                            <motion.path
+                                                d="M 180 20 Q 220 10 260 -10"
+                                                fill="none"
+                                                stroke="#C5A059"
+                                                strokeWidth="2"
+                                                strokeDasharray="4 4"
+                                                initial={{ opacity: 0 }}
+                                                animate={{ opacity: 1 }}
+                                                transition={{ delay: 2, duration: 1 }}
+                                            />
+                                        </svg>
+                                    </div>
+                                  )}
+
+                                  {/* TIER 4: TOWER (Central Node) */}
+                                  {activeTier === 'tower' && (
+                                    <div className="relative w-full h-full flex items-center justify-center">
+                                        <div className="w-12 h-12 bg-[#1a1a1a] rounded-full z-10 flex items-center justify-center text-white text-[8px]">
+                                            HQ
                                         </div>
-                                        {/* Satellites */}
                                         {[0, 1, 2, 3].map(i => (
                                             <motion.div 
                                                 key={i}
-                                                className="absolute w-2 h-2 bg-[#1a1a1a] rounded-full"
+                                                className="absolute w-4 h-4 bg-[#C5A059] rounded-full"
                                                 animate={{ 
-                                                    x: [0, Math.cos(i * 1.57) * 40],
-                                                    y: [0, Math.sin(i * 1.57) * 40],
-                                                    scale: [0, 1]
+                                                    x: [0, Math.cos(i * 1.57) * 50], 
+                                                    y: [0, Math.sin(i * 1.57) * 50]
                                                 }}
-                                                transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
+                                                transition={{ duration: 1, ease: "easeOut" }}
                                             />
                                         ))}
-                                    </div>
-                                  )}
-
-                                  {/* TIER 3: SHIELD PULSE (Compliance) */}
-                                  {activeTier === 'compliance' && (
-                                    <div className="relative w-full h-full flex items-center justify-center">
-                                        <Shield className="w-10 h-10 text-[#1a1a1a] z-10" />
                                         <motion.div 
-                                            className="absolute w-12 h-12 border border-[#C5A059] rounded-full"
-                                            animate={{ scale: [1, 1.5], opacity: [1, 0] }}
+                                            className="absolute w-32 h-32 border border-[#1a1a1a]/10 rounded-full"
+                                            animate={{ scale: [0.8, 1.2], opacity: [1, 0] }}
                                             transition={{ duration: 2, repeat: Infinity }}
                                         />
-                                        <motion.div 
-                                            className="absolute w-16 h-16 border border-[#C5A059] rounded-full"
-                                            animate={{ scale: [1, 1.5], opacity: [1, 0] }}
-                                            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                                        />
-                                    </div>
-                                  )}
-
-                                  {/* TIER 4: WAVEFORM (Voice) */}
-                                  {activeTier === 'voice' && (
-                                    <div className="flex items-center gap-1 h-12">
-                                        {[1, 2, 3, 4, 5, 4, 3, 2, 1].map((h, i) => (
-                                            <motion.div 
-                                                key={i}
-                                                className="w-2 bg-[#E21E3F] rounded-full"
-                                                animate={{ height: [10, h * 8, 10] }}
-                                                transition={{ duration: 1, repeat: Infinity, delay: i * 0.1 }}
-                                            />
-                                        ))}
                                     </div>
                                   )}
                               </div>
@@ -488,12 +500,12 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       <FAQSection
         faqs={pillarFAQs}
         accentColor="#C5A059"
-        title="Questions about AI?"
-        subtitle="Common questions about AI assistants."
+        title="Questions about dashboards?"
+        subtitle="Common questions about dashboards and reporting."
         onNavigate={onNavigate}
       />
     </motion.div>
   );
 };
 
-export default Pillar4;
+export default Pillar7;

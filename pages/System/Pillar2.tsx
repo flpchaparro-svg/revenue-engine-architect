@@ -9,9 +9,9 @@ import {
   Shuffle, Globe, Factory, // Tier 4 Icons
   User, Check // Additional UI Icons
 } from 'lucide-react';
-import PillarVisual_Magnet from './PillarVisual_Magnet';
-import FAQSection from './FAQSection';
-import { getPillarFAQs } from '../constants/faqData';
+import PillarVisual_Magnet from '../../components/PillarVisual_Magnet';
+import FAQSection from '../../components/FAQSection';
+import { getPillarFAQs } from '../../constants/faqData';
 
 interface PillarPageProps {
   onBack: () => void;
