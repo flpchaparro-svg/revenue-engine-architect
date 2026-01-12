@@ -3,6 +3,7 @@ import { motion, useScroll, useMotionValueEvent, useAnimationFrame, useMotionVal
 import { XCircle, ArrowRight } from 'lucide-react';
 import HeroVisual from '../components/HeroVisual';
 import BentoGrid from '../components/BentoGrid';
+import SystemPhases from '../components/SystemPhases';
 import TheArchitect from '../components/TheArchitect';
 import Feature_Group7 from '../components/Feature_Group7';
 import BookingCTA from '../components/BookingCTA';
@@ -319,7 +320,8 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
 
       {/* 4. 7 PILLARS SECTION */}
       <section id="seven-pillars" aria-label="Seven Pillars Section" className="relative bg-[#FFF2EC] z-30">
-        <BentoGrid onServiceClick={onServiceClick || ((s) => onNavigate(s.id))} />
+        {/* <BentoGrid onServiceClick={onServiceClick || ((s) => onNavigate(s.id))} /> */}
+        <SystemPhases />
       </section>
 
       {/* 5. ABOUT SECTION */}
