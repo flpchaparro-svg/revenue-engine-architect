@@ -190,8 +190,11 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
         description: pillar.description || '',
         systemGroup: pillar.systemGroup || '',
         symptom: pillar.symptom || '',
-        visualPrompt: pillar.visualPrompt,
+        visualPrompt: pillar.visualPrompt || '',
         features: pillar.features || [],
+        technicalLabel: pillar.techLabel || '',
+        bgImage: '',
+        icon: '',
       };
       setSelectedPillar(modalData);
       setIsModalOpen(true);

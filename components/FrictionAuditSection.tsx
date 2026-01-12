@@ -102,7 +102,7 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
                 You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
                 <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
               </h2>
-              <button onClick={() => document.getElementById('bento')?.scrollIntoView({ behavior: 'smooth' })} className="group relative inline-flex items-center justify-center px-12 py-6 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-sm uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300 hover:border-[#C5A059]">
+              <button onClick={() => document.getElementById('bento')?.scrollIntoView({ behavior: 'smooth' })} className="group relative inline-flex items-center justify-center px-12 py-6 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300 hover:border-[#C5A059]">
                  <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                  <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ SEE THE SYSTEM ]</span>
               </button>
@@ -111,21 +111,22 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
               <div className="flex flex-col space-y-8 md:space-y-10">
                  <div className="flex items-center gap-4">
-                    {/* FIXED: Explicit font-serif and color consistency */}
-                    <span className="font-serif text-5xl md:text-6xl text-[#1a1a1a]/10 italic font-bold">{data.id}</span>
+                    {/* Pain point number: text-4xl → text-6xl */}
+                    <span className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a]/10 italic font-bold">{data.id}</span>
                     <div className="h-px flex-1 bg-[#1a1a1a]/20"></div>
-                    {/* FIXED: Explicit font-mono */}
-                    <span className="font-mono text-sm text-[#E21E3F] uppercase tracking-widest border border-[#E21E3F]/30 px-3 py-1">[{data.label}]</span>
+                    {/* Label: text-xs (12px minimum) */}
+                    <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest border border-[#E21E3F]/30 px-3 py-1">[{data.label}]</span>
                  </div>
                  <div>
-                    {/* FIXED: Added tracking-tighter to match Hero. Capped at 7xl to respect hierarchy. */}
-                    <h3 className="font-serif text-5xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-[0.9] tracking-tighter mb-8">{data.title}</h3>
+                    {/* Pain point title: text-2xl → text-4xl */}
+                    <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#1a1a1a] leading-[0.9] tracking-tighter mb-8">{data.title}</h3>
                     <div className="inline-block bg-[#E21E3F]/10 px-6 py-3">
-                       <span className="font-mono text-xl md:text-2xl text-[#E21E3F] font-bold tracking-tight">{data.metric}</span>
+                       {/* Stat callouts: text-base → text-lg (labels like "NO VISIBILITY" should be smaller) */}
+                       <span className="font-mono text-base md:text-lg text-[#E21E3F] font-bold tracking-tight">{data.metric}</span>
                     </div>
                  </div>
-                 {/* FIXED: Body text consistent with Hero (text-xl on large screens) */}
-                 <p className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-xl border-l-2 border-[#E21E3F]/20 pl-8">{data.description}</p>
+                 {/* Pain point body: text-base → text-lg */}
+                 <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed max-w-xl border-l-2 border-[#E21E3F]/20 pl-8">{data.description}</p>
               </div>
               <div className="hidden lg:flex items-center justify-center h-full min-h-[400px]">
                  <AuditCubeVisual scrollYProgress={scrollYProgress} />
@@ -167,8 +168,8 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                  <div className="mb-8 font-mono text-xs text-[#E21E3F] tracking-[0.2em] uppercase flex items-center gap-2">
                     / THE FRICTION AUDIT
                  </div>
-                 {/* FIXED: Added tracking-tighter and capped size */}
-                 <h1 className="font-serif text-5xl xl:text-6xl leading-[0.95] text-[#1a1a1a] tracking-tighter mb-10">
+                 {/* Desktop Left Panel Title: text-4xl → text-6xl */}
+                 <h1 className="font-serif text-4xl md:text-5xl xl:text-6xl leading-[0.95] text-[#1a1a1a] tracking-tighter mb-10">
                     Where your <br/>
                     <span className="text-[#E21E3F]">margin</span> <br/>
                     <span className="italic">evaporates.</span>
@@ -254,22 +255,25 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                   ) : (
                      <div className="flex flex-col h-full px-6 pt-8 pb-6 bg-[#FFF2EC]">
                         <div className="flex items-center gap-3 mb-6 opacity-80">
-                           <span className="font-serif text-xl italic font-bold text-[#E21E3F]">{data.id}</span>
+                           {/* Mobile: Pain point number should scale too */}
+                           <span className="font-serif text-4xl md:text-5xl italic font-bold text-[#E21E3F]">{data.id}</span>
                            <div className="w-8 h-px bg-[#E21E3F]/30"></div>
                            <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest">
                               {data.label}
                            </span>
                         </div>
-                        {/* FIXED: Mobile Card Title Typography */}
-                        <h3 className="font-serif text-3xl text-[#1a1a1a] leading-[0.9] tracking-tighter mb-4">
+                        {/* Mobile: Pain point title: text-2xl → text-4xl */}
+                        <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#1a1a1a] leading-[0.9] tracking-tighter mb-4">
                            {data.title}
                         </h3>
                         <div className="mb-6">
-                           <span className="font-mono text-xl text-[#E21E3F] font-bold tracking-tight bg-[#E21E3F]/5 px-3 py-1">
+                           {/* Mobile: Stat callouts: text-base → text-lg (labels like "NO VISIBILITY" should be smaller) */}
+                           <span className="font-mono text-base md:text-lg text-[#E21E3F] font-bold tracking-tight bg-[#E21E3F]/5 px-3 py-1">
                               {data.metric}
                            </span>
                         </div>
-                        <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#E21E3F]/20 pl-4 max-w-[95%]">
+                        {/* Mobile: Pain point body: text-base → text-lg */}
+                        <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#E21E3F]/20 pl-4 max-w-[95%]">
                            {data.description}
                         </p>
                      </div>

@@ -16,7 +16,7 @@ const BookingCTA: React.FC = () => {
         <div className="w-full md:w-1/2">
           <div className="flex items-center gap-3 mb-6">
             <span className="w-2 h-2 bg-[#E21E3F] rounded-full animate-pulse" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#E21E3F] font-bold">
+            <span className="font-mono text-xs uppercase tracking-[0.3em] text-[#E21E3F] font-bold">
               Now Accepting Projects
             </span>
           </div>
@@ -30,7 +30,7 @@ const BookingCTA: React.FC = () => {
             You've seen how it works. You know what the admin chaos is costing you. I take on a limited number of projects each quarter to make sure every build gets my full attention.
           </p>
 
-          <div className="flex items-center gap-8 mt-8 font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40">
+          <div className="flex items-center gap-8 mt-8 font-mono text-xs uppercase tracking-widest text-[#1a1a1a]/40">
              <span className="flex items-center gap-2"><Clock className="w-3 h-3 text-[#C5A059]" /> Timeline: 3-4 Weeks</span>
              <span className="flex items-center gap-2"><CheckCircle2 className="w-3 h-3 text-[#C5A059]" /> Focus: Results Only</span>
           </div>
@@ -41,7 +41,7 @@ const BookingCTA: React.FC = () => {
           <div className="w-full max-w-md bg-[#1a1a1a] p-8 border border-black/10 shadow-2xl relative">
              
              <div className="mb-8 flex justify-between items-end text-[#FFF2EC]">
-                <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-white/40 block">Availability</span>
+                <span className="font-mono text-xs uppercase tracking-[0.3em] text-white/40 block">Availability</span>
                 <div className="flex items-center gap-2">
                     <span className="relative flex h-2 w-2">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -66,7 +66,7 @@ const BookingCTA: React.FC = () => {
                 </span>
              </a>
              
-             <p className="text-center mt-4 font-mono text-[9px] text-white/30 uppercase tracking-widest">
+             <p className="text-center mt-4 font-mono text-xs text-white/30 uppercase tracking-widest">
                 No Sales Pitch. Just Engineering.
              </p>
           </div>

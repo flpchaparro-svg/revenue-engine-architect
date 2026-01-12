@@ -209,7 +209,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                    transition={{ duration: 0.3 }}
                    className="max-w-4xl pointer-events-auto"
                  >
-                   <div className={`mb-2 font-mono text-[9px] uppercase tracking-widest ${activeStyle.accent} opacity-80`}>
+                   <div className={`mb-2 font-mono text-xs uppercase tracking-widest ${activeStyle.accent} opacity-80`}>
                       [{activeService.systemGroup || 'SYSTEM_UNDEFINED'}]
                    </div>
                    <h3 className={`text-3xl md:text-5xl font-serif mb-4 leading-none tracking-tighter ${activeStyle.displayTitle}`}>
@@ -225,7 +225,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                        e.stopPropagation();
                        onServiceClick(activeService);
                      }}
-                     className={`group relative px-8 py-4 font-mono text-[10px] uppercase tracking-[0.3em] font-bold overflow-hidden border transition-colors ${activeStyle.buttonBorder} ${activeStyle.buttonText}`}
+                     className={`group relative px-8 py-4 font-mono text-xs uppercase tracking-[0.3em] font-bold overflow-hidden border transition-colors ${activeStyle.buttonBorder} ${activeStyle.buttonText}`}
                    >
                      <div className={`absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1) ${activeStyle.buttonHoverBg}`} />
                      <span className={`relative z-10 flex items-center gap-3 transition-colors ${activeStyle.buttonHoverText}`}>
@@ -246,19 +246,19 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
           <div className="absolute inset-0 hidden lg:grid grid-cols-7 gap-2 -top-6 -bottom-4 pointer-events-none">
              {/* ACQUISITION (Cols 1-3) */}
              <div className="col-span-3 border-t border-x border-[#E21E3F]/20 bg-[#E21E3F]/5 relative rounded-t-sm">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFF2EC] px-2 font-mono text-[9px] text-[#E21E3F] uppercase tracking-widest font-bold">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFF2EC] px-2 font-mono text-xs text-[#E21E3F] uppercase tracking-widest font-bold">
                    SYS_01 [ GET CLIENTS ]
                 </div>
              </div>
              {/* VELOCITY (Cols 4-6) */}
              <div className="col-span-3 border-t border-x border-[#C5A059]/20 bg-[#C5A059]/5 relative rounded-t-sm">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFF2EC] px-2 font-mono text-[9px] text-[#C5A059] uppercase tracking-widest font-bold">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFF2EC] px-2 font-mono text-xs text-[#C5A059] uppercase tracking-widest font-bold">
                    SYS_02 [ SCALE FASTER ]
                 </div>
              </div>
              {/* INTELLIGENCE (Col 7) */}
              <div className="col-span-1 border-t border-x border-[#1a1a1a]/20 bg-[#1a1a1a]/5 relative rounded-t-sm">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFF2EC] px-2 font-mono text-[9px] text-[#1a1a1a] uppercase tracking-widest font-bold">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#FFF2EC] px-2 font-mono text-xs text-[#1a1a1a] uppercase tracking-widest font-bold">
                    SYS_03 [ SEE CLEARLY ]
                 </div>
              </div>
@@ -313,7 +313,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                                initial={{ y: 20, opacity: 0 }}
                                whileInView={{ y: 0, opacity: 1 }}
                                transition={{ duration: 0.5, delay: 0.1 }}
-                               className={`mb-2 md:mb-3 font-mono text-[9px] uppercase tracking-widest ${style.accent} opacity-90`}
+                               className={`mb-2 md:mb-3 font-mono text-xs uppercase tracking-widest ${style.accent} opacity-90`}
                              >
                                 [{service.systemGroup || 'SYSTEM_UNDEFINED'}]
                              </motion.div>
@@ -348,7 +348,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                                  e.stopPropagation();
                                  onServiceClick(service);
                                }}
-                               className={`px-8 py-4 font-mono text-[10px] uppercase tracking-[0.3em] font-bold border w-full md:w-auto border-[#C5A059] bg-[#C5A059] text-[#1a1a1a]`}
+                               className={`px-8 py-4 font-mono text-xs uppercase tracking-[0.3em] font-bold border w-full md:w-auto border-[#C5A059] bg-[#C5A059] text-[#1a1a1a]`}
                              >
                                <span className="flex items-center justify-center gap-3">
                                   [ EXPLORE PILLAR ]
@@ -365,7 +365,7 @@ const BentoGrid: React.FC<BentoGridProps> = ({ onServiceClick }) => {
                    <div className="hidden lg:flex flex-col justify-between h-full relative z-10 p-4 w-full">
                        
                        <div className="flex justify-between items-start mb-2">
-                         <span className={`text-[9px] font-mono font-bold tracking-widest block ${style.accent}`}>
+                         <span className={`text-xs font-mono font-bold tracking-widest block ${style.accent}`}>
                             0{idx + 1}
                          </span>
                          <LucideIcons.ArrowDownRight className={`w-3 h-3 ${style.accent} opacity-50 group-hover:opacity-100`} />

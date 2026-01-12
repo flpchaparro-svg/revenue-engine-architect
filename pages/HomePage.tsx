@@ -205,9 +205,8 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
 
   return (
     <>
-      {/* HERO SECTION */}
-      {/* FIXED: Mobile line positioning and centering */}
-      <section id="hero" className="min-h-[100svh] w-full flex items-center pt-24 md:pt-20 relative z-20 content-layer">
+      {/* 1. HERO SECTION */}
+      <section id="hero" aria-label="Hero Section" className="min-h-[100svh] w-full flex items-center pt-24 md:pt-20 relative z-20 content-layer">
         <HeroVisual />
         <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 relative z-20">
           <div className="lg:col-span-12 flex flex-col justify-center items-center lg:items-start text-center lg:text-left h-full">
@@ -243,7 +242,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
               </button>
               
               {/* FIXED: Scroll Button anchor */}
-              <a href="#architecture" id="scroll-trigger" onClick={(e) => { e.preventDefault(); document.getElementById('architecture')?.scrollIntoView({behavior: 'smooth'}); }} className="relative group flex items-center gap-3 cursor-pointer">
+              <a href="#friction-audit" id="scroll-trigger" onClick={(e) => { e.preventDefault(); document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'}); }} className="relative group flex items-center gap-3 cursor-pointer">
                 <span className="font-mono text-xs uppercase tracking-widest text-[#1a1a1a] border-b border-[#1a1a1a] pb-0.5 group-hover:border-b-2 group-hover:pb-1 transition-all duration-300 font-bold">SEE HOW IT WORKS</span>
               </a>
             </div>
@@ -267,15 +266,15 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
             {[...TECH_STACK, ...TECH_STACK, ...TECH_STACK, ...TECH_STACK].map((tech, i) => (
               <div key={i} className="flex items-center group cursor-default">
                 <span className="font-mono text-sm font-bold tracking-[0.2em] text-[#1a1a1a]/40 group-hover:text-[#C5A059] transition-colors duration-300 px-12">{tech}</span>
-                <span className="text-[#C5A059] text-[10px] opacity-50">//</span>
+                <span className="text-[#C5A059] text-xs opacity-50">//</span>
               </div>
             ))}
           </motion.div>
         </div>
       </div>
 
-      {/* DIAGNOSIS SECTION (Global #01) */}
-      <motion.section id="diagnosis" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} className="w-full bg-[#FFF2EC] py-16 md:py-24 lg:py-32 px-6 md:px-12 lg:px-20 relative z-30 overflow-hidden">
+      {/* 2. PROBLEM SECTION */}
+      <motion.section id="problem" aria-label="Problem Section" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} className="w-full bg-[#FFF2EC] py-16 md:py-24 lg:py-32 px-6 md:px-12 lg:px-20 relative z-30 overflow-hidden">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 h-16 md:h-32 w-[1px] bg-[#1a1a1a]/10" />
         <div className="max-w-[1600px] mx-auto border-t border-l border-[#1a1a1a]/10">
           <div className="grid grid-cols-1 md:grid-cols-3">
@@ -302,23 +301,23 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
                 <li onMouseEnter={() => handleGraphHover('bottleneck')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
                   <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
                   {/* FIXED: Text size intermediate for laptops */}
-                  <div className="font-sans text-base md:text-lg lg:text-xl text-[#1a1a1a]/70 pointer-events-none leading-relaxed">
-                    <strong className="text-[#1a1a1a] block mb-1">The Bottleneck Boss</strong>
-                    You are answering questions instead of doing deep work.
+                  <div className="font-sans text-[#1a1a1a]/70 pointer-events-none leading-relaxed">
+                    <strong className="text-base md:text-lg lg:text-xl text-[#1a1a1a] block mb-1">The Bottleneck Boss</strong>
+                    <span className="text-base md:text-lg">You are answering questions instead of doing deep work.</span>
                   </div>
                 </li>
                 <li onMouseEnter={() => handleGraphHover('tax')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
                   <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
-                  <div className="font-sans text-base md:text-lg lg:text-xl text-[#1a1a1a]/70 pointer-events-none leading-relaxed">
-                    <strong className="text-[#1a1a1a] block mb-1">The Double-Entry Tax</strong>
-                    Typing the same data into two different apps.
+                  <div className="font-sans text-[#1a1a1a]/70 pointer-events-none leading-relaxed">
+                    <strong className="text-base md:text-lg lg:text-xl text-[#1a1a1a] block mb-1">The Double-Entry Tax</strong>
+                    <span className="text-base md:text-lg">Typing the same data into two different apps.</span>
                   </div>
                 </li>
                 <li onMouseEnter={() => handleGraphHover('grind')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
                   <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
-                  <div className="font-sans text-base md:text-lg lg:text-xl text-[#1a1a1a]/70 pointer-events-none leading-relaxed">
-                    <strong className="text-[#1a1a1a] block mb-1">The Sunday Grind</strong>
-                    Invoicing and admin eating your weekends.
+                  <div className="font-sans text-[#1a1a1a]/70 pointer-events-none leading-relaxed">
+                    <strong className="text-base md:text-lg lg:text-xl text-[#1a1a1a] block mb-1">The Sunday Grind</strong>
+                    <span className="text-base md:text-lg">Invoicing and admin eating your weekends.</span>
                   </div>
                 </li>
               </ul>
@@ -340,10 +339,9 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
             <div onMouseEnter={() => handleGraphHover('fix')} onMouseLeave={handleGraphLeave} className="col-span-1 p-8 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[250px] md:min-h-[400px] flex flex-col justify-between border-l-2 border-l-[#C5A059] group">
               <span className="font-mono text-xs uppercase tracking-widest text-[#C5A059] block mb-4 md:mb-0">04 / THE FIX</span>
               <p className="font-serif text-2xl md:text-3xl leading-tight mb-6 md:mb-8 group-hover:text-[#C5A059] transition-colors duration-300">
-                I build the systems that do the boring work for you. <br/><br/>
-                <span className="text-white/60 text-xl">You get your business back.</span>
+                I build the systems that do the boring work for you. <span className="text-white">You get your business back.</span>
               </p>
-              <button onClick={() => document.getElementById('architecture')?.scrollIntoView({behavior: 'smooth'})} className="flex items-center gap-3 font-mono text-xs text-[#C5A059] uppercase tracking-[0.3em] hover:text-white transition-colors cursor-pointer group">
+              <button onClick={() => document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'})} className="flex items-center gap-3 font-mono text-xs text-[#C5A059] uppercase tracking-[0.3em] hover:text-white transition-colors cursor-pointer group">
                 [ SEE HOW IT WORKS ]
               </button>
             </div>
@@ -351,16 +349,32 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
         </div>
       </motion.section>
 
-      {/* --- REST OF SECTIONS --- */}
-      <div id="architecture">
-         <FrictionAuditSection onNavigate={onNavigate} />
-      </div>
-      <div id="bento">
+      {/* 3. FRICTION AUDIT SECTION */}
+      <section id="friction-audit" aria-label="Friction Audit Section" className="relative bg-[#FFF2EC] z-30">
+        <FrictionAuditSection onNavigate={onNavigate} />
+      </section>
+
+      {/* 4. 7 PILLARS SECTION */}
+      <section id="seven-pillars" aria-label="Seven Pillars Section" className="relative bg-[#FFF2EC] z-30">
         <BentoGrid onServiceClick={onServiceClick || ((s) => onNavigate(s.id))} />
-      </div>
-      <TheArchitect />
-      <Feature_Group7 />
-      <BookingCTA />
+      </section>
+
+      {/* 5. ABOUT SECTION */}
+      <section id="about" aria-label="About Section" className="relative bg-[#FFF2EC] z-30">
+        <TheArchitect />
+      </section>
+
+      {/* 6. CASE STUDY SECTION */}
+      <section id="case-study" aria-label="Case Study Section" className="relative bg-[#FFF2EC] z-30">
+        <Feature_Group7 />
+      </section>
+
+      {/* 7. CTA SECTION */}
+      <section id="cta" aria-label="Call to Action Section" className="relative bg-[#FFF2EC] z-30">
+        <BookingCTA />
+      </section>
+
+      {/* Floating Book Audit Button */}
       <BookAuditButton onNavigate={onNavigate} />
     </>
   );

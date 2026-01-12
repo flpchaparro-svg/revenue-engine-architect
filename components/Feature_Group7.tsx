@@ -124,11 +124,11 @@ const Feature_Group7: React.FC = () => {
           <div className="flex justify-between items-center px-6 py-4 border-b border-white/5 bg-black/40 relative z-30">
               <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-[#C5A059] rounded-full animate-pulse" />
-                  <span className="font-mono text-[10px] text-[#C5A059] tracking-widest uppercase">
+                  <span className="font-mono text-xs text-[#C5A059] tracking-widest uppercase">
                      [ WEBSITE REBUILD ]
                   </span>
               </div>
-              <span className="font-mono text-[10px] text-white/30 uppercase flex items-center gap-2">
+              <span className="font-mono text-xs text-white/30 uppercase flex items-center gap-2">
                   [ SEE THE TRANSFORMATION ]
                   <Zap className="w-3 h-3 text-[#C5A059]" />
               </span>
@@ -178,7 +178,7 @@ const Feature_Group7: React.FC = () => {
                       transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                   />
                   <div className="relative z-10 bg-[#1a1a1a] border border-[#C5A059]/30 px-6 py-3 rounded-full flex items-center gap-3">
-                      <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-widest font-bold">
+                      <span className="font-mono text-xs text-[#C5A059] uppercase tracking-widest font-bold">
                           VIEW TRANSFORMATION
                       </span>
                   </div>
@@ -254,7 +254,7 @@ const Feature_Group7: React.FC = () => {
                  <div className="flex justify-between items-center p-6 border-b border-black/10 bg-white shrink-0">
                     <div>
                       <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a]">Case Study: Group 7 Security</h3>
-                      <p className="font-mono text-[10px] text-[#1a1a1a]/50 uppercase tracking-widest mt-1">[ WEBSITE + SEO OVERHAUL ]</p>
+                      <p className="font-mono text-xs text-[#1a1a1a]/50 uppercase tracking-widest mt-1">[ WEBSITE + SEO OVERHAUL ]</p>
                     </div>
                     <button 
                       onClick={() => setIsModalOpen(false)}
