@@ -88,26 +88,21 @@ const SystemPhases = () => {
       ref={sectionRef} 
       className={`relative min-h-screen flex flex-row lg:flex-col transition-colors duration-700 ${activePhase.bg}`}
     >
-      {/* MOBILE SIDEBAR - Enhanced Pulse */}
+      {/* MOBILE SIDEBAR - Pulse Only */}
       <aside className={`lg:hidden sticky top-0 h-screen w-14 shrink-0 flex flex-col items-center justify-center gap-10 z-[70] border-r backdrop-blur-xl transition-all duration-500 ${activePhase.sidebarText} ${activePhase.sidebarBorder} ${activePhase.sidebarBg}`}>
         {PHASES.map((phase, idx) => {
           const isActive = idx === activeIndex;
-          const isNext = idx === activeIndex + 1;
+          const isUnvisited = idx > activeIndex;
           
           return (
             <button key={phase.id} onClick={() => changePhase(idx)} className="relative flex flex-col items-center gap-2">
               <motion.div 
-                // Enhanced pulse for unclicked phases
-                animate={isNext ? { 
-                  scale: [1, 1.3, 1],
-                  opacity: [0.3, 0.8, 0.3] 
-                } : { scale: isActive ? 1.5 : 1, opacity: isActive ? 1 : 0.3 }}
-                transition={isNext ? { repeat: Infinity, duration: 2, ease: "easeInOut" } : { duration: 0.3 }}
+                animate={isUnvisited ? { opacity: [0.4, 1, 0.4] } : { opacity: isActive ? 1 : 0.4 }}
+                transition={isUnvisited ? { repeat: Infinity, duration: 2 } : {}}
                 className={`font-mono text-xs font-bold ${activePhase.sidebarText}`}
               >
                 0{idx + 1}
               </motion.div>
-              {isActive && <motion.div layoutId="side-dot" className={`w-1 h-1 rounded-full ${phase.tabLine}`} />}
             </button>
           );
         })}
@@ -120,7 +115,7 @@ const SystemPhases = () => {
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-none tracking-tighter mb-6">7 Ways I Fix Your Business.</h2>
         </div>
 
-        {/* DESKTOP TIMELINE: "Attention" Indicator for Phases 2 & 3 */}
+        {/* DESKTOP TIMELINE: Pulse Only */}
         <header className="hidden lg:flex justify-center mb-10 pt-10">
            <div className="flex justify-between w-full max-w-4xl border-b border-current/10 pb-2">
               {PHASES.map((phase, idx) => {
@@ -131,26 +126,14 @@ const SystemPhases = () => {
                   <button 
                     key={phase.id} 
                     onClick={() => changePhase(idx)}
-                    className={`relative pb-2 font-mono text-sm font-bold tracking-widest transition-all ${activePhase.text}`}
+                    className={`relative flex items-center font-mono text-xs md:text-sm font-bold tracking-widest transition-all ${isActive ? 'opacity-100' : 'opacity-40'} ${activePhase.text}`}
                   >
-                    <div className="flex items-center gap-2">
-                      <motion.span 
-                        animate={isUnvisited ? { opacity: [0.4, 1, 0.4] } : { opacity: isActive ? 1 : 0.4 }}
-                        transition={isUnvisited ? { repeat: Infinity, duration: 2.5 } : {}}
-                      >
-                        0{idx + 1} / {phase.title}
-                      </motion.span>
-                      
-                      {/* Small notification dot for Phases 2/3 to show they need to be clicked */}
-                      {isUnvisited && (
-                        <motion.div 
-                          animate={{ scale: [1, 1.5, 1] }}
-                          transition={{ repeat: Infinity, duration: 2 }}
-                          className={`w-1.5 h-1.5 rounded-full ${activePhase.barColor}`} 
-                        />
-                      )}
-                    </div>
-                    {isActive && <motion.div layoutId="activeTab" className={`absolute bottom-[-1px] left-0 right-0 h-[3px] ${phase.tabLine}`} />}
+                    <motion.span 
+                      animate={isUnvisited ? { opacity: [0.4, 1, 0.4] } : {}}
+                      transition={isUnvisited ? { repeat: Infinity, duration: 2 } : {}}
+                    >
+                      0{idx + 1} / {phase.title}
+                    </motion.span>
                   </button>
                 );
               })}
@@ -165,9 +148,9 @@ const SystemPhases = () => {
               <div className="hidden lg:flex lg:col-span-6 flex-col">
                 <div className={`relative flex-1 rounded-sm border shadow-2xl overflow-hidden flex flex-col ${activePhase.dark ? 'bg-white/5 border-white/10' : 'bg-white border-black/10'}`}>
                   <div className="h-1/2 relative border-b border-current/5">
-                    {/* RESTORED EYEBROW LABEL */}
+                    {/* The Restored Eyebrow */}
                     <div className="absolute top-6 left-6 z-20">
-                      <div className={`font-mono text-[9px] uppercase tracking-[0.2em] font-medium opacity-40 ${activePhase.text}`}>
+                      <div className={`font-mono text-[9px] uppercase tracking-[0.2em] font-medium opacity-50 ${activePhase.text}`}>
                         {displayService?.technicalLabel || '[ SYSTEM ARCHITECTURE ]'}
                       </div>
                     </div>
@@ -181,20 +164,25 @@ const SystemPhases = () => {
 
                   <div className={`p-8 flex-1 flex flex-col justify-between ${activePhase.text}`}>
                     <div>
-                      <h3 className="font-serif text-3xl mb-4 leading-tight">{displayService?.title}</h3>
+                      <h3 className="font-serif text-3xl mb-4">{displayService?.title}</h3>
                       <p className="text-sm opacity-70 leading-relaxed line-clamp-4">{displayService?.description}</p>
                     </div>
                     
                     <div className={`pt-6 border-t mt-auto ${activePhase.dark ? 'border-white/10' : 'border-black/5'}`}>
                       <button 
                         onClick={() => { setSelectedService(displayService); setIsModalOpen(true); }}
-                        className={`flex items-center gap-2 font-mono text-[10px] tracking-[0.3em] font-bold transition-colors duration-300 ${
-                          activePhase.id === 'SCALE FASTER' 
-                            ? 'text-[#C5A059] hover:text-white' // Phase 2: Gold to White
-                            : 'text-black hover:text-[#C5A059]'    // Phase 1 & 3: Black to Gold
-                        }`}
+                        className={`group relative px-8 py-4 font-mono text-[10px] tracking-[0.3em] font-bold overflow-hidden transition-all duration-500 border
+                          ${activePhase.id === 'SCALE FASTER' 
+                            ? 'border-[#C5A059] bg-[#C5A059] text-[#1a1a1a]' 
+                            : 'border-[#1a1a1a] bg-[#1a1a1a] text-white'}`}
                       >
-                        [ EXPLORE PILLAR ]
+                        {/* SLIDE-UP HOVER EFFECT */}
+                        <div className={`absolute inset-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1) translate-y-full group-hover:translate-y-0
+                          ${activePhase.id === 'SCALE FASTER' ? 'bg-white' : 'bg-[#C5A059]'}`} 
+                        />
+                        <span className="relative z-10 transition-colors duration-500 group-hover:text-[#1a1a1a]">
+                          [ EXPLORE PILLAR ]
+                        </span>
                       </button>
                     </div>
                   </div>
@@ -210,9 +198,7 @@ const SystemPhases = () => {
                     onMouseLeave={() => setHoveredService(null)}
                     onClick={() => { setSelectedService(service); setIsModalOpen(true); }}
                     className={`relative p-6 border rounded-sm transition-all duration-300 group cursor-pointer min-h-[170px] flex flex-col justify-between hover:scale-[1.02] hover:-translate-y-1 ${
-                      activePhase.dark 
-                        ? 'border-[#C5A059]/30 hover:border-[#C5A059] text-white bg-white/5 hover:bg-white/10' 
-                        : 'border-black/5 hover:border-[#E21E3F]/30 text-black bg-white hover:shadow-xl'
+                      activePhase.dark ? 'border-[#C5A059]/30 hover:border-[#C5A059] text-white bg-white/5' : 'border-black/5 hover:border-[#E21E3F]/30 text-black bg-white'
                     }`}
                   >
                     {/* MOBILE-ONLY VIZ */}
@@ -220,18 +206,17 @@ const SystemPhases = () => {
                       <ViewportViz type={service.visualPrompt} color={activePhase.dark ? '#C5A059' : '#E21E3F'} />
                     </div>
 
-                    <div className="flex justify-between items-start relative z-10">
+                    <div className="flex justify-between items-start">
                       <span className="font-mono text-[10px] opacity-40">0{idx + 1}</span>
                       
-                      {/* GHOST CAPTION: Appears Red on Hover */}
-                      <span className="font-mono text-[9px] uppercase tracking-widest text-[#E21E3F] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
+                      {/* RED GHOST CAPTION ON HOVER */}
+                      <span className="font-mono text-[9px] uppercase tracking-widest text-[#E21E3F] opacity-0 group-hover:opacity-100 transition-all duration-300">
                         [ EXPLORE PILLAR ]
                       </span>
                       
                       <ArrowDownRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
-                    
-                    <div className="relative z-10">
+                    <div>
                       <h4 className="font-serif text-xl mb-2">{service.title}</h4>
                       <p className="text-xs opacity-60 line-clamp-2">{service.description}</p>
                     </div>
@@ -253,8 +238,10 @@ const SystemPhases = () => {
                     <h4 className="font-serif text-xl text-white mb-2 leading-tight">Architecture of Growth</h4>
                     <p className="text-xs text-white/60 mb-4 line-clamp-2">Connect every pillar into one automated engine.</p>
                   </div>
-                  <div className="bg-[#C5A059] text-[#1a1a1a] py-3 px-4 font-mono text-[10px] tracking-widest font-bold text-center uppercase transition-colors duration-300 hover:bg-white">
-                    [ EXPLORE THE SYSTEM ]
+                  {/* CTA BUTTON: GOLD TO WHITE SLIDE */}
+                  <div className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-3 px-4 font-mono text-[10px] tracking-widest font-bold text-center uppercase">
+                    <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
+                    <span className="relative z-10 transition-colors duration-500">[ EXPLORE THE SYSTEM ]</span>
                   </div>
                 </div>
               </div>
