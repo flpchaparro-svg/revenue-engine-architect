@@ -152,7 +152,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
            <div className="flex items-center gap-0 mb-12 border-b-2 border-black/5 w-fit">
               <button 
                 onClick={() => setMode('architect')}
-                className={`px-8 py-4 text-[10px] font-mono uppercase tracking-[0.25em] font-bold transition-all duration-300 relative overflow-hidden ${
+                className={`px-8 py-4 text-xs font-mono uppercase tracking-[0.25em] font-bold transition-all duration-300 relative overflow-hidden ${
                   mode === 'architect' 
                   ? 'text-[#FFF2EC] bg-[#1a1a1a]' 
                   : 'text-[#1a1a1a]/40 hover:text-[#1a1a1a] hover:bg-black/5'
@@ -165,7 +165,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
               
               <button 
                 onClick={() => setMode('human')}
-                className={`px-8 py-4 text-[10px] font-mono uppercase tracking-[0.25em] font-bold transition-all duration-300 relative overflow-hidden ${
+                className={`px-8 py-4 text-xs font-mono uppercase tracking-[0.25em] font-bold transition-all duration-300 relative overflow-hidden ${
                   mode === 'human' 
                   ? 'text-[#1a1a1a] bg-[#FFF2EC] border-x border-t border-black/10' 
                   : 'text-[#1a1a1a]/40 hover:text-[#1a1a1a] hover:bg-black/5'

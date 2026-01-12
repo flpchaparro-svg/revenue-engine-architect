@@ -1,21 +1,25 @@
 import React, { Suspense, lazy, useState } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion, useScroll, useMotionValueEvent } from 'framer-motion';
+
+// COMPONENTS (Keep these in src/components)
 import GlobalHeader from './components/GlobalHeader';
 import GlobalFooter from './components/GlobalFooter';
 import Modal from './components/Modal';
 import PageTransition from './components/PageTransition';
 import { ServiceDetail } from './types';
-import { useScroll, useMotionValueEvent } from 'framer-motion';
 
-// 1. LAZY LOAD HEAVY PAGES
+// PAGES (Everything else moves to src/pages)
+// 1. Main Pages
 const HomePage = lazy(() => import('./pages/HomePage'));
-const ArchitectPage = lazy(() => import('./pages/ArchitectPage'));
+const ArchitectPage = lazy(() => import('./pages/ArchitectPage')); // Moved
+const ProcessPage = lazy(() => import('./pages/ProcessPage'));     // Moved
+const ProofPage = lazy(() => import('./pages/ProofPage'));         // Moved
+const EvidenceVaultPage = lazy(() => import('./pages/EvidenceVaultPage')); // Moved
+const ContactPage = lazy(() => import('./pages/ContactPage'));     // Moved
+
+// 2. System & Pillars (Grouped in src/pages/System)
 const SystemPage = lazy(() => import('./pages/System/SystemPage'));
-const ProcessPage = lazy(() => import('./pages/ProcessPage'));
-const ProofPage = lazy(() => import('./pages/ProofPage'));
-const EvidenceVaultPage = lazy(() => import('./pages/EvidenceVaultPage'));
-const ContactPage = lazy(() => import('./pages/ContactPage'));
 const Pillar1 = lazy(() => import('./pages/System/Pillar1'));
 const Pillar2 = lazy(() => import('./pages/System/Pillar2'));
 const Pillar3 = lazy(() => import('./pages/System/Pillar3'));
@@ -36,7 +40,6 @@ const App: React.FC = () => {
     setScrolled(latest > 50);
   });
 
-  // Helper to keep your existing navigation logic compatible
   const handleGlobalNavigate = (path: string, sectionId?: string) => {
     const routeMap: Record<string, string> = {
       'homepage': '/',
@@ -59,7 +62,6 @@ const App: React.FC = () => {
     window.scrollTo(0, 0);
   };
 
-  // Convert pathname to currentView for GlobalHeader compatibility
   const getCurrentView = () => {
     const path = location.pathname;
     if (path === '/') return 'homepage';
@@ -67,7 +69,6 @@ const App: React.FC = () => {
   };
 
   const handleServiceClick = (service: ServiceDetail) => {
-    // Desktop: Open Modal, Mobile/Tablet: Navigate directly
     if (window.innerWidth >= 1024) {
       setSelectedService(service);
       setIsModalOpen(true);
@@ -77,162 +78,43 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#FFF2EC] selection:bg-[#1a1a1a] selection:text-[#FFF2EC] min-h-screen flex flex-col">
-      {/* Hide header on specific routes if needed */}
+    // BEST PRACTICE FIX: Added 'font-sans antialiased' here to kill ghost fonts globally
+    <div className="bg-[#FFF2EC] font-sans antialiased selection:bg-[#1a1a1a] selection:text-[#FFF2EC] min-h-screen flex flex-col">
       {location.pathname !== '/contact' && (
         <GlobalHeader currentView={getCurrentView()} onNavigate={handleGlobalNavigate} scrolled={scrolled} />
       )}
 
       <PageTransition currentView={getCurrentView()}>
-        {/* 2. USE SUSPENSE FOR LOADING STATES */}
         <Suspense fallback={
           <div className="h-screen w-full flex items-center justify-center bg-[#FFF2EC]">
             <div className="font-mono text-xs text-[#1a1a1a]/40">Loading...</div>
           </div>
         }>
-          {/* 3. ANIMATE PRESENCE FOR PAGE TRANSITIONS */}
           <AnimatePresence mode="wait">
             <Routes location={location}>
-              <Route path="/" element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <HomePage onNavigate={handleGlobalNavigate} onServiceClick={handleServiceClick} />
-                </motion.div>
-              } />
-              <Route path="/architect" element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <ArchitectPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />
-                </motion.div>
-              } />
-              <Route path="/system" element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <SystemPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />
-                </motion.div>
-              } />
-              <Route path="/process" element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <ProcessPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />
-                </motion.div>
-              } />
-              <Route path="/proof" element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <ProofPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />
-                </motion.div>
-              } />
-              <Route path="/evidence-vault" element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <EvidenceVaultPage onBack={() => handleGlobalNavigate('proof')} />
-                </motion.div>
-              } />
-              <Route path="/contact" element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <ContactPage onBack={() => handleGlobalNavigate('homepage')} />
-                </motion.div>
-              } />
-              {/* PILLARS */}
-              <Route path="/pillar1" element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <Pillar1 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />
-                </motion.div>
-              } />
-              <Route path="/pillar2" element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <Pillar2 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />
-                </motion.div>
-              } />
-              <Route path="/pillar3" element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <Pillar3 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />
-                </motion.div>
-              } />
-              <Route path="/pillar4" element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <Pillar4 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />
-                </motion.div>
-              } />
-              <Route path="/pillar5" element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <Pillar5 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />
-                </motion.div>
-              } />
-              <Route path="/pillar6" element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <Pillar6 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />
-                </motion.div>
-              } />
-              <Route path="/pillar7" element={
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <Pillar7 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />
-                </motion.div>
-              } />
+              <Route path="/" element={<HomePage onNavigate={handleGlobalNavigate} onServiceClick={handleServiceClick} />} />
+              <Route path="/architect" element={<ArchitectPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
+              <Route path="/system" element={<SystemPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
+              <Route path="/process" element={<ProcessPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
+              <Route path="/proof" element={<ProofPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
+              <Route path="/evidence-vault" element={<EvidenceVaultPage onBack={() => handleGlobalNavigate('proof')} />} />
+              <Route path="/contact" element={<ContactPage onBack={() => handleGlobalNavigate('homepage')} />} />
+              
+              {/* Pillars */}
+              <Route path="/pillar1" element={<Pillar1 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />} />
+              <Route path="/pillar2" element={<Pillar2 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />} />
+              <Route path="/pillar3" element={<Pillar3 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />} />
+              <Route path="/pillar4" element={<Pillar4 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />} />
+              <Route path="/pillar5" element={<Pillar5 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />} />
+              <Route path="/pillar6" element={<Pillar6 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />} />
+              <Route path="/pillar7" element={<Pillar7 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />} />
             </Routes>
           </AnimatePresence>
         </Suspense>
       </PageTransition>
 
-      {/* FOOTER & MODAL */}
       {location.pathname !== '/system' && <GlobalFooter onNavigate={handleGlobalNavigate} />}
-      <Modal 
-        service={selectedService} 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-        onViewPillar={(id) => handleGlobalNavigate(id)} 
-      />
+      <Modal service={selectedService} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onViewPillar={(id) => handleGlobalNavigate(id)} />
     </div>
   );
 };

@@ -229,11 +229,11 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
             <motion.span variants={heroItem} className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">
               / THE SYSTEM
             </motion.span>
-            <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight mb-8">
+            <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] tracking-tight mb-8">
               7 Ways I Fix <br />
               <span className="italic text-black/20">Your Business.</span>
             </motion.h1>
-            <motion.p variants={heroItem} className="font-sans text-xl text-[#1a1a1a]/60 leading-relaxed max-w-xl border-l-2 border-[#C5A059] pl-6">
+            <motion.p variants={heroItem} className="font-sans text-lg md:text-xl text-[#1a1a1a]/80 leading-relaxed max-w-xl border-l-2 border-[#C5A059] pl-6">
               I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.
             </motion.p>
           </div>

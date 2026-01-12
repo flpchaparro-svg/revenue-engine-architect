@@ -40,7 +40,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
   ];
 
   // UX FIX: Common Input Styles for better visibility
-  const inputBaseStyle = "w-full bg-white/5 border border-white/10 px-4 py-4 font-serif text-xl text-white focus:outline-none focus:border-[#C5A059] focus:bg-white/10 transition-all placeholder:text-white/30 rounded-sm mt-2";
+  const inputBaseStyle = "w-full bg-white/5 border border-white/10 px-4 py-4 font-sans text-xl text-white focus:outline-none focus:border-[#C5A059] focus:bg-white/10 transition-all placeholder:text-white/30 rounded-sm mt-2";
 
   return (
     <div className="min-h-screen w-full flex flex-col lg:flex-row relative z-[9999] bg-[#FFF2EC]">
