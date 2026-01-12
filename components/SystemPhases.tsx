@@ -113,6 +113,9 @@ const SystemPhases = () => {
         <div className={`pt-24 pb-12 px-6 lg:pt-16 lg:pb-8 text-center max-w-4xl mx-auto ${activePhase.text}`}>
            <span className="font-mono text-xs tracking-[0.4em] mb-4 block uppercase font-bold opacity-60">/ THE SYSTEM</span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-none tracking-tighter mb-6">7 Ways I Fix Your Business.</h2>
+           <p className="font-sans text-base md:text-xl font-light opacity-70 leading-relaxed max-w-2xl mx-auto px-4">
+              I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.
+           </p>
         </div>
 
         {/* DESKTOP TIMELINE: Pulse Only */}
@@ -164,7 +167,9 @@ const SystemPhases = () => {
 
                   <div className={`p-8 flex-1 flex flex-col justify-between ${activePhase.text}`}>
                     <div>
-                      <h3 className="font-serif text-3xl mb-4">{displayService?.title}</h3>
+                      <h3 className="font-serif text-3xl mb-2">{displayService?.title}</h3>
+                      {/* Added Missing Subtitle Copy */}
+                      <p className="font-mono text-[10px] uppercase tracking-widest opacity-50 mb-4">{displayService?.subtitle}</p>
                       <p className="text-sm opacity-70 leading-relaxed line-clamp-4">{displayService?.description}</p>
                     </div>
                     
@@ -194,6 +199,11 @@ const SystemPhases = () => {
                 {currentServices.map((service, idx) => (
                   <motion.div
                     key={service.id}
+                    // Added Entrance Animation
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
                     onMouseEnter={() => setHoveredService(service)}
                     onMouseLeave={() => setHoveredService(null)}
                     onClick={() => { setSelectedService(service); setIsModalOpen(true); }}
@@ -224,7 +234,12 @@ const SystemPhases = () => {
                 ))}
 
                 {/* PREMIUM CTA CARD - No arrows, no hover display update */}
-                <div 
+                <motion.div 
+                  // Added Entrance Animation for CTA as well
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: 0.3 }}
                   onClick={() => window.location.href='/system'}
                   className={`relative p-6 bg-[#1a1a1a] border rounded-sm group cursor-pointer transition-all hover:-translate-y-1 min-h-[170px] flex flex-col justify-between ${
                     activePhase.dark ? 'border-[#C5A059]' : 'border-white/10 shadow-xl'
@@ -243,7 +258,7 @@ const SystemPhases = () => {
                     <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                     <span className="relative z-10 transition-colors duration-500">[ EXPLORE THE SYSTEM ]</span>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
         </main>
