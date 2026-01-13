@@ -66,16 +66,16 @@ const textVariants = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } }
 };
 
-// Define the data for the Premium Blueprint Card so it can be displayed
-const BLUEPRINT_SERVICE: ServiceDetail = {
+// 1. DEFINE DATA CONSTANT
+const BLUEPRINT_SERVICE = {
   id: 'blueprint-architecture',
   title: 'Architecture of Growth',
   subtitle: '/// BLUEPRINT',
   description: 'Connect every pillar into one automated engine.',
-  visualPrompt: 'neural',
+  visualPrompt: 'neural', // This triggers the 3D Node Animation
   technicalLabel: 'SYSTEM ARCHITECTURE',
   systemGroup: 'INTEGRATION',
-  features: ['System Integration', 'Automated Workflows', 'Unified Dashboard']
+  features: []
 };
 
 const SystemPhases = () => {
@@ -180,13 +180,13 @@ const SystemPhases = () => {
                     </div>
                     
                     <AnimatePresence mode="wait">
-                        {/* FIX: Check if we are viewing the Blueprint. If yes, force GOLD color. */}
+                        {/* FIX: Force 'neural' type and '#C5A059' color when Blueprint is active */}
                         <ViewportViz 
                           key={`viz-${displayService?.id}`} 
-                          type={displayService?.visualPrompt || activePhase.vizType} 
+                          type={displayService?.id === 'blueprint-architecture' ? 'neural' : (displayService?.visualPrompt || activePhase.vizType)} 
                           color={
                             displayService?.id === 'blueprint-architecture' 
-                              ? '#C5A059' // Force Gold for Blueprint
+                              ? '#C5A059' 
                               : (activePhase.dark ? '#C5A059' : (activePhase.id === 'GET CLIENTS' ? '#E21E3F' : '#1a1a1a'))
                           } 
                         />
@@ -321,20 +321,10 @@ const SystemPhases = () => {
                 {/* PREMIUM CTA CARD */}
                 <motion.div 
                   variants={cardVariants}
-                  // FIX: Passing the full data object directly here to ensure the Display receives it
-                  onMouseEnter={() => setActiveService({
-                    id: 'blueprint-architecture',
-                    title: 'Architecture of Growth',
-                    subtitle: '/// BLUEPRINT',
-                    description: 'Connect every pillar into one automated engine.',
-                    visualPrompt: 'neural',
-                    technicalLabel: 'SYSTEM ARCHITECTURE',
-                    systemGroup: 'INTEGRATION',
-                    features: [] 
-                  })}
+                  // FIX: Use the Constant to ensure data (and the 'neural' prompt) is passed correctly
+                  onMouseEnter={() => setActiveService(BLUEPRINT_SERVICE)}
                   onClick={() => window.location.href='/system'}
                   className={`relative p-6 bg-[#1a1a1a] border rounded-sm group cursor-pointer transition-all min-h-[250px] flex flex-col justify-between 
-                    ${/* Active State Styling */ ''}
                     ${displayService?.id === 'blueprint-architecture'
                       ? 'border-[#C5A059] -translate-y-2 shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
                       : (activePhase.dark ? 'border-[#C5A059] hover:-translate-y-1' : 'border-white/10 shadow-xl hover:-translate-y-1')
