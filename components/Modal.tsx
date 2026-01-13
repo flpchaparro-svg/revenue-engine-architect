@@ -34,19 +34,20 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* FIX: z-[9999] to sit on top of everything. cursor-pointer to indicate click-to-exit. */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[999]"
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] cursor-pointer"
           />
           
           <motion.div
             initial={{ opacity: 0, scale: 0.98, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: 20 }}
-            className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-6 pointer-events-none"
+            className="fixed inset-0 z-[10000] flex items-center justify-center p-4 md:p-6 pointer-events-none"
           >
             <div 
               className={`pointer-events-auto w-full max-w-5xl max-h-[90vh] rounded-sm overflow-hidden flex flex-col shadow-2xl ${currentTheme.bg}`}
@@ -147,12 +148,17 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                    
                    <button 
                      onClick={() => window.location.href='/system'}
-                     className="w-full md:w-auto bg-[#1a1a1a] text-white px-8 py-4 flex items-center justify-center gap-4 hover:bg-black transition-colors"
+                     // FIX: Reverted to the "Old" Outlined/Ghost style
+                     className={`w-full md:w-auto px-8 py-4 flex items-center justify-center gap-4 border transition-all duration-300 group
+                        ${currentTheme.dark 
+                           ? 'border-[#C5A059]/30 hover:bg-[#C5A059] hover:text-[#1a1a1a] text-[#C5A059]' 
+                           : 'border-black/10 hover:bg-[#1a1a1a] hover:text-white text-[#1a1a1a]'}
+                     `}
                    >
                      <span className="font-mono text-xs font-bold tracking-[0.2em] uppercase">
                        [ SEE FULL DETAILS ]
                      </span>
-                     <ArrowRight className="w-4 h-4 text-white" />
+                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                    </button>
                 </div>
 

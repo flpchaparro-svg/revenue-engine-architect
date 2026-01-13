@@ -169,68 +169,92 @@ const SystemPhases = () => {
               
               {/* LEFT DISPLAY - MAIN CARD */}
               <div className="hidden lg:flex lg:col-span-6 flex-col">
-                <div className={`relative flex-1 rounded-sm border shadow-2xl overflow-hidden flex flex-col transition-colors duration-500 ${activePhase.dark ? 'bg-white/5 border-white/10' : 'bg-white border-black/10'}`}>
-                  
-                  {/* Visual Container */}
-                  <div className="h-1/2 relative border-b border-current/5">
-                    <div className="absolute top-6 left-6 z-20">
-                      <div className={`font-mono text-[9px] uppercase tracking-[0.2em] font-medium opacity-50 ${activePhase.text}`}>
-                        {displayService?.technicalLabel || '[ SYSTEM ARCHITECTURE ]'}
+                {(() => {
+                  const isBlueprint = displayService?.id === 'blueprint-architecture';
+                  return (
+                    <div className={`relative flex-1 rounded-sm border shadow-2xl overflow-hidden flex flex-col transition-colors duration-500 
+                      ${isBlueprint 
+                        ? 'bg-[#1a1a1a] border-[#C5A059] text-white' // FORCE BLACK THEME for Blueprint
+                        : (activePhase.dark ? 'bg-white/5 border-white/10 text-white' : 'bg-white border-black/10 text-black')
+                      }`}
+                    >
+                      
+                      {/* VISUAL CONTAINER: Hide if Blueprint */}
+                      {!isBlueprint && (
+                        <div className="h-1/2 relative border-b border-current/5">
+                          <div className="absolute top-6 left-6 z-20">
+                            <div className="font-mono text-[9px] uppercase tracking-[0.2em] font-medium opacity-50">
+                              {displayService?.technicalLabel || '[ SYSTEM ARCHITECTURE ]'}
+                            </div>
+                          </div>
+                          
+                          <AnimatePresence mode="wait">
+                              <ViewportViz 
+                                key={`viz-${displayService?.id}`} 
+                                type={displayService?.visualPrompt || activePhase.vizType} 
+                                color={activePhase.dark ? '#C5A059' : (activePhase.id === 'GET CLIENTS' ? '#E21E3F' : '#1a1a1a')} 
+                              />
+                          </AnimatePresence>
+                        </div>
+                      )}
+
+                      {/* TEXT CONTENT */}
+                      <div className={`p-8 flex-1 flex flex-col justify-between ${isBlueprint ? 'justify-center py-12' : ''}`}>
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={displayService?.id}
+                                variants={textVariants}
+                                initial="hidden"
+                                animate="visible"
+                                exit="hidden"
+                            >
+                                <h3 className={`font-serif mb-2 leading-tight ${isBlueprint ? 'text-4xl md:text-5xl text-[#C5A059]' : 'text-3xl'}`}>
+                                    {displayService?.title}
+                                </h3>
+                                <p className="font-mono text-[10px] uppercase tracking-widest opacity-50 mb-4">{displayService?.subtitle}</p>
+                                
+                                {/* Main Description */}
+                                <p className={`opacity-70 leading-relaxed ${isBlueprint ? 'text-lg max-w-xl mb-6' : 'text-sm line-clamp-4'}`}>
+                                    {displayService?.description}
+                                </p>
+
+                                {/* EXTRA CONTEXT FOR BLUEPRINT (What's in it for them) */}
+                                {isBlueprint && (
+                                  <p className="font-sans text-xs opacity-60 leading-relaxed max-w-[90%] mb-8 border-l-2 border-[#C5A059] pl-3">
+                                    Navigate to the System Page to understand how these pillars function as an integrated ecosystem or as powerful standalone modules.
+                                  </p>
+                                )}
+                            </motion.div>
+                        </AnimatePresence>
+                        
+                        {/* FOOTER CTA */}
+                        <div className={`mt-auto pt-6 border-t ${isBlueprint ? 'border-[#C5A059]/20' : (activePhase.dark ? 'border-white/10' : 'border-black/5')}`}>
+                             {isBlueprint ? (
+                                 /* BLUEPRINT CTA: Gold Box */
+                                 <div 
+                                    onClick={() => { setSelectedService(displayService); setIsModalOpen(true); }}
+                                    className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-4 px-6 font-mono text-xs tracking-widest font-bold text-center uppercase cursor-pointer group/btn"
+                                 >
+                                    <div className="absolute inset-0 bg-white translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
+                                    <span className="relative z-10 transition-colors duration-500">[ EXPLORE THE SYSTEM ]</span>
+                                 </div>
+                             ) : (
+                                 /* STANDARD CTA: Ghost Text Link */
+                                 <button
+                                    onClick={() => { setSelectedService(displayService); setIsModalOpen(true); }}
+                                    className={`text-left font-mono text-xs font-bold uppercase tracking-widest mt-1 transition-colors duration-300
+                                        ${activePhase.dark ? 'text-[#C5A059] hover:text-white' : 'text-[#E21E3F] hover:text-black'}
+                                    `}
+                                 >
+                                    [ EXPLORE PILLAR ]
+                                 </button>
+                             )}
+                        </div>
+
                       </div>
                     </div>
-                    
-                    <AnimatePresence mode="wait">
-                        {/* FIX: Force 'neural' type and '#C5A059' color when Blueprint is active */}
-                        <ViewportViz 
-                          key={`viz-${displayService?.id}`} 
-                          type={displayService?.id === 'blueprint-architecture' ? 'neural' : (displayService?.visualPrompt || activePhase.vizType)} 
-                          color={
-                            displayService?.id === 'blueprint-architecture' 
-                              ? '#C5A059' 
-                              : (activePhase.dark ? '#C5A059' : (activePhase.id === 'GET CLIENTS' ? '#E21E3F' : '#1a1a1a'))
-                          } 
-                        />
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Text Content */}
-                  <div className={`p-8 flex-1 flex flex-col justify-between ${activePhase.text}`}>
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={displayService?.id}
-                            variants={textVariants}
-                            initial="hidden"
-                            animate="visible"
-                            exit="hidden"
-                        >
-                            <h3 className="font-serif text-3xl mb-2">{displayService?.title}</h3>
-                            <p className="font-mono text-[10px] uppercase tracking-widest opacity-50 mb-4">{displayService?.subtitle}</p>
-                            <p className="text-sm opacity-70 leading-relaxed line-clamp-4">{displayService?.description}</p>
-                        </motion.div>
-                    </AnimatePresence>
-                    
-                    {/* FIX 2: NEW STATIC CTA DISPLAY */}
-                    <div className={`mt-auto pt-6 border-t ${activePhase.dark ? 'border-white/10' : 'border-black/5'}`}>
-                        <div className="flex flex-col gap-3">
-                             <span className="font-mono text-[9px] uppercase tracking-widest opacity-40">
-                                /// SYSTEM_INTEGRATION
-                             </span>
-                             <p className="font-sans text-xs opacity-60 leading-relaxed max-w-[90%]">
-                                See how this pillar integrates with the full Revenue Engine or functions as a standalone module.
-                             </p>
-                             <button
-                                onClick={() => { setSelectedService(displayService); setIsModalOpen(true); }}
-                                className={`text-left font-mono text-xs font-bold uppercase tracking-widest mt-1 transition-colors duration-300
-                                    ${activePhase.dark ? 'text-[#C5A059] hover:text-white' : 'text-[#E21E3F] hover:text-black'}
-                                `}
-                             >
-                                [ EXPLORE PILLAR ]
-                             </button>
-                        </div>
-                    </div>
-
-                  </div>
-                </div>
+                  );
+                })()}
               </div>
 
               {/* RIGHT GRID - SERVICE LIST */}
