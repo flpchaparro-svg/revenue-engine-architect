@@ -303,8 +303,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         ${activePhase.dark ? 'bg-white/5' : 'bg-white'}
                         ${isActive 
                            ? (activePhase.dark 
-                               ? 'border-[#C5A059] lg:-translate-y-2 lg:shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
-                               : 'border-[#E21E3F] lg:-translate-y-2 lg:shadow-xl')
+                               ? 'border-[#C5A059]/30 lg:border-[#C5A059] lg:-translate-y-2 lg:shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
+                               : 'border-black/5 lg:border-[#E21E3F] lg:-translate-y-2 lg:shadow-xl')
                            : (activePhase.dark 
                                ? 'border-[#C5A059]/30 lg:hover:border-[#C5A059] lg:hover:-translate-y-2' 
                                : 'border-black/5 lg:hover:border-[#E21E3F]/30 lg:hover:-translate-y-2')
