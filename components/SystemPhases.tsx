@@ -343,39 +343,51 @@ const SystemPhases = () => {
                 })}
 
                 {/* PREMIUM CTA CARD */}
-                <motion.div 
-                  variants={cardVariants}
-                  // FIX: Use the Constant to ensure data (and the 'neural' prompt) is passed correctly
-                  onMouseEnter={() => setActiveService(BLUEPRINT_SERVICE)}
-                  onClick={() => window.location.href='/system'}
-                  className={`relative p-6 bg-[#1a1a1a] border rounded-sm group cursor-pointer transition-all min-h-[250px] flex flex-col justify-between 
-                    ${displayService?.id === 'blueprint-architecture'
-                      ? 'border-[#C5A059] -translate-y-2 shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
-                      : (activePhase.dark ? 'border-[#C5A059] hover:-translate-y-1' : 'border-white/10 shadow-xl hover:-translate-y-1')
-                    }
-                  `}
-                >
-                  <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none">
-                    <ViewportViz type="neural" color="#C5A059" />
-                  </div>
-                  
-                  <div className="flex justify-between items-start mb-4 relative z-10">
-                     <span className="font-mono text-xs text-white/50 block tracking-widest uppercase">/// BLUEPRINT</span>
-                     <ArrowDownRight className={`w-4 h-4 text-[#C5A059] transition-transform duration-500 ${displayService?.id === 'blueprint-architecture' ? '-rotate-90' : 'group-hover:-rotate-90'}`} />
-                  </div>
+                {(() => {
+                  const isBlueprint = displayService?.id === 'blueprint-architecture';
+                  return (
+                    <motion.div 
+                      variants={cardVariants}
+                      onMouseEnter={() => setActiveService(BLUEPRINT_SERVICE)}
+                      onClick={() => { 
+                        // FIX: Check screen width. Mobile = Navigate. Desktop = Popup.
+                        if (window.innerWidth < 1024) {
+                          window.location.href = '/system';
+                        } else {
+                          setSelectedService(BLUEPRINT_SERVICE); 
+                          setIsModalOpen(true); 
+                        }
+                      }}
+                      className={`relative p-6 bg-[#1a1a1a] border rounded-sm group cursor-pointer transition-all min-h-[250px] flex flex-col justify-between 
+                        ${isBlueprint
+                          ? 'border-[#C5A059] -translate-y-2 shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
+                          : (activePhase.dark ? 'border-[#C5A059] hover:-translate-y-1' : 'border-white/10 shadow-xl hover:-translate-y-1')
+                        }
+                      `}
+                    >
+                      <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none">
+                        <ViewportViz type="neural" color="#C5A059" />
+                      </div>
+                      
+                      <div className="flex justify-between items-start mb-4 relative z-10">
+                         <span className="font-mono text-xs text-white/50 block tracking-widest uppercase">/// BLUEPRINT</span>
+                         <ArrowDownRight className={`w-4 h-4 text-[#C5A059] transition-transform duration-500 ${isBlueprint ? '-rotate-90' : 'group-hover:-rotate-90'}`} />
+                      </div>
 
                   <div className="relative z-10 mb-auto">
                      <h4 className="font-serif text-2xl text-white mb-3 leading-tight">Architecture of Growth</h4>
                      <p className="font-sans text-sm text-white/60 line-clamp-none">Connect every pillar into one automated engine.</p>
                   </div>
 
-                  <div className="mt-6 pt-4 border-t border-white/10">
-                    <div className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-3 px-4 font-mono text-xs tracking-widest font-bold text-center uppercase">
-                      <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                      <span className="relative z-10 transition-colors duration-500">[ EXPLORE THE SYSTEM ]</span>
-                    </div>
-                  </div>
-                </motion.div>
+                      <div className="mt-6 pt-4 border-t border-white/10">
+                        <div className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-3 px-4 font-mono text-xs tracking-widest font-bold text-center uppercase">
+                          <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
+                          <span className="relative z-10 transition-colors duration-500">[ EXPLORE THE SYSTEM ]</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })()}
               </motion.div>
             </div>
         </main>

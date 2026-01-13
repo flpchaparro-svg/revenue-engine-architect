@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowRight, AlertCircle } from 'lucide-react';
+import { X, ArrowRight } from 'lucide-react';
 import { ServiceDetail } from '../types';
 import ViewportViz from './ViewportViz';
 
@@ -8,7 +9,6 @@ interface ModalProps {
   service: ServiceDetail | null;
   isOpen: boolean;
   onClose: () => void;
-  // Theme colors passed from parent
   theme?: {
     bg: string;
     text: string;
@@ -18,9 +18,24 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
-  if (!service) return null;
+  // State to ensure we only render portal on the client side
+  const [mounted, setMounted] = useState(false);
 
-  // Default theme fallback
+  useEffect(() => {
+    setMounted(true);
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      setMounted(false);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
+  if (!service || !mounted) return null;
+
   const currentTheme = theme || { 
     bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
@@ -29,12 +44,13 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
   };
 
   const accentHex = currentTheme.dark ? '#C5A059' : '#E21E3F';
-
-  return (
+  
+  // Define content separately to wrap in Portal
+  const modalContent = (
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* FIX: z-[9999] to sit on top of everything. cursor-pointer to indicate click-to-exit. */}
+          {/* OVERLAY: Fixed to viewport, z-index 9999 to beat parallax */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -43,6 +59,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
             className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999] cursor-pointer"
           />
           
+          {/* MODAL CONTAINER: z-index 10000 */}
           <motion.div
             initial={{ opacity: 0, scale: 0.98, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -53,7 +70,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
               className={`pointer-events-auto w-full max-w-5xl max-h-[90vh] rounded-sm overflow-hidden flex flex-col shadow-2xl ${currentTheme.bg}`}
             >
               
-              {/* 1. TOP VISUALIZATION (Always Dark for contrast, as per screenshot) */}
+              {/* 1. TOP VISUALIZATION */}
               <div className="h-48 md:h-64 relative bg-[#1a1a1a] border-b border-black/10 shrink-0">
                  <button 
                     onClick={onClose} 
@@ -61,8 +78,6 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                  >
                    <X className="w-5 h-5" />
                  </button>
-                 
-                 {/* Thick Lines (Scale 3) */}
                  <ViewportViz 
                     type={service.visualPrompt} 
                     color={accentHex} 
@@ -70,10 +85,10 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                  />
               </div>
 
-              {/* 2. CONTENT BODY (Scrollable) */}
+              {/* 2. CONTENT BODY */}
               <div className={`flex-1 overflow-y-auto p-8 md:p-12 ${currentTheme.text}`}>
                 
-                {/* "THE QUESTION" BOX */}
+                {/* QUESTION BOX */}
                 <div className={`mb-10 p-6 border rounded-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4
                     ${currentTheme.dark ? 'bg-white/5 border-white/10' : 'bg-[#E21E3F]/5 border-[#E21E3F]/10'}`}
                 >
@@ -88,29 +103,22 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                    </div>
                 </div>
 
-                {/* HEADER INFO */}
                 <div className="mb-2">
                     <span className={`font-mono text-[10px] uppercase tracking-[0.2em] font-bold ${currentTheme.accent}`}>
                        SERVICE OVERVIEW // {service.subtitle || 'SYSTEM MODULE'}
                     </span>
                 </div>
 
-                {/* BIG TITLE */}
                 <h2 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight mb-4 uppercase">
                   {service.title}
                 </h2>
                 <span className="font-mono text-xs uppercase tracking-widest opacity-40 block mb-12">THE FACE</span>
 
-                {/* 2-COLUMN GRID */}
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
-                   
-                   {/* LEFT: DESCRIPTION & STATS */}
                    <div className="md:col-span-7 space-y-8">
                       <p className="font-sans text-xl md:text-2xl font-light leading-relaxed opacity-90">
                         {service.description}
                       </p>
-                      
-                      {/* TECHNICAL STATS */}
                       <div className="flex gap-4 pt-4">
                          <div className="px-3 py-2 bg-black/5 border border-black/5 text-[10px] font-mono opacity-60 uppercase">
                             STABILITY: 99.9%
@@ -119,13 +127,8 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                             SCALABILITY: 100X
                          </div>
                       </div>
-
-                      <div className="md:hidden mt-8 pt-6 border-t border-black/10">
-                         <span className="font-mono text-[9px] opacity-40">UID: PILLAR1_REV_ENG_v5.0.0</span>
-                      </div>
                    </div>
 
-                   {/* RIGHT: FEATURES LIST */}
                    <div className="md:col-span-5 pt-2 md:pt-0">
                       <h4 className="font-serif text-sm font-bold tracking-widest uppercase mb-6 opacity-60">WHAT YOU GET</h4>
                       <ul className="space-y-4">
@@ -137,7 +140,6 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                         ))}
                       </ul>
                    </div>
-
                 </div>
 
                 {/* FOOTER */}
@@ -146,19 +148,33 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                       UID: PILLAR_SYS_{service.id.toUpperCase().slice(0,8)}
                    </span>
                    
+                   {/* BUTTON: Outlined with TOP-TO-BOTTOM Fill Animation */}
                    <button 
                      onClick={() => window.location.href='/system'}
-                     // FIX: Reverted to the "Old" Outlined/Ghost style
-                     className={`w-full md:w-auto px-8 py-4 flex items-center justify-center gap-4 border transition-all duration-300 group
+                     className={`relative w-full md:w-auto px-8 py-4 flex items-center justify-center gap-4 border overflow-hidden transition-colors duration-300 group
                         ${currentTheme.dark 
-                           ? 'border-[#C5A059]/30 hover:bg-[#C5A059] hover:text-[#1a1a1a] text-[#C5A059]' 
-                           : 'border-black/10 hover:bg-[#1a1a1a] hover:text-white text-[#1a1a1a]'}
+                           ? 'border-[#C5A059]' 
+                           : 'border-black/10'}
                      `}
                    >
-                     <span className="font-mono text-xs font-bold tracking-[0.2em] uppercase">
+                     {/* ANIMATED FILL: Starts at -100% (Top), Moves to 0 (Fill) */}
+                     <div className={`absolute inset-0 translate-y-[-100%] group-hover:translate-y-0 transition-transform duration-500 ease-out
+                        ${currentTheme.dark ? 'bg-[#C5A059]' : 'bg-[#1a1a1a]'}
+                     `} />
+
+                     {/* TEXT & ICON: Relative z-index to stay on top of fill */}
+                     <span className={`relative z-10 font-mono text-xs font-bold tracking-[0.2em] uppercase transition-colors duration-300
+                       ${currentTheme.dark 
+                         ? 'text-[#C5A059] group-hover:text-black' 
+                         : 'text-[#1a1a1a] group-hover:text-white'}
+                     `}>
                        [ SEE FULL DETAILS ]
                      </span>
-                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                     <ArrowRight className={`relative z-10 w-4 h-4 transition-transform group-hover:translate-x-1
+                        ${currentTheme.dark 
+                          ? 'text-[#C5A059] group-hover:text-black' 
+                          : 'text-[#1a1a1a] group-hover:text-white'}
+                     `} />
                    </button>
                 </div>
 
@@ -169,6 +185,9 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
       )}
     </AnimatePresence>
   );
+
+  // USE PORTAL to render at the end of body, bypassing all parallax z-indexes
+  return createPortal(modalContent, document.body);
 };
 
 export default Modal;
