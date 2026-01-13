@@ -320,8 +320,8 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
 
       {/* 4. 7 PILLARS SECTION */}
       <section id="seven-pillars" aria-label="Seven Pillars Section" className="relative bg-[#FFF2EC] z-30">
-        {/* <BentoGrid onServiceClick={onServiceClick || ((s) => onNavigate(s.id))} /> */}
-        <SystemPhases />
+        {/* FIX: Passing onNavigate so buttons actually work */}
+        <SystemPhases onNavigate={onNavigate} />
       </section>
 
       {/* 5. ABOUT SECTION */}

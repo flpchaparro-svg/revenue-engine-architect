@@ -5,6 +5,11 @@ import { SERVICES } from '../constants';
 import { ServiceDetail } from '../types';
 import ViewportViz from './ViewportViz';
 
+// Added Prop Interface
+interface SystemPhasesProps {
+  onNavigate?: (view: string, id?: string) => void;
+}
+
 const PHASES = [
   { 
     id: 'GET CLIENTS', 
@@ -82,7 +87,7 @@ const BLUEPRINT_SERVICE = {
   ]
 };
 
-const SystemPhases = () => {
+const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
   const [[page, direction], setPage] = useState([0, 0]);
   const [activeService, setActiveService] = useState<ServiceDetail | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -102,10 +107,16 @@ const SystemPhases = () => {
     setPage([newIndex, newIndex > activeIndex ? 1 : -1]);
   };
 
-  // UNIFIED NAVIGATION: Always go to the page
-  const handleCardClick = (service: ServiceDetail) => {
-    const url = service.id === 'blueprint-architecture' ? '/system' : `/system/${service.id}`;
-    window.location.href = url;
+  // FIX: Using app navigation instead of window reload
+  const handleCardClick = (service: ServiceDetail | typeof BLUEPRINT_SERVICE) => {
+    if (!onNavigate) return; // Safety check
+    
+    if (service.id === 'blueprint-architecture') {
+      onNavigate('system');
+    } else {
+      // Navigate to system page with the specific pillar ID selected
+      onNavigate('system', service.id);
+    }
   };
 
   return (
@@ -113,30 +124,32 @@ const SystemPhases = () => {
       ref={sectionRef} 
       className={`relative min-h-screen flex flex-row lg:flex-col transition-colors duration-700 ${activePhase.bg}`}
     >
-      {/* MOBILE SIDEBAR */}
+      {/* MOBILE SIDEBAR - FIX: High Contrast Indicators */}
       <aside className={`lg:hidden sticky top-0 h-screen w-14 shrink-0 flex flex-col items-center justify-center gap-10 z-[70] border-r backdrop-blur-xl transition-all duration-500 ${activePhase.sidebarText} ${activePhase.sidebarBorder} ${activePhase.sidebarBg}`}>
         {PHASES.map((phase, idx) => {
           const isActive = idx === activeIndex;
           
           return (
-            <button key={phase.id} onClick={() => changePhase(idx)} className="relative flex flex-col items-center gap-2 group">
-              {/* Active Indicator Background */}
+            <button key={phase.id} onClick={() => changePhase(idx)} className="relative flex items-center justify-center w-8 h-8 group">
+              {/* Active Indicator: Solid Circle (High Contrast) */}
               {isActive && (
                 <motion.div 
                    layoutId="activeMobilePhase"
-                   className={`absolute inset-0 rounded-full opacity-20 ${activePhase.dark ? 'bg-white' : 'bg-black'}`}
+                   className={`absolute inset-0 rounded-full ${activePhase.dark ? 'bg-white' : 'bg-black'}`}
                    initial={{ scale: 0 }}
-                   animate={{ scale: 1.5 }}
+                   animate={{ scale: 1 }}
                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 />
               )}
               
-              <motion.div 
-                animate={{ opacity: isActive ? 1 : 0.4, scale: isActive ? 1.2 : 1 }}
-                className={`font-mono text-xs font-bold relative z-10 ${activePhase.sidebarText}`}
-              >
+              {/* Number: Explicit color flip for readability */}
+              <span className={`font-mono text-xs font-bold relative z-10 transition-colors duration-300
+                ${isActive 
+                   ? (activePhase.dark ? 'text-black' : 'text-white') // If dark phase (White Circle) -> Black Text
+                   : activePhase.sidebarText} 
+              `}>
                 0{idx + 1}
-              </motion.div>
+              </span>
             </button>
           );
         })}
@@ -385,7 +398,7 @@ const SystemPhases = () => {
 
                       <div className="mt-6 pt-4 border-t border-white/10">
                         <div className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-3 px-4 font-mono text-xs tracking-widest font-bold text-center uppercase">
-                          <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
+                          <div className="absolute inset-0 bg-white translate-y-full lg:group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                           <span className="relative z-10 transition-colors duration-500">[ EXPLORE THE SYSTEM ]</span>
                         </div>
                       </div>
