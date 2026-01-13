@@ -95,7 +95,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
           ctx.beginPath();
           lineGen(points);
           ctx.strokeStyle = color;
-          ctx.lineWidth = 0.5;
+          ctx.lineWidth = 1.0; // INCREASED from 0.5
           ctx.globalAlpha = 0.3 - (i * 0.05);
           ctx.stroke();
 
@@ -132,7 +132,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
         ctx.beginPath();
         ctx.arc(cx, cy, 16, 0, 2 * Math.PI);
         ctx.strokeStyle = color;
-        ctx.lineWidth = 0.5;
+        ctx.lineWidth = 1.2; // INCREASED from 0.5
         ctx.globalAlpha = 0.5;
         ctx.stroke();
 
@@ -141,7 +141,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
           ctx.beginPath();
           ctx.arc(cx, cy, r, 0, 2 * Math.PI);
           ctx.strokeStyle = color;
-          ctx.lineWidth = 0.5;
+          ctx.lineWidth = 1.0; // INCREASED from 0.5
           ctx.setLineDash([3, 5]); // Dashed
           ctx.globalAlpha = 0.3;
           ctx.stroke();
@@ -162,7 +162,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
           ctx.moveTo(cx, cy);
           ctx.lineTo(x, y);
           ctx.strokeStyle = color;
-          ctx.lineWidth = 0.5;
+          ctx.lineWidth = 1.0; // INCREASED from 0.5
           ctx.globalAlpha = 0.4;
           ctx.stroke();
 
@@ -246,7 +246,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
 
         // Draw Connections
         ctx.strokeStyle = color;
-        ctx.lineWidth = 0.3;
+        ctx.lineWidth = 0.8; // INCREASED from 0.3
         for (let i = 0; i < nodeCount; i++) {
           for (let j = i + 1; j < nodeCount; j++) {
             const dx = nodes[i].x - nodes[j].x;

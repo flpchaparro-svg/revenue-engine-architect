@@ -51,6 +51,48 @@ const PHASES = [
   }
 ];
 
+// --- ANIMATION VARIANTS ---
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.1
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { 
+    opacity: 0, 
+    y: 20,
+    filter: 'blur(4px)',
+    scale: 0.98
+  },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    filter: 'blur(0px)',
+    scale: 1,
+    transition: {
+      type: "spring",
+      damping: 20,
+      stiffness: 100,
+      duration: 0.5
+    }
+  }
+};
+
+const textVariants = {
+  hidden: { opacity: 0, x: -10 },
+  visible: { 
+    opacity: 1, 
+    x: 0,
+    transition: { duration: 0.4, ease: "easeOut" }
+  }
+};
+
 const SystemPhases = () => {
   const [[page, direction], setPage] = useState([0, 0]);
   const [hoveredService, setHoveredService] = useState<ServiceDetail | null>(null);
@@ -78,9 +120,6 @@ const SystemPhases = () => {
   const changePhase = (newIndex: number) => {
     setPage([newIndex, newIndex > activeIndex ? 1 : -1]);
     setHoveredService(null);
-    if (sectionRef.current) {
-      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
   };
 
   return (
@@ -88,7 +127,7 @@ const SystemPhases = () => {
       ref={sectionRef} 
       className={`relative min-h-screen flex flex-row lg:flex-col transition-colors duration-700 ${activePhase.bg}`}
     >
-      {/* MOBILE SIDEBAR - Pulse Only */}
+      {/* MOBILE SIDEBAR */}
       <aside className={`lg:hidden sticky top-0 h-screen w-14 shrink-0 flex flex-col items-center justify-center gap-10 z-[70] border-r backdrop-blur-xl transition-all duration-500 ${activePhase.sidebarText} ${activePhase.sidebarBorder} ${activePhase.sidebarBg}`}>
         {PHASES.map((phase, idx) => {
           const isActive = idx === activeIndex;
@@ -109,7 +148,7 @@ const SystemPhases = () => {
       </aside>
 
       <div className="flex-1 flex flex-col w-full">
-        {/* HEADER - Synchronized with HomePage.tsx */}
+        {/* HEADER */}
         <div className={`pt-24 pb-12 px-6 lg:pt-16 lg:pb-8 text-center max-w-4xl mx-auto ${activePhase.text}`}>
            <span className="font-mono text-xs tracking-[0.4em] mb-4 block uppercase font-bold opacity-60">/ THE SYSTEM</span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-none tracking-tighter mb-6">7 Ways I Fix Your Business.</h2>
@@ -118,7 +157,7 @@ const SystemPhases = () => {
            </p>
         </div>
 
-        {/* DESKTOP TIMELINE: Pulse Only */}
+        {/* DESKTOP TIMELINE */}
         <header className="hidden lg:flex justify-center mb-10 pt-10">
            <div className="flex justify-between w-full max-w-4xl border-b border-current/10 pb-2">
               {PHASES.map((phase, idx) => {
@@ -143,123 +182,167 @@ const SystemPhases = () => {
            </div>
         </header>
 
-        {/* DASHBOARD AREA - Harmonized Card Sizes */}
+        {/* DASHBOARD AREA */}
         <main className="flex-1 px-6 lg:px-12 pb-24 w-full max-w-screen-2xl mx-auto z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch min-h-[600px]">
               
-              {/* LEFT DISPLAY */}
+              {/* LEFT DISPLAY - THE FEATURED CARD */}
               <div className="hidden lg:flex lg:col-span-6 flex-col">
-                <div className={`relative flex-1 rounded-sm border shadow-2xl overflow-hidden flex flex-col ${activePhase.dark ? 'bg-white/5 border-white/10' : 'bg-white border-black/10'}`}>
+                <div className={`relative flex-1 rounded-sm border shadow-2xl overflow-hidden flex flex-col transition-colors duration-500 ${activePhase.dark ? 'bg-white/5 border-white/10' : 'bg-white border-black/10'}`}>
+                  
+                  {/* Visual Container */}
                   <div className="h-1/2 relative border-b border-current/5">
-                    {/* The Restored Eyebrow */}
                     <div className="absolute top-6 left-6 z-20">
                       <div className={`font-mono text-[9px] uppercase tracking-[0.2em] font-medium opacity-50 ${activePhase.text}`}>
                         {displayService?.technicalLabel || '[ SYSTEM ARCHITECTURE ]'}
                       </div>
                     </div>
                     
-                    <ViewportViz 
-                      key={`viz-${displayService?.id}`} 
-                      type={displayService?.visualPrompt || activePhase.vizType} 
-                      color={activePhase.dark ? '#C5A059' : (activePhase.id === 'GET CLIENTS' ? '#E21E3F' : '#1a1a1a')} 
-                    />
+                    <AnimatePresence mode="wait">
+                        <ViewportViz 
+                        key={`viz-${displayService?.id}`} 
+                        type={displayService?.visualPrompt || activePhase.vizType} 
+                        color={activePhase.dark ? '#C5A059' : (activePhase.id === 'GET CLIENTS' ? '#E21E3F' : '#1a1a1a')} 
+                        />
+                    </AnimatePresence>
                   </div>
 
+                  {/* Text Content */}
                   <div className={`p-8 flex-1 flex flex-col justify-between ${activePhase.text}`}>
-                    <div>
-                      <h3 className="font-serif text-3xl mb-2">{displayService?.title}</h3>
-                      {/* Added Missing Subtitle Copy */}
-                      <p className="font-mono text-[10px] uppercase tracking-widest opacity-50 mb-4">{displayService?.subtitle}</p>
-                      <p className="text-sm opacity-70 leading-relaxed line-clamp-4">{displayService?.description}</p>
-                    </div>
+                    <AnimatePresence mode="wait">
+                        <motion.div
+                            key={displayService?.id}
+                            variants={textVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="hidden"
+                        >
+                            <h3 className="font-serif text-3xl mb-2">{displayService?.title}</h3>
+                            <p className="font-mono text-[10px] uppercase tracking-widest opacity-50 mb-4">{displayService?.subtitle}</p>
+                            <p className="text-sm opacity-70 leading-relaxed line-clamp-4">{displayService?.description}</p>
+                        </motion.div>
+                    </AnimatePresence>
                     
-                    <div className={`pt-6 border-t mt-auto ${activePhase.dark ? 'border-white/10' : 'border-black/5'}`}>
+                    <div className={`pt-6 border-t mt-auto flex justify-start ${activePhase.dark ? 'border-white/10' : 'border-black/5'}`}>
                       <button 
                         onClick={() => { setSelectedService(displayService); setIsModalOpen(true); }}
-                        className={`group relative px-8 py-4 font-mono text-[10px] tracking-[0.3em] font-bold overflow-hidden transition-all duration-500 border
-                          ${activePhase.id === 'SCALE FASTER' 
-                            ? 'border-[#C5A059] bg-[#C5A059] text-[#1a1a1a]' 
-                            : 'border-[#1a1a1a] bg-[#1a1a1a] text-white'}`}
+                        // CHANGED: text-[9px] -> text-xs (Standard 12px)
+                        className={`font-mono text-xs uppercase tracking-widest font-bold transition-colors duration-300
+                          ${activePhase.dark ? 'text-[#C5A059] hover:text-white' : 'text-[#E21E3F] hover:text-black'}
+                        `}
                       >
-                        {/* SLIDE-UP HOVER EFFECT */}
-                        <div className={`absolute inset-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1) translate-y-full group-hover:translate-y-0
-                          ${activePhase.id === 'SCALE FASTER' ? 'bg-white' : 'bg-[#C5A059]'}`} 
-                        />
-                        <span className="relative z-10 transition-colors duration-500 group-hover:text-[#1a1a1a]">
-                          [ EXPLORE PILLAR ]
-                        </span>
+                        [ EXPLORE PILLAR ]
                       </button>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* RIGHT GRID - Proportionally scaled cards */}
-              <div className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
+              {/* RIGHT GRID - THE SERVICE LIST */}
+              <motion.div 
+                key={activePhase.id} 
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6"
+              >
                 {currentServices.map((service, idx) => (
                   <motion.div
                     key={service.id}
-                    // Added Entrance Animation
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    viewport={{ once: true, margin: "-10%" }}
+                    transition={{ duration: 0.6, delay: idx * 0.1, ease: "easeOut" }}
                     onMouseEnter={() => setHoveredService(service)}
                     onMouseLeave={() => setHoveredService(null)}
                     onClick={() => { setSelectedService(service); setIsModalOpen(true); }}
-                    className={`relative p-6 border rounded-sm transition-all duration-300 group cursor-pointer min-h-[170px] flex flex-col justify-between hover:scale-[1.02] hover:-translate-y-1 ${
+                    className={`relative p-6 border rounded-sm transition-all duration-500 ease-out group cursor-pointer min-h-[250px] flex flex-col justify-between hover:-translate-y-2 ${
                       activePhase.dark ? 'border-[#C5A059]/30 hover:border-[#C5A059] text-white bg-white/5' : 'border-black/5 hover:border-[#E21E3F]/30 text-black bg-white'
                     }`}
                   >
-                    {/* MOBILE-ONLY VIZ */}
-                    <div className="absolute inset-0 z-0 opacity-[0.08] lg:hidden pointer-events-none">
-                      <ViewportViz type={service.visualPrompt} color={activePhase.dark ? '#C5A059' : '#E21E3F'} />
+                    {/* MOBILE VIZ - "3D ANIMATION" */}
+                    <div className="absolute inset-0 z-0 opacity-[0.25] lg:hidden pointer-events-none">
+                      <ViewportViz 
+                        type={service.visualPrompt} 
+                        // FIX: logic now handles Gold (Velocity), Red (Acquisition), and Black (Intelligence)
+                        color={activePhase.dark ? '#C5A059' : (activePhase.id === 'GET CLIENTS' ? '#E21E3F' : '#1a1a1a')} 
+                      />
                     </div>
 
-                    <div className="flex justify-between items-start">
-                      <span className="font-mono text-[10px] opacity-40">0{idx + 1}</span>
-                      
-                      {/* RED GHOST CAPTION ON HOVER */}
-                      <span className="font-mono text-[9px] uppercase tracking-widest text-[#E21E3F] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    {/* TOP: NUMBER + ARROW */}
+                    <div className="flex justify-between items-start mb-4">
+                      {/* MATCHED FONT: Mono, text-xs (was text-[10px]) */}
+                      <span className="font-mono text-xs opacity-40 transition-opacity duration-300 group-hover:opacity-100">0{idx + 1}</span>
+                      <ArrowDownRight className={`w-4 h-4 opacity-30 transition-all duration-500 group-hover:opacity-100 group-hover:-rotate-90 ${
+                          activePhase.dark ? 'group-hover:text-[#C5A059]' : 'group-hover:text-[#E21E3F]'
+                      }`} />
+                    </div>
+
+                    {/* MIDDLE: CONTENT */}
+                    <div className="mb-auto relative z-10">
+                      {/* MATCHED FONT: Serif, text-2xl (was text-xl) */}
+                      <h4 className="font-serif text-2xl mb-3 leading-tight transition-transform duration-300 group-hover:translate-x-1">{service.title}</h4>
+                      {/* MATCHED FONT: Sans, text-sm (was text-xs) */}
+                      <p className="font-sans text-sm opacity-60 leading-relaxed transition-opacity duration-300 group-hover:opacity-100 line-clamp-none">
+                        {service.description}
+                      </p>
+                    </div>
+
+                    {/* BOTTOM: STATIC VISIBLE CTA (Size Updated) */}
+                    <div className="mt-6 pt-4 border-t border-current/10 flex justify-start">
+                      {/* CHANGED: text-[9px] -> text-xs */}
+                      <span className={`
+                        font-mono text-xs uppercase tracking-widest font-bold transition-colors duration-300
+                        ${activePhase.dark ? 'text-[#C5A059] group-hover:text-white' : 'text-[#E21E3F] group-hover:text-black'}
+                      `}>
                         [ EXPLORE PILLAR ]
                       </span>
-                      
-                      <ArrowDownRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
-                    <div>
-                      <h4 className="font-serif text-xl mb-2">{service.title}</h4>
-                      <p className="text-xs opacity-60 line-clamp-2">{service.description}</p>
-                    </div>
+
                   </motion.div>
                 ))}
 
-                {/* PREMIUM CTA CARD - No arrows, no hover display update */}
+                {/* PREMIUM CTA CARD */}
                 <motion.div 
-                  // Added Entrance Animation for CTA as well
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 50 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
+                  viewport={{ once: true, margin: "-10%" }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
                   onClick={() => window.location.href='/system'}
-                  className={`relative p-6 bg-[#1a1a1a] border rounded-sm group cursor-pointer transition-all hover:-translate-y-1 min-h-[170px] flex flex-col justify-between ${
+                  className={`relative p-6 bg-[#1a1a1a] border rounded-sm group cursor-pointer transition-all hover:-translate-y-1 min-h-[250px] flex flex-col justify-between ${
                     activePhase.dark ? 'border-[#C5A059]' : 'border-white/10 shadow-xl'
                   }`}
                 >
                   <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none">
                     <ViewportViz type="neural" color="#C5A059" />
                   </div>
-                  <span className="relative z-10 font-mono text-[10px] text-white/50 block tracking-widest uppercase">/// BLUEPRINT</span>
-                  <div className="relative z-10">
-                    <h4 className="font-serif text-xl text-white mb-2 leading-tight">Architecture of Growth</h4>
-                    <p className="text-xs text-white/60 mb-4 line-clamp-2">Connect every pillar into one automated engine.</p>
+                  
+                  {/* TOP: LABEL + ARROW */}
+                  <div className="flex justify-between items-start mb-4 relative z-10">
+                      {/* CHANGED: text-[10px] -> text-xs */}
+                     <span className="font-mono text-xs text-white/50 block tracking-widest uppercase">/// BLUEPRINT</span>
+                     <ArrowDownRight className="w-4 h-4 text-[#C5A059]" />
                   </div>
-                  {/* CTA BUTTON: GOLD TO WHITE SLIDE */}
-                  <div className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-3 px-4 font-mono text-[10px] tracking-widest font-bold text-center uppercase">
-                    <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                    <span className="relative z-10 transition-colors duration-500">[ EXPLORE THE SYSTEM ]</span>
+
+                  {/* MIDDLE: CONTENT */}
+                  <div className="relative z-10 mb-auto">
+                      {/* CHANGED: text-xl -> text-2xl to match other cards */}
+                     <h4 className="font-serif text-2xl text-white mb-3 leading-tight">Architecture of Growth</h4>
+                     {/* CHANGED: text-xs -> text-sm */}
+                     <p className="font-sans text-sm text-white/60 line-clamp-none">Connect every pillar into one automated engine.</p>
+                  </div>
+
+                  {/* BOTTOM: BUTTON */}
+                  <div className="mt-6 pt-4 border-t border-white/10">
+                    {/* CHANGED: text-[10px] -> text-xs */}
+                    <div className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-3 px-4 font-mono text-xs tracking-widest font-bold text-center uppercase">
+                      <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
+                      <span className="relative z-10 transition-colors duration-500">[ EXPLORE THE SYSTEM ]</span>
+                    </div>
                   </div>
                 </motion.div>
-              </div>
+              </motion.div>
             </div>
         </main>
       </div>
