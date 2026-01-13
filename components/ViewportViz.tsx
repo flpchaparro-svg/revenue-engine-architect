@@ -5,9 +5,10 @@ import { useInView } from 'framer-motion';
 interface ViewportVizProps {
   type: string;
   color?: string;
+  lineWidthScale?: number; // NEW PROP
 }
 
-const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) => {
+const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', lineWidthScale = 1 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const timerRef = useRef<d3.Timer | null>(null);
@@ -95,7 +96,8 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
           ctx.beginPath();
           lineGen(points);
           ctx.strokeStyle = color;
-          ctx.lineWidth = 1.0; // INCREASED from 0.5
+          // APPLY SCALE
+          ctx.lineWidth = 1.0 * lineWidthScale; 
           ctx.globalAlpha = 0.3 - (i * 0.05);
           ctx.stroke();
 
@@ -104,7 +106,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
           ctx.globalAlpha = 0.8;
           points.forEach(p => {
             ctx.beginPath();
-            ctx.arc(p[0], p[1], 3, 0, 2 * Math.PI);
+            ctx.arc(p[0], p[1], 3 * lineWidthScale, 0, 2 * Math.PI); // Scale dots too
             ctx.fill();
           });
         }
@@ -123,7 +125,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
 
         // Center Dot
         ctx.beginPath();
-        ctx.arc(cx, cy, 6, 0, 2 * Math.PI);
+        ctx.arc(cx, cy, 6 * lineWidthScale, 0, 2 * Math.PI);
         ctx.fillStyle = color;
         ctx.globalAlpha = 0.9;
         ctx.fill();
@@ -132,7 +134,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
         ctx.beginPath();
         ctx.arc(cx, cy, 16, 0, 2 * Math.PI);
         ctx.strokeStyle = color;
-        ctx.lineWidth = 1.2; // INCREASED from 0.5
+        ctx.lineWidth = 1.2 * lineWidthScale;
         ctx.globalAlpha = 0.5;
         ctx.stroke();
 
@@ -141,11 +143,11 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
           ctx.beginPath();
           ctx.arc(cx, cy, r, 0, 2 * Math.PI);
           ctx.strokeStyle = color;
-          ctx.lineWidth = 1.0; // INCREASED from 0.5
-          ctx.setLineDash([3, 5]); // Dashed
+          ctx.lineWidth = 1.0 * lineWidthScale;
+          ctx.setLineDash([3 * lineWidthScale, 5 * lineWidthScale]);
           ctx.globalAlpha = 0.3;
           ctx.stroke();
-          ctx.setLineDash([]); // Reset
+          ctx.setLineDash([]);
         });
 
         // Satellites
@@ -162,13 +164,13 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
           ctx.moveTo(cx, cy);
           ctx.lineTo(x, y);
           ctx.strokeStyle = color;
-          ctx.lineWidth = 1.0; // INCREASED from 0.5
+          ctx.lineWidth = 1.0 * lineWidthScale;
           ctx.globalAlpha = 0.4;
           ctx.stroke();
 
           // Dot
           ctx.beginPath();
-          ctx.arc(x, y, 4, 0, 2 * Math.PI);
+          ctx.arc(x, y, 4 * lineWidthScale, 0, 2 * Math.PI);
           ctx.fillStyle = color;
           ctx.globalAlpha = 0.9;
           ctx.fill();
@@ -203,7 +205,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
           ctx.beginPath();
           lineGen(p);
           ctx.strokeStyle = color;
-          ctx.lineWidth = 0.5;
+          ctx.lineWidth = 1.0 * lineWidthScale;
           ctx.globalAlpha = 0.1;
           ctx.setLineDash([]);
           ctx.stroke();
@@ -213,12 +215,12 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
           ctx.beginPath();
           lineGen(p);
           ctx.strokeStyle = color;
-          ctx.lineWidth = 4;
+          ctx.lineWidth = 4 * lineWidthScale;
           ctx.globalAlpha = 1;
-          ctx.setLineDash([30, 1000]); // Dash length 30, Gap 1000
-          ctx.lineDashOffset = -progress * 1000; // Animate offset
+          ctx.setLineDash([30 * lineWidthScale, 1000]);
+          ctx.lineDashOffset = -progress * 1000;
           ctx.stroke();
-          ctx.setLineDash([]); // Reset
+          ctx.setLineDash([]);
         });
       });
     };
@@ -246,7 +248,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
 
         // Draw Connections
         ctx.strokeStyle = color;
-        ctx.lineWidth = 0.8; // INCREASED from 0.3
+        ctx.lineWidth = 0.8 * lineWidthScale;
         for (let i = 0; i < nodeCount; i++) {
           for (let j = i + 1; j < nodeCount; j++) {
             const dx = nodes[i].x - nodes[j].x;
@@ -267,7 +269,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
         ctx.globalAlpha = 0.8;
         nodes.forEach(n => {
           ctx.beginPath();
-          ctx.arc(n.x, n.y, 3, 0, 2 * Math.PI);
+          ctx.arc(n.x, n.y, 3 * lineWidthScale, 0, 2 * Math.PI);
           ctx.fill();
         });
       });
@@ -281,7 +283,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
       timerRef.current = d3.timer((elapsed) => {
         ctx.clearRect(0, 0, width, height);
         ctx.strokeStyle = color;
-        ctx.lineWidth = 1.0;
+        ctx.lineWidth = 1.0 * lineWidthScale;
         ctx.globalAlpha = 0.4;
 
         for (let i = 0; i < bars; i++) {
@@ -302,7 +304,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
       timerRef.current = d3.timer((elapsed) => {
         ctx.clearRect(0, 0, width, height);
         ctx.strokeStyle = color;
-        ctx.lineWidth = 1.0;
+        ctx.lineWidth = 1.0 * lineWidthScale;
 
         for (let i = 0; i < layers; i++) {
           const points: [number, number][] = [];
@@ -330,7 +332,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
 
         // Static Rings
         ctx.strokeStyle = color;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 2 * lineWidthScale;
         ctx.globalAlpha = 0.3;
         [0.33, 0.66, 1].forEach(scale => {
           ctx.beginPath();
@@ -339,7 +341,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
         });
 
         // Crosshairs
-        ctx.lineWidth = 1.5;
+        ctx.lineWidth = 1.5 * lineWidthScale;
         ctx.globalAlpha = 0.25;
         ctx.beginPath();
         ctx.moveTo(cx - maxR, cy);
@@ -359,7 +361,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
         ctx.beginPath();
         ctx.moveTo(cx, cy);
         ctx.lineTo(lx, ly);
-        ctx.lineWidth = 3;
+        ctx.lineWidth = 3 * lineWidthScale;
         ctx.globalAlpha = 0.8;
         ctx.stroke();
       });
@@ -413,7 +415,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059' }) =>
       observer.disconnect();
     };
 
-  }, [type, color, isInView]);
+  }, [type, color, isInView, lineWidthScale]); // Added lineWidthScale dependency
 
   return (
     <div ref={containerRef} className="w-full h-full bg-transparent relative overflow-hidden">

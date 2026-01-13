@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronRight, ArrowRight } from 'lucide-react';
+import { X, ArrowRight } from 'lucide-react';
 import { ServiceDetail } from '../types';
 import ViewportViz from './ViewportViz';
 
@@ -8,170 +8,103 @@ interface ModalProps {
   service: ServiceDetail | null;
   isOpen: boolean;
   onClose: () => void;
-  onViewPillar: (pillarId: string) => void;
+  theme?: {
+    bg: string;
+    text: string;
+    accent: string;
+    dark: boolean;
+  };
 }
 
-const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, onViewPillar }) => {
-  // Lock body scroll prevents the background page from moving while modal is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => { document.body.style.overflow = 'unset'; };
-  }, [isOpen]);
-
+const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
   if (!service) return null;
 
-  // Map systemGroup to color (same logic as BentoGrid)
-  const getVizColor = (systemGroup: string | undefined): string => {
-    if (!systemGroup) return '#C5A059'; // Default gold
-    if (systemGroup === 'GET CLIENTS') return '#E21E3F'; // Red for pillars 1-3
-    if (systemGroup === 'SCALE FASTER') return '#C5A059'; // Gold for pillars 4-6
-    if (systemGroup === 'SEE CLEARLY') return '#FFFFFF'; // White for pillar 7
-    return '#C5A059'; // Default gold
+  // Use the passed theme, or fall back to default dark if missing
+  const currentTheme = theme || { 
+    bg: 'bg-[#1a1a1a]', 
+    text: 'text-white', 
+    accent: 'text-[#C5A059]', 
+    dark: true 
   };
 
-  const handlePillarNavigation = () => {
-    if (service.id) {
-      onViewPillar(service.id);
-      onClose();
-    }
-  };
+  const accentColor = currentTheme.dark ? '#C5A059' : '#E21E3F';
+  const borderColor = currentTheme.dark ? 'border-[#C5A059]/20' : 'border-black/10';
 
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="relative z-[9999]">
-          
-          {/* 1. BACKDROP (Fixed independently so it doesn't scroll) */}
+        <>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/95 backdrop-blur-xl"
-            aria-hidden="true"
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[999]"
           />
-
-          {/* 2. SCROLL CONTAINER (Handles overflow) */}
-          <div className="fixed inset-0 overflow-y-auto">
-            
-            {/* 3. LAYOUT WRAPPER (Ensures centering but allows expansion) */}
-            <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-6 lg:p-12">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-8 pointer-events-none"
+          >
+            <div 
+              className={`pointer-events-auto w-full max-w-6xl max-h-[90vh] rounded-sm overflow-hidden flex flex-col md:flex-row shadow-2xl border ${borderColor} ${currentTheme.bg}`}
+            >
               
-              <motion.div
-                initial={{ y: 50, opacity: 0, scale: 0.98 }}
-                animate={{ y: 0, opacity: 1, scale: 1 }}
-                exit={{ y: 50, opacity: 0, scale: 0.98 }}
-                transition={{ type: "spring", damping: 30, stiffness: 200 }}
-                className="relative w-full max-w-5xl bg-[#FFF2EC] text-[#1a1a1a] shadow-2xl rounded-sm overflow-hidden text-left"
-                onClick={(e) => e.stopPropagation()} // Prevent click-through to backdrop
-              >
-                <div className="flex flex-col">
-                  
-                  {/* Header Visual */}
-                  <div className="h-48 bg-[#1a1a1a] relative border-b border-black/10 overflow-hidden shrink-0">
-                     <ViewportViz 
-                       key={service.id} 
-                       type={service.visualPrompt} 
-                       color={getVizColor(service.systemGroup)} 
-                     />
-                     <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] to-transparent opacity-60" />
-                     
-                     {/* CLOSE BUTTON - Absolute top right */}
-                     <button 
-                      onClick={onClose}
-                      type="button"
-                      className="absolute top-6 right-6 p-2 bg-white/10 hover:bg-white/20 transition-colors rounded-full text-white z-50 cursor-pointer"
-                    >
-                      <X className="w-6 h-6" />
-                    </button>
-                  </div>
+              {/* LEFT: VISUALIZATION (Thick Lines) */}
+              <div className="w-full md:w-1/2 h-64 md:h-auto relative border-b md:border-b-0 md:border-r border-current/10 bg-black/5">
+                 <div className="absolute top-6 left-6 z-20">
+                    <span className={`font-mono text-xs uppercase tracking-widest opacity-60 ${currentTheme.text}`}>
+                      [ {service.subtitle || 'SYSTEM MODULE'} ]
+                    </span>
+                 </div>
+                 
+                 {/* FIX: Scale=3 for heavy, visible lines */}
+                 <ViewportViz 
+                    type={service.visualPrompt} 
+                    color={accentColor} 
+                    lineWidthScale={3} 
+                 />
+              </div>
 
-                  <div className="p-8 lg:p-16">
-                    
-                    {/* --- DIAGNOSTIC CHECK --- */}
-                    {service.symptom && (
-                      <div className="mb-12 p-6 border border-[#E21E3F]/20 bg-[#E21E3F]/5 flex flex-col md:flex-row items-start gap-6 rounded-sm">
-                        <div className="mt-1 w-8 h-8 rounded-full border border-[#E21E3F] flex items-center justify-center shrink-0 bg-white">
-                          <div className="w-3 h-3 bg-[#E21E3F] rounded-full animate-pulse" />
-                        </div>
-                        <div className="flex-grow">
-                          <div className="font-mono text-[10px] text-[#E21E3F] uppercase tracking-[0.2em] font-bold mb-2">
-                            The Question
-                          </div>
-                          <p className="font-serif text-xl md:text-2xl text-[#1a1a1a] italic leading-tight">
-                            "{service.symptom}"
-                          </p>
-                        </div>
-                        <div className="self-center md:self-start shrink-0">
-                           <span className="px-3 py-1 bg-[#E21E3F] text-white text-[9px] font-mono uppercase tracking-widest font-bold rounded-full">
-                             Problem Detected
-                           </span>
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="mb-12">
-                      <span className="text-[#E21E3F] text-[10px] font-mono tracking-[0.4em] font-bold mb-4 block uppercase">
-                        Service Overview // {service.systemGroup || 'CORE'}
-                      </span>
-                      <h2 className="text-5xl lg:text-7xl font-serif font-light leading-none mb-4">
-                        {service.title}
-                      </h2>
-                      <p className="text-sm font-mono tracking-widest text-[#1a1a1a]/40 uppercase">{service.subtitle}</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                      <div className="lg:col-span-7">
-                        <p className="text-xl lg:text-2xl text-[#1a1a1a] leading-relaxed mb-8 font-light italic">
-                          {service.description}
-                        </p>
-                        <div className="flex items-center gap-4 text-xs font-mono opacity-50">
-                          <span className="px-2 py-1 border border-black/10">STABILITY: 99.9%</span>
-                          <span className="px-2 py-1 border border-black/10">SCALABILITY: 100X</span>
-                        </div>
-                      </div>
-
-                      <div className="lg:col-span-5">
-                        <h3 className="text-xs font-bold uppercase tracking-[0.2em] mb-8 border-b border-black/10 pb-2">What You Get</h3>
-                        <ul className="space-y-4">
-                          {service.features.map((feature, idx) => (
-                            <li key={idx} className="flex items-center gap-3">
-                              <ChevronRight className="w-4 h-4 text-[#E21E3F]" />
-                              <span className="text-sm font-semibold tracking-widest uppercase">{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-
-                    <div className="mt-16 pt-12 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-8">
-                      <div className="text-[10px] font-mono opacity-30 tracking-tighter">
-                        UID: {service.id ? service.id.toUpperCase() : 'SYS'}_REV_ENG_v5.0.0
-                      </div>
-                      <button 
-                        onClick={handlePillarNavigation}
-                        className="group relative px-10 py-5 bg-transparent text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.3em] font-bold overflow-hidden transition-all duration-300 w-full md:w-auto"
-                      >
-                        {/* Sliding Black Background (Slides UP on Hover) */}
-                        <div className="absolute inset-0 bg-[#1a1a1a] group-hover:-translate-y-full transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                        
-                        {/* Button Content (Changes Color on Hover) */}
-                        <div className="relative z-10 flex items-center justify-center gap-4 group-hover:text-[#1a1a1a] transition-colors duration-500">
-                          <span>[ SEE FULL DETAILS ]</span>
-                          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </div>
-                      </button>
-                    </div>
-                  </div>
+              {/* RIGHT: CONTENT (Original Structure Only) */}
+              <div className={`w-full md:w-1/2 p-8 md:p-12 flex flex-col overflow-y-auto ${currentTheme.text}`}>
+                <div className="flex justify-between items-start mb-8">
+                   <h2 className="font-serif text-3xl md:text-5xl leading-none tracking-tight">
+                     {service.title}
+                   </h2>
+                   <button onClick={onClose} className="p-2 hover:bg-current/5 rounded-full transition-colors">
+                     <X className="w-6 h-6" />
+                   </button>
                 </div>
-              </motion.div>
+
+                {/* Just the original description, no fake bullets */}
+                <div className="space-y-6 flex-1">
+                   <p className="font-sans text-lg opacity-80 leading-relaxed">
+                     {service.description}
+                   </p>
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-current/10">
+                   <button 
+                     onClick={() => window.location.href='/system'}
+                     className={`group flex items-center justify-between w-full p-4 border transition-all duration-300
+                       ${currentTheme.dark 
+                         ? 'border-[#C5A059] hover:bg-[#C5A059] hover:text-black' 
+                         : 'border-[#E21E3F] hover:bg-[#E21E3F] hover:text-white'}
+                     `}
+                   >
+                     <span className="font-mono text-xs font-bold tracking-[0.2em] uppercase">
+                       View Full System
+                     </span>
+                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                   </button>
+                </div>
+
+              </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </>
       )}
     </AnimatePresence>
   );

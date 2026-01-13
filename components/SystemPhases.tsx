@@ -51,75 +51,58 @@ const PHASES = [
   }
 ];
 
-// --- ANIMATION VARIANTS ---
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.1
-    }
-  }
+  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } }
 };
 
 const cardVariants = {
-  hidden: { 
-    opacity: 0, 
-    y: 20,
-    filter: 'blur(4px)',
-    scale: 0.98
-  },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    filter: 'blur(0px)',
-    scale: 1,
-    transition: {
-      type: "spring",
-      damping: 20,
-      stiffness: 100,
-      duration: 0.5
-    }
-  }
+  hidden: { opacity: 0, y: 20, filter: 'blur(4px)', scale: 0.98 },
+  visible: { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1, transition: { type: "spring", damping: 20, stiffness: 100, duration: 0.5 } }
 };
 
 const textVariants = {
   hidden: { opacity: 0, x: -10 },
-  visible: { 
-    opacity: 1, 
-    x: 0,
-    transition: { duration: 0.4, ease: "easeOut" }
-  }
+  visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } }
+};
+
+// Define the data for the Premium Blueprint Card so it can be displayed
+const BLUEPRINT_SERVICE: ServiceDetail = {
+  id: 'blueprint-architecture',
+  title: 'Architecture of Growth',
+  subtitle: '/// BLUEPRINT',
+  description: 'Connect every pillar into one automated engine.',
+  visualPrompt: 'neural',
+  technicalLabel: 'SYSTEM ARCHITECTURE',
+  systemGroup: 'INTEGRATION',
+  features: ['System Integration', 'Automated Workflows', 'Unified Dashboard']
 };
 
 const SystemPhases = () => {
   const [[page, direction], setPage] = useState([0, 0]);
-  const [hoveredService, setHoveredService] = useState<ServiceDetail | null>(null);
+  
+  // FIX 1: HOVER PERSISTENCE
+  // We initialize activeService directly. We don't use 'hoveredService' anymore.
+  // This ensures the last hovered item REMAINS active.
+  const [activeService, setActiveService] = useState<ServiceDetail | null>(null);
+  
   const [selectedService, setSelectedService] = useState<ServiceDetail | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isNearBottom, setIsNearBottom] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   const activeIndex = Math.abs(page % PHASES.length);
   const activePhase = PHASES[activeIndex];
   const currentServices = SERVICES.filter(s => s.systemGroup === activePhase.id);
-  const displayService = hoveredService || currentServices[0];
-
+  
+  // Ensure we have a valid service to display when changing phases
   useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const dist = rect.bottom - window.innerHeight;
-      setIsNearBottom(dist < 300);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    setActiveService(currentServices[0]);
+  }, [activePhase.id]);
+
+  const displayService = activeService || currentServices[0];
 
   const changePhase = (newIndex: number) => {
     setPage([newIndex, newIndex > activeIndex ? 1 : -1]);
-    setHoveredService(null);
   };
 
   return (
@@ -132,7 +115,6 @@ const SystemPhases = () => {
         {PHASES.map((phase, idx) => {
           const isActive = idx === activeIndex;
           const isUnvisited = idx > activeIndex;
-          
           return (
             <button key={phase.id} onClick={() => changePhase(idx)} className="relative flex flex-col items-center gap-2">
               <motion.div 
@@ -163,7 +145,6 @@ const SystemPhases = () => {
               {PHASES.map((phase, idx) => {
                 const isActive = idx === activeIndex;
                 const isUnvisited = idx > activeIndex;
-
                 return (
                   <button 
                     key={phase.id} 
@@ -186,7 +167,7 @@ const SystemPhases = () => {
         <main className="flex-1 px-6 lg:px-12 pb-24 w-full max-w-screen-2xl mx-auto z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch min-h-[600px]">
               
-              {/* LEFT DISPLAY - THE FEATURED CARD */}
+              {/* LEFT DISPLAY - MAIN CARD */}
               <div className="hidden lg:flex lg:col-span-6 flex-col">
                 <div className={`relative flex-1 rounded-sm border shadow-2xl overflow-hidden flex flex-col transition-colors duration-500 ${activePhase.dark ? 'bg-white/5 border-white/10' : 'bg-white border-black/10'}`}>
                   
@@ -199,10 +180,15 @@ const SystemPhases = () => {
                     </div>
                     
                     <AnimatePresence mode="wait">
+                        {/* FIX: Check if we are viewing the Blueprint. If yes, force GOLD color. */}
                         <ViewportViz 
-                        key={`viz-${displayService?.id}`} 
-                        type={displayService?.visualPrompt || activePhase.vizType} 
-                        color={activePhase.dark ? '#C5A059' : (activePhase.id === 'GET CLIENTS' ? '#E21E3F' : '#1a1a1a')} 
+                          key={`viz-${displayService?.id}`} 
+                          type={displayService?.visualPrompt || activePhase.vizType} 
+                          color={
+                            displayService?.id === 'blueprint-architecture' 
+                              ? '#C5A059' // Force Gold for Blueprint
+                              : (activePhase.dark ? '#C5A059' : (activePhase.id === 'GET CLIENTS' ? '#E21E3F' : '#1a1a1a'))
+                          } 
                         />
                     </AnimatePresence>
                   </div>
@@ -223,22 +209,31 @@ const SystemPhases = () => {
                         </motion.div>
                     </AnimatePresence>
                     
-                    <div className={`pt-6 border-t mt-auto flex justify-start ${activePhase.dark ? 'border-white/10' : 'border-black/5'}`}>
-                      <button 
-                        onClick={() => { setSelectedService(displayService); setIsModalOpen(true); }}
-                        // CHANGED: text-[9px] -> text-xs (Standard 12px)
-                        className={`font-mono text-xs uppercase tracking-widest font-bold transition-colors duration-300
-                          ${activePhase.dark ? 'text-[#C5A059] hover:text-white' : 'text-[#E21E3F] hover:text-black'}
-                        `}
-                      >
-                        [ EXPLORE PILLAR ]
-                      </button>
+                    {/* FIX 2: NEW STATIC CTA DISPLAY */}
+                    <div className={`mt-auto pt-6 border-t ${activePhase.dark ? 'border-white/10' : 'border-black/5'}`}>
+                        <div className="flex flex-col gap-3">
+                             <span className="font-mono text-[9px] uppercase tracking-widest opacity-40">
+                                /// SYSTEM_INTEGRATION
+                             </span>
+                             <p className="font-sans text-xs opacity-60 leading-relaxed max-w-[90%]">
+                                See how this pillar integrates with the full Revenue Engine or functions as a standalone module.
+                             </p>
+                             <button
+                                onClick={() => { setSelectedService(displayService); setIsModalOpen(true); }}
+                                className={`text-left font-mono text-xs font-bold uppercase tracking-widest mt-1 transition-colors duration-300
+                                    ${activePhase.dark ? 'text-[#C5A059] hover:text-white' : 'text-[#E21E3F] hover:text-black'}
+                                `}
+                             >
+                                [ EXPLORE PILLAR ]
+                             </button>
+                        </div>
                     </div>
+
                   </div>
                 </div>
               </div>
 
-              {/* RIGHT GRID - THE SERVICE LIST */}
+              {/* RIGHT GRID - SERVICE LIST */}
               <motion.div 
                 key={activePhase.id} 
                 variants={containerVariants}
@@ -247,95 +242,120 @@ const SystemPhases = () => {
                 viewport={{ once: true, margin: "-50px" }}
                 className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6"
               >
-                {currentServices.map((service, idx) => (
-                  <motion.div
-                    key={service.id}
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-10%" }}
-                    transition={{ duration: 0.6, delay: idx * 0.1, ease: "easeOut" }}
-                    onMouseEnter={() => setHoveredService(service)}
-                    onMouseLeave={() => setHoveredService(null)}
-                    onClick={() => { setSelectedService(service); setIsModalOpen(true); }}
-                    className={`relative p-6 border rounded-sm transition-all duration-500 ease-out group cursor-pointer min-h-[250px] flex flex-col justify-between hover:-translate-y-2 ${
-                      activePhase.dark ? 'border-[#C5A059]/30 hover:border-[#C5A059] text-white bg-white/5' : 'border-black/5 hover:border-[#E21E3F]/30 text-black bg-white'
-                    }`}
-                  >
-                    {/* MOBILE VIZ - "3D ANIMATION" */}
-                    <div className="absolute inset-0 z-0 opacity-[0.25] lg:hidden pointer-events-none">
-                      <ViewportViz 
-                        type={service.visualPrompt} 
-                        // FIX: logic now handles Gold (Velocity), Red (Acquisition), and Black (Intelligence)
-                        color={activePhase.dark ? '#C5A059' : (activePhase.id === 'GET CLIENTS' ? '#E21E3F' : '#1a1a1a')} 
-                      />
-                    </div>
+                {currentServices.map((service, idx) => {
+                  const isActive = displayService?.id === service.id;
 
-                    {/* TOP: NUMBER + ARROW */}
-                    <div className="flex justify-between items-start mb-4">
-                      {/* MATCHED FONT: Mono, text-xs (was text-[10px]) */}
-                      <span className="font-mono text-xs opacity-40 transition-opacity duration-300 group-hover:opacity-100">0{idx + 1}</span>
-                      <ArrowDownRight className={`w-4 h-4 opacity-30 transition-all duration-500 group-hover:opacity-100 group-hover:-rotate-90 ${
-                          activePhase.dark ? 'group-hover:text-[#C5A059]' : 'group-hover:text-[#E21E3F]'
-                      }`} />
-                    </div>
+                  return (
+                    <motion.div
+                      key={service.id}
+                      variants={cardVariants}
+                      // FIX 1: Update activeService on hover, but DON'T reset on leave
+                      onMouseEnter={() => setActiveService(service)}
+                      onClick={() => { setSelectedService(service); setIsModalOpen(true); }}
+                      className={`relative border rounded-sm transition-all duration-500 ease-out group cursor-pointer flex flex-col
+                        ${activePhase.dark ? 'bg-white/5' : 'bg-white'}
+                        ${isActive 
+                           ? (activePhase.dark 
+                               ? 'border-[#C5A059] -translate-y-2 shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
+                               : 'border-[#E21E3F] -translate-y-2 shadow-xl')
+                           : (activePhase.dark 
+                               ? 'border-[#C5A059]/30 hover:border-[#C5A059] hover:-translate-y-2' 
+                               : 'border-black/5 hover:border-[#E21E3F]/30 hover:-translate-y-2')
+                        }
+                        ${activePhase.dark ? 'text-white' : 'text-black'}
+                      `}
+                    >
+                      {/* MOBILE TOP VISUALIZER */}
+                      <div className="relative h-48 w-full border-b border-current/10 lg:hidden shrink-0 overflow-hidden bg-black/5">
+                          <div className="absolute top-4 left-4 z-10">
+                             <span className="font-mono text-[9px] uppercase tracking-widest opacity-50">
+                               [ {service.subtitle || 'SYSTEM'} ]
+                             </span>
+                          </div>
+                          <ViewportViz 
+                             type={service.visualPrompt} 
+                             color={activePhase.dark ? '#C5A059' : (activePhase.id === 'GET CLIENTS' ? '#E21E3F' : '#1a1a1a')} 
+                          />
+                      </div>
 
-                    {/* MIDDLE: CONTENT */}
-                    <div className="mb-auto relative z-10">
-                      {/* MATCHED FONT: Serif, text-2xl (was text-xl) */}
-                      <h4 className="font-serif text-2xl mb-3 leading-tight transition-transform duration-300 group-hover:translate-x-1">{service.title}</h4>
-                      {/* MATCHED FONT: Sans, text-sm (was text-xs) */}
-                      <p className="font-sans text-sm opacity-60 leading-relaxed transition-opacity duration-300 group-hover:opacity-100 line-clamp-none">
-                        {service.description}
-                      </p>
-                    </div>
+                      {/* CONTENT CONTAINER */}
+                      <div className="p-6 flex flex-col flex-1 h-full min-h-[220px]">
+                         
+                         {/* TOP: NUMBER + ARROW */}
+                         <div className="flex justify-between items-start mb-4">
+                            <span className={`font-mono text-xs transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-40 group-hover:opacity-100'}`}>0{idx + 1}</span>
+                            <ArrowDownRight className={`w-4 h-4 transition-all duration-500 ${
+                                isActive 
+                                  ? `opacity-100 -rotate-90 ${activePhase.dark ? 'text-[#C5A059]' : 'text-[#E21E3F]'}`
+                                  : `opacity-30 group-hover:opacity-100 group-hover:-rotate-90 ${activePhase.dark ? 'group-hover:text-[#C5A059]' : 'group-hover:text-[#E21E3F]'}`
+                            }`} />
+                         </div>
 
-                    {/* BOTTOM: STATIC VISIBLE CTA (Size Updated) */}
-                    <div className="mt-6 pt-4 border-t border-current/10 flex justify-start">
-                      {/* CHANGED: text-[9px] -> text-xs */}
-                      <span className={`
-                        font-mono text-xs uppercase tracking-widest font-bold transition-colors duration-300
-                        ${activePhase.dark ? 'text-[#C5A059] group-hover:text-white' : 'text-[#E21E3F] group-hover:text-black'}
-                      `}>
-                        [ EXPLORE PILLAR ]
-                      </span>
-                    </div>
+                         {/* MIDDLE: CONTENT */}
+                         <div className="mb-auto relative z-10">
+                            <h4 className={`font-serif text-2xl mb-3 leading-tight transition-transform duration-300 ${isActive ? 'translate-x-1' : 'group-hover:translate-x-1'}`}>
+                              {service.title}
+                            </h4>
+                            <p className={`font-sans text-sm leading-relaxed transition-opacity duration-300 line-clamp-none ${isActive ? 'opacity-100' : 'opacity-60 group-hover:opacity-100'}`}>
+                              {service.description}
+                            </p>
+                         </div>
 
-                  </motion.div>
-                ))}
+                         {/* BOTTOM: CTA */}
+                         <div className="mt-6 pt-4 border-t border-current/10 flex justify-start">
+                            <span className={`
+                              font-mono text-xs uppercase tracking-widest font-bold transition-colors duration-300
+                              ${isActive 
+                                 ? (activePhase.dark ? 'text-white' : 'text-black') 
+                                 : (activePhase.dark ? 'text-[#C5A059] group-hover:text-white' : 'text-[#E21E3F] group-hover:text-black')
+                              }
+                            `}>
+                              [ EXPLORE PILLAR ]
+                            </span>
+                         </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
 
                 {/* PREMIUM CTA CARD */}
                 <motion.div 
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-10%" }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
+                  variants={cardVariants}
+                  // FIX: Passing the full data object directly here to ensure the Display receives it
+                  onMouseEnter={() => setActiveService({
+                    id: 'blueprint-architecture',
+                    title: 'Architecture of Growth',
+                    subtitle: '/// BLUEPRINT',
+                    description: 'Connect every pillar into one automated engine.',
+                    visualPrompt: 'neural',
+                    technicalLabel: 'SYSTEM ARCHITECTURE',
+                    systemGroup: 'INTEGRATION',
+                    features: [] 
+                  })}
                   onClick={() => window.location.href='/system'}
-                  className={`relative p-6 bg-[#1a1a1a] border rounded-sm group cursor-pointer transition-all hover:-translate-y-1 min-h-[250px] flex flex-col justify-between ${
-                    activePhase.dark ? 'border-[#C5A059]' : 'border-white/10 shadow-xl'
-                  }`}
+                  className={`relative p-6 bg-[#1a1a1a] border rounded-sm group cursor-pointer transition-all min-h-[250px] flex flex-col justify-between 
+                    ${/* Active State Styling */ ''}
+                    ${displayService?.id === 'blueprint-architecture'
+                      ? 'border-[#C5A059] -translate-y-2 shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
+                      : (activePhase.dark ? 'border-[#C5A059] hover:-translate-y-1' : 'border-white/10 shadow-xl hover:-translate-y-1')
+                    }
+                  `}
                 >
                   <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none">
                     <ViewportViz type="neural" color="#C5A059" />
                   </div>
                   
-                  {/* TOP: LABEL + ARROW */}
                   <div className="flex justify-between items-start mb-4 relative z-10">
-                      {/* CHANGED: text-[10px] -> text-xs */}
                      <span className="font-mono text-xs text-white/50 block tracking-widest uppercase">/// BLUEPRINT</span>
-                     <ArrowDownRight className="w-4 h-4 text-[#C5A059]" />
+                     <ArrowDownRight className={`w-4 h-4 text-[#C5A059] transition-transform duration-500 ${displayService?.id === 'blueprint-architecture' ? '-rotate-90' : 'group-hover:-rotate-90'}`} />
                   </div>
 
-                  {/* MIDDLE: CONTENT */}
                   <div className="relative z-10 mb-auto">
-                      {/* CHANGED: text-xl -> text-2xl to match other cards */}
                      <h4 className="font-serif text-2xl text-white mb-3 leading-tight">Architecture of Growth</h4>
-                     {/* CHANGED: text-xs -> text-sm */}
                      <p className="font-sans text-sm text-white/60 line-clamp-none">Connect every pillar into one automated engine.</p>
                   </div>
 
-                  {/* BOTTOM: BUTTON */}
                   <div className="mt-6 pt-4 border-t border-white/10">
-                    {/* CHANGED: text-[10px] -> text-xs */}
                     <div className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-3 px-4 font-mono text-xs tracking-widest font-bold text-center uppercase">
                       <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                       <span className="relative z-10 transition-colors duration-500">[ EXPLORE THE SYSTEM ]</span>
@@ -347,7 +367,19 @@ const SystemPhases = () => {
         </main>
       </div>
 
-      <Modal service={selectedService} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onViewPillar={() => {}} />
+      <Modal 
+        service={selectedService} 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        onViewPillar={() => {}} 
+        // FIX: PASSING THE ACTIVE PHASE COLORS
+        theme={{
+          bg: activePhase.bg,
+          text: activePhase.text,
+          accent: activePhase.accent,
+          dark: activePhase.dark
+        }}
+      />
     </section>
   );
 };
