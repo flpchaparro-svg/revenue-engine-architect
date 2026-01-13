@@ -105,6 +105,11 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
 
   const changePhase = (newIndex: number) => {
     setPage([newIndex, newIndex > activeIndex ? 1 : -1]);
+    
+    // FIX: Scroll to top of section on mobile when changing phases
+    if (window.innerWidth < 1024 && sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   // FIX: Using app navigation instead of window reload

@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState } from 'react';
+import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from 'framer-motion';
 
@@ -59,8 +59,15 @@ const App: React.FC = () => {
     };
     const route = routeMap[path] || '/';
     navigate(route);
-    window.scrollTo(0, 0);
   };
+
+  // FIX: Scroll to top on route change (handles refresh, direct navigation, and pillar clicks)
+  useEffect(() => {
+    // Use requestAnimationFrame to ensure DOM is ready
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    });
+  }, [location.pathname]);
 
   const getCurrentView = () => {
     const path = location.pathname;
