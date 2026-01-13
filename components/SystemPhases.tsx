@@ -114,8 +114,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
     if (service.id === 'blueprint-architecture') {
       onNavigate('system');
     } else {
-      // Navigate to system page with the specific pillar ID selected
-      onNavigate('system', service.id);
+      // Service IDs are already 'pillar1', 'pillar2', etc., which match the routeMap keys
+      onNavigate(service.id);
     }
   };
 
@@ -299,12 +299,12 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       variants={cardVariants}
                       onMouseEnter={() => setActiveService(service)}
                       onClick={() => handleCardClick(service)}
-                      className={`relative border rounded-sm transition-all duration-500 ease-out group cursor-pointer flex flex-col
+                      className={`relative border rounded-sm lg:transition-all lg:duration-500 lg:ease-out group cursor-pointer flex flex-col
                         ${activePhase.dark ? 'bg-white/5' : 'bg-white'}
                         ${isActive 
                            ? (activePhase.dark 
-                               ? 'border-[#C5A059] lg:-translate-y-2 shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
-                               : 'border-[#E21E3F] lg:-translate-y-2 shadow-xl')
+                               ? 'border-[#C5A059] lg:-translate-y-2 lg:shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
+                               : 'border-[#E21E3F] lg:-translate-y-2 lg:shadow-xl')
                            : (activePhase.dark 
                                ? 'border-[#C5A059]/30 lg:hover:border-[#C5A059] lg:hover:-translate-y-2' 
                                : 'border-black/5 lg:hover:border-[#E21E3F]/30 lg:hover:-translate-y-2')
@@ -331,20 +331,20 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                          
                          {/* TOP: NUMBER + ARROW */}
                          <div className="flex justify-between items-start mb-4">
-                            <span className={`font-mono text-xs font-bold transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-40 lg:group-hover:opacity-100'}`}>0{idx + 1}</span>
-                            <ArrowDownRight className={`w-4 h-4 transition-all duration-500 ${
+                            <span className={`font-mono text-xs font-bold ${isActive ? 'opacity-100' : 'opacity-40'} lg:transition-opacity lg:duration-300 lg:group-hover:opacity-100`}>0{idx + 1}</span>
+                            <ArrowDownRight className={`w-4 h-4 ${
                                 isActive 
-                                  ? `opacity-100 lg:-rotate-90 ${activePhase.dark ? 'text-[#C5A059]' : 'text-[#E21E3F]'}`
-                                  : `opacity-30 lg:group-hover:opacity-100 lg:group-hover:-rotate-90 ${activePhase.dark ? 'lg:group-hover:text-[#C5A059]' : 'lg:group-hover:text-[#E21E3F]'}`
+                                  ? `opacity-100 ${activePhase.dark ? 'text-[#C5A059]' : 'text-[#E21E3F]'} lg:-rotate-90 lg:transition-all lg:duration-500`
+                                  : `opacity-30 lg:transition-all lg:duration-500 lg:group-hover:opacity-100 lg:group-hover:-rotate-90 ${activePhase.dark ? 'lg:group-hover:text-[#C5A059]' : 'lg:group-hover:text-[#E21E3F]'}`
                             }`} />
                          </div>
 
                          {/* MIDDLE: CONTENT */}
                          <div className="mb-auto relative z-10">
-                            <h4 className={`font-serif text-2xl mb-3 leading-tight transition-transform duration-300 ${isActive ? 'lg:translate-x-1' : 'lg:group-hover:translate-x-1'}`}>
+                            <h4 className={`font-serif text-2xl mb-3 leading-tight ${isActive ? '' : ''} lg:transition-transform lg:duration-300 lg:translate-x-1 lg:group-hover:translate-x-1`}>
                               {service.title}
                             </h4>
-                            <p className={`font-sans text-sm leading-relaxed transition-opacity duration-300 line-clamp-none ${isActive ? 'opacity-100' : 'opacity-60 lg:group-hover:opacity-100'}`}>
+                            <p className={`font-sans text-sm leading-relaxed line-clamp-none ${isActive ? 'opacity-100' : 'opacity-60'} lg:transition-opacity lg:duration-300 lg:group-hover:opacity-100`}>
                               {service.description}
                             </p>
                          </div>
@@ -352,11 +352,12 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                          {/* BOTTOM: CTA */}
                          <div className="mt-6 pt-4 border-t border-current/10 flex justify-start">
                             <span className={`
-                              font-mono text-xs uppercase tracking-widest font-bold transition-colors duration-300
+                              font-mono text-xs uppercase tracking-widest font-bold
                               ${isActive 
                                  ? (activePhase.dark ? 'text-white' : 'text-black') 
-                                 : (activePhase.dark ? 'text-[#C5A059] lg:group-hover:text-white' : 'text-[#E21E3F] lg:group-hover:text-black')
+                                 : (activePhase.dark ? 'text-[#C5A059]' : 'text-[#E21E3F]')
                               }
+                              lg:transition-colors lg:duration-300 lg:group-hover:text-white lg:group-hover:text-black
                             `}>
                               [ EXPLORE PILLAR ]
                             </span>
@@ -374,10 +375,10 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       variants={cardVariants}
                       onMouseEnter={() => setActiveService(BLUEPRINT_SERVICE)}
                       onClick={() => handleCardClick(BLUEPRINT_SERVICE as ServiceDetail)}
-                      className={`relative p-6 bg-[#1a1a1a] border rounded-sm group cursor-pointer transition-all min-h-[250px] flex flex-col justify-between 
+                      className={`relative p-6 bg-[#1a1a1a] border rounded-sm group cursor-pointer lg:transition-all min-h-[250px] flex flex-col justify-between 
                         ${isBlueprint
-                          ? 'border-[#C5A059] lg:-translate-y-2 shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
-                          : (activePhase.dark ? 'border-[#C5A059] lg:hover:-translate-y-1' : 'border-white/10 shadow-xl lg:hover:-translate-y-1')
+                          ? 'border-[#C5A059] lg:-translate-y-2 lg:shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
+                          : (activePhase.dark ? 'border-[#C5A059] lg:hover:-translate-y-1' : 'border-white/10 lg:shadow-xl lg:hover:-translate-y-1')
                         }
                       `}
                     >
@@ -388,7 +389,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       <div className="flex justify-between items-start mb-4 relative z-10">
                          {/* MATCHED FONT: text-xs font-bold (was text-[10px]) */}
                          <span className="font-mono text-xs font-bold text-white/50 block tracking-widest uppercase">/// BLUEPRINT</span>
-                         <ArrowDownRight className={`w-4 h-4 text-[#C5A059] transition-transform duration-500 ${isBlueprint ? 'lg:-rotate-90' : 'lg:group-hover:-rotate-90'}`} />
+                         <ArrowDownRight className={`w-4 h-4 text-[#C5A059] lg:transition-transform lg:duration-500 ${isBlueprint ? 'lg:-rotate-90' : 'lg:group-hover:-rotate-90'}`} />
                       </div>
 
                       <div className="relative z-10 mb-auto">
@@ -398,8 +399,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
 
                       <div className="mt-6 pt-4 border-t border-white/10">
                         <div className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-3 px-4 font-mono text-xs tracking-widest font-bold text-center uppercase">
-                          <div className="absolute inset-0 bg-white translate-y-full lg:group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                          <span className="relative z-10 transition-colors duration-500">[ EXPLORE THE SYSTEM ]</span>
+                          <div className="absolute inset-0 bg-white translate-y-full lg:group-hover:translate-y-0 lg:transition-transform lg:duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
+                          <span className="relative z-10 lg:transition-colors lg:duration-500">[ EXPLORE THE SYSTEM ]</span>
                         </div>
                       </div>
                     </motion.div>
