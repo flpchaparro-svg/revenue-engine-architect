@@ -15,7 +15,9 @@ const ALL_PILLARS = [
     description: 'Not a brochure, but a "Digital Catcher." A high-performance structure designed to capture leads and process transactions with zero friction.',
     subServices: [
        { title: 'The Bond', description: 'It acts as the "Mouth" of the Acquisition system. Without it, the CRM (The Brain) has nothing to process.' },
-       { title: 'The Whole', description: 'It establishes the first data point. If the Face fails to capture the source, the Intelligence (Pillar 7) cannot measure ROI later.' }
+       { title: 'The Whole', description: 'It establishes the first data point. If the Face fails to capture the source, the Intelligence (Pillar 7) cannot measure ROI later.' },
+       { title: 'Client Benefit', description: 'Stops "Lead Leakage." You stop losing customers to slower competitors.' },
+       { title: 'Group Purpose', description: 'To capture demand and structure data.' }
     ]
   },
   {
@@ -24,7 +26,9 @@ const ALL_PILLARS = [
     description: 'The Single Source of Truth. A unified database that tracks every call, email, and deal stage. If it\'s not here, it didn\'t happen.',
     subServices: [
        { title: 'The Bond', description: 'It acts as the "Memory." It stores what The Face captures and triggers The Muscle to act.' },
-       { title: 'The Whole', description: 'It is the central nervous system. It holds the data that the AI Agents (Pillar 4) need to read in order to speak intelligently to customers.' }
+       { title: 'The Whole', description: 'It is the central nervous system. It holds the data that the AI Agents (Pillar 4) need to read in order to speak intelligently to customers.' },
+       { title: 'Client Benefit', description: 'Pipeline Visibility. You stop managing by memory and start managing by data.' },
+       { title: 'Group Purpose', description: 'To capture demand and structure data.' }
     ]
   },
   {
@@ -33,7 +37,9 @@ const ALL_PILLARS = [
     description: 'Code Leverage. Replacing "Minor Labour" (data entry, invoicing, scheduling) with silent, instant code execution.',
     subServices: [
        { title: 'The Bond', description: 'It acts as the "Hands." When The Brain signals a "Won Deal," The Muscle instantly sends the invoice and contract.' },
-       { title: 'The Whole', description: 'It creates velocity. It ensures that data moves between Marketing, Sales, and Ops instantly, removing the human bottleneck.' }
+       { title: 'The Whole', description: 'It creates velocity. It ensures that data moves between Marketing, Sales, and Ops instantly, removing the human bottleneck.' },
+       { title: 'Client Benefit', description: 'Time Arbitrage. Your team focuses on high-value strategy, not low-value admin.' },
+       { title: 'Group Purpose', description: 'To capture demand and structure data.' }
     ]
   },
   {
@@ -42,7 +48,9 @@ const ALL_PILLARS = [
     description: 'Cognitive Infrastructure. Digital employees that can listen, reason, and speak to customers 24/7 via phone or chat.',
     subServices: [
        { title: 'The Bond', description: 'It creates "Infinite Concurrency." Unlike human staff, The Voice can handle 100 simultaneous calls during a marketing spike.' },
-       { title: 'The Whole', description: 'It is the interface. It reads the CRM data (Pillar 2) to know the customer\'s history and updates it instantly after the call.' }
+       { title: 'The Whole', description: 'It is the interface. It reads the CRM data (Pillar 2) to know the customer\'s history and updates it instantly after the call.' },
+       { title: 'Client Benefit', description: 'Scalability. You can double your lead volume without hiring more support staff.' },
+       { title: 'Group Purpose', description: 'To multiply output and decouple time from revenue.' }
     ]
   },
   {
@@ -51,7 +59,9 @@ const ALL_PILLARS = [
     description: 'A Content Supply Chain. Turning one hour of raw expertise into a month of omni-channel authority assets (Video, Text, Audio).',
     subServices: [
        { title: 'The Bond', description: 'It creates "Ubiquity." It ensures your brand is seen everywhere, fueling the top of the funnel for The Face (Pillar 1).' },
-       { title: 'The Whole', description: 'It feeds the machine. High-quality content drives traffic to the system, ensuring the Automation and AI agents have leads to process.' }
+       { title: 'The Whole', description: 'It feeds the machine. High-quality content drives traffic to the system, ensuring the Automation and AI agents have leads to process.' },
+       { title: 'Client Benefit', description: 'Authority. You become the "Category King" without spending your life on social media.' },
+       { title: 'Group Purpose', description: 'To multiply output and decouple time from revenue.' }
     ]
   },
   {
@@ -60,7 +70,9 @@ const ALL_PILLARS = [
     description: 'Behavior Engineering. Systems designed to ensure human staff actually use the tools (Internal Podcasts, Micro-Learning).',
     subServices: [
        { title: 'The Bond', description: 'It protects the investment. The fastest car (Velocity) is useless if the driver (Staff) doesn\'t know how to shift gears.' },
-       { title: 'The Whole', description: 'It creates alignment. It ensures the human culture matches the digital speed, preventing "System Rejection."' }
+       { title: 'The Whole', description: 'It creates alignment. It ensures the human culture matches the digital speed, preventing "System Rejection."' },
+       { title: 'Client Benefit', description: 'ROI Assurance. You stop buying software that becomes "Shelfware."' },
+       { title: 'Group Purpose', description: 'To multiply output and decouple time from revenue.' }
     ]
   },
   {
@@ -69,7 +81,9 @@ const ALL_PILLARS = [
     description: 'The Control Tower. Visualizing real-time profit, churn, and speed. Moving from "Gut Feeling" to Evidence.',
     subServices: [
        { title: 'The Bond', description: 'It is the "Feedback Loop." It tells you if the Acquisition system is profitable and if the Velocity system is efficient.' },
-       { title: 'The Whole', description: 'It allows for Navigation. It takes data from every other pillar to show you exactly where to steer the business next.' }
+       { title: 'The Whole', description: 'It allows for Navigation. It takes data from every other pillar to show you exactly where to steer the business next.' },
+       { title: 'Client Benefit', description: 'Certainty. You sleep better knowing exactly where your profit is coming from.' },
+       { title: 'Group Purpose', description: 'To navigate with certainty.' }
     ]
   }
 ];
@@ -84,7 +98,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
       ref={itemRef}
       onLayoutAnimationComplete={() => {
         if (isSelected && itemRef.current) {
-           // FIX: Scroll to center ONLY after animation is fully done
+           // FIX: Scroll to center ONLY after animation is fully done to avoid jumps
            itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
         }
       }}
@@ -92,7 +106,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
       // FIX: Added 'h-auto' to prevent content cut-off
       className={`relative overflow-hidden rounded-sm cursor-pointer group ${isSelected ? 'col-span-1 md:col-span-2 lg:col-span-3 min-h-[600px] h-auto z-10' : 'col-span-1 min-h-[300px] z-0'}`}
       style={{
-        backgroundColor: isSelected ? '#FFFFFF' : 'transparent', // White when open, Transparent when closed
+        backgroundColor: isSelected ? '#FFFFFF' : 'transparent', // FIX: White when open, Transparent when closed
         borderColor: isSelected ? pillar.categoryHex : 'rgba(26, 26, 26, 0.15)',
       }}
       animate={{ opacity: 1 }}
@@ -209,30 +223,32 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
       </section>
 
       {/* SECTION 2: BLUEPRINT GRID */}
-      <section className="px-6 md:px-12 lg:px-20 pb-32 max-w-[1400px] mx-auto relative z-10 bg-[#FFF2EC]">
-        <div className="text-center max-w-2xl mx-auto mb-24 pt-10">
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#E21E3F] mb-4 block font-bold">System Breakdown</span>
-            <h2 className="font-serif text-5xl md:text-6xl text-[#1a1a1a] mb-6">The Parts in Detail</h2>
-            <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">Each component is designed to work alone, but engineered to work together.</p>
-        </div>
+      <section className="w-full bg-[#FFF2EC] pb-32 relative z-10">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
+          <div className="text-center max-w-2xl mx-auto mb-24 pt-10">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#E21E3F] mb-4 block font-bold">System Breakdown</span>
+              <h2 className="font-serif text-5xl md:text-6xl text-[#1a1a1a] mb-6">The Parts in Detail</h2>
+              <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">Each component is designed to work alone, but engineered to work together.</p>
+          </div>
 
-        <div className="flex items-center gap-4 mb-12">
-            <div className="h-px bg-black/10 flex-grow" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40">System_Grid_V1.0</span>
-            <div className="h-px bg-black/10 flex-grow" />
-        </div>
+          <div className="flex items-center gap-4 mb-12">
+              <div className="h-px bg-black/10 flex-grow" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40">System_Grid_V1.0</span>
+              <div className="h-px bg-black/10 flex-grow" />
+          </div>
 
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
-          {ALL_PILLARS.map((pillar) => (
-            <GridItem 
-              key={pillar.id}
-              pillar={pillar}
-              isSelected={selectedPillarId === pillar.id}
-              onToggle={() => setSelectedPillarId(selectedPillarId === pillar.id ? null : pillar.id)}
-              onNavigate={onNavigate}
-            />
-          ))}
-        </motion.div>
+          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
+            {ALL_PILLARS.map((pillar) => (
+              <GridItem 
+                key={pillar.id}
+                pillar={pillar}
+                isSelected={selectedPillarId === pillar.id}
+                onToggle={() => setSelectedPillarId(selectedPillarId === pillar.id ? null : pillar.id)}
+                onNavigate={onNavigate}
+              />
+            ))}
+          </motion.div>
+        </div>
       </section>
       
       <FAQSection faqs={systemFAQs} accentColor="#C5A059" title="Questions?" subtitle="Everything you need to know before choosing a service." onNavigate={onNavigate} />
