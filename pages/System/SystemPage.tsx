@@ -74,7 +74,7 @@ const ALL_PILLARS = [
   }
 ];
 
-// --- GRID ITEM COMPONENT (Fixes Scroll Issue) ---
+// --- GRID ITEM COMPONENT ---
 const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
   const itemRef = useRef<HTMLDivElement>(null);
 
@@ -84,14 +84,15 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
       ref={itemRef}
       onLayoutAnimationComplete={() => {
         if (isSelected && itemRef.current) {
-           // SCROLL FIX: Waits for animation to finish, then centers the card
-           itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+           // FIX: Scroll to center ONLY after animation is fully done
+           itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
         }
       }}
       onClick={onToggle}
-      className={`relative overflow-hidden rounded-sm cursor-pointer group ${isSelected ? 'col-span-1 md:col-span-2 lg:col-span-3 min-h-[600px] z-10' : 'col-span-1 min-h-[300px] z-0'}`}
+      // FIX: Added 'h-auto' to prevent content cut-off
+      className={`relative overflow-hidden rounded-sm cursor-pointer group ${isSelected ? 'col-span-1 md:col-span-2 lg:col-span-3 min-h-[600px] h-auto z-10' : 'col-span-1 min-h-[300px] z-0'}`}
       style={{
-        backgroundColor: isSelected ? '#FFFFFF' : 'transparent', // DRAFT LOGIC: White when open, Transparent when closed
+        backgroundColor: isSelected ? '#FFFFFF' : 'transparent', // White when open, Transparent when closed
         borderColor: isSelected ? pillar.categoryHex : 'rgba(26, 26, 26, 0.15)',
       }}
       animate={{ opacity: 1 }}
@@ -100,7 +101,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
       {/* Border Container */}
       <div className="absolute inset-0 pointer-events-none transition-all duration-500 border border-solid" style={{ borderColor: isSelected ? pillar.categoryHex : 'rgba(26, 26, 26, 0.15)' }} />
 
-      {/* --- CLOSED STATE (Matches Draft: Minimal/Transparent) --- */}
+      {/* --- CLOSED STATE --- */}
       {!isSelected && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-8 h-full flex flex-col justify-between">
           <div className="flex justify-between items-start">
@@ -119,7 +120,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
         </motion.div>
       )}
 
-      {/* --- EXPANDED STATE (Matches Draft: White Background, Full Details) --- */}
+      {/* --- EXPANDED STATE --- */}
       <AnimatePresence>
         {isSelected && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.2 } }} exit={{ opacity: 0 }} className="relative w-full min-h-full p-8 md:p-12 flex flex-col text-[#1a1a1a]">
@@ -176,12 +177,11 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
   const [selectedPillarId, setSelectedPillarId] = useState<string | null>(null);
   const systemFAQs = getSystemPageFAQs();
 
-  // Animation Variants
   const heroContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } } };
   const heroItem = { hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 40, damping: 20 } } };
 
   return (
-    <div className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-32 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-32 pb-0 px-0 relative z-[150] flex flex-col font-sans">
       
       {/* HERO SECTION */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full mb-20">
@@ -208,7 +208,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
          <SystemArchitecture />
       </section>
 
-      {/* SECTION 2: BLUEPRINT GRID (Matches Draft Code) */}
+      {/* SECTION 2: BLUEPRINT GRID */}
       <section className="px-6 md:px-12 lg:px-20 pb-32 max-w-[1400px] mx-auto relative z-10 bg-[#FFF2EC]">
         <div className="text-center max-w-2xl mx-auto mb-24 pt-10">
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#E21E3F] mb-4 block font-bold">System Breakdown</span>
