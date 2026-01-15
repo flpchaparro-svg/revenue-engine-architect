@@ -5,54 +5,54 @@ import { VizAcquisition, VizVelocity, VizIntelligence } from './ArchitecturePage
 
 // --- DATA: RINGS & FLOATING CARDS ---
 const PILLAR_DATA = [
-  // ACQUISITION (Left Side)
+  // ACQUISITION (Left Side) - Adjusted Y positions to align with lines from center (42%)
   { 
     id: 'pillar1', group: 'ACQUISITION', title: 'THE FACE', subtitle: 'Websites & E-commerce',
-    color: '#E21E3F', x: '15%', y: '25%', 
+    color: '#E21E3F', x: '15%', y: '22%', 
     modalTitle: 'The Face',
     modalDesc: "It's not a brochure; it's a 'Digital Catcher.' We build websites engineered to capture leads and feed them into your system.",
     modalFeatures: ["High-Speed Landing Pages", "Retail E-commerce", "Brand Identity"]
   },
   { 
     id: 'pillar2', group: 'ACQUISITION', title: 'THE BRAIN', subtitle: 'CRM & Lead Tracking',
-    color: '#E21E3F', x: '15%', y: '50%',
+    color: '#E21E3F', x: '15%', y: '42%',
     modalTitle: 'The Brain',
     modalDesc: "The single source of truth. We track every call, email, and deal stage so you never lose revenue to human forgetfulness.",
     modalFeatures: ["Unified Inbox", "Deal Pipelines", "SMS Automation"]
   },
   { 
     id: 'pillar3', group: 'ACQUISITION', title: 'THE MUSCLE', subtitle: 'Automation',
-    color: '#E21E3F', x: '15%', y: '75%',
+    color: '#E21E3F', x: '15%', y: '62%',
     modalTitle: 'The Muscle',
     modalDesc: "Moving data without human effort. We replace 'Minor Labour' (data entry) with code so your team focuses on strategy.",
     modalFeatures: ["Auto-Invoicing", "Contract Generation", "Task Routing"]
   },
-  // VELOCITY (Right Side)
+  // VELOCITY (Right Side) - Adjusted Y positions to align with lines from center (42%)
   { 
     id: 'pillar4', group: 'VELOCITY', title: 'THE VOICE', subtitle: 'AI Assistants',
-    color: '#C5A059', x: '85%', y: '25%',
+    color: '#C5A059', x: '85%', y: '22%',
     modalTitle: 'The Voice',
     modalDesc: "AI Agents that act like digital employees. They can reason, speak to customers, and qualify leads 24/7.",
     modalFeatures: ["Phone Agents", "Smart Chatbots", "Internal Analysts"]
   },
   { 
     id: 'pillar5', group: 'VELOCITY', title: 'THE PRESENCE', subtitle: 'Media Logistics',
-    color: '#C5A059', x: '85%', y: '50%',
+    color: '#C5A059', x: '85%', y: '42%',
     modalTitle: 'The Presence',
     modalDesc: "Content as a supply chain. We turn one hour of raw expertise into a month of social media authority.",
     modalFeatures: ["Video Production", "Auto-Posting", "Content Repurposing"]
   },
   { 
     id: 'pillar6', group: 'VELOCITY', title: 'THE SOUL', subtitle: 'Team Training',
-    color: '#C5A059', x: '85%', y: '75%',
+    color: '#C5A059', x: '85%', y: '62%',
     modalTitle: 'The Soul',
     modalDesc: "Technology fails if humans don't use it. We engineer the training and culture shift to ensure adoption.",
     modalFeatures: ["Internal Podcasts", "Micro-Learning", "Visual SOPs"]
   },
-  // INTELLIGENCE (Center Bottom)
+  // INTELLIGENCE (Center Bottom) - Adjusted Y position to align with line from center (42%)
   { 
     id: 'pillar7', group: 'INTELLIGENCE', title: 'THE EYES', subtitle: 'Dashboards & Reporting',
-    color: '#1a1a1a', x: '50%', y: '85%',
+    color: '#1a1a1a', x: '50%', y: '75%',
     modalTitle: 'The Eyes',
     modalDesc: "Moving from 'Gut Feeling' to evidence. We build dashboards that show you exactly where your profit is coming from.",
     modalFeatures: ["Executive Dashboards", "Profit Tracking", "Forecasting"]
@@ -133,9 +133,10 @@ export const SystemArchitecture = () => {
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
         
         {/* Connection Lines - Visible on mobile too */}
+        {/* FIX: Lines start from center of rings (42vh = 42% when converged) */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
           {PILLAR_DATA.map((card, i) => (
-             <motion.line key={i} x1="50%" y1="50%" x2={card.x} y2={card.y} stroke={card.color} strokeWidth="1" strokeDasharray="4 4" style={{ pathLength: lineDraw, opacity: 0.3 }} />
+             <motion.line key={i} x1="50%" y1="42%" x2={card.x} y2={card.y} stroke={card.color} strokeWidth="1" strokeDasharray="4 4" style={{ pathLength: lineDraw, opacity: 0.3 }} />
           ))}
         </svg>
 
