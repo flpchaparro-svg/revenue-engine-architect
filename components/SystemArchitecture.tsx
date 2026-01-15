@@ -179,7 +179,8 @@ export const SystemArchitecture = () => {
         </div>
 
         {/* Floating Cards (Design Fixed: Cream Background, Correct Borders) */}
-        <motion.div style={{ opacity: cardsOpacity }} className="absolute inset-0 pointer-events-none z-40 hidden md:block">
+        {/* FIX: Visible on mobile (removed hidden md:block) */}
+        <motion.div style={{ opacity: cardsOpacity }} className="absolute inset-0 pointer-events-none z-40">
            {PILLAR_DATA.map((card) => (
               <motion.div
                 key={card.id}
