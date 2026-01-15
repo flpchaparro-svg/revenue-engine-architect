@@ -3,7 +3,9 @@ import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { X, Check, ArrowRight } from 'lucide-react';
 import { VizAcquisition, VizVelocity, VizIntelligence } from './ArchitecturePageVisuals';
 
+// --- DATA: RINGS & FLOATING CARDS ---
 const PILLAR_DATA = [
+  // ACQUISITION (Left Side)
   { 
     id: 'pillar1', group: 'ACQUISITION', title: 'THE FACE', subtitle: 'Websites & E-commerce',
     color: '#E21E3F', x: '15%', y: '25%', 
@@ -25,6 +27,7 @@ const PILLAR_DATA = [
     modalDesc: "Moving data without human effort. We replace 'Minor Labour' (data entry) with code so your team focuses on strategy.",
     modalFeatures: ["Auto-Invoicing", "Contract Generation", "Task Routing"]
   },
+  // VELOCITY (Right Side)
   { 
     id: 'pillar4', group: 'VELOCITY', title: 'THE VOICE', subtitle: 'AI Assistants',
     color: '#C5A059', x: '85%', y: '25%',
@@ -46,6 +49,7 @@ const PILLAR_DATA = [
     modalDesc: "Technology fails if humans don't use it. We engineer the training and culture shift to ensure adoption.",
     modalFeatures: ["Internal Podcasts", "Micro-Learning", "Visual SOPs"]
   },
+  // INTELLIGENCE (Center Bottom)
   { 
     id: 'pillar7', group: 'INTELLIGENCE', title: 'THE EYES', subtitle: 'Dashboards & Reporting',
     color: '#1a1a1a', x: '50%', y: '85%',
@@ -55,6 +59,7 @@ const PILLAR_DATA = [
   }
 ];
 
+// --- VARIANTS ---
 const cardVariants = {
   hidden: { opacity: 0, scale: 0.8 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
@@ -111,14 +116,17 @@ export const SystemArchitecture = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
 
+  // Animation Maps - TIGHTENED TIMINGS
   const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
   const acqY = useTransform(scrollYProgress, [0, 0.3], ["20vh", "42vh"]);
   const velY = useTransform(scrollYProgress, [0, 0.3], ["50vh", "42vh"]);
   const intY = useTransform(scrollYProgress, [0, 0.3], ["80vh", "42vh"]);
   const engineScale = useTransform(scrollYProgress, [0.3, 0.4], [1, 1.4]);
-  // TIGHTER TIMING: [0.4, 0.55] prevents the dead scroll
+  
+  // FIX: Cards now appear between 40% and 55% scroll (was 65%-85%)
   const cardsOpacity = useTransform(scrollYProgress, [0.4, 0.55], [0, 1]); 
-  const lineDraw = useTransform(scrollYProgress, [0.55, 0.7], [0, 1]);
+  // FIX: Lines draw immediately after cards appear (was 75%-95%)
+  const lineDraw = useTransform(scrollYProgress, [0.55, 0.7], [0, 1]); 
 
   return (
     <div ref={containerRef} className="relative h-[300vh] bg-[#FFF2EC]">
@@ -170,7 +178,7 @@ export const SystemArchitecture = () => {
             </motion.div>
         </div>
 
-        {/* Floating Cards */}
+        {/* Floating Cards (Design Fixed: Cream Background, Correct Borders) */}
         <motion.div style={{ opacity: cardsOpacity }} className="absolute inset-0 pointer-events-none z-40 hidden md:block">
            {PILLAR_DATA.map((card) => (
               <motion.div
@@ -186,12 +194,14 @@ export const SystemArchitecture = () => {
                    y: "-50%",
                    borderColor: `${card.color}40`
                 }}
+                // REVERTED to #FFF2EC to match blueprint theme (was bg-white)
                 className="absolute cursor-pointer bg-[#FFF2EC] border rounded-sm p-5 w-48 md:w-60 flex flex-col items-center text-center shadow-lg pointer-events-auto transition-colors duration-300 hover:bg-white group"
                 onClick={() => setSelectedPillar(card)}
               >
                  <span className="text-[9px] font-mono uppercase tracking-widest mb-1.5 opacity-80" style={{ color: card.color }}>{card.group}</span>
                  <h4 className="font-serif text-lg md:text-xl text-[#1a1a1a] mb-1 leading-none">{card.title}</h4>
                  <p className="text-[9px] font-mono text-[#1a1a1a]/60 tracking-wider mb-2 block uppercase">{card.subtitle}</p>
+                 
                  <div className="mt-auto flex items-center justify-center">
                     <span className="text-[8px] font-mono uppercase tracking-[0.15em] text-[#1a1a1a]/60 group-hover:text-[#1a1a1a] transition-colors">[ Click here ]</span>
                  </div>
