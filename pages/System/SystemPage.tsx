@@ -204,8 +204,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
   };
 
   return (
-    // FIX 1: Reduced pt-32 to pt-24 (mobile) and pt-28 (desktop) to bring content higher up
-    <div className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-24 lg:pt-28 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-32 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col font-sans">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow">
         
         {/* NAV BACK */}
@@ -226,14 +225,14 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
           className="mb-16 md:mb-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
         >
           <div>
-            <motion.span variants={heroItem} className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">
+            <motion.span variants={heroItem} className="font-mono text-xs text-[#E21E3F] tracking-[0.2em] mb-6 block uppercase font-bold">
               / THE SYSTEM
             </motion.span>
-            <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] tracking-tight mb-8">
+            <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] tracking-tighter mb-8">
               7 Ways I Fix <br />
               <span className="italic text-black/20">Your Business.</span>
             </motion.h1>
-            <motion.p variants={heroItem} className="font-sans text-lg md:text-xl text-[#1a1a1a]/80 leading-relaxed max-w-xl border-l-2 border-[#C5A059] pl-6">
+            <motion.p variants={heroItem} className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-xl border-l-2 border-[#C5A059] pl-6">
               I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.
             </motion.p>
           </div>
@@ -267,7 +266,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
                     }`}
                   >
                     <div className="flex items-center justify-between w-full">
-                       <span className={`text-[10px] font-mono uppercase tracking-widest block ${isActive ? sys.accent : 'text-gray-400 group-hover:text-gray-600'}`}>
+                       <span className={`text-[10px] font-mono uppercase tracking-[0.2em] block ${isActive ? sys.accent : 'text-gray-400 group-hover:text-gray-600'}`}>
                          {sys.label.split('[')[0]}
                        </span>
                        {isActive && <motion.div layoutId="active-dot" className={`w-1.5 h-1.5 rounded-full ${sys.bgAccent}`} />}
@@ -293,17 +292,17 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
                 >
                    {/* HEADER (Slide Up) */}
                    <motion.div variants={staggerItem} className="mb-10 relative">
-                      <div className={`inline-block font-mono text-[10px] uppercase tracking-[0.25em] font-bold mb-4 px-3 py-1 bg-white border border-black/5 rounded-full ${activeSystem.accent}`}>
+                      <div className={`inline-block font-mono text-[10px] uppercase tracking-[0.2em] font-bold mb-4 px-3 py-1 bg-white border border-black/5 rounded-full ${activeSystem.accent}`}>
                          {activeSystem.label}
                       </div>
                       <h2 className="font-serif text-5xl mb-6">{activeSystem.title}</h2>
-                      <p className="font-sans text-xl text-[#1a1a1a]/60 leading-relaxed max-w-2xl">
+                      <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed max-w-2xl">
                          {activeSystem.description}
                       </p>
                       
                       {/* Decorative Tech Tag */}
                       <div className="absolute right-0 top-0 hidden xl:block opacity-20">
-                         <div className="flex items-center gap-2 font-mono text-[9px]">
+                         <div className="flex items-center gap-2 font-mono text-[10px] tracking-[0.2em]">
                             <LayoutGrid className="w-4 h-4" />
                             <span>SYSTEM_ACTIVE</span>
                          </div>
@@ -351,7 +350,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
                                  {pillar.description}
                               </p>
                               
-                              <div className={`mt-auto flex items-center gap-3 font-mono text-[9px] uppercase tracking-widest font-bold opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ${activeSystem.accent}`}>
+                              <div className={`mt-auto flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.2em] font-bold opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ${activeSystem.accent}`}>
                                 <span>[ EXPLORE ]</span>
                                 <ArrowRight className="w-3 h-3" />
                               </div>
@@ -385,7 +384,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
                     className="w-full flex items-center justify-between p-6 text-left"
                   >
                      <div>
-                        <span className={`text-[9px] font-mono uppercase tracking-widest block mb-2 ${sys.accent}`}>
+                        <span className={`text-[9px] font-mono uppercase tracking-[0.2em] block mb-2 ${sys.accent}`}>
                            {sys.label.split('[')[0]}
                         </span>
                         <span className={`font-serif text-3xl block leading-none ${isOpen ? 'text-black' : 'text-black/60'}`}>
@@ -425,7 +424,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
                                        >
                                           <div className="flex items-center gap-3 mb-3">
                                              {pillar.icon && <pillar.icon className={`w-4 h-4 ${sys.accent}`} />}
-                                             <span className="font-mono text-[9px] uppercase tracking-widest opacity-60">{pillar.subtitle}</span>
+                                             <span className="font-mono text-[9px] uppercase tracking-[0.2em] opacity-60">{pillar.subtitle}</span>
                                           </div>
                                           <h4 className="font-serif text-xl mb-2">{pillar.title}</h4>
                                           <p className="text-sm opacity-60 leading-relaxed">{pillar.description}</p>
