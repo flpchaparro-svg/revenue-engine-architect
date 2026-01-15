@@ -113,17 +113,8 @@ const SystemModal = ({ data, onClose }: { data: typeof PILLAR_DATA[0], onClose: 
 
 export const SystemArchitecture = () => {
   const [selectedPillar, setSelectedPillar] = useState<typeof PILLAR_DATA[0] | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
-
-  // Track window size for responsive card positioning
-  React.useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
 
   // Animation Maps - TIGHTENED TIMINGS
   const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
@@ -190,12 +181,7 @@ export const SystemArchitecture = () => {
         {/* Floating Cards (Design Fixed: Cream Background, Correct Borders) */}
         {/* FIX: Visible on mobile (removed hidden md:block) */}
         <motion.div style={{ opacity: cardsOpacity }} className="absolute inset-0 pointer-events-none z-40">
-           {PILLAR_DATA.map((card, index) => {
-             // Mobile: Center cards vertically, stack them
-             // Desktop: Use original positioning
-             const mobileY = `${20 + (index * 12)}%`; // Stack cards vertically on mobile
-             
-             return (
+           {PILLAR_DATA.map((card) => (
               <motion.div
                 key={card.id}
                 variants={cardVariants}
@@ -203,10 +189,8 @@ export const SystemArchitecture = () => {
                 animate="visible"
                 whileHover="hover"
                 style={{ 
-                   // Mobile: centered horizontally, stacked vertically
-                   // Desktop: original positions
-                   left: isMobile ? '50%' : card.x,
-                   top: isMobile ? mobileY : card.y,
+                   left: card.x, 
+                   top: card.y, 
                    x: "-50%",
                    y: "-50%",
                    borderColor: `${card.color}40`
@@ -222,8 +206,7 @@ export const SystemArchitecture = () => {
                     <span className="text-[8px] font-mono uppercase tracking-[0.15em] text-[#1a1a1a]/60 group-hover:text-[#1a1a1a] transition-colors">[ Click here ]</span>
                  </div>
               </motion.div>
-             );
-           })}
+           ))}
         </motion.div>
 
         <AnimatePresence>
