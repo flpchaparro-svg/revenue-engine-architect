@@ -1,132 +1,94 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Globe, Database, Zap, Bot, Video, Users, BarChart3, ChevronDown, LayoutGrid } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Minus, Globe, Database, Zap, Bot, Video, Users, BarChart3 } from 'lucide-react';
 import GlobalFooter from '../../components/GlobalFooter';
 import HeroVisual_Suspension from '../../components/HeroVisual_Suspension';
 import FAQSection from '../../components/FAQSection';
 import { getSystemPageFAQs } from '../../constants/faqData';
-import Modal from '../../components/Modal';
-import { ServiceDetail } from '../../types';
-import { VizAcquisition, VizVelocity, VizIntelligence } from '../../components/ArchitecturePageVisuals';
+import { SystemArchitecture } from '../../components/SystemArchitecture';
 
-// --- TYPES & INTERFACES ---
-interface SystemPillar extends Partial<ServiceDetail> {
-  id: string;
-  number?: string;
-  icon?: React.ElementType;
-  title?: string;
-  subtitle: string;
-  techLabel?: string;
-  description?: string;
-  isVisual?: boolean;
-  systemGroup?: string;
-  symptom?: string;
-  visualPrompt?: string;
-  features?: string[];
-}
-
-interface SystemCategory {
-  id: string;
-  label: string;
-  tabLabel: string;
-  title: string;
-  description: string;
-  accent: string;
-  bgAccent: string;
-  borderAccent: string;
-  hex: string;
-  pillars: SystemPillar[];
-}
-
-// --- DATA CONSTANTS ---
-const SYSTEMS_DATA: SystemCategory[] = [
+// --- DATA: BLUEPRINT GRID ---
+const ALL_PILLARS = [
   {
-    id: 'sys_01',
-    label: 'SYS_01 [ ACQUISITION ]',
-    tabLabel: 'GET CLIENTS',
-    title: 'Capture and Convert',
-    description: 'The goal is to turn attention into leads without losing anyone along the way.',
-    accent: 'text-[#E21E3F]',
-    bgAccent: 'bg-[#E21E3F]',
-    borderAccent: 'border-[#E21E3F]',
-    hex: '#E21E3F',
-    pillars: [
-      { 
-        id: 'pillar1', number: '01', icon: Globe, title: 'WEBSITES & E-COMMERCE', subtitle: 'The Face', techLabel: '[ YOUR ONLINE STOREFRONT ]',
-        description: 'Sites that capture leads and sell products, not just look pretty.',
-        systemGroup: 'ACQUISITION', symptom: "Are you losing leads in spreadsheets?", visualPrompt: 'catchment',
-        features: ['Smart Lead Forms', 'Inventory Sync', 'Fast, Mobile-First Design']
-      },
-      { 
-        id: 'pillar2', number: '02', icon: Database, title: 'CRM & LEAD TRACKING', subtitle: 'The Brain', techLabel: '[ NEVER LOSE A LEAD ]',
-        description: 'Track every lead, every call, every deal. Nothing slips through.',
-        systemGroup: 'ACQUISITION', symptom: "Do you know exactly where every deal is stuck?", visualPrompt: 'network',
-        features: ['Pipeline Visibility', 'Automated Follow-Ups', 'One Source of Truth']
-      },
-      { 
-        id: 'pillar3', number: '03', icon: Zap, title: 'AUTOMATION', subtitle: 'The Muscle', techLabel: '[ ADMIN ON AUTOPILOT ]',
-        description: 'Invoices, follow-ups, data entry, all on autopilot.',
-        systemGroup: 'ACQUISITION', symptom: "How many hours are you losing to repeat tasks?", visualPrompt: 'helix',
-        features: ['Auto-Invoicing', 'Task Triggers', 'System-to-System Sync']
-      },
-      { id: 'v1', isVisual: true, subtitle: 'Active_Listening' }
+    id: 'pillar1', number: '01', icon: Globe, title: 'THE FACE', subtitle: 'Digital Revenue Architecture',
+    categoryHex: '#E21E3F', categoryLabel: 'ACQUISITION', technicalLabel: 'DIGITAL_STOREFRONT',
+    description: 'Not a brochure, but a "Digital Catcher." A high-performance structure designed to capture leads and process transactions with zero friction.',
+    subServices: [
+       { title: 'The Bond', description: 'It acts as the "Mouth" of the Acquisition system. Without it, the CRM (The Brain) has nothing to process.' },
+       { title: 'The Whole', description: 'It establishes the first data point. If the Face fails to capture the source, the Intelligence (Pillar 7) cannot measure ROI later.' },
+       { title: 'Client Benefit', description: 'Stops "Lead Leakage." You stop losing customers to slower competitors.' },
+       { title: 'Group Purpose', description: 'To capture demand and structure data.' }
     ]
   },
   {
-    id: 'sys_02',
-    label: 'SYS_02 [ VELOCITY ]',
-    tabLabel: 'SCALE FASTER',
-    title: 'Multiply Your Output',
-    description: 'The goal is to do more without hiring more, using AI and content systems that work while you sleep.',
-    accent: 'text-[#C5A059]',
-    bgAccent: 'bg-[#C5A059]',
-    borderAccent: 'border-[#C5A059]',
-    hex: '#C5A059',
-    pillars: [
-      { 
-        id: 'pillar4', number: '04', icon: Bot, title: 'AI ASSISTANTS', subtitle: 'The Voice', techLabel: '[ BOTS THAT THINK ]',
-        description: 'Answer calls and enquiries 24/7, even while you sleep.',
-        systemGroup: 'VELOCITY', symptom: "Are you missing calls after hours?", visualPrompt: 'brain',
-        features: ['24/7 Availability', 'Lead Qualification', 'Appointment Booking']
-      },
-      { 
-        id: 'pillar5', number: '05', icon: Video, title: 'CONTENT SYSTEMS', subtitle: 'The Presence', techLabel: '[ POST EVERYWHERE ]',
-        description: 'One voice note → blog, socials, newsletter. Auto-published.',
-        systemGroup: 'VELOCITY', symptom: "Do you know what to post but never find the time?", visualPrompt: 'broadcast',
-        features: ['Voice-to-Content', 'Auto-Publishing', 'Multi-Platform Distribution']
-      },
-      { 
-        id: 'pillar6', number: '06', icon: Users, title: 'TEAM TRAINING', subtitle: 'The Soul', techLabel: '[ TEAM ADOPTION ]',
-        description: 'Short training that makes your team actually use the tools.',
-        systemGroup: 'VELOCITY', symptom: "Is your team actually using the tools you bought?", visualPrompt: 'turbine',
-        features: ['Bite-Sized Videos', 'Step-by-Step Guides', 'Team Q&A Library']
-      },
-      { id: 'v2', isVisual: true, subtitle: 'Processing_Cycles' }
+    id: 'pillar2', number: '02', icon: Database, title: 'THE BRAIN', subtitle: 'CRM Revenue Intelligence',
+    categoryHex: '#E21E3F', categoryLabel: 'ACQUISITION', technicalLabel: 'LEAD_DATABASE',
+    description: 'The Single Source of Truth. A unified database that tracks every call, email, and deal stage. If it\'s not here, it didn\'t happen.',
+    subServices: [
+       { title: 'The Bond', description: 'It acts as the "Memory." It stores what The Face captures and triggers The Muscle to act.' },
+       { title: 'The Whole', description: 'It is the central nervous system. It holds the data that the AI Agents (Pillar 4) need to read in order to speak intelligently to customers.' },
+       { title: 'Client Benefit', description: 'Pipeline Visibility. You stop managing by memory and start managing by data.' },
+       { title: 'Group Purpose', description: 'To capture demand and structure data.' }
     ]
   },
   {
-    id: 'sys_03',
-    label: 'SYS_03',
-    tabLabel: 'SEE CLEARLY',
-    title: 'Make Better Decisions',
-    description: 'The goal is to stop guessing and see your numbers in real time so you can steer the business.',
-    accent: 'text-[#1a1a1a]',
-    bgAccent: 'bg-[#1a1a1a]',
-    borderAccent: 'border-[#1a1a1a]',
-    hex: '#1a1a1a',
-    pillars: [
-      { 
-        id: 'pillar7', number: '07', icon: BarChart3, title: 'DASHBOARDS & REPORTING', subtitle: 'The Eyes', techLabel: '[ REAL-TIME DATA ]',
-        description: 'Revenue, margins, pipeline, one screen, live.',
-        systemGroup: 'INTELLIGENCE', symptom: "Are you steering the business by gut feeling?", visualPrompt: 'radar',
-        features: ['Live Revenue Tracking', 'Forecasting & Projections', 'One-Screen Business Health']
-      },
-      { id: 'v3', isVisual: true, subtitle: 'Predictive_Model' }
+    id: 'pillar3', number: '03', icon: Zap, title: 'THE MUSCLE', subtitle: 'Automation Architecture',
+    categoryHex: '#E21E3F', categoryLabel: 'ACQUISITION', technicalLabel: 'WORKFLOW_ENGINE',
+    description: 'Code Leverage. Replacing "Minor Labour" (data entry, invoicing, scheduling) with silent, instant code execution.',
+    subServices: [
+       { title: 'The Bond', description: 'It acts as the "Hands." When The Brain signals a "Won Deal," The Muscle instantly sends the invoice and contract.' },
+       { title: 'The Whole', description: 'It creates velocity. It ensures that data moves between Marketing, Sales, and Ops instantly, removing the human bottleneck.' },
+       { title: 'Client Benefit', description: 'Time Arbitrage. Your team focuses on high-value strategy, not low-value admin.' },
+       { title: 'Group Purpose', description: 'To capture demand and structure data.' }
+    ]
+  },
+  {
+    id: 'pillar4', number: '04', icon: Bot, title: 'THE VOICE', subtitle: 'Cognitive Infrastructure',
+    categoryHex: '#C5A059', categoryLabel: 'VELOCITY', technicalLabel: 'SYNTHETIC_WORKFORCE',
+    description: 'Cognitive Infrastructure. Digital employees that can listen, reason, and speak to customers 24/7 via phone or chat.',
+    subServices: [
+       { title: 'The Bond', description: 'It creates "Infinite Concurrency." Unlike human staff, The Voice can handle 100 simultaneous calls during a marketing spike.' },
+       { title: 'The Whole', description: 'It is the interface. It reads the CRM data (Pillar 2) to know the customer\'s history and updates it instantly after the call.' },
+       { title: 'Client Benefit', description: 'Scalability. You can double your lead volume without hiring more support staff.' },
+       { title: 'Group Purpose', description: 'To multiply output and decouple time from revenue.' }
+    ]
+  },
+  {
+    id: 'pillar5', number: '05', icon: Video, title: 'THE PRESENCE', subtitle: 'Media Logistics',
+    categoryHex: '#C5A059', categoryLabel: 'VELOCITY', technicalLabel: 'MEDIA_DISTRIBUTION',
+    description: 'A Content Supply Chain. Turning one hour of raw expertise into a month of omni-channel authority assets (Video, Text, Audio).',
+    subServices: [
+       { title: 'The Bond', description: 'It creates "Ubiquity." It ensures your brand is seen everywhere, fueling the top of the funnel for The Face (Pillar 1).' },
+       { title: 'The Whole', description: 'It feeds the machine. High-quality content drives traffic to the system, ensuring the Automation and AI agents have leads to process.' },
+       { title: 'Client Benefit', description: 'Authority. You become the "Category King" without spending your life on social media.' },
+       { title: 'Group Purpose', description: 'To multiply output and decouple time from revenue.' }
+    ]
+  },
+  {
+    id: 'pillar6', number: '06', icon: Users, title: 'THE SOUL', subtitle: 'Adoption Architecture',
+    categoryHex: '#C5A059', categoryLabel: 'VELOCITY', technicalLabel: 'KNOWLEDGE_BASE',
+    description: 'Behavior Engineering. Systems designed to ensure human staff actually use the tools (Internal Podcasts, Micro-Learning).',
+    subServices: [
+       { title: 'The Bond', description: 'It protects the investment. The fastest car (Velocity) is useless if the driver (Staff) doesn\'t know how to shift gears.' },
+       { title: 'The Whole', description: 'It creates alignment. It ensures the human culture matches the digital speed, preventing "System Rejection."' },
+       { title: 'Client Benefit', description: 'ROI Assurance. You stop buying software that becomes "Shelfware."' },
+       { title: 'Group Purpose', description: 'To multiply output and decouple time from revenue.' }
+    ]
+  },
+  {
+    id: 'pillar7', number: '07', icon: BarChart3, title: 'THE EYES', subtitle: 'Intelligence Architecture',
+    categoryHex: '#1a1a1a', categoryLabel: 'INTELLIGENCE', technicalLabel: 'BI_VISUALIZATION',
+    description: 'The Control Tower. Visualizing real-time profit, churn, and speed. Moving from "Gut Feeling" to Evidence.',
+    subServices: [
+       { title: 'The Bond', description: 'It is the "Feedback Loop." It tells you if the Acquisition system is profitable and if the Velocity system is efficient.' },
+       { title: 'The Whole', description: 'It allows for Navigation. It takes data from every other pillar to show you exactly where to steer the business next.' },
+       { title: 'Client Benefit', description: 'Certainty. You sleep better knowing exactly where your profit is coming from.' },
+       { title: 'Group Purpose', description: 'To navigate with certainty.' }
     ]
   }
 ];
 
-// --- ANIMATION VARIANTS ---
+// --- VARIANTS ---
 const heroContainer = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } }
@@ -137,25 +99,6 @@ const heroItem = {
   visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 40, damping: 20 } }
 };
 
-const consoleWrapper = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
-};
-
-const tabContent = {
-  hidden: { opacity: 0, x: 20 },
-  visible: {
-    opacity: 1, x: 0,
-    transition: { staggerChildren: 0.1, delayChildren: 0.05, type: "spring", stiffness: 50, damping: 20 }
-  },
-  exit: { opacity: 0, x: -10, transition: { duration: 0.2 } }
-};
-
-const staggerItem = {
-  hidden: { y: 20, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 50, damping: 20 } }
-};
-
 
 interface SystemPageProps {
   onBack: () => void;
@@ -163,285 +106,193 @@ interface SystemPageProps {
 }
 
 const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
-  const [activeSystemId, setActiveSystemId] = useState('sys_01');
-  const [selectedPillar, setSelectedPillar] = useState<ServiceDetail | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeHoverPillar, setActiveHoverPillar] = useState<string | null>(null);
-  const [isDesktop, setIsDesktop] = useState(false);
-
+  const [selectedPillarId, setSelectedPillarId] = useState<string | null>(null);
   const systemFAQs = getSystemPageFAQs();
-  const activeSystem = SYSTEMS_DATA.find(s => s.id === activeSystemId) || SYSTEMS_DATA[0];
-
-  // Accurate check for desktop to prevent hydration mismatches or resize bugs
-  useEffect(() => {
-    const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024);
-    checkDesktop();
-    window.addEventListener('resize', checkDesktop);
-    return () => window.removeEventListener('resize', checkDesktop);
-  }, []);
-
-  const handlePillarClick = (pillar: SystemPillar) => {
-    // Systematic check: Only open modal if we are strictly in desktop mode
-    if (isDesktop) {
-      const modalData: ServiceDetail = {
-        id: pillar.id,
-        title: pillar.title || '',
-        subtitle: pillar.subtitle,
-        description: pillar.description || '',
-        systemGroup: pillar.systemGroup || '',
-        symptom: pillar.symptom || '',
-        visualPrompt: pillar.visualPrompt || '',
-        features: pillar.features || [],
-        technicalLabel: pillar.techLabel || '',
-        bgImage: '',
-        icon: '',
-      };
-      setSelectedPillar(modalData);
-      setIsModalOpen(true);
-    } else {
-      onNavigate(pillar.id);
-    }
-  };
 
   return (
     <div className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-32 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col font-sans">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow">
-        
-        {/* NAV BACK */}
-        {/* FIX 2: Reduced mb-16 to mb-8/mb-12 to pull the Hero/Eyebrow closer to the nav */}
-        <div className="flex justify-between items-center mb-8 lg:mb-12">
-          <button onClick={onBack} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors">
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            / Return to Home
-          </button>
-        </div>
+      
+      {/* --- HERO SECTION --- */}
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full mb-20">
+         <div className="flex justify-between items-center mb-12">
+            <button onClick={onBack} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors">
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              / Return to Home
+            </button>
+         </div>
 
-        {/* --- HERO SECTION (Animated on Scroll) --- */}
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={heroContainer}
-          className="mb-16 md:mb-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
-        >
-          <div>
-            <motion.span variants={heroItem} className="font-mono text-xs text-[#E21E3F] tracking-[0.2em] mb-6 block uppercase font-bold">
-              / THE SYSTEM
-            </motion.span>
-            <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] tracking-tighter mb-8">
-              7 Ways I Fix <br />
-              <span className="italic text-black/20">Your Business.</span>
-            </motion.h1>
-            <motion.p variants={heroItem} className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-xl border-l-2 border-[#C5A059] pl-6">
-              I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.
-            </motion.p>
-          </div>
-          <motion.div variants={heroItem} className="h-full flex items-center justify-center lg:justify-end min-h-[300px] lg:min-h-[500px] relative">
-             <HeroVisual_Suspension />
-          </motion.div>
-        </motion.div>
-
-        {/* --- COMMAND CONSOLE (Desktop) --- */}
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          variants={consoleWrapper}
-          className="w-full hidden lg:flex min-h-[600px] border-t border-black/10 pt-12 mb-32"
-        >
-            
-            {/* SIDEBAR NAVIGATION (25%) */}
-            <div className="w-1/4 pr-8 flex flex-col gap-3">
-              <div className="font-mono text-[9px] uppercase tracking-widest opacity-40 mb-4 pl-6">Select System</div>
-              {SYSTEMS_DATA.map((sys) => {
-                const isActive = activeSystemId === sys.id;
-                return (
-                  <button 
-                    key={sys.id}
-                    onClick={() => setActiveSystemId(sys.id)}
-                    className={`group text-left p-6 transition-all duration-300 border-l-[3px] relative overflow-hidden flex flex-col gap-2 ${
-                      isActive 
-                        ? `bg-white shadow-lg ${sys.borderAccent}` 
-                        : 'border-transparent hover:bg-black/5 hover:border-black/10'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between w-full">
-                       <span className={`text-[10px] font-mono uppercase tracking-[0.2em] block ${isActive ? sys.accent : 'text-gray-400 group-hover:text-gray-600'}`}>
-                         {sys.label.split('[')[0]}
-                       </span>
-                       {isActive && <motion.div layoutId="active-dot" className={`w-1.5 h-1.5 rounded-full ${sys.bgAccent}`} />}
-                    </div>
-                    <span className={`font-serif text-2xl block leading-none transition-colors ${isActive ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/40 group-hover:text-[#1a1a1a]/70'}`}>
-                      {sys.tabLabel}
-                    </span>
-                  </button>
-                )
-              })}
+         <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={heroContainer}
+            className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"
+         >
+            <div>
+              <motion.span variants={heroItem} className="font-mono text-xs text-[#E21E3F] tracking-[0.2em] mb-6 block uppercase font-bold">
+                / THE SYSTEM
+              </motion.span>
+              <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter mb-8">
+                7 Ways I Fix <br />
+                <span className="italic text-black/20">Your Business.</span>
+              </motion.h1>
+              <motion.p variants={heroItem} className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed max-w-xl border-l-2 border-[#C5A059] pl-6">
+                I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.
+              </motion.p>
             </div>
-
-            {/* MAIN STAGE (75%) */}
-            <div className="w-3/4 pl-12 border-l border-black/5 relative">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeSystem.id}
-                  variants={tabContent}
-                  initial="hidden"
-                  animate="visible"
-                  exit="exit"
-                  className="h-full flex flex-col"
-                >
-                   {/* HEADER (Slide Up) */}
-                   <motion.div variants={staggerItem} className="mb-10 relative">
-                      <div className={`inline-block font-mono text-[10px] uppercase tracking-[0.2em] font-bold mb-4 px-3 py-1 bg-white border border-black/5 rounded-full ${activeSystem.accent}`}>
-                         {activeSystem.label}
-                      </div>
-                      <h2 className="font-serif text-5xl mb-6">{activeSystem.title}</h2>
-                      <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed max-w-2xl">
-                         {activeSystem.description}
-                      </p>
-                      
-                      {/* Decorative Tech Tag */}
-                      <div className="absolute right-0 top-0 hidden xl:block opacity-20">
-                         <div className="flex items-center gap-2 font-mono text-[10px] tracking-[0.2em]">
-                            <LayoutGrid className="w-4 h-4" />
-                            <span>SYSTEM_ACTIVE</span>
-                         </div>
-                      </div>
-                   </motion.div>
-
-                   {/* PILLARS GRID (Staggered Children) */}
-                   <div className="grid grid-cols-2 gap-6 pb-12">
-                      {activeSystem.pillars.map((pillar) => (
-                        <motion.div key={pillar.id} variants={staggerItem} className="h-full">
-                          {pillar.isVisual ? (
-                            // VISUAL CARD
-                            <div className="group p-0 bg-[#1a1a1a]/5 border border-black/5 flex flex-col items-center justify-center relative overflow-hidden h-full min-h-[280px] rounded-lg">
-                                <div className="absolute inset-0 flex items-center justify-center opacity-80 group-hover:opacity-100 transition-opacity duration-700">
-                                   {pillar.id === 'v1' && <VizAcquisition color="#E21E3F" />}
-                                   {pillar.id === 'v2' && <VizVelocity color="#C5A059" />}
-                                   {pillar.id === 'v3' && <VizIntelligence color="#1a1a1a" />}
-                                </div>
-                                <div className="absolute bottom-6 font-mono text-[9px] uppercase tracking-[0.2em] opacity-50 z-10 bg-white/50 px-2 py-1 backdrop-blur-md rounded-sm" style={{ color: activeSystem.hex }}>
-                                   [ {pillar.subtitle} ]
-                                </div>
-                            </div>
-                          ) : (
-                            // CONTENT CARD
-                            <button 
-                              onClick={() => handlePillarClick(pillar)}
-                              onMouseEnter={() => setActiveHoverPillar(pillar.id)}
-                              onMouseLeave={() => setActiveHoverPillar(null)}
-                              className="group text-left p-8 bg-white border border-black/5 hover:border-black/20 hover:shadow-xl transition-all duration-300 relative overflow-hidden flex flex-col items-start h-full w-full rounded-lg"
-                            >
-                              <div className="flex justify-between w-full mb-6">
-                                <div className={`w-10 h-10 flex items-center justify-center rounded-full bg-black/5 ${activeSystem.accent}`}>
-                                  {pillar.icon && <pillar.icon className="w-5 h-5" />}
-                                </div>
-                                <span className={`font-mono text-[10px] opacity-30`}>{pillar.number}</span>
-                              </div>
-                              
-                              <span className={`font-mono text-[9px] uppercase tracking-[0.2em] mb-2 block ${activeSystem.accent} opacity-70`}>
-                                 {pillar.subtitle}
-                              </span>
-                              <h3 className="font-serif text-2xl mb-4 group-hover:translate-x-1 transition-transform duration-300">
-                                 {pillar.title}
-                              </h3>
-                              <p className="font-sans text-sm text-[#1a1a1a]/60 leading-relaxed mb-6">
-                                 {pillar.description}
-                              </p>
-                              
-                              <div className={`mt-auto flex items-center gap-3 font-mono text-[9px] uppercase tracking-[0.2em] font-bold opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ${activeSystem.accent}`}>
-                                <span>[ EXPLORE ]</span>
-                                <ArrowRight className="w-3 h-3" />
-                              </div>
-                              <div className={`absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-500 ${activeSystem.bgAccent}`} />
-                            </button>
-                          )}
-                        </motion.div>
-                      ))}
-                   </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-        </motion.div>
-
-        {/* --- MOBILE ACCORDION (Stacked) --- */}
-        <div className="lg:hidden flex flex-col gap-4 mb-32">
-           {SYSTEMS_DATA.map((sys) => {
-             const isOpen = activeSystemId === sys.id;
-             return (
-               <motion.div 
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={consoleWrapper}
-                  key={sys.id} 
-                  className={`border border-black/5 rounded-xl overflow-hidden transition-all duration-500 ${isOpen ? 'bg-white shadow-xl' : 'bg-transparent'}`}
-               >
-                  {/* Header */}
-                  <button 
-                    onClick={() => setActiveSystemId(isOpen ? '' : sys.id)}
-                    className="w-full flex items-center justify-between p-6 text-left"
-                  >
-                     <div>
-                        <span className={`text-[9px] font-mono uppercase tracking-[0.2em] block mb-2 ${sys.accent}`}>
-                           {sys.label.split('[')[0]}
-                        </span>
-                        <span className={`font-serif text-3xl block leading-none ${isOpen ? 'text-black' : 'text-black/60'}`}>
-                           {sys.tabLabel}
-                        </span>
-                     </div>
-                     <motion.div 
-                       animate={{ rotate: isOpen ? 180 : 0 }}
-                       className={`p-2 rounded-full ${isOpen ? 'bg-black/5' : ''}`}
-                     >
-                        <ChevronDown className={`w-5 h-5 ${isOpen ? sys.accent : 'text-black/30'}`} />
-                     </motion.div>
-                  </button>
-
-                  {/* Content Body */}
-                  <AnimatePresence>
-                     {isOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="overflow-hidden"
-                        >
-                           <div className="px-6 pb-8 pt-2">
-                              <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed mb-8 border-l-2 pl-4 border-black/10">
-                                 {sys.description}
-                              </p>
-                              
-                              <div className="space-y-4">
-                                 {sys.pillars.map((pillar) => (
-                                    !pillar.isVisual && (
-                                       <div 
-                                          key={pillar.id} 
-                                          onClick={() => onNavigate(pillar.id)}
-                                          className="bg-[#FFF2EC] p-6 rounded-lg border border-black/5 active:scale-[0.98] transition-transform"
-                                       >
-                                          <div className="flex items-center gap-3 mb-3">
-                                             {pillar.icon && <pillar.icon className={`w-4 h-4 ${sys.accent}`} />}
-                                             <span className="font-mono text-[9px] uppercase tracking-[0.2em] opacity-60">{pillar.subtitle}</span>
-                                          </div>
-                                          <h4 className="font-serif text-xl mb-2">{pillar.title}</h4>
-                                          <p className="text-sm opacity-60 leading-relaxed">{pillar.description}</p>
-                                       </div>
-                                    )
-                                 ))}
-                              </div>
-                           </div>
-                        </motion.div>
-                     )}
-                  </AnimatePresence>
-               </motion.div>
-             )
-           })}
-        </div>
-
+            <motion.div variants={heroItem} className="h-full flex items-center justify-center lg:justify-end min-h-[300px] lg:min-h-[500px] relative">
+               <HeroVisual_Suspension />
+            </motion.div>
+         </motion.div>
       </div>
+
+      {/* --- SECTION 1: SCROLLYTELLING ENGINE --- */}
+      <section className="relative z-0 mb-32 border-t border-[#1a1a1a]/10">
+         <SystemArchitecture />
+      </section>
+
+      {/* --- SECTION 2: BLUEPRINT GRID --- */}
+      <section className="px-6 md:px-12 lg:px-20 pb-32 max-w-[1400px] mx-auto relative z-10 bg-[#FFF2EC]">
+        
+        {/* Grid Header */}
+        <div className="text-center max-w-2xl mx-auto mb-24 pt-10">
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#E21E3F] mb-4 block font-bold">
+              System Breakdown
+            </span>
+            <h2 className="font-serif text-5xl md:text-6xl text-[#1a1a1a] mb-6">
+              The Parts in Detail
+            </h2>
+            <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">
+              Each component is designed to work alone, but engineered to work together.
+            </p>
+        </div>
+
+        <div className="flex items-center gap-4 mb-12">
+            <div className="h-px bg-black/10 flex-grow" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40">System_Grid_V1.0</span>
+            <div className="h-px bg-black/10 flex-grow" />
+        </div>
+
+        {/* EXPANDABLE GRID */}
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
+          {ALL_PILLARS.map((pillar) => {
+            const isSelected = selectedPillarId === pillar.id;
+            const isInactive = selectedPillarId !== null && !isSelected;
+
+            return (
+              <motion.div
+                layout
+                key={pillar.id}
+                onClick={() => setSelectedPillarId(isSelected ? null : pillar.id)}
+                className={`relative overflow-hidden rounded-sm cursor-pointer group ${isSelected ? 'col-span-1 md:col-span-2 lg:col-span-3 min-h-[500px]' : 'col-span-1 min-h-[240px]'}`}
+                style={{
+                  backgroundColor: isSelected ? '#FFFFFF' : 'transparent',
+                  borderColor: isSelected ? pillar.categoryHex : 'rgba(26, 26, 26, 0.15)',
+                }}
+                animate={{
+                  opacity: isInactive ? 0.4 : 1,
+                  scale: isInactive ? 0.98 : 1
+                }}
+                transition={{ duration: 0.5, type: "spring", stiffness: 100, damping: 20 }}
+              >
+                {/* Border Container */}
+                <div className="absolute inset-0 pointer-events-none transition-all duration-500 border border-solid" style={{ borderColor: isSelected ? pillar.categoryHex : 'rgba(26, 26, 26, 0.15)' }} />
+
+                {/* --- CLOSED STATE --- */}
+                {!isSelected && (
+                  <motion.div 
+                    initial={{ opacity: 0 }} 
+                    animate={{ opacity: 1 }} 
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-0 p-8 h-full flex flex-col justify-between"
+                  >
+                    <div className="flex justify-between items-start">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40 font-bold">{pillar.number}</span>
+                      <pillar.icon className="w-5 h-5 opacity-40 group-hover:opacity-100 transition-opacity" style={{ color: pillar.categoryHex }} />
+                    </div>
+                    <div>
+                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] mb-2 block font-bold" style={{ color: pillar.categoryHex }}>{pillar.subtitle}</span>
+                      <h3 className="font-serif text-3xl text-[#1a1a1a] mb-2">{pillar.title}</h3>
+                      <p className="font-mono text-[9px] text-[#1a1a1a]/40 uppercase tracking-[0.2em]">[{pillar.technicalLabel}]</p>
+                    </div>
+                    <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="w-4 h-px bg-current" />
+                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold">Expand</span>
+                    </div>
+                  </motion.div>
+                )}
+
+                {/* --- EXPANDED STATE --- */}
+                <AnimatePresence>
+                  {isSelected && (
+                    <motion.div 
+                      initial={{ opacity: 0 }} 
+                      animate={{ opacity: 1, transition: { delay: 0.2 } }}
+                      exit={{ opacity: 0, transition: { duration: 0.1 } }}
+                      className="relative w-full min-h-full p-8 md:p-12 flex flex-col text-[#1a1a1a]"
+                    >
+                      {/* Expanded Header */}
+                      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-[#1a1a1a]/10 pb-8">
+                        <div>
+                          <div className="flex items-center gap-3 mb-4">
+                            <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>{pillar.number} // {pillar.categoryLabel}</span>
+                            <div className="w-12 h-px" style={{ backgroundColor: pillar.categoryHex }} />
+                          </div>
+                          <h2 className="font-serif text-5xl md:text-6xl mb-2">{pillar.title}</h2>
+                          <span className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40 mb-3 block">The Unit</span>
+                          <p className="font-sans text-xl text-[#1a1a1a]/80 max-w-3xl leading-relaxed">{pillar.description}</p>
+                        </div>
+                        <div className="mt-6 md:mt-0 p-6 border rounded-sm bg-white shadow-sm" style={{ borderColor: `${pillar.categoryHex}20` }}>
+                           <pillar.icon className="w-8 h-8 md:w-12 md:h-12" style={{ color: pillar.categoryHex }} />
+                        </div>
+                      </div>
+
+                      {/* Sub-Services Grid */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-12 flex-grow">
+                         {pillar.subServices?.map((sub, idx) => (
+                           <motion.div 
+                             key={idx}
+                             initial={{ y: 20, opacity: 0 }}
+                             animate={{ y: 0, opacity: 1 }}
+                             transition={{ delay: 0.3 + (idx * 0.1) }}
+                             className="border-l pl-6 flex flex-col justify-start"
+                             style={{ borderColor: `${pillar.categoryHex}30` }}
+                           >
+                              <div className="mb-3 flex items-center justify-between">
+                                <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>0{idx + 1}</span>
+                              </div>
+                              <h4 className="font-serif text-lg mb-3">{sub.title}</h4>
+                              <p className="font-sans text-sm text-[#1a1a1a]/60 leading-relaxed">{sub.description}</p>
+                           </motion.div>
+                         ))}
+                      </div>
+
+                      {/* CTA Section */}
+                      <div className="mt-12 w-full flex justify-end">
+                        <button 
+                            onClick={(e) => { e.stopPropagation(); onNavigate(pillar.id); }}
+                            className="group flex items-center gap-3"
+                        >
+                           <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>[ See Pillar ]</span>
+                           <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" style={{ color: pillar.categoryHex }} />
+                        </button>
+                      </div>
+
+                      {/* Close Button */}
+                      <button 
+                        onClick={(e) => { e.stopPropagation(); setSelectedPillarId(null); }}
+                        className="absolute top-8 right-8 p-2 hover:bg-gray-100 rounded-full transition-colors"
+                      >
+                         <Minus className="w-6 h-6 text-[#1a1a1a]/40" />
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+      </section>
       
       {/* FAQ Section */}
       <FAQSection
@@ -453,21 +304,6 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
       />
       
       <GlobalFooter onNavigate={onNavigate} />
-
-      {/* MODAL */}
-      <AnimatePresence>
-        {isModalOpen && selectedPillar && (
-          <Modal
-            service={selectedPillar}
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)}
-            onViewPillar={(pillarId) => {
-              setIsModalOpen(false);
-              onNavigate(pillarId);
-            }}
-          />
-        )}
-      </AnimatePresence>
 
     </div>
   );
