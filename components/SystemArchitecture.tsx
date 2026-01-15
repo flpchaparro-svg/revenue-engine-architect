@@ -104,14 +104,14 @@ export const SystemArchitecture = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
 
-  // Animation Maps - Cards delayed to appear after scrolling down
+  // Animation Maps
   const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
   const acqY = useTransform(scrollYProgress, [0, 0.3], ["20vh", "42vh"]);
   const velY = useTransform(scrollYProgress, [0, 0.3], ["50vh", "42vh"]);
   const intY = useTransform(scrollYProgress, [0, 0.3], ["80vh", "42vh"]);
   const engineScale = useTransform(scrollYProgress, [0.3, 0.45], [1, 1.4]);
-  const cardsOpacity = useTransform(scrollYProgress, [0.65, 0.85], [0, 1]); // Delayed: Cards appear after scrolling down more
-  const lineDraw = useTransform(scrollYProgress, [0.75, 0.95], [0, 1]); // Lines draw after cards appear
+  const cardsOpacity = useTransform(scrollYProgress, [0.45, 0.6], [0, 1]);
+  const lineDraw = useTransform(scrollYProgress, [0.6, 0.8], [0, 1]);
 
   return (
     <div ref={containerRef} className="relative h-[300vh] bg-[#FFF2EC]">
@@ -133,8 +133,7 @@ export const SystemArchitecture = () => {
                  <VizAcquisition color="#E21E3F" />
                  <motion.div style={{ opacity: textOpacity }} className="absolute w-80 text-center md:text-left left-1/2 -translate-x-1/2 md:left-full md:translate-x-4 md:top-1/2 md:-translate-y-1/2">
                     <span className="font-mono text-[9px] text-[#E21E3F] tracking-[0.2em] uppercase font-bold block mb-2">01 // The Foundation</span>
-                    <h3 className="font-serif text-4xl text-[#1a1a1a] mb-2">ACQUISITION</h3>
-                    <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Capture demand, store data, and process revenue without chaos.</p>
+                    <h3 className="font-serif text-4xl text-[#1a1a1a]">ACQUISITION</h3>
                  </motion.div>
                </div>
             </motion.div>
@@ -145,8 +144,7 @@ export const SystemArchitecture = () => {
                   <VizVelocity color="#C5A059" />
                   <motion.div style={{ opacity: textOpacity }} className="absolute w-80 text-center md:text-right right-1/2 translate-x-1/2 md:right-full md:-translate-x-4 md:top-1/2 md:-translate-y-1/2">
                     <span className="font-mono text-[9px] text-[#C5A059] tracking-[0.2em] uppercase font-bold block mb-2">02 // The Amplifier</span>
-                    <h3 className="font-serif text-4xl text-[#1a1a1a] mb-2">VELOCITY</h3>
-                    <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Scale your output and authority without increasing headcount.</p>
+                    <h3 className="font-serif text-4xl text-[#1a1a1a]">VELOCITY</h3>
                  </motion.div>
                </div>
             </motion.div>
@@ -157,8 +155,7 @@ export const SystemArchitecture = () => {
                   <VizIntelligence color="#1a1a1a" />
                   <motion.div style={{ opacity: textOpacity }} className="absolute w-80 text-center md:text-left left-1/2 -translate-x-1/2 md:left-full md:translate-x-4 md:top-1/2 md:-translate-y-1/2">
                     <span className="font-mono text-[9px] text-[#1a1a1a] tracking-[0.2em] uppercase font-bold block mb-2">03 // The Navigator</span>
-                    <h3 className="font-serif text-4xl text-[#1a1a1a] mb-2">INTELLIGENCE</h3>
-                    <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Move from "gut feeling" to data-driven certainty.</p>
+                    <h3 className="font-serif text-4xl text-[#1a1a1a]">INTELLIGENCE</h3>
                  </motion.div>
                </div>
             </motion.div>
