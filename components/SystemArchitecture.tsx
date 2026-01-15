@@ -113,8 +113,17 @@ const SystemModal = ({ data, onClose }: { data: typeof PILLAR_DATA[0], onClose: 
 
 export const SystemArchitecture = () => {
   const [selectedPillar, setSelectedPillar] = useState<typeof PILLAR_DATA[0] | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
+
+  // Track window size for responsive card positioning
+  React.useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Animation Maps - TIGHTENED TIMINGS
   const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
@@ -132,8 +141,8 @@ export const SystemArchitecture = () => {
     <div ref={containerRef} className="relative h-[300vh] bg-[#FFF2EC]">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
         
-        {/* Connection Lines */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 hidden md:block">
+        {/* Connection Lines - Visible on mobile too */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
           {PILLAR_DATA.map((card, i) => (
              <motion.line key={i} x1="50%" y1="50%" x2={card.x} y2={card.y} stroke={card.color} strokeWidth="1" strokeDasharray="4 4" style={{ pathLength: lineDraw, opacity: 0.3 }} />
           ))}
@@ -181,7 +190,12 @@ export const SystemArchitecture = () => {
         {/* Floating Cards (Design Fixed: Cream Background, Correct Borders) */}
         {/* FIX: Visible on mobile (removed hidden md:block) */}
         <motion.div style={{ opacity: cardsOpacity }} className="absolute inset-0 pointer-events-none z-40">
-           {PILLAR_DATA.map((card) => (
+           {PILLAR_DATA.map((card, index) => {
+             // Mobile: Center cards vertically, stack them
+             // Desktop: Use original positioning
+             const mobileY = `${20 + (index * 12)}%`; // Stack cards vertically on mobile
+             
+             return (
               <motion.div
                 key={card.id}
                 variants={cardVariants}
@@ -189,13 +203,14 @@ export const SystemArchitecture = () => {
                 animate="visible"
                 whileHover="hover"
                 style={{ 
-                   left: card.x, 
-                   top: card.y, 
+                   // Mobile: centered horizontally, stacked vertically
+                   // Desktop: original positions
+                   left: isMobile ? '50%' : card.x,
+                   top: isMobile ? mobileY : card.y,
                    x: "-50%",
                    y: "-50%",
                    borderColor: `${card.color}40`
                 }}
-                // REVERTED to #FFF2EC to match blueprint theme (was bg-white)
                 className="absolute cursor-pointer bg-[#FFF2EC] border rounded-sm p-5 w-48 md:w-60 flex flex-col items-center text-center shadow-lg pointer-events-auto transition-colors duration-300 hover:bg-white group"
                 onClick={() => setSelectedPillar(card)}
               >
@@ -207,7 +222,8 @@ export const SystemArchitecture = () => {
                     <span className="text-[8px] font-mono uppercase tracking-[0.15em] text-[#1a1a1a]/60 group-hover:text-[#1a1a1a] transition-colors">[ Click here ]</span>
                  </div>
               </motion.div>
-           ))}
+             );
+           })}
         </motion.div>
 
         <AnimatePresence>
