@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Minus, Globe, Database, Zap, Bot, Video, Users, BarChart3 } from 'lucide-react';
 import GlobalFooter from '../../components/GlobalFooter';
@@ -74,51 +74,34 @@ const ALL_PILLARS = [
   }
 ];
 
-// --- VARIANTS ---
-const heroContainer = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } }
-};
-
-const heroItem = {
-  hidden: { y: 30, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 40, damping: 20 } }
-};
-
-// --- GRID ITEM COMPONENT ---
-// Separated to handle scrolling ref properly
+// --- GRID ITEM COMPONENT (Fixes Scroll Issue) ---
 const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
   const itemRef = useRef<HTMLDivElement>(null);
-
-  // Scroll into view when opened
-  useEffect(() => {
-    if (isSelected && itemRef.current) {
-      setTimeout(() => {
-        itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      }, 300); // Slight delay to allow animation to start
-    }
-  }, [isSelected]);
 
   return (
     <motion.div
       layout
       ref={itemRef}
+      onLayoutAnimationComplete={() => {
+        if (isSelected && itemRef.current) {
+           // SCROLL FIX: Waits for animation to finish, then centers the card
+           itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }}
       onClick={onToggle}
-      className={`relative overflow-hidden rounded-sm cursor-pointer group ${isSelected ? 'col-span-1 md:col-span-2 lg:col-span-3 min-h-[500px]' : 'col-span-1 min-h-[280px]'}`}
+      className={`relative overflow-hidden rounded-sm cursor-pointer group ${isSelected ? 'col-span-1 md:col-span-2 lg:col-span-3 min-h-[600px] z-10' : 'col-span-1 min-h-[300px] z-0'}`}
       style={{
-        backgroundColor: isSelected ? '#FFFFFF' : 'transparent',
+        backgroundColor: isSelected ? '#FFFFFF' : 'transparent', // DRAFT LOGIC: White when open, Transparent when closed
         borderColor: isSelected ? pillar.categoryHex : 'rgba(26, 26, 26, 0.15)',
       }}
-      animate={{
-        opacity: 1,
-        scale: 1, // Reset scale logic for simplicity and performance
-        zIndex: isSelected ? 10 : 1
-      }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.5, type: "spring", stiffness: 100, damping: 20 }}
     >
+      {/* Border Container */}
       <div className="absolute inset-0 pointer-events-none transition-all duration-500 border border-solid" style={{ borderColor: isSelected ? pillar.categoryHex : 'rgba(26, 26, 26, 0.15)' }} />
 
-      {!isSelected ? (
+      {/* --- CLOSED STATE (Matches Draft: Minimal/Transparent) --- */}
+      {!isSelected && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-8 h-full flex flex-col justify-between">
           <div className="flex justify-between items-start">
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40 font-bold">{pillar.number}</span>
@@ -134,64 +117,73 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold">Expand</span>
           </div>
         </motion.div>
-      ) : (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.2 } }} exit={{ opacity: 0 }} className="relative w-full min-h-full p-8 md:p-12 flex flex-col text-[#1a1a1a]">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-[#1a1a1a]/10 pb-8">
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>{pillar.number} // {pillar.categoryLabel}</span>
-                <div className="w-12 h-px" style={{ backgroundColor: pillar.categoryHex }} />
-              </div>
-              <h2 className="font-serif text-5xl md:text-6xl mb-2">{pillar.title}</h2>
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40 mb-3 block">The Unit</span>
-              <p className="font-sans text-xl text-[#1a1a1a]/80 max-w-3xl leading-relaxed">{pillar.description}</p>
-            </div>
-            <div className="mt-6 md:mt-0 p-6 border rounded-sm bg-white shadow-sm" style={{ borderColor: `${pillar.categoryHex}20` }}>
-                <pillar.icon className="w-8 h-8 md:w-12 md:h-12" style={{ color: pillar.categoryHex }} />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 flex-grow">
-              {pillar.subServices?.map((sub: any, idx: number) => (
-                <motion.div key={idx} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 + (idx * 0.1) }} className="border-l pl-6 flex flex-col justify-start" style={{ borderColor: `${pillar.categoryHex}30` }}>
-                  <div className="mb-3 flex items-center justify-between">
-                    <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>0{idx + 1}</span>
-                  </div>
-                  <h4 className="font-serif text-lg mb-3">{sub.title}</h4>
-                  <p className="font-sans text-sm text-[#1a1a1a]/60 leading-relaxed">{sub.description}</p>
-                </motion.div>
-              ))}
-          </div>
-
-          <div className="mt-12 w-full flex justify-end">
-            <button onClick={(e) => { e.stopPropagation(); onNavigate(pillar.id); }} className="group flex items-center gap-3">
-                <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>[ See Pillar ]</span>
-                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" style={{ color: pillar.categoryHex }} />
-            </button>
-          </div>
-
-          <button onClick={(e) => { e.stopPropagation(); onToggle(); }} className="absolute top-8 right-8 p-2 hover:bg-gray-100 rounded-full transition-colors">
-              <Minus className="w-6 h-6 text-[#1a1a1a]/40" />
-          </button>
-        </motion.div>
       )}
+
+      {/* --- EXPANDED STATE (Matches Draft: White Background, Full Details) --- */}
+      <AnimatePresence>
+        {isSelected && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.2 } }} exit={{ opacity: 0 }} className="relative w-full min-h-full p-8 md:p-12 flex flex-col text-[#1a1a1a]">
+            {/* Header */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-[#1a1a1a]/10 pb-8">
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>{pillar.number} // {pillar.categoryLabel}</span>
+                  <div className="w-12 h-px" style={{ backgroundColor: pillar.categoryHex }} />
+                </div>
+                <h2 className="font-serif text-5xl md:text-6xl mb-2">{pillar.title}</h2>
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40 mb-3 block">The Unit</span>
+                <p className="font-sans text-xl text-[#1a1a1a]/80 max-w-3xl leading-relaxed">{pillar.description}</p>
+              </div>
+              <div className="mt-6 md:mt-0 p-6 border rounded-sm bg-white shadow-sm" style={{ borderColor: `${pillar.categoryHex}20` }}>
+                  <pillar.icon className="w-8 h-8 md:w-12 md:h-12" style={{ color: pillar.categoryHex }} />
+              </div>
+            </div>
+
+            {/* Sub-Services Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 flex-grow">
+                {pillar.subServices?.map((sub: any, idx: number) => (
+                  <motion.div key={idx} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 + (idx * 0.1) }} className="border-l pl-6 flex flex-col justify-start" style={{ borderColor: `${pillar.categoryHex}30` }}>
+                    <div className="mb-3 flex items-center justify-between">
+                      <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>0{idx + 1}</span>
+                    </div>
+                    <h4 className="font-serif text-lg mb-3">{sub.title}</h4>
+                    <p className="font-sans text-sm text-[#1a1a1a]/60 leading-relaxed">{sub.description}</p>
+                  </motion.div>
+                ))}
+            </div>
+
+            {/* Actions */}
+            <div className="mt-12 w-full flex justify-end">
+              <button onClick={(e) => { e.stopPropagation(); onNavigate(pillar.id); }} className="group flex items-center gap-3">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>[ See Pillar ]</span>
+                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" style={{ color: pillar.categoryHex }} />
+              </button>
+            </div>
+
+            {/* Close Button */}
+            <button onClick={(e) => { e.stopPropagation(); onToggle(); }} className="absolute top-8 right-8 p-2 hover:bg-gray-100 rounded-full transition-colors">
+                <Minus className="w-6 h-6 text-[#1a1a1a]/40" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
 
-interface SystemPageProps {
-  onBack: () => void;
-  onNavigate: (view: string, sectionId?: string) => void;
-}
-
-const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
+// --- MAIN PAGE ---
+const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
   const [selectedPillarId, setSelectedPillarId] = useState<string | null>(null);
   const systemFAQs = getSystemPageFAQs();
+
+  // Animation Variants
+  const heroContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } } };
+  const heroItem = { hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 40, damping: 20 } } };
 
   return (
     <div className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-32 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col font-sans">
       
-      {/* HERO */}
+      {/* HERO SECTION */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full mb-20">
          <div className="flex justify-between items-center mb-12">
             <button onClick={onBack} className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors">
@@ -199,7 +191,6 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
               / Return to Home
             </button>
          </div>
-
          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={heroContainer} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <motion.span variants={heroItem} className="font-mono text-xs text-[#E21E3F] tracking-[0.2em] mb-6 block uppercase font-bold">/ THE SYSTEM</motion.span>
@@ -217,7 +208,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
          <SystemArchitecture />
       </section>
 
-      {/* SECTION 2: GRID */}
+      {/* SECTION 2: BLUEPRINT GRID (Matches Draft Code) */}
       <section className="px-6 md:px-12 lg:px-20 pb-32 max-w-[1400px] mx-auto relative z-10 bg-[#FFF2EC]">
         <div className="text-center max-w-2xl mx-auto mb-24 pt-10">
             <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#E21E3F] mb-4 block font-bold">System Breakdown</span>
