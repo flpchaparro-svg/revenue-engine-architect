@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import { useInView } from 'framer-motion';
 
 export type GraphState = 'idle' | 'bottleneck' | 'tax' | 'grind' | 'cost' | 'fix';
 
@@ -11,6 +12,10 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<any>(null);
   const previousStateRef = useRef<GraphState | null>(null);
+  const hasAnimatedRef = useRef(false);
+  
+  // FIX: Detect when graph appears on screen
+  const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   // 1. SETUP (Runs once)
   useEffect(() => {
@@ -71,11 +76,9 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
     return () => { d3.select(containerRef.current).selectAll('*').remove(); };
   }, []);
 
-  // 2. UPDATE (Runs on hover)
+  // 2. UPDATE (Runs on hover and initial appearance)
   useEffect(() => {
     if (!svgRef.current) return;
-    if (previousStateRef.current === currentState) return;
-    previousStateRef.current = currentState;
     
     const { activeBar, valueText, labelText, chartWidth } = svgRef.current;
 
@@ -113,27 +116,48 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
     const target = config[currentState] || config.idle;
     const targetWidth = (target.value / 100) * chartWidth;
 
-    const duration = 500;
-    const ease = d3.easeCubicOut;
+    // FIX: Smoother transitions with longer duration and better easing
+    const duration = 900;
+    const ease = d3.easeCubicInOut;
 
-    // 1. Label
-    labelText.text(target.label)
-        .transition().duration(duration)
-        .style('fill', target.color === '#C5A059' ? '#C5A059' : '#1a1a1a');
+    // FIX: Initial animation when graph appears on screen
+    const isInitialAnimation = !hasAnimatedRef.current && isInView;
+    const isStateChange = previousStateRef.current !== currentState && previousStateRef.current !== null;
+    
+    if (isInitialAnimation || isStateChange) {
+      previousStateRef.current = currentState;
+      if (isInitialAnimation) {
+        hasAnimatedRef.current = true;
+      }
 
-    // 2. Bar
-    activeBar
-        .transition().duration(duration).ease(ease)
-        .attr('width', targetWidth)
-        .attr('fill', target.color);
+      // 1. Label - Smooth color transition
+      labelText
+          .text(target.label)
+          .transition().duration(duration).ease(ease)
+          .style('fill', target.color === '#C5A059' ? '#C5A059' : '#1a1a1a');
 
-    // 3. Value
-    valueText
-        .text(target.text)
-        .transition().duration(duration)
-        .style('fill', target.color);
+      // 2. Bar - Smooth width and color transition (animate from 0 on initial load)
+      if (isInitialAnimation) {
+        activeBar
+            .attr('width', 0)
+            .attr('fill', target.color)
+            .transition().duration(duration).ease(ease)
+            .attr('width', targetWidth);
+      } else {
+        activeBar
+            .transition().duration(duration).ease(ease)
+            .attr('width', targetWidth)
+            .attr('fill', target.color);
+      }
 
-  }, [currentState]);
+      // 3. Value - Smooth color transition
+      valueText
+          .text(target.text)
+          .transition().duration(duration).ease(ease)
+          .style('fill', target.color);
+    }
+
+  }, [currentState, isInView]);
 
   return <div ref={containerRef} className="w-full h-full min-h-[300px] flex items-center justify-center pointer-events-none" />;
 };
