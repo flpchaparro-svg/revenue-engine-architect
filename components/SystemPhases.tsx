@@ -70,21 +70,45 @@ const textVariants = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } }
 };
 
-// DATA CONSTANT
-const BLUEPRINT_SERVICE = {
-  id: 'blueprint-architecture',
-  title: 'Architecture of Growth',
-  subtitle: '/// BLUEPRINT',
-  description: 'Connect every pillar into one automated engine.',
+// SYSTEM CARD DATA - Different copy for each group context
+const SYSTEM_CARD_GROUP1 = {
+  id: 'system-overview',
+  title: 'See the Full System',
+  subtitle: '/ 7 PILLARS',
+  description: 'These three pillars are just the start. See how all seven connect to build a complete growth engine.',
+  extraText: 'Visit the System Page to see how Marketing, Sales, and Operations work together as one machine.',
   visualPrompt: 'neural',
-  technicalLabel: 'SYSTEM ARCHITECTURE',
-  systemGroup: 'INTEGRATION',
-  question: "Is your business fragmented?",
-  features: [
-      "Unified Data Ecosystem",
-      "Automated Workflows",
-      "Scalable Infrastructure"
-  ]
+  technicalLabel: '/ ALL PILLARS',
+  systemGroup: 'GET CLIENTS',
+};
+
+const SYSTEM_CARD_GROUP2 = {
+  id: 'system-overview',
+  title: 'See the Full System',
+  subtitle: '/ 7 PILLARS',
+  description: 'AI and content multiply your output, but they work best when connected to everything else. See the complete picture.',
+  extraText: 'Visit the System Page to see how these pillars connect with your website, CRM, and dashboards.',
+  visualPrompt: 'neural',
+  technicalLabel: '/ ALL PILLARS',
+  systemGroup: 'SCALE FASTER',
+};
+
+const SYSTEM_CARD_GROUP3 = {
+  id: 'system-overview',
+  title: 'See the Full System',
+  subtitle: '/ 7 PILLARS',
+  description: 'Dashboards show you the truth, but only if the data feeding them is clean. See how all seven pillars connect.',
+  extraText: 'Visit the System Page to understand how your CRM, automation, and AI all feed into this single view.',
+  visualPrompt: 'neural',
+  technicalLabel: '/ ALL PILLARS',
+  systemGroup: 'SEE CLEARLY',
+};
+
+// Helper function to get the right system card based on phase
+const getSystemCard = (phaseId: string) => {
+  if (phaseId === 'GET CLIENTS') return SYSTEM_CARD_GROUP1;
+  if (phaseId === 'SCALE FASTER') return SYSTEM_CARD_GROUP2;
+  return SYSTEM_CARD_GROUP3;
 };
 
 const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
@@ -101,7 +125,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
   }, [activePhase.id]);
 
   const displayService = activeService || currentServices[0];
-  const isBlueprint = displayService?.id === 'blueprint-architecture';
+  const systemCard = getSystemCard(activePhase.id);
+  const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
 
   const changePhase = (newIndex: number) => {
     setPage([newIndex, newIndex > activeIndex ? 1 : -1]);
@@ -113,10 +138,10 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
   };
 
   // FIX: Using app navigation instead of window reload
-  const handleCardClick = (service: ServiceDetail | typeof BLUEPRINT_SERVICE) => {
+  const handleCardClick = (service: ServiceDetail | typeof SYSTEM_CARD_GROUP1) => {
     if (!onNavigate) return; // Safety check
     
-    if (service.id === 'blueprint-architecture') {
+    if (service.id === 'system-overview' || service.id === 'blueprint-architecture') {
       onNavigate('system');
     } else {
       // Service IDs are already 'pillar1', 'pillar2', etc., which match the routeMap keys
@@ -163,7 +188,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       <div className="flex-1 flex flex-col w-full">
         {/* HEADER */}
         <div className={`pt-24 pb-12 px-6 lg:pt-16 lg:pb-8 text-center max-w-4xl mx-auto ${activePhase.text}`}>
-           <span className="font-mono text-xs tracking-[0.4em] mb-4 block uppercase font-bold opacity-60">/ THE SYSTEM</span>
+           <span className="font-mono text-xs tracking-[0.2em] mb-4 block uppercase font-bold opacity-60">/ THE SYSTEM</span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-none tracking-tighter mb-6">7 Ways I Fix Your Business.</h2>
            <p className="font-sans text-base md:text-xl font-light opacity-70 leading-relaxed max-w-2xl mx-auto px-4">
               I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.
@@ -177,10 +202,10 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                 const isActive = idx === activeIndex;
                 const isUnvisited = idx > activeIndex;
                 return (
-                  <button 
+                    <button 
                     key={phase.id} 
                     onClick={() => changePhase(idx)}
-                    className={`relative flex items-center font-mono text-xs md:text-sm font-bold tracking-widest transition-all ${isActive ? 'opacity-100' : 'opacity-40'} ${activePhase.text}`}
+                    className={`relative flex items-center font-mono text-xs md:text-sm font-bold tracking-[0.2em] transition-all ${isActive ? 'opacity-100' : 'opacity-40'} ${activePhase.text}`}
                   >
                     <motion.span 
                       animate={isUnvisited ? { opacity: [0.4, 1, 0.4] } : {}}
@@ -201,7 +226,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
               {/* LEFT DISPLAY - MAIN CARD */}
               <div className="hidden lg:flex lg:col-span-6 flex-col">
                 {(() => {
-                  const isBlueprint = displayService?.id === 'blueprint-architecture';
+                  const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
+                  const displayData = isBlueprint ? systemCard : displayService;
                   return (
                     <div className={`relative flex-1 rounded-sm border shadow-2xl overflow-hidden flex flex-col transition-colors duration-500 
                       ${isBlueprint 
@@ -213,8 +239,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       {!isBlueprint && (
                         <div className="h-1/2 relative border-b border-current/5">
                           <div className="absolute top-6 left-6 z-20">
-                            {/* MATCHED FONT: text-xs font-bold tracking-widest (was text-[9px] medium) */}
-                            <div className="font-mono text-xs font-bold uppercase tracking-widest opacity-60">
+                            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-60">
                               {displayService?.technicalLabel || '[ SYSTEM ARCHITECTURE ]'}
                             </div>
                           </div>
@@ -233,26 +258,24 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       <div className={`p-8 flex-1 flex flex-col justify-between ${isBlueprint ? 'justify-center py-12' : ''}`}>
                         <AnimatePresence mode="wait">
                             <motion.div
-                                key={displayService?.id}
+                                key={displayData?.id}
                                 variants={textVariants}
                                 initial="hidden"
                                 animate="visible"
                                 exit="hidden"
                             >
                                 <h3 className={`font-serif mb-2 leading-tight ${isBlueprint ? 'text-4xl md:text-5xl text-[#C5A059]' : 'text-3xl'}`}>
-                                    {displayService?.title}
+                                    {displayData?.title}
                                 </h3>
-                                {/* MATCHED FONT: text-xs font-bold (was text-[10px]) */}
-                                <p className="font-mono text-xs font-bold uppercase tracking-widest opacity-50 mb-4">{displayService?.subtitle}</p>
+                                <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-50 mb-4">{displayData?.subtitle}</p>
                                 
-                                {/* MATCHED FONT: text-base (was text-sm) for better readability */}
                                 <p className={`opacity-70 leading-relaxed ${isBlueprint ? 'text-lg max-w-xl mb-6' : 'text-base line-clamp-4'}`}>
-                                    {displayService?.description}
+                                    {displayData?.description}
                                 </p>
 
-                                {isBlueprint && (
+                                {isBlueprint && 'extraText' in displayData && displayData.extraText && (
                                   <p className="font-sans text-xs opacity-60 leading-relaxed max-w-[90%] mb-8 border-l-2 border-[#C5A059] pl-3">
-                                    Navigate to the System Page to understand how these pillars function as an integrated ecosystem or as powerful standalone modules.
+                                    {displayData.extraText}
                                   </p>
                                 )}
                             </motion.div>
@@ -262,8 +285,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         <div className={`mt-auto pt-6 border-t ${isBlueprint ? 'border-[#C5A059]/20' : (activePhase.dark ? 'border-white/10' : 'border-black/5')}`}>
                              {isBlueprint ? (
                                  <div 
-                                    onClick={() => handleCardClick(displayService)}
-                                    className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-4 px-6 font-mono text-xs tracking-widest font-bold text-center uppercase cursor-pointer group/btn"
+                                    onClick={() => handleCardClick(displayData as any)}
+                                    className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-4 px-6 font-mono text-xs tracking-[0.2em] font-bold text-center uppercase cursor-pointer group/btn"
                                  >
                                     <div className="absolute inset-0 bg-white translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                                     <span className="relative z-10 transition-colors duration-500">[ EXPLORE THE SYSTEM ]</span>
@@ -271,7 +294,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                              ) : (
                                  <button
                                     onClick={() => handleCardClick(displayService)}
-                                    className={`text-left font-mono text-xs font-bold uppercase tracking-widest mt-1 transition-colors duration-300
+                                    className={`text-left font-mono text-xs font-bold uppercase tracking-[0.2em] mt-1 transition-colors duration-300
                                         ${activePhase.dark ? 'text-[#C5A059] hover:text-white' : 'text-[#E21E3F] hover:text-black'}
                                     `}
                                  >
@@ -320,8 +343,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       {/* MOBILE TOP VISUALIZER */}
                       <div className="relative h-48 w-full border-b border-current/10 lg:hidden shrink-0 overflow-hidden bg-black/5">
                           <div className="absolute top-4 left-4 z-10">
-                             {/* MATCHED FONT: text-xs font-bold (was text-[9px]) */}
-                             <span className="font-mono text-xs font-bold uppercase tracking-widest opacity-50">
+                             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-50">
                                [ {service.subtitle || 'SYSTEM'} ]
                              </span>
                           </div>
@@ -357,7 +379,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                          {/* BOTTOM: CTA */}
                          <div className="mt-6 pt-4 border-t border-current/10 flex justify-start">
                             <span className={`
-                              font-mono text-xs uppercase tracking-widest font-bold
+                              font-mono text-xs uppercase tracking-[0.2em] font-bold
                               ${isActive 
                                  ? (activePhase.dark ? 'text-white' : 'text-black') 
                                  : (activePhase.dark ? 'text-[#C5A059]' : 'text-[#E21E3F]')
@@ -372,14 +394,15 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                   );
                 })}
 
-                {/* PREMIUM CTA CARD */}
+                {/* SYSTEM CTA CARD */}
                 {(() => {
-                  const isBlueprint = displayService?.id === 'blueprint-architecture';
+                  const systemCardData = getSystemCard(activePhase.id);
+                  const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
                   return (
                     <motion.div 
                       variants={cardVariants}
-                      onMouseEnter={() => setActiveService(BLUEPRINT_SERVICE)}
-                      onClick={() => handleCardClick(BLUEPRINT_SERVICE as ServiceDetail)}
+                      onMouseEnter={() => setActiveService(systemCardData as any)}
+                      onClick={() => handleCardClick(systemCardData as any)}
                       className={`relative p-6 bg-[#1a1a1a] border rounded-sm group cursor-pointer lg:transition-all min-h-[250px] flex flex-col justify-between 
                         ${isBlueprint
                           ? 'border-[#C5A059] lg:-translate-y-2 lg:shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
@@ -392,18 +415,17 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       </div>
                       
                       <div className="flex justify-between items-start mb-4 relative z-10">
-                         {/* MATCHED FONT: text-xs font-bold (was text-[10px]) */}
-                         <span className="font-mono text-xs font-bold text-white/50 block tracking-widest uppercase">/// BLUEPRINT</span>
+                         <span className="font-mono text-xs font-bold text-white/50 block tracking-[0.2em] uppercase">{systemCardData.technicalLabel}</span>
                          <ArrowDownRight className={`w-4 h-4 text-[#C5A059] lg:transition-transform lg:duration-500 ${isBlueprint ? 'lg:-rotate-90' : 'lg:group-hover:-rotate-90'}`} />
                       </div>
 
                       <div className="relative z-10 mb-auto">
-                         <h4 className="font-serif text-2xl text-white mb-3 leading-tight">Architecture of Growth</h4>
-                         <p className="font-sans text-sm text-white/60 line-clamp-none">Connect every pillar into one automated engine.</p>
+                         <h4 className="font-serif text-2xl text-white mb-3 leading-tight">{systemCardData.title}</h4>
+                         <p className="font-sans text-sm text-white/60 line-clamp-none">{systemCardData.description}</p>
                       </div>
 
                       <div className="mt-6 pt-4 border-t border-white/10">
-                        <div className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-3 px-4 font-mono text-xs tracking-widest font-bold text-center uppercase">
+                        <div className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-3 px-4 font-mono text-xs tracking-[0.2em] font-bold text-center uppercase">
                           <div className="absolute inset-0 bg-white translate-y-full lg:group-hover:translate-y-0 lg:transition-transform lg:duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                           <span className="relative z-10 lg:transition-colors lg:duration-500">[ EXPLORE THE SYSTEM ]</span>
                         </div>

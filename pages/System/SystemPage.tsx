@@ -93,7 +93,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const isLastItem = pillar.id === 'pillar7';
 
-  // FIX: Dynamic classes to handle layout symmetry (Pillar 7 centering)
+  // FIX: Dynamic classes to handle layout symmetry
   const gridClasses = isSelected 
     ? 'col-span-1 md:col-span-2 lg:col-span-3 min-h-[600px] h-auto z-10'
     : isLastItem 
@@ -127,20 +127,18 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
       {!isSelected && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-8 h-full flex flex-col justify-between">
           <div className="flex justify-between items-start">
-            {/* CHANGED: text-[10px] -> text-xs, added font-bold */}
+            {/* Standard: text-xs font-bold tracking-[0.2em] */}
             <span className="font-mono text-xs uppercase tracking-[0.2em] opacity-40 font-bold">{pillar.number}</span>
             <pillar.icon className="w-5 h-5 opacity-40 group-hover:opacity-100 transition-opacity" style={{ color: pillar.categoryHex }} />
           </div>
           <div>
-            {/* CHANGED: text-[9px] -> text-xs, added font-bold */}
-            <span className="font-mono text-xs uppercase tracking-[0.2em] mb-3 block font-bold" style={{ color: pillar.categoryHex }}>{pillar.subtitle}</span>
-            <h3 className="font-serif text-3xl text-[#1a1a1a] mb-2 leading-none">{pillar.title}</h3>
-            {/* CHANGED: text-[9px] -> text-xs, added font-bold */}
+            <span className="font-mono text-xs uppercase tracking-[0.2em] mb-6 block font-bold" style={{ color: pillar.categoryHex }}>{pillar.subtitle}</span>
+            {/* HIERARCHY FIX: Reduced from 3xl to 2xl/3xl to sit below Page Titles */}
+            <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-2 leading-none">{pillar.title}</h3>
             <p className="font-mono text-xs text-[#1a1a1a]/40 uppercase tracking-[0.2em] font-bold">[{pillar.technicalLabel}]</p>
           </div>
           <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="w-4 h-px bg-current" />
-            {/* CHANGED: text-[9px] -> text-xs, added font-bold */}
             <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold">Expand</span>
           </div>
         </motion.div>
@@ -151,17 +149,16 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
         {isSelected && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.2 } }} exit={{ opacity: 0 }} className="relative w-full min-h-full p-8 md:p-12 flex flex-col text-[#1a1a1a]">
             {/* Header */}
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-[#1a1a1a]/10 pb-8">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-[#1a1a1a]/10 pb-10">
               <div>
-                <div className="flex items-center gap-3 mb-4">
-                  {/* CHANGED: text-[10px] -> text-xs, added font-bold */}
+                <div className="flex items-center gap-3 mb-6">
                   <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>{pillar.number} // {pillar.categoryLabel}</span>
                   <div className="w-12 h-px" style={{ backgroundColor: pillar.categoryHex }} />
                 </div>
-                <h2 className="font-serif text-5xl md:text-6xl mb-2 leading-none tracking-tight">{pillar.title}</h2>
-                {/* CHANGED: text-[10px] -> text-xs, added font-bold */}
-                <span className="font-mono text-xs uppercase tracking-[0.2em] opacity-40 mb-3 block font-bold">The Unit</span>
-                {/* CHANGED: text-xl -> text-lg md:text-xl (Matches Home Page Body) */}
+                {/* HIERARCHY FIX: Reduced from 6xl to 4xl/5xl to remain subservient to H1 */}
+                <h2 className="font-serif text-4xl md:text-5xl mb-2 leading-none tracking-tight">{pillar.title}</h2>
+                <span className="font-mono text-xs uppercase tracking-[0.2em] opacity-40 mb-6 block font-bold">The Unit</span>
+                {/* Standard: text-lg md:text-xl */}
                 <p className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 max-w-3xl leading-relaxed">{pillar.description}</p>
               </div>
               <div className="mt-6 md:mt-0 p-6 border rounded-sm bg-white shadow-sm" style={{ borderColor: `${pillar.categoryHex}20` }}>
@@ -173,13 +170,12 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 flex-grow">
                 {pillar.subServices?.map((sub: any, idx: number) => (
                   <motion.div key={idx} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 + (idx * 0.1) }} className="border-l pl-6 flex flex-col justify-start" style={{ borderColor: `${pillar.categoryHex}30` }}>
-                    <div className="mb-3 flex items-center justify-between">
-                      {/* CHANGED: text-[9px] -> text-xs, added font-bold */}
+                    <div className="mb-4 flex items-center justify-between">
                       <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>0{idx + 1}</span>
                     </div>
-                    <h4 className="font-serif text-lg md:text-xl mb-3">{sub.title}</h4>
-                    {/* CHANGED: text-sm -> text-sm md:text-base (Matches Home Page Lists) */}
-                    <p className="font-sans text-sm md:text-base text-[#1a1a1a]/60 leading-relaxed">{sub.description}</p>
+                    <h4 className="font-serif text-lg md:text-xl mb-4">{sub.title}</h4>
+                    {/* WRAPPED CONTENT FIX: Upgraded to text-base for readability */}
+                    <p className="font-sans text-base text-[#1a1a1a]/60 leading-relaxed">{sub.description}</p>
                   </motion.div>
                 ))}
             </div>
@@ -187,7 +183,6 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             {/* Actions */}
             <div className="mt-12 w-full flex justify-end">
               <button onClick={(e) => { e.stopPropagation(); onNavigate(pillar.id); }} className="group flex items-center gap-3">
-                  {/* CHANGED: text-[10px] -> text-xs, added font-bold */}
                   <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>[ See Pillar ]</span>
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" style={{ color: pillar.categoryHex }} />
               </button>
@@ -218,7 +213,6 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
       {/* HERO SECTION */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full mb-20">
          <div className="flex justify-between items-center mb-12">
-            {/* CHANGED: text-[10px] -> text-xs, added font-bold */}
             <button onClick={onBack} className="group flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors font-bold">
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               / Return to Home
@@ -226,11 +220,14 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
          </div>
          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={heroContainer} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              {/* CHANGED: text-xs, added font-bold */}
-              <motion.span variants={heroItem} className="font-mono text-xs text-[#E21E3F] tracking-[0.2em] mb-6 block uppercase font-bold">/ THE SYSTEM</motion.span>
-              <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tighter mb-8">7 Ways I Fix <br /><span className="italic text-black/20">Your Business.</span></motion.h1>
-              {/* CHANGED: text-xl -> text-lg md:text-xl (Matches Home Page Body) */}
-              <motion.p variants={heroItem} className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-xl border-l-2 border-[#C5A059] pl-6">I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.</motion.p>
+              {/* HIERARCHY FIX: Matched Home Page spacing exactly (mb-10) */}
+              <motion.span variants={heroItem} className="font-mono text-xs text-[#E21E3F] tracking-[0.2em] mb-10 block uppercase font-bold">/ THE SYSTEM</motion.span>
+              
+              {/* HIERARCHY FIX: Using exact Home Page classes to fix "Frankenstein" sizes */}
+              <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter mb-10">7 Ways I Fix <br /><span className="italic text-black/20">Your Business.</span></motion.h1>
+              
+              {/* HIERARCHY FIX: Matches Home Page Body */}
+              <motion.p variants={heroItem} className="font-sans text-lg md:text-lg lg:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-2xl border-l-2 border-[#C5A059] pl-6">I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.</motion.p>
             </div>
             <motion.div variants={heroItem} className="h-full flex items-center justify-center lg:justify-end min-h-[300px] lg:min-h-[500px] relative">
                <HeroVisual_Suspension />
@@ -247,16 +244,14 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
       <section className="w-full bg-[#FFF2EC] pb-32 relative z-10">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
           <div className="text-center max-w-2xl mx-auto mb-24 pt-10">
-              {/* CHANGED: text-[10px] -> text-xs, added font-bold */}
-              <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#E21E3F] mb-4 block font-bold">System Breakdown</span>
-              <h2 className="font-serif text-5xl md:text-6xl text-[#1a1a1a] mb-6">The Parts in Detail</h2>
-              {/* CHANGED: text-lg -> text-lg md:text-xl (Matches Home Page) */}
-              <p className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed">Each component is designed to work alone, but engineered to work together.</p>
+              <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block font-bold">System Breakdown</span>
+              {/* HIERARCHY FIX: Section Header is smaller than Hero (4xl/5xl/6xl) */}
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] mb-6">The Parts in Detail</h2>
+              <p className="font-sans text-lg md:text-lg lg:text-xl text-[#1a1a1a]/70 leading-relaxed">Each component is designed to work alone, but engineered to work together.</p>
           </div>
 
           <div className="flex items-center gap-4 mb-12">
               <div className="h-px bg-black/10 flex-grow" />
-              {/* CHANGED: text-[10px] -> text-xs, added font-bold */}
               <span className="font-mono text-xs uppercase tracking-[0.2em] opacity-40 font-bold">System_Grid_V1.0</span>
               <div className="h-px bg-black/10 flex-grow" />
           </div>

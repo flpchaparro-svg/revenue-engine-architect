@@ -181,7 +181,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
         <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 relative z-20">
           <div className="lg:col-span-12 flex flex-col justify-start md:justify-center items-center lg:items-start text-center lg:text-left pt-8 md:pt-0">
             
-            {/* LABEL - Standardized tracking and font-weight */}
+            {/* LABEL - Standardized: text-xs, font-bold, mb-6 md:mb-10 */}
             <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-center lg:justify-start">
               <span className="text-xs font-mono font-bold tracking-[0.2em] uppercase text-[#1a1a1a]">/</span>
               <span className="text-xs font-mono font-bold tracking-[0.2em] uppercase text-[#1a1a1a]">
@@ -192,13 +192,13 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
               </span>
             </div>
 
-            {/* HEADLINE */}
+            {/* HEADLINE - The Gold Standard Size */}
             <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
               <div className="overflow-hidden"><span className="block reveal-text">Stop Doing</span></div>
               <div className="overflow-hidden"><span className="block reveal-text" style={{ animationDelay: '0.2s' }}><span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Everyone's Job.</span></span></div>
             </h1>
 
-            {/* BODY COPY - Maintained Scale */}
+            {/* BODY COPY - Standard: text-lg md:text-lg lg:text-xl */}
             <p className="font-sans text-lg md:text-lg lg:text-xl font-normal text-[#1a1a1a]/70 leading-relaxed max-w-2xl border-l-2 border-[#C5A059] pl-6 animate-fade-in text-left mx-auto lg:mx-0 mb-12 md:mb-0" style={{ animationDelay: '0.6s' }}>
               You didn't start a business to chase invoices, re-type data, and answer the same questions all day. I build the systems that do it for you — websites, CRMs, automations, and AI — so you can get back to the work that actually grows revenue.
             </p>
@@ -225,7 +225,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
         </div>
       </section>
 
-      {/* CAROUSEL - FIX: Changed text-sm to text-xs to match design system */}
+      {/* CAROUSEL - FIX: Standardized to text-xs font-bold */}
       <div className="w-full bg-[#1a1a1a]/5 py-12 border-y border-black/5 overflow-hidden relative z-30" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }} onMouseEnter={() => setIsTickerHovered(true)} onMouseLeave={() => setIsTickerHovered(false)}>
         <div className="flex whitespace-nowrap">
           <motion.div className="flex items-center pr-0" style={{ x: xPercent }}>
