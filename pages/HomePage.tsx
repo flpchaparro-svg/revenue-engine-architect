@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
 import { XCircle, ArrowRight } from 'lucide-react';
 import HeroVisual from '../components/HeroVisual';
-import BentoGrid from '../components/BentoGrid';
 import SystemPhases from '../components/SystemPhases';
 import TheArchitect from '../components/TheArchitect';
 import Feature_Group7 from '../components/Feature_Group7';
