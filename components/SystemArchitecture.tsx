@@ -141,7 +141,7 @@ export const SystemArchitecture = () => {
             <motion.div style={{ top: acqY, scale: engineScale, x: "-50%", y: "-50%" }} className="absolute left-1/2 z-30">
                <div className="relative flex items-center justify-center md:justify-start">
                  <VizAcquisition color="#E21E3F" />
-                 <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-36 md:left-full md:bottom-auto md:translate-x-0 md:text-left md:ml-8 md:w-80">
+                 <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:left-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-left md:ml-8 md:w-80">
                     <span className="font-mono text-[9px] text-[#E21E3F] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 01 // THE FOUNDATION</span>
                     <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Acquisition</h3>
                     <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Capture demand, store data, and process revenue without chaos.</p>
@@ -150,15 +150,14 @@ export const SystemArchitecture = () => {
             </motion.div>
 
             {/* Velocity - TEXT ON LEFT (System 02) */}
-            {/* FIX: Added y: "-50%" for true centering */}
             <motion.div style={{ top: velY, scale: engineScale, x: "-50%", y: "-50%" }} className="absolute left-1/2 z-20">
-               <div className="relative flex items-center justify-center md:justify-start">
-                  <VizVelocity color="#C5A059" />
-                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-36 md:right-full md:bottom-auto md:translate-x-0 md:text-right md:mr-8 md:w-80">
+               <div className="relative flex items-center justify-center md:justify-end">
+                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:right-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-right md:mr-8 md:w-80">
                     <span className="font-mono text-[9px] text-[#C5A059] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 02 // THE AMPLIFIER</span>
                     <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Velocity</h3>
                     <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Scale your output and authority without increasing headcount.</p>
                  </motion.div>
+                  <VizVelocity color="#C5A059" />
                </div>
             </motion.div>
 
@@ -167,7 +166,7 @@ export const SystemArchitecture = () => {
             <motion.div style={{ top: intY, scale: engineScale, x: "-50%", y: "-50%" }} className="absolute left-1/2 z-10">
                <div className="relative flex items-center justify-center md:justify-start">
                   <VizIntelligence color="#1a1a1a" />
-                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-36 md:left-full md:bottom-auto md:translate-x-0 md:text-left md:ml-8 md:w-80">
+                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:left-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-left md:ml-8 md:w-80">
                     <span className="font-mono text-[9px] text-[#1a1a1a] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 03 // THE NAVIGATOR</span>
                     <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Intelligence</h3>
                     <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Move from "gut feeling" to data-driven certainty.</p>
