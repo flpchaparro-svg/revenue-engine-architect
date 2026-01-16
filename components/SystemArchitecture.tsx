@@ -150,8 +150,8 @@ export const SystemArchitecture = () => {
             <motion.div style={{ top: velY, scale: engineScale, x: "-50%", y: "-50%" }} className="absolute left-1/2 z-20">
                <div className="relative flex items-center justify-center">
                   <VizVelocity color="#C5A059" />
-                  {/* FIX: Removed 'hidden', added 'right-full' for desktop left alignment */}
-                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:right-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-right md:mr-8 md:w-80">
+                  {/* FIX: added 'md:left-auto' to release the mobile centering so 'right-full' works */}
+                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:left-auto md:right-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-right md:mr-8 md:w-80">
                     <span className="font-mono text-[9px] text-[#C5A059] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 02 // THE AMPLIFIER</span>
                     <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Velocity</h3>
                     <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Scale your output and authority without increasing headcount.</p>
