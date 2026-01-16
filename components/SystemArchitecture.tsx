@@ -5,46 +5,46 @@ import { VizAcquisition, VizVelocity, VizIntelligence } from './ArchitecturePage
 
 // --- DATA: RINGS & FLOATING CARDS ---
 const PILLAR_DATA = [
-  // ACQUISITION (Right Side)
+  // ACQUISITION (Left Side)
   { 
     id: 'pillar1', group: 'ACQUISITION', title: 'THE FACE', subtitle: 'Websites & E-commerce',
-    color: '#E21E3F', x: '85%', y: '22%', 
+    color: '#E21E3F', x: '15%', y: '22%', 
     modalTitle: 'The Face',
     modalDesc: "It's not a brochure; it's a 'Digital Catcher.' We build websites engineered to capture leads and feed them into your system.",
     modalFeatures: ["High-Speed Landing Pages", "Retail E-commerce", "Brand Identity"]
   },
   { 
     id: 'pillar2', group: 'ACQUISITION', title: 'THE BRAIN', subtitle: 'CRM & Lead Tracking',
-    color: '#E21E3F', x: '85%', y: '42%',
+    color: '#E21E3F', x: '15%', y: '42%',
     modalTitle: 'The Brain',
     modalDesc: "The single source of truth. We track every call, email, and deal stage so you never lose revenue to human forgetfulness.",
     modalFeatures: ["Unified Inbox", "Deal Pipelines", "SMS Automation"]
   },
   { 
     id: 'pillar3', group: 'ACQUISITION', title: 'THE MUSCLE', subtitle: 'Automation',
-    color: '#E21E3F', x: '85%', y: '62%',
+    color: '#E21E3F', x: '15%', y: '62%',
     modalTitle: 'The Muscle',
     modalDesc: "Moving data without human effort. We replace 'Minor Labour' (data entry) with code so your team focuses on strategy.",
     modalFeatures: ["Auto-Invoicing", "Contract Generation", "Task Routing"]
   },
-  // VELOCITY (Left Side) - Cards moved to 15% to match Text on Left
+  // VELOCITY (Right Side)
   { 
     id: 'pillar4', group: 'VELOCITY', title: 'THE VOICE', subtitle: 'AI Assistants',
-    color: '#C5A059', x: '15%', y: '22%',
+    color: '#C5A059', x: '85%', y: '22%',
     modalTitle: 'The Voice',
     modalDesc: "AI Agents that act like digital employees. They can reason, speak to customers, and qualify leads 24/7.",
     modalFeatures: ["Phone Agents", "Smart Chatbots", "Internal Analysts"]
   },
   { 
     id: 'pillar5', group: 'VELOCITY', title: 'THE PRESENCE', subtitle: 'Media Logistics',
-    color: '#C5A059', x: '15%', y: '42%',
+    color: '#C5A059', x: '85%', y: '42%',
     modalTitle: 'The Presence',
     modalDesc: "Content as a supply chain. We turn one hour of raw expertise into a month of social media authority.",
     modalFeatures: ["Video Production", "Auto-Posting", "Content Repurposing"]
   },
   { 
     id: 'pillar6', group: 'VELOCITY', title: 'THE SOUL', subtitle: 'Team Training',
-    color: '#C5A059', x: '15%', y: '62%',
+    color: '#C5A059', x: '85%', y: '62%',
     modalTitle: 'The Soul',
     modalDesc: "Technology fails if humans don't use it. We engineer the training and culture shift to ensure adoption.",
     modalFeatures: ["Internal Podcasts", "Micro-Learning", "Visual SOPs"]
@@ -139,7 +139,7 @@ export const SystemArchitecture = () => {
                <div className="relative flex items-center justify-center">
                  <VizAcquisition color="#E21E3F" />
                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:left-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-left md:ml-8 md:w-80">
-                    <span className="font-mono text-[9px] text-[#E21E3F] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 01 // THE FOUNDATION</span>
+                    <span className="font-mono text-[9px] text-[#E21E3F] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 01 / THE FOUNDATION</span>
                     <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Acquisition</h3>
                     <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Capture demand, store data, and process revenue without chaos.</p>
                  </motion.div>
@@ -152,7 +152,7 @@ export const SystemArchitecture = () => {
                   <VizVelocity color="#C5A059" />
                   {/* FIX: added 'md:left-auto' to release the mobile centering so 'right-full' works */}
                   <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:left-auto md:right-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-right md:mr-8 md:w-80">
-                    <span className="font-mono text-[9px] text-[#C5A059] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 02 // THE AMPLIFIER</span>
+                    <span className="font-mono text-[9px] text-[#C5A059] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 02 / THE AMPLIFIER</span>
                     <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Velocity</h3>
                     <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Scale your output and authority without increasing headcount.</p>
                  </motion.div>
@@ -164,7 +164,7 @@ export const SystemArchitecture = () => {
                <div className="relative flex items-center justify-center">
                   <VizIntelligence color="#1a1a1a" />
                   <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:left-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-left md:ml-8 md:w-80">
-                    <span className="font-mono text-[9px] text-[#1a1a1a] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 03 // THE NAVIGATOR</span>
+                    <span className="font-mono text-[9px] text-[#1a1a1a] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 03 / THE NAVIGATOR</span>
                     <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Intelligence</h3>
                     <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Move from "gut feeling" to data-driven certainty.</p>
                  </motion.div>

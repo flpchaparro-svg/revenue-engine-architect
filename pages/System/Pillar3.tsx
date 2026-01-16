@@ -33,7 +33,7 @@ const FillButton = ({ children, onClick, className = "" }: { children: React.Rea
 const TIERS = {
   bridge: {
     id: 'bridge',
-    label: "TIER 01 // BRIDGE",
+    label: "TIER 01 / BRIDGE",
     promise: "I turn messy text into clean data, automatically.",
     sprint: "7-DAY SPRINT",
     specs: ['Intelligent Routing', 'Make.com + Claude AI', 'Unstructured Data Parsing', 'Zero-Entry CRM Sync'],
@@ -69,7 +69,7 @@ const TIERS = {
   },
   behavior: {
     id: 'behavior',
-    label: "TIER 02 // BEHAVIOUR",
+    label: "TIER 02 / BEHAVIOUR",
     promise: "The right message, to the right person, at the exact moment of influence.",
     sprint: "7-DAY SPRINT",
     specs: ['Intent Signal Tracking', 'Segment + HubSpot', 'Dynamic Personalisation', 'Event-Driven Logic'],
@@ -105,7 +105,7 @@ const TIERS = {
   },
   content: {
     id: 'content',
-    label: "TIER 03 // CONTENT",
+    label: "TIER 03 / CONTENT",
     promise: "Create once, publish everywhere. I multiply your voice.",
     sprint: "5-DAY SPRINT",
     specs: ['Asset Multiplier', 'Make.com + GPT-4o', 'Omni-Channel Distribution', 'Voice-to-Social Pipeline'],
@@ -141,7 +141,7 @@ const TIERS = {
   },
   autopilot: {
     id: 'autopilot',
-    label: "TIER 04 // AUTOPILOT",
+    label: "TIER 04 / AUTOPILOT",
     promise: "Zero-Lag Onboarding. Professionalism on autopilot.",
     sprint: "7-DAY SPRINT",
     specs: ['Zero-Lag Onboarding', 'Stripe + Jira + Slack', 'Auto-Project Creation', 'Client Portal Sync'],
@@ -226,7 +226,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
              
              {/* LEFT: CONTENT */}
              <div>
-               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM // GET CLIENTS</span>
+               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM / GET CLIENTS</span>
                <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight mb-8">
                  Automation.
                </h1>
@@ -260,7 +260,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                   }`}
                 >
                   <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${activeTier === key ? 'text-[#C5A059]' : 'text-inherit'}`}>
-                    {tier.label.split('//')[1]}
+                    {tier.label.split('/')[1]}
                   </span>
                   <span className={`text-[10px] block ${activeTier === key ? 'text-black/60' : 'text-inherit opacity-60'}`}>
                     {tier.sprint}
@@ -347,7 +347,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                 transition={{ duration: 0.3 }}
                               >
                                   <div className="mb-10">
-                                    <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">Diagnosis // The Pain Point</span>
+                                    <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">Diagnosis / The Pain Point</span>
                                     <h2 className="font-serif text-4xl md:text-5xl mb-6 text-[#1a1a1a] leading-tight">
                                         {currentPersona.painTitle}
                                     </h2>

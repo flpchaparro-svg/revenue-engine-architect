@@ -228,16 +228,11 @@ const PillarVisual_Turbine: React.FC = () => {
     <div ref={containerRef} className="w-full h-full bg-[#FFF2EC] relative overflow-hidden flex items-center justify-center border border-[#1a1a1a]/5 rounded-sm">
         <canvas ref={canvasRef} className="block" />
         
-        {/* Technical Overlay */}
-        <div className="absolute bottom-6 flex flex-col items-center gap-1 pointer-events-none opacity-60">
-            <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#1a1a1a] mb-1">
-                AUTOMATION_PIPELINE // ACTIVE
-            </div>
-            <div className="flex gap-2">
-                <div className="w-1 h-3 bg-[#1a1a1a]/20" />
-                <div className="w-1 h-3 bg-[#1a1a1a]/40" />
-                <div className="w-1 h-3 bg-[#C5A059]" /> 
-            </div>
+        {/* Three Lines at Bottom */}
+        <div className="absolute bottom-6 flex items-center justify-center gap-2 pointer-events-none">
+            <div className="w-12 h-px bg-[#1a1a1a]/20" />
+            <div className="w-12 h-px bg-[#1a1a1a]/40" />
+            <div className="w-12 h-px bg-[#C5A059]/60" />
         </div>
     </div>
   );

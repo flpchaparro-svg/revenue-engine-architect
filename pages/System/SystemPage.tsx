@@ -144,7 +144,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-[#1a1a1a]/10 pb-8">
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>{pillar.number} // {pillar.categoryLabel}</span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>{pillar.number} / {pillar.categoryLabel}</span>
                   <div className="w-12 h-px" style={{ backgroundColor: pillar.categoryHex }} />
                 </div>
                 <h2 className="font-serif text-5xl md:text-6xl mb-2">{pillar.title}</h2>
@@ -235,7 +235,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
 
           <div className="flex items-center gap-4 mb-12">
               <div className="h-px bg-black/10 flex-grow" />
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40">System_Grid_V1.0</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-40">System Grid V1.0</span>
               <div className="h-px bg-black/10 flex-grow" />
           </div>
 

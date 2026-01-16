@@ -86,7 +86,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
         
         {/* Floating Technical Label */}
         <div className="absolute top-[15%] right-[5%] font-mono text-[9px] text-black/10 uppercase tracking-[0.5em] rotate-90 origin-right fixed">
-          [ EVIDENCE_VAULT // VERIFIED_LOGS_V.1 ]
+          [ EVIDENCE VAULT / VERIFIED LOGS V.1 ]
         </div>
       </div>
 
@@ -100,11 +100,11 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                <ArrowLeft className="w-4 h-4" /> 
                [ ENGINE OVERVIEW ]
             </ShakeButton>
-            <span className="hidden md:inline font-mono text-[10px] text-black/20 uppercase tracking-[0.3em]">/ THE_EVIDENCE</span>
+            <span className="hidden md:inline font-mono text-[10px] text-black/20 uppercase tracking-[0.3em]">/ THE EVIDENCE</span>
           </div>
           <div className="hidden md:flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
-            <span className="font-mono text-[9px] text-black/40 uppercase tracking-[0.4em]">LOG_FILE_STATUS: READ_ONLY</span>
+            <span className="font-mono text-[9px] text-black/40 uppercase tracking-[0.4em]">LOG FILE STATUS: READ ONLY</span>
           </div>
         </div>
 
@@ -138,7 +138,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
              <div className="w-full aspect-square max-w-[400px] border border-black/5 bg-white p-12 flex flex-col justify-center items-center relative overflow-hidden shadow-sm">
                 <div className="absolute top-0 left-0 w-full h-1 bg-[#C5A059]"></div>
                 <ShieldCheck className="w-24 h-24 text-[#C5A059] mb-8 stroke-[0.5]" />
-                <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-center text-black/40">RESULT_AUTHENTICATED // SYSTEM_ID_0X44</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-center text-black/40">RESULT AUTHENTICATED / SYSTEM ID 0X44</span>
              </div>
           </div>
         </section>
@@ -147,7 +147,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
         <section className="mb-40">
           <div className="flex justify-between items-end mb-16 border-b border-black/10 pb-8">
             <h2 className="font-serif text-5xl italic">Case Audits.</h2>
-            <span className="font-mono text-[10px] text-black/30 tracking-[0.2em] uppercase mb-2">DEPLOYMENT_LOG_ARCHIVE</span>
+            <span className="font-mono text-[10px] text-black/30 tracking-[0.2em] uppercase mb-2">DEPLOYMENT LOG ARCHIVE</span>
           </div>
 
           <motion.div 
@@ -175,7 +175,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                 </div>
                 
                 <div className="pt-8 border-t border-black/5">
-                   <h4 className="font-mono text-[9px] uppercase tracking-widest text-black/30 mb-4">Verified_Metrics:</h4>
+                   <h4 className="font-mono text-[9px] uppercase tracking-widest text-black/30 mb-4">Verified Metrics:</h4>
                    <ul className="space-y-2">
                      {audit.metrics.map((m, i) => (
                        <li key={i} className="flex items-center gap-3">
@@ -192,7 +192,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
 
         {/* VERIFIED PARTNERS */}
         <section className="mb-32">
-          <span className="font-mono text-[10px] text-black/30 tracking-[0.5em] uppercase mb-12 block text-center">Engineered_With_The_Best</span>
+          <span className="font-mono text-[10px] text-black/30 tracking-[0.5em] uppercase mb-12 block text-center">Engineered With The Best</span>
           <div className="flex flex-wrap justify-center md:justify-between items-center gap-12 grayscale opacity-30 py-12 border-y border-black/5">
             {partners.map(p => (
               <span key={p} className="font-mono text-xs font-bold tracking-[0.4em] uppercase">{p}</span>
@@ -213,7 +213,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
         <div className="py-12 border-t border-black/10 flex flex-col md:flex-row items-center justify-between gap-8 mt-20 opacity-60">
           <div className="flex items-center gap-4">
             <CheckCircle2 className="w-5 h-5 text-[#C5A059]" />
-            <span className="font-mono text-[10px] uppercase tracking-widest text-black/40">EVIDENCE_VERIFIED // LOGS_NOMINAL</span>
+            <span className="font-mono text-[10px] uppercase tracking-widest text-black/40">EVIDENCE VERIFIED / LOGS NOMINAL</span>
           </div>
           <motion.button 
             onClick={onBack} 

@@ -33,7 +33,7 @@ const FillButton = ({ children, onClick, className = "" }: { children: React.Rea
 const TIERS = {
   media: {
     id: 'media',
-    label: "TIER 01 // MEDIA",
+    label: "TIER 01 / MEDIA",
     promise: "Turn your SOPs into a Spotify Playlist. Learn while you drive.",
     sprint: "5-DAY SPRINT",
     specs: ['ElevenLabs Voice Cloning', 'Private Podcast Feeds', 'Descript Editing', 'Automated Distribution'],
@@ -69,7 +69,7 @@ const TIERS = {
   },
   matrix: {
     id: 'matrix',
-    label: "TIER 02 // MATRIX",
+    label: "TIER 02 / MATRIX",
     promise: "Answers in 60 seconds. The 'TikTok' for corporate training.",
     sprint: "7-DAY SPRINT",
     specs: ['HeyGen Avatars', 'QR Code Library', 'Just-in-Time Delivery', 'Mobile-First Player'],
@@ -105,7 +105,7 @@ const TIERS = {
   },
   visuals: {
     id: 'visuals',
-    label: "TIER 03 // VISUALS",
+    label: "TIER 03 / VISUALS",
     promise: "One image is worth 1,000 words. I visualise the invisible.",
     sprint: "5-DAY SPRINT",
     specs: ['Napkin.ai Logic', 'Lucidchart Architecture', 'One-Page Cheat Sheets', 'Safety Iconography'],
@@ -141,7 +141,7 @@ const TIERS = {
   },
   analyst: {
     id: 'analyst',
-    label: "TIER 04 // ANALYST",
+    label: "TIER 04 / ANALYST",
     promise: "The Manager doesn't need to answer 'How do I do this?' ever again.",
     sprint: "10-DAY SPRINT",
     specs: ['Private Knowledge Base', 'Slack/Teams Integration', 'RAG Architecture', 'Source Attribution'],
@@ -226,7 +226,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
              
              {/* LEFT: CONTENT */}
              <div>
-               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM // SCALE FASTER</span>
+               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM / SCALE FASTER</span>
                <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight mb-8">
                  Team Training.
                </h1>
@@ -260,7 +260,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                   }`}
                 >
                   <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${activeTier === key ? 'text-[#C5A059]' : 'text-inherit'}`}>
-                    {tier.label.split('//')[1]}
+                    {tier.label.split('/')[1]}
                   </span>
                   <span className={`text-[10px] block ${activeTier === key ? 'text-black/60' : 'text-inherit opacity-60'}`}>
                     {tier.sprint}
@@ -347,7 +347,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                 transition={{ duration: 0.3 }}
                               >
                                   <div className="mb-10">
-                                    <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">Diagnosis // The Pain Point</span>
+                                    <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">Diagnosis / The Pain Point</span>
                                     <h2 className="font-serif text-4xl md:text-5xl mb-6 text-[#1a1a1a] leading-tight">
                                         {currentPersona.painTitle}
                                     </h2>

@@ -32,7 +32,7 @@ const FillButton = ({ children, onClick, className = "" }: { children: React.Rea
 const TIERS = {
   capture: {
     id: 'capture',
-    label: "TIER 01 // CAPTURE",
+    label: "TIER 01 / CAPTURE",
     promise: "Stop the Lead Leak. Every enquiry acknowledged in seconds.",
     sprint: "3-DAY SPRINT",
     specs: ['Unified Inbox Architecture', 'Missed-Call SMS Automation', 'Google Maps Chat Sync', 'Lead Source Tracking'],
@@ -68,7 +68,7 @@ const TIERS = {
   },
   pipeline: {
     id: 'pipeline',
-    label: "TIER 02 // PIPELINE",
+    label: "TIER 02 / PIPELINE",
     promise: "Visualise the Money. Stop flying blind.",
     sprint: "5-DAY SPRINT",
     specs: ['Kanban Deal Stages', 'Weighted Revenue Forecasting', 'Rep Accountability Logic', 'Automated Task Reminders'],
@@ -104,7 +104,7 @@ const TIERS = {
   },
   retention: {
     id: 'retention',
-    label: "TIER 03 // RETENTION",
+    label: "TIER 03 / RETENTION",
     promise: "Maximise LTV. Stop renting customers, start owning them.",
     sprint: "7-DAY SPRINT",
     specs: ['Behavioral Email Flows', 'Churn Prevention Logic', 'VIP Segmentation', 'Cross-Sell Automation'],
@@ -140,7 +140,7 @@ const TIERS = {
   },
   audit: {
     id: 'audit',
-    label: "TIER 04 // AUDIT",
+    label: "TIER 04 / AUDIT",
     promise: "Audit. Rebuild. Consolidate. Delete the software you don't need.",
     sprint: "7-DAY AUDIT",
     specs: ['Full Stack Audit', 'Data Migration Protocols', 'Workflow Optimization', 'Legacy System Retirement'],
@@ -225,7 +225,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
              
              {/* LEFT: CONTENT */}
              <div>
-               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM // GET CLIENTS</span>
+               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM / GET CLIENTS</span>
                <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight mb-8">
                  CRM & Lead <br />
                  <span className="italic text-[#E21E3F]">Tracking.</span>
@@ -256,7 +256,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                   }`}
                 >
                   <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${activeTier === key ? 'text-[#C5A059]' : 'text-inherit'}`}>
-                    {tier.label.split('//')[1]}
+                    {tier.label.split('/')[1]}
                   </span>
                   <span className={`text-[10px] block ${activeTier === key ? 'text-black/60' : 'text-inherit opacity-60'}`}>
                     {tier.sprint}
@@ -343,7 +343,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                 transition={{ duration: 0.3 }}
                               >
                                   <div className="mb-10">
-                                    <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">Diagnosis // The Pain Point</span>
+                                    <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">Diagnosis / The Pain Point</span>
                                     <h2 className="font-serif text-4xl md:text-5xl mb-6 text-[#1a1a1a] leading-tight">
                                         {currentPersona.painTitle}
                                     </h2>

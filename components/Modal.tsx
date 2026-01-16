@@ -105,7 +105,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
 
                 <div className="mb-2">
                     <span className={`font-mono text-[10px] uppercase tracking-[0.2em] font-bold ${currentTheme.accent}`}>
-                       SERVICE OVERVIEW // {service.subtitle || 'SYSTEM MODULE'}
+                       SERVICE OVERVIEW / {service.subtitle || 'SYSTEM MODULE'}
                     </span>
                 </div>
 

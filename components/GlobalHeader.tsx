@@ -27,9 +27,9 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
       icon: Target, 
       color: 'text-[#E21E3F]', 
       items: [
-        { id: 'pillar1', name: '01 // Websites & E-commerce' },
-        { id: 'pillar2', name: '02 // CRM & Lead Tracking' },
-        { id: 'pillar3', name: '03 // Automation' }
+        { id: 'pillar1', name: '01 / Websites & E-commerce' },
+        { id: 'pillar2', name: '02 / CRM & Lead Tracking' },
+        { id: 'pillar3', name: '03 / Automation' }
       ]
     },
     { 
@@ -37,9 +37,9 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
       icon: Zap, 
       color: 'text-[#C5A059]', 
       items: [
-        { id: 'pillar4', name: '04 // AI Assistants' },
-        { id: 'pillar5', name: '05 // Content Systems' },
-        { id: 'pillar6', name: '06 // Team Training' }
+        { id: 'pillar4', name: '04 / AI Assistants' },
+        { id: 'pillar5', name: '05 / Content Systems' },
+        { id: 'pillar6', name: '06 / Team Training' }
       ]
     },
     { 
@@ -47,7 +47,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
       icon: BarChart3, 
       color: 'text-[#1a1a1a]', 
       items: [
-        { id: 'pillar7', name: '07 // Dashboards & Reporting' }
+        { id: 'pillar7', name: '07 / Dashboards & Reporting' }
       ]
     }
   ];

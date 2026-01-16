@@ -23,7 +23,7 @@ const TheArchitect: React.FC = () => {
             <div className={`absolute -inset-4 border border-[#1a1a1a]/10 transition-all duration-1000 ${mode === 'architect' ? 'opacity-100' : 'opacity-30'}`} />
             <div className={`absolute -inset-1 border border-[#1a1a1a] transition-all duration-1000 ${mode === 'architect' ? 'border-[#1a1a1a]' : 'border-[#C5A059]'}`} />
 
-            <div className="aspect-[9/16] bg-[#1a1a1a] relative overflow-hidden shadow-2xl">
+            <div className="aspect-[9/16] md:max-h-[90vh] lg:max-h-none bg-[#1a1a1a] relative overflow-hidden shadow-2xl">
               {/* Video in 9:16 ratio */}
               <motion.div
                 className="w-full h-full relative"
@@ -49,7 +49,7 @@ const TheArchitect: React.FC = () => {
               <div className="absolute top-6 left-6 z-20">
                 <div className={`font-mono text-xs uppercase tracking-[0.3em] flex items-center gap-3 transition-colors duration-500 ${mode === 'architect' ? 'text-white/60' : 'text-[#C5A059]'}`}>
                    <span className="w-1.5 h-1.5 rounded-full bg-[#E21E3F] animate-pulse" />
-                   FELIPE CHAPARRO // SYDNEY
+                   FELIPE CHAPARRO / SYDNEY
                 </div>
               </div>
 
@@ -65,7 +65,7 @@ const TheArchitect: React.FC = () => {
              {/* PROFILE SWITCH - High Visibility Dashboard Style */}
              <div className="flex flex-col sm:flex-row sm:items-center gap-6 mb-12 border-b border-black/5 pb-8">
               <span className="font-mono text-xs uppercase tracking-widest text-[#1a1a1a]/60 font-bold">
-                // VIEW MODE:
+                / VIEW MODE:
               </span>
               
               <div className="flex bg-[#1a1a1a]/5 p-1.5 rounded-sm w-fit">
@@ -77,7 +77,7 @@ const TheArchitect: React.FC = () => {
                       : 'text-[#1a1a1a]/50 hover:text-[#1a1a1a] hover:bg-black/5'
                   }`}
                 >
-                  THE_ARCHITECT
+                  THE ARCHITECT
                 </button>
                 
                 <button 
@@ -88,7 +88,7 @@ const TheArchitect: React.FC = () => {
                       : 'text-[#1a1a1a]/50 hover:text-[#1a1a1a] hover:bg-black/5'
                   }`}
                 >
-                  THE_HUMAN
+                  THE HUMAN
                 </button>
               </div>
             </div>

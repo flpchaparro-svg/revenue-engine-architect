@@ -67,7 +67,7 @@ const TerminalLog: React.FC = () => {
     <div className="w-full bg-[#1a1a1a] p-6 border-t border-black/10 font-mono text-xs overflow-hidden">
       <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
         <Terminal className="w-3 h-3 text-[#C5A059]" />
-        <span className="text-[#C5A059] uppercase tracking-widest">Build Log // What I Did</span>
+        <span className="text-[#C5A059] uppercase tracking-widest">Build Log / What I Did</span>
       </div>
       <div className="space-y-2">
         {lines.map((line, i) => (
@@ -109,7 +109,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
         {/* HERO */}
         <div className="mb-32">
-          <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">// THE PROOF</span>
+          <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE PROOF</span>
           <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] mb-8">
             Results You Can <span className="italic text-[#E21E3F]">Verify.</span>
           </h1>

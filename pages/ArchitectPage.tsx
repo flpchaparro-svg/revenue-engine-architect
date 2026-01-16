@@ -32,28 +32,28 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
           {
             id: 'a1',
             icon: FlaskConical,
-            label: 'PHASE 01 // THE APPROACH',
+            label: 'PHASE 01 / THE APPROACH',
             title: 'Custom Processes, Not Templates',
             text: "I spent years in chemical research building custom treatment systems for mining and industrial companies. No two companies had the same process. I learned that real solutions are engineered for each situation — never copy-pasted."
           },
           {
             id: 'a2',
             icon: Award,
-            label: 'PHASE 02 // THE STANDARD',
+            label: 'PHASE 02 / THE STANDARD',
             title: 'High Standards, No Shortcuts',
             text: "Whether it's a CRM setup or a full automation system, I push for precision. In chemistry, if you miss a step, the reaction fails. Same applies to business systems. I don't ship until it works properly."
           },
           {
             id: 'a3',
             icon: Wrench,
-            label: 'PHASE 03 // THE TOOLS',
+            label: 'PHASE 03 / THE TOOLS',
             title: 'Enterprise-Grade for Real Businesses',
             text: "I use the same tools as large agencies — HubSpot, Make.com, AI assistants, dashboards — but for real-world businesses. Tradies, wholesalers, service companies. You don't need to be a tech startup to have professional systems."
           },
           {
             id: 'a4',
             icon: Target,
-            label: 'PHASE 04 // THE RESULT',
+            label: 'PHASE 04 / THE RESULT',
             title: 'Freedom to Do Your Actual Job',
             text: "The goal is simple: give people the freedom they need to use their talent. If your sales team is doing data entry, something is broken. I fix that."
           }
@@ -65,7 +65,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
           { label: 'Same-Day Response' }
         ],
         image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000",
-        imageCaption: "Fig. 01 // Logic_Stream"
+        imageCaption: "Fig. 01 / Logic Stream"
       },
       human: {
         label: '/ THE ARCHITECT',
@@ -83,28 +83,28 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
           {
             id: 'h1',
             icon: FlaskConical,
-            label: 'CHAPTER 01 // THE SCIENTIST',
+            label: 'CHAPTER 01 / THE SCIENTIST',
             title: 'Started in the Lab',
             text: "I trained as a chemist in Chile, working on water treatment research for mining companies. Every project needed a custom process — no templates, just problem-solving from scratch. That's where I learned to see systems as reactions that can be engineered."
           },
           {
             id: 'h2',
             icon: Coffee,
-            label: 'CHAPTER 02 // THE OWNER',
+            label: 'CHAPTER 02 / THE OWNER',
             title: 'Built My Own Business',
             text: "I opened an artistic café in Santiago. Events, classes, artist exhibitions — we built a community space from nothing. I did everything: hiring, payroll, spreadsheets, marketing, inventory. I know what it costs to run a business with your own hands."
           },
           {
             id: 'h3',
             icon: Globe,
-            label: 'CHAPTER 03 // THE OPERATOR',
+            label: 'CHAPTER 03 / THE OPERATOR',
             title: 'Managed Across Cultures',
             text: "I ran an international fitness franchise in Southeast Asia. Different country, different culture, different expectations. I learned to adapt systems to people — not force people into systems. Then luxury car sales in Sydney taught me how to communicate value to high-end clients."
           },
           {
             id: 'h4',
             icon: Code2,
-            label: 'CHAPTER 04 // THE BUILDER',
+            label: 'CHAPTER 04 / THE BUILDER',
             title: 'Now I Build for Others',
             text: "After studying marketing automation, front-end development, and business analytics, I put it all together. I build the systems I wish I'd had when I was running my café — so business owners can focus on the work that actually matters."
           }
@@ -116,7 +116,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
           body: "When I'm not building systems, I play guitar and dance Bachata. Structure and improvisation — that's how I see everything."
         },
         image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2000",
-        imageCaption: "Fig. 02 // The_Operator"
+        imageCaption: "Fig. 02 / The Operator"
       }
     };
   
@@ -158,7 +158,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                   : 'text-[#1a1a1a]/40 hover:text-[#1a1a1a] hover:bg-black/5'
                 }`}
               >
-                THE_ARCHITECT
+                THE ARCHITECT
                 {/* Active Indicator Line */}
                 {mode === 'architect' && <motion.div layoutId="underline" className="absolute bottom-0 left-0 w-full h-1 bg-[#E21E3F]" />}
               </button>
@@ -172,7 +172,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                 }`}
                 style={mode === 'human' ? { boxShadow: '0 -4px 10px rgba(0,0,0,0.05)' } : {}}
               >
-                THE_HUMAN
+                THE HUMAN
                 {/* Active Indicator Line */}
                 {mode === 'human' && <motion.div layoutId="underline" className="absolute bottom-0 left-0 w-full h-1 bg-[#C5A059]" />}
               </button>

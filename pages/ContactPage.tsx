@@ -12,7 +12,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
     name: '',
     email: '',
     company: '',
-    frictionPoint: 'Digital Revenue // I need more leads & sales',
+    frictionPoint: 'Digital Revenue / I need more leads & sales',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,14 +29,14 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
   };
 
   const systems = [
-    'Digital Revenue // I need more leads & sales',
-    'Capture Core // My leads aren\'t converting',
-    'Auto-Fulfillment // Delivery is too manual',
-    'AI Agents // I want to automate admin work',
-    'Media Logistics // Content production is too slow',
-    'Internal Adoption // My team won\'t use the tools',
-    'Control Tower // I don\'t trust my data',
-    'Unsure // I need a full system audit'
+    'Digital Revenue / I need more leads & sales',
+    'Capture Core / My leads aren\'t converting',
+    'Auto-Fulfillment / Delivery is too manual',
+    'AI Agents / I want to automate admin work',
+    'Media Logistics / Content production is too slow',
+    'Internal Adoption / My team won\'t use the tools',
+    'Control Tower / I don\'t trust my data',
+    'Unsure / I need a full system audit'
   ];
 
   // UX FIX: Common Input Styles for better visibility

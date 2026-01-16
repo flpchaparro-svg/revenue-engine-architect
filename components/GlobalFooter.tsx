@@ -14,9 +14,9 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
       icon: Target,
       color: 'text-[#E21E3F]',
       links: [
-        { name: '01 // Websites & E-commerce', id: 'pillar1' },
-        { name: '02 // CRM & Lead Tracking', id: 'pillar2' },
-        { name: '03 // Automation', id: 'pillar3' }
+        { name: '01 / Websites & E-commerce', id: 'pillar1' },
+        { name: '02 / CRM & Lead Tracking', id: 'pillar2' },
+        { name: '03 / Automation', id: 'pillar3' }
       ]
     },
     {
@@ -24,9 +24,9 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
       icon: Zap,
       color: 'text-[#C5A059]',
       links: [
-        { name: '04 // AI Assistants', id: 'pillar4' },
-        { name: '05 // Content Systems', id: 'pillar5' },
-        { name: '06 // Team Training', id: 'pillar6' }
+        { name: '04 / AI Assistants', id: 'pillar4' },
+        { name: '05 / Content Systems', id: 'pillar5' },
+        { name: '06 / Team Training', id: 'pillar6' }
       ]
     },
     {
@@ -34,7 +34,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
       icon: BarChart3,
       color: 'text-[#1a1a1a]',
       links: [
-        { name: '07 // Dashboards & Reporting', id: 'pillar7' }
+        { name: '07 / Dashboards & Reporting', id: 'pillar7' }
       ]
     }
   ];
