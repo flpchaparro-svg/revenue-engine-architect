@@ -98,8 +98,10 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
       ref={itemRef}
       onLayoutAnimationComplete={() => {
         if (isSelected && itemRef.current) {
-           // FIX: Scroll to center ONLY after animation is fully done to avoid jumps
-           itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+           // FIX: Scroll to the beginning of the popup text (header section) for better UX
+           requestAnimationFrame(() => {
+             itemRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+           });
         }
       }}
       onClick={onToggle}

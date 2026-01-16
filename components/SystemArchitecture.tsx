@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { X, Check, ArrowRight } from 'lucide-react';
+import { X, Check } from 'lucide-react';
 import { VizAcquisition, VizVelocity, VizIntelligence } from './ArchitecturePageVisuals';
 
 // --- DATA: RINGS & FLOATING CARDS ---
@@ -100,12 +100,6 @@ const SystemModal = ({ data, onClose }: { data: typeof PILLAR_DATA[0], onClose: 
                   </div>
               ))}
           </div>
-          <div className="mt-8 pt-6">
-              <button className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-widest hover:gap-4 transition-all" style={{ color: data.color }}>
-                  <span>Learn more</span>
-                  <ArrowRight className="w-3 h-3" />
-              </button>
-          </div>
       </div>
     </motion.div>
   </div>
@@ -147,8 +141,8 @@ export const SystemArchitecture = () => {
                <div className="relative flex items-center justify-center md:justify-start">
                  <VizAcquisition color="#E21E3F" />
                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-36 md:left-full md:bottom-auto md:translate-x-0 md:text-left md:ml-8 md:w-80">
-                    <span className="font-mono text-[9px] text-[#E21E3F] tracking-widest uppercase block mb-2 md:mb-1">THE FOUNDATION</span>
-                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">ACQUISITION</h3>
+                    <span className="font-mono text-[9px] text-[#E21E3F] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 01 // THE FOUNDATION</span>
+                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Acquisition</h3>
                     <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Capture demand, store data, and process revenue without chaos.</p>
                  </motion.div>
                </div>
@@ -156,11 +150,11 @@ export const SystemArchitecture = () => {
 
             {/* Velocity */}
             <motion.div style={{ top: velY, scale: engineScale, x: "-50%" }} className="absolute left-1/2 z-20">
-               <div className="relative flex items-center justify-center md:justify-end">
+               <div className="relative flex items-center justify-center md:justify-start">
                   <VizVelocity color="#C5A059" />
-                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-36 md:right-full md:bottom-auto md:translate-x-0 md:text-right md:mr-8 md:w-80">
-                    <span className="font-mono text-[9px] text-[#C5A059] tracking-widest uppercase block mb-2 md:mb-1">THE AMPLIFIER</span>
-                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">VELOCITY</h3>
+                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-36 md:left-full md:bottom-auto md:translate-x-0 md:text-left md:ml-8 md:w-80">
+                    <span className="font-mono text-[9px] text-[#C5A059] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 02 // THE AMPLIFIER</span>
+                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Velocity</h3>
                     <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Scale your output and authority without increasing headcount.</p>
                  </motion.div>
                </div>
@@ -171,8 +165,8 @@ export const SystemArchitecture = () => {
                <div className="relative flex items-center justify-center md:justify-start">
                   <VizIntelligence color="#1a1a1a" />
                   <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-36 md:left-full md:bottom-auto md:translate-x-0 md:text-left md:ml-8 md:w-80">
-                    <span className="font-mono text-[9px] text-[#1a1a1a] tracking-widest uppercase block mb-2 md:mb-1">THE NAVIGATOR</span>
-                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">INTELLIGENCE</h3>
+                    <span className="font-mono text-[9px] text-[#1a1a1a] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 03 // THE NAVIGATOR</span>
+                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Intelligence</h3>
                     <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Move from "gut feeling" to data-driven certainty.</p>
                  </motion.div>
                </div>
