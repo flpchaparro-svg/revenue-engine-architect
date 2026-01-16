@@ -165,13 +165,6 @@ const PillarVisual_Helix: React.FC = () => {
     <div ref={containerRef} className="w-full h-full relative overflow-hidden bg-[#FFF2EC] flex items-center justify-center cursor-move">
         <canvas ref={canvasRef} className="block" />
         
-        {/* Technical Label Overlay */}
-        <div className="absolute bottom-8 flex flex-col items-center gap-2 pointer-events-none opacity-50">
-            <div className="w-[1px] h-8 bg-gradient-to-b from-transparent to-[#1a1a1a]" />
-            <div className="font-mono text-[9px] text-[#1a1a1a] uppercase tracking-[0.3em] font-bold">
-                CULTURAL_DNA // SYNCED
-            </div>
-        </div>
     </div>
   );
 };

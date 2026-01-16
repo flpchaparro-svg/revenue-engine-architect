@@ -19,31 +19,34 @@ const TheArchitect: React.FC = () => {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative group lg:sticky lg:top-1/2 lg:-translate-y-1/2 lg:self-start"
           >
-            {/* Structural Frame */}
-            <div className={`absolute -inset-4 border border-[#1a1a1a]/10 transition-all duration-1000 ${mode === 'architect' ? 'opacity-100' : 'opacity-30'}`} />
-            <div className={`absolute -inset-1 border border-[#1a1a1a] transition-all duration-1000 ${mode === 'architect' ? 'border-[#1a1a1a]' : 'border-[#C5A059]'}`} />
-
-            <div className="aspect-[9/16] md:max-h-[90vh] lg:max-h-none bg-[#1a1a1a] relative overflow-hidden shadow-2xl">
-              {/* Video in 9:16 ratio */}
-              <motion.div
-                className="w-full h-full relative"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-              >
-                 <video
-                    className="w-full h-full object-cover"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                 >
-                    <source src="/videos/revenue-engine-architecture-system-About-video.webm" type="video/webm" />
-                    Your browser does not support the video tag.
-                 </video>
-                 {/* Vignette Overlay */}
-                 <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-60" />
-              </motion.div>
+            <div className="aspect-[9/16] md:max-h-[70vh] lg:max-h-none bg-[#1a1a1a] relative overflow-visible shadow-2xl">
+              {/* Structural Frame - Inside the video container so it scales together */}
+              <div className={`absolute -inset-4 border border-[#1a1a1a]/10 transition-all duration-1000 pointer-events-none ${mode === 'architect' ? 'opacity-100' : 'opacity-30'}`} />
+              <div className={`absolute -inset-1 border border-[#1a1a1a] transition-all duration-1000 pointer-events-none ${mode === 'architect' ? 'border-[#1a1a1a]' : 'border-[#C5A059]'}`} />
+              
+              {/* Video container with overflow-hidden to clip video content */}
+              <div className="w-full h-full relative overflow-hidden">
+                {/* Video in 9:16 ratio */}
+                <motion.div
+                  className="w-full h-full relative"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                   <video
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                   >
+                      <source src="/videos/revenue-engine-architecture-system-About-video.webm" type="video/webm" />
+                      Your browser does not support the video tag.
+                   </video>
+                   {/* Vignette Overlay */}
+                   <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-60" />
+                </motion.div>
+              </div>
 
               {/* Technical Overlay */}
               <div className="absolute top-6 left-6 z-20">

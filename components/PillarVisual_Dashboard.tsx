@@ -52,7 +52,7 @@ const PillarVisual_Dashboard: React.FC = () => {
         // 3. Update Line Graph (The Heartbeat)
         const prevVal = dataPoints[dataPoints.length - 1];
         const noise = (Math.random() - 0.5) * 10;
-        const trend = Math.sin(tick * 0.05) * 2; 
+        const trend = Math.sin(tick * 0.015) * 2; 
         let newVal = prevVal + noise + trend;
         
         // Bounds check
@@ -90,7 +90,7 @@ const PillarVisual_Dashboard: React.FC = () => {
         ctx.fillStyle = COLOR_RED;
         ctx.fill();
         // Pulse ring
-        const pulseSize = 4 + Math.sin(tick * 0.2) * 4;
+        const pulseSize = 4 + Math.sin(tick * 0.05) * 4;
         ctx.beginPath();
         ctx.arc(lastX, lastY, pulseSize, 0, Math.PI*2);
         ctx.strokeStyle = `rgba(226, 30, 63, ${0.5 - pulseSize/20})`;
@@ -114,7 +114,7 @@ const PillarVisual_Dashboard: React.FC = () => {
         ctx.fillStyle = COLOR_TEXT_DIM;
         ctx.font = '9px monospace';
         // Scroll logs
-        if (tick % 100 === 0) {
+        if (tick % 200 === 0) {
             logOffset = (logOffset + 1) % logs.length;
         }
         
@@ -127,7 +127,7 @@ const PillarVisual_Dashboard: React.FC = () => {
         }
 
         // 6. Alert Box (Top Center - Occasional Flash)
-        if (Math.sin(tick * 0.05) > 0.9) {
+        if (Math.sin(tick * 0.015) > 0.9) {
             ctx.fillStyle = 'rgba(226, 30, 63, 0.1)';
             ctx.fillRect(width/2 - 60, 20, 120, 30);
             ctx.strokeStyle = COLOR_RED;

@@ -225,15 +225,8 @@ const PillarVisual_Turbine: React.FC = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-full bg-[#FFF2EC] relative overflow-hidden flex items-center justify-center border border-[#1a1a1a]/5 rounded-sm">
+    <div ref={containerRef} className="w-full h-full bg-[#FFF2EC] relative overflow-hidden flex items-center justify-center">
         <canvas ref={canvasRef} className="block" />
-        
-        {/* Three Lines at Bottom */}
-        <div className="absolute bottom-6 flex items-center justify-center gap-2 pointer-events-none">
-            <div className="w-12 h-px bg-[#1a1a1a]/20" />
-            <div className="w-12 h-px bg-[#1a1a1a]/40" />
-            <div className="w-12 h-px bg-[#C5A059]/60" />
-        </div>
     </div>
   );
 };

@@ -268,16 +268,6 @@ const PillarVisual_Brain: React.FC = () => {
     <div ref={containerRef} className="w-full h-full flex items-center justify-center relative overflow-hidden bg-[#FFF2EC] cursor-move">
       <canvas ref={canvasRef} className="w-full h-full block" />
       
-      {/* Decorative Technical UI */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none opacity-60">
-         <div className="w-[1px] h-8 bg-gradient-to-b from-transparent to-[#C5A059]" />
-         <div className="flex items-center gap-3">
-            <div className="w-1.5 h-1.5 bg-[#C5A059] rounded-full animate-pulse" />
-            <span className="font-mono text-[9px] uppercase tracking-[0.3em] text-[#1a1a1a]">
-                NEURAL_TOPOLOGY // ACTIVE
-            </span>
-         </div>
-      </div>
     </div>
   );
 };
