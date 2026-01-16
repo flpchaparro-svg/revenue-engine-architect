@@ -5,46 +5,46 @@ import { VizAcquisition, VizVelocity, VizIntelligence } from './ArchitecturePage
 
 // --- DATA: RINGS & FLOATING CARDS ---
 const PILLAR_DATA = [
-  // ACQUISITION (Left Side)
+  // ACQUISITION (Right Side of Spine)
   { 
     id: 'pillar1', group: 'ACQUISITION', title: 'THE FACE', subtitle: 'Websites & E-commerce',
-    color: '#E21E3F', x: '15%', y: '22%',
+    color: '#E21E3F', x: '85%', y: '22%', 
     modalTitle: 'The Face',
     modalDesc: "It's not a brochure; it's a 'Digital Catcher.' We build websites engineered to capture leads and feed them into your system.",
     modalFeatures: ["High-Speed Landing Pages", "Retail E-commerce", "Brand Identity"]
   },
   { 
     id: 'pillar2', group: 'ACQUISITION', title: 'THE BRAIN', subtitle: 'CRM & Lead Tracking',
-    color: '#E21E3F', x: '15%', y: '42%',
+    color: '#E21E3F', x: '85%', y: '42%',
     modalTitle: 'The Brain',
     modalDesc: "The single source of truth. We track every call, email, and deal stage so you never lose revenue to human forgetfulness.",
     modalFeatures: ["Unified Inbox", "Deal Pipelines", "SMS Automation"]
   },
   { 
     id: 'pillar3', group: 'ACQUISITION', title: 'THE MUSCLE', subtitle: 'Automation',
-    color: '#E21E3F', x: '15%', y: '62%',
+    color: '#E21E3F', x: '85%', y: '62%',
     modalTitle: 'The Muscle',
     modalDesc: "Moving data without human effort. We replace 'Minor Labour' (data entry) with code so your team focuses on strategy.",
     modalFeatures: ["Auto-Invoicing", "Contract Generation", "Task Routing"]
   },
-  // VELOCITY (Right Side)
+  // VELOCITY (Left Side of Spine)
   { 
     id: 'pillar4', group: 'VELOCITY', title: 'THE VOICE', subtitle: 'AI Assistants',
-    color: '#C5A059', x: '85%', y: '22%',
+    color: '#C5A059', x: '15%', y: '22%',
     modalTitle: 'The Voice',
     modalDesc: "AI Agents that act like digital employees. They can reason, speak to customers, and qualify leads 24/7.",
     modalFeatures: ["Phone Agents", "Smart Chatbots", "Internal Analysts"]
   },
   { 
     id: 'pillar5', group: 'VELOCITY', title: 'THE PRESENCE', subtitle: 'Media Logistics',
-    color: '#C5A059', x: '85%', y: '42%',
+    color: '#C5A059', x: '15%', y: '42%',
     modalTitle: 'The Presence',
     modalDesc: "Content as a supply chain. We turn one hour of raw expertise into a month of social media authority.",
     modalFeatures: ["Video Production", "Auto-Posting", "Content Repurposing"]
   },
   { 
     id: 'pillar6', group: 'VELOCITY', title: 'THE SOUL', subtitle: 'Team Training',
-    color: '#C5A059', x: '85%', y: '62%',
+    color: '#C5A059', x: '15%', y: '62%',
     modalTitle: 'The Soul',
     modalDesc: "Technology fails if humans don't use it. We engineer the training and culture shift to ensure adoption.",
     modalFeatures: ["Internal Podcasts", "Micro-Learning", "Visual SOPs"]
@@ -112,12 +112,10 @@ export const SystemArchitecture = () => {
 
   // Animation Maps
   const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  // Circles converge so the red dot (center of VizAcquisition) aligns with line start point at 42%
-  // VizAcquisition is 32px (2rem) tall on desktop = ~2vh, so center is at top + 1vh
-  // To center red dot at 42vh, position top at 41vh (42vh - 1vh for half circle height)
-  const acqY = useTransform(scrollYProgress, [0, 0.3], ["20vh", "41vh"]); 
-  const velY = useTransform(scrollYProgress, [0, 0.3], ["50vh", "41vh"]); 
-  const intY = useTransform(scrollYProgress, [0, 0.3], ["80vh", "41vh"]); 
+  // FIX: Changed end position from "42vh" to "50%" for perfect centering
+  const acqY = useTransform(scrollYProgress, [0, 0.3], ["20vh", "50%"]);
+  const velY = useTransform(scrollYProgress, [0, 0.3], ["50vh", "50%"]);
+  const intY = useTransform(scrollYProgress, [0, 0.3], ["80vh", "50%"]);
   const engineScale = useTransform(scrollYProgress, [0.3, 0.4], [1, 1.4]);
   
   const cardsOpacity = useTransform(scrollYProgress, [0.4, 0.55], [0, 1]); 
@@ -127,27 +125,20 @@ export const SystemArchitecture = () => {
     <div ref={containerRef} className="relative h-[300vh] bg-[#FFF2EC]">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
         
-        {/* Connection Lines - Originate from center red dot when circles converge at 42vh */}
+        {/* Connection Lines */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
           {PILLAR_DATA.map((card, i) => (
-             <motion.line key={i} x1="50%" y1="42%" x2={card.x} y2={card.y} stroke={card.color} strokeWidth="1" strokeDasharray="4 4" style={{ pathLength: lineDraw, opacity: 0.3 }} />
+             // FIX: Changed y1 from "42%" to "50%" to start from exact center
+             <motion.line key={i} x1="50%" y1="50%" x2={card.x} y2={card.y} stroke={card.color} strokeWidth="1" strokeDasharray="4 4" style={{ pathLength: lineDraw, opacity: 0.3 }} />
           ))}
         </svg>
-
-        {/* Velocity Text - Positioned on far left of viewport */}
-        <motion.div style={{ top: velY, opacity: textOpacity }} className="absolute left-8 md:left-12 z-25 w-64 md:w-80 pointer-events-none hidden md:block">
-          <div className="text-right">
-            <span className="font-mono text-[9px] text-[#C5A059] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 02 // THE AMPLIFIER</span>
-            <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Velocity</h3>
-            <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Scale your output and authority without increasing headcount.</p>
-          </div>
-        </motion.div>
 
         {/* Central Engine */}
         <div className="relative w-full max-w-7xl h-full mx-auto pointer-events-none">
             
             {/* Acquisition - TEXT ON RIGHT (System 01) */}
-            <motion.div style={{ top: acqY, scale: engineScale, x: "-50%" }} className="absolute left-1/2 z-30">
+            {/* FIX: Added y: "-50%" for true centering */}
+            <motion.div style={{ top: acqY, scale: engineScale, x: "-50%", y: "-50%" }} className="absolute left-1/2 z-30">
                <div className="relative flex items-center justify-center md:justify-start">
                  <VizAcquisition color="#E21E3F" />
                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-36 md:left-full md:bottom-auto md:translate-x-0 md:text-left md:ml-8 md:w-80">
@@ -158,15 +149,22 @@ export const SystemArchitecture = () => {
                </div>
             </motion.div>
 
-            {/* Velocity - Circle only (text moved outside) */}
-            <motion.div style={{ top: velY, scale: engineScale, x: "-50%" }} className="absolute left-1/2 z-20">
-               <div className="relative flex items-center justify-center md:justify-end w-full">
+            {/* Velocity - TEXT ON LEFT (System 02) */}
+            {/* FIX: Added y: "-50%" for true centering */}
+            <motion.div style={{ top: velY, scale: engineScale, x: "-50%", y: "-50%" }} className="absolute left-1/2 z-20">
+               <div className="relative flex items-center justify-center md:justify-start">
                   <VizVelocity color="#C5A059" />
+                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-36 md:right-full md:bottom-auto md:translate-x-0 md:text-right md:mr-8 md:w-80">
+                    <span className="font-mono text-[9px] text-[#C5A059] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 02 // THE AMPLIFIER</span>
+                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Velocity</h3>
+                    <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Scale your output and authority without increasing headcount.</p>
+                 </motion.div>
                </div>
             </motion.div>
 
             {/* Intelligence - TEXT ON RIGHT (System 03) */}
-            <motion.div style={{ top: intY, scale: engineScale, x: "-50%" }} className="absolute left-1/2 z-10">
+            {/* FIX: Added y: "-50%" for true centering */}
+            <motion.div style={{ top: intY, scale: engineScale, x: "-50%", y: "-50%" }} className="absolute left-1/2 z-10">
                <div className="relative flex items-center justify-center md:justify-start">
                   <VizIntelligence color="#1a1a1a" />
                   <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-36 md:left-full md:bottom-auto md:translate-x-0 md:text-left md:ml-8 md:w-80">
@@ -178,7 +176,7 @@ export const SystemArchitecture = () => {
             </motion.div>
         </div>
 
-        {/* Floating Cards - UPDATED X COORDINATES TO MATCH TEXT SIDES */}
+        {/* Floating Cards */}
         <motion.div style={{ opacity: cardsOpacity }} className="absolute inset-0 pointer-events-none z-40">
            {PILLAR_DATA.map((card) => (
               <motion.div
