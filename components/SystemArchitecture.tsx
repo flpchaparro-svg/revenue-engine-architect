@@ -112,9 +112,12 @@ export const SystemArchitecture = () => {
 
   // Animation Maps
   const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  const acqY = useTransform(scrollYProgress, [0, 0.3], ["20vh", "42vh"]);
-  const velY = useTransform(scrollYProgress, [0, 0.3], ["50vh", "42vh"]);
-  const intY = useTransform(scrollYProgress, [0, 0.3], ["80vh", "42vh"]);
+  // Circles converge so the red dot (center of VizAcquisition) aligns with line start point at 42%
+  // VizAcquisition is 32px (2rem) tall on desktop = ~2vh, so center is at top + 1vh
+  // To center red dot at 42vh, position top at 41vh (42vh - 1vh for half circle height)
+  const acqY = useTransform(scrollYProgress, [0, 0.3], ["20vh", "41vh"]); 
+  const velY = useTransform(scrollYProgress, [0, 0.3], ["50vh", "41vh"]); 
+  const intY = useTransform(scrollYProgress, [0, 0.3], ["80vh", "41vh"]); 
   const engineScale = useTransform(scrollYProgress, [0.3, 0.4], [1, 1.4]);
   
   const cardsOpacity = useTransform(scrollYProgress, [0.4, 0.55], [0, 1]); 
@@ -124,7 +127,7 @@ export const SystemArchitecture = () => {
     <div ref={containerRef} className="relative h-[300vh] bg-[#FFF2EC]">
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
         
-        {/* Connection Lines */}
+        {/* Connection Lines - Originate from center red dot when circles converge at 42vh */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
           {PILLAR_DATA.map((card, i) => (
              <motion.line key={i} x1="50%" y1="42%" x2={card.x} y2={card.y} stroke={card.color} strokeWidth="1" strokeDasharray="4 4" style={{ pathLength: lineDraw, opacity: 0.3 }} />
