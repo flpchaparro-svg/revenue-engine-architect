@@ -5,7 +5,7 @@ import { VizAcquisition, VizVelocity, VizIntelligence } from './ArchitecturePage
 
 // --- DATA: RINGS & FLOATING CARDS ---
 const PILLAR_DATA = [
-  // ACQUISITION (Right Side of Spine)
+  // ACQUISITION (Right Side)
   { 
     id: 'pillar1', group: 'ACQUISITION', title: 'THE FACE', subtitle: 'Websites & E-commerce',
     color: '#E21E3F', x: '85%', y: '22%', 
@@ -27,7 +27,7 @@ const PILLAR_DATA = [
     modalDesc: "Moving data without human effort. We replace 'Minor Labour' (data entry) with code so your team focuses on strategy.",
     modalFeatures: ["Auto-Invoicing", "Contract Generation", "Task Routing"]
   },
-  // VELOCITY (Left Side of Spine)
+  // VELOCITY (Left Side) - Cards moved to 15% to match Text on Left
   { 
     id: 'pillar4', group: 'VELOCITY', title: 'THE VOICE', subtitle: 'AI Assistants',
     color: '#C5A059', x: '15%', y: '22%',
@@ -49,7 +49,7 @@ const PILLAR_DATA = [
     modalDesc: "Technology fails if humans don't use it. We engineer the training and culture shift to ensure adoption.",
     modalFeatures: ["Internal Podcasts", "Micro-Learning", "Visual SOPs"]
   },
-  // INTELLIGENCE (Center Bottom)
+  // INTELLIGENCE (Right Side)
   { 
     id: 'pillar7', group: 'INTELLIGENCE', title: 'THE EYES', subtitle: 'Dashboards & Reporting',
     color: '#1a1a1a', x: '50%', y: '75%',
@@ -112,7 +112,6 @@ export const SystemArchitecture = () => {
 
   // Animation Maps
   const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  // FIX: Changed end position from "42vh" to "50%" for perfect centering
   const acqY = useTransform(scrollYProgress, [0, 0.3], ["20vh", "50%"]);
   const velY = useTransform(scrollYProgress, [0, 0.3], ["50vh", "50%"]);
   const intY = useTransform(scrollYProgress, [0, 0.3], ["80vh", "50%"]);
@@ -128,7 +127,6 @@ export const SystemArchitecture = () => {
         {/* Connection Lines */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
           {PILLAR_DATA.map((card, i) => (
-             // FIX: Changed y1 from "42%" to "50%" to start from exact center
              <motion.line key={i} x1="50%" y1="50%" x2={card.x} y2={card.y} stroke={card.color} strokeWidth="1" strokeDasharray="4 4" style={{ pathLength: lineDraw, opacity: 0.3 }} />
           ))}
         </svg>
@@ -137,9 +135,8 @@ export const SystemArchitecture = () => {
         <div className="relative w-full max-w-7xl h-full mx-auto pointer-events-none">
             
             {/* Acquisition - TEXT ON RIGHT (System 01) */}
-            {/* FIX: Added y: "-50%" for true centering */}
             <motion.div style={{ top: acqY, scale: engineScale, x: "-50%", y: "-50%" }} className="absolute left-1/2 z-30">
-               <div className="relative flex items-center justify-center md:justify-start">
+               <div className="relative flex items-center justify-center">
                  <VizAcquisition color="#E21E3F" />
                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:left-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-left md:ml-8 md:w-80">
                     <span className="font-mono text-[9px] text-[#E21E3F] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 01 // THE FOUNDATION</span>
@@ -151,20 +148,20 @@ export const SystemArchitecture = () => {
 
             {/* Velocity - TEXT ON LEFT (System 02) */}
             <motion.div style={{ top: velY, scale: engineScale, x: "-50%", y: "-50%" }} className="absolute left-1/2 z-20">
-               <div className="relative flex items-center justify-center md:justify-end">
+               <div className="relative flex items-center justify-center">
+                  <VizVelocity color="#C5A059" />
+                  {/* FIX: Removed 'hidden', added 'right-full' for desktop left alignment */}
                   <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:right-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-right md:mr-8 md:w-80">
                     <span className="font-mono text-[9px] text-[#C5A059] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 02 // THE AMPLIFIER</span>
                     <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Velocity</h3>
                     <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">Scale your output and authority without increasing headcount.</p>
                  </motion.div>
-                  <VizVelocity color="#C5A059" />
                </div>
             </motion.div>
 
             {/* Intelligence - TEXT ON RIGHT (System 03) */}
-            {/* FIX: Added y: "-50%" for true centering */}
             <motion.div style={{ top: intY, scale: engineScale, x: "-50%", y: "-50%" }} className="absolute left-1/2 z-10">
-               <div className="relative flex items-center justify-center md:justify-start">
+               <div className="relative flex items-center justify-center">
                   <VizIntelligence color="#1a1a1a" />
                   <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:left-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-left md:ml-8 md:w-80">
                     <span className="font-mono text-[9px] text-[#1a1a1a] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 03 // THE NAVIGATOR</span>
