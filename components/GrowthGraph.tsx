@@ -61,10 +61,11 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
     const labelText = chart.append('text')
         .attr('x', 0)
         .attr('y', barY - 30) 
-        .attr('class', 'font-mono text-xs font-bold uppercase tracking-widest') 
+        .attr('class', 'font-mono text-xs font-bold uppercase tracking-[0.2em]') 
         .style('fill', '#1a1a1a');
 
     // 4. The Value - Use font-mono to match Friction Audit section
+    // Keeping it larger because it's a Hero Graph, but enforcing the font family
     const valueText = chart.append('text')
         .attr('x', 0)
         .attr('y', barY + 60) 

@@ -182,14 +182,14 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
               </div>
               
               <div>
-                 <div className="font-mono text-xs text-[#1a1a1a]/40 uppercase mb-4">Audit Progress</div>
+                 <div className="font-mono text-xs font-bold text-[#1a1a1a]/40 uppercase tracking-[0.2em] mb-4">Audit Progress</div>
                  <div className="w-full h-1 bg-[#1a1a1a]/10 relative overflow-hidden">
                     <motion.div 
                        className="h-full bg-[#E21E3F]" 
                        style={{ scaleX: scrollYProgress, transformOrigin: 'left' }}
                     />
                  </div>
-                 <div className="mt-3 text-right font-mono text-xs text-[#1a1a1a]">
+                 <div className="mt-3 text-right font-mono text-xs font-bold text-[#1a1a1a]">
                     <motion.span>
                        {useTransform(scrollYProgress, v => `${Math.min(100, Math.round(v * 100))}%`)}
                     </motion.span>

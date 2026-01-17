@@ -28,7 +28,7 @@ const TerminalLog: React.FC = () => {
     <div className="w-full bg-[#1a1a1a] p-8 border-t border-black/10 font-mono text-sm overflow-hidden">
       <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
         <Terminal className="w-4 h-4 text-[#C5A059]" />
-        <span className="text-[#C5A059] uppercase tracking-widest">Build Log // What I Did</span>
+        <span className="text-[#C5A059] uppercase tracking-[0.2em] font-bold">Build Log // What I Did</span>
       </div>
       <div className="space-y-3">
         {lines.map((line, i) => (
