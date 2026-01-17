@@ -194,13 +194,27 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             {/* Sub-Services Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 flex-grow">
                 {pillar.subServices?.map((sub: any, idx: number) => (
-                  <motion.div key={idx} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 + (idx * 0.1) }} className="border-l pl-6 flex flex-col justify-start" style={{ borderColor: `${pillar.categoryHex}30` }}>
-                    <div className="mb-4 flex items-center justify-between">
-                      <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>0{idx + 1}</span>
+                  <motion.div 
+                    key={idx} 
+                    initial={{ y: 20, opacity: 0 }} 
+                    animate={{ y: 0, opacity: 1 }} 
+                    transition={{ delay: 0.3 + (idx * 0.1) }} 
+                    className="border border-[#1a1a1a]/10 p-6 flex flex-col h-full bg-white"
+                  >
+                    {/* ICON / EYEBROW */}
+                    <div className="mb-3">
+                      <span className="font-mono text-[10px] font-bold uppercase tracking-[0.15em]" style={{ color: pillar.categoryHex }}>[ COMPONENT ]</span>
                     </div>
-                    <h4 className="font-serif text-xl md:text-2xl leading-tight tracking-tight mb-4">{sub.title}</h4>
-                    {/* WRAPPED CONTENT FIX: Upgraded to text-base for readability */}
-                    <p className="font-sans text-base leading-relaxed text-[#1a1a1a]/70">{sub.description}</p>
+
+                    {/* TITLE: Readable Serif */}
+                    <h4 className="font-serif text-lg md:text-xl text-[#1a1a1a] leading-tight tracking-tight mb-2">
+                      {sub.title}
+                    </h4>
+
+                    {/* BODY: Compact but breathable */}
+                    <p className="font-sans text-sm leading-relaxed text-[#1a1a1a]/70">
+                      {sub.description}
+                    </p>
                   </motion.div>
                 ))}
             </div>

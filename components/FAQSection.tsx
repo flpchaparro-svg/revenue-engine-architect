@@ -163,13 +163,11 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                       />
 
                       {/* Content */}
-                      <div className="relative z-10 flex items-baseline gap-4 pr-4">
-                        <span className={`font-mono text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-700 shrink-0 ${isActive ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/40 lg:group-hover:text-[#1a1a1a]'}`}
-                          style={!isActive && typeof window !== 'undefined' && window.innerWidth >= 1024 ? { color: accentColor } : {}}
-                        >
+                      <div className="relative z-10 flex flex-col gap-0 pr-4">
+                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 shrink-0">
                           {String(index + 1).padStart(2, '0')}
                         </span>
-                        <span className={`font-serif text-xl md:text-2xl leading-tight tracking-tight transition-colors duration-700 ${isActive ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/80 lg:group-hover:text-[#1a1a1a]'}`}>
+                        <span className={`font-serif text-xl md:text-2xl italic text-[#1a1a1a] leading-tight tracking-tight mb-4 transition-colors duration-700 ${isActive ? '' : 'opacity-80 lg:group-hover:opacity-100'}`}>
                           {faq.question}
                         </span>
                       </div>
@@ -204,7 +202,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                                     ANSWER // {faq.id.toUpperCase()}
                                   </span>
                                 </div>
-                                          <div className="font-sans text-base md:text-lg leading-relaxed text-[#FFF2EC]/80 border-l-2 pl-4 space-y-4" style={{ borderColor: accentColor }}>
+                                          <div className="font-sans text-base md:text-lg leading-relaxed text-[#FFF2EC]/70 border-l-2 pl-4 space-y-4" style={{ borderColor: accentColor }}>
                                   {formatFAQAnswer(faq.answer, accentColor)}
                                 </div>
                              </div>
@@ -236,13 +234,13 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                         </span>
                       </div>
                       
-                      <h3 className="font-serif text-3xl md:text-4xl leading-[1.1] tracking-tight text-[#FFF2EC] mb-8">
+                      <h3 className="font-serif text-xl md:text-2xl italic text-[#FFF2EC] leading-tight tracking-tight mb-4">
                         {faqs[activeIndex].question}
                       </h3>
                       
-                      <div className="w-16 h-1 mb-8" style={{ backgroundColor: accentColor }} />
+                      <div className="w-16 h-1 mb-4" style={{ backgroundColor: accentColor }} />
                       
-                      <div className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#FFF2EC]/70 border-l pl-6 space-y-4" style={{ borderColor: accentColor }}>
+                      <div className="font-sans text-base md:text-lg leading-relaxed text-[#FFF2EC]/70 border-l pl-6 space-y-4" style={{ borderColor: accentColor }}>
                         {formatFAQAnswer(faqs[activeIndex].answer, accentColor)}
                       </div>
                     </motion.div>
