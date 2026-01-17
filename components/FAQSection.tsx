@@ -127,14 +127,14 @@ const FAQSection: React.FC<FAQSectionProps> = ({
         {/* HEADER */}
         <div className="mb-12 border-b border-black/10 pb-8 flex items-end justify-between">
           <div>
-            <span className="font-mono text-xs tracking-widest mb-4 block uppercase font-bold" style={{ color: accentColor }}>
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] mb-4 block" style={{ color: accentColor }}>
               // FAQ
             </span>
-            <h2 className="font-serif text-4xl md:text-5xl text-[#1a1a1a]">
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a]">
               {title} <span className="italic" style={{ color: accentColor }}>Answered.</span>
             </h2>
             {subtitle && (
-              <p className="text-[#1a1a1a]/60 max-w-xl mt-4">
+              <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-xl mt-4">
                 {subtitle}
               </p>
             )}
@@ -164,12 +164,12 @@ const FAQSection: React.FC<FAQSectionProps> = ({
 
                       {/* Content */}
                       <div className="relative z-10 flex items-baseline gap-4 pr-4">
-                        <span className={`font-mono text-[9px] uppercase tracking-widest transition-colors duration-700 shrink-0 ${isActive ? 'text-[#1a1a1a] font-bold' : 'text-[#1a1a1a]/40 lg:group-hover:text-[#1a1a1a]'}`}
+                        <span className={`font-mono text-xs font-bold uppercase tracking-[0.2em] transition-colors duration-700 shrink-0 ${isActive ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/40 lg:group-hover:text-[#1a1a1a]'}`}
                           style={!isActive && typeof window !== 'undefined' && window.innerWidth >= 1024 ? { color: accentColor } : {}}
                         >
                           {String(index + 1).padStart(2, '0')}
                         </span>
-                        <span className={`font-serif text-lg leading-tight transition-colors duration-700 ${isActive ? 'text-[#1a1a1a] font-medium' : 'text-[#1a1a1a]/80 lg:group-hover:text-[#1a1a1a]'}`}>
+                        <span className={`font-serif text-xl md:text-2xl leading-tight tracking-tight transition-colors duration-700 ${isActive ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/80 lg:group-hover:text-[#1a1a1a]'}`}>
                           {faq.question}
                         </span>
                       </div>
@@ -200,11 +200,11 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                              <div className="p-8 text-[#FFF2EC]">
                                 <div className="flex items-center gap-3 mb-4 opacity-60">
                                   <Cpu className="w-3 h-3" style={{ color: accentColor }} />
-                                  <span className="font-mono text-[9px] uppercase tracking-widest" style={{ color: accentColor }}>
+                                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: accentColor }}>
                                     ANSWER // {faq.id.toUpperCase()}
                                   </span>
                                 </div>
-                                          <div className="font-sans text-base leading-relaxed opacity-80 border-l-2 pl-4 space-y-4" style={{ borderColor: accentColor }}>
+                                          <div className="font-sans text-base md:text-lg leading-relaxed text-[#FFF2EC]/80 border-l-2 pl-4 space-y-4" style={{ borderColor: accentColor }}>
                                   {formatFAQAnswer(faq.answer, accentColor)}
                                 </div>
                              </div>
@@ -231,24 +231,24 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                     >
                       <div className="flex items-center gap-3 mb-8 opacity-60">
                         <Cpu className="w-4 h-4" style={{ color: accentColor }} />
-                        <span className="font-mono text-[9px] uppercase tracking-[0.3em]" style={{ color: accentColor }}>
+                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: accentColor }}>
                           QUERY_RESOLVED // {faqs[activeIndex].id.toUpperCase()}
                         </span>
                       </div>
                       
-                      <h3 className="font-serif text-3xl md:text-4xl lg:text-5xl leading-tight text-[#FFF2EC] mb-8">
+                      <h3 className="font-serif text-3xl md:text-4xl leading-[1.1] tracking-tight text-[#FFF2EC] mb-8">
                         {faqs[activeIndex].question}
                       </h3>
                       
                       <div className="w-16 h-1 mb-8" style={{ backgroundColor: accentColor }} />
                       
-                      <div className="font-sans text-xl font-light text-[#FFF2EC]/70 leading-relaxed border-l pl-6 space-y-4" style={{ borderColor: accentColor }}>
+                      <div className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#FFF2EC]/70 border-l pl-6 space-y-4" style={{ borderColor: accentColor }}>
                         {formatFAQAnswer(faqs[activeIndex].answer, accentColor)}
                       </div>
                     </motion.div>
                   )}
                   {activeIndex === null && (
-                     <div className="flex items-center justify-center h-full opacity-30 font-mono text-xs uppercase tracking-widest">
+                     <div className="flex items-center justify-center h-full opacity-30 font-mono text-xs font-bold uppercase tracking-[0.2em]">
                         [ SELECT A QUESTION ]
                      </div>
                   )}
@@ -262,7 +262,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
         {/* CTA SECTION */}
         {showBookingCTA && (
           <div className="py-24 flex flex-col items-center text-center">
-            <h2 className="font-serif text-4xl md:text-6xl mb-8 text-[#1a1a1a]">
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter mb-8 text-[#1a1a1a]">
               Still have <span className="italic" style={{ color: accentColor }}>questions?</span>
             </h2>
             <button

@@ -85,18 +85,18 @@ const SystemModal = ({ data, onClose }: { data: typeof PILLAR_DATA[0], onClose: 
       <div className="h-1.5 w-full" style={{ backgroundColor: data.color }} />
       <div className="p-8 md:p-10">
           <div className="flex items-center gap-3 mb-4">
-             <span className="font-mono text-[10px] tracking-[0.2em] uppercase" style={{ color: data.color }}>{data.group}</span>
+             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: data.color }}>{data.group}</span>
              <div className="h-px flex-grow bg-gray-100" />
           </div>
-          <h3 className="font-serif text-4xl text-[#1a1a1a] mb-2 leading-none">{data.modalTitle}</h3>
-          <p className="font-sans text-base text-gray-600 leading-relaxed mb-8 mt-4">{data.modalDesc}</p>
+          <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-2">{data.modalTitle}</h3>
+          <p className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70 mb-8 mt-4">{data.modalDesc}</p>
           <div className="space-y-4 pt-6 border-t border-gray-100">
               {data.modalFeatures.map((feature, i) => (
                   <div key={i} className="flex items-center gap-3 group">
                       <div className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center bg-gray-50 group-hover:bg-gray-100 transition-colors">
                           <Check className="w-3 h-3" style={{ color: data.color }} />
                       </div>
-                      <span className="font-mono text-[11px] text-gray-600 uppercase tracking-wider">{feature}</span>
+                      <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/70">{feature}</span>
                   </div>
               ))}
           </div>
@@ -139,9 +139,9 @@ export const SystemArchitecture = () => {
                <div className="relative flex items-center justify-center">
                  <VizAcquisition color="#E21E3F" />
                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:left-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-left md:ml-8 md:w-80">
-                    <span className="font-mono text-[9px] text-[#E21E3F] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 01 / GET CLIENTS</span>
-                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Acquisition</h3>
-                    <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">
+                    <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] block mb-2 md:mb-1">SYSTEM 01 / GET CLIENTS</span>
+                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-2">Acquisition</h3>
+                    <p className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">
                       <span className="hidden md:inline">Capture demand, store data, and process revenue without chaos.</span>
                       <span className="md:hidden">Capture leads automatically</span>
                     </p>
@@ -155,9 +155,9 @@ export const SystemArchitecture = () => {
                   <VizVelocity color="#C5A059" />
                   {/* FIX: added 'md:left-auto' to release the mobile centering so 'right-full' works */}
                   <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:left-auto md:right-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-right md:mr-8 md:w-80">
-                    <span className="font-mono text-[9px] text-[#C5A059] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 02 / SCALE FASTER</span>
-                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Velocity</h3>
-                    <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">
+                    <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] block mb-2 md:mb-1">SYSTEM 02 / SCALE FASTER</span>
+                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-2">Velocity</h3>
+                    <p className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">
                       <span className="hidden md:inline">Do more with less. AI and content that multiply your output.</span>
                       <span className="md:hidden">Multiply output without hiring</span>
                     </p>
@@ -170,9 +170,9 @@ export const SystemArchitecture = () => {
                <div className="relative flex items-center justify-center">
                   <VizIntelligence color="#1a1a1a" />
                   <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:left-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-left md:ml-8 md:w-80">
-                    <span className="font-mono text-[9px] text-[#1a1a1a] tracking-widest uppercase block mb-2 md:mb-1">SYSTEM 03 / SEE CLEARLY</span>
-                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-2">Intelligence</h3>
-                    <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/60 leading-relaxed">
+                    <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] block mb-2 md:mb-1">SYSTEM 03 / SEE CLEARLY</span>
+                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-2">Intelligence</h3>
+                    <p className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">
                       <span className="hidden md:inline">Stop guessing. See your numbers and steer with confidence.</span>
                       <span className="md:hidden">Real-time business visibility</span>
                     </p>
@@ -200,12 +200,12 @@ export const SystemArchitecture = () => {
                 className="absolute cursor-pointer bg-[#FFF2EC] border rounded-sm p-5 w-48 md:w-60 flex flex-col items-center text-center shadow-lg pointer-events-auto transition-colors duration-300 hover:bg-[#1a1a1a] hover:text-[#FFF2EC] group"
                 onClick={() => setSelectedPillar(card)}
               >
-                 <span className="text-[9px] font-mono uppercase tracking-widest mb-1.5 opacity-80" style={{ color: card.color }}>{card.group}</span>
-                 <h4 className="font-serif text-lg md:text-xl text-[#1a1a1a] mb-1 leading-none">{card.title}</h4>
-                 <p className="text-[9px] font-mono text-[#1a1a1a]/60 tracking-wider mb-2 block uppercase">{card.subtitle}</p>
+                 <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] mb-1.5 opacity-80" style={{ color: card.color }}>{card.group}</span>
+                 <h4 className="font-serif text-xl md:text-2xl text-[#1a1a1a] leading-tight tracking-tight mb-1">{card.title}</h4>
+                 <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/60 mb-2 block">{card.subtitle}</p>
                  
                  <div className="mt-auto flex items-center justify-center">
-                    <span className="text-[8px] font-mono uppercase tracking-[0.15em] text-[#1a1a1a]/60 group-hover:text-[#1a1a1a] transition-colors">[ Click here ]</span>
+                    <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/60 group-hover:text-[#FFF2EC] transition-colors">[ Click here ]</span>
                  </div>
               </motion.div>
            ))}

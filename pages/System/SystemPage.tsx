@@ -142,27 +142,27 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-8 h-full flex flex-col justify-between">
           <div className="flex justify-between items-start">
             {/* Standard: text-xs font-bold tracking-[0.2em] */}
-            <span className="font-mono text-xs uppercase tracking-[0.2em] opacity-40 font-bold">{pillar.number}</span>
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-40">{pillar.number}</span>
             <pillar.icon className="w-5 h-5 opacity-40 group-hover:opacity-100 transition-opacity" style={{ color: pillar.categoryHex }} />
           </div>
           <div>
-            <span className="font-mono text-xs uppercase tracking-[0.2em] mb-2 block font-bold" style={{ color: pillar.categoryHex }}>
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: pillar.categoryHex }}>
               <span className="hidden lg:inline">{pillar.categoryLabel}</span>
               <span className="lg:hidden">{pillar.categoryLabel}</span>
             </span>
             {/* HIERARCHY FIX: Reduced from 3xl to 2xl/3xl to sit below Page Titles */}
-            <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-2 leading-none">{pillar.title}</h3>
-            <p className="font-sans text-sm text-[#1a1a1a]/60 mb-2 leading-relaxed">
+            <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-2">{pillar.title}</h3>
+            <p className="font-sans text-base leading-relaxed text-[#1a1a1a]/70 mb-2">
               <span className="hidden lg:inline">{pillar.body}</span>
               <span className="lg:hidden">{pillar.bodyMobile}</span>
             </p>
-            <p className="font-mono text-xs text-[#1a1a1a]/40 uppercase tracking-[0.2em] font-bold mt-4">
+            <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40 mt-4">
               <span className="hidden lg:inline">{pillar.subtitle}</span>
               <span className="lg:hidden">{pillar.subtitleMobile}</span>
             </p>
           </div>
           <div className="mt-auto">
-            <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold text-[#1a1a1a]/60">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/60">
               <span className="hidden lg:inline">[ SEE PILLAR ]</span>
               <span className="lg:hidden">[ VIEW ]</span>
             </span>
@@ -178,13 +178,13 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-[#1a1a1a]/10 pb-10">
               <div>
                 <div className="flex items-center gap-3 mb-6">
-                  <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>{pillar.number} / {pillar.categoryLabel}</span>
+                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>{pillar.number} / {pillar.categoryLabel}</span>
                   <div className="w-12 h-px" style={{ backgroundColor: pillar.categoryHex }} />
                 </div>
                 {/* HIERARCHY FIX: Reduced from 6xl to 4xl/5xl to remain subservient to H1 */}
-                <h2 className="font-serif text-4xl md:text-5xl mb-2 leading-none tracking-tight">{pillar.title}</h2>
+                <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-2">{pillar.title}</h2>
                 {/* Standard: text-lg md:text-xl */}
-                <p className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 max-w-3xl leading-relaxed">{pillar.description}</p>
+                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-3xl">{pillar.description}</p>
               </div>
               <div className="mt-6 md:mt-0 p-6 border rounded-sm bg-white shadow-sm" style={{ borderColor: `${pillar.categoryHex}20` }}>
                   <pillar.icon className="w-8 h-8 md:w-12 md:h-12" style={{ color: pillar.categoryHex }} />
@@ -196,11 +196,11 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
                 {pillar.subServices?.map((sub: any, idx: number) => (
                   <motion.div key={idx} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 + (idx * 0.1) }} className="border-l pl-6 flex flex-col justify-start" style={{ borderColor: `${pillar.categoryHex}30` }}>
                     <div className="mb-4 flex items-center justify-between">
-                      <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>0{idx + 1}</span>
+                      <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>0{idx + 1}</span>
                     </div>
-                    <h4 className="font-serif text-lg md:text-xl mb-4">{sub.title}</h4>
+                    <h4 className="font-serif text-xl md:text-2xl leading-tight tracking-tight mb-4">{sub.title}</h4>
                     {/* WRAPPED CONTENT FIX: Upgraded to text-base for readability */}
-                    <p className="font-sans text-base text-[#1a1a1a]/60 leading-relaxed">{sub.description}</p>
+                    <p className="font-sans text-base leading-relaxed text-[#1a1a1a]/70">{sub.description}</p>
                   </motion.div>
                 ))}
             </div>
@@ -208,7 +208,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             {/* Actions */}
             <div className="mt-12 w-full flex justify-end">
               <button onClick={(e) => { e.stopPropagation(); onNavigate(pillar.id); }} className="group flex items-center gap-3">
-                  <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>[ SEE PILLAR ]</span>
+                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>[ SEE PILLAR ]</span>
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" style={{ color: pillar.categoryHex }} />
               </button>
             </div>
@@ -238,7 +238,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
       {/* HERO SECTION - 100vh on mobile/tablet */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full mb-20 lg:mb-20 h-[calc(100vh-8rem)] md:h-[calc(100vh-8rem)] lg:h-auto flex flex-col justify-center">
          <div className="flex justify-between items-center mb-4 md:mb-6 lg:mb-12">
-            <button onClick={onBack} className="group flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors font-bold">
+            <button onClick={onBack} className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors">
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               <span className="hidden lg:inline">/ Return to Home</span>
               <span className="lg:hidden">/ Back</span>
@@ -247,13 +247,13 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={heroContainer} className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 lg:gap-12 items-center flex-1">
             <div className="flex flex-col justify-center">
               {/* HIERARCHY FIX: Matched Home Page spacing exactly (mb-10) */}
-              <motion.span variants={heroItem} className="font-mono text-xs text-[#E21E3F] tracking-[0.2em] mb-2 md:mb-4 lg:mb-10 block uppercase font-bold">/ THE SYSTEM</motion.span>
+              <motion.span variants={heroItem} className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-2 md:mb-4 lg:mb-10 block">/ THE SYSTEM</motion.span>
               
               {/* HIERARCHY FIX: Using exact Home Page classes to fix "Frankenstein" sizes */}
-              <motion.h1 variants={heroItem} className="font-serif text-4xl md:text-5xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter mb-3 md:mb-4 lg:mb-10">7 Ways I Fix <br /><span className="italic text-black/20">Your Business.</span></motion.h1>
+              <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-3 md:mb-4 lg:mb-10">7 Ways I Fix <br /><span className="italic text-black/20">Your Business.</span></motion.h1>
               
               {/* HIERARCHY FIX: Matches Home Page Body */}
-              <motion.p variants={heroItem} className="font-sans text-sm md:text-base lg:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-2xl border-l-2 border-[#C5A059] pl-3 md:pl-4 lg:pl-6">
+              <motion.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-3 md:pl-4 lg:pl-6">
                 <span className="hidden lg:inline">I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.</span>
                 <span className="lg:hidden">I treat your business as one connected system, eliminating friction that burns out your people.</span>
               </motion.p>
@@ -273,13 +273,13 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
       <section className="w-full bg-[#FFF2EC] pb-32 relative z-10">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
           <div className="text-center max-w-2xl mx-auto mb-24 pt-10">
-              <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block font-bold">System Breakdown</span>
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block">System Breakdown</span>
               {/* HIERARCHY FIX: Section Header is smaller than Hero (4xl/5xl/6xl) */}
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] mb-6">
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
                 <span className="hidden lg:inline">The Parts in Detail</span>
                 <span className="lg:hidden">The 7 Pillars</span>
               </h2>
-              <p className="font-sans text-lg md:text-lg lg:text-xl text-[#1a1a1a]/70 leading-relaxed">
+              <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70">
                 <span className="hidden lg:inline">Each component is designed to work alone, but engineered to work together.</span>
                 <span className="lg:hidden">Work alone or together.</span>
               </p>
@@ -303,10 +303,10 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
       {/* CTA BLOCK */}
       <section className="w-full bg-[#1a1a1a] text-white py-24 px-6 md:px-12 lg:px-20">
         <div className="max-w-[1400px] mx-auto text-center">
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl mb-8">
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-white mb-8">
             Ready to stop guessing?
           </h2>
-          <button onClick={() => onNavigate('contact')} className="bg-[#C5A059] text-[#1a1a1a] px-8 py-4 font-mono text-xs uppercase tracking-[0.2em] font-bold hover:bg-white transition-colors">
+          <button onClick={() => onNavigate('contact')} className="bg-[#C5A059] text-[#1a1a1a] px-8 py-4 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:bg-white transition-colors">
             [ BOOK A CALL ]
           </button>
         </div>
