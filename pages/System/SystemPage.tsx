@@ -10,80 +10,94 @@ import { SystemArchitecture } from '../../components/SystemArchitecture';
 // --- DATA ---
 const ALL_PILLARS = [
   {
-    id: 'pillar1', number: '01', icon: Globe, title: 'THE FACE', subtitle: 'Digital Revenue Architecture',
-    categoryHex: '#E21E3F', categoryLabel: 'ACQUISITION', technicalLabel: 'DIGITAL_STOREFRONT',
-    description: 'Not a brochure, but a "Digital Catcher." A high-performance structure designed to capture leads and process transactions with zero friction.',
+    id: 'pillar1', number: '01', icon: Globe, title: 'THE FACE', 
+    subtitle: 'Websites & E-commerce', subtitleMobile: 'Websites',
+    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: 'DIGITAL_STOREFRONT',
+    body: 'Your online storefront that captures leads, sells products, and feeds data to every other pillar',
+    bodyMobile: 'Online storefront that captures and converts',
+    description: 'Your online storefront. Not a digital brochure, but a system designed to capture leads and process transactions with zero friction.',
     subServices: [
-       { title: 'The Bond', description: 'It acts as the "Mouth" of the Acquisition system. Without it, the CRM (The Brain) has nothing to process.' },
-       { title: 'The Whole', description: 'It establishes the first data point. If the Face fails to capture the source, the Intelligence (Pillar 7) cannot measure ROI later.' },
-       { title: 'Client Benefit', description: 'Stops "Lead Leakage." You stop losing customers to slower competitors.' },
-       { title: 'Group Purpose', description: 'To capture demand and structure data.' }
+       { title: 'How it connects', description: 'The Face feeds the Brain. Every visitor who fills out a form or makes a purchase gets logged in your CRM automatically.' },
+       { title: 'How it helps the whole system', description: 'Without the Face capturing data properly, you can\'t track where your leads come from. Pillar 7 (Dashboards) needs this data to show you what\'s working.' },
+       { title: 'What you get', description: 'You stop losing customers to slower competitors. Leads get captured while you sleep.' }
     ]
   },
   {
-    id: 'pillar2', number: '02', icon: Database, title: 'THE BRAIN', subtitle: 'CRM Revenue Intelligence',
-    categoryHex: '#E21E3F', categoryLabel: 'ACQUISITION', technicalLabel: 'LEAD_DATABASE',
-    description: 'The Single Source of Truth. A unified database that tracks every call, email, and deal stage. If it\'s not here, it didn\'t happen.',
+    id: 'pillar2', number: '02', icon: Database, title: 'THE BRAIN', 
+    subtitle: 'CRM & Lead Tracking', subtitleMobile: 'CRM',
+    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: 'LEAD_DATABASE',
+    body: 'The single source of truth that tracks every call, email, and deal stage',
+    bodyMobile: 'Tracks every lead, call, and deal',
+    description: 'Your single source of truth. Every call, email, and deal stage tracked in one place. If it\'s not in the CRM, it didn\'t happen.',
     subServices: [
-       { title: 'The Bond', description: 'It acts as the "Memory." It stores what The Face captures and triggers The Muscle to act.' },
-       { title: 'The Whole', description: 'It is the central nervous system. It holds the data that the AI Agents (Pillar 4) need to read in order to speak intelligently to customers.' },
-       { title: 'Client Benefit', description: 'Pipeline Visibility. You stop managing by memory and start managing by data.' },
-       { title: 'Group Purpose', description: 'To capture demand and structure data.' }
+       { title: 'How it connects', description: 'The Brain stores what the Face captures and tells the Muscle what to do next. When a deal is won, automation kicks in.' },
+       { title: 'How it helps the whole system', description: 'The AI assistants (Pillar 4) need CRM data to speak intelligently to customers. Without it, they\'re guessing.' },
+       { title: 'What you get', description: 'Pipeline visibility. You stop managing by memory and start managing by data.' }
     ]
   },
   {
-    id: 'pillar3', number: '03', icon: Zap, title: 'THE MUSCLE', subtitle: 'Automation Architecture',
-    categoryHex: '#E21E3F', categoryLabel: 'ACQUISITION', technicalLabel: 'WORKFLOW_ENGINE',
-    description: 'Code Leverage. Replacing "Minor Labour" (data entry, invoicing, scheduling) with silent, instant code execution.',
+    id: 'pillar3', number: '03', icon: Zap, title: 'THE MUSCLE', 
+    subtitle: 'Automation', subtitleMobile: 'Automation',
+    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: 'WORKFLOW_ENGINE',
+    body: 'Replaces data entry, invoicing, and follow-ups with instant code execution',
+    bodyMobile: 'Admin tasks run themselves',
+    description: 'Code doing the boring work. Data entry, invoicing, follow-ups. The stuff that eats your week now runs itself.',
     subServices: [
-       { title: 'The Bond', description: 'It acts as the "Hands." When The Brain signals a "Won Deal," The Muscle instantly sends the invoice and contract.' },
-       { title: 'The Whole', description: 'It creates velocity. It ensures that data moves between Marketing, Sales, and Ops instantly, removing the human bottleneck.' },
-       { title: 'Client Benefit', description: 'Time Arbitrage. Your team focuses on high-value strategy, not low-value admin.' },
-       { title: 'Group Purpose', description: 'To capture demand and structure data.' }
+       { title: 'How it connects', description: 'When the Brain signals a won deal, the Muscle sends the invoice and contract instantly. No human delay.' },
+       { title: 'How it helps the whole system', description: 'Data moves between Marketing, Sales, and Ops in real time. No more copy-paste between three apps.' },
+       { title: 'What you get', description: 'Time back. Your team focuses on high-value work, not low-value admin.' }
     ]
   },
   {
-    id: 'pillar4', number: '04', icon: Bot, title: 'THE VOICE', subtitle: 'Cognitive Infrastructure',
-    categoryHex: '#C5A059', categoryLabel: 'VELOCITY', technicalLabel: 'SYNTHETIC_WORKFORCE',
-    description: 'Cognitive Infrastructure. Digital employees that can listen, reason, and speak to customers 24/7 via phone or chat.',
+    id: 'pillar4', number: '04', icon: Bot, title: 'THE VOICE', 
+    subtitle: 'AI Assistants', subtitleMobile: 'AI Bots',
+    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: 'SYNTHETIC_WORKFORCE',
+    body: 'Digital employees that listen, reason, and speak to customers 24/7 via phone or chat',
+    bodyMobile: 'Bots that answer 24/7',
+    description: 'Digital employees that listen, think, and speak. AI that answers your phone, qualifies leads, and books appointments around the clock.',
     subServices: [
-       { title: 'The Bond', description: 'It creates "Infinite Concurrency." Unlike human staff, The Voice can handle 100 simultaneous calls during a marketing spike.' },
-       { title: 'The Whole', description: 'It is the interface. It reads the CRM data (Pillar 2) to know the customer\'s history and updates it instantly after the call.' },
-       { title: 'Client Benefit', description: 'Scalability. You can double your lead volume without hiring more support staff.' },
-       { title: 'Group Purpose', description: 'To multiply output and decouple time from revenue.' }
+       { title: 'How it connects', description: 'The Voice handles 100 calls at once. When you run a marketing campaign and leads spike, it doesn\'t buckle.' },
+       { title: 'How it helps the whole system', description: 'It reads CRM data to know the customer\'s history. After the call, it updates the record automatically.' },
+       { title: 'What you get', description: 'Scalability. Double your lead volume without doubling your staff.' }
     ]
   },
   {
-    id: 'pillar5', number: '05', icon: Video, title: 'THE PRESENCE', subtitle: 'Media Logistics',
-    categoryHex: '#C5A059', categoryLabel: 'VELOCITY', technicalLabel: 'MEDIA_DISTRIBUTION',
-    description: 'A Content Supply Chain. Turning one hour of raw expertise into a month of omni-channel authority assets (Video, Text, Audio).',
+    id: 'pillar5', number: '05', icon: Video, title: 'THE PRESENCE', 
+    subtitle: 'Content Systems', subtitleMobile: 'Content',
+    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: 'MEDIA_DISTRIBUTION',
+    body: 'Turns one hour of raw expertise into a month of content across every platform',
+    bodyMobile: 'One input, endless content',
+    description: 'A content supply chain. One hour of your expertise becomes a month of posts, blogs, and videos across every platform.',
     subServices: [
-       { title: 'The Bond', description: 'It creates "Ubiquity." It ensures your brand is seen everywhere, fueling the top of the funnel for The Face (Pillar 1).' },
-       { title: 'The Whole', description: 'It feeds the machine. High-quality content drives traffic to the system, ensuring the Automation and AI agents have leads to process.' },
-       { title: 'Client Benefit', description: 'Authority. You become the "Category King" without spending your life on social media.' },
-       { title: 'Group Purpose', description: 'To multiply output and decouple time from revenue.' }
+       { title: 'How it connects', description: 'Content drives traffic to your website (Pillar 1), which captures leads, which feeds the CRM, which triggers automation.' },
+       { title: 'How it helps the whole system', description: 'High-quality content keeps the top of the funnel full. The AI and automation have leads to process.' },
+       { title: 'What you get', description: 'Authority. You become the go-to expert without spending your life on social media.' }
     ]
   },
   {
-    id: 'pillar6', number: '06', icon: Users, title: 'THE SOUL', subtitle: 'Adoption Architecture',
-    categoryHex: '#C5A059', categoryLabel: 'VELOCITY', technicalLabel: 'KNOWLEDGE_BASE',
-    description: 'Behavior Engineering. Systems designed to ensure human staff actually use the tools (Internal Podcasts, Micro-Learning).',
+    id: 'pillar6', number: '06', icon: Users, title: 'THE SOUL', 
+    subtitle: 'Team Training', subtitleMobile: 'Training',
+    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: 'KNOWLEDGE_BASE',
+    body: 'Systems designed to ensure your team actually uses the tools you paid for',
+    bodyMobile: 'Makes your team use the tools',
+    description: 'The human element. Training systems that make sure your team actually uses the tools you paid for.',
     subServices: [
-       { title: 'The Bond', description: 'It protects the investment. The fastest car (Velocity) is useless if the driver (Staff) doesn\'t know how to shift gears.' },
-       { title: 'The Whole', description: 'It creates alignment. It ensures the human culture matches the digital speed, preventing "System Rejection."' },
-       { title: 'Client Benefit', description: 'ROI Assurance. You stop buying software that becomes "Shelfware."' },
-       { title: 'Group Purpose', description: 'To multiply output and decouple time from revenue.' }
+       { title: 'How it connects', description: 'The fastest car is useless if the driver doesn\'t know how to shift gears. The Soul protects your investment in the other 6 pillars.' },
+       { title: 'How it helps the whole system', description: 'When the team adopts the tools properly, data is clean and the system works as designed.' },
+       { title: 'What you get', description: 'ROI assurance. No more expensive shelfware that nobody uses.' }
     ]
   },
   {
-    id: 'pillar7', number: '07', icon: BarChart3, title: 'THE EYES', subtitle: 'Intelligence Architecture',
-    categoryHex: '#1a1a1a', categoryLabel: 'INTELLIGENCE', technicalLabel: 'BI_VISUALIZATION',
-    description: 'The Control Tower. Visualizing real-time profit, churn, and speed. Moving from "Gut Feeling" to Evidence.',
+    id: 'pillar7', number: '07', icon: BarChart3, title: 'THE EYES', 
+    subtitle: 'Dashboards & Reporting', subtitleMobile: 'Dashboards',
+    categoryHex: '#1a1a1a', categoryLabel: 'SEE CLEARLY', technicalLabel: 'BI_VISUALIZATION',
+    body: 'Visualises real-time profit, churn, and speed so you move from gut feeling to evidence',
+    bodyMobile: 'Your numbers on one screen',
+    description: 'The control tower. Revenue, margins, and pipeline on one screen, updated live. No more midnight spreadsheets.',
     subServices: [
-       { title: 'The Bond', description: 'It is the "Feedback Loop." It tells you if the Acquisition system is profitable and if the Velocity system is efficient.' },
-       { title: 'The Whole', description: 'It allows for Navigation. It takes data from every other pillar to show you exactly where to steer the business next.' },
-       { title: 'Client Benefit', description: 'Certainty. You sleep better knowing exactly where your profit is coming from.' },
-       { title: 'Group Purpose', description: 'To navigate with certainty.' }
+       { title: 'How it connects', description: 'The Eyes take data from every other pillar and show you where to steer next. It\'s the feedback loop.' },
+       { title: 'How it helps the whole system', description: 'It tells you if Acquisition is profitable, if Velocity is efficient, and what needs fixing.' },
+       { title: 'What you get', description: 'Certainty. You sleep better knowing exactly where your profit is coming from.' }
     ]
   }
 ];
@@ -132,14 +146,26 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             <pillar.icon className="w-5 h-5 opacity-40 group-hover:opacity-100 transition-opacity" style={{ color: pillar.categoryHex }} />
           </div>
           <div>
-            <span className="font-mono text-xs uppercase tracking-[0.2em] mb-6 block font-bold" style={{ color: pillar.categoryHex }}>{pillar.subtitle}</span>
+            <span className="font-mono text-xs uppercase tracking-[0.2em] mb-2 block font-bold" style={{ color: pillar.categoryHex }}>
+              <span className="hidden lg:inline">{pillar.categoryLabel}</span>
+              <span className="lg:hidden">{pillar.categoryLabel}</span>
+            </span>
             {/* HIERARCHY FIX: Reduced from 3xl to 2xl/3xl to sit below Page Titles */}
             <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-2 leading-none">{pillar.title}</h3>
-            <p className="font-mono text-xs text-[#1a1a1a]/40 uppercase tracking-[0.2em] font-bold">[{pillar.technicalLabel}]</p>
+            <p className="font-sans text-sm text-[#1a1a1a]/60 mb-2 leading-relaxed">
+              <span className="hidden lg:inline">{pillar.body}</span>
+              <span className="lg:hidden">{pillar.bodyMobile}</span>
+            </p>
+            <p className="font-mono text-xs text-[#1a1a1a]/40 uppercase tracking-[0.2em] font-bold mt-4">
+              <span className="hidden lg:inline">{pillar.subtitle}</span>
+              <span className="lg:hidden">{pillar.subtitleMobile}</span>
+            </p>
           </div>
-          <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div className="w-4 h-px bg-current" />
-            <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold">Expand</span>
+          <div className="mt-auto">
+            <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold text-[#1a1a1a]/60">
+              <span className="hidden lg:inline">[ SEE PILLAR ]</span>
+              <span className="lg:hidden">[ VIEW ]</span>
+            </span>
           </div>
         </motion.div>
       )}
@@ -152,12 +178,11 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-[#1a1a1a]/10 pb-10">
               <div>
                 <div className="flex items-center gap-3 mb-6">
-                  <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>{pillar.number} // {pillar.categoryLabel}</span>
+                  <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>{pillar.number} / {pillar.categoryLabel}</span>
                   <div className="w-12 h-px" style={{ backgroundColor: pillar.categoryHex }} />
                 </div>
                 {/* HIERARCHY FIX: Reduced from 6xl to 4xl/5xl to remain subservient to H1 */}
                 <h2 className="font-serif text-4xl md:text-5xl mb-2 leading-none tracking-tight">{pillar.title}</h2>
-                <span className="font-mono text-xs uppercase tracking-[0.2em] opacity-40 mb-6 block font-bold">The Unit</span>
                 {/* Standard: text-lg md:text-xl */}
                 <p className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 max-w-3xl leading-relaxed">{pillar.description}</p>
               </div>
@@ -183,7 +208,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             {/* Actions */}
             <div className="mt-12 w-full flex justify-end">
               <button onClick={(e) => { e.stopPropagation(); onNavigate(pillar.id); }} className="group flex items-center gap-3">
-                  <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>[ See Pillar ]</span>
+                  <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold" style={{ color: pillar.categoryHex }}>[ SEE PILLAR ]</span>
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" style={{ color: pillar.categoryHex }} />
               </button>
             </div>
@@ -215,7 +240,8 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
          <div className="flex justify-between items-center mb-12">
             <button onClick={onBack} className="group flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors font-bold">
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-              / Return to Home
+              <span className="hidden lg:inline">/ Return to Home</span>
+              <span className="lg:hidden">/ Back</span>
             </button>
          </div>
          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={heroContainer} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -227,7 +253,10 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
               <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter mb-10">7 Ways I Fix <br /><span className="italic text-black/20">Your Business.</span></motion.h1>
               
               {/* HIERARCHY FIX: Matches Home Page Body */}
-              <motion.p variants={heroItem} className="font-sans text-lg md:text-lg lg:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-2xl border-l-2 border-[#C5A059] pl-6">I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.</motion.p>
+              <motion.p variants={heroItem} className="font-sans text-lg md:text-lg lg:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-2xl border-l-2 border-[#C5A059] pl-6">
+                <span className="hidden lg:inline">I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.</span>
+                <span className="lg:hidden">I treat your business as one connected system, eliminating friction that burns out your people.</span>
+              </motion.p>
             </div>
             <motion.div variants={heroItem} className="h-full flex items-center justify-center lg:justify-end min-h-[300px] lg:min-h-[500px] relative">
                <HeroVisual_Suspension />
@@ -246,11 +275,17 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
           <div className="text-center max-w-2xl mx-auto mb-24 pt-10">
               <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block font-bold">System Breakdown</span>
               {/* HIERARCHY FIX: Section Header is smaller than Hero (4xl/5xl/6xl) */}
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] mb-6">The Parts in Detail</h2>
-              <p className="font-sans text-lg md:text-lg lg:text-xl text-[#1a1a1a]/70 leading-relaxed">Each component is designed to work alone, but engineered to work together.</p>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] mb-6">
+                <span className="hidden lg:inline">The Parts in Detail</span>
+                <span className="lg:hidden">The 7 Pillars</span>
+              </h2>
+              <p className="font-sans text-lg md:text-lg lg:text-xl text-[#1a1a1a]/70 leading-relaxed">
+                <span className="hidden lg:inline">Each component is designed to work alone, but engineered to work together.</span>
+                <span className="lg:hidden">Work alone or together.</span>
+              </p>
           </div>
 
-          <div className="flex items-center gap-4 mb-12">
+          <div className="hidden lg:flex items-center gap-4 mb-12">
               <div className="h-px bg-black/10 flex-grow" />
               <span className="font-mono text-xs uppercase tracking-[0.2em] opacity-40 font-bold">System_Grid_V1.0</span>
               <div className="h-px bg-black/10 flex-grow" />
@@ -270,6 +305,18 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
         </div>
       </section>
       
+      {/* CTA BLOCK */}
+      <section className="w-full bg-[#1a1a1a] text-white py-24 px-6 md:px-12 lg:px-20">
+        <div className="max-w-[1400px] mx-auto text-center">
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl mb-8">
+            Ready to stop guessing?
+          </h2>
+          <button onClick={() => onNavigate('contact')} className="bg-[#C5A059] text-[#1a1a1a] px-8 py-4 font-mono text-xs uppercase tracking-[0.2em] font-bold hover:bg-white transition-colors">
+            [ BOOK A CALL ]
+          </button>
+        </div>
+      </section>
+
       <FAQSection faqs={systemFAQs} accentColor="#C5A059" title="Questions?" subtitle="Everything you need to know before choosing a service." onNavigate={onNavigate} />
       <GlobalFooter onNavigate={onNavigate} />
     </div>

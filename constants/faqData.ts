@@ -26,123 +26,113 @@ export const systemPageFAQs: FAQ[] = [
   {
     id: 'need-all-pillars',
     question: 'Do I need all 7 pillars?',
-    answer: `No. Most businesses start with just one or two. Each pillar is designed to work standalone — you pick what you need now, and add more later if it makes sense.
+    answer: `No. Most businesses start with one or two.
 
-Think of it like renovating a house — you don't have to redo the kitchen, bathroom, AND bedroom at once. Start where the pain is worst.`
+Each pillar works on its own. You pick what you need now and add more later if it makes sense. Think of it like renovating a house. You don't redo everything at once. Start where the pain is worst.`
   },
   {
     id: 'which-pillar-first',
     question: 'Which pillar should I start with?',
-    answer: `It depends on where you're losing the most time or money:
+    answer: `Depends on where you're losing time or money:
 
-• Losing leads? Start with Pillar 01 (Website) or Pillar 02 (CRM)
-• Drowning in admin? Start with Pillar 03 (Automation)
-• Missing calls or enquiries? Start with Pillar 04 (AI Assistants)
-• No time for marketing? Start with Pillar 05 (Content Systems)
-• Team not using your tools? Start with Pillar 06 (Training)
-• Flying blind on numbers? Start with Pillar 07 (Dashboards)
+- Losing leads? Pillar 01 (Website) or Pillar 02 (CRM)
+- Drowning in admin? Pillar 03 (Automation)
+- Missing calls after hours? Pillar 04 (AI Assistants)
+- No time for marketing? Pillar 05 (Content)
+- Team not using your tools? Pillar 06 (Training)
+- Flying blind on numbers? Pillar 07 (Dashboards)
 
 Not sure? Book a call and I'll help you figure it out.`
   },
   {
     id: 'combine-services',
-    question: 'Can I combine multiple services into one project?',
-    answer: `Yes, and it's often smarter to do so. For example, if you need a new website AND a CRM to capture leads, building them together means they're connected from day one — no awkward integration later.
+    question: 'Can I combine services into one project?',
+    answer: `Yes, and it's often smarter to do so.
 
-I'll tell you honestly if combining makes sense or if you should do one first.`
+If you need a website and a CRM, building them together means they're connected from day one. No awkward integration later. I'll tell you honestly if combining makes sense or if you should do one first.`
   },
   {
     id: 'project-timeline',
-    question: 'How long does a typical project take?',
+    question: 'How long does a project take?',
     answer: `Most projects are delivered in sprints:
 
-• Quick wins: 3-7 days (lead capture, basic automations)
-• Core builds: 7-14 days (websites, CRM setup, AI bots)
-• Complex projects: 21-30+ days (custom builds, multi-system integration)
+- Quick wins: 3 to 7 days (lead forms, basic automations)
+- Core builds: 7 to 14 days (websites, CRM setup, AI bots)
+- Complex projects: 21 to 30+ days (multi-system integration)
 
 I don't do 6-month projects that drain your budget before you see results. You'll see progress in weeks, not quarters.`
   },
   {
     id: 'pricing',
     question: 'How much does this cost?',
-    answer: `Every project is different, so I don't list prices. But I'll give you a fixed quote after a 15-minute call — no "estimate ranges" that triple later.
+    answer: `Every project is different, so I don't list prices.
 
-Generally, quick sprints (3-7 days) are accessible for most small businesses. Larger builds (14-30+ days) are an investment, but designed to pay for themselves in saved time or new revenue.
-
-I'll tell you honestly if the ROI doesn't make sense for your situation.`
-  },
-  {
-    id: 'who-does-work',
-    question: 'Who actually does the work?',
-    answer: `I do. Felipe Chaparro. One person, not a faceless agency with junior handoffs.
-
-You talk directly to the person building your system. No account managers in between, no explaining the same thing twice to different people.
-
-I use automation and AI to deliver what agencies need a whole team for — but the thinking, the strategy, and the quality control is all me.`
-  },
-  {
-    id: 'what-you-provide',
-    question: 'What do I need to provide?',
-    answer: `I do the heavy lifting. You provide:
-
-• Access to your existing systems (logins, admin rights)
-• 1-2 hours for a kickoff call to understand your business
-• Quick responses to questions as we build
-• Feedback during the review stages
-
-You don't need to prepare documents, write briefs, or project manage. That's my job.`
-  },
-  {
-    id: 'existing-systems',
-    question: 'Will this work with my existing tools?',
-    answer: `Almost certainly yes. I'm tool-agnostic — I don't force you into HubSpot or Salesforce if something else fits better. I work with whatever you've got (Xero, MYOB, Shopify, WordPress, Google Sheets, you name it) and build bridges between them.
-
-If something truly can't connect, I'll tell you upfront before you spend money.`
+What I can tell you: I work in fixed-price sprints. You know the cost before we start, and it doesn't change mid-project. Book a call, tell me what you need, and I'll give you a straight answer.`
   },
   {
     id: 'after-project',
-    question: 'What happens after the project is done?',
+    question: 'Do I own the systems you build?',
     answer: `You own everything. I hand over:
 
-• Full access to all systems I build
-• Training videos so your team knows how to use it
-• Documentation for future reference
+- Full access to all systems
+- Training videos so your team knows how to use it
+- Documentation for future reference
 
 I'm not trying to lock you in. If you want ongoing support, we can arrange that. If you want to run it yourself, you'll be fully equipped.`
   },
   {
     id: 'burned-before',
     question: "I've been burned by tech projects before. How is this different?",
-    answer: `I get it. Most tech projects fail because:
+    answer: `I get it. Most tech projects fail because the scope creeps, the team doesn't use the new system, or you get locked into a vendor who disappears.
 
-1. The scope creeps and the budget explodes
-2. The team doesn't use the new system
-3. You get locked into a vendor who disappears
+Here's how I work differently:
 
-Here's how I'm different:
-• Fixed sprints: Scope is locked, price is locked
-• Adoption built-in: I don't leave until your team actually uses it
-• You own everything: No lock-in, no ongoing fees unless you want support`
+- Fixed sprints: Scope and price are locked
+- Adoption built-in: I don't leave until your team actually uses it
+- You own everything: No lock-in, no surprise fees`
   },
   {
     id: 'small-test',
     question: 'Can we start with a small test project?',
-    answer: `Absolutely. In fact, I recommend it.
+    answer: `Absolutely. I recommend it.
 
-Start with something contained — a lead capture form, a simple automation, a quick dashboard. See how I work, how fast things move, and whether the results are real.
-
-If it works, we do more. If it doesn't, you've risked very little.`
+Start with something contained: a lead capture form, a simple automation, a quick dashboard. See how I work and whether the results are real. If it works, we do more. If it doesn't, you've risked very little.`
   },
   {
     id: 'how-systems-connect',
     question: 'How do the 3 systems work together?',
     answer: `Think of it as a flow:
 
-• GET CLIENTS (Pillars 1-3): Brings people in and captures their details
-• SCALE FASTER (Pillars 4-6): Multiplies your output without multiplying your hours
-• SEE CLEARLY (Pillar 7): Shows you what's working and what's not
+- GET CLIENTS (Pillars 1 to 3): Brings people in and captures their details
+- SCALE FASTER (Pillars 4 to 6): Multiplies your output without multiplying your hours
+- SEE CLEARLY (Pillar 7): Shows you what's working and what's not
 
-You don't need all three to start. But when they're connected, your business runs smoother — leads flow in, work gets done automatically, and you see the results in real-time.`
+You don't need all three to start. But when they're connected, leads flow in, work gets done automatically, and you see the results in real time.`
+  },
+  {
+    id: 'existing-systems',
+    question: 'What if I already have a CRM or website?',
+    answer: `I work with what you have.
+
+If your current CRM is fine but you need automation on top of it, I build that. If your website is decent but not capturing leads properly, I fix the forms and tracking. I'm not trying to replace everything. I fix what's broken.`
+  },
+  {
+    id: 'how-involved',
+    question: 'How involved do I need to be?',
+    answer: `For the initial setup: a few focused sessions where I learn your business, your workflow, and your pain points.
+
+After that: as involved as you want to be. Some clients want weekly check-ins. Others just want me to build it and hand it over. Both work.`
+  },
+  {
+    id: 'after-project-done',
+    question: 'What happens after the project is done?',
+    answer: `Three options:
+
+1. You run it yourself (I give you training and docs)
+2. Monthly support retainer (I monitor, maintain, and improve)
+3. Call me when something breaks (ad-hoc support)
+
+Most clients start with option 1 and move to option 2 once they see the value of ongoing optimisation.`
   }
 ];
 

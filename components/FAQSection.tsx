@@ -7,6 +7,92 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Cpu, Plus, Minus } from 'lucide-react';
 import { FAQ } from '../constants/faqData';
 
+// Helper function to format FAQ answers with proper bullet points and numbered lists
+const formatFAQAnswer = (answer: string, accentColor: string) => {
+  const lines = answer.split('\n').filter(line => line.trim() !== '');
+  const elements: React.ReactNode[] = [];
+  let currentParagraph: string[] = [];
+  let currentList: string[] = [];
+  let isNumberedList = false;
+
+  const flushParagraph = () => {
+    if (currentParagraph.length > 0) {
+      elements.push(
+        <p key={`p-${elements.length}`} className="mb-4 last:mb-0">
+          {currentParagraph.join(' ')}
+        </p>
+      );
+      currentParagraph = [];
+    }
+  };
+
+  const flushList = () => {
+    if (currentList.length > 0) {
+      if (isNumberedList) {
+        elements.push(
+          <ol key={`ol-${elements.length}`} className="list-decimal space-y-2 mb-4 last:mb-0 pl-6" style={{ listStyleColor: accentColor }}>
+            {currentList.map((item, idx) => (
+              <li key={idx} className="pl-2">
+                <span>{item.replace(/^\d+\.\s*/, '').trim()}</span>
+              </li>
+            ))}
+          </ol>
+        );
+      } else {
+        elements.push(
+          <ul key={`ul-${elements.length}`} className="list-none space-y-2 mb-4 last:mb-0 pl-0">
+            {currentList.map((item, idx) => (
+              <li key={idx} className="flex items-start gap-3">
+                <span className="text-lg leading-none mt-1 shrink-0" style={{ color: accentColor }}>•</span>
+                <span className="flex-1">{item.replace(/^[•\-\*]\s*/, '').trim()}</span>
+              </li>
+            ))}
+          </ul>
+        );
+      }
+      currentList = [];
+      isNumberedList = false;
+    }
+  };
+
+  lines.forEach((line) => {
+    const trimmed = line.trim();
+    
+    // Check if line is a numbered list item (1., 2., etc.)
+    if (trimmed.match(/^\d+\.\s/)) {
+      if (currentList.length > 0 && !isNumberedList) {
+        flushList();
+      }
+      isNumberedList = true;
+      flushParagraph();
+      currentList.push(trimmed);
+    }
+    // Check if line is a bullet point (•, -, or * at the start, optionally followed by space)
+    else if (trimmed.startsWith('•') || trimmed.startsWith('-') || trimmed.startsWith('*') || trimmed.match(/^[•\-\*]\s/)) {
+      if (currentList.length > 0 && isNumberedList) {
+        flushList();
+      }
+      isNumberedList = false;
+      flushParagraph();
+      currentList.push(trimmed);
+    } else if (trimmed === '') {
+      // Empty line - flush both paragraph and list
+      flushParagraph();
+      flushList();
+    } else {
+      // Regular text line
+      flushList();
+      currentParagraph.push(trimmed);
+    }
+  });
+
+  // Flush any remaining content
+  flushParagraph();
+  flushList();
+
+  return elements.length > 0 ? elements : <p>{answer}</p>;
+};
+
 interface FAQSectionProps {
   faqs: FAQ[];
   accentColor?: string;
@@ -118,9 +204,9 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                                     ANSWER // {faq.id.toUpperCase()}
                                   </span>
                                 </div>
-                                <p className="font-sans text-base leading-relaxed opacity-80 border-l-2 pl-4" style={{ borderColor: accentColor }}>
-                                  {faq.answer}
-                                </p>
+                                          <div className="font-sans text-base leading-relaxed opacity-80 border-l-2 pl-4 space-y-4" style={{ borderColor: accentColor }}>
+                                  {formatFAQAnswer(faq.answer, accentColor)}
+                                </div>
                              </div>
                           </motion.div>
                         )}
@@ -156,9 +242,9 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                       
                       <div className="w-16 h-1 mb-8" style={{ backgroundColor: accentColor }} />
                       
-                      <p className="font-sans text-xl font-light text-[#FFF2EC]/70 leading-relaxed border-l pl-6 whitespace-pre-line" style={{ borderColor: accentColor }}>
-                        {faqs[activeIndex].answer}
-                      </p>
+                      <div className="font-sans text-xl font-light text-[#FFF2EC]/70 leading-relaxed border-l pl-6 space-y-4" style={{ borderColor: accentColor }}>
+                        {formatFAQAnswer(faqs[activeIndex].answer, accentColor)}
+                      </div>
                     </motion.div>
                   )}
                   {activeIndex === null && (

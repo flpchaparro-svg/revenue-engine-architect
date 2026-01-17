@@ -70,45 +70,77 @@ const textVariants = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } }
 };
 
+// MOBILE TITLES - Shortened versions for mobile cards
+const MOBILE_TITLES: Record<string, string> = {
+  'WEBSITES & E-COMMERCE': 'Websites',
+  'CRM & LEAD TRACKING': 'CRM',
+  'AUTOMATION': 'Automation',
+  'AI ASSISTANTS': 'AI Bots',
+  'CONTENT SYSTEMS': 'Content',
+  'TEAM TRAINING': 'Training',
+  'DASHBOARDS & REPORTING': 'Dashboards',
+};
+
+// MOBILE DESCRIPTIONS - Shortened versions for mobile cards
+const MOBILE_DESCRIPTIONS: Record<string, string> = {
+  'pillar1': 'Sites that capture leads and sell, not just look pretty.',
+  'pillar2': 'Track every lead, call, and deal. Nothing slips through.',
+  'pillar3': 'Invoices, follow-ups, data entry on autopilot.',
+  'pillar4': 'Answer calls and enquiries 24/7, even while you sleep.',
+  'pillar5': 'One voice note becomes blog, socials, newsletter. Auto-published.',
+  'pillar6': 'Short training that makes your team actually use the tools.',
+  'pillar7': 'Revenue, margins, pipeline on one screen, live.',
+};
+
 // SYSTEM CARD DATA - Different copy for each group context
-const SYSTEM_CARD_GROUP1 = {
-  id: 'system-overview',
-  title: 'See the Full System',
-  subtitle: '/ 7 PILLARS',
-  description: 'These three pillars are just the start. See how all seven connect to build a complete growth engine.',
-  extraText: 'Visit the System Page to see how Marketing, Sales, and Operations work together as one machine.',
-  visualPrompt: 'neural',
-  technicalLabel: '/ ALL PILLARS',
-  systemGroup: 'GET CLIENTS',
-};
-
-const SYSTEM_CARD_GROUP2 = {
-  id: 'system-overview',
-  title: 'See the Full System',
-  subtitle: '/ 7 PILLARS',
-  description: 'AI and content multiply your output, but they work best when connected to everything else. See the complete picture.',
-  extraText: 'Visit the System Page to see how these pillars connect with your website, CRM, and dashboards.',
-  visualPrompt: 'neural',
-  technicalLabel: '/ ALL PILLARS',
-  systemGroup: 'SCALE FASTER',
-};
-
-const SYSTEM_CARD_GROUP3 = {
-  id: 'system-overview',
-  title: 'See the Full System',
-  subtitle: '/ 7 PILLARS',
-  description: 'Dashboards show you the truth, but only if the data feeding them is clean. See how all seven pillars connect.',
-  extraText: 'Visit the System Page to understand how your CRM, automation, and AI all feed into this single view.',
-  visualPrompt: 'neural',
-  technicalLabel: '/ ALL PILLARS',
-  systemGroup: 'SEE CLEARLY',
-};
-
-// Helper function to get the right system card based on phase
-const getSystemCard = (phaseId: string) => {
-  if (phaseId === 'GET CLIENTS') return SYSTEM_CARD_GROUP1;
-  if (phaseId === 'SCALE FASTER') return SYSTEM_CARD_GROUP2;
-  return SYSTEM_CARD_GROUP3;
+const SYSTEM_CARDS: Record<string, { 
+  label: string; 
+  labelMobile: string;
+  title: string; 
+  titleDisplay: string;
+  titleMobile: string;
+  subtitle: string;
+  subtitleDisplay: string;
+  smallCardBody: string;
+  description: string;
+  descriptionMobile: string;
+}> = {
+  'GET CLIENTS': {
+    label: '/ ALL 7 PILLARS',
+    labelMobile: '/ ALL 7',
+    title: 'See the Full System',
+    titleDisplay: 'The Complete System',
+    titleMobile: 'Full System',
+    subtitle: 'The Blueprint',
+    subtitleDisplay: 'The Blueprint',
+    smallCardBody: 'These three get you clients. But there\'s more under the hood.',
+    description: 'Websites, CRM, and Automation capture leads. But the system goes further: AI that answers your phone, content that posts itself, dashboards that show you the truth. See how all seven connect.',
+    descriptionMobile: 'These three are just the start. See all seven pillars.',
+  },
+  'SCALE FASTER': {
+    label: '/ ALL 7 PILLARS',
+    labelMobile: '/ ALL 7',
+    title: 'See the Full System',
+    titleDisplay: 'The Complete System',
+    titleMobile: 'Full System',
+    subtitle: 'The Blueprint',
+    subtitleDisplay: 'The Blueprint',
+    smallCardBody: 'AI and content scale you. But they work better when connected to everything else.',
+    description: 'These pillars multiply your output, but they\'re not standalone. Your website feeds the CRM, the CRM triggers the automation, the dashboard shows what\'s working. See the full loop.',
+    descriptionMobile: 'AI and content work better connected to everything else.',
+  },
+  'SEE CLEARLY': {
+    label: '/ ALL 7 PILLARS',
+    labelMobile: '/ ALL 7',
+    title: 'See the Full System',
+    titleDisplay: 'The Complete System',
+    titleMobile: 'Full System',
+    subtitle: 'The Blueprint',
+    subtitleDisplay: 'The Blueprint',
+    smallCardBody: 'A dashboard is only as good as the data feeding it. Garbage in, garbage out.',
+    description: 'Clean dashboards need clean data. When your website, CRM, automation, and AI are all connected, you get one source of truth. No more conflicting spreadsheets. See how the entire system works together.',
+    descriptionMobile: 'Dashboards need clean data. See how all seven connect.',
+  },
 };
 
 const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
@@ -125,8 +157,15 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
   }, [activePhase.id]);
 
   const displayService = activeService || currentServices[0];
-  const systemCard = getSystemCard(activePhase.id);
+  const systemCard = SYSTEM_CARDS[activePhase.id];
   const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
+  
+  // Helper to convert title case for display box (e.g., "WEBSITES & E-COMMERCE" -> "Websites & E-commerce")
+  const getDisplayTitle = (title: string) => {
+    return title.split(' & ').map(word => 
+      word.split(' ').map(w => w.charAt(0) + w.slice(1).toLowerCase()).join(' ')
+    ).join(' & ');
+  };
 
   const changePhase = (newIndex: number) => {
     setPage([newIndex, newIndex > activeIndex ? 1 : -1]);
@@ -138,7 +177,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
   };
 
   // FIX: Using app navigation instead of window reload
-  const handleCardClick = (service: ServiceDetail | typeof SYSTEM_CARD_GROUP1) => {
+  const handleCardClick = (service: ServiceDetail | any) => {
     if (!onNavigate) return; // Safety check
     
     if (service.id === 'system-overview' || service.id === 'blueprint-architecture') {
@@ -191,7 +230,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
            <span className="font-mono text-xs tracking-[0.2em] mb-4 block uppercase font-bold opacity-60">/ THE SYSTEM</span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-none tracking-tighter mb-6">7 Ways I Fix Your Business.</h2>
            <p className="font-sans text-base md:text-xl font-light opacity-70 leading-relaxed max-w-2xl mx-auto px-4">
-              I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.
+              <span className="hidden lg:inline">I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.</span>
+              <span className="lg:hidden">I treat your business as one connected system, linking Marketing, Sales, and Operations to eliminate the friction that burns out your people.</span>
            </p>
         </div>
 
@@ -227,7 +267,6 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
               <div className="hidden lg:flex lg:col-span-6 flex-col">
                 {(() => {
                   const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
-                  const displayData = isBlueprint ? systemCard : displayService;
                   return (
                     <div className={`relative flex-1 rounded-sm border shadow-2xl overflow-hidden flex flex-col transition-colors duration-500 
                       ${isBlueprint 
@@ -258,26 +297,22 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       <div className={`p-8 flex-1 flex flex-col justify-between ${isBlueprint ? 'justify-center py-12' : ''}`}>
                         <AnimatePresence mode="wait">
                             <motion.div
-                                key={displayData?.id}
+                                key={isBlueprint ? systemCard.title : displayService?.id}
                                 variants={textVariants}
                                 initial="hidden"
                                 animate="visible"
                                 exit="hidden"
                             >
                                 <h3 className={`font-serif mb-2 leading-tight ${isBlueprint ? 'text-4xl md:text-5xl text-[#C5A059]' : 'text-3xl'}`}>
-                                    {displayData?.title}
+                                    {isBlueprint ? systemCard.titleDisplay : getDisplayTitle(displayService?.title || '')}
                                 </h3>
-                                <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-50 mb-4">{displayData?.subtitle}</p>
+                                <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-50 mb-4">
+                                    {isBlueprint ? systemCard.subtitleDisplay : displayService?.subtitle}
+                                </p>
                                 
                                 <p className={`opacity-70 leading-relaxed ${isBlueprint ? 'text-lg max-w-xl mb-6' : 'text-base line-clamp-4'}`}>
-                                    {displayData?.description}
+                                    {isBlueprint ? systemCard.description : displayService?.description}
                                 </p>
-
-                                {isBlueprint && 'extraText' in displayData && displayData.extraText && (
-                                  <p className="font-sans text-xs opacity-60 leading-relaxed max-w-[90%] mb-8 border-l-2 border-[#C5A059] pl-3">
-                                    {displayData.extraText}
-                                  </p>
-                                )}
                             </motion.div>
                         </AnimatePresence>
                         
@@ -285,7 +320,16 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         <div className={`mt-auto pt-6 border-t ${isBlueprint ? 'border-[#C5A059]/20' : (activePhase.dark ? 'border-white/10' : 'border-black/5')}`}>
                              {isBlueprint ? (
                                  <div 
-                                    onClick={() => handleCardClick(displayData as any)}
+                                    onClick={() => {
+                                      const systemCardService = {
+                                        id: 'system-overview',
+                                        title: systemCard.title,
+                                        subtitle: systemCard.subtitle,
+                                        description: systemCard.description,
+                                        technicalLabel: systemCard.label,
+                                      };
+                                      handleCardClick(systemCardService as any);
+                                    }}
                                     className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-4 px-6 font-mono text-xs tracking-[0.2em] font-bold text-center uppercase cursor-pointer group/btn"
                                  >
                                     <div className="absolute inset-0 bg-white translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
@@ -298,7 +342,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                         ${activePhase.dark ? 'text-[#C5A059] hover:text-white' : 'text-[#E21E3F] hover:text-black'}
                                     `}
                                  >
-                                    [ EXPLORE PILLAR ]
+                                    [ SEE HOW IT WORKS ]
                                  </button>
                              )}
                         </div>
@@ -368,11 +412,23 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
 
                          {/* MIDDLE: CONTENT */}
                          <div className="mb-auto relative z-10">
+                            {/* Technical Label - Desktop Small Card Only */}
+                            <div className="hidden lg:block mb-2">
+                              <span className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] opacity-40">
+                                {service.technicalLabelShort || service.technicalLabel}
+                              </span>
+                            </div>
+                            
                             <h4 className={`font-serif text-2xl mb-3 leading-tight ${isActive ? '' : ''} lg:transition-transform lg:duration-300 lg:translate-x-1 lg:group-hover:translate-x-1`}>
-                              {service.title}
+                              <span className="lg:hidden">{MOBILE_TITLES[service.title] || getDisplayTitle(service.title)}</span>
+                              <span className="hidden lg:inline">{service.title}</span>
                             </h4>
+                            
+                            {/* Desktop Small Card Body - Short hook/question */}
+                            {/* Mobile: Show full mobile description */}
                             <p className={`font-sans text-sm leading-relaxed line-clamp-none ${isActive ? 'opacity-100' : 'opacity-60'} lg:transition-opacity lg:duration-300 lg:group-hover:opacity-100`}>
-                              {service.description}
+                              <span className="lg:hidden">{MOBILE_DESCRIPTIONS[service.id] || service.description}</span>
+                              <span className="hidden lg:inline">{service.smallCardBody || service.description}</span>
                             </p>
                          </div>
 
@@ -386,7 +442,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                               }
                               lg:transition-colors lg:duration-300 lg:group-hover:text-white lg:group-hover:text-black
                             `}>
-                              [ EXPLORE PILLAR ]
+                              <span className="lg:hidden">[ EXPLORE ]</span>
+                              <span className="hidden lg:inline">[ LEARN MORE ]</span>
                             </span>
                          </div>
                       </div>
@@ -396,13 +453,20 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
 
                 {/* SYSTEM CTA CARD */}
                 {(() => {
-                  const systemCardData = getSystemCard(activePhase.id);
+                  const systemCardData = SYSTEM_CARDS[activePhase.id];
                   const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
+                  const systemCardService = {
+                    id: 'system-overview',
+                    title: systemCardData.title,
+                    subtitle: systemCardData.subtitle,
+                    description: systemCardData.description,
+                    technicalLabel: systemCardData.label,
+                  };
                   return (
                     <motion.div 
                       variants={cardVariants}
-                      onMouseEnter={() => setActiveService(systemCardData as any)}
-                      onClick={() => handleCardClick(systemCardData as any)}
+                      onMouseEnter={() => setActiveService(systemCardService as any)}
+                      onClick={() => handleCardClick(systemCardService as any)}
                       className={`relative p-6 bg-[#1a1a1a] border rounded-sm group cursor-pointer lg:transition-all min-h-[250px] flex flex-col justify-between 
                         ${isBlueprint
                           ? 'border-[#C5A059] lg:-translate-y-2 lg:shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
@@ -415,19 +479,34 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       </div>
                       
                       <div className="flex justify-between items-start mb-4 relative z-10">
-                         <span className="font-mono text-xs font-bold text-white/50 block tracking-[0.2em] uppercase">{systemCardData.technicalLabel}</span>
+                         <span className="font-mono text-xs font-bold text-white/50 block tracking-[0.2em] uppercase">
+                           <span className="lg:hidden">{systemCardData.labelMobile}</span>
+                           <span className="hidden lg:inline">{systemCardData.label}</span>
+                         </span>
                          <ArrowDownRight className={`w-4 h-4 text-[#C5A059] lg:transition-transform lg:duration-500 ${isBlueprint ? 'lg:-rotate-90' : 'lg:group-hover:-rotate-90'}`} />
                       </div>
 
                       <div className="relative z-10 mb-auto">
-                         <h4 className="font-serif text-2xl text-white mb-3 leading-tight">{systemCardData.title}</h4>
-                         <p className="font-sans text-sm text-white/60 line-clamp-none">{systemCardData.description}</p>
+                         <h4 className="font-serif text-2xl text-white mb-3 leading-tight">
+                           <span className="lg:hidden">{systemCardData.titleMobile}</span>
+                           <span className="hidden lg:inline">{systemCardData.title}</span>
+                         </h4>
+                         <p className="font-sans text-xs text-white/40 mb-2 uppercase tracking-[0.2em]">
+                           <span className="hidden lg:inline">{systemCardData.subtitle}</span>
+                         </p>
+                         <p className="font-sans text-sm text-white/60 line-clamp-none">
+                           <span className="lg:hidden">{systemCardData.descriptionMobile}</span>
+                           <span className="hidden lg:inline">{systemCardData.smallCardBody}</span>
+                         </p>
                       </div>
 
                       <div className="mt-6 pt-4 border-t border-white/10">
                         <div className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-3 px-4 font-mono text-xs tracking-[0.2em] font-bold text-center uppercase">
                           <div className="absolute inset-0 bg-white translate-y-full lg:group-hover:translate-y-0 lg:transition-transform lg:duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                          <span className="relative z-10 lg:transition-colors lg:duration-500">[ EXPLORE THE SYSTEM ]</span>
+                          <span className="relative z-10 lg:transition-colors lg:duration-500">
+                            <span className="lg:hidden">[ SEE ALL ]</span>
+                            <span className="hidden lg:inline">[ SEE ALL ]</span>
+                          </span>
                         </div>
                       </div>
                     </motion.div>
