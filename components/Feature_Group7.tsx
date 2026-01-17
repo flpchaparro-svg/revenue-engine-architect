@@ -77,7 +77,7 @@ const Feature_Group7: React.FC = () => {
             // REAL RESULTS
           </span>
           {/* FIXED: Smooth scaling 4xl -> 5xl -> 7xl */}
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-[#1a1a1a] leading-[0.95] mb-6">
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-[#1a1a1a] leading-[0.95] tracking-tighter mb-6">
             See It In <span className="italic text-[#E21E3F]">Action.</span>
           </h2>
           {/* FIXED: Body text smooth scaling */}

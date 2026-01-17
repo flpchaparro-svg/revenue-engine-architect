@@ -248,7 +248,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
             {/* 01: THE PROBLEM */}
             <div className="col-span-1 md:col-span-2 p-8 md:p-12 lg:p-16 border-r border-b border-[#1a1a1a]/10 flex flex-col justify-center min-h-[300px] md:min-h-[400px] transition-colors duration-300 hover:bg-[#1a1a1a]/5 group">
               <span className="font-mono text-xs uppercase tracking-[0.2em] text-[#E21E3F] mb-6 md:mb-10 block font-bold">01 / THE PROBLEM</span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.9] text-[#1a1a1a] tracking-tighter">
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] text-[#1a1a1a] tracking-tighter">
                 You didn't start your business to become an <br className="hidden md:block" />
                 <span className="italic text-[#1a1a1a]/60 group-hover:text-[#E21E3F] transition-colors duration-300">administrative hostage.</span>
               </h2>

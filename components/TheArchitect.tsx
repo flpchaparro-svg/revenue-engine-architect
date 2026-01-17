@@ -105,7 +105,7 @@ const TheArchitect: React.FC = () => {
                 transition={{ duration: 0.5 }}
               >
                  {/* FIXED RESPONSIVENESS: Scales smoothly now */}
-                 <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[0.9] mb-8 md:mb-12 text-[#1a1a1a] tracking-tight">
+                 <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.9] mb-8 md:mb-12 text-[#1a1a1a] tracking-tighter">
                     {mode === 'architect' ? (
                        <>One person. <br/><span className="italic text-[#1a1a1a]/30">Ten person output.</span></>
                     ) : (

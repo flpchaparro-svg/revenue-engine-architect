@@ -228,7 +228,9 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
         {/* HEADER */}
         <div className={`pt-24 pb-12 px-6 lg:pt-16 lg:pb-8 text-center max-w-4xl mx-auto ${activePhase.text}`}>
            <span className="font-mono text-xs tracking-[0.2em] mb-4 block uppercase font-bold opacity-60">/ THE SYSTEM</span>
-           <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-none tracking-tighter mb-6">7 Ways I Fix Your Business.</h2>
+           <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-none tracking-tighter mb-6">
+             7 Ways I Fix <span className="italic text-[#E21E3F]">Your Business.</span>
+           </h2>
            <p className="font-sans text-base md:text-xl font-light opacity-70 leading-relaxed max-w-2xl mx-auto px-4">
               <span className="hidden lg:inline">I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.</span>
               <span className="lg:hidden">I treat your business as one connected system, linking Marketing, Sales, and Operations to eliminate the friction that burns out your people.</span>
@@ -440,7 +442,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                  ? (activePhase.dark ? 'text-white' : 'text-black') 
                                  : (activePhase.dark ? 'text-[#C5A059]' : 'text-[#E21E3F]')
                               }
-                              lg:transition-colors lg:duration-300 lg:group-hover:text-white lg:group-hover:text-black
+                              lg:transition-colors lg:duration-300 ${activePhase.dark ? 'lg:group-hover:text-white' : 'lg:group-hover:text-black'}
                             `}>
                               <span className="lg:hidden">[ EXPLORE ]</span>
                               <span className="hidden lg:inline">[ LEARN MORE ]</span>

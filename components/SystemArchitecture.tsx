@@ -197,7 +197,7 @@ export const SystemArchitecture = () => {
                    y: "-50%",
                    borderColor: `${card.color}40`
                 }}
-                className="absolute cursor-pointer bg-[#FFF2EC] border rounded-sm p-5 w-48 md:w-60 flex flex-col items-center text-center shadow-lg pointer-events-auto transition-colors duration-300 hover:bg-white group"
+                className="absolute cursor-pointer bg-[#FFF2EC] border rounded-sm p-5 w-48 md:w-60 flex flex-col items-center text-center shadow-lg pointer-events-auto transition-colors duration-300 hover:bg-[#1a1a1a] hover:text-[#FFF2EC] group"
                 onClick={() => setSelectedPillar(card)}
               >
                  <span className="text-[9px] font-mono uppercase tracking-widest mb-1.5 opacity-80" style={{ color: card.color }}>{card.group}</span>
