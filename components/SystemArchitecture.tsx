@@ -197,15 +197,14 @@ export const SystemArchitecture = () => {
                    y: "-50%",
                    borderColor: `${card.color}40`
                 }}
-                className="absolute cursor-pointer bg-[#FFF2EC] border rounded-sm p-6 md:p-8 w-48 md:w-60 flex flex-col items-center text-center shadow-lg pointer-events-auto transition-colors duration-300 hover:bg-[#1a1a1a] hover:text-[#FFF2EC] group"
+                className="absolute cursor-pointer bg-[#FFF2EC] border rounded-sm p-6 md:p-8 w-48 md:w-60 flex flex-col items-center text-center shadow-lg pointer-events-auto transition-colors duration-300 hover:bg-white hover:text-[#1a1a1a] group"
                 onClick={() => setSelectedPillar(card)}
               >
                  <span className="font-mono text-[10px] font-bold uppercase tracking-[0.15em] text-[#C5A059] mb-3">{card.group}</span>
                  <h4 className="font-serif text-lg md:text-xl text-[#1a1a1a] leading-tight tracking-tight mb-2">{card.title}</h4>
-                 <p className="font-sans text-sm text-[#1a1a1a]/70 leading-relaxed block">{card.subtitle}</p>
                  
                  <div className="mt-auto flex items-center justify-center">
-                    <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/60 group-hover:text-[#FFF2EC] transition-colors">[ Click here ]</span>
+                    <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/60 group-hover:text-[#1a1a1a] transition-colors">[ Click here ]</span>
                  </div>
               </motion.div>
            ))}

@@ -1,13 +1,9 @@
-// =============================================================================
-// FAQ SECTION COMPONENT — RESPONSIVE (Accordion Mobile / Split Desktop)
-// =============================================================================
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Cpu, Plus, Minus } from 'lucide-react';
 import { FAQ } from '../constants/faqData';
 
-// Helper function to format FAQ answers with proper bullet points and numbered lists
+// --- HELPER: Format Answers ---
 const formatFAQAnswer = (answer: string, accentColor: string) => {
   const lines = answer.split('\n').filter(line => line.trim() !== '');
   const elements: React.ReactNode[] = [];
@@ -57,36 +53,22 @@ const formatFAQAnswer = (answer: string, accentColor: string) => {
 
   lines.forEach((line) => {
     const trimmed = line.trim();
-    
-    // Check if line is a numbered list item (1., 2., etc.)
     if (trimmed.match(/^\d+\.\s/)) {
-      if (currentList.length > 0 && !isNumberedList) {
-        flushList();
-      }
+      if (currentList.length > 0 && !isNumberedList) flushList();
       isNumberedList = true;
       flushParagraph();
       currentList.push(trimmed);
-    }
-    // Check if line is a bullet point (•, -, or * at the start, optionally followed by space)
-    else if (trimmed.startsWith('•') || trimmed.startsWith('-') || trimmed.startsWith('*') || trimmed.match(/^[•\-\*]\s/)) {
-      if (currentList.length > 0 && isNumberedList) {
-        flushList();
-      }
+    } else if (trimmed.startsWith('•') || trimmed.startsWith('-') || trimmed.startsWith('*')) {
+      if (currentList.length > 0 && isNumberedList) flushList();
       isNumberedList = false;
       flushParagraph();
       currentList.push(trimmed);
-    } else if (trimmed === '') {
-      // Empty line - flush both paragraph and list
-      flushParagraph();
-      flushList();
     } else {
-      // Regular text line
       flushList();
       currentParagraph.push(trimmed);
     }
   });
 
-  // Flush any remaining content
   flushParagraph();
   flushList();
 
@@ -112,11 +94,9 @@ const FAQSection: React.FC<FAQSectionProps> = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
-  // Safety check
   if (!faqs || faqs.length === 0) return null;
 
   const handleToggle = (index: number) => {
-    // On mobile, allow collapsing. On desktop, usually we want one active (but collapsing is fine too)
     setActiveIndex(activeIndex === index ? null : index);
   };
 
@@ -125,66 +105,67 @@ const FAQSection: React.FC<FAQSectionProps> = ({
       <div className="max-w-[1600px] mx-auto">
         
         {/* HEADER */}
-        <div className="mb-12 border-b border-black/10 pb-8 flex items-end justify-between">
-          <div>
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] mb-4 block" style={{ color: accentColor }}>
-              // FAQ
-            </span>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a]">
-              {title} <span className="italic" style={{ color: accentColor }}>Answered.</span>
-            </h2>
-            {subtitle && (
-              <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-xl mt-4">
-                {subtitle}
-              </p>
-            )}
-          </div>
+        <div className="mb-12 border-b border-black/10 pb-8">
+          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] mb-4 block" style={{ color: accentColor }}>
+            // FAQ
+          </span>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a]">
+            {title} <span className="italic" style={{ color: accentColor }}>Answered.</span>
+          </h2>
+          {subtitle && (
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-xl mt-4">
+              {subtitle}
+            </p>
+          )}
         </div>
 
-        {/* RESPONSIVE LAYOUT CONTAINER */}
-        <div className="w-full bg-transparent border-t border-black/10 mb-16">
-          <div className="flex flex-col lg:grid lg:grid-cols-12 min-h-[auto] lg:min-h-[600px]">
+        {/* LAYOUT CONTAINER */}
+        <div className="w-full border-t border-black/10 mb-16">
+          <div className="flex flex-col lg:grid lg:grid-cols-12 min-h-[600px]">
             
-            {/* QUESTIONS LIST (Full Width on Mobile, Left Col on Desktop) */}
+            {/* LEFT: QUESTIONS LIST */}
             <div className="lg:col-span-5 border-black/10 flex flex-col lg:border-r lg:border-b">
               {faqs.map((faq, index) => {
                 const isActive = activeIndex === index;
                 return (
                   <div key={faq.id} className="w-full border-b border-black/10 lg:border-black/5">
-                    {/* BUTTON */}
                     <button
                       onClick={() => handleToggle(index)}
-                      className="relative w-full px-4 py-6 md:px-8 text-left group overflow-hidden flex items-start md:items-center justify-between gap-4"
+                      className="relative w-full px-4 py-6 md:px-8 text-left group overflow-hidden flex items-start justify-between gap-4"
                     >
-                      {/* Desktop Hover Effect (Gold Wipe) */}
+                      {/* Hover Wipe Effect */}
                       <div 
-                        className={`hidden lg:block absolute inset-0 transition-transform duration-1000 origin-left ease-[cubic-bezier(0.23,1,0.32,1)] ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
+                        className={`hidden lg:block absolute inset-0 transition-transform duration-500 origin-left ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
                         style={{ backgroundColor: accentColor }}
                       />
 
-                      {/* Content */}
-                      <div className="relative z-10 flex flex-col gap-0 pr-4">
-                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 shrink-0">
+                      {/* Content Wrapper */}
+                      <div className="relative z-10 flex items-start gap-6 flex-1">
+                        <span 
+                          className={`font-mono text-xs font-bold uppercase tracking-[0.2em] mt-1 shrink-0 transition-colors duration-300 ${isActive ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/40'}`}
+                          style={!isActive ? { color: accentColor } : {}}
+                        >
                           {String(index + 1).padStart(2, '0')}
                         </span>
-                        <span className={`font-serif text-xl md:text-2xl italic text-[#1a1a1a] leading-tight tracking-tight mb-4 transition-colors duration-700 ${isActive ? '' : 'opacity-80 lg:group-hover:opacity-100'}`}>
+                        <span 
+                          className={`font-serif italic text-xl md:text-2xl leading-tight tracking-tight transition-colors duration-300 ${isActive ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/80'}`}
+                        >
                           {faq.question}
                         </span>
                       </div>
                       
-                      {/* Icons: Arrow for Desktop, Plus/Minus for Mobile */}
-                      <div className="relative z-10 text-[#1a1a1a] shrink-0 pt-1 md:pt-0">
-                         {/* Desktop Arrow */}
-                         <ArrowRight className={`hidden lg:block w-4 h-4 transition-all duration-700 ${isActive ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'}`} />
-                         
-                         {/* Mobile/Tablet Plus/Minus */}
+                      {/* Icon */}
+                      <div className="relative z-10 text-[#1a1a1a] pt-1">
+                         <div className="hidden lg:block">
+                           <ArrowRight className={`w-5 h-5 transition-transform duration-300 ${isActive ? 'translate-x-0' : '-translate-x-2 group-hover:translate-x-0'}`} />
+                         </div>
                          <div className="lg:hidden">
                             {isActive ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4 opacity-50" />}
                          </div>
                       </div>
                     </button>
 
-                    {/* MOBILE ACCORDION ANSWER (Hidden on Desktop) */}
+                    {/* MOBILE EXPANDING ANSWER */}
                     <div className="lg:hidden">
                       <AnimatePresence>
                         {isActive && (
@@ -192,17 +173,10 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
                             className="overflow-hidden bg-[#1a1a1a]"
                           >
                              <div className="p-8 text-[#FFF2EC]">
-                                <div className="flex items-center gap-3 mb-4 opacity-60">
-                                  <Cpu className="w-3 h-3" style={{ color: accentColor }} />
-                                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: accentColor }}>
-                                    ANSWER // {faq.id.toUpperCase()}
-                                  </span>
-                                </div>
-                                          <div className="font-sans text-base md:text-lg leading-relaxed text-[#FFF2EC]/70 border-l-2 pl-4 space-y-4" style={{ borderColor: accentColor }}>
+                                <div className="font-sans text-base leading-relaxed opacity-80 border-l-2 pl-4" style={{ borderColor: accentColor }}>
                                   {formatFAQAnswer(faq.answer, accentColor)}
                                 </div>
                              </div>
@@ -215,60 +189,57 @@ const FAQSection: React.FC<FAQSectionProps> = ({
               })}
             </div>
 
-            {/* DESKTOP TERMINAL ANSWER (Hidden on Mobile/Tablet) */}
-            <div className="hidden lg:flex lg:col-span-7 bg-[#1a1a1a] text-[#FFF2EC] p-16 flex-col justify-center relative overflow-hidden border-b border-black/10">
-              <div className="relative z-10">
-                <AnimatePresence mode="wait">
-                  {activeIndex !== null && (
-                    <motion.div
-                      key={activeIndex}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.4, ease: "circOut" }}
-                    >
-                      <div className="flex items-center gap-3 mb-8 opacity-60">
-                        <Cpu className="w-4 h-4" style={{ color: accentColor }} />
-                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: accentColor }}>
-                          QUERY_RESOLVED // {faqs[activeIndex].id.toUpperCase()}
-                        </span>
-                      </div>
-                      
-                      <h3 className="font-serif text-xl md:text-2xl italic text-[#FFF2EC] leading-tight tracking-tight mb-4">
-                        {faqs[activeIndex].question}
-                      </h3>
-                      
-                      <div className="w-16 h-1 mb-4" style={{ backgroundColor: accentColor }} />
-                      
-                      <div className="font-sans text-base md:text-lg leading-relaxed text-[#FFF2EC]/70 border-l pl-6 space-y-4" style={{ borderColor: accentColor }}>
-                        {formatFAQAnswer(faqs[activeIndex].answer, accentColor)}
-                      </div>
-                    </motion.div>
-                  )}
-                  {activeIndex === null && (
-                     <div className="flex items-center justify-center h-full opacity-30 font-mono text-xs font-bold uppercase tracking-[0.2em]">
-                        [ SELECT A QUESTION ]
-                     </div>
-                  )}
-                </AnimatePresence>
-              </div>
+            {/* RIGHT: DESKTOP ANSWER DISPLAY (Sticky/Fixed Area) */}
+            <div className="hidden lg:flex lg:col-span-7 bg-[#1a1a1a] text-[#FFF2EC] p-16 flex-col justify-center relative border-b border-black/10">
+              <AnimatePresence mode="wait">
+                {activeIndex !== null ? (
+                  <motion.div
+                    key={activeIndex}
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -10 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <div className="flex items-center gap-3 mb-8 opacity-60">
+                      <Cpu className="w-4 h-4" style={{ color: accentColor }} />
+                      <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: accentColor }}>
+                        QUERY_RESOLVED // {faqs[activeIndex].id.toUpperCase()}
+                      </span>
+                    </div>
+                    
+                    <h3 className="font-serif italic text-3xl md:text-4xl leading-tight tracking-tight text-[#FFF2EC] mb-8">
+                      {faqs[activeIndex].question}
+                    </h3>
+                    
+                    <div className="w-16 h-1 mb-8" style={{ backgroundColor: accentColor }} />
+                    
+                    <div className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#FFF2EC]/70 border-l pl-6 space-y-4" style={{ borderColor: accentColor }}>
+                      {formatFAQAnswer(faqs[activeIndex].answer, accentColor)}
+                    </div>
+                  </motion.div>
+                ) : (
+                   <div className="flex items-center justify-center h-full opacity-30 font-mono text-xs font-bold uppercase tracking-[0.2em]">
+                      [ SELECT A QUESTION ]
+                   </div>
+                )}
+              </AnimatePresence>
             </div>
 
           </div>
         </div>
 
-        {/* CTA SECTION */}
+        {/* FOOTER CTA */}
         {showBookingCTA && (
           <div className="py-24 flex flex-col items-center text-center">
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter mb-8 text-[#1a1a1a]">
+            <h2 className="font-serif text-4xl md:text-5xl leading-tight tracking-tighter mb-8 text-[#1a1a1a]">
               Still have <span className="italic" style={{ color: accentColor }}>questions?</span>
             </h2>
             <button
               onClick={() => onNavigate?.('contact')}
-              className="group relative overflow-hidden bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] px-12 py-6 font-mono text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 hover:shadow-xl"
+              className="group relative overflow-hidden bg-[#1a1a1a] text-[#FFF2EC] px-12 py-6 font-mono text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 hover:shadow-xl"
             >
               <div 
-                className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]"
+                className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500"
                 style={{ backgroundColor: accentColor }}
               />
               <span className="relative z-10 flex items-center justify-center gap-3">
