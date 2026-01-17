@@ -102,7 +102,7 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
                 You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
                 <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
               </h2>
-              <button onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({ behavior: 'smooth' })} className="group relative inline-flex items-center justify-center px-12 py-6 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold overflow-hidden transition-all duration-300 hover:border-[#C5A059]">
+              <button onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({ behavior: 'smooth' })} className="group relative inline-flex items-center justify-center px-12 py-6 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs font-bold uppercase tracking-[0.2em] overflow-hidden transition-all duration-300 hover:border-[#C5A059]">
                  <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                  <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ SEE THE SYSTEM ]</span>
               </button>
@@ -115,18 +115,20 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
                     <span className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a]/10 italic font-bold">{data.id}</span>
                     <div className="h-px flex-1 bg-[#1a1a1a]/20"></div>
                     {/* Label: text-xs (12px minimum) */}
-                    <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest border border-[#E21E3F]/30 px-3 py-1">[{data.label}]</span>
+                    <span className="font-mono text-xs text-[#E21E3F] font-bold uppercase tracking-[0.2em] border border-[#E21E3F]/30 px-3 py-1">[{data.label}]</span>
                  </div>
                  <div>
-                    {/* Pain point title: text-2xl → text-4xl */}
-                    <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#1a1a1a] leading-[0.9] tracking-tighter mb-8">{data.title}</h3>
+                    {/* Pain point title: Standardized H3 */}
+                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-8">
+                      {data.title}
+                    </h3>
                     <div className="inline-block bg-[#E21E3F]/10 px-6 py-3">
                        {/* Stat callouts: text-base → text-lg (labels like "NO VISIBILITY" should be smaller) */}
-                       <span className="font-mono text-base md:text-lg text-[#E21E3F] font-bold tracking-tight">{data.metric}</span>
+                       <span className="font-mono text-xs md:text-sm text-[#E21E3F] font-bold tracking-[0.2em] uppercase">{data.metric}</span>
                     </div>
                  </div>
                  {/* Pain point body: text-base → text-lg */}
-                 <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed max-w-xl border-l-2 border-[#E21E3F]/20 pl-8">{data.description}</p>
+                 <p className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70 border-l-2 border-[#E21E3F]/20 pl-8 max-w-xl">{data.description}</p>
               </div>
               <div className="hidden lg:flex items-center justify-center h-full min-h-[400px]">
                  <AuditCubeVisual scrollYProgress={scrollYProgress} />
@@ -165,17 +167,16 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
            {/* Desktop Left Panel */}
            <div className="w-[450px] xl:w-[500px] h-full border-r border-[#1a1a1a]/10 bg-[#FFF2EC] p-12 xl:p-16 flex flex-col justify-between shrink-0 z-50">
               <div>
-                 <div className="mb-8 font-mono text-xs text-[#E21E3F] tracking-[0.2em] uppercase flex items-center gap-2">
+                 <div className="mb-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] flex items-center gap-2">
                     / THE FRICTION AUDIT
                  </div>
-                 {/* Desktop Left Panel Title: text-4xl → text-6xl */}
-                 <h1 className="font-serif text-4xl md:text-5xl xl:text-6xl leading-[0.95] text-[#1a1a1a] tracking-tighter mb-10">
+                 <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] text-[#1a1a1a] tracking-tighter mb-10">
                     Where your <br/>
                     <span className="text-[#E21E3F]">margin</span> <br/>
-                    <span className="italic">evaporates.</span>
+                    <span className="italic text-[#E21E3F]">evaporates.</span>
                  </h1>
                  <div className="w-16 h-1 bg-[#1a1a1a] mb-10"></div>
-                 <p className="font-sans text-lg xl:text-xl text-[#1a1a1a]/60 leading-relaxed max-w-sm">
+                 <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60 max-w-sm">
                     Your business isn't broken, but it is leaking. These are the 4 silent fracture points where profit disappears before it hits your bank.
                  </p>
               </div>
@@ -220,17 +221,16 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
          
          {/* HEADER */}
          <div className="sticky top-0 h-[45vh] w-full bg-[#FFF2EC] border-b border-[#1a1a1a]/10 p-6 flex flex-col justify-center z-10">
-            <div className="font-mono text-xs text-[#E21E3F] tracking-[0.2em] uppercase mb-4">
+            <div className="mb-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] flex items-center gap-2">
                / THE FRICTION AUDIT
             </div>
-            {/* FIXED: Explicit font-serif and tracking-tighter on Mobile */}
-            <h1 className="font-serif text-4xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
                Where your <br/>
                <span className="text-[#E21E3F]">margin</span> <br/>
-               <span className="italic">evaporates.</span>
+               <span className="italic text-[#E21E3F]">evaporates.</span>
             </h1>
-            <p className="font-sans text-base text-[#1a1a1a]/60 leading-relaxed max-w-[90%]">
-               These are the 4 fracture points where profit disappears.
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60 max-w-sm">
+               Your business isn't broken, but it is leaking. These are the 4 silent fracture points where profit disappears before it hits your bank.
             </p>
          </div>
 
@@ -258,22 +258,22 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                            {/* Mobile: Pain point number should scale too */}
                            <span className="font-serif text-4xl md:text-5xl italic font-bold text-[#E21E3F]">{data.id}</span>
                            <div className="w-8 h-px bg-[#E21E3F]/30"></div>
-                           <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest">
+                           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F]">
                               {data.label}
                            </span>
                         </div>
-                        {/* Mobile: Pain point title: text-2xl → text-4xl */}
-                        <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-[#1a1a1a] leading-[0.9] tracking-tighter mb-4">
-                           {data.title}
+                        {/* Pain point title: Standardized H3 */}
+                        <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-4">
+                          {data.title}
                         </h3>
                         <div className="mb-6">
                            {/* Mobile: Stat callouts: text-base → text-lg (labels like "NO VISIBILITY" should be smaller) */}
-                           <span className="font-mono text-base md:text-lg text-[#E21E3F] font-bold tracking-tight bg-[#E21E3F]/5 px-3 py-1">
+                           <span className="font-mono text-xs md:text-sm text-[#E21E3F] font-bold tracking-[0.2em] uppercase bg-[#E21E3F]/5 px-3 py-1">
                               {data.metric}
                            </span>
                         </div>
                         {/* Mobile: Pain point body: text-base → text-lg */}
-                        <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#E21E3F]/20 pl-4 max-w-[95%]">
+                        <p className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70 border-l-2 border-[#E21E3F]/20 pl-8 max-w-xl">
                            {data.description}
                         </p>
                      </div>

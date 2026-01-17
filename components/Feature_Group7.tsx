@@ -73,15 +73,15 @@ const Feature_Group7: React.FC = () => {
         
         {/* --- SECTION HEADER --- */}
         <div className="mb-16 max-w-2xl">
-          <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-4 block uppercase font-bold">
+          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block">
             // REAL RESULTS
           </span>
           {/* FIXED: Smooth scaling 4xl -> 5xl -> 7xl */}
           <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-[#1a1a1a] leading-[0.95] tracking-tighter mb-6">
-            See It In <span className="italic text-[#E21E3F]">Action.</span>
+            See It In <span className="italic text-[#C5A059]">Action.</span>
           </h2>
           {/* FIXED: Body text smooth scaling */}
-          <p className="font-sans text-lg md:text-xl text-[#1a1a1a]/60 leading-relaxed border-l-2 border-[#E21E3F]/30 pl-6">
+          <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60 border-l-2 border-[#E21E3F]/30 pl-6">
             Don't just take my word for it. Here's what happened when I rebuilt a Sydney security company's website.
           </p>
         </div>
@@ -124,11 +124,11 @@ const Feature_Group7: React.FC = () => {
           <div className="flex justify-between items-center px-6 py-4 border-b border-white/5 bg-black/40 relative z-30">
               <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-[#C5A059] rounded-full animate-pulse" />
-                  <span className="font-mono text-xs text-[#C5A059] tracking-widest uppercase">
+                  <span className="font-mono text-xs font-bold text-[#C5A059] tracking-[0.2em] uppercase">
                      [ WEBSITE REBUILD ]
                   </span>
               </div>
-              <span className="font-mono text-xs text-white/30 uppercase flex items-center gap-2">
+              <span className="font-mono text-xs font-bold text-white/30 uppercase tracking-[0.2em] flex items-center gap-2">
                   [ SEE THE TRANSFORMATION ]
                   <Zap className="w-3 h-3 text-[#C5A059]" />
               </span>
@@ -161,9 +161,10 @@ const Feature_Group7: React.FC = () => {
                       <AlertTriangle className="w-10 h-10 text-[#E21E3F] relative z-10" />
                   </div>
                   <div className="text-center">
-                      <div className="font-mono text-xs text-[#E21E3F] mb-2 uppercase tracking-widest">Before</div>
-                      <div className="font-serif text-white/60 text-2xl mb-2">group7security.com</div>
-                      <div className="flex items-center justify-center gap-2 text-xs font-mono text-[#E21E3F] bg-[#E21E3F]/10 px-3 py-1.5 rounded">
+                      <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-2">Before</div>
+                      {/* Node A */}
+                      <div className="font-serif text-white/60 text-2xl md:text-3xl tracking-tight mb-2">group7security.com</div>
+                      <div className="flex items-center justify-center gap-2 font-mono text-xs font-bold tracking-[0.2em] text-[#E21E3F] bg-[#E21E3F]/10 px-3 py-1.5 rounded">
                           <Activity className="w-3 h-3" />
                           <span>4.2s Load</span>
                       </div>
@@ -211,10 +212,11 @@ const Feature_Group7: React.FC = () => {
                       <ShieldCheck className="w-12 h-12 text-[#C5A059] group-hover:text-[#0F766E] transition-colors duration-500 delay-1000" />
                   </motion.div>
                   <div className="text-center">
-                      <div className="font-mono text-xs text-[#C5A059] mb-2 uppercase tracking-widest group-hover:text-[#0F766E] transition-colors delay-1000">After</div>
-                      <div className="font-serif text-white text-3xl mb-2">group7security.com.au</div>
-                      <div className="flex items-center justify-center gap-2 text-xs font-mono text-[#0F766E] bg-[#0F766E]/10 px-4 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity delay-1000 duration-500">
-                          <Globe className="w-3 h-3" />
+                      <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-2 group-hover:text-[#0F766E] transition-colors delay-1000">After</div>
+                      {/* Node B */}
+                      <div className="font-serif text-white text-3xl md:text-4xl tracking-tight mb-2">group7security.com.au</div>
+                      <div className="flex items-center justify-center gap-2 font-mono text-xs font-bold tracking-[0.2em] text-[#0F766E] bg-[#0F766E]/10 px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity delay-1000 duration-500">
+                          <Activity className="w-3 h-3" />
                           <span>0.4s Load</span>
                       </div>
                   </div>
@@ -224,7 +226,7 @@ const Feature_Group7: React.FC = () => {
 
           {/* Footer Action */}
           <div className="py-5 border-t border-white/5 bg-black/40 flex items-center justify-center gap-3 text-white group-hover:text-[#C5A059] transition-colors relative z-30">
-               <span className="font-mono text-xs uppercase tracking-widest font-bold">See Full Case Study</span>
+               <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold">See Full Case Study</span>
                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </div>
 
@@ -251,10 +253,16 @@ const Feature_Group7: React.FC = () => {
                 className="relative w-full max-w-6xl bg-[#FFF2EC] overflow-hidden shadow-2xl rounded-sm max-h-[90vh] flex flex-col z-10"
               >
                  
+                 {/* MODAL HEADER */}
                  <div className="flex justify-between items-center p-6 border-b border-black/10 bg-white shrink-0">
                     <div>
-                      <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a]">Case Study: Group 7 Security</h3>
-                      <p className="font-mono text-xs text-[#1a1a1a]/50 uppercase tracking-widest mt-1">[ WEBSITE + SEO OVERHAUL ]</p>
+                      {/* FIXED: Standardized Modal Title */}
+                      <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-tight tracking-tight">
+                         Case Study: Group 7 Security
+                      </h3>
+                      <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/50 mt-1">
+                         [ WEBSITE + SEO OVERHAUL ]
+                      </p>
                     </div>
                     <button 
                       onClick={() => setIsModalOpen(false)}
@@ -272,23 +280,32 @@ const Feature_Group7: React.FC = () => {
                     
                     <TerminalLog />
 
-                    {/* UPGRADE: Increased text sizes in the grid */}
+                    {/* MODAL GRID */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 md:p-12 bg-white border-t border-black/10">
                         <div>
-                          <h4 className="font-bold text-[#E21E3F] mb-3 text-sm uppercase tracking-widest">The Problem</h4>
-                          <p className="text-base text-[#1a1a1a]/70 leading-relaxed">
+                          {/* FIXED: Standardized Eyebrow Title */}
+                          <h4 className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-3">
+                             The Problem
+                          </h4>
+                          <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
                             They had a slow <strong>.com</strong> website with no local SEO. Google thought they were a global tech company, not a Sydney security firm. Local customers couldn't find them.
                           </p>
                         </div>
                         <div>
-                          <h4 className="font-bold text-[#C5A059] mb-3 text-sm uppercase tracking-widest">What I Did</h4>
-                          <p className="text-base text-[#1a1a1a]/70 leading-relaxed">
+                          {/* FIXED: Standardized Eyebrow Title */}
+                          <h4 className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-3">
+                             What I Did
+                          </h4>
+                          <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
                             I migrated them to <strong>.com.au</strong> and rebuilt the site from scratch — fast, mobile-first, with proper Sydney location tags so Google knows exactly where they operate.
                           </p>
                         </div>
                         <div>
-                          <h4 className="font-bold text-[#0F766E] mb-3 text-sm uppercase tracking-widest">The Result</h4>
-                          <p className="text-base text-[#1a1a1a]/70 leading-relaxed">
+                          {/* FIXED: Standardized Eyebrow Title */}
+                          <h4 className="font-mono text-xs font-bold text-[#C5A059] mb-3 uppercase tracking-[0.2em]">
+                             The Result
+                          </h4>
+                          <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
                             Page load dropped from <strong>4.2s to 0.4s</strong>. Local search rankings improved. The site now converts visitors instead of losing them.
                           </p>
                         </div>

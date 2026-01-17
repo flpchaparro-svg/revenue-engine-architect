@@ -161,9 +161,14 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
   const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
   
   // Helper to convert title case for display box (e.g., "WEBSITES & E-COMMERCE" -> "Websites & E-commerce")
+  // Special handling for "AI" to keep it fully capitalized
   const getDisplayTitle = (title: string) => {
     return title.split(' & ').map(word => 
-      word.split(' ').map(w => w.charAt(0) + w.slice(1).toLowerCase()).join(' ')
+      word.split(' ').map(w => {
+        // Keep "AI" fully capitalized
+        if (w.toUpperCase() === 'AI') return 'AI';
+        return w.charAt(0) + w.slice(1).toLowerCase();
+      }).join(' ')
     ).join(' & ');
   };
 
@@ -227,11 +232,11 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       <div className="flex-1 flex flex-col w-full">
         {/* HEADER */}
         <div className={`pt-24 pb-12 px-6 lg:pt-16 lg:pb-8 text-center max-w-4xl mx-auto ${activePhase.text}`}>
-           <span className="font-mono text-xs tracking-[0.2em] mb-4 block uppercase font-bold opacity-60">/ THE SYSTEM</span>
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block opacity-100">/ THE SYSTEM</span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-none tracking-tighter mb-6">
-             7 Ways I Fix <span className="italic text-[#E21E3F]">Your Business.</span>
+             7 Ways I Fix <span className="italic text-[#C5A059]">Your Business.</span>
            </h2>
-           <p className="font-sans text-base md:text-xl font-light opacity-70 leading-relaxed max-w-2xl mx-auto px-4">
+           <p className="font-sans text-lg md:text-xl font-light leading-relaxed opacity-70 max-w-2xl mx-auto px-4">
               <span className="hidden lg:inline">I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.</span>
               <span className="lg:hidden">I treat your business as one connected system, linking Marketing, Sales, and Operations to eliminate the friction that burns out your people.</span>
            </p>
@@ -298,24 +303,52 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       {/* TEXT CONTENT */}
                       <div className={`p-8 flex-1 flex flex-col justify-between ${isBlueprint ? 'justify-center py-12' : ''}`}>
                         <AnimatePresence mode="wait">
-                            <motion.div
-                                key={isBlueprint ? systemCard.title : displayService?.id}
-                                variants={textVariants}
-                                initial="hidden"
-                                animate="visible"
-                                exit="hidden"
-                            >
-                                <h3 className={`font-serif mb-2 leading-tight ${isBlueprint ? 'text-4xl md:text-5xl text-[#C5A059]' : 'text-3xl'}`}>
-                                    {isBlueprint ? systemCard.titleDisplay : getDisplayTitle(displayService?.title || '')}
-                                </h3>
-                                <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-50 mb-4">
-                                    {isBlueprint ? systemCard.subtitleDisplay : displayService?.subtitle}
-                                </p>
-                                
-                                <p className={`opacity-70 leading-relaxed ${isBlueprint ? 'text-lg max-w-xl mb-6' : 'text-base line-clamp-4'}`}>
-                                    {isBlueprint ? systemCard.description : displayService?.description}
-                                </p>
-                            </motion.div>
+                            {(() => {
+                              const displayData = isBlueprint 
+                                ? { 
+                                    id: systemCard.title, 
+                                    title: systemCard.titleDisplay, 
+                                    subtitle: systemCard.subtitleDisplay, 
+                                    description: systemCard.description,
+                                    extraText: 'extraText' in systemCard ? systemCard.extraText : undefined
+                                  }
+                                : { 
+                                    id: displayService?.id, 
+                                    title: getDisplayTitle(displayService?.title || ''), 
+                                    subtitle: displayService?.subtitle, 
+                                    description: displayService?.description 
+                                  };
+                              
+                              return (
+                                <motion.div
+                                    key={displayData?.id}
+                                    variants={textVariants}
+                                    initial="hidden"
+                                    animate="visible"
+                                    exit="hidden"
+                                >
+                                    {/* FIXED: Standardized Display Title (H2 equivalent) */}
+                                    <h3 className={`font-serif mb-2 leading-[0.95] tracking-tighter ${isBlueprint ? 'text-4xl md:text-5xl lg:text-6xl text-[#C5A059]' : 'text-4xl md:text-5xl'}`}>
+                                        {displayData?.title}
+                                    </h3>
+                                    
+                                    {/* FIXED: Standardized Eyebrow */}
+                                    <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-50 mb-4">
+                                        {displayData?.subtitle}
+                                    </p>
+                                    
+                                    <p className={`leading-relaxed opacity-70 ${isBlueprint ? 'font-sans text-lg md:text-xl font-light mb-6' : 'font-sans text-base md:text-lg line-clamp-4'}`}>
+                                        {isBlueprint ? systemCard.description : displayService?.description}
+                                    </p>
+
+                                    {isBlueprint && 'extraText' in displayData && displayData.extraText && (
+                                      <p className="font-sans text-sm opacity-60 leading-relaxed max-w-[90%] mb-8 border-l-2 border-[#C5A059] pl-3">
+                                        {displayData.extraText}
+                                      </p>
+                                    )}
+                                </motion.div>
+                              );
+                            })()}
                         </AnimatePresence>
                         
                         {/* FOOTER CTA */}
@@ -404,7 +437,9 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                          
                          {/* TOP: NUMBER + ARROW */}
                          <div className="flex justify-between items-start mb-4">
-                            <span className={`font-mono text-xs font-bold ${isActive ? 'opacity-100' : 'opacity-40'} lg:transition-opacity lg:duration-300 lg:group-hover:opacity-100`}>0{idx + 1}</span>
+                            <span className={`font-mono text-xs font-bold uppercase tracking-[0.2em] ${isActive ? 'opacity-100' : 'opacity-40'} lg:transition-opacity lg:duration-300 lg:group-hover:opacity-100`}>
+                              0{idx + 1}
+                            </span>
                             <ArrowDownRight className={`w-4 h-4 ${
                                 isActive 
                                   ? `opacity-100 ${activePhase.dark ? 'text-[#C5A059]' : 'text-[#E21E3F]'} lg:-rotate-90 lg:transition-all lg:duration-500`
@@ -416,12 +451,13 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                          <div className="mb-auto relative z-10">
                             {/* Technical Label - Desktop Small Card Only */}
                             <div className="hidden lg:block mb-2">
-                              <span className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] opacity-40">
+                              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-40">
                                 {service.technicalLabelShort || service.technicalLabel}
                               </span>
                             </div>
                             
-                            <h4 className={`font-serif text-2xl mb-3 leading-tight ${isActive ? '' : ''} lg:transition-transform lg:duration-300 lg:translate-x-1 lg:group-hover:translate-x-1`}>
+                            {/* Standardized H3 for Service Cards */}
+                            <h4 className={`font-serif text-xl md:text-2xl mb-3 leading-tight tracking-tight ${isActive ? '' : ''} lg:transition-transform lg:duration-300 lg:translate-x-1 lg:group-hover:translate-x-1`}>
                               <span className="lg:hidden">{MOBILE_TITLES[service.title] || getDisplayTitle(service.title)}</span>
                               <span className="hidden lg:inline">{service.title}</span>
                             </h4>
@@ -437,12 +473,12 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                          {/* BOTTOM: CTA */}
                          <div className="mt-6 pt-4 border-t border-current/10 flex justify-start">
                             <span className={`
-                              font-mono text-xs uppercase tracking-[0.2em] font-bold
+                              font-mono text-xs font-bold uppercase tracking-[0.2em]
                               ${isActive 
                                  ? (activePhase.dark ? 'text-white' : 'text-black') 
                                  : (activePhase.dark ? 'text-[#C5A059]' : 'text-[#E21E3F]')
                               }
-                              lg:transition-colors lg:duration-300 ${activePhase.dark ? 'lg:group-hover:text-white' : 'lg:group-hover:text-black'}
+                              lg:transition-colors lg:duration-300 lg:group-hover:text-white lg:group-hover:text-black
                             `}>
                               <span className="lg:hidden">[ EXPLORE ]</span>
                               <span className="hidden lg:inline">[ LEARN MORE ]</span>
@@ -489,11 +525,11 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       </div>
 
                       <div className="relative z-10 mb-auto">
-                         <h4 className="font-serif text-2xl text-white mb-3 leading-tight">
+                         <h4 className="font-serif text-3xl md:text-4xl text-white mb-3 leading-tight tracking-tight">
                            <span className="lg:hidden">{systemCardData.titleMobile}</span>
                            <span className="hidden lg:inline">{systemCardData.title}</span>
                          </h4>
-                         <p className="font-sans text-xs text-white/40 mb-2 uppercase tracking-[0.2em]">
+                         <p className="font-mono text-xs text-white/40 mb-2 uppercase tracking-[0.2em] font-bold">
                            <span className="hidden lg:inline">{systemCardData.subtitle}</span>
                          </p>
                          <p className="font-sans text-sm text-white/60 line-clamp-none">

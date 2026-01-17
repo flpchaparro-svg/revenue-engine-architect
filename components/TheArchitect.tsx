@@ -50,7 +50,7 @@ const TheArchitect: React.FC = () => {
 
               {/* Technical Overlay */}
               <div className="absolute top-6 left-6 z-20">
-                <div className={`font-mono text-xs uppercase tracking-[0.3em] flex items-center gap-3 transition-colors duration-500 ${mode === 'architect' ? 'text-white/60' : 'text-[#C5A059]'}`}>
+                <div className={`font-mono text-xs font-bold uppercase tracking-[0.2em] flex items-center gap-3 transition-colors duration-500 ${mode === 'architect' ? 'text-white/60' : 'text-[#C5A059]'}`}>
                    <span className="w-1.5 h-1.5 rounded-full bg-[#E21E3F] animate-pulse" />
                    FELIPE CHAPARRO / SYDNEY
                 </div>
@@ -67,7 +67,7 @@ const TheArchitect: React.FC = () => {
           <div className="lg:col-span-7 relative">
              {/* PROFILE SWITCH - High Visibility Dashboard Style */}
              <div className="flex flex-col sm:flex-row sm:items-center gap-6 mb-12 border-b border-black/5 pb-8">
-              <span className="font-mono text-xs uppercase tracking-widest text-[#1a1a1a]/60 font-bold">
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/60">
                 / VIEW MODE:
               </span>
               
@@ -105,16 +105,16 @@ const TheArchitect: React.FC = () => {
                 transition={{ duration: 0.5 }}
               >
                  {/* FIXED RESPONSIVENESS: Scales smoothly now */}
-                 <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.9] mb-8 md:mb-12 text-[#1a1a1a] tracking-tighter">
+                 <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] mb-8 md:mb-12 text-[#1a1a1a] tracking-tight">
                     {mode === 'architect' ? (
-                       <>One person. <br/><span className="italic text-[#1a1a1a]/30">Ten person output.</span></>
+                       <>One person. <br/><span className="italic text-[#C5A059]">Ten person output.</span></>
                     ) : (
                        <>I've run businesses. <br/><span className="italic text-[#C5A059]">Not just consulted them.</span></>
                     )}
                  </h2>
                  <div className="space-y-8 md:space-y-12">
                     {/* FIXED: Body text scaling */}
-                    <p className="font-sans text-lg md:text-xl font-light text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#1a1a1a]/10 pl-8 max-w-xl">
+                    <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 border-l-2 border-[#1a1a1a]/10 pl-8 max-w-xl">
                        {mode === 'architect' 
                          ? "No account managers. No junior handoffs. No endless meetings. You talk directly to the person building your system. I use automation and AI to deliver what agencies need a whole team for."
                          : "Before I built systems for others, I ran my own café, managed car dealerships, and worked on factory floors. I know what it's like to chase invoices at midnight. I don't give you theory — I give you what actually works."
@@ -126,7 +126,7 @@ const TheArchitect: React.FC = () => {
                  <div className="mt-16 pt-10 border-t border-black/5">
                     <div className="flex items-center gap-8 mb-8">
                        <div>
-                          <p className="font-mono text-xs text-black/30 uppercase tracking-[0.3em] mb-1">
+                          <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-black/30 mb-1">
                              {mode === 'architect' ? 'The Architect' : 'The Human'}
                           </p>
                           <p className={`font-serif text-2xl transition-colors duration-500 ${mode === 'architect' ? 'text-[#1a1a1a]' : 'text-[#C5A059]'}`}>
@@ -143,7 +143,7 @@ const TheArchitect: React.FC = () => {
                     </div>
                     {/* Footer Stats - Only show in Architect mode */}
                     {mode === 'architect' && (
-                       <div className="flex flex-wrap gap-4 font-mono text-xs text-black/40 uppercase tracking-[0.2em]">
+                       <div className="flex flex-wrap gap-4 font-mono text-xs font-bold text-black/40 uppercase tracking-[0.2em]">
                           <span>[ RESPONSE: &lt; 24 HRS ]</span>
                           <span>[ PROJECTS DELIVERED: 50+ ]</span>
                           <span>[ BASED: SYDNEY ]</span>
