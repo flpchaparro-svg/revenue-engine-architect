@@ -191,7 +191,7 @@ const HeroVisual_Suspension: React.FC = () => {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-full h-[600px] flex items-center justify-center overflow-visible cursor-crosshair"
+      className="relative w-full h-[300px] md:h-[400px] lg:h-[600px] flex items-center justify-center overflow-visible cursor-crosshair"
     >
       <svg viewBox="-300 -300 600 600" className="w-full h-full overflow-visible pointer-events-none">
         <g transform="translate(0, 50)">

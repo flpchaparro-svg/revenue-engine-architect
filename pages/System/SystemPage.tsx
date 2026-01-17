@@ -237,28 +237,28 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
       
       {/* HERO SECTION */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full mb-20">
-         <div className="flex justify-between items-center mb-12">
+         <div className="flex justify-between items-center mb-6 md:mb-8 lg:mb-12">
             <button onClick={onBack} className="group flex items-center gap-3 font-mono text-xs uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors font-bold">
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               <span className="hidden lg:inline">/ Return to Home</span>
               <span className="lg:hidden">/ Back</span>
             </button>
          </div>
-         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={heroContainer} className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={heroContainer} className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 items-center">
             <div>
               {/* HIERARCHY FIX: Matched Home Page spacing exactly (mb-10) */}
-              <motion.span variants={heroItem} className="font-mono text-xs text-[#E21E3F] tracking-[0.2em] mb-10 block uppercase font-bold">/ THE SYSTEM</motion.span>
+              <motion.span variants={heroItem} className="font-mono text-xs text-[#E21E3F] tracking-[0.2em] mb-4 md:mb-6 lg:mb-10 block uppercase font-bold">/ THE SYSTEM</motion.span>
               
               {/* HIERARCHY FIX: Using exact Home Page classes to fix "Frankenstein" sizes */}
-              <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter mb-10">7 Ways I Fix <br /><span className="italic text-black/20">Your Business.</span></motion.h1>
+              <motion.h1 variants={heroItem} className="font-serif text-4xl md:text-5xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter mb-4 md:mb-6 lg:mb-10">7 Ways I Fix <br /><span className="italic text-black/20">Your Business.</span></motion.h1>
               
               {/* HIERARCHY FIX: Matches Home Page Body */}
-              <motion.p variants={heroItem} className="font-sans text-lg md:text-lg lg:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-2xl border-l-2 border-[#C5A059] pl-6">
+              <motion.p variants={heroItem} className="font-sans text-base md:text-lg lg:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-2xl border-l-2 border-[#C5A059] pl-4 md:pl-6">
                 <span className="hidden lg:inline">I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.</span>
                 <span className="lg:hidden">I treat your business as one connected system, eliminating friction that burns out your people.</span>
               </motion.p>
             </div>
-            <motion.div variants={heroItem} className="h-full flex items-center justify-center lg:justify-end min-h-[300px] lg:min-h-[500px] relative">
+            <motion.div variants={heroItem} className="h-full flex items-center justify-center lg:justify-end min-h-[200px] md:min-h-[250px] lg:min-h-[500px] relative -mt-4 md:-mt-6 lg:mt-0">
                <HeroVisual_Suspension />
             </motion.div>
          </motion.div>
@@ -285,11 +285,6 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
               </p>
           </div>
 
-          <div className="hidden lg:flex items-center gap-4 mb-12">
-              <div className="h-px bg-black/10 flex-grow" />
-              <span className="font-mono text-xs uppercase tracking-[0.2em] opacity-40 font-bold">System_Grid_V1.0</span>
-              <div className="h-px bg-black/10 flex-grow" />
-          </div>
 
           <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
             {ALL_PILLARS.map((pillar) => (
