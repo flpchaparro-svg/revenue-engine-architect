@@ -1,3 +1,51 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  /* --- 1. EYEBROWS & MICRO-COPY (The Gold Standard) --- */
+  /* Used for: Section Labels, Buttons, Nav, Metrics, Tabs */
+  .type-eyebrow {
+    @apply font-mono text-xs font-bold uppercase tracking-[0.2em];
+  }
+
+  /* --- 2. HEADINGS (The Hierarchy) --- */
+  
+  /* H1: HERO ONLY (The King) */
+  /* Usage: Only the main "Stop Doing Everyone's Job" text */
+  .type-h1 {
+    @apply font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter;
+  }
+  
+  /* H2: SECTION HEADERS (The Princes) */
+  /* Usage: "The Problem", "Friction Audit", "7 Ways I Fix", "Real Results", "CTA" */
+  .type-h2 {
+    @apply font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter;
+  }
+  
+  /* H3: LARGE CARDS & SUB-SECTIONS (The Knights) */
+  /* Usage: Friction Cards, Modal Titles, "The Fix" Card */
+  .type-h3 {
+    @apply font-serif text-3xl md:text-4xl leading-[1.1] tracking-tight;
+  }
+  
+  /* H4: GRID CARDS & LISTS (The Soldiers) */
+  /* Usage: 7 Pillars Grid, Problem List Items ("Bottleneck Boss"), System Overview */
+  .type-h4 {
+    @apply font-serif text-xl md:text-2xl leading-tight tracking-tight;
+  }
+
+  /* --- 3. BODY TEXT --- */
+  
+  /* LEAD BODY: Intros */
+  /* Usage: The paragraph directly under a Section Header */
+  .type-body-lg {
+    @apply font-sans text-lg md:text-xl font-light leading-relaxed;
+  }
+  
+  /* STANDARD BODY: Cards & Content */
+  /* Usage: Inside cards, lists, and modal details */
+  .type-body {
+    @apply font-sans text-base md:text-lg leading-relaxed;
+  }
+}
