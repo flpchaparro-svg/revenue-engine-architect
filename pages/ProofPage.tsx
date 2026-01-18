@@ -97,10 +97,10 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow pb-32">
         
         {/* SECTION 01: PAGE HEADER */}
-        <div className="flex justify-between items-center mb-16">
+        <div className="flex justify-between items-center mb-24">
           <button 
             onClick={onBack}
-            className="group flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.3em] hover:text-[#C5A059] transition-colors"
+            className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             / Return to Home

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Minus, Globe, Database, Zap, Bot, Video, Users, BarChart3 } from 'lucide-react';
 import GlobalFooter from '../../components/GlobalFooter';
 import HeroVisual_Suspension from '../../components/HeroVisual_Suspension';
@@ -16,6 +16,7 @@ const ALL_PILLARS = [
     body: 'Your online storefront that captures leads, sells products, and feeds data to every other pillar',
     bodyMobile: 'Online storefront that captures and converts',
     description: 'Your online storefront. Not a digital brochure, but a system designed to capture leads and process transactions with zero friction.',
+    systemPurpose: 'Capture demand and structure data.',
     subServices: [
        { title: 'How it connects', description: 'The Face feeds the Brain. Every visitor who fills out a form or makes a purchase gets logged in your CRM automatically.' },
        { title: 'How it helps the whole system', description: 'Without the Face capturing data properly, you can\'t track where your leads come from. Pillar 7 (Dashboards) needs this data to show you what\'s working.' },
@@ -29,6 +30,7 @@ const ALL_PILLARS = [
     body: 'The single source of truth that tracks every call, email, and deal stage',
     bodyMobile: 'Tracks every lead, call, and deal',
     description: 'Your single source of truth. Every call, email, and deal stage tracked in one place. If it\'s not in the CRM, it didn\'t happen.',
+    systemPurpose: 'Capture demand and structure data.',
     subServices: [
        { title: 'How it connects', description: 'The Brain stores what the Face captures and tells the Muscle what to do next. When a deal is won, automation kicks in.' },
        { title: 'How it helps the whole system', description: 'The AI assistants (Pillar 4) need CRM data to speak intelligently to customers. Without it, they\'re guessing.' },
@@ -42,6 +44,7 @@ const ALL_PILLARS = [
     body: 'Replaces data entry, invoicing, and follow-ups with instant code execution',
     bodyMobile: 'Admin tasks run themselves',
     description: 'Code doing the boring work. Data entry, invoicing, follow-ups. The stuff that eats your week now runs itself.',
+    systemPurpose: 'Capture demand and structure data.',
     subServices: [
        { title: 'How it connects', description: 'When the Brain signals a won deal, the Muscle sends the invoice and contract instantly. No human delay.' },
        { title: 'How it helps the whole system', description: 'Data moves between Marketing, Sales, and Ops in real time. No more copy-paste between three apps.' },
@@ -55,6 +58,7 @@ const ALL_PILLARS = [
     body: 'Digital employees that listen, reason, and speak to customers 24/7 via phone or chat',
     bodyMobile: 'Bots that answer 24/7',
     description: 'Digital employees that listen, think, and speak. AI that answers your phone, qualifies leads, and books appointments around the clock.',
+    systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
        { title: 'How it connects', description: 'The Voice handles 100 calls at once. When you run a marketing campaign and leads spike, it doesn\'t buckle.' },
        { title: 'How it helps the whole system', description: 'It reads CRM data to know the customer\'s history. After the call, it updates the record automatically.' },
@@ -68,6 +72,7 @@ const ALL_PILLARS = [
     body: 'Turns one hour of raw expertise into a month of content across every platform',
     bodyMobile: 'One input, endless content',
     description: 'A content supply chain. One hour of your expertise becomes a month of posts, blogs, and videos across every platform.',
+    systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
        { title: 'How it connects', description: 'Content drives traffic to your website (Pillar 1), which captures leads, which feeds the CRM, which triggers automation.' },
        { title: 'How it helps the whole system', description: 'High-quality content keeps the top of the funnel full. The AI and automation have leads to process.' },
@@ -81,6 +86,7 @@ const ALL_PILLARS = [
     body: 'Systems designed to ensure your team actually uses the tools you paid for',
     bodyMobile: 'Makes your team use the tools',
     description: 'The human element. Training systems that make sure your team actually uses the tools you paid for.',
+    systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
        { title: 'How it connects', description: 'The fastest car is useless if the driver doesn\'t know how to shift gears. The Soul protects your investment in the other 6 pillars.' },
        { title: 'How it helps the whole system', description: 'When the team adopts the tools properly, data is clean and the system works as designed.' },
@@ -94,6 +100,7 @@ const ALL_PILLARS = [
     body: 'Visualises real-time profit, churn, and speed so you move from gut feeling to evidence',
     bodyMobile: 'Your numbers on one screen',
     description: 'The control tower. Revenue, margins, and pipeline on one screen, updated live. No more midnight spreadsheets.',
+    systemPurpose: 'Navigate with clarity.',
     subServices: [
        { title: 'How it connects', description: 'The Eyes take data from every other pillar and show you where to steer next. It\'s the feedback loop.' },
        { title: 'How it helps the whole system', description: 'It tells you if Acquisition is profitable, if Velocity is efficient, and what needs fixing.' },
@@ -141,17 +148,17 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
       {!isSelected && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-8 h-full flex flex-col justify-between">
           <div className="flex justify-between items-start">
-            {/* Standard: text-xs font-bold tracking-[0.2em] */}
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-40">{pillar.number}</span>
             <pillar.icon className="w-5 h-5 opacity-40 group-hover:opacity-100 transition-opacity" style={{ color: pillar.categoryHex }} />
           </div>
           <div>
+            {/* LABEL: Use Technical Label here per 'Complete Copy' doc */}
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: pillar.categoryHex }}>
-              <span className="hidden lg:inline">{pillar.categoryLabel}</span>
-              <span className="lg:hidden">{pillar.categoryLabel}</span>
+              <span className="hidden lg:inline">{pillar.technicalLabel}</span>
+              <span className="lg:hidden">{pillar.technicalLabel}</span>
             </span>
-            {/* HIERARCHY FIX: Reduced from 3xl to 2xl/3xl to sit below Page Titles */}
             <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-2">{pillar.title}</h3>
+            {/* BODY: Retained as it's not explicitly forbidden and aids context, but can be removed if strictly following table */}
             <p className="font-sans text-base leading-relaxed text-[#1a1a1a]/70 mb-2">
               <span className="hidden lg:inline">{pillar.body}</span>
               <span className="lg:hidden">{pillar.bodyMobile}</span>
@@ -178,15 +185,17 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-[#1a1a1a]/10 pb-10">
               <div>
                 <div className="flex items-center gap-3 mb-6">
+                  {/* Use Category Label here for context, or Technical Label if preferred. Keeping Category to match Scrollytelling visual link */}
                   <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>{pillar.number} / {pillar.categoryLabel}</span>
                   <div className="w-12 h-px" style={{ backgroundColor: pillar.categoryHex }} />
                 </div>
-                {/* HIERARCHY FIX: Reduced from 6xl to 4xl/5xl to remain subservient to H1 */}
-                <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-2">{pillar.title}</h2>
-                {/* Standard: text-lg md:text-xl */}
+                {/* Title */}
+                <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-2">{pillar.title}</h2>
                 <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-3xl">{pillar.description}</p>
               </div>
-              <div className="mt-6 md:mt-0 p-6 border rounded-sm bg-white shadow-sm" style={{ borderColor: `${pillar.categoryHex}20` }}>
+              
+              {/* Clean Icon (No Box) */}
+              <div className="mt-6 md:mt-0">
                   <pillar.icon className="w-8 h-8 md:w-12 md:h-12" style={{ color: pillar.categoryHex }} />
               </div>
             </div>
@@ -194,33 +203,22 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             {/* Sub-Services Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-12 flex-grow">
                 {pillar.subServices?.map((sub: any, idx: number) => (
-                  <motion.div 
-                    key={idx} 
-                    initial={{ y: 20, opacity: 0 }} 
-                    animate={{ y: 0, opacity: 1 }} 
-                    transition={{ delay: 0.3 + (idx * 0.1) }} 
-                    className="border border-[#1a1a1a]/10 p-6 flex flex-col h-full bg-white"
-                  >
-                    {/* ICON / EYEBROW */}
-                    <div className="mb-3">
-                      <span className="font-mono text-[10px] font-bold uppercase tracking-[0.15em]" style={{ color: pillar.categoryHex }}>[ COMPONENT ]</span>
+                  <motion.div key={idx} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.3 + (idx * 0.1) }} className="border-l pl-6 flex flex-col justify-start" style={{ borderColor: `${pillar.categoryHex}30` }}>
+                    <div className="mb-4 flex items-center justify-between">
+                      <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>0{idx + 1}</span>
                     </div>
-
-                    {/* TITLE: Readable Serif */}
-                    <h4 className="font-serif text-lg md:text-xl text-[#1a1a1a] leading-tight tracking-tight mb-2">
-                      {sub.title}
-                    </h4>
-
-                    {/* BODY: Compact but breathable */}
-                    <p className="font-sans text-sm leading-relaxed text-[#1a1a1a]/70">
-                      {sub.description}
-                    </p>
+                    <h4 className="font-serif text-2xl md:text-3xl leading-tight tracking-tight mb-4">{sub.title}</h4>
+                    <p className="font-sans text-sm leading-relaxed text-[#1a1a1a]/70">{sub.description}</p>
                   </motion.div>
                 ))}
             </div>
 
-            {/* Actions */}
-            <div className="mt-12 w-full flex justify-end">
+            {/* Footer: System Purpose & CTA */}
+            <div className="mt-12 w-full flex flex-col md:flex-row justify-between items-end border-t border-[#1a1a1a]/10 pt-8">
+              <div className="mb-6 md:mb-0">
+                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40 block mb-2">System Purpose</span>
+                  <p className="font-serif text-xl italic text-[#1a1a1a]">{pillar.systemPurpose}</p>
+              </div>
               <button onClick={(e) => { e.stopPropagation(); onNavigate(pillar.id); }} className="group flex items-center gap-3">
                   <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>[ SEE PILLAR ]</span>
                   <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" style={{ color: pillar.categoryHex }} />
@@ -246,37 +244,102 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
   const heroContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } } };
   const heroItem = { hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 40, damping: 20 } } };
 
+  // --- SCROLL LINE ANIMATION (Same as HomePage) ---
+  const scrollLineY = useMotionValue(-100);
+  const scrollLineSpeed = useMotionValue(0.067);
+  const { scrollY } = useScroll();
+  
+  const scrollVelocityRef = useRef(0);
+  const lastScrollYRef = useRef(0);
+  const lastTimeRef = useRef(Date.now());
+  const decayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  useAnimationFrame((time, delta) => {
+    const currentY = scrollLineY.get();
+    const speed = scrollLineSpeed.get();
+    let newY = currentY + (speed * delta);
+    if (newY >= 100) newY = -100;
+    scrollLineY.set(newY);
+  });
+  
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const now = Date.now();
+    const timeDelta = now - lastTimeRef.current;
+    if (timeDelta > 0) {
+      const scrollDelta = Math.abs(latest - lastScrollYRef.current);
+      if (scrollDelta > 0) {
+        const velocity = scrollDelta / timeDelta;
+        scrollVelocityRef.current = velocity;
+        const baseSpeed = 0.067;
+        const maxSpeed = 0.5;
+        const newSpeed = Math.min(baseSpeed + (velocity * 0.0001), maxSpeed);
+        scrollLineSpeed.set(newSpeed);
+        if (decayTimeoutRef.current) clearTimeout(decayTimeoutRef.current);
+        decayTimeoutRef.current = setTimeout(() => {
+          const currentSpeed = scrollLineSpeed.get();
+          if (currentSpeed > baseSpeed) {
+            scrollLineSpeed.set(baseSpeed);
+          }
+        }, 100);
+        scrollVelocityRef.current = 0;
+      }
+    }
+    lastScrollYRef.current = latest;
+    lastTimeRef.current = now;
+  });
+
   return (
-    <div className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-32 pb-0 px-0 relative z-[150] flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-0 pb-0 px-0 relative z-[150] flex flex-col font-sans">
       
-      {/* HERO SECTION - 100vh on mobile/tablet */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full mb-20 lg:mb-20 h-[calc(100vh-8rem)] md:h-[calc(100vh-8rem)] lg:h-auto flex flex-col justify-center">
-         <div className="flex justify-between items-center mb-4 md:mb-6 lg:mb-12">
-            <button onClick={onBack} className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors">
+      {/* HERO SECTION - 100vh Full Height */}
+      <section className="relative h-screen w-full flex flex-col overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
+          {/* Return to Home - Fixed spacing (same as ProcessPage) */}
+          <div className="flex justify-between items-center mb-24 pt-32">
+            <button 
+              onClick={onBack}
+              className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors"
+            >
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-              <span className="hidden lg:inline">/ Return to Home</span>
-              <span className="lg:hidden">/ Back</span>
+              / Return to Home
             </button>
-         </div>
-         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }} variants={heroContainer} className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 lg:gap-12 items-center flex-1">
+          </div>
+          
+          {/* Main Content - Centered in remaining space */}
+          <motion.div 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true, amount: 0.3 }} 
+            variants={heroContainer} 
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 flex-1"
+          >
             <div className="flex flex-col justify-center">
-              {/* HIERARCHY FIX: Matched Home Page spacing exactly (mb-10) */}
               <motion.span variants={heroItem} className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-2 md:mb-4 lg:mb-10 block">/ THE SYSTEM</motion.span>
-              
-              {/* HIERARCHY FIX: Using exact Home Page classes to fix "Frankenstein" sizes */}
-              <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-3 md:mb-4 lg:mb-10">7 Ways I Fix <br /><span className="italic text-black/20">Your Business.</span></motion.h1>
-              
-              {/* HIERARCHY FIX: Matches Home Page Body */}
+              <motion.h1 variants={heroItem} className="font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-3 md:mb-4 lg:mb-10">
+                7 Ways I Fix <br />
+                <span className="italic text-black/20">Your Business.</span>
+              </motion.h1>
               <motion.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-3 md:pl-4 lg:pl-6">
                 <span className="hidden lg:inline">I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.</span>
                 <span className="lg:hidden">I treat your business as one connected system, eliminating friction that burns out your people.</span>
               </motion.p>
             </div>
-            <motion.div variants={heroItem} className="h-full flex items-center justify-center lg:justify-end min-h-[180px] md:min-h-[220px] lg:min-h-[500px] relative mt-2 md:mt-4 lg:mt-0">
-               <HeroVisual_Suspension />
+            <motion.div variants={heroItem} className="w-full h-full flex items-center justify-center lg:justify-end lg:items-center">
+              <div className="w-full max-w-full flex items-center justify-center">
+                <HeroVisual_Suspension />
+              </div>
             </motion.div>
-         </motion.div>
-      </div>
+          </motion.div>
+        </div>
+        
+        {/* SCROLL LINE - Same as HomePage */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
+          <motion.div 
+            style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
+            className="absolute inset-0 bg-[#1a1a1a]/40 w-full h-full" 
+          />
+        </div>
+      </section>
 
       {/* SECTION 1: SCROLLYTELLING */}
       <section className="relative z-0 mb-32 border-t border-[#1a1a1a]/10">
@@ -288,7 +351,6 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
           <div className="text-center max-w-2xl mx-auto mb-24 pt-10">
               <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block">System Breakdown</span>
-              {/* HIERARCHY FIX: Section Header is smaller than Hero (4xl/5xl/6xl) */}
               <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
                 <span className="hidden lg:inline">The Parts in Detail</span>
                 <span className="lg:hidden">The 7 Pillars</span>

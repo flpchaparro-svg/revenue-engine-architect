@@ -131,7 +131,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                   <div key={faq.id} className="w-full border-b border-black/10 lg:border-black/5">
                     <button
                       onClick={() => handleToggle(index)}
-                      className="relative w-full px-4 py-6 md:px-8 text-left group overflow-hidden flex items-start justify-between gap-4"
+                      className="relative w-full px-4 py-4 md:px-8 text-left group overflow-hidden flex items-start justify-between gap-4"
                     >
                       {/* Hover Wipe Effect */}
                       <div 
@@ -140,15 +140,20 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                       />
 
                       {/* Content Wrapper */}
-                      <div className="relative z-10 flex items-start gap-6 flex-1">
+                      <div className="relative z-10 flex items-baseline gap-2 flex-1">
+                        {/* FIX: Added 'lg:group-hover:!text-[#1a1a1a]'
+                           This forces the text to Black on hover, overriding the inline Gold color 
+                           so it doesn't disappear against the Gold background.
+                        */}
                         <span 
-                          className={`font-mono text-xs font-bold uppercase tracking-[0.2em] mt-1 shrink-0 transition-colors duration-300 ${isActive ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/40'}`}
+                          className={`font-mono text-xs font-bold uppercase tracking-[0.2em] mt-1 shrink-0 transition-colors duration-300 ${isActive ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/40 lg:group-hover:!text-[#1a1a1a]'}`}
                           style={!isActive ? { color: accentColor } : {}}
                         >
-                          {String(index + 1).padStart(2, '0')}
+                          {String(index + 1).padStart(2, '0')}.
                         </span>
+                        
                         <span 
-                          className={`font-serif italic text-xl md:text-2xl leading-tight tracking-tight transition-colors duration-300 ${isActive ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/80'}`}
+                          className={`font-serif italic text-lg md:text-xl leading-tight tracking-tight transition-colors duration-300 ${isActive ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/80 lg:group-hover:text-[#1a1a1a]'}`}
                         >
                           {faq.question}
                         </span>
