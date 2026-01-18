@@ -292,10 +292,10 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
     <div className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-0 pb-0 px-0 relative z-[150] flex flex-col font-sans">
       
       {/* HERO SECTION - 100vh Full Height */}
-      <section className="relative h-screen w-full flex flex-col overflow-hidden">
+      <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
           {/* Return to Home - Fixed spacing (same as ProcessPage) */}
-          <div className="flex justify-between items-center mb-24 pt-32">
+          <div className="flex justify-between items-center mb-8 pt-24 relative z-20">
             <button 
               onClick={onBack}
               className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors"
@@ -311,7 +311,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
             whileInView="visible" 
             viewport={{ once: true, amount: 0.3 }} 
             variants={heroContainer} 
-            className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 flex-1"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 flex-1 items-center"
           >
             <div className="flex flex-col justify-center">
               <motion.span variants={heroItem} className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-2 md:mb-4 lg:mb-10 block">/ THE SYSTEM</motion.span>
@@ -373,18 +373,6 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
               />
             ))}
           </motion.div>
-        </div>
-      </section>
-      
-      {/* CTA BLOCK */}
-      <section className="w-full bg-[#1a1a1a] text-white py-24 px-6 md:px-12 lg:px-20">
-        <div className="max-w-[1400px] mx-auto text-center">
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-white mb-8">
-            Ready to stop guessing?
-          </h2>
-          <button onClick={() => onNavigate('contact')} className="bg-[#C5A059] text-[#1a1a1a] px-8 py-4 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:bg-white transition-colors">
-            [ BOOK A CALL ]
-          </button>
         </div>
       </section>
 
