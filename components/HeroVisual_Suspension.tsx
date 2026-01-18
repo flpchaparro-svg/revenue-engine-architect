@@ -26,14 +26,17 @@ const rotateZ = (x: number, y: number, z: number, angle: number) => {
 };
 
 const project = (x: number, y: number, z: number) => {
-  const scale = FL / (FL + z);
+  // Prevent division by zero or negative scale if z gets too close to -FL
+  const safeZ = Math.max(z, -FL + 10); 
+  const scale = FL / (FL + safeZ);
   return { x: x * scale, y: y * scale, scale };
 };
 
 const HeroVisual_Suspension: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const shadowRef = useRef<SVGEllipseElement>(null);
-  const cubeRefs = useRef<(SVGPathElement | null)[]>([]);
+  // FIX: Initialize array with nulls to prevent index errors on first frame
+  const cubeRefs = useRef<(SVGPathElement | null)[]>(new Array(CUBE_COUNT).fill(null));
   const coreRef = useRef<SVGPathElement>(null);
 
   // Physics State
@@ -47,6 +50,10 @@ const HeroVisual_Suspension: React.FC = () => {
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
+    
+    // FIX: Prevent Divide by Zero (NaN propagation)
+    if (rect.width === 0) return;
+    
     const centerX = rect.width / 2;
     // Normalize -1 to 1
     state.current.mouseX = (e.clientX - rect.left - centerX) / centerX;
@@ -58,8 +65,6 @@ const HeroVisual_Suspension: React.FC = () => {
 
   // --- RENDER LOOP ---
   useAnimationFrame((t) => {
-    if (!containerRef.current) return;
-    
     // 1. Update Physics (Smooth Lerp)
     const targetSway = state.current.mouseX * 0.2; // Max sway angle
     state.current.currentSway += (targetSway - state.current.currentSway) * 0.05; // Ease factor
@@ -124,14 +129,16 @@ const HeroVisual_Suspension: React.FC = () => {
         });
 
         // Draw Cube Wireframe
-        if (cubeRefs.current[i]) {
+        // FIX: Ensure ref exists before accessing
+        const cubePath = cubeRefs.current[i];
+        if (cubePath) {
             let d = "";
             edges.forEach(edge => {
                d += `M ${projected[edge[0]].x} ${projected[edge[0]].y} L ${projected[edge[1]].x} ${projected[edge[1]].y} `;
             });
-            cubeRefs.current[i]!.setAttribute('d', d);
+            cubePath.setAttribute('d', d);
             // Dynamic opacity based on sway intensity
-            cubeRefs.current[i]!.setAttribute('stroke-opacity', `${0.3 + Math.abs(currentSway)}`);
+            cubePath.setAttribute('stroke-opacity', String(0.3 + Math.abs(currentSway)));
         }
 
         // --- RENDER CORE (Wireframe Gold Octahedron/Diamond inside Index 2) ---

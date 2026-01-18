@@ -231,8 +231,12 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
           <motion.div className="flex items-center pr-0" style={{ x: xPercent }}>
             {[...TECH_STACK, ...TECH_STACK, ...TECH_STACK, ...TECH_STACK].map((tech, i) => (
               <div key={i} className="flex items-center group cursor-default">
-                <span className="font-mono text-xs font-bold tracking-[0.2em] text-[#1a1a1a]/40 group-hover:text-[#C5A059] transition-colors duration-300 px-12">{tech}</span>
-                <span className="text-[#C5A059] text-xs opacity-50">//</span>
+                {/* FIX: Reverted to Standard Eyebrow (Visible, Bold, Normal Size) */}
+                <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] opacity-80 group-hover:text-[#C5A059] group-hover:opacity-100 transition-all duration-300 px-12">
+                  {tech}
+                </span>
+                {/* Separator */}
+                <span className="text-[#C5A059] font-mono text-xs font-bold">//</span>
               </div>
             ))}
           </motion.div>

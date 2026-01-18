@@ -422,7 +422,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       {/* MOBILE TOP VISUALIZER */}
                       <div className="relative h-48 w-full border-b border-current/10 lg:hidden shrink-0 overflow-hidden bg-black/5">
                           <div className="absolute top-4 left-4 z-10">
-                             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-50">
+                             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.15em] opacity-50">
                                [ {service.subtitle || 'SYSTEM'} ]
                              </span>
                           </div>
@@ -437,7 +437,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                          
                          {/* TOP: NUMBER + ARROW */}
                          <div className="flex justify-between items-start mb-4">
-                            <span className={`font-mono text-xs font-bold uppercase tracking-[0.2em] ${isActive ? 'opacity-100' : 'opacity-40'} lg:transition-opacity lg:duration-300 lg:group-hover:opacity-100`}>
+                            <span className={`font-mono text-[10px] font-medium uppercase tracking-[0.15em] ${isActive ? 'opacity-100' : 'opacity-40'} lg:transition-opacity lg:duration-300 lg:group-hover:opacity-100`}>
                               0{idx + 1}
                             </span>
                             <ArrowDownRight className={`w-4 h-4 ${
@@ -451,7 +451,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                          <div className="mb-auto relative z-10">
                             {/* Technical Label - Desktop Small Card Only */}
                             <div className="hidden lg:block mb-2">
-                              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-40">
+                              <span className="font-mono text-[10px] font-medium uppercase tracking-[0.15em] text-[#1a1a1a]/50">
                                 {service.technicalLabelShort || service.technicalLabel}
                               </span>
                             </div>

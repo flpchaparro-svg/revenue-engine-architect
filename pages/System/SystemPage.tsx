@@ -295,7 +295,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
       <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
           {/* Return to Home - Fixed spacing (same as ProcessPage) */}
-          <div className="flex justify-between items-center mb-8 pt-24 relative z-20">
+          <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
             <button 
               onClick={onBack}
               className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors"
@@ -311,7 +311,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
             whileInView="visible" 
             viewport={{ once: true, amount: 0.3 }} 
             variants={heroContainer} 
-            className="grid grid-cols-1 lg:grid-cols-2 gap-2 md:gap-8 lg:gap-12 flex-1 items-center"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 flex-1 content-center items-center"
           >
             <div className="flex flex-col justify-center">
               <motion.span variants={heroItem} className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-2 md:mb-4 lg:mb-10 block">/ THE SYSTEM</motion.span>
