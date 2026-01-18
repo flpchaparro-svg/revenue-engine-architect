@@ -311,7 +311,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
             whileInView="visible" 
             viewport={{ once: true, amount: 0.3 }} 
             variants={heroContainer} 
-            className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 flex-1 items-center"
+            className="grid grid-cols-1 lg:grid-cols-2 gap-2 md:gap-8 lg:gap-12 flex-1 items-center"
           >
             <div className="flex flex-col justify-center">
               <motion.span variants={heroItem} className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-2 md:mb-4 lg:mb-10 block">/ THE SYSTEM</motion.span>
@@ -324,7 +324,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
                 <span className="lg:hidden">I treat your business as one connected system, eliminating friction that burns out your people.</span>
               </motion.p>
             </div>
-            <motion.div variants={heroItem} className="w-full h-full flex items-center justify-center lg:justify-end lg:items-center">
+            <motion.div variants={heroItem} className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
               <div className="w-full max-w-full flex items-center justify-center">
                 <HeroVisual_Suspension />
               </div>
