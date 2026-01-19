@@ -132,7 +132,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
       initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }} 
       exit={{ opacity: 0 }}
-      className="min-h-screen bg-[#FFFBF9] text-[#1a1a1a] pt-0 relative z-[150] overflow-x-hidden flex flex-col selection:bg-[#C5A059]/30"
+      className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-0 relative z-[150] overflow-x-hidden flex flex-col selection:bg-[#C5A059]/30"
     >
       {/* Background Texture - Technical Grid */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.03]" 
