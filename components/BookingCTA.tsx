@@ -61,7 +61,6 @@ const BookingCTA: React.FC = () => {
                 
                 <span className="relative z-10 flex items-center gap-4 group-hover:text-[#1a1a1a] transition-colors duration-500">
                   [ BOOK A 15-MIN CALL ]
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </span>
              </a>
              

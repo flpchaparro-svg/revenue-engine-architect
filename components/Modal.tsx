@@ -170,11 +170,6 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                      `}>
                        [ SEE FULL DETAILS ]
                      </span>
-                     <ArrowRight className={`relative z-10 w-4 h-4 transition-transform group-hover:translate-x-1
-                        ${currentTheme.dark 
-                          ? 'text-[#C5A059] group-hover:text-black' 
-                          : 'text-[#1a1a1a] group-hover:text-white'}
-                     `} />
                    </button>
                 </div>
 

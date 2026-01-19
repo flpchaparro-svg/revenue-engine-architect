@@ -176,7 +176,6 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                  <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-300 cubic-bezier(0.23, 1, 0.32, 1)" />
                  <span className="relative z-10 flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a] group-hover:text-white transition-colors duration-300">
                    [ LET'S TALK ]
-                   <ArrowRight className="w-3 h-3" />
                  </span>
                </button>
             </div>

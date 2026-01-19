@@ -558,7 +558,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             >
               <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]" />
               <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500 flex items-center gap-3">
-                [ BOOK A CALL ] <ArrowRight className="w-4 h-4" />
+                [ BOOK A CALL ]
               </span>
             </button>
             <p className="font-mono text-[10px] text-[#FFF2EC]/50 uppercase tracking-widest mt-6">

@@ -205,7 +205,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
           <h2 className="font-serif text-5xl md:text-7xl mb-12 italic max-w-4xl leading-tight">Your company is the next <span className="text-[#C5A059]">evidence log.</span></h2>
           
           <ShakeButton onClick={() => window.open("https://meetings-ap1.hubspot.com/felipe", "_blank")}>
-             [ AUDIT MY SYSTEM ] <ArrowRight className="w-4 h-4" />
+             [ AUDIT MY SYSTEM ]
           </ShakeButton>
         </section>
 

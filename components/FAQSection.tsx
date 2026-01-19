@@ -249,7 +249,6 @@ const FAQSection: React.FC<FAQSectionProps> = ({
               />
               <span className="relative z-10 flex items-center justify-center gap-3">
                 BOOK A 15-MIN CALL
-                <ArrowRight className="w-4 h-4 ml-2" />
               </span>
             </button>
           </div>

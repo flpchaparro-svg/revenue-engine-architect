@@ -71,7 +71,6 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
                 <div className="absolute inset-0 bg-[#FFF2EC] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                 <span className="relative z-10 flex items-center gap-4 group-hover:text-[#1a1a1a] transition-colors duration-500">
                   [ BOOK A CALL ]
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </span>
              </button>
              <span className="font-mono text-[9px] text-white/30 uppercase tracking-widest">

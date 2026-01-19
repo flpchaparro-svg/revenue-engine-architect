@@ -134,7 +134,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
       onClick={onToggle}
       className={`relative overflow-hidden rounded-sm cursor-pointer group ${gridClasses}`}
       style={{
-        backgroundColor: isSelected ? '#FFFFFF' : 'transparent',
+        backgroundColor: '#FFFFFF',
         borderColor: isSelected ? pillar.categoryHex : 'rgba(26, 26, 26, 0.15)',
       }}
       animate={{ opacity: 1 }}
@@ -225,7 +225,6 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
               </div>
               <button onClick={(e) => { e.stopPropagation(); onNavigate(pillar.id); }} className="group flex items-center gap-3">
                   <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>[ SEE PILLAR ]</span>
-                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" style={{ color: pillar.categoryHex }} />
               </button>
             </div>
 

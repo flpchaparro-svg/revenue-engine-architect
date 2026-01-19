@@ -136,19 +136,11 @@ const TheArchitect: React.FC = () => {
                        <a 
                          href="https://meetings-ap1.hubspot.com/felipe" 
                          target="_blank"
-                         className={`flex items-center justify-center w-14 h-14 border transition-all duration-300 ${mode === 'architect' ? 'border-black/10 hover:bg-[#1a1a1a] hover:text-white' : 'border-[#C5A059]/30 hover:bg-[#C5A059] hover:text-white'}`}
+                         className={`group/arrow flex items-center justify-center w-14 h-14 border transition-all duration-300 ${mode === 'architect' ? 'border-black/10 hover:bg-[#1a1a1a] hover:text-white' : 'border-[#C5A059]/30 hover:bg-[#C5A059] hover:text-white'}`}
                        >
-                          <ArrowUpRight className="w-5 h-5" />
+                          <ArrowUpRight className="w-6 h-6 stroke-[1.5] group-hover/arrow:translate-x-1 group-hover/arrow:-translate-y-1 transition-transform duration-300 ease-out" />
                        </a>
                     </div>
-                    {/* Footer Stats - Only show in Architect mode */}
-                    {mode === 'architect' && (
-                       <div className="flex flex-wrap gap-4 font-mono text-xs font-bold text-black/40 uppercase tracking-[0.2em]">
-                          <span>[ RESPONSE: &lt; 24 HRS ]</span>
-                          <span>[ PROJECTS DELIVERED: 50+ ]</span>
-                          <span>[ BASED: SYDNEY ]</span>
-                       </div>
-                    )}
                  </div>
               </motion.div>
             </AnimatePresence>

@@ -327,6 +327,13 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                     animate="visible"
                                     exit="hidden"
                                 >
+                                    {/* EYEBROW: / ALL 7 PILLARS (Only for Blueprint card) */}
+                                    {isBlueprint && (
+                                      <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4">
+                                        {systemCard.label}
+                                      </p>
+                                    )}
+                                    
                                     {/* FIXED: Standardized Display Title (H2 equivalent) */}
                                     <h3 className={`font-serif mb-2 leading-[0.95] tracking-tighter ${isBlueprint ? 'text-4xl md:text-5xl lg:text-6xl text-[#C5A059]' : 'text-4xl md:text-5xl'}`}>
                                         {displayData?.title}

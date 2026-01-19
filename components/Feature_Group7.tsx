@@ -227,7 +227,6 @@ const Feature_Group7: React.FC = () => {
           {/* Footer Action */}
           <div className="py-5 border-t border-white/5 bg-black/40 flex items-center justify-center gap-3 text-white group-hover:text-[#C5A059] transition-colors relative z-30">
                <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold">See Full Case Study</span>
-               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </div>
 
         </motion.div>

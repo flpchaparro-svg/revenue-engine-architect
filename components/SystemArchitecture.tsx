@@ -198,7 +198,7 @@ export const SystemArchitecture = () => {
                    y: "-50%",
                    borderColor: `${card.color}40`
                 }}
-                className="absolute cursor-pointer bg-[#FFF2EC] border rounded-sm p-6 md:p-8 w-48 md:w-60 flex flex-col items-center text-center shadow-lg pointer-events-auto transition-colors duration-300 hover:bg-white hover:text-[#1a1a1a] group"
+                className="absolute cursor-pointer bg-white border rounded-sm p-6 md:p-8 w-48 md:w-60 flex flex-col items-center text-center shadow-lg pointer-events-auto transition-colors duration-300 hover:bg-white hover:text-[#1a1a1a] group"
                 onClick={() => setSelectedPillar(card)}
               >
                  {/* FIXED: Dynamic Color Restoration & Type B (Micro Label) */}

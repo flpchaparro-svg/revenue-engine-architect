@@ -172,7 +172,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
               >
                  <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
                  <span className="relative z-10 group-hover:text-zinc-900 transition-colors duration-500 flex items-center gap-3">
-                    [ BOOK A CALL ] <ArrowRight className="w-4 h-4" />
+                    [ BOOK A CALL ]
                  </span>
               </button>
               

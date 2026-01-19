@@ -559,7 +559,6 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                               className="w-full py-5 font-mono text-xs uppercase tracking-[0.2em] font-bold mt-auto"
                           >
                               [ BOOK A CALL ]
-                              <ArrowRight className="w-3 h-3 ml-2" />
                           </FillButton>
                       </div>
 
