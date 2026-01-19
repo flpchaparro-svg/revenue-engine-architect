@@ -85,10 +85,11 @@ const SystemModal = ({ data, onClose }: { data: typeof PILLAR_DATA[0], onClose: 
       <div className="h-1.5 w-full" style={{ backgroundColor: data.color }} />
       <div className="p-8 md:p-10">
           <div className="flex items-center gap-3 mb-4">
+             {/* Type A (Eyebrow) - Modal needs to be clear */}
              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: data.color }}>{data.group}</span>
              <div className="h-px flex-grow bg-gray-100" />
           </div>
-          {/* Modal Title (Larger H3) */}
+          {/* H3 Standard */}
           <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-2">{data.modalTitle}</h3>
           <p className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70 mb-8 mt-4">{data.modalDesc}</p>
           <div className="space-y-4 pt-6 border-t border-gray-100">
@@ -181,7 +182,7 @@ export const SystemArchitecture = () => {
             </motion.div>
         </div>
 
-        {/* Floating Cards - MICRO STRUCTURE RESTORED */}
+        {/* Floating Cards */}
         <motion.div style={{ opacity: cardsOpacity }} className="absolute inset-0 pointer-events-none z-40">
            {PILLAR_DATA.map((card) => (
               <motion.div
@@ -200,15 +201,22 @@ export const SystemArchitecture = () => {
                 className="absolute cursor-pointer bg-[#FFF2EC] border rounded-sm p-6 md:p-8 w-48 md:w-60 flex flex-col items-center text-center shadow-lg pointer-events-auto transition-colors duration-300 hover:bg-white hover:text-[#1a1a1a] group"
                 onClick={() => setSelectedPillar(card)}
               >
-                 {/* Type B Label */}
-                 <span className="font-mono text-[10px] font-medium uppercase tracking-[0.15em] text-[#C5A059] mb-3">{card.group}</span>
+                 {/* FIXED: Dynamic Color Restoration & Type B (Micro Label) */}
+                 <span 
+                    className="font-mono text-[10px] font-medium uppercase tracking-[0.15em] mb-3" 
+                    style={{ color: card.color }}
+                 >
+                    {card.group}
+                 </span>
                  
-                 {/* MICRO TITLE: text-lg md:text-xl (Reverted from 2xl) */}
+                 {/* Compact Title */}
                  <h4 className="font-serif text-lg md:text-xl text-[#1a1a1a] leading-tight tracking-tight mb-2">{card.title}</h4>
                  
                  <div className="mt-auto flex items-center justify-center">
-                    {/* Type A CTA */}
-                    <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/60 group-hover:text-[#1a1a1a] transition-colors">[ Click here ]</span>
+                    {/* FIXED: Type B (Micro Label), Neutral Grey -> Hover Black, Text Change to [ VIEW ] */}
+                    <span className="font-mono text-[10px] font-medium uppercase tracking-[0.15em] text-[#1a1a1a]/40 group-hover:text-[#1a1a1a] transition-colors">
+                        [ VIEW ]
+                    </span>
                  </div>
               </motion.div>
            ))}
