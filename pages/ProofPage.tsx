@@ -152,10 +152,16 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
         {/* SECTION 03: THE BEFORE */}
         <div className="mb-32">
-          <div className="flex items-center gap-4 mb-12">
-            <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest font-bold">BEFORE</span>
-            <h2 className="font-serif text-4xl md:text-5xl">The Old Site: group7security.com</h2>
-            <span className="font-mono text-[10px] text-[#E21E3F] uppercase tracking-widest bg-[#E21E3F]/10 px-3 py-1">[ DECOMMISSIONED ]</span>
+          <div className="mb-24">
+            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-8 flex items-center gap-2">
+              / THE PROBLEM
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-10">
+              The Old <span className="italic font-serif text-[#E21E3F]">Site.</span>
+            </h2>
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60 max-w-2xl mb-4">
+              group7security.com <span className="font-mono text-[10px] text-[#E21E3F] uppercase tracking-widest bg-[#E21E3F]/10 px-3 py-1">[ DECOMMISSIONED ]</span>
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -219,10 +225,16 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
         {/* SECTION 04: THE AFTER */}
         <div className="mb-32">
-          <div className="flex items-center gap-4 mb-12">
-            <span className="font-mono text-xs text-[#C5A059] uppercase tracking-widest font-bold">AFTER</span>
-            <h2 className="font-serif text-4xl md:text-5xl">The New Site: group7security.com.au</h2>
-            <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-widest bg-[#C5A059]/10 px-3 py-1">[ LIVE ]</span>
+          <div className="mb-24">
+            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-8 flex items-center gap-2">
+              / THE SOLUTION
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-10">
+              The New <span className="italic font-serif text-[#C5A059]">Standard.</span>
+            </h2>
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60 max-w-2xl mb-4">
+              group7security.com.au <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-widest bg-[#C5A059]/10 px-3 py-1">[ LIVE ]</span>
+            </p>
           </div>
 
           <div className="mb-12">
@@ -299,7 +311,14 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
         {/* SECTION 05: THE METRICS */}
         <div className="mb-32">
-          <h2 className="font-serif text-4xl md:text-5xl mb-12">The Evidence</h2>
+          <div className="mb-24">
+            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-8 flex items-center gap-2">
+              / THE RESULTS
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-10">
+              The <span className="italic font-serif text-[#C5A059]">Evidence.</span>
+            </h2>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Metric 1 */}
             <div className="p-8 border border-black/10 bg-white hover:border-[#C5A059] transition-colors group">
@@ -389,7 +408,14 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
         {/* SECTION 06: WHY THIS MATTERS */}
         <div className="mb-32 p-12 border border-black/10 bg-white">
-          <h2 className="font-serif text-4xl md:text-5xl mb-12">Why This Matters</h2>
+          <div className="mb-24">
+            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-8 flex items-center gap-2">
+              / THE IMPACT
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-10">
+              Why This <span className="italic font-serif text-[#C5A059]">Matters.</span>
+            </h2>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="p-6 border-l-4 border-[#C5A059]">
               <h3 className="font-serif text-xl mb-3">If You're a Trades Business Owner</h3>
@@ -492,7 +518,14 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
         {/* SECTION 09: SIDE-BY-SIDE COMPARISON */}
         <div className="mb-32">
-          <h2 className="font-serif text-4xl md:text-5xl mb-12">Before & After</h2>
+          <div className="mb-24">
+            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-8 flex items-center gap-2">
+              / COMPARISON
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-10">
+              Before & <span className="italic font-serif text-[#C5A059]">After.</span>
+            </h2>
+          </div>
           <EvidenceVisual_Compare 
             beforeLabel="BEFORE"
             afterLabel="AFTER"
@@ -513,8 +546,8 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         <div className="bg-[#1a1a1a] border border-black/10 text-[#FFF2EC] p-12 md:p-24 relative overflow-hidden mb-32 rounded-sm shadow-2xl">
           <div className="relative z-10 flex flex-col items-center text-center">
             <span className="font-mono text-xs text-[#C5A059] uppercase tracking-widest mb-4 block">Your Turn</span>
-            <h2 className="font-serif text-5xl md:text-6xl mb-8">
-              Want Results Like <span className="italic text-[#C5A059]">This?</span>
+            <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tighter text-white mb-8">
+              Want Results Like <span className="italic font-serif text-[#C5A059]">This?</span>
             </h2>
             <p className="font-sans text-xl text-[#FFF2EC]/80 mb-10 max-w-2xl leading-relaxed">
               Group 7 went from invisible to indexed, from slow to instant, from amateur to enterprise. If your website is holding you back, let's fix it.

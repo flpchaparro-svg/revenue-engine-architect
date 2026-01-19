@@ -332,8 +332,16 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
 
         {/* BOTTOM CTA */}
         <div className="border-t border-black/10 py-32 flex flex-col items-center text-center">
-           <h2 className="font-serif text-5xl md:text-6xl mb-8">
-             {mode === 'architect' ? "Ready to build your system?" : "Let's talk about your business."}
+           <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 max-w-6xl mx-auto">
+             {mode === 'architect' ? (
+               <>
+                 Ready to build your <span className="italic font-serif text-[#C5A059]">System?</span>
+               </>
+             ) : (
+               <>
+                 Let's talk about your <span className="italic font-serif text-[#C5A059]">Business.</span>
+               </>
+             )}
            </h2>
            <button 
              onClick={() => handleNavigate('contact')}

@@ -61,16 +61,23 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
         {/* The Promise */}
         <div className="flex-1 flex flex-col justify-center">
-          <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.0] mb-8">
+          {/* New Black Eyebrow */}
+          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] mb-8 block">
+            / THE PROMISE
+          </span>
+          
+          {/* Hero Size Title (8XL) */}
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.0] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-10">
             This is not a <br />
-            <span className="italic text-[#C5A059]">Sales Call.</span>
+            <span className="italic font-serif text-[#C5A059]">Sales Call.</span>
           </h1>
           
-          <div className="space-y-6 max-w-md">
-            <p className="font-sans text-lg font-light leading-relaxed">
+          {/* UNIFIED BODY COPY (All text-xl, light, consistent) */}
+          <div className="space-y-6 max-w-lg">
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]">
               I don't employ salespeople. When you submit this brief, you are starting a conversation directly with me.
             </p>
-            <p className="font-sans text-base font-light opacity-60 leading-relaxed">
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60">
               I will personally review your setup, identify the leakage, and determine if my systems can close the gap.
             </p>
           </div>
@@ -92,8 +99,15 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-xl">
             
             <div className="mb-12 border-b border-white/10 pb-8">
-               <h2 className="font-serif text-3xl text-white mb-3">The Situation.</h2>
-               <p className="font-sans text-white/60">Complete the parameters below to initiate the diagnosis.</p>
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
+                / DIAGNOSIS
+              </span>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-white mb-6">
+                The <span className="italic font-serif text-[#C5A059]">Situation.</span>
+              </h2>
+              <p className="font-sans text-lg md:text-xl text-white/60 leading-relaxed max-w-xl">
+                Complete the parameters below to initiate the diagnosis.
+              </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-8">
@@ -194,7 +208,9 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
              <div className="w-24 h-24 bg-[#C5A059] rounded-full flex items-center justify-center mb-8 shadow-2xl shadow-[#C5A059]/30">
                <Check className="w-12 h-12 text-[#1a1a1a]" />
              </div>
-             <h2 className="font-serif text-5xl text-white mb-6">Brief Received.</h2>
+             <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tighter text-white mb-6">
+               Brief <span className="italic font-serif text-[#C5A059]">Received.</span>
+             </h2>
              <p className="font-sans text-xl font-light text-white/60 mb-12 leading-relaxed">
                I have received your parameters. I will analyse your architecture and respond personally within 24 hours.
              </p>
