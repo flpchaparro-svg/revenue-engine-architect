@@ -91,10 +91,10 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
       </div>
 
       {/* Main Content Wrapper - Added pb-32 to prevent Footer Collision */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 relative z-10 pt-32 pb-32">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 relative z-10 pt-0 pb-32">
         
         {/* BREADCRUMB NAV */}
-        <div className="flex justify-between items-center mb-16">
+        <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
           <div className="flex items-center gap-6">
             <ShakeButton onClick={onBack} className="!px-4 !py-2 border-black/20 hover:border-black">
                <ArrowLeft className="w-4 h-4" /> 

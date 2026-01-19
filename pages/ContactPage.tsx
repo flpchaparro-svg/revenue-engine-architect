@@ -46,7 +46,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
     <div className="min-h-screen w-full flex flex-col lg:flex-row relative z-[9999] bg-[#FFF2EC]">
       
       {/* LEFT COLUMN: THE HUMAN ANCHOR (CREAM) */}
-      <div className="lg:w-5/12 h-auto lg:h-screen sticky top-0 bg-[#FFF2EC] text-[#1a1a1a] flex flex-col p-8 md:p-12 lg:p-20 border-r border-[#1a1a1a]/10 justify-between order-first">
+      <div className="lg:w-5/12 h-auto lg:h-screen sticky top-0 bg-[#FFF2EC] text-[#1a1a1a] flex flex-col p-8 md:p-12 lg:px-20 lg:pb-20 lg:pt-24 border-r border-[#1a1a1a]/10 justify-between order-first">
         
         {/* Nav - Keep this, it replaces the Global Header */}
         <div className="flex-none mb-12 lg:mb-0 pt-8 lg:pt-0">

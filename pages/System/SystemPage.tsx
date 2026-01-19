@@ -216,7 +216,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             {/* Footer: System Purpose & CTA */}
             <div className="mt-12 w-full flex flex-col md:flex-row justify-between items-end border-t border-[#1a1a1a]/10 pt-8">
               <div className="mb-6 md:mb-0">
-                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40 block mb-2">System Purpose</span>
+                  <span className="font-sans text-[10px] font-bold uppercase tracking-[0.1em] opacity-60 block mb-2">System Purpose</span>
                   <p className="font-serif text-xl italic text-[#1a1a1a]">{pillar.systemPurpose}</p>
               </div>
               <button onClick={(e) => { e.stopPropagation(); onNavigate(pillar.id); }} className="group flex items-center gap-3">

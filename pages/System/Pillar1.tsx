@@ -1,6 +1,14 @@
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { 
+  motion, 
+  AnimatePresence, 
+  useScroll,
+  useMotionValueEvent,
+  useAnimationFrame,
+  useMotionValue,
+  useTransform
+} from 'framer-motion';
 import { 
   ArrowLeft, ArrowRight, Zap, Map, Shield, 
   ShoppingBag, Box, RefreshCw, 
@@ -184,6 +192,50 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   const pillarFAQs = getPillarFAQs('pillar1');
   const [isHovering, setIsHovering] = useState(false);
 
+  // --- SCROLL LINE ANIMATION ---
+  const scrollLineY = useMotionValue(-100);
+  const scrollLineSpeed = useMotionValue(0.067);
+  const { scrollY } = useScroll();
+  
+  const scrollVelocityRef = React.useRef(0);
+  const lastScrollYRef = React.useRef(0);
+  const lastTimeRef = React.useRef(Date.now());
+  const decayTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+  
+  useAnimationFrame((time, delta) => {
+    const currentY = scrollLineY.get();
+    const speed = scrollLineSpeed.get();
+    let newY = currentY + (speed * delta);
+    if (newY >= 100) newY = -100;
+    scrollLineY.set(newY);
+  });
+  
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const now = Date.now();
+    const timeDelta = now - lastTimeRef.current;
+    if (timeDelta > 0) {
+      const scrollDelta = Math.abs(latest - lastScrollYRef.current);
+      if (scrollDelta > 0) {
+        const velocity = scrollDelta / timeDelta;
+        scrollVelocityRef.current = velocity;
+        const baseSpeed = 0.067;
+        const maxSpeed = 0.5;
+        const newSpeed = Math.min(baseSpeed + (velocity * 0.0001), maxSpeed);
+        scrollLineSpeed.set(newSpeed);
+        if (decayTimeoutRef.current) clearTimeout(decayTimeoutRef.current);
+        decayTimeoutRef.current = setTimeout(() => {
+          const currentSpeed = scrollLineSpeed.get();
+          if (currentSpeed > baseSpeed) {
+            scrollLineSpeed.set(baseSpeed);
+          }
+        }, 100);
+        scrollVelocityRef.current = 0;
+      }
+    }
+    lastScrollYRef.current = latest;
+    lastTimeRef.current = now;
+  });
+
   useEffect(() => {
     setActivePersonaIndex(0);
     setIsAutoPlaying(true);
@@ -203,39 +255,57 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   return (
     <motion.div 
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] px-0 relative z-[150] overflow-x-hidden flex flex-col pt-32 lg:pt-40"
+      className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] px-0 relative z-[150] overflow-x-hidden flex flex-col font-sans"
     >
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow">
-        
-        {/* NAV BACK */}
-        <div className="flex justify-between items-center mb-24">
-          <button 
-            onClick={() => onNavigate('system')}
-            className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            / Return to The System
-          </button>
+      
+      {/* --- HERO SECTION (100dvh to match SystemPage) --- */}
+      <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
+          
+          {/* RETURN NAV - Exact match to SystemPage spacing */}
+          <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
+            <button 
+              onClick={() => onNavigate('system')}
+              className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+              / Return to The System
+            </button>
+          </div>
+
+          {/* HERO GRID - Exact match to SystemPage alignment */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 flex-1 content-center items-center">
+            {/* Left: Text */}
+            <div className="flex flex-col justify-center">
+               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-4 lg:mb-6 block uppercase font-bold">/ THE SYSTEM / GET CLIENTS</span>
+               <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight mb-6 lg:mb-8">
+                 Select your <span className="italic text-[#C5A059]">Engine.</span>
+               </h1>
+               <p className="font-sans text-lg lg:text-xl text-[#1a1a1a]/70 max-w-xl border-l-2 border-[#C5A059] pl-6">
+                 Stop guessing. Identify your business model below to see the exact architecture required to scale it.
+               </p>
+            </div>
+            
+            {/* Right: Visual Animation */}
+            <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
+               <div className="relative w-full max-w-[450px] h-[300px] lg:h-[450px] opacity-90 flex items-center justify-center">
+                 <PillarVisual_Catchment />
+               </div>
+            </div>
+          </div>
         </div>
 
-        {/* HERO SECTION (UPDATED LAYOUT) */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-24">
-          {/* Left: Text */}
-          <div>
-             <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE SYSTEM / GET CLIENTS</span>
-             <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tight mb-8">
-               Select your <span className="italic text-[#C5A059]">Engine.</span>
-             </h1>
-             <p className="font-sans text-lg text-[#1a1a1a]/70 max-w-xl border-l-2 border-[#C5A059] pl-6">
-               Stop guessing. Identify your business model below to see the exact architecture required to scale it.
-             </p>
-          </div>
-          
-          {/* Right: Visual Animation - INCREASED SIZE TO 450px */}
-          <div className="relative w-full max-w-[450px] h-[450px] mx-auto opacity-90 flex items-center justify-center">
-             <PillarVisual_Catchment />
-          </div>
+        {/* SCROLL LINE ANIMATION */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
+          <motion.div 
+            style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
+            className="absolute inset-0 bg-[#1a1a1a]/40 w-full h-full" 
+          />
         </div>
+      </section>
+
+      {/* --- DASHBOARD SECTION (Below Fold) --- */}
+      <section className="w-full px-6 md:px-12 lg:px-20 pt-24 pb-32 max-w-[1400px] mx-auto border-t border-[#1a1a1a]/10">
 
         {/* --- UNIFIED DASHBOARD CONTAINER --- */}
         <div className="border border-black/10 bg-white shadow-sm mb-32">
@@ -419,7 +489,7 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
              </AnimatePresence>
            </div>
         </div>
-      </div>
+      </section>
 
       {/* FAQ SECTION */}
       <FAQSection

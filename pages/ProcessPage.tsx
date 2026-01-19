@@ -55,12 +55,12 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
       initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }} 
       exit={{ opacity: 0 }}
-      className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-32 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col"
+      className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-0 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col"
     >
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow">
         
         {/* NAV BACK */}
-        <div className="flex justify-between items-center mb-24">
+        <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
           <button 
             onClick={onBack}
             className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors"

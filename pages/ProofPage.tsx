@@ -93,11 +93,11 @@ const TerminalLog: React.FC = () => {
 
 const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-32 relative z-[150] overflow-x-hidden flex flex-col">
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-0 relative z-[150] overflow-x-hidden flex flex-col">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow pb-32">
         
         {/* SECTION 01: PAGE HEADER */}
-        <div className="flex justify-between items-center mb-24">
+        <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
           <button 
             onClick={onBack}
             className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors"
