@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Clock, CheckCircle2 } from 'lucide-react';
@@ -47,7 +46,7 @@ const BookingCTA: React.FC = () => {
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                       <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                     </span>
-                    <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]">TAKING PROJECTS</span>
+                    <span className="font-mono text-xl">TAKING PROJECTS</span>
                 </div>
              </div>
              
@@ -66,7 +65,8 @@ const BookingCTA: React.FC = () => {
                 </span>
              </a>
              
-             <p className="text-center mt-4 font-mono text-xs font-bold uppercase tracking-[0.2em] text-white/30">
+             {/* FIXED: Footer Text - Type A (Bold) */}
+             <p className="text-center mt-4 font-mono text-xs font-bold text-white/30 uppercase tracking-[0.2em]">
                 No Sales Pitch. Just Engineering.
              </p>
           </div>

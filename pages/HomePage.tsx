@@ -310,7 +310,8 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
             <div onMouseEnter={() => handleGraphHover('fix')} onMouseLeave={handleGraphLeave} className="col-span-1 p-8 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[250px] md:min-h-[400px] flex flex-col justify-between border-l-2 border-l-[#C5A059] group">
               {/* 04: THE FIX -> GOLD */}
               <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] block mb-4 md:mb-0">04 / THE FIX</span>
-              <p className="font-serif text-2xl md:text-3xl leading-tight mb-6 md:mb-8 group-hover:text-[#C5A059] transition-colors duration-300">
+              {/* FIXED: H3 Standard (text-3xl md:text-4xl) */}
+              <p className="font-serif text-3xl md:text-4xl leading-tight mb-6 md:mb-8 group-hover:text-[#C5A059] transition-colors duration-300">
                 I build the systems that do the boring work for you. <span className="text-white">You get your business back.</span>
               </p>
               <button onClick={() => document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'})} className="flex items-center gap-3 font-mono text-xs font-bold text-[#C5A059] uppercase tracking-[0.2em] hover:text-white transition-colors cursor-pointer group">

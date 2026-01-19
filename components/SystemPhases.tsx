@@ -422,6 +422,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       {/* MOBILE TOP VISUALIZER */}
                       <div className="relative h-48 w-full border-b border-current/10 lg:hidden shrink-0 overflow-hidden bg-black/5">
                           <div className="absolute top-4 left-4 z-10">
+                             {/* FIXED: Micro Label (Type B) */}
                              <span className="font-mono text-[10px] font-medium uppercase tracking-[0.15em] opacity-50">
                                [ {service.subtitle || 'SYSTEM'} ]
                              </span>
@@ -437,6 +438,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                          
                          {/* TOP: NUMBER + ARROW */}
                          <div className="flex justify-between items-start mb-4">
+                            {/* FIXED: Micro Label (Type B) */}
                             <span className={`font-mono text-[10px] font-medium uppercase tracking-[0.15em] ${isActive ? 'opacity-100' : 'opacity-40'} lg:transition-opacity lg:duration-300 lg:group-hover:opacity-100`}>
                               0{idx + 1}
                             </span>
@@ -450,8 +452,9 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                          {/* MIDDLE: CONTENT */}
                          <div className="mb-auto relative z-10">
                             {/* Technical Label - Desktop Small Card Only */}
+                            {/* FIXED: Technical Data (Type C) */}
                             <div className="hidden lg:block mb-2">
-                              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]">
+                              <span className="font-sans text-[10px] font-bold uppercase tracking-[0.1em] opacity-60">
                                 {service.technicalLabelShort || service.technicalLabel}
                               </span>
                             </div>
