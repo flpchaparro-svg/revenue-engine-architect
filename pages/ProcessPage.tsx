@@ -93,6 +93,17 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
 
         {/* GUIDING PRINCIPLES */}
         <div className="mb-40 max-w-5xl">
+          <div className="mb-24">
+            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] mb-8 flex items-center gap-2">
+              / PHILOSOPHY
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
+              Core <span className="italic font-serif text-[#C5A059]">Principles.</span>
+            </h2>
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60 max-w-2xl">
+              Complexity is the enemy of execution. I follow two simple rules.
+            </p>
+          </div>
            <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
               {principles.map((principle) => (
                 <div key={principle.id}>
@@ -107,6 +118,17 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
 
         {/* THE 4 PHASES */}
         <div className="mb-32">
+          <div className="mb-24">
+            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] mb-8 flex items-center gap-2">
+              / METHODOLOGY
+            </div>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
+              The Execution <span className="italic font-serif text-[#C5A059]">Path.</span>
+            </h2>
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60 max-w-2xl">
+              From diagnosis to handover. A linear process with no hidden steps.
+            </p>
+          </div>
           <div className="space-y-0 relative border-l border-black/10 ml-4 md:ml-0">
             {steps.map((step, i) => (
               <motion.div 
@@ -140,7 +162,9 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* BOTTOM CTA */}
         <div className="bg-zinc-900 border border-zinc-800 text-zinc-100 p-12 md:p-24 relative overflow-hidden mb-32 rounded-sm">
            <div className="relative z-10 flex flex-col items-center text-center">
-              <h2 className="font-serif text-5xl md:text-6xl mb-8">Ready to start?</h2>
+              <h2 className="font-serif text-5xl md:text-6xl lg:text-8xl leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8">
+                Ready to <span className="italic font-serif text-[#C5A059]">Start?</span>
+              </h2>
               
               <button 
                 onClick={() => onNavigate('contact')}

@@ -359,12 +359,12 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
       <section className="w-full bg-[#FFF2EC] pb-32 relative z-10">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
           <div className="text-center max-w-2xl mx-auto mb-24 pt-10">
-              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block">System Breakdown</span>
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">System Breakdown</span>
               <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
-                <span className="hidden lg:inline">The Parts in Detail</span>
+                <span className="hidden lg:inline">The Parts in <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Detail.</span></span>
                 <span className="lg:hidden">The 7 Pillars</span>
               </h2>
-              <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70">
+              <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto">
                 <span className="hidden lg:inline">Each component is designed to work alone, but engineered to work together.</span>
                 <span className="lg:hidden">Work alone or together.</span>
               </p>
