@@ -24,7 +24,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
         headline: (
           <>
             I build the systems that give your team <br />
-            <span className="italic text-black/20">their time back.</span>
+            <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">their time back.</span>
           </>
         ),
         subhead: "Most consultants sell ideas. I build infrastructure. The kind that runs while you sleep, captures every lead, and stops your best people from drowning in admin.",
@@ -75,7 +75,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
         headline: (
           <>
             From lab coats to spreadsheets <br />
-            <span className="italic text-[#C5A059]">to freedom.</span>
+            <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">to freedom.</span>
           </>
         ),
         subhead: "I've been the person doing the admin at midnight. Running payroll, chasing invoices, managing staff while trying to grow a business. That's why I build systems that actually work for real people.",
@@ -144,9 +144,12 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
 
         {/* HEADER & SWITCH */}
         <div className="mb-24 relative">
-           <span className={`font-mono text-xs tracking-widest mb-6 block uppercase font-bold ${current.accent}`}>
-             {current.label}
-           </span>
+           <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
+             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
+             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
+               {current.label.replace('/', '').trim()}
+             </span>
+           </div>
            
            {/* REDESIGNED SWITCH: High Contrast Tabs */}
            <div className="flex items-center gap-0 mb-12 border-b-2 border-black/5 w-fit">
@@ -184,7 +187,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                initial={{ opacity: 0, y: 10 }}
                animate={{ opacity: 1, y: 0 }}
                exit={{ opacity: 0, y: -10 }}
-               className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight max-w-5xl mb-8"
+               className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] max-w-5xl mb-6 md:mb-10"
              >
                {current.headline}
              </motion.h1>
@@ -242,7 +245,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                   className="space-y-16"
                 >
                   <div className="mb-16">
-                    <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed max-w-xl border-l-2 border-black/5 pl-6">
+                    <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
                       {current.subhead}
                     </p>
                   </div>

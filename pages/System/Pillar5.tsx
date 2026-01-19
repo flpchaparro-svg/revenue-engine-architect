@@ -284,11 +284,16 @@ const Pillar5: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
              
              {/* LEFT: CONTENT */}
              <div className="flex flex-col justify-center">
-               <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-4 lg:mb-6 block uppercase font-bold">/ THE SYSTEM / SCALE FASTER</span>
-               <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight mb-6 lg:mb-8">
-                 Content Systems.
+               <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
+                 <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
+                 <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
+                   THE SYSTEM / SCALE FASTER
+                 </span>
+               </div>
+               <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
+                 Content <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Systems.</span>
                </h1>
-               <p className="font-sans text-lg lg:text-xl text-[#1a1a1a]/70 max-w-xl border-l-2 border-[#C5A059] pl-6">
+               <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
                  You talk, I turn it into content. One voice note becomes a blog, 5 social posts, and a newsletter — all published automatically across every platform.
                </p>
              </div>

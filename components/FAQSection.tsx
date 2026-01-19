@@ -237,7 +237,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
         {showBookingCTA && (
           <div className="py-24 flex flex-col items-center text-center">
             <h2 className="font-serif text-4xl md:text-5xl leading-tight tracking-tighter mb-8 text-[#1a1a1a]">
-              Still have <span className="italic" style={{ color: accentColor }}>questions?</span>
+              Still have questions?
             </h2>
             <button
               onClick={() => onNavigate?.('contact')}
@@ -248,7 +248,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                 style={{ backgroundColor: accentColor }}
               />
               <span className="relative z-10 flex items-center justify-center gap-3">
-                [ BOOK A 15-MIN CALL ]
+                BOOK A 15-MIN CALL
                 <ArrowRight className="w-4 h-4 ml-2" />
               </span>
             </button>

@@ -109,11 +109,16 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
         {/* HERO */}
         <div className="mb-32">
-          <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE PROOF</span>
-          <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] mb-8">
-            Results You Can <span className="italic text-[#E21E3F]">Verify.</span>
+          <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
+              THE PROOF
+            </span>
+          </div>
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
+            Results You Can <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Verify.</span>
           </h1>
-          <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl border-l-2 border-[#C5A059] pl-6">
+          <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
             I don't show testimonials. I show data. Here's what happened when I rebuilt a Sydney security company's entire digital presence.
           </p>
         </div>

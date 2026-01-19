@@ -73,11 +73,16 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* HERO */}
         <div className="mb-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <span className="font-mono text-xs text-[#E21E3F] tracking-widest mb-6 block uppercase font-bold">/ THE PROCESS</span>
-            <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-tight mb-8">
-              How I Work.
+            <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
+                THE PROCESS
+              </span>
+            </div>
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
+              How I <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Work.</span>
             </h1>
-            <p className="font-sans text-xl text-[#1a1a1a]/60 leading-relaxed max-w-md border-l-2 border-[#C5A059] pl-6">
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
               A clear path from chaos to order, no fluff.
             </p>
           </div>

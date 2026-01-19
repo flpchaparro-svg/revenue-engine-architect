@@ -316,15 +316,22 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
             className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 flex-1 content-center items-center"
           >
             <div className="flex flex-col justify-center">
-              <motion.span variants={heroItem} className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-2 md:mb-4 lg:mb-10 block">/ THE SYSTEM</motion.span>
-              {/* FIX: H1 Standard Size (text-5xl -> text-8xl) */}
-              <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-3 md:mb-4 lg:mb-10">
-                7 Ways I Fix <br />
-                <span className="italic text-black/20">Your Business.</span>
+              {/* EYEBROW: Mono, Uppercase, Black (matching Home Page) */}
+              <motion.div variants={heroItem} className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
+                <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
+                <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
+                  ARCHITECTURE / HOLISTIC
+                </span>
+              </motion.div>
+              
+              {/* H1 TITLE: Serif, matching Home Page style */}
+              <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
+                Business as an <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Organism.</span>
               </motion.h1>
-              <motion.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-3 md:pl-4 lg:pl-6">
-                <span className="hidden lg:inline">I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.</span>
-                <span className="lg:hidden">I treat your business as one connected system, eliminating friction that burns out your people.</span>
+              
+              {/* SUBTITLE: Muted, Relaxed, with border-l (matching Home Page) */}
+              <motion.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
+                Your business is not a machine; it is a living system. We verify the connections between your revenue, your tech, and your team.
               </motion.p>
             </div>
             <motion.div variants={heroItem} className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
