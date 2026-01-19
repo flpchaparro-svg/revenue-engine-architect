@@ -198,24 +198,24 @@ export const SystemArchitecture = () => {
                     y: "-50%",
                     borderColor: `${card.color}40`
                 }}
-                className="absolute cursor-pointer bg-white/95 backdrop-blur-sm border rounded-[2px] p-5 w-48 md:w-56 flex flex-col items-center text-center shadow-sm pointer-events-auto transition-all duration-300 hover:shadow-xl hover:scale-105 group z-40 text-[#1a1a1a]"
+                className="absolute cursor-pointer bg-white/95 backdrop-blur-sm border rounded-[2px] p-3 md:p-5 w-36 md:w-56 flex flex-col items-center text-center shadow-sm pointer-events-auto transition-all duration-300 hover:shadow-xl hover:scale-105 group z-40 text-[#1a1a1a]"
                 onClick={() => setSelectedPillar(card)}
               >
-                {/* Technical Eyebrow */}
+                {/* Technical Eyebrow (Tiny on mobile) */}
                 <span 
-                    className="font-mono text-[9px] font-bold uppercase tracking-widest mb-2 opacity-80" 
+                    className="font-mono text-[8px] md:text-[9px] font-bold uppercase tracking-widest mb-1 md:mb-2 opacity-80" 
                     style={{ color: card.color }}
                 >
                     {card.group}
                 </span>
                 
-                {/* Solid Serif Title (Tight Leading) */}
-                <h4 className="font-serif text-xl text-[#1a1a1a] leading-[0.9] tracking-tight">
+                {/* Solid Serif Title (Tight Leading, Small on Mobile) */}
+                <h4 className="font-serif text-sm md:text-xl text-[#1a1a1a] leading-[1.0] md:leading-[0.9] tracking-tight">
                   {card.title}
                 </h4>
                 
-                {/* Technical View Indicator (Line - VIEW - Line) */}
-                <div className="mt-4 flex items-center gap-2">
+                {/* Technical View Indicator (Desktop Only) */}
+                <div className="mt-0 md:mt-4 hidden md:flex items-center gap-2">
                    <span className="h-px w-3 bg-[#1a1a1a] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                    <span className="font-mono text-[9px] font-bold text-[#1a1a1a] tracking-widest">VIEW</span>
                    <span className="h-px w-3 bg-[#1a1a1a] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
