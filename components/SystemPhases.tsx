@@ -451,7 +451,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                          <div className="mb-auto relative z-10">
                             {/* Technical Label - Desktop Small Card Only */}
                             <div className="hidden lg:block mb-2">
-                              <span className="font-sans text-[10px] font-bold uppercase tracking-[0.1em] opacity-60">
+                              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]">
                                 {service.technicalLabelShort || service.technicalLabel}
                               </span>
                             </div>
