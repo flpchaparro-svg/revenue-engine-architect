@@ -114,7 +114,6 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const isLastItem = pillar.id === 'pillar7';
 
-  // FIX: Dynamic classes to handle layout symmetry
   const gridClasses = isSelected 
     ? 'col-span-1 md:col-span-2 lg:col-span-3 min-h-[600px] h-auto z-10'
     : isLastItem 
@@ -148,21 +147,24 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
       {!isSelected && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-8 h-full flex flex-col justify-between">
           <div className="flex justify-between items-start">
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-40">{pillar.number}</span>
+            {/* Type B (Micro Label) */}
+            <span className="font-mono text-[10px] font-medium uppercase tracking-[0.15em] opacity-40">{pillar.number}</span>
             <pillar.icon className="w-5 h-5 opacity-40 group-hover:opacity-100 transition-opacity" style={{ color: pillar.categoryHex }} />
           </div>
           <div>
-            {/* LABEL: Use Technical Label here per 'Complete Copy' doc */}
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] mb-2 block" style={{ color: pillar.categoryHex }}>
+            {/* Type C (Technical Data) */}
+            <span className="font-sans text-[10px] font-bold uppercase tracking-[0.1em] mb-2 block" style={{ color: pillar.categoryHex }}>
               <span className="hidden lg:inline">{pillar.technicalLabel}</span>
               <span className="lg:hidden">{pillar.technicalLabel}</span>
             </span>
-            <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-2">{pillar.title}</h3>
-            {/* BODY: Retained as it's not explicitly forbidden and aids context, but can be removed if strictly following table */}
-            <p className="font-sans text-base leading-relaxed text-[#1a1a1a]/70 mb-2">
+            {/* COMPACT TITLE: text-2xl md:text-3xl (Reverted from 3xl/4xl) */}
+            <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-2">{pillar.title}</h3>
+            {/* COMPACT BODY: text-sm (Reverted from text-base) */}
+            <p className="font-sans text-sm leading-relaxed text-[#1a1a1a]/70 mb-2">
               <span className="hidden lg:inline">{pillar.body}</span>
               <span className="lg:hidden">{pillar.bodyMobile}</span>
             </p>
+            {/* Type A Subtitle */}
             <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40 mt-4">
               <span className="hidden lg:inline">{pillar.subtitle}</span>
               <span className="lg:hidden">{pillar.subtitleMobile}</span>
@@ -185,16 +187,15 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-[#1a1a1a]/10 pb-10">
               <div>
                 <div className="flex items-center gap-3 mb-6">
-                  {/* Use Category Label here for context, or Technical Label if preferred. Keeping Category to match Scrollytelling visual link */}
+                  {/* Type A Label */}
                   <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>{pillar.number} / {pillar.categoryLabel}</span>
                   <div className="w-12 h-px" style={{ backgroundColor: pillar.categoryHex }} />
                 </div>
-                {/* Title */}
+                {/* H2 Title */}
                 <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-2">{pillar.title}</h2>
                 <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-3xl">{pillar.description}</p>
               </div>
               
-              {/* Clean Icon (No Box) */}
               <div className="mt-6 md:mt-0">
                   <pillar.icon className="w-8 h-8 md:w-12 md:h-12" style={{ color: pillar.categoryHex }} />
               </div>
@@ -207,7 +208,9 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
                     <div className="mb-4 flex items-center justify-between">
                       <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>0{idx + 1}</span>
                     </div>
+                    {/* H3 Title */}
                     <h4 className="font-serif text-2xl md:text-3xl leading-tight tracking-tight mb-4">{sub.title}</h4>
+                    {/* Compact Body */}
                     <p className="font-sans text-sm leading-relaxed text-[#1a1a1a]/70">{sub.description}</p>
                   </motion.div>
                 ))}
@@ -216,6 +219,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             {/* Footer: System Purpose & CTA */}
             <div className="mt-12 w-full flex flex-col md:flex-row justify-between items-end border-t border-[#1a1a1a]/10 pt-8">
               <div className="mb-6 md:mb-0">
+                  {/* Type C (Technical Data) */}
                   <span className="font-sans text-[10px] font-bold uppercase tracking-[0.1em] opacity-60 block mb-2">System Purpose</span>
                   <p className="font-serif text-xl italic text-[#1a1a1a]">{pillar.systemPurpose}</p>
               </div>
@@ -244,7 +248,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
   const heroContainer = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.2 } } };
   const heroItem = { hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 40, damping: 20 } } };
 
-  // --- SCROLL LINE ANIMATION (Same as HomePage) ---
+  // --- SCROLL LINE ANIMATION ---
   const scrollLineY = useMotionValue(-100);
   const scrollLineSpeed = useMotionValue(0.067);
   const { scrollY } = useScroll();
@@ -291,10 +295,9 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
   return (
     <div className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-0 pb-0 px-0 relative z-[150] flex flex-col font-sans">
       
-      {/* HERO SECTION - 100vh Full Height */}
+      {/* HERO SECTION */}
       <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
-          {/* Return to Home - Fixed spacing (same as ProcessPage) */}
           <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
             <button 
               onClick={onBack}
@@ -305,7 +308,6 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
             </button>
           </div>
           
-          {/* Main Content - Centered in remaining space */}
           <motion.div 
             initial="hidden" 
             whileInView="visible" 
@@ -315,7 +317,8 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
           >
             <div className="flex flex-col justify-center">
               <motion.span variants={heroItem} className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-2 md:mb-4 lg:mb-10 block">/ THE SYSTEM</motion.span>
-              <motion.h1 variants={heroItem} className="font-serif text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-3 md:mb-4 lg:mb-10">
+              {/* FIX: H1 Standard Size (text-5xl -> text-8xl) */}
+              <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-3 md:mb-4 lg:mb-10">
                 7 Ways I Fix <br />
                 <span className="italic text-black/20">Your Business.</span>
               </motion.h1>
@@ -332,7 +335,6 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
           </motion.div>
         </div>
         
-        {/* SCROLL LINE - Same as HomePage */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
           <motion.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
@@ -361,7 +363,6 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
               </p>
           </div>
 
-
           <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative">
             {ALL_PILLARS.map((pillar) => (
               <GridItem 
@@ -375,6 +376,9 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
           </motion.div>
         </div>
       </section>
+
+      {/* CTA BLOCK - REMOVED! */}
+      {/* (Deleted "Ready to stop guessing?" section) */}
 
       <FAQSection faqs={systemFAQs} accentColor="#C5A059" title="Questions?" subtitle="Everything you need to know before choosing a service." onNavigate={onNavigate} />
       <GlobalFooter onNavigate={onNavigate} />
