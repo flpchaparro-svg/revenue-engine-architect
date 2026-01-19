@@ -192,32 +192,34 @@ export const SystemArchitecture = () => {
                 animate="visible"
                 whileHover="hover"
                 style={{ 
-                   left: card.x, 
-                   top: card.y, 
-                   x: "-50%",
-                   y: "-50%",
-                   borderColor: `${card.color}40`
+                    left: card.x, 
+                    top: card.y, 
+                    x: "-50%",
+                    y: "-50%",
+                    borderColor: `${card.color}40`
                 }}
-                className="absolute cursor-pointer bg-white border rounded-sm p-6 md:p-8 w-48 md:w-60 flex flex-col items-center text-center shadow-lg pointer-events-auto transition-colors duration-300 hover:bg-white hover:text-[#1a1a1a] group"
+                className="absolute cursor-pointer bg-white/95 backdrop-blur-sm border rounded-[2px] p-5 w-48 md:w-56 flex flex-col items-center text-center shadow-sm pointer-events-auto transition-all duration-300 hover:shadow-xl hover:scale-105 group z-40 text-[#1a1a1a]"
                 onClick={() => setSelectedPillar(card)}
               >
-                 {/* FIXED: Dynamic Color Restoration & Type B (Micro Label) */}
-                 <span 
-                    className="font-mono text-[10px] font-medium uppercase tracking-[0.15em] mb-3" 
+                {/* Technical Eyebrow */}
+                <span 
+                    className="font-mono text-[9px] font-bold uppercase tracking-widest mb-2 opacity-80" 
                     style={{ color: card.color }}
-                 >
+                >
                     {card.group}
-                 </span>
-                 
-                 {/* Compact Title */}
-                 <h4 className="font-serif text-lg md:text-xl text-[#1a1a1a] leading-tight tracking-tight mb-2">{card.title}</h4>
-                 
-                 <div className="mt-auto flex items-center justify-center">
-                    {/* FIXED: Type B (Micro Label), Neutral Grey -> Hover Black, Text Change to [ VIEW ] */}
-                    <span className="font-mono text-[10px] font-medium uppercase tracking-[0.15em] text-[#1a1a1a]/40 group-hover:text-[#1a1a1a] transition-colors">
-                        [ VIEW ]
-                    </span>
-                 </div>
+                </span>
+                
+                {/* Solid Serif Title (Tight Leading) */}
+                <h4 className="font-serif text-xl text-[#1a1a1a] leading-[0.9] tracking-tight">
+                  {card.title}
+                </h4>
+                
+                {/* Technical View Indicator (Line - VIEW - Line) */}
+                <div className="mt-4 flex items-center gap-2">
+                   <span className="h-px w-3 bg-[#1a1a1a] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                   <span className="font-mono text-[9px] font-bold text-[#1a1a1a] tracking-widest">VIEW</span>
+                   <span className="h-px w-3 bg-[#1a1a1a] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
               </motion.div>
            ))}
         </motion.div>
