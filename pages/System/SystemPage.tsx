@@ -191,9 +191,9 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
                   <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>{pillar.number} / {pillar.categoryLabel}</span>
                   <div className="w-12 h-px" style={{ backgroundColor: pillar.categoryHex }} />
                 </div>
-                {/* H2 Title */}
-                <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-2">{pillar.title}</h2>
-                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-3xl">{pillar.description}</p>
+                {/* H2 Title - Component Standard (Not Mega Header) */}
+                <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl tracking-tight text-[#1a1a1a] mb-2">{pillar.title}</h2>
+                <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed max-w-3xl">{pillar.description}</p>
               </div>
               
               <div className="mt-6 md:mt-0">
@@ -208,10 +208,10 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
                     <div className="mb-4 flex items-center justify-between">
                       <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>0{idx + 1}</span>
                     </div>
-                    {/* H3 Title */}
-                    <h4 className="font-serif text-2xl md:text-3xl leading-tight tracking-tight mb-4">{sub.title}</h4>
-                    {/* Compact Body */}
-                    <p className="font-sans text-sm leading-relaxed text-[#1a1a1a]/70">{sub.description}</p>
+                    {/* H3 Title - Sub-header Standard */}
+                    <h4 className="font-serif text-xl md:text-2xl leading-tight tracking-tight mb-4 text-[#1a1a1a]">{sub.title}</h4>
+                    {/* Body Text - Component Standard */}
+                    <p className="font-sans text-base leading-relaxed text-[#1a1a1a]/70">{sub.description}</p>
                   </motion.div>
                 ))}
             </div>
