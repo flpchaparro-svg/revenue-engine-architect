@@ -176,7 +176,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                     <span className="italic text-[#E21E3F]">evaporates.</span>
                  </h1>
                  <div className="w-16 h-1 bg-[#1a1a1a] mb-10"></div>
-                 <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60 max-w-sm">
+                 <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-sm">
                     Your business isn't broken, but it is leaking. These are the 4 silent fracture points where profit disappears before it hits your bank.
                  </p>
               </div>
@@ -230,7 +230,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                <span className="text-[#E21E3F]">margin</span> <br/>
                <span className="italic text-[#E21E3F]">evaporates.</span>
             </h1>
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60 max-w-sm">
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-sm">
                Your business isn't broken, but it is leaking. These are the 4 silent fracture points where profit disappears before it hits your bank.
             </p>
          </div>

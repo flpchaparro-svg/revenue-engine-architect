@@ -193,7 +193,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
                 </div>
                 {/* H2 Title - Component Standard (Not Mega Header) */}
                 <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl tracking-tight text-[#1a1a1a] mb-2">{pillar.title}</h2>
-                <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed max-w-3xl">{pillar.description}</p>
+                <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed max-w-3xl">{pillar.description}</p>
               </div>
               
               <div className="mt-6 md:mt-0">

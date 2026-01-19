@@ -100,7 +100,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
               Core <span className="italic font-serif text-[#C5A059]">Principles.</span>
             </h2>
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60 max-w-2xl">
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl">
               Complexity is the enemy of execution. I follow two simple rules.
             </p>
           </div>
@@ -125,7 +125,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
               The Execution <span className="italic font-serif text-[#C5A059]">Path.</span>
             </h2>
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60 max-w-2xl">
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl">
               From diagnosis to handover. A linear process with no hidden steps.
             </p>
           </div>
@@ -149,7 +149,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                        <h3 className="font-serif text-4xl text-[#1a1a1a]">{step.title}</h3>
                     </div>
                     <div className="md:col-span-7">
-                       <p className="font-sans text-lg text-[#1a1a1a]/60 leading-relaxed">
+                       <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">
                          {step.text}
                        </p>
                     </div>
