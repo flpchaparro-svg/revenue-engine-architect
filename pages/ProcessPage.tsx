@@ -94,7 +94,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* GUIDING PRINCIPLES */}
         <div className="mb-40 max-w-5xl">
           <div className="mb-24">
-            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] mb-8 flex items-center gap-2">
+            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-8 flex items-center gap-2">
               / PHILOSOPHY
             </div>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
@@ -119,7 +119,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* THE 4 PHASES */}
         <div className="mb-32">
           <div className="mb-24">
-            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] mb-8 flex items-center gap-2">
+            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-8 flex items-center gap-2">
               / METHODOLOGY
             </div>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
@@ -162,7 +162,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* BOTTOM CTA */}
         <div className="bg-zinc-900 border border-zinc-800 text-zinc-100 p-12 md:p-24 relative overflow-hidden mb-32 rounded-sm">
            <div className="relative z-10 flex flex-col items-center text-center">
-              <h2 className="font-serif text-5xl md:text-6xl lg:text-8xl leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8">
+              <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tighter text-white mb-8">
                 Ready to <span className="italic font-serif text-[#C5A059]">Start?</span>
               </h2>
               
