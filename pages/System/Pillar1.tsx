@@ -8,11 +8,11 @@ import {
   useTransform
 } from 'framer-motion';
 import { 
-  ArrowLeft, ArrowRight, Zap, Map, Shield, 
+  ArrowLeft, Zap, Map, Shield, 
   ShoppingBag, Box, RefreshCw, 
   Compass, Lock, BookOpen, 
   Gem, Layers, Star,
-  CheckCircle, ChevronDown, ChevronRight, Activity, Terminal, HelpCircle
+  CheckCircle, ChevronDown, ChevronRight, Terminal, HelpCircle
 } from 'lucide-react';
 import PillarVisual_Catchment from '../../components/PillarVisual_Catchment';
 import FAQSection from '../../components/FAQSection';
@@ -34,24 +34,29 @@ const FillButton = ({ children, onClick, className = "" }: { children: React.Rea
   </button>
 );
 
-// --- VISUALIZATIONS (New Stream Concept for Velocity) ---
+// --- VISUALIZATIONS ---
 const TierVisual = ({ tierKey }: { tierKey: string }) => {
   return (
     <div className="h-32 w-full mb-6 flex items-center justify-center relative bg-transparent">
       
       {tierKey === 'velocity' && (
-        // ANIMATION: "The Lead Stream" (Catching Flow)
-        // No Radar. Just smooth linear intake.
-        <div className="relative flex items-center gap-4">
+        // ANIMATION: "The Lead Stream" (Linear Connection - NO RADAR)
+        // Concept: Two streams of data (Leads) rushing into a central node (The Business).
+        <div className="relative flex items-center gap-2">
             {/* Incoming Left Stream */}
             <motion.div
                 animate={{ x: [40, 0], opacity: [0, 1, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
                 className="w-16 h-[2px] bg-gradient-to-r from-transparent to-[#C5A059]"
             />
+            <motion.div
+                animate={{ x: [40, 0], opacity: [0, 1, 0] }}
+                transition={{ duration: 1.5, delay: 0.75, repeat: Infinity, ease: "linear" }}
+                className="w-16 h-[2px] bg-gradient-to-r from-transparent to-[#C5A059] absolute left-0"
+            />
             
-            {/* The Catcher (Diamond) */}
-            <div className="relative w-4 h-4 bg-[#1a1a1a] border border-[#C5A059] rotate-45 z-10 flex items-center justify-center">
+            {/* The Catcher (Diamond Node) */}
+            <div className="relative w-4 h-4 bg-[#1a1a1a] border border-[#C5A059] rotate-45 z-10 flex items-center justify-center shadow-[0_0_15px_#C5A059]">
                 <div className="w-1.5 h-1.5 bg-[#C5A059]" />
             </div>
 
@@ -60,6 +65,11 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
                 animate={{ x: [-40, 0], opacity: [0, 1, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
                 className="w-16 h-[2px] bg-gradient-to-l from-transparent to-[#C5A059]"
+            />
+             <motion.div
+                animate={{ x: [-40, 0], opacity: [0, 1, 0] }}
+                transition={{ duration: 1.5, delay: 0.75, repeat: Infinity, ease: "linear" }}
+                className="w-16 h-[2px] bg-gradient-to-l from-transparent to-[#C5A059] absolute right-0"
             />
         </div>
       )}
@@ -108,13 +118,13 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
   );
 };
 
-// --- DATA: NOW WITH "I NEED..." HOOKS ---
+// --- DATA ---
 const TIERS = {
   velocity: {
     id: 'velocity',
     label: "VELOCITY",
     hook: "I need leads now.",
-    summary: "Choose this if you are a Tradesman, Emergency Service, or Local Professional who loses money when the phone isn't answered.",
+    summary: "Choose this if you are a Tradesman, Emergency Service, or Local Professional (Plumbers, Locksmiths) who is losing money because you can't answer the phone while working.",
     sprint: "7-DAY SPRINT",
     specs: ['7-Day Turnaround', 'WordPress + Elementor Pro', 'Mobile-First Conversion Design', 'Basic SEO Foundation'],
     personas: [
@@ -151,7 +161,7 @@ const TIERS = {
     id: 'retail',
     label: "RETAIL",
     hook: "I need to sync my stock.",
-    summary: "Choose this if you sell physical products and are tired of selling things you don't have, or fighting with shipping costs.",
+    summary: "Choose this if you sell physical products (Fashion, Parts, Supplies) and you are tired of overselling, manual inventory updates, or fighting with shipping calculators.",
     sprint: "14-DAY SPRINT",
     specs: ['Shopify Architecture', 'POS Integration (Square/Vend)', 'Shipping Logic Automation', 'Automated Email Flows'],
     personas: [
@@ -188,7 +198,7 @@ const TIERS = {
     id: 'performance',
     label: "PERFORMANCE",
     hook: "I need speed & trust.",
-    summary: "Choose this if you sell high-ticket services (Homes, Medical, Finance) where a slow or insecure website loses you the deal.",
+    summary: "Choose this if you sell high-ticket services (Luxury Homes, Medical, Finance) where a slow or insecure website makes you look 'cheap' and loses you the deal.",
     sprint: "21-DAY SPRINT",
     specs: ['Headless Tech (Next.js)', '0.5s Load Times', 'Unhackable Security', 'Advanced CRM Integration'],
     personas: [
@@ -225,7 +235,7 @@ const TIERS = {
     id: 'flagship',
     label: "FLAGSHIP",
     hook: "I need to show off.",
-    summary: "Choose this if you are a Heritage Brand or Luxury Hotel where 'Standard' isn't enough. You need 3D, Motion, and Cinema.",
+    summary: "Choose this if you are a Heritage Brand, Luxury Hotel, or Visionary where 'Standard' isn't enough. You need 3D, Motion, and Cinema to justify premium pricing.",
     sprint: "30+ DAY SPRINT",
     specs: ['Custom 3D / WebGL', 'Cinematic Motion Design', 'Bespoke User Journey', 'Award-Winning Aesthetics'],
     personas: [
@@ -261,7 +271,6 @@ const TIERS = {
 };
 
 const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
-  // Navigation State
   const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('velocity');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
   
@@ -284,6 +293,23 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
   const currentTier = TIERS[activeTier];
   const currentPersona = currentTier.personas[activePersonaIndex];
+
+  // --- AUTO SCROLL FUNCTION (Fixes Mobile Disorientation) ---
+  const handleScrollTo = (id: string) => {
+    setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+            const offset = 100; // Header offset
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - offset;
+      
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth"
+            });
+        }
+    }, 200); // Wait for accordion expansion
+  };
 
   return (
     <motion.div 
@@ -476,13 +502,21 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
           {Object.entries(TIERS).map(([key, tier]) => {
             const isTierExpanded = expandedTier === key;
             return (
-              <div key={key} className={`border rounded-sm overflow-hidden transition-all duration-300 ${isTierExpanded ? 'border-[#1a1a1a] bg-white shadow-xl scale-[1.02] z-10' : 'border-black/10 bg-white'}`}>
+              <div 
+                key={key} 
+                id={`tier-mobile-${key}`} // ID for Scroll Target
+                className={`border rounded-sm overflow-hidden transition-all duration-300 ${isTierExpanded ? 'border-[#1a1a1a] bg-white shadow-xl scale-[1.02] z-10' : 'border-black/10 bg-white'}`}
+              >
                 
                 {/* LEVEL 1: TIER HEADER (DARK MODE WHEN ACTIVE) */}
                 <button 
                   onClick={() => {
-                    setExpandedTier(isTierExpanded ? null : key as keyof typeof TIERS);
+                    const willExpand = !isTierExpanded;
+                    setExpandedTier(willExpand ? key as keyof typeof TIERS : null);
                     setExpandedPersona(null); // Close inner accordions
+                    if (willExpand) {
+                        handleScrollTo(`tier-mobile-${key}`); // TRIGGER SCROLL
+                    }
                   }}
                   className={`w-full flex items-center justify-between p-6 text-left transition-colors duration-300 ${isTierExpanded ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}
                 >
@@ -517,11 +551,21 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                          {tier.personas.map((p) => {
                            const isPersonaExpanded = expandedPersona === p.id;
                            return (
-                             <div key={p.id} className={`border rounded-sm overflow-hidden transition-all duration-300 ${isPersonaExpanded ? 'border-[#C5A059] bg-white shadow-md' : 'border-black/5 bg-white'}`}>
+                             <div 
+                                key={p.id} 
+                                id={`persona-mobile-${p.id}`} // ID for Scroll Target
+                                className={`border rounded-sm overflow-hidden transition-all duration-300 ${isPersonaExpanded ? 'border-[#C5A059] bg-white shadow-md' : 'border-black/5 bg-white'}`}
+                             >
                                
                                {/* LEVEL 2: PERSONA HEADER (GOLD ACCENT WHEN ACTIVE) */}
                                <button 
-                                 onClick={() => setExpandedPersona(isPersonaExpanded ? null : p.id)}
+                                 onClick={() => {
+                                    const willExpand = !isPersonaExpanded;
+                                    setExpandedPersona(willExpand ? p.id : null);
+                                    if (willExpand) {
+                                        handleScrollTo(`persona-mobile-${p.id}`); // TRIGGER SCROLL
+                                    }
+                                 }}
                                  className="w-full flex items-center gap-4 p-4 text-left hover:bg-black/5 transition-colors"
                                >
                                   <div className={`p-2 rounded-full ${isPersonaExpanded ? 'bg-[#C5A059] text-[#1a1a1a]' : 'bg-black/5 text-black/40'}`}>
