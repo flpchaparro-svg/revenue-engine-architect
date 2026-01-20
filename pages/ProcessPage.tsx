@@ -1,6 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { 
+  ArrowLeft, Search, PenTool, Hammer, Flag, 
+  ArrowRight, CheckCircle2, Sliders, Zap, 
+  Terminal, ShieldCheck, ChevronDown
+} from 'lucide-react';
 import ProtocolVisual_Geodesic from '../components/ProtocolVisual_Geodesic';
 
 interface ProcessPageProps {
@@ -8,45 +12,82 @@ interface ProcessPageProps {
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
+// --- COMPONENT: SECTION WRAPPER ---
+const Section: React.FC<{ children: React.ReactNode, className?: string, delay?: number }> = ({ children, className = "", delay = 0 }) => (
+  <motion.div 
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-50px" }}
+    transition={{ duration: 0.7, delay, ease: "easeOut" }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+);
+
 const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
 
   const principles = [
     {
       id: 'p1',
-      label: '01 // CLARITY OVER COMPLEXITY',
-      body: "If I can't explain it to you at a pub, it's too complex. You'll understand every part of your system, and if you don't, I haven't done my job."
+      label: 'RULE 01 // CLARITY',
+      title: 'Clarity Over Complexity',
+      body: "If I can't explain it to you at a pub, it's too complex. You'll understand every part of your system, and if you don't, I haven't done my job.",
+      icon: Search
     },
     {
       id: 'p2',
-      label: '02 // PEOPLE BEFORE TECHNOLOGY',
-      body: "If a new tool makes your team's day harder, it's failed. I build systems that save time, not add more admin."
+      label: 'RULE 02 // EMPATHY',
+      title: 'People Before Technology',
+      body: "If a new tool makes your team's day harder, it's failed. I build systems that save time, not add more admin.",
+      icon: CheckCircle2
     }
   ];
 
   const steps = [
     {
       id: '01',
+      phase: 'PHASE_I',
       label: '[ DIAGNOSE ]',
       title: 'Find the Leaks',
-      text: "I don't guess. I look for the repetitive tasks burning your team, the stuff that eats 15 hours a week. I find where data gets typed twice, where leads go cold, and where profit disappears before it hits your bank."
+      text: "I don't guess. I look for the repetitive tasks burning your team, the stuff that eats 15 hours a week. I find where data gets typed twice, where leads go cold, and where profit disappears.",
+      icon: Search,
+      color: 'text-[#E21E3F]',
+      borderColor: 'border-[#E21E3F]',
+      bg: 'bg-[#E21E3F]'
     },
     {
       id: '02',
+      phase: 'PHASE_II',
       label: '[ DESIGN ]',
       title: 'Pick the Right Tools',
-      text: "I'm not locked into HubSpot or Salesforce, so I find what actually fits your business. That way you're not paying for features you'll never use."
+      text: "I'm not locked into HubSpot or Salesforce, so I find what actually fits your business. That way you're not paying for features you'll never use. We design the logic before we write a single line of code.",
+      icon: PenTool,
+      color: 'text-[#C5A059]',
+      borderColor: 'border-[#C5A059]',
+      bg: 'bg-[#C5A059]'
     },
     {
       id: '03',
+      phase: 'PHASE_III',
       label: '[ BUILD ]',
-      title: 'Ship Fast',
-      text: "No 6-month projects that drain your budget before you see results. I build in sprints so you start seeing progress in weeks, not quarters, and we refine as we go."
+      title: 'Ship Fast & Iterate',
+      text: "No 6-month projects that drain your budget. I build in sprints so you start seeing progress in weeks, not quarters. We build the core, test it live, and refine as we go.",
+      icon: Hammer,
+      color: 'text-[#C5A059]',
+      borderColor: 'border-[#C5A059]',
+      bg: 'bg-[#C5A059]'
     },
     {
       id: '04',
+      phase: 'PHASE_IV',
       label: '[ HANDOVER ]',
       title: 'Make It Stick',
-      text: "Software fails when people don't use it. I build the training so your team actually prefers the new way, and I don't leave until it's their new normal."
+      text: "Software fails when people don't use it. I build the training materials and run the workshops so your team actually prefers the new way. I don't leave until it's their new normal.",
+      icon: Flag,
+      color: 'text-[#1a1a1a]',
+      borderColor: 'border-[#1a1a1a]',
+      bg: 'bg-[#1a1a1a]'
     }
   ];
 
@@ -55,132 +96,174 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
       initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }} 
       exit={{ opacity: 0 }}
-      className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-0 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col"
+      className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-0 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col selection:bg-[#C5A059]/30"
     >
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow">
+      {/* Background Texture - Technical Grid (Subtle) */}
+      <div className="fixed inset-0 pointer-events-none opacity-[0.02]" 
+           style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
+      />
+
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow relative z-10">
         
         {/* NAV BACK */}
         <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
           <button 
             onClick={onBack}
-            className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors"
+            className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/60 hover:text-[#C5A059] transition-colors"
           >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            / Return to Home
+            <div className="w-8 h-8 rounded-full border border-[#1a1a1a]/10 flex items-center justify-center group-hover:border-[#C5A059] transition-colors bg-white">
+              <ArrowLeft className="w-3 h-3 group-hover:-translate-x-0.5 transition-transform" />
+            </div>
+            <span>Return to Home</span>
           </button>
         </div>
 
-        {/* HERO */}
-        <div className="mb-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
+        {/* HERO SECTION */}
+        <div className="mb-24 lg:mb-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative">
+          <Section>
             <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
               <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
               <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
                 THE PROCESS
               </span>
             </div>
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
-              How I <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Work.</span>
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-12">
+              How I <span className="italic font-serif text-[#C5A059]">Work.</span>
             </h1>
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
-              A clear path from chaos to order, no fluff.
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-8 py-2">
+              A clear path from chaos to order. <br />
+              No black boxes. No fluff. Just engineering.
             </p>
-          </div>
-          <div className="h-full min-h-[500px] flex items-center justify-center lg:justify-end">
+          </Section>
+
+          {/* VISUAL: The Geodesic Dome (Wrapped) */}
+          <Section delay={0.2} className="h-full min-h-[400px] lg:min-h-[500px] flex items-center justify-center lg:justify-end relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-[#FFF2EC] to-transparent z-10 lg:hidden" /> {/* Fade for mobile */}
             <ProtocolVisual_Geodesic />
-          </div>
+          </Section>
         </div>
 
-        {/* GUIDING PRINCIPLES */}
-        <div className="mb-40 max-w-5xl">
-          <div className="mb-24">
-            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-8 flex items-center gap-2">
-              / PHILOSOPHY
-            </div>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
+        {/* SECTION: PHILOSOPHY CARDS */}
+        <div className="mb-32 md:mb-40">
+          <Section className="mb-16">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 flex items-center gap-2">
+              <Terminal className="w-4 h-4" />
+              OPERATING SYSTEM
+            </span>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
               Core <span className="italic font-serif text-[#C5A059]">Principles.</span>
             </h2>
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl">
-              Complexity is the enemy of execution. I follow two simple rules.
-            </p>
+          </Section>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+             {principles.map((principle, idx) => (
+               <Section key={principle.id} delay={idx * 0.1} className="group bg-white p-8 md:p-12 border border-[#1a1a1a]/5 hover:border-[#1a1a1a]/20 shadow-sm hover:shadow-xl transition-all duration-500 rounded-sm relative overflow-hidden">
+                 
+                 {/* Hover Highlight */}
+                 <div className="absolute top-0 left-0 w-full h-1 bg-[#1a1a1a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+
+                 <div className="flex justify-between items-start mb-8">
+                    <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-[#1a1a1a]/40 group-hover:text-[#1a1a1a] transition-colors">
+                      {principle.label}
+                    </span>
+                    <principle.icon className="w-6 h-6 text-[#1a1a1a]/20 group-hover:text-[#C5A059] transition-colors" />
+                 </div>
+
+                 <h3 className="font-serif text-3xl text-[#1a1a1a] mb-4 group-hover:translate-x-2 transition-transform duration-300">
+                   {principle.title}
+                 </h3>
+                 <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">
+                   {principle.body}
+                 </p>
+               </Section>
+             ))}
           </div>
-           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
-              {principles.map((principle) => (
-                <div key={principle.id}>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40 mb-4 block font-bold">{principle.label}</span>
-                  <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">
-                    {principle.body}
-                  </p>
-                </div>
-              ))}
-           </div>
         </div>
 
-        {/* THE 4 PHASES */}
+        {/* SECTION: THE EXECUTION PATH (TIMELINE) */}
         <div className="mb-32">
-          <div className="mb-24">
-            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-8 flex items-center gap-2">
-              / METHODOLOGY
-            </div>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
+          <Section className="mb-20">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center gap-2">
+              <Sliders className="w-4 h-4" />
+              METHODOLOGY
+            </span>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
               The Execution <span className="italic font-serif text-[#C5A059]">Path.</span>
             </h2>
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl">
-              From diagnosis to handover. A linear process with no hidden steps.
-            </p>
-          </div>
-          <div className="space-y-0 relative border-l border-black/10 ml-4 md:ml-0">
-            {steps.map((step, i) => (
-              <motion.div 
-                key={step.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="group py-12 pl-12 md:pl-0 flex flex-col md:flex-row gap-8 md:items-baseline relative"
-              >
-                 <div className="absolute left-[-5px] top-16 w-2 h-2 bg-[#1a1a1a] rounded-full md:hidden" />
-                 <div className="w-32 shrink-0 font-mono text-xs text-[#E21E3F] font-bold tracking-widest pt-2">
-                   {step.id} //
-                 </div>
-                 <div className="flex-grow grid grid-cols-1 md:grid-cols-12 gap-8 border-b border-black/5 pb-12 group-last:border-none">
-                    <div className="md:col-span-4">
-                       <span className="font-mono text-[9px] uppercase tracking-widest text-[#C5A059] mb-3 block">{step.label}</span>
-                       <h3 className="font-serif text-4xl text-[#1a1a1a]">{step.title}</h3>
-                    </div>
-                    <div className="md:col-span-7">
-                       <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">
-                         {step.text}
-                       </p>
-                    </div>
-                 </div>
-              </motion.div>
-            ))}
+          </Section>
+
+          <div className="relative pl-4 md:pl-0">
+             {/* THE CONNECTING LINE */}
+             <div className="absolute left-[19px] md:left-[50%] top-0 bottom-0 w-px bg-gradient-to-b from-[#E21E3F] via-[#C5A059] to-[#1a1a1a] hidden md:block" />
+             
+             {/* MOBILE LINE */}
+             <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-[#E21E3F] via-[#C5A059] to-[#1a1a1a] md:hidden" />
+
+             {steps.map((step, idx) => (
+               <Section key={step.id} delay={idx * 0.1} className={`relative flex flex-col md:flex-row gap-8 md:gap-24 py-12 ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+                  
+                  {/* CENTER NODE (ABSOLUTE) */}
+                  <div className="absolute left-0 md:left-[50%] top-12 -translate-x-1/2 md:-translate-x-1/2 z-10 bg-[#FFF2EC] p-2">
+                     <div className={`w-10 h-10 rounded-full border-2 bg-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300 ${step.borderColor}`}>
+                        <step.icon className={`w-4 h-4 ${step.color}`} />
+                     </div>
+                  </div>
+
+                  {/* CONTENT SIDE */}
+                  <div className={`flex-1 md:text-right ${idx % 2 !== 0 ? 'md:text-left' : ''} pl-12 md:pl-0`}>
+                     <span className={`font-mono text-[9px] uppercase tracking-[0.2em] font-bold mb-2 block ${step.color}`}>
+                       {step.phase}
+                     </span>
+                     <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-4">
+                       {step.title}
+                     </h3>
+                  </div>
+
+                  {/* DESCRIPTION SIDE */}
+                  <div className={`flex-1 pl-12 md:pl-0 ${idx % 2 !== 0 ? 'md:text-right' : 'md:text-left'}`}>
+                     <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed max-w-md">
+                       {step.text}
+                     </p>
+                  </div>
+
+               </Section>
+             ))}
           </div>
         </div>
 
         {/* BOTTOM CTA */}
-        <div className="bg-zinc-900 border border-zinc-800 text-zinc-100 p-12 md:p-24 relative overflow-hidden mb-32 rounded-sm">
-           <div className="relative z-10 flex flex-col items-center text-center">
-              <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tighter text-white mb-8">
-                Ready to <span className="italic font-serif text-[#C5A059]">Start?</span>
-              </h2>
-              
-              <button 
-                onClick={() => onNavigate('contact')}
-                className="group relative px-10 py-5 bg-transparent text-zinc-100 border border-zinc-700 font-mono text-xs uppercase tracking-[0.3em] font-bold overflow-hidden transition-all duration-300 hover:border-zinc-500 mb-4"
-              >
-                 <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                 <span className="relative z-10 group-hover:text-zinc-900 transition-colors duration-500 flex items-center gap-3">
-                    [ BOOK A CALL ]
-                 </span>
-              </button>
-              
-              <p className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest">
-                15 minutes, no sales pitch.
-              </p>
-           </div>
-        </div>
+        <Section className="mb-32">
+          <div className="bg-[#1a1a1a] text-white p-12 md:p-24 text-center relative overflow-hidden rounded-sm group cursor-default">
+             {/* Hover Glow Effect */}
+             <div className="absolute inset-0 bg-[#C5A059]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#C5A059]/20 rounded-full blur-[100px] opacity-0 group-hover:opacity-30 transition-opacity duration-700" />
+
+             <div className="relative z-10 flex flex-col items-center">
+                <span className="font-mono text-xs text-[#C5A059] uppercase tracking-widest mb-6 block">
+                  Project Initation
+                </span>
+                <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tighter text-white mb-12">
+                  Ready to <span className="italic font-serif text-[#C5A059]">Start?</span>
+                </h2>
+                
+                <button 
+                  onClick={() => onNavigate('contact')}
+                  className="group relative px-10 py-5 bg-[#C5A059] text-[#1a1a1a] font-mono text-xs uppercase tracking-[0.3em] font-bold overflow-hidden transition-all duration-300 hover:bg-white mb-6"
+                >
+                   <span className="relative z-10 flex items-center gap-3">
+                      [ BOOK A CALL ] <ArrowRight className="w-4 h-4" />
+                   </span>
+                </button>
+                
+                <div className="flex items-center gap-2 opacity-50">
+                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                  <p className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest">
+                    Accepting New Clients
+                  </p>
+                </div>
+             </div>
+          </div>
+        </Section>
 
       </div>
     </motion.div>

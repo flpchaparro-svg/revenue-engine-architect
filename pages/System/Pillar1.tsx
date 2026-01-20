@@ -1,10 +1,8 @@
-
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { 
   motion, 
   AnimatePresence, 
   useScroll,
-  useMotionValueEvent,
   useAnimationFrame,
   useMotionValue,
   useTransform
@@ -14,7 +12,7 @@ import {
   ShoppingBag, Box, RefreshCw, 
   Compass, Lock, BookOpen, 
   Gem, Layers, Star,
-  CheckCircle2
+  CheckCircle, ChevronDown, ChevronRight, Activity, Terminal, HelpCircle
 } from 'lucide-react';
 import PillarVisual_Catchment from '../../components/PillarVisual_Catchment';
 import FAQSection from '../../components/FAQSection';
@@ -25,22 +23,98 @@ interface PillarPageProps {
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
-// --- HELPER COMPONENT: FILL BUTTON ---
+// --- HELPER: FILL BUTTON ---
 const FillButton = ({ children, onClick, className = "" }: { children: React.ReactNode, onClick?: () => void, className?: string }) => (
   <button 
     onClick={onClick} 
-    className={`relative overflow-hidden group bg-[#C5A059] text-white border border-[#C5A059] ${className}`}
+    className={`relative overflow-hidden group bg-[#C5A059] text-white border border-[#C5A059] shadow-sm hover:shadow-lg transition-all duration-300 ${className}`}
   >
     <div className="absolute inset-0 bg-[#1a1a1a] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]" />
     <span className="relative z-10 flex items-center justify-center gap-3">{children}</span>
   </button>
 );
 
+// --- VISUALIZATIONS (New Stream Concept for Velocity) ---
+const TierVisual = ({ tierKey }: { tierKey: string }) => {
+  return (
+    <div className="h-32 w-full mb-6 flex items-center justify-center relative bg-transparent">
+      
+      {tierKey === 'velocity' && (
+        // ANIMATION: "The Lead Stream" (Catching Flow)
+        // No Radar. Just smooth linear intake.
+        <div className="relative flex items-center gap-4">
+            {/* Incoming Left Stream */}
+            <motion.div
+                animate={{ x: [40, 0], opacity: [0, 1, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                className="w-16 h-[2px] bg-gradient-to-r from-transparent to-[#C5A059]"
+            />
+            
+            {/* The Catcher (Diamond) */}
+            <div className="relative w-4 h-4 bg-[#1a1a1a] border border-[#C5A059] rotate-45 z-10 flex items-center justify-center">
+                <div className="w-1.5 h-1.5 bg-[#C5A059]" />
+            </div>
+
+            {/* Incoming Right Stream */}
+            <motion.div
+                animate={{ x: [-40, 0], opacity: [0, 1, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
+                className="w-16 h-[2px] bg-gradient-to-l from-transparent to-[#C5A059]"
+            />
+        </div>
+      )}
+
+      {tierKey === 'retail' && (
+        // ANIMATION: Orbit (Synchronization)
+        <div className="relative w-24 h-24 flex items-center justify-center">
+             <motion.div 
+               animate={{ rotate: 360 }}
+               transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+               className="absolute w-16 h-16 border border-[#C5A059]/40 rounded-full border-t-[#C5A059]"
+             />
+             <motion.div 
+               animate={{ rotate: -360 }}
+               transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+               className="absolute w-10 h-10 border border-[#C5A059]/60 rounded-full border-b-[#C5A059]"
+             />
+             <div className="w-1.5 h-1.5 bg-[#C5A059] rounded-full shadow-[0_0_10px_#C5A059]" />
+        </div>
+      )}
+
+      {tierKey === 'performance' && (
+        // ANIMATION: Power Spike (Load Speed)
+        <div className="flex items-end gap-2 h-16 pb-0">
+            <motion.div animate={{ height: [10, 30, 10] }} transition={{ duration: 1.5, repeat: Infinity }} className="w-1.5 bg-[#C5A059]/30 rounded-t-sm" />
+            <motion.div animate={{ height: [20, 50, 20] }} transition={{ duration: 1.5, delay: 0.2, repeat: Infinity }} className="w-1.5 bg-[#C5A059]/60 rounded-t-sm" />
+            <motion.div animate={{ height: [30, 60, 30] }} transition={{ duration: 1.5, delay: 0.4, repeat: Infinity }} className="w-1.5 bg-[#C5A059] rounded-t-sm shadow-[0_0_10px_#C5A059]" />
+            <motion.div animate={{ height: [15, 40, 15] }} transition={{ duration: 1.5, delay: 0.1, repeat: Infinity }} className="w-1.5 bg-[#C5A059]/40 rounded-t-sm" />
+        </div>
+      )}
+
+      {tierKey === 'flagship' && (
+        // ANIMATION: Rotating Structure (Luxury)
+        <div className="perspective-500">
+            <motion.div 
+              animate={{ rotateY: 360, rotateX: 180 }}
+              transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+              className="w-16 h-16 border border-[#C5A059]/80 relative transform-style-3d flex items-center justify-center"
+              style={{ transformStyle: 'preserve-3d' }}
+            >
+               <div className="absolute inset-0 border border-[#C5A059]/20 rotate-45" />
+            </motion.div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+// --- DATA: NOW WITH "I NEED..." HOOKS ---
 const TIERS = {
   velocity: {
     id: 'velocity',
-    label: "TIER 01 / VELOCITY",
-    promise: "Your phone stops going unanswered in 7 days.",
+    label: "VELOCITY",
+    hook: "I need leads now.",
+    summary: "Choose this if you are a Tradesman, Emergency Service, or Local Professional who loses money when the phone isn't answered.",
     sprint: "7-DAY SPRINT",
     specs: ['7-Day Turnaround', 'WordPress + Elementor Pro', 'Mobile-First Conversion Design', 'Basic SEO Foundation'],
     personas: [
@@ -57,7 +131,7 @@ const TIERS = {
         id: "route",
         icon: Map,
         title: "The Route Operator",
-        examples: "Pest Control, Solar Installers, Cleaning Services, Pool Maintenance",
+        examples: "Pest Control, Solar Installers",
         painTitle: "The Qualification Time Sink",
         painText: "You're driving 45 minutes to quote a job only to discover they wanted 'free advice' or their budget is $200 for a $2,000 job. You're burning diesel and daylight on tyre-kickers.",
         solution: "I act as 'The Gatekeeper'. Conditional logic forms pre-qualify leads so you only talk to high-value clients. Your calendar fills with jobs worth driving to."
@@ -75,8 +149,9 @@ const TIERS = {
   },
   retail: {
     id: 'retail',
-    label: "TIER 02 / RETAIL",
-    promise: "Your store is open and processing payments in 14 days.",
+    label: "RETAIL",
+    hook: "I need to sync my stock.",
+    summary: "Choose this if you sell physical products and are tired of selling things you don't have, or fighting with shipping costs.",
     sprint: "14-DAY SPRINT",
     specs: ['Shopify Architecture', 'POS Integration (Square/Vend)', 'Shipping Logic Automation', 'Automated Email Flows'],
     personas: [
@@ -84,7 +159,7 @@ const TIERS = {
         id: "chaos",
         icon: ShoppingBag,
         title: "The Chaos Founder",
-        examples: "Fashion Boutiques, Local Designers, Homewares, Gift Shops",
+        examples: "Fashion Boutiques, Local Designers",
         painTitle: "The Double-Sell Disaster",
         painText: "You sell the last unique dress in-store at 10 AM and sell it again online at 10:05 AM. It kills your reputation and wastes hours on apology emails. You're terrified of overselling.",
         solution: "I build a 'Single Source of Truth'. Your POS and your website sync instantly — you never sell what you don't have. Real-time inventory across every channel."
@@ -111,8 +186,9 @@ const TIERS = {
   },
   performance: {
     id: 'performance',
-    label: "TIER 03 / PERFORMANCE",
-    promise: "An instant-loading 'Digital Fortress' that commands authority.",
+    label: "PERFORMANCE",
+    hook: "I need speed & trust.",
+    summary: "Choose this if you sell high-ticket services (Homes, Medical, Finance) where a slow or insecure website loses you the deal.",
     sprint: "21-DAY SPRINT",
     specs: ['Headless Tech (Next.js)', '0.5s Load Times', 'Unhackable Security', 'Advanced CRM Integration'],
     personas: [
@@ -120,7 +196,7 @@ const TIERS = {
         id: "precision",
         icon: Compass,
         title: "The Precision Builder",
-        examples: "Luxury Home Builders, Commercial Architects, Custom Joinery, High-End Renovations",
+        examples: "Luxury Home Builders, Architects",
         painTitle: "The Portfolio Lag",
         painText: "You have 4K photos of stunning work, but your site takes 5 seconds to load them. Clients assume you're 'sloppy' before they even meet you. Your website is destroying the first impression you've spent 20 years building.",
         solution: "I build Edge Image Optimization. Your 4K portfolio loads instantly on any device. Your work proves your precision — your website finally matches your craftsmanship."
@@ -138,7 +214,7 @@ const TIERS = {
         id: "knowledge",
         icon: BookOpen,
         title: "The Knowledge Hub",
-        examples: "Medical Clinics, Boutique Law Firms, Allied Health, Financial Advisors",
+        examples: "Medical Clinics, Financial Advisors",
         painTitle: "The Search Sinkhole",
         painText: "Your site is so bloated that Google is de-ranking your best content. You're losing authority to faster, smaller competitors. The advice you spent years writing is invisible.",
         solution: "I build Core Web Vitals Dominance. Your knowledge library becomes a high-speed search weapon. Google rewards fast sites with visibility — your expertise finally gets seen."
@@ -147,8 +223,9 @@ const TIERS = {
   },
   flagship: {
     id: 'flagship',
-    label: "TIER 04 / FLAGSHIP",
-    promise: "A bespoke 'Digital Theatre' that justifies premium pricing.",
+    label: "FLAGSHIP",
+    hook: "I need to show off.",
+    summary: "Choose this if you are a Heritage Brand or Luxury Hotel where 'Standard' isn't enough. You need 3D, Motion, and Cinema.",
     sprint: "30+ DAY SPRINT",
     specs: ['Custom 3D / WebGL', 'Cinematic Motion Design', 'Bespoke User Journey', 'Award-Winning Aesthetics'],
     personas: [
@@ -165,7 +242,7 @@ const TIERS = {
         id: "variant",
         icon: Layers,
         title: "The Visionary",
-        examples: "Custom Furniture Makers, Lighting Designers, High-End Kitchen Studios",
+        examples: "Custom Furniture Makers, Lighting",
         painTitle: "Visualization Paralysis",
         painText: "Customers won't spend $15k on a sofa if they can't see exactly how the 'Green Velvet' looks with 'Oak Legs' in their lounge room. Imagination isn't enough — they need to see it to buy it.",
         solution: "I build 3D Configurators and WebAR. Customers place your product in their room instantly, choose every option, and remove all doubt. Configuration becomes conversion."
@@ -184,24 +261,19 @@ const TIERS = {
 };
 
 const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
+  // Navigation State
   const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('velocity');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   
-  // Get FAQ data for this pillar
-  const pillarFAQs = getPillarFAQs('pillar1');
-  const [isHovering, setIsHovering] = useState(false);
+  // Mobile States
+  const [expandedTier, setExpandedTier] = useState<keyof typeof TIERS | null>('velocity');
+  const [expandedPersona, setExpandedPersona] = useState<string | null>(null);
 
-  // --- SCROLL LINE ANIMATION ---
+  const pillarFAQs = getPillarFAQs('pillar1');
   const scrollLineY = useMotionValue(-100);
   const scrollLineSpeed = useMotionValue(0.067);
-  const { scrollY } = useScroll();
-  
-  const scrollVelocityRef = React.useRef(0);
-  const lastScrollYRef = React.useRef(0);
-  const lastTimeRef = React.useRef(Date.now());
-  const decayTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
-  
+
+  // Scroll Animation
   useAnimationFrame((time, delta) => {
     const currentY = scrollLineY.get();
     const speed = scrollLineSpeed.get();
@@ -209,45 +281,6 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
     if (newY >= 100) newY = -100;
     scrollLineY.set(newY);
   });
-  
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const now = Date.now();
-    const timeDelta = now - lastTimeRef.current;
-    if (timeDelta > 0) {
-      const scrollDelta = Math.abs(latest - lastScrollYRef.current);
-      if (scrollDelta > 0) {
-        const velocity = scrollDelta / timeDelta;
-        scrollVelocityRef.current = velocity;
-        const baseSpeed = 0.067;
-        const maxSpeed = 0.5;
-        const newSpeed = Math.min(baseSpeed + (velocity * 0.0001), maxSpeed);
-        scrollLineSpeed.set(newSpeed);
-        if (decayTimeoutRef.current) clearTimeout(decayTimeoutRef.current);
-        decayTimeoutRef.current = setTimeout(() => {
-          const currentSpeed = scrollLineSpeed.get();
-          if (currentSpeed > baseSpeed) {
-            scrollLineSpeed.set(baseSpeed);
-          }
-        }, 100);
-        scrollVelocityRef.current = 0;
-      }
-    }
-    lastScrollYRef.current = latest;
-    lastTimeRef.current = now;
-  });
-
-  useEffect(() => {
-    setActivePersonaIndex(0);
-    setIsAutoPlaying(true);
-  }, [activeTier]);
-
-  useEffect(() => {
-    if (!isAutoPlaying || isHovering) return;
-    const interval = setInterval(() => {
-      setActivePersonaIndex((prev) => (prev + 1) % 3);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, isHovering, activeTier]);
 
   const currentTier = TIERS[activeTier];
   const currentPersona = currentTier.personas[activePersonaIndex];
@@ -258,11 +291,10 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] px-0 relative z-[150] overflow-x-hidden flex flex-col font-sans"
     >
       
-      {/* --- HERO SECTION (100dvh to match SystemPage) --- */}
+      {/* --- HERO SECTION --- */}
       <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
           
-          {/* RETURN NAV - Exact match to SystemPage spacing */}
           <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
             <button 
               onClick={() => onNavigate('system')}
@@ -273,11 +305,8 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
             </button>
           </div>
 
-          {/* HERO GRID - Exact match to SystemPage alignment */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 flex-1 content-center items-center">
-            {/* Left: Text */}
             <div className="flex flex-col items-start max-w-3xl">
-               {/* 1. EYEBROW: Mono, Uppercase, Black (matching Home Page) */}
                <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
@@ -285,18 +314,15 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                  </span>
                </div>
 
-               {/* 2. H1 TITLE: Serif, matching Home Page "Stop Doing Everyone's Job" */}
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
                  Select your <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Engine.</span>
                </h1>
 
-               {/* 3. SUBTITLE: Muted, Relaxed, with border-l (matching Home Page) */}
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
                  Stop guessing. Identify your business model below to see the exact architecture required to scale it.
                </p>
             </div>
             
-            {/* Right: Visual Animation */}
             <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
                <div className="relative w-full max-w-[450px] h-[300px] lg:h-[450px] opacity-90 flex items-center justify-center">
                  <PillarVisual_Catchment />
@@ -305,7 +331,6 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </div>
 
-        {/* SCROLL LINE ANIMATION */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
           <motion.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
@@ -314,190 +339,262 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         </div>
       </section>
 
-      {/* --- DASHBOARD SECTION (Below Fold) --- */}
+      {/* --- ENGINE CONFIGURATOR --- */}
       <section className="w-full px-6 md:px-12 lg:px-20 pt-24 pb-32 max-w-[1400px] mx-auto border-t border-[#1a1a1a]/10">
 
-        {/* --- UNIFIED DASHBOARD CONTAINER --- */}
-        <div className="border border-black/10 bg-white shadow-sm mb-32">
-           
-           {/* 1. TABS ROW */}
-           <div className="grid grid-cols-2 md:grid-cols-4 border-b border-black/10 bg-[#FAFAFA]">
+        {/* HEADER WITH HUMAN EXPLAINER */}
+        <div className="mb-16">
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 flex items-center gap-2">
+              <Terminal className="w-4 h-4" />
+              SYSTEM CONFIGURATION
+           </span>
+           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-none mb-6">
+             Select your <span className="italic text-[#C5A059] font-serif">Situation.</span>
+           </h2>
+           <div className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl space-y-4">
+             <p>
+               Every business needs a different engine. I've mapped out the 4 most common models below. 
+               <strong className="text-[#1a1a1a] font-medium"> Tap the one that matches your goal </strong> to see how we fix your specific headaches.
+             </p>
+             <p className="text-base text-[#1a1a1a]/50 italic">
+               (If you feel like a mix of two, don't worry—we can build a hybrid. Just pick your main one to start).
+             </p>
+           </div>
+        </div>
+
+        {/* --- DESKTOP VIEW: TABBED DASHBOARD (HIDDEN ON MOBILE) --- */}
+        <div className="hidden md:block border border-black/10 bg-gradient-to-br from-white to-[#FFF9F0] shadow-sm mb-32 rounded-sm overflow-hidden">
+           {/* TABS (NOW WITH HOOKS) */}
+           <div className="grid grid-cols-4 border-b border-black/10 bg-[#FAFAFA]">
               {Object.entries(TIERS).map(([key, tier]) => (
                 <button 
                   key={key}
                   onClick={() => setActiveTier(key as keyof typeof TIERS)}
-                  className={`py-6 px-4 text-center transition-all duration-300 relative group overflow-hidden ${
+                  className={`py-6 px-4 text-center transition-all duration-300 relative group overflow-hidden flex flex-col justify-center min-h-[100px] ${
                     activeTier === key ? 'bg-white' : 'hover:bg-white/50 text-black/40'
                   }`}
                 >
-                  <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${activeTier === key ? 'text-[#C5A059]' : 'text-inherit'}`}>
-                    {tier.label.split('/')[1]}
+                  <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-2 ${activeTier === key ? 'text-[#C5A059]' : 'text-inherit'}`}>
+                    {tier.label}
                   </span>
-                  <span className={`text-[10px] block ${activeTier === key ? 'text-black/60' : 'text-inherit opacity-60'}`}>
-                    {tier.sprint}
+                  <span className={`font-serif text-lg leading-tight ${activeTier === key ? 'text-black' : 'text-inherit opacity-60'}`}>
+                    "{tier.hook}"
                   </span>
-                  
-                  {activeTier === key && (
-                    <motion.div layoutId="tab-highlight" className="absolute top-0 left-0 w-full h-1 bg-[#C5A059]" />
-                  )}
+                  {activeTier === key && <motion.div layoutId="tab-highlight" className="absolute top-0 left-0 w-full h-1 bg-[#C5A059]" />}
                 </button>
               ))}
            </div>
+           
+           {/* CONTENT: SPLIT VIEW */}
+           <div className="flex min-h-[600px]">
+              {/* LEFT: Persona List */}
+              <div className="w-1/3 border-r border-black/10 bg-[#FAFAFA] p-8 flex flex-col">
+                 
+                 {/* INTRO SUMMARY (NEW) */}
+                 <div className="mb-8 p-4 bg-white border border-black/5 rounded-sm">
+                    <div className="flex gap-2 items-center mb-2">
+                       <HelpCircle className="w-4 h-4 text-[#C5A059]" />
+                       <span className="font-mono text-[9px] uppercase tracking-widest font-bold text-black/60">Is this you?</span>
+                    </div>
+                    <p className="font-sans text-sm text-black/70 leading-relaxed">
+                       {currentTier.summary}
+                    </p>
+                 </div>
 
-           {/* 2. CONTENT AREA */}
-           <div className="p-8 md:p-12 lg:p-16">
-             <AnimatePresence mode='wait'>
-               <motion.div
-                 key={activeTier}
-                 initial={{ opacity: 0, y: 10 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 exit={{ opacity: 0, y: -10 }}
-                 transition={{ duration: 0.4 }}
-               >
-                  
-                  {/* --- MIDDLE ROW: PERSONA CARDS --- */}
-                  <div 
-                    className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
-                    onMouseEnter={() => setIsHovering(true)}
-                    onMouseLeave={() => setIsHovering(false)}
-                  >
-                      {currentTier.personas.map((p, index) => {
-                          const isActive = activePersonaIndex === index;
-                          return (
-                              <button
-                                  key={p.id}
-                                  onClick={() => { setActivePersonaIndex(index); setIsAutoPlaying(false); }}
-                                  className={`p-6 text-left border rounded-sm transition-all duration-300 relative overflow-hidden group h-full flex flex-col ${
-                                      isActive
-                                      ? `border-[#C5A059] bg-[#FFF9F0] shadow-md scale-[1.02]` 
-                                      : 'border-black/5 hover:border-[#C5A059]/30 bg-white opacity-60 hover:opacity-100'
-                                  }`}
-                              >
-                                  <div className={`mb-4 ${isActive ? 'text-[#C5A059]' : 'text-black/40'}`}>
-                                      <p.icon className="w-6 h-6" />
-                                  </div>
-                                  <h3 className={`font-serif text-xl mb-2 ${isActive ? 'text-black' : 'text-black/60'}`}>
-                                      {p.title}
-                                  </h3>
-                                  <p className="font-sans text-xs text-black/40 leading-relaxed mb-4 flex-grow">
-                                      e.g. {p.examples}
-                                  </p>
-                                  
-                                  {isActive && isAutoPlaying && !isHovering && (
-                                      <div className="absolute bottom-0 left-0 w-full h-1 bg-[#C5A059]/20">
-                                          <motion.div 
-                                              initial={{ width: "0%" }}
-                                              animate={{ width: "100%" }}
-                                              transition={{ duration: 5, ease: "linear" }}
-                                              className="h-full bg-[#C5A059]"
-                                          />
-                                      </div>
-                                  )}
-                                  {isActive && (!isAutoPlaying || isHovering) && (
-                                       <div className="absolute bottom-0 left-0 w-full h-1 bg-[#C5A059]" />
-                                  )}
-                              </button>
-                          );
-                      })}
-                  </div>
+                 <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-4 block pl-1">Select Profile</span>
+                 <div className="space-y-3 flex-grow">
+                    {currentTier.personas.map((p, idx) => (
+                      <button
+                        key={p.id}
+                        onClick={() => setActivePersonaIndex(idx)}
+                        className={`w-full text-left p-4 border rounded-sm transition-all duration-300 flex items-center gap-4 group ${
+                           activePersonaIndex === idx ? 'bg-white border-[#C5A059] shadow-md' : 'bg-transparent border-transparent hover:bg-white hover:border-black/5'
+                        }`}
+                      >
+                         <div className={`p-2 rounded-full ${activePersonaIndex === idx ? 'bg-[#C5A059]/10 text-[#C5A059]' : 'bg-black/5 text-black/40'}`}>
+                           <p.icon className="w-4 h-4" />
+                         </div>
+                         <div>
+                           <h4 className={`font-serif text-lg leading-tight ${activePersonaIndex === idx ? 'text-black' : 'text-black/60'}`}>{p.title}</h4>
+                         </div>
+                         {activePersonaIndex === idx && <ChevronRight className="w-4 h-4 ml-auto text-[#C5A059]" />}
+                      </button>
+                    ))}
+                 </div>
 
-                  {/* --- BOTTOM ROW: SOLUTION CONTENT --- */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 border-t border-black/5 pt-16">
-                      
-                      <div className="flex flex-col justify-center">
-                          <AnimatePresence mode="wait">
-                              <motion.div
-                                key={currentPersona.id}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: 10 }}
-                                transition={{ duration: 0.3 }}
-                              >
-                                  <div className="mb-10">
-                                    <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">Diagnosis / The Pain Point</span>
-                                    <h2 className="font-serif text-4xl md:text-5xl mb-6 text-[#1a1a1a] leading-tight">
-                                        {currentPersona.painTitle}
-                                    </h2>
-                                    <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#E21E3F] pl-6 italic">
-                                        "{currentPersona.painText}"
-                                    </p>
-                                  </div>
+                 {/* SPECS LIST */}
+                 <div className="mt-8 pt-8 border-t border-black/5">
+                    <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-4 block">Included Specs</span>
+                    <ul className="space-y-2">
+                      {currentTier.specs.map((spec, i) => (
+                        <li key={i} className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wide text-black/60">
+                          <CheckCircle className="w-3 h-3 text-[#C5A059]" />
+                          {spec}
+                        </li>
+                      ))}
+                    </ul>
+                 </div>
+              </div>
 
-                                  <div className="bg-[#1a1a1a] p-8 text-[#FFF2EC] relative overflow-hidden rounded-sm">
-                                      <div className="absolute top-0 left-0 w-1 h-full bg-[#C5A059]" />
-                                      <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-4 font-bold">The Solution Protocol</span>
-                                      <p className="font-sans text-lg leading-relaxed">
-                                          {currentPersona.solution}
-                                      </p>
-                                  </div>
-                              </motion.div>
-                          </AnimatePresence>
-                      </div>
+              {/* RIGHT: Solution */}
+              <div className="w-2/3 p-12 relative flex flex-col">
+                  <AnimatePresence mode="wait">
+                    <motion.div 
+                       key={`${activeTier}-${activePersonaIndex}`}
+                       initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
+                       className="flex-grow flex flex-col"
+                    >
+                       <div className="mb-10">
+                          <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">The Problem</span>
+                          <h2 className="font-serif text-4xl mb-6 text-[#1a1a1a] leading-tight">{currentPersona.painTitle}</h2>
+                          <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#E21E3F] pl-6 italic">"{currentPersona.painText}"</p>
+                       </div>
 
-                      <div className="flex flex-col justify-between h-full bg-[#FAFAFA] p-10 border border-black/5 rounded-sm">
-                          <div className="flex-grow">
-                              <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest block mb-6">Visual Architecture</span>
-                              
-                              <div className="h-40 w-full mb-8 bg-white border border-black/5 rounded-sm flex items-center justify-center relative overflow-hidden shadow-inner">
-                                  {activeTier === 'velocity' && (
-                                    <div className="w-full px-8 relative">
-                                        <div className="w-full h-1 bg-black/10 rounded-full overflow-hidden">
-                                            <motion.div 
-                                            initial={{ width: 0 }} animate={{ width: "100%" }} transition={{ duration: 1.5, ease: "easeInOut" }}
-                                            className="h-full bg-[#C5A059]" 
-                                            />
-                                        </div>
-                                        <div className="flex justify-between mt-4 font-mono text-[9px] uppercase tracking-widest text-[#C5A059]">
-                                            <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>Day_1<br/><span className="text-black/30">Audit</span></motion.div>
-                                            <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>Day_3<br/><span className="text-black/30">Build</span></motion.div>
-                                            <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.5 }}>Day_7<br/><span className="text-black/30">Launch</span></motion.div>
-                                        </div>
-                                    </div>
-                                  )}
-                                  {/* [Other Tier Animations kept identical to your file] */}
-                                  {activeTier === 'retail' && (
-                                    <div className="flex items-center gap-4 relative">
-                                        <div className="w-16 h-16 border border-[#C5A059] flex items-center justify-center font-mono text-[10px] text-[#C5A059]">POS</div>
-                                        <motion.div animate={{ x: [0, 20, 0] }} transition={{ duration: 2, repeat: Infinity }} className="w-16 h-[1px] bg-[#C5A059] relative">
-                                            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#C5A059]" />
-                                        </motion.div>
-                                        <div className="w-16 h-16 bg-[#C5A059] text-white flex items-center justify-center font-mono text-[10px]">WEB</div>
-                                    </div>
-                                  )}
-                                  {activeTier === 'performance' && (
-                                    <div className="relative w-32 h-16 overflow-hidden">
-                                        <div className="w-full h-full border-t-[10px] border-l-[10px] border-r-[10px] border-black/10 rounded-t-full" />
-                                        <motion.div initial={{ rotate: -90 }} animate={{ rotate: 0 }} transition={{ duration: 1, type: "spring" }} className="absolute bottom-0 left-1/2 w-full h-[10px] bg-[#1a1a1a] origin-left -translate-y-1/2" />
-                                        <div className="absolute bottom-0 w-full text-center font-mono text-[10px] font-bold mt-2">100/100</div>
-                                    </div>
-                                  )}
-                                  {activeTier === 'flagship' && (
-                                    <motion.div animate={{ rotateY: 360, rotateX: 360 }} transition={{ duration: 10, repeat: Infinity, ease: "linear" }} className="w-20 h-20 border border-[#C5A059] relative preserve-3d" style={{ transformStyle: 'preserve-3d' }}>
-                                        <div className="absolute inset-0 border border-[#C5A059]/30" style={{ transform: 'translateZ(20px)' }} />
-                                        <div className="absolute inset-0 border border-[#C5A059]/30" style={{ transform: 'translateZ(-20px)' }} />
-                                    </motion.div>
-                                  )}
-                              </div>
-
-                              <ul className="space-y-4 mb-8">
-                                  {currentTier.specs.map((spec, i) => (
-                                      <motion.li key={i} initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }} className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/70">
-                                          <CheckCircle2 className="w-3 h-3 text-[#C5A059]" />
-                                          {spec}
-                                      </motion.li>
-                                  ))}
-                              </ul>
+                       <div className="mt-auto bg-[#1a1a1a] p-8 text-white rounded-sm relative overflow-hidden shadow-2xl">
+                          <div className="absolute top-0 right-0 w-48 h-48 bg-[#C5A059]/10 rounded-full blur-3xl" />
+                          <div className="relative z-10 flex gap-8">
+                             <div className="flex-grow">
+                                <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-4 font-bold">The Fix</span>
+                                <p className="font-sans text-lg leading-relaxed mb-8">{currentPersona.solution}</p>
+                                <FillButton onClick={() => onNavigate('contact')} className="w-fit py-4 px-8 font-mono text-xs uppercase tracking-[0.2em] font-bold">
+                                  [ BOOK A CALL ]
+                                </FillButton>
+                             </div>
+                             <div className="w-32 hidden lg:block flex-shrink-0">
+                                <TierVisual tierKey={activeTier} />
+                             </div>
                           </div>
-
-                          <FillButton onClick={() => onNavigate('contact')} className="w-full py-5 font-mono text-xs uppercase tracking-[0.2em] font-bold mt-auto">
-                              [ BOOK A CALL ]
-                          </FillButton>
-                      </div>
-                  </div>
-               </motion.div>
-             </AnimatePresence>
+                       </div>
+                    </motion.div>
+                  </AnimatePresence>
+              </div>
            </div>
         </div>
+
+        {/* --- MOBILE VIEW: HIGH-CONTRAST VERTICAL ACCORDION (VISIBLE ON MOBILE) --- */}
+        <div className="md:hidden space-y-4 mb-32">
+          {Object.entries(TIERS).map(([key, tier]) => {
+            const isTierExpanded = expandedTier === key;
+            return (
+              <div key={key} className={`border rounded-sm overflow-hidden transition-all duration-300 ${isTierExpanded ? 'border-[#1a1a1a] bg-white shadow-xl scale-[1.02] z-10' : 'border-black/10 bg-white'}`}>
+                
+                {/* LEVEL 1: TIER HEADER (DARK MODE WHEN ACTIVE) */}
+                <button 
+                  onClick={() => {
+                    setExpandedTier(isTierExpanded ? null : key as keyof typeof TIERS);
+                    setExpandedPersona(null); // Close inner accordions
+                  }}
+                  className={`w-full flex items-center justify-between p-6 text-left transition-colors duration-300 ${isTierExpanded ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}
+                >
+                  <div>
+                    <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${isTierExpanded ? 'text-[#C5A059]' : 'text-black/60'}`}>
+                      {tier.label}
+                    </span>
+                    {/* NEW: Hook visible on closed state too */}
+                    <span className={`font-serif text-lg leading-tight ${isTierExpanded ? 'text-white' : 'text-black'}`}>"{tier.hook}"</span>
+                  </div>
+                  <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isTierExpanded ? 'rotate-180 text-[#C5A059]' : 'text-black/30'}`} />
+                </button>
+
+                {/* LEVEL 1 CONTENT: PERSONA LIST */}
+                <AnimatePresence>
+                  {isTierExpanded && (
+                    <motion.div 
+                      initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }}
+                      className="overflow-hidden bg-[#FAFAFA]"
+                    >
+                      <div className="p-4 space-y-2">
+                         {/* INTRO SUMMARY (NEW FOR MOBILE) */}
+                         <div className="mb-6 p-4 bg-white border border-black/5 rounded-sm">
+                            <p className="font-sans text-sm text-black/70 leading-relaxed">
+                               <strong className="text-[#C5A059] block mb-1 font-bold uppercase text-[9px] tracking-widest">Is this you?</strong>
+                               {tier.summary}
+                            </p>
+                         </div>
+
+                         <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold block mb-2 px-2">Select Profile:</span>
+                         
+                         {tier.personas.map((p) => {
+                           const isPersonaExpanded = expandedPersona === p.id;
+                           return (
+                             <div key={p.id} className={`border rounded-sm overflow-hidden transition-all duration-300 ${isPersonaExpanded ? 'border-[#C5A059] bg-white shadow-md' : 'border-black/5 bg-white'}`}>
+                               
+                               {/* LEVEL 2: PERSONA HEADER (GOLD ACCENT WHEN ACTIVE) */}
+                               <button 
+                                 onClick={() => setExpandedPersona(isPersonaExpanded ? null : p.id)}
+                                 className="w-full flex items-center gap-4 p-4 text-left hover:bg-black/5 transition-colors"
+                               >
+                                  <div className={`p-2 rounded-full ${isPersonaExpanded ? 'bg-[#C5A059] text-[#1a1a1a]' : 'bg-black/5 text-black/40'}`}>
+                                     <p.icon className="w-4 h-4" />
+                                  </div>
+                                  <div className="flex-grow">
+                                     <h4 className={`font-serif text-lg leading-tight ${isPersonaExpanded ? 'text-[#C5A059]' : 'text-black/70'}`}>{p.title}</h4>
+                                     <span className="text-[10px] text-black/40 block mt-1 line-clamp-1">{p.examples}</span>
+                                  </div>
+                                  <ChevronDown className={`w-4 h-4 transition-transform ${isPersonaExpanded ? 'rotate-180 text-[#C5A059]' : 'text-black/20'}`} />
+                               </button>
+
+                               {/* LEVEL 2 CONTENT: SOLUTION */}
+                               <AnimatePresence>
+                                 {isPersonaExpanded && (
+                                   <motion.div
+                                     initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                                     className="border-t border-[#C5A059]/20 bg-white"
+                                   >
+                                      <div className="p-6">
+                                         {/* Pain */}
+                                         <div className="mb-6">
+                                            <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Problem</span>
+                                            <h5 className="font-serif text-2xl mb-2 text-[#1a1a1a]">{p.painTitle}</h5>
+                                            <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed italic border-l-2 border-[#E21E3F] pl-4">"{p.painText}"</p>
+                                         </div>
+
+                                         {/* Solution */}
+                                         <div className="bg-[#1a1a1a] p-6 text-white rounded-sm mb-6 relative overflow-hidden">
+                                            <div className="absolute top-0 right-0 w-24 h-24 bg-[#C5A059]/20 rounded-full blur-2xl" />
+                                            <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-3 font-bold relative z-10">The Fix</span>
+                                            <p className="font-sans text-base leading-relaxed mb-6 relative z-10">{p.solution}</p>
+                                            
+                                            {/* VISUAL ON MOBILE - Pure Gold on Transparent */}
+                                            <div className="w-full flex justify-center py-4 bg-transparent relative z-10">
+                                               <div className="w-24">
+                                                 <TierVisual tierKey={key} />
+                                               </div>
+                                            </div>
+                                         </div>
+
+                                         <FillButton onClick={() => onNavigate('contact')} className="w-full py-4 font-mono text-xs uppercase tracking-[0.2em] font-bold">
+                                            [ BOOK A CALL ]
+                                         </FillButton>
+
+                                         {/* Specs List (Restored for Mobile) */}
+                                         <div className="mt-8 pt-6 border-t border-black/10">
+                                            <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-3 block">Included Specs</span>
+                                            <ul className="space-y-2">
+                                              {tier.specs.map((spec, i) => (
+                                                <li key={i} className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wide text-black/60">
+                                                  <CheckCircle className="w-3 h-3 text-[#C5A059]" />
+                                                  {spec}
+                                                </li>
+                                              ))}
+                                            </ul>
+                                         </div>
+                                      </div>
+                                   </motion.div>
+                                 )}
+                               </AnimatePresence>
+                             </div>
+                           )
+                         })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+
       </section>
 
       {/* FAQ SECTION */}
