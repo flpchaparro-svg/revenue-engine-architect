@@ -8,124 +8,91 @@ import {
   useTransform
 } from 'framer-motion';
 import { 
-  ArrowLeft, ArrowRight, Zap, Database, Activity, 
-  Search, GitMerge, Layout, Repeat, ShoppingBag, // <--- Added ShoppingBag here
-  CheckCircle, ChevronDown, ChevronRight, Terminal, HelpCircle,
-  Filter
+  ArrowLeft, ArrowRight, CheckCircle,
+  Magnet, Filter, MessageSquare, 
+  Users, UserPlus, FileText, 
+  RefreshCw, Calendar, Phone, 
+  Check, ChevronDown, ChevronRight, Terminal, HelpCircle
 } from 'lucide-react';
+// HERO IMPORT
 import PillarVisual_Magnet from '../../components/PillarVisual_Magnet';
 import FAQSection from '../../components/FAQSection';
 import { getPillarFAQs } from '../../constants/faqData';
+import CTAButton from '../../components/CTAButton'; // STANDARDIZED BUTTON
+import BackButton from '../../components/BackButton'; // STANDARDIZED BACK LINK
 
 interface PillarPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
-// --- HELPER: FILL BUTTON ---
-const FillButton = ({ children, onClick, className = "" }: { children: React.ReactNode, onClick?: () => void, className?: string }) => (
-  <button 
-    onClick={onClick} 
-    className={`relative overflow-hidden group bg-[#C5A059] text-white border border-[#C5A059] shadow-sm hover:shadow-lg transition-all duration-300 ${className}`}
-  >
-    <div className="absolute inset-0 bg-[#1a1a1a] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]" />
-    <span className="relative z-10 flex items-center justify-center gap-3">{children}</span>
-  </button>
-);
-
-// --- VISUALIZATIONS (CRM & Logic Concepts) ---
+// --- VISUALIZATIONS (Service Level - CRM Specific) ---
 const TierVisual = ({ tierKey }: { tierKey: string }) => {
   return (
     <div className="h-32 w-full mb-6 flex items-center justify-center relative bg-transparent">
       
       {tierKey === 'capture' && (
-        // ANIMATION: "The Magnet" (Capture Core)
-        <div className="relative flex items-center justify-center w-24 h-24">
-            <div className="absolute w-4 h-4 bg-[#C5A059] rounded-full z-10 shadow-[0_0_20px_#C5A059]" />
-            {/* Orbiting Particles getting sucked in */}
-            {[0, 1, 2, 3].map((i) => (
-               <motion.div
-                 key={i}
-                 initial={{ opacity: 0, scale: 0, x: 40, y: 40 }}
-                 animate={{ 
-                    opacity: [0, 1, 0], 
-                    scale: [0.5, 1, 0], 
-                    x: 0, 
-                    y: 0 
-                 }}
-                 transition={{ 
-                    duration: 2, 
-                    repeat: Infinity, 
-                    delay: i * 0.5,
-                    ease: "easeIn"
-                 }}
-                 className="absolute w-2 h-2 bg-[#1a1a1a] border border-[#C5A059] rounded-full"
-                 style={{ 
-                    rotate: i * 90 
-                 }}
-               />
+        // ANIMATION: "The Funnel" (Filtering Leads)
+        <div className="relative flex flex-col items-center">
+            {/* Particles falling in */}
+            {[...Array(6)].map((_, i) => (
+                <motion.div 
+                    key={i}
+                    className="absolute w-1.5 h-1.5 bg-[#C5A059] rounded-full"
+                    initial={{ y: -40, x: (Math.random() - 0.5) * 40, opacity: 0 }}
+                    animate={{ y: [ -40, 0, 40 ], x: [ (Math.random() - 0.5) * 40, 0, 0 ], opacity: [0, 1, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+                />
             ))}
-            <div className="absolute inset-0 border border-[#C5A059]/20 rounded-full animate-pulse" />
+            {/* Funnel Shape */}
+            <div className="w-0 h-0 border-l-[20px] border-r-[20px] border-t-[30px] border-l-transparent border-r-transparent border-t-[#C5A059]/20 mb-1" />
+            <div className="w-1.5 h-10 bg-[#C5A059]/40 rounded-sm" />
+        </div>
+      )}
+
+      {tierKey === 'nurture' && (
+        // ANIMATION: "The Tag" (Segmentation)
+        <div className="relative flex items-center gap-2">
+             <div className="w-10 h-10 border border-[#C5A059] rounded-full flex items-center justify-center bg-[#1a1a1a]">
+                <Users className="w-4 h-4 text-[#C5A059]" />
+             </div>
+             {/* Tag appearing */}
+             <motion.div 
+               animate={{ x: [ -10, 0 ], opacity: [0, 1] }}
+               transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
+               className="px-2 py-1 bg-[#C5A059] text-[8px] font-mono text-[#1a1a1a] font-bold rounded-sm"
+             >
+                TAG: VIP
+             </motion.div>
         </div>
       )}
 
       {tierKey === 'pipeline' && (
-        // ANIMATION: "The Flow" (Pipeline)
-        <div className="flex gap-4 items-center">
-             {[0, 1, 2].map((i) => (
-                <div key={i} className="w-2 h-12 bg-[#C5A059]/20 rounded-sm relative overflow-hidden">
-                   <motion.div 
-                     animate={{ y: [-20, 50] }}
-                     transition={{ duration: 2, delay: i * 0.6, repeat: Infinity, ease: "linear" }}
-                     className="w-full h-4 bg-[#C5A059]"
-                   />
-                </div>
-             ))}
-             <ArrowRight className="w-4 h-4 text-[#C5A059]" />
-             <div className="w-8 h-8 border border-[#C5A059] rounded-full flex items-center justify-center">
-                <div className="w-4 h-4 bg-[#C5A059] rounded-full" />
-             </div>
-        </div>
-      )}
-
-      {tierKey === 'retention' && (
-        // ANIMATION: "The Loop" (Retention)
-        <div className="relative w-32 h-16">
-            <svg viewBox="0 0 200 100" className="w-full h-full">
-               <path d="M50,50 C20,50 20,20 50,20 C80,20 80,50 100,50 C120,50 120,80 150,80 C180,80 180,50 150,50 C120,50 120,20 100,20 C80,20 80,50 50,50" 
-                     fill="none" stroke="#C5A059" strokeOpacity="0.2" strokeWidth="4" />
-               <motion.path 
-                  d="M50,50 C20,50 20,20 50,20 C80,20 80,50 100,50 C120,50 120,80 150,80 C180,80 180,50 150,50 C120,50 120,20 100,20 C80,20 80,50 50,50" 
-                  fill="none" 
-                  stroke="#C5A059" 
-                  strokeWidth="4"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-               />
-            </svg>
-        </div>
-      )}
-
-      {tierKey === 'audit' && (
-        // ANIMATION: "The Filter" (Operational Audit)
-        <div className="grid grid-cols-3 gap-2">
-            {[...Array(9)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  animate={{ 
-                    scale: [0.5, 1, 0.5],
-                    opacity: [0.3, 1, 0.3],
-                    backgroundColor: ["#1a1a1a", "#C5A059", "#1a1a1a"]
-                  }}
-                  transition={{ 
-                    duration: 2, 
-                    delay: i * 0.1, 
-                    repeat: Infinity 
-                  }}
-                  className="w-4 h-4 rounded-sm"
+        // ANIMATION: "The Stages" (Kanban Movement)
+        <div className="flex gap-2 items-center">
+            <div className="w-8 h-12 border border-[#C5A059]/20 rounded-sm" />
+            <div className="w-8 h-12 border border-[#C5A059]/40 rounded-sm flex items-center justify-center">
+                <motion.div 
+                    className="w-4 h-4 bg-[#C5A059] rounded-sm"
+                    animate={{ x: [ -40, 0, 40 ], opacity: [0, 1, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 />
-            ))}
+            </div>
+            <div className="w-8 h-12 border border-[#C5A059] rounded-sm shadow-[0_0_10px_#C5A059]" />
+        </div>
+      )}
+
+      {tierKey === 'revops' && (
+        // ANIMATION: "The Sync" (Data Cycle)
+        <div className="relative w-16 h-16">
+            <motion.div 
+              animate={{ rotate: 360 }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+              className="absolute inset-0 border-2 border-[#C5A059]/30 rounded-full border-t-[#C5A059]"
+            />
+            <div className="absolute inset-2 border border-[#C5A059]/10 rounded-full flex items-center justify-center">
+                <RefreshCw className="w-4 h-4 text-[#C5A059]" />
+            </div>
         </div>
       )}
     </div>
@@ -136,149 +103,149 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
 const TIERS = {
   capture: {
     id: 'capture',
-    label: "CAPTURE CORE",
-    hook: "I miss calls while working.",
-    summary: "Choose this if you are a busy Operator (Trades, Venues, Events) who loses money because you physically can't answer the phone instantly.",
-    sprint: "3-DAY SPRINT",
-    specs: ['Unified Inbox Setup', 'SMS Auto-Responders', 'Missed Call Text-Back', 'Lead Source Tracking'],
+    label: "TIER 01 / CAPTURE",
+    hook: "Stop losing leads.",
+    summary: "Choose this if you have a website but no idea where your leads go. We replace generic contact forms with a database that tracks every person.",
+    sprint: "5-DAY SPRINT",
+    specs: ['HubSpot / Pipedrive Setup', 'Lead Source Tracking', 'Auto-Reply Email', 'Admin Notification'],
     personas: [
       {
-        id: "elbow",
-        icon: Zap,
-        title: "The Elbow-Deep Tradie",
-        examples: "Emergency Plumbers, Sparkies, Locksmiths",
-        painTitle: "The Silent Competitor",
-        painText: "You are under a house or up a ladder. You hear the phone ring but can't answer. That $500 job just went to the next guy on Google who picked up.",
-        solution: "I install a 'Safety Net'. The second you miss a call, my system texts the lead: 'Hey, I'm on a job. How can I help?' You secure the client before you even wash your hands."
+        id: "inbox",
+        icon: MessageSquare,
+        title: "The Inbox Manager",
+        examples: "Solo Consultants, Small Agencies",
+        painTitle: "The Gmail Black Hole",
+        painText: "You run your business from an inbox. You forget to reply to a $5k lead because it got buried under newsletters. You have no list, no history, just email chaos.",
+        solution: "I install a CRM. Every lead from your site goes into a structured database, not your inbox. You see exactly who they are and if you've replied. No more lost money."
       },
       {
-        id: "venue",
-        icon: Layout,
-        title: "The Venue Manager",
-        examples: "Wedding Venues, Event Spaces, Studios",
-        painTitle: "The Enquiry Black Hole",
-        painText: "You get 20 DMs on Instagram, 5 emails, and 3 voicemails a day. You forget to reply to one bride, and you lose a $15k booking.",
-        solution: "I build a Unified Inbox. Every message from Instagram, Email, and SMS lands in ONE place. Nothing gets lost, and every high-value lead gets an instant VIP reply."
+        id: "blind",
+        icon: Filter,
+        title: "The Blind Advertiser",
+        examples: "Local Services, Tradies",
+        painTitle: "Unknown ROI",
+        painText: "You spend $1,000 on ads but don't know if the phone rang because of the ad or a referral. You're guessing with your wallet.",
+        solution: "I build Source Tracking. The CRM tells you: 'John Smith came from Google Ads'. Now you know exactly which marketing channel pays your bills."
       },
       {
-        id: "clinic",
-        icon: Activity,
-        title: "The Busy Clinic",
-        examples: "Physio, Chiro, Dental",
-        painTitle: "The Front Desk Bottleneck",
-        painText: "Your receptionist is busy with a patient. The phone rings out. You are paying for ads to make the phone ring, but nobody is catching the ball.",
-        solution: "We automate the overflow. If the desk doesn't answer, the system does. It books appointments or answers FAQs automatically, stopping the revenue leak."
+        id: "slow",
+        icon: Magnet,
+        title: "The Slow Responder",
+        examples: "Real Estate, Finance Brokers",
+        painTitle: "The Speed to Lead Fail",
+        painText: "A lead emails you on Saturday. You reply on Monday. They already hired someone else. Speed kills competition, and you're too slow.",
+        solution: "I build Instant Acknowledgment. They get a professional SMS and Email 10 seconds after submitting. You look 'always on' even when you're off."
+      }
+    ]
+  },
+  nurture: {
+    id: 'nurture',
+    label: "TIER 02 / NURTURE",
+    hook: "Warm them up.",
+    summary: "Choose this if you have leads who aren't ready to buy yet. We build automated email sequences that educate them until they are ready to pay.",
+    sprint: "10-DAY SPRINT",
+    specs: ['5-Email Nurture Sequence', 'Audience Segmentation', 'Newsletter Architecture', 'Lead Scoring'],
+    personas: [
+      {
+        id: "educator",
+        icon: Users,
+        title: "The Expert",
+        examples: "Coaches, Course Creators",
+        painTitle: "The Cold Pitch",
+        painText: "You try to sell on the first call, but they don't trust you yet. You waste hours explaining your methodology to cold leads who ghost you.",
+        solution: "I build a 'Value Sequence'. The system sends them your best advice for 2 weeks before you ever ask for a sale. When they finally book, they already trust you."
+      },
+      {
+        id: "lister",
+        icon: UserPlus,
+        title: "The List Builder",
+        examples: "E-commerce, Authors",
+        painTitle: "The Dead List",
+        painText: "You have 5,000 emails in Mailchimp but you never email them because you don't know what to say. Your biggest asset is gathering dust.",
+        solution: "I build Automated Re-Engagement. The system identifies who hasn't opened an email in 90 days and wakes them up with a specific offer. Dead leads become cash."
+      },
+      {
+        id: "segment",
+        icon: FileText,
+        title: "The Generalist",
+        examples: "Multi-Service Agencies",
+        painTitle: "The Wrong Message",
+        painText: "You send a 'Website Design' offer to a client who only wants 'SEO'. They unsubscribe because you're irrelevant. You're blasting, not targeting.",
+        solution: "I build Behavioural Segmentation. If they click on 'SEO', they get the SEO sequence. Relevance protects your open rates."
       }
     ]
   },
   pipeline: {
     id: 'pipeline',
-    label: "PIPELINE",
-    hook: "I don't know where the money is.",
-    summary: "Choose this if you have a sales process (Proposals, Quotes, Meetings) but no clear view of exactly how much revenue is 'Close' vs 'Lost'.",
-    sprint: "5-DAY SPRINT",
-    specs: ['Visual Deal Board', 'Automated Follow-Ups', 'Quote Tracking', 'Revenue Forecasting'],
+    label: "TIER 03 / PIPELINE",
+    hook: "Manage the deal.",
+    summary: "Choose this if you have a sales team (or just yourself) managing high-ticket deals. We visualize your revenue and automate the follow-up tasks.",
+    sprint: "14-DAY SPRINT",
+    specs: ['Visual Deal Board', 'Task Automation', 'Contract Integration', 'Sales Reporting'],
     personas: [
       {
-        id: "blind",
-        icon: Search,
-        title: "The Blind Scaler",
-        examples: "B2B Agencies, Cleaning Contracts, Security",
-        painTitle: "The Shadow Pipeline",
-        painText: "You suspect your sales reps are keeping deals in their heads or personal notebooks. If a rep quits tomorrow, they take your revenue with them.",
-        solution: "I build a 'Visual Kanban'. Every deal is a card on a board. You can see exactly how much money is sitting in 'Proposal Sent' and who needs a nudge today."
+        id: "closer",
+        icon: Calendar,
+        title: "The Busy Closer",
+        examples: "Solar Sales, Enterprise SaaS",
+        painTitle: "The Follow-Up Fail",
+        painText: "You have 20 active deals. You promised to call Mike back on Tuesday, but you forgot. Mike signs with a competitor. Disorganization cost you $10k.",
+        solution: "I build Automated Task Queues. The CRM reminds you: 'Call Mike'. If you don't call, it nags you. No deal slips through the cracks."
       },
       {
-        id: "velocity",
-        icon: GitMerge,
-        title: "The High-Velocity Team",
-        examples: "Solar Sales, Mortgage Brokers",
-        painTitle: "Admin Paralysis",
-        painText: "Your top closers are spending 2 hours a day entering data instead of selling. Friction kills deals.",
-        solution: "I automate the admin. When a client signs a quote, the deal moves itself. Your closers just close; the system handles the paperwork."
+        id: "manager",
+        icon: Phone,
+        title: "The Sales Manager",
+        examples: "Teams of 3+ Reps",
+        painTitle: "The Black Box",
+        painText: "You ask your rep 'How's the pipeline?' and they say 'Good'. You have no data. You can't forecast revenue on 'Good'.",
+        solution: "I build Visual Pipelines. You see every deal, its value, and its stage on one screen. 'Good' becomes '$450k weighted pipeline closing next month'."
       },
       {
-        id: "project",
-        icon: Layout,
-        title: "The Project Based",
-        examples: "Construction, Fit-out, Landscaping",
-        painTitle: "The Cashflow Gap",
-        painText: "You win the job, but forget to send the 'Deposit Invoice' immediately. You start work without cash, hurting your liquidity.",
-        solution: "We link the Pipeline to Finance. Moving a deal to 'Won' automatically generates and sends the deposit invoice from Xero. You get paid faster."
+        id: "admin",
+        icon: FileText,
+        title: "The Paperwork Hater",
+        examples: "Construction, Events",
+        painTitle: "Contract Hell",
+        painText: "You spend 45 minutes copy-pasting details into a Word doc contract. It's boring, slow, and prone to errors.",
+        solution: "I build One-Click Contracting. Move a deal to 'Won', and the system generates the PDF, pre-fills the data, and sends it for e-signature. 45 minutes becomes 4 seconds."
       }
     ]
   },
-  retention: {
-    id: 'retention',
-    label: "RETENTION",
-    hook: "I need repeat customers.",
-    summary: "Choose this if you sell products or subscriptions and want to turn one-time buyers into loyal fans without paying for ads again.",
-    sprint: "7-DAY SPRINT",
-    specs: ['Klaviyo/HubSpot Flows', 'Win-Back Logic', 'Review Generation', 'VIP Segmentation'],
+  revops: {
+    id: 'revops',
+    label: "TIER 04 / REVOPS",
+    hook: "Align the business.",
+    summary: "Choose this if your Marketing, Sales, and Support teams are fighting. We connect your systems so data flows seamlessly from 'Click' to 'Cash'.",
+    sprint: "21-DAY SPRINT",
+    specs: ['Cross-Department Sync', 'Customer Journey Mapping', 'Attribution Modelling', 'Data Hygiene'],
     personas: [
       {
-        id: "hamster",
-        icon: Repeat,
-        title: "The Hamster Wheel",
-        examples: "E-com Fashion, Home Goods",
-        painTitle: "The Ad-Spend Trap",
-        painText: "You have high revenue but low profit because you have to pay Facebook Ads for every single sale. You don't 'own' your customers.",
-        solution: "I build the Backend Engine. We set up automated emails that upsell your past 5,000 customers for free. We turn your customer list into a 'Printing Press'."
+        id: "silo",
+        icon: RefreshCw,
+        title: "The Siloed Director",
+        examples: "Mid-Market Companies ($5M+)",
+        painTitle: "The Handover Drop",
+        painText: "Sales closes the deal, but forgets to tell Onboarding. The new client sits in silence for 3 days and gets angry. Your internal disconnect hurts the customer.",
+        solution: "I build Department Handshakes. When a deal closes, a project is auto-created in Asana for the delivery team. Sales stops emailing Operations. The system does the talking."
       },
       {
-        id: "commodity",
-        icon: ShoppingBag,
-        title: "The Consumable Seller",
-        examples: "Coffee Roasters, Supplements, Skincare",
-        painTitle: "The Habit Break",
-        painText: "Your customer ran out of coffee yesterday, forgot to order, and bought from the supermarket instead. You lost them because you weren't there.",
-        solution: "I install 'Replenishment Logic'. The system knows they run out in 30 days. On Day 28, it sends a text: 'Running low? Reply YES to reorder.' Zero friction."
-      },
-      {
-        id: "service",
-        icon: CheckCircle,
-        title: "The Annual Service",
-        examples: "HVAC, Pool Maintenance, Mechanics",
-        painTitle: "The Silent Churn",
-        painText: "Clients forget to book their annual service. You rely on them remembering, so you lose 40% of your recurring revenue every year.",
-        solution: "We automate the Reminder Loop. The system chases them for you via SMS and Email until they book. You wake up to a full calendar of recurring jobs."
-      }
-    ]
-  },
-  audit: {
-    id: 'audit',
-    label: "AUDIT & FIX",
-    hook: "My systems are a mess.",
-    summary: "Choose this if you have 'Software Bloat'—too many apps, double-entry data, and expensive staff wasting time fixing errors.",
-    sprint: "7-DAY AUDIT",
-    specs: ['Workflow Mapping', 'Software Consolidation', 'Cost Reduction', 'Single Truth Source'],
-    personas: [
-      {
-        id: "tangled",
+        id: "leak",
         icon: Filter,
-        title: "The Tangled Executive",
-        examples: "Law Firms, Engineering, Mid-Sized Biz",
-        painTitle: "Double Entry Hell",
-        painText: "Your highly paid staff type client details into the CRM, and then re-type them into Xero. It wastes hours and causes expensive spelling errors.",
-        solution: "I perform a 'Fractional Distillation'. We map every step, cut the connections that don't work, and integrate the tools that do. One entry, everywhere."
+        title: "The Leak Hunter",
+        examples: "SaaS, Membership Sites",
+        painTitle: "The Retention Leak",
+        painText: "Marketing brings in 100 leads, Sales closes 20, but Churn loses 10. You're filling a bucket with a hole in it.",
+        solution: "I build Lifecycle Feedback Loops. When a customer churns, the reason is tagged and fed back to Marketing. You stop paying to acquire bad-fit customers."
       },
       {
-        id: "bloat",
-        icon: Database,
-        title: "The Subscription Victim",
-        examples: "Agencies, Tech-Heavy Startups",
-        painTitle: "Death by $29/mo",
-        painText: "You are paying for Asana, Trello, Monday, Slack, and Zoom, and nobody knows where the files are. You are bleeding cash on tools nobody uses.",
-        solution: "I audit and delete. We find the 'One Truth' tool, migrate your data, and cancel the rest. The audit often pays for itself in saved subscription fees."
-      },
-      {
-        id: "franchise",
-        icon: Layout,
-        title: "The Franchise Guardian",
-        examples: "Gym Groups, Retail Chains",
-        painTitle: "The Rogue Franchisee",
-        painText: "Every location is doing things differently. You have no visibility on the group's performance because the data is messy.",
-        solution: "I standardize the Stack. We build one perfect 'Template' system and deploy it to every location. You get a Master Dashboard of the whole empire."
+        id: "data",
+        icon: Users,
+        title: "The Data Purist",
+        examples: "Financial Services, Insurance",
+        painTitle: "Dirty Data",
+        painText: "You have 'John Smith' in Xero, 'J. Smith' in HubSpot, and 'John' in your support desk. You can't get a single view of the customer.",
+        solution: "I build Data Normalization. We treat the CRM as the 'Single Source of Truth', pushing clean data to finance and support. One customer, one record."
       }
     ]
   }
@@ -313,7 +280,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
     setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
-            const offset = 100; 
+            const offset = 100; // Header offset
             const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
             const offsetPosition = elementPosition - offset;
       
@@ -335,14 +302,9 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
           
+          {/* NAV BACK - STANDARDIZED */}
           <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
-            <button 
-              onClick={() => onNavigate('system')}
-              className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-              / Return to The System
-            </button>
+            <BackButton onClick={() => onNavigate('system')} label="Return to The System" />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 flex-1 content-center items-center">
@@ -350,16 +312,16 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
-                   THE SYSTEM / THE BRAIN
+                   THE SYSTEM / CAPTURE CORE
                  </span>
                </div>
 
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
-                 Revenue <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Intelligence.</span>
+                 CRM & <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Sales Logic.</span>
                </h1>
 
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                 The website is the face; the CRM is the Brain. We stop "Lead Leakage" by centralising your data, automating your follow-up, and creating a Single Source of Truth.
+                 Most businesses lose money not because of bad ads, but because of a leaky bucket. I build the CRM infrastructure that catches, tags, and nurtures every single lead.
                </p>
             </div>
             
@@ -393,8 +355,8 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
            </h2>
            <div className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl space-y-4">
              <p>
-               Your "Brain" (CRM) is either saving you time or costing you money. 
-               <strong className="text-[#1a1a1a] font-medium"> Tap the problem you are facing right now</strong> to see the engineered solution.
+               A CRM isn't just an address book; it's your revenue engine. I've mapped out the 4 stages of sales maturity. 
+               <strong className="text-[#1a1a1a] font-medium"> Tap the problem you have</strong> to see the solution.
              </p>
            </div>
         </div>
@@ -493,9 +455,12 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                              <div className="flex-grow">
                                 <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-4 font-bold">The Fix</span>
                                 <p className="font-sans text-lg leading-relaxed mb-8">{currentPersona.solution}</p>
-                                <FillButton onClick={() => onNavigate('contact')} className="w-fit py-4 px-8 font-mono text-xs uppercase tracking-[0.2em] font-bold">
-                                  [ BOOK A CALL ]
-                                </FillButton>
+                                {/* STANDARDIZED CTA BUTTON */}
+                                <div className="w-fit">
+                                  <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
+                                    [ BOOK A CALL ]
+                                  </CTAButton>
+                                </div>
                              </div>
                              <div className="w-32 hidden lg:block flex-shrink-0">
                                 <TierVisual tierKey={activeTier} />
@@ -618,9 +583,12 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                             </div>
                                          </div>
 
-                                         <FillButton onClick={() => onNavigate('contact')} className="w-full py-4 font-mono text-xs uppercase tracking-[0.2em] font-bold">
-                                            [ BOOK A CALL ]
-                                         </FillButton>
+                                         {/* STANDARDIZED CTA BUTTON MOBILE */}
+                                         <div className="w-full">
+                                            <CTAButton theme="dark" onClick={() => onNavigate('contact')} className="w-full">
+                                                [ BOOK A CALL ]
+                                            </CTAButton>
+                                         </div>
 
                                          {/* Specs List (Restored for Mobile) */}
                                          <div className="mt-8 pt-6 border-t border-black/10">
@@ -657,7 +625,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         faqs={pillarFAQs}
         accentColor="#C5A059"
         title="Questions about CRM?"
-        subtitle="Common questions about data, pipelines, and cleaning up the mess."
+        subtitle="Common questions about sales pipelines and automation."
         onNavigate={onNavigate}
       />
     </motion.div>
