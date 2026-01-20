@@ -334,7 +334,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
               </motion.p>
             </div>
             <motion.div variants={heroItem} className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
-              <div className="w-full max-w-full flex items-center justify-center">
+              <div className="w-full max-w-full flex items-center justify-center pb-16 md:pb-24 lg:pb-0">
                 <HeroVisual_Suspension />
               </div>
             </motion.div>

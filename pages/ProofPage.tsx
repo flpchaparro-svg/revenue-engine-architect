@@ -142,7 +142,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow pb-32 relative z-10">
         
         {/* NAVIGATION - FIXED */}
-        <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
+        <div className="flex justify-between items-center mb-12 md:mb-20 pt-24 relative z-20">
           <BackButton onClick={onBack} label="Return to Home" />
         </div>
 
