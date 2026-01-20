@@ -15,23 +15,13 @@ import {
 import FAQSection from '../../components/FAQSection';
 import { getPillarFAQs } from '../../constants/faqData';
 import PillarVisual_Brain from '../../components/PillarVisual_Brain';
+import CTAButton from '../../components/CTAButton'; // STANDARDIZED BUTTON
+import BackButton from '../../components/BackButton'; // STANDARDIZED BACK LINK
 
 interface PillarPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
 }
-
-
-// --- HELPER: FILL BUTTON ---
-const FillButton = ({ children, onClick, className = "" }: { children: React.ReactNode, onClick?: () => void, className?: string }) => (
-  <button 
-    onClick={onClick} 
-    className={`relative overflow-hidden group bg-[#C5A059] text-white border border-[#C5A059] shadow-sm hover:shadow-lg transition-all duration-300 ${className}`}
-  >
-    <div className="absolute inset-0 bg-[#1a1a1a] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]" />
-    <span className="relative z-10 flex items-center justify-center gap-3">{children}</span>
-  </button>
-);
 
 // --- VISUALIZATIONS (AI & Agent Concepts) ---
 const TierVisual = ({ tierKey }: { tierKey: string }) => {
@@ -40,7 +30,6 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
       
       {tierKey === 'concierge' && (
         // ANIMATION: "The Smart Filter" (Qualifying Leads)
-        // Concept: Mixed particles fall, only Gold ones pass through.
         <div className="relative flex flex-col items-center">
             {/* Incoming Stream (Mixed) */}
             <div className="relative h-12 w-24 overflow-hidden mb-2">
@@ -72,7 +61,6 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
 
       {tierKey === 'analyst' && (
         // ANIMATION: "The Scanner" (Knowledge Retrieval)
-        // Concept: A beam scanning a grid to find the truth.
         <div className="relative w-24 h-16 grid grid-cols-6 gap-1">
              {[...Array(18)].map((_, i) => (
                 <div key={i} className="w-full h-full bg-[#C5A059]/10 rounded-[1px]" />
@@ -94,7 +82,6 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
 
       {tierKey === 'voice' && (
         // ANIMATION: "The Waveform" (Voice Agent)
-        // Concept: Living audio bars responding.
         <div className="flex gap-1 items-center h-16">
             {[...Array(5)].map((_, i) => (
                 <motion.div 
@@ -114,7 +101,6 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
 
       {tierKey === 'custom' && (
         // ANIMATION: "The Vault" (Security)
-        // Concept: A rotating shield protecting a core.
         <div className="relative flex items-center justify-center w-24 h-24">
             {/* The Core */}
             <div className="absolute w-3 h-3 bg-[#C5A059] rounded-sm z-10" />
@@ -340,14 +326,9 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
           
+          {/* NAVIGATION - STANDARDIZED */}
           <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
-            <button 
-              onClick={() => onNavigate('system')}
-              className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-              / Return to The System
-            </button>
+            <BackButton onClick={() => onNavigate('system')} label="Return to The System" />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 flex-1 content-center items-center">
@@ -498,9 +479,13 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                              <div className="flex-grow">
                                 <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-4 font-bold">The Fix</span>
                                 <p className="font-sans text-lg leading-relaxed mb-8">{currentPersona.solution}</p>
-                                <FillButton onClick={() => onNavigate('contact')} className="w-fit py-4 px-8 font-mono text-xs uppercase tracking-[0.2em] font-bold">
-                                  [ BOOK A CALL ]
-                                </FillButton>
+                                
+                                {/* STANDARDIZED CTA BUTTON */}
+                                <div className="w-fit">
+                                  <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
+                                    [ BOOK A CALL ]
+                                  </CTAButton>
+                                </div>
                              </div>
                              <div className="w-32 hidden lg:block flex-shrink-0">
                                 <TierVisual tierKey={activeTier} />
@@ -623,9 +608,12 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                             </div>
                                          </div>
 
-                                         <FillButton onClick={() => onNavigate('contact')} className="w-full py-4 font-mono text-xs uppercase tracking-[0.2em] font-bold">
-                                            [ BOOK A CALL ]
-                                         </FillButton>
+                                         {/* STANDARDIZED CTA BUTTON MOBILE */}
+                                         <div className="w-full">
+                                            <CTAButton theme="dark" onClick={() => onNavigate('contact')} className="w-full">
+                                                [ BOOK A CALL ]
+                                            </CTAButton>
+                                         </div>
 
                                          {/* Specs List (Restored for Mobile) */}
                                          <div className="mt-8 pt-6 border-t border-black/10">
@@ -661,8 +649,8 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       <FAQSection
         faqs={pillarFAQs}
         accentColor="#C5A059"
-        title="Questions about CRM?"
-        subtitle="Common questions about data, pipelines, and cleaning up the mess."
+        title="Questions about AI?"
+        subtitle="Common questions about privacy, accuracy, and replacing humans."
         onNavigate={onNavigate}
       />
     </motion.div>

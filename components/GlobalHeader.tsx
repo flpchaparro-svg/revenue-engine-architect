@@ -12,6 +12,8 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isArchHovered, setIsArchHovered] = useState(false);
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
+  // NEW: State for mobile accordion
+  const [isMobileSystemOpen, setIsMobileSystemOpen] = useState(false);
 
   // --- DATA: SYSTEM CODES ---
   const navItems = [
@@ -115,7 +117,6 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                        />
                      )}
 
-                     {/* FIX: Removed check so clicking 'ARCHITECTURE' works even with dropdown */}
                      <button 
                        onClick={() => onNavigate(item.id)}
                        className="relative z-10 flex items-center gap-3 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]"
@@ -176,6 +177,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                  <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-300 cubic-bezier(0.23, 1, 0.32, 1)" />
                  <span className="relative z-10 flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a] group-hover:text-white transition-colors duration-300">
                    [ LET'S TALK ]
+                   <ArrowRight className="w-3 h-3" />
                  </span>
                </button>
             </div>
@@ -184,7 +186,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
       </AnimatePresence>
 
       {/* =======================
-          2. SIDE DOCK
+          2. SIDE DOCK (Desktop Scroll)
       ======================== */}
       <AnimatePresence>
         {scrolled && (
@@ -242,7 +244,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
       </AnimatePresence>
 
       {/* =======================
-          3. MOBILE NAVIGATION
+          3. MOBILE NAVIGATION (UPDATED)
       ======================== */}
       <div className={`md:hidden fixed top-6 right-6 z-[310] flex items-center gap-3 transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}>
          <button 
@@ -266,8 +268,8 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
             animate={{ opacity: 1, x: '0%' }} 
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            style={{ willChange: "transform" }} // Optimize transform performance
-            className="fixed inset-0 bg-[#FFF2EC] z-[400] flex flex-col pt-32 px-8"
+            style={{ willChange: "transform" }}
+            className="fixed inset-0 bg-[#FFF2EC] z-[400] flex flex-col pt-32 px-8 overflow-y-auto"
           >
              <button 
                onClick={() => setIsMenuOpen(false)} 
@@ -276,21 +278,82 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                <X className="w-6 h-6" />
              </button>
 
-             <div className="flex flex-col gap-8">
+             <div className="flex flex-col gap-8 flex-grow">
                {navItems.map((item) => (
-                 <button 
-                   key={item.id}
-                   onClick={() => { onNavigate(item.id); setIsMenuOpen(false); }} 
-                   className="flex items-center gap-4 text-4xl font-serif text-[#1a1a1a]"
-                 >
-                   {currentView === item.id && <div className="w-2 h-2 rounded-full bg-[#C5A059]" />}
-                   {item.fullLabel}
-                 </button>
+                 <div key={item.id} className="flex flex-col">
+                   <button 
+                     onClick={() => { 
+                       if (item.hasDropdown) {
+                         setIsMobileSystemOpen(!isMobileSystemOpen);
+                       } else {
+                         onNavigate(item.id); 
+                         setIsMenuOpen(false); 
+                       }
+                     }} 
+                     className="flex items-center justify-between text-4xl font-serif text-[#1a1a1a] w-full text-left group"
+                   >
+                     <div className="flex items-center gap-4">
+                       {currentView === item.id && <div className="w-2 h-2 rounded-full bg-[#C5A059]" />}
+                       {item.fullLabel}
+                     </div>
+                     {item.hasDropdown && (
+                       <ChevronDown className={`w-6 h-6 text-[#1a1a1a]/40 transition-transform duration-300 ${isMobileSystemOpen ? 'rotate-180' : ''}`} />
+                     )}
+                   </button>
+
+                   {/* Accordion for System */}
+                   {item.hasDropdown && (
+                     <AnimatePresence>
+                       {isMobileSystemOpen && (
+                         <motion.div
+                           initial={{ height: 0, opacity: 0 }}
+                           animate={{ height: 'auto', opacity: 1 }}
+                           exit={{ height: 0, opacity: 0 }}
+                           className="overflow-hidden"
+                         >
+                           <div className="pt-6 pb-2 pl-6 space-y-6 border-l border-[#1a1a1a]/10 ml-2 mt-2">
+                             {archPillars.map((group) => (
+                               <div key={group.system}>
+                                 <span className={`font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block ${group.color}`}>
+                                   {group.system}
+                                 </span>
+                                 <div className="flex flex-col gap-3">
+                                   {group.items.map((sub) => (
+                                     <button
+                                       key={sub.id}
+                                       onClick={() => { onNavigate(sub.id); setIsMenuOpen(false); }}
+                                       className="text-left font-serif text-lg text-[#1a1a1a]/70 hover:text-[#1a1a1a] active:text-[#C5A059] transition-colors"
+                                     >
+                                       {sub.name}
+                                     </button>
+                                   ))}
+                                 </div>
+                               </div>
+                             ))}
+                           </div>
+                         </motion.div>
+                       )}
+                     </AnimatePresence>
+                   )}
+                 </div>
                ))}
-               <button onClick={() => { onNavigate('contact'); setIsMenuOpen(false); }} className="text-4xl font-serif text-[#1a1a1a] opacity-50">Let's Talk</button>
+               
+               {/* Center-Aligned "Let's Talk" Button */}
+               <div className="w-full flex justify-center mt-8">
+                 <button 
+                   onClick={() => { onNavigate('contact'); setIsMenuOpen(false); }} 
+                   className="w-full max-w-xs group relative h-16 bg-[#1a1a1a] flex items-center justify-center overflow-hidden shadow-xl"
+                 >
+                   <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-300 cubic-bezier(0.23, 1, 0.32, 1)" />
+                   <span className="relative z-10 font-mono text-xs font-bold uppercase tracking-[0.3em] text-[#FFF2EC] group-hover:text-[#1a1a1a] transition-colors flex items-center gap-3">
+                     [ LET'S TALK ]
+                     <ArrowRight className="w-4 h-4" />
+                   </span>
+                 </button>
+               </div>
              </div>
              
-             <div className="mt-auto mb-12 border-t border-[#1a1a1a]/10 pt-8">
+             <div className="mt-8 mb-12 border-t border-[#1a1a1a]/10 pt-8">
                <span className="font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40 block mb-2">Response Time</span>
                <div className="flex items-center gap-2 text-[#C5A059] font-mono text-xs uppercase tracking-widest">
                  <div className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
