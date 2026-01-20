@@ -1,11 +1,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { 
-  ArrowLeft, Search, PenTool, Hammer, Flag, 
-  ArrowRight, CheckCircle2, Sliders, 
-  Terminal
+  Search, PenTool, Hammer, Flag, 
+  CheckCircle2, Sliders, Terminal
 } from 'lucide-react';
 import ProtocolVisual_Geodesic from '../components/ProtocolVisual_Geodesic';
+import CTAButton from '../components/CTAButton'; // IMPORT
+import BackButton from '../components/BackButton'; // IMPORT
 
 interface ProcessPageProps {
   onBack: () => void;
@@ -101,17 +102,9 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
       
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow relative z-10">
         
-        {/* NAV BACK */}
+        {/* NAV BACK - STANDARDIZED */}
         <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
-          <button 
-            onClick={onBack}
-            className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/60 hover:text-[#C5A059] transition-colors"
-          >
-            <div className="w-8 h-8 rounded-full border border-[#1a1a1a]/10 flex items-center justify-center group-hover:border-[#C5A059] transition-colors bg-white">
-              <ArrowLeft className="w-3 h-3 group-hover:-translate-x-0.5 transition-transform" />
-            </div>
-            <span>Return to Home</span>
-          </button>
+          <BackButton onClick={onBack} label="Return to Home" />
         </div>
 
         {/* HERO SECTION */}
@@ -153,17 +146,13 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
              {principles.map((principle, idx) => (
                <Section key={principle.id} delay={idx * 0.1} className="group bg-white p-8 md:p-12 border border-[#1a1a1a]/5 hover:border-[#1a1a1a]/20 shadow-sm hover:shadow-xl transition-all duration-500 rounded-sm relative overflow-hidden">
-                 
-                 {/* Hover Highlight */}
                  <div className="absolute top-0 left-0 w-full h-1 bg-[#1a1a1a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-
                  <div className="flex justify-between items-start mb-8">
                     <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-[#1a1a1a]/40 group-hover:text-[#1a1a1a] transition-colors">
                       {principle.label}
                     </span>
                     <principle.icon className="w-6 h-6 text-[#1a1a1a]/20 group-hover:text-[#C5A059] transition-colors" />
                  </div>
-
                  <h3 className="font-serif text-3xl text-[#1a1a1a] mb-4 group-hover:translate-x-2 transition-transform duration-300">
                    {principle.title}
                  </h3>
@@ -188,21 +177,16 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
           </Section>
 
           <div className="relative pl-4 md:pl-0">
-             {/* THE CONNECTING LINE */}
              <div className="absolute left-[19px] md:left-[50%] top-0 bottom-0 w-px bg-gradient-to-b from-[#E21E3F] via-[#C5A059] to-[#1a1a1a] hidden md:block" />
              <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-[#E21E3F] via-[#C5A059] to-[#1a1a1a] md:hidden" />
 
              {steps.map((step, idx) => (
                <Section key={step.id} delay={idx * 0.1} className={`relative flex flex-col md:flex-row gap-8 md:gap-24 py-12 ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                  
-                  {/* CENTER NODE */}
                   <div className="absolute left-0 md:left-[50%] top-12 -translate-x-1/2 md:-translate-x-1/2 z-10 bg-[#FFF2EC] p-2">
                      <div className={`w-10 h-10 rounded-full border-2 bg-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300 ${step.borderColor}`}>
                         <step.icon className={`w-4 h-4 ${step.color}`} />
                      </div>
                   </div>
-
-                  {/* CONTENT */}
                   <div className={`flex-1 md:text-right ${idx % 2 !== 0 ? 'md:text-left' : ''} pl-12 md:pl-0`}>
                      <span className={`font-mono text-[9px] uppercase tracking-[0.2em] font-bold mb-2 block ${step.color}`}>
                        {step.phase}
@@ -211,23 +195,19 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                        {step.title}
                      </h3>
                   </div>
-
-                  {/* DESCRIPTION */}
                   <div className={`flex-1 pl-12 md:pl-0 ${idx % 2 !== 0 ? 'md:text-right' : 'md:text-left'}`}>
                      <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed max-w-md">
                        {step.text}
                      </p>
                   </div>
-
                </Section>
              ))}
           </div>
         </div>
 
-        {/* BOTTOM CTA - FIXED HOVER EFFECT */}
+        {/* BOTTOM CTA - STANDARDIZED */}
         <Section className="mb-32">
           <div className="bg-[#1a1a1a] text-white p-12 md:p-24 text-center relative overflow-hidden rounded-sm group cursor-default">
-             
              <div className="relative z-10 flex flex-col items-center">
                 <span className="font-mono text-xs text-[#C5A059] uppercase tracking-widest mb-6 block">
                   Project Initation
@@ -236,20 +216,15 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                   Ready to <span className="italic font-serif text-[#C5A059]">Start?</span>
                 </h2>
                 
-                {/* STANDARD PRIMARY BUTTON - White hover for black background */}
-                <button 
+                {/* STANDARDIZED BUTTON - DARK THEME */}
+                <CTAButton 
+                  theme="dark"
                   onClick={() => onNavigate('contact')}
-                  className="group relative flex items-center justify-center px-10 py-5 bg-[#C5A059] text-[#1a1a1a] font-mono text-xs font-bold uppercase tracking-[0.2em] overflow-hidden border-none mb-6"
                 >
-                   {/* White Overlay Sliding Up (visible on black background) */}
-                   <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]" />
-                   
-                   <span className="relative z-10 flex items-center gap-3 group-hover:text-[#1a1a1a] transition-colors duration-500">
-                      [ BOOK A CALL ] <ArrowRight className="w-4 h-4" />
-                   </span>
-                </button>
+                  [ BOOK A CALL ]
+                </CTAButton>
                 
-                <div className="flex items-center gap-2 opacity-50">
+                <div className="flex items-center gap-2 opacity-50 mt-6">
                   <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                   <p className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest">
                     Accepting New Clients
