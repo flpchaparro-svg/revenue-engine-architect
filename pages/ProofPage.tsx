@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { 
-  ShieldCheck, Activity, Database, ArrowRight, ArrowLeft, Zap, 
-  MapPin, Award, Terminal, CheckCircle2, Globe, AlertTriangle, 
-  TrendingUp, BarChart3, ChevronRight, LayoutTemplate, Smartphone,
-  Clock, Target // <--- ADDED THESE MISSING IMPORTS
+  ShieldCheck, Activity, Database, ArrowRight, Zap, 
+  MapPin, Terminal, CheckCircle2, Globe, AlertTriangle, 
+  LayoutTemplate, Clock, Target 
 } from 'lucide-react';
 import EvidenceVisual_Compare from '../components/EvidenceVisual_Compare';
+import CTAButton from '../components/CTAButton'; // FIXED: IMPORT STANDARD BUTTON
+import BackButton from '../components/BackButton'; // FIXED: IMPORT STANDARD BACK LINK
 
 interface ProofPageProps {
   onBack: () => void;
@@ -38,7 +39,7 @@ const CountUp: React.FC<{ value: number, suffix?: string, prefix?: string }> = (
   return <span ref={ref}>{prefix}{count}{suffix}</span>;
 };
 
-// --- COMPONENT: TERMINAL LOG (ENHANCED) ---
+// --- COMPONENT: TERMINAL LOG ---
 const TerminalLog: React.FC = () => {
   const [lines, setLines] = useState<string[]>([]);
   const allLines = [
@@ -70,7 +71,6 @@ const TerminalLog: React.FC = () => {
 
   return (
     <div ref={ref} className="w-full bg-[#111] rounded-sm overflow-hidden shadow-2xl border border-white/10 relative group">
-      {/* Mac-style Window Controls (Decorative) */}
       <div className="bg-[#1a1a1a] px-4 py-3 flex items-center justify-between border-b border-white/10">
         <div className="flex gap-2">
           <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50" />
@@ -141,17 +141,9 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow pb-32 relative z-10">
         
-        {/* NAVIGATION */}
+        {/* NAVIGATION - FIXED */}
         <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
-          <button 
-            onClick={onBack}
-            className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/60 hover:text-[#C5A059] transition-colors"
-          >
-            <div className="w-8 h-8 rounded-full border border-[#1a1a1a]/10 flex items-center justify-center group-hover:border-[#C5A059] transition-colors bg-white">
-              <ArrowLeft className="w-3 h-3 group-hover:-translate-x-0.5 transition-transform" />
-            </div>
-            <span>Return to Home</span>
-          </button>
+          <BackButton onClick={onBack} label="Return to Home" />
         </div>
 
         {/* HERO SECTION */}
@@ -173,10 +165,9 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </p>
         </Section>
 
-        {/* THE BRIEF (TECHNICAL SHEET) */}
+        {/* THE BRIEF */}
         <Section className="mb-32">
           <div className="bg-white border border-[#1a1a1a]/5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] p-0 overflow-hidden">
-            {/* Header Strip */}
             <div className="bg-[#1a1a1a] text-white px-8 py-4 flex flex-wrap justify-between items-center gap-4">
               <span className="font-mono text-xs text-[#C5A059] uppercase tracking-widest font-bold">
                 [ CLIENT: GROUP 7 SECURITY ]
@@ -188,9 +179,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
               </div>
             </div>
 
-            {/* Content Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-[#1a1a1a]/5">
-              {/* Metadata Column */}
               <div className="lg:col-span-4 bg-[#f9f9f9] p-8 border-b lg:border-b-0 lg:border-r border-[#1a1a1a]/5 space-y-8">
                 <div>
                   <span className="font-mono text-[10px] text-[#1a1a1a]/40 uppercase tracking-widest block mb-2">Industry</span>
@@ -215,7 +204,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                 </div>
               </div>
 
-              {/* Narrative Column */}
               <div className="lg:col-span-8 p-8 md:p-12">
                 <h3 className="font-serif text-3xl mb-6">The Brief</h3>
                 <p className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl">
@@ -228,7 +216,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </Section>
 
-        {/* SECTION: THE PROBLEM (DANGER ZONE) */}
+        {/* THE PROBLEM */}
         <Section className="mb-32">
           <div className="mb-20">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 flex items-center gap-2">
@@ -281,7 +269,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             ].map((item, i) => (
               <div key={i} className="group p-8 bg-white border border-[#E21E3F]/10 hover:border-[#E21E3F] hover:shadow-lg transition-all duration-300 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-1 h-full bg-[#E21E3F] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
-                
                 <div className="flex justify-between items-start mb-6">
                   <div className="p-3 bg-[#E21E3F]/5 rounded-sm">
                     <item.icon className="w-6 h-6 text-[#E21E3F]" />
@@ -290,13 +277,11 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                     Critical Error
                   </span>
                 </div>
-
                 <div className="mb-6">
                   <div className="font-mono text-[10px] text-[#1a1a1a]/40 uppercase tracking-widest mb-1">{item.label}</div>
                   <div className="text-4xl font-serif text-[#E21E3F] mb-4">{item.metric}</div>
                   <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed mb-4">{item.desc}</p>
                 </div>
-                
                 <div className="pt-4 border-t border-[#E21E3F]/10 flex items-center gap-2">
                   <span className="text-[#E21E3F] text-xs font-bold uppercase tracking-wide">Impact:</span>
                   <span className="text-sm font-medium text-[#1a1a1a]">{item.impact}</span>
@@ -306,7 +291,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </Section>
 
-        {/* SECTION: THE SOLUTION (GOLD ZONE) */}
+        {/* THE SOLUTION */}
         <Section className="mb-32">
           <div className="mb-20">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center gap-2">
@@ -350,9 +335,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
               }
             ].map((item, i) => (
               <div key={i} className="relative pl-8 md:pl-16 group">
-                {/* Timeline Dot */}
                 <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-white border-2 border-[#C5A059] z-10 group-hover:scale-125 transition-transform duration-300" />
-                
                 <div className="bg-white p-8 border border-black/5 hover:border-[#C5A059]/50 shadow-sm hover:shadow-xl transition-all duration-300 rounded-sm">
                   <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 mb-6">
                     <div className="w-12 h-12 bg-[#C5A059]/10 flex items-center justify-center rounded-sm">
@@ -363,7 +346,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                       <p className="font-sans text-base text-[#1a1a1a]/60 mt-1">{item.what}</p>
                     </div>
                   </div>
-                  
                   <div className="bg-[#f9f9f9] p-5 border-l-2 border-[#C5A059]">
                     <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-widest font-bold block mb-2">The Logic</span>
                     <p className="font-sans text-base md:text-lg text-[#1a1a1a]/80 leading-relaxed">
@@ -376,7 +358,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </Section>
 
-        {/* SECTION: THE EVIDENCE (BENTO GRID) */}
+        {/* THE EVIDENCE */}
         <Section className="mb-32">
           <div className="mb-20">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center gap-2">
@@ -388,7 +370,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Metric Card Component */}
             {[
               { label: "PageSpeed Score", val: 94, suffix: "/100", icon: Activity, note: "Top Tier Performance", color: "text-green-600" },
               { label: "Load Time", val: 0.4, suffix: "s", prefix: "", icon: Zap, note: "10x Faster", color: "text-[#C5A059]" },
@@ -404,7 +385,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                   </div>
                   <ArrowRight className="w-4 h-4 text-[#1a1a1a]/20 group-hover:-rotate-45 transition-transform duration-300" />
                 </div>
-
                 <div className="mt-auto">
                   <div className="font-mono text-[10px] text-[#1a1a1a]/40 uppercase tracking-widest mb-3">{m.label}</div>
                   <div className="flex items-baseline gap-1 mb-2">
@@ -423,51 +403,12 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </Section>
 
-        {/* SECTION: BUILD LOG (TERMINAL) */}
+        {/* BUILD LOG */}
         <Section className="mb-32">
           <TerminalLog />
         </Section>
 
-        {/* SECTION: SEO ACTIVE WORK */}
-        <Section className="mb-32">
-          <div className="bg-[#C5A059] text-[#1a1a1a] p-10 md:p-16 relative overflow-hidden rounded-sm pattern-dots">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
-            
-            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <span className="inline-block bg-[#1a1a1a] text-[#C5A059] font-mono text-xs font-bold uppercase tracking-widest px-3 py-1 mb-6">
-                  [ STATUS: ACTIVE ]
-                </span>
-                <h3 className="font-serif text-4xl md:text-5xl mb-6 leading-tight">
-                  The Work <br/>Continues.
-                </h3>
-                <p className="font-sans text-lg md:text-xl font-medium leading-relaxed max-w-md opacity-90 mb-8">
-                  The website rebuild was Phase 1. Now I'm running an ongoing SEO campaign to build authority in Sydney's market.
-                </p>
-                <div className="h-px w-24 bg-[#1a1a1a]/20" />
-              </div>
-
-              <div className="bg-white/90 backdrop-blur-sm p-8 rounded-sm shadow-xl">
-                <ul className="space-y-4">
-                  {[
-                    "Creating industry-specific landing pages",
-                    "Building local backlinks from Sydney directories",
-                    "Optimising Google Business Profile daily",
-                    "Monitoring Core Web Vitals continuously",
-                    "Adjusting keyword strategy monthly"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-4 pb-4 border-b border-[#1a1a1a]/5 last:border-0 last:pb-0">
-                      <CheckCircle2 className="w-5 h-5 text-[#C5A059] flex-shrink-0 mt-0.5" />
-                      <span className="font-sans text-base text-[#1a1a1a]/80">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </Section>
-
-        {/* SECTION: COMPARISON */}
+        {/* COMPARISON - FIXED: Pass images explicitly */}
         <Section className="mb-32">
            <div className="mb-20">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center gap-2">
@@ -479,7 +420,12 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
           
           <div className="bg-white p-4 border border-[#1a1a1a]/10 shadow-2xl rounded-sm">
-             <EvidenceVisual_Compare beforeLabel="LEGACY SITE" afterLabel="NEW STANDARD" />
+             <EvidenceVisual_Compare 
+               beforeLabel="LEGACY SITE" 
+               afterLabel="NEW STANDARD"
+               beforeImage="/images/group7-before.webp" 
+               afterImage="/images/group7-after.webp"
+             />
           </div>
           <div className="mt-8 grid grid-cols-2 gap-8 text-center">
             <div className="border-t border-red-500/20 pt-4">
@@ -493,14 +439,14 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </Section>
 
-        {/* SECTION: CTA */}
+        {/* BOTTOM CTA - FIXED: Use CTAButton */}
         <Section className="mb-16">
           <div className="bg-[#1a1a1a] text-white p-12 md:p-24 text-center relative overflow-hidden rounded-sm group cursor-default">
             {/* Hover Glow Effect */}
             <div className="absolute inset-0 bg-[#C5A059]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#C5A059]/20 rounded-full blur-[100px] opacity-0 group-hover:opacity-30 transition-opacity duration-700" />
 
-            <div className="relative z-10">
+            <div className="relative z-10 flex flex-col items-center">
               <span className="font-mono text-xs text-[#C5A059] uppercase tracking-widest mb-6 block">
                 Transformation Complete
               </span>
@@ -512,13 +458,13 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                 <br/>If your website is holding you back, let's fix it.
               </p>
               
-              <button 
+              {/* FIXED CTA BUTTON */}
+              <CTAButton 
+                theme="dark" 
                 onClick={() => onNavigate('contact')}
-                className="inline-flex items-center gap-3 px-10 py-5 bg-[#C5A059] text-[#1a1a1a] font-mono text-xs font-bold uppercase tracking-[0.2em] hover:bg-white transition-colors duration-300"
               >
-                <span>[ Start Transformation ]</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+                [ Start Transformation ]
+              </CTAButton>
             </div>
           </div>
         </Section>

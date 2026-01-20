@@ -1,13 +1,16 @@
-
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Check, ChevronDown } from 'lucide-react';
+import { Check, ChevronDown } from 'lucide-react';
+import CTAButton from '../components/CTAButton'; // STANDARDIZED BUTTON
+import BackButton from '../components/BackButton'; // STANDARDIZED NAV
 
 interface ContactPageProps {
   onBack: () => void;
 }
 
 const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
+  const formRef = useRef<HTMLFormElement>(null);
+  
   const [formState, setFormState] = useState({
     name: '',
     email: '',
@@ -18,14 +21,22 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     setIsSubmitting(true);
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSent(true);
     }, 1500);
+  };
+
+  // Helper to trigger form submit from CTAButton
+  const handleBtnClick = () => {
+    if (formRef.current) {
+        // Create a synthetic event or just call submit handler
+        handleSubmit(); 
+    }
   };
 
   const systems = [
@@ -39,7 +50,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
     'Unsure / I need a full system audit'
   ];
 
-  // UX FIX: Common Input Styles for better visibility
+  // Common Input Styles
   const inputBaseStyle = "w-full bg-white/5 border border-white/10 px-4 py-4 font-sans text-xl text-white focus:outline-none focus:border-[#C5A059] focus:bg-white/10 transition-all placeholder:text-white/30 rounded-sm mt-2";
 
   return (
@@ -48,31 +59,22 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
       {/* LEFT COLUMN: THE HUMAN ANCHOR (CREAM) */}
       <div className="lg:w-5/12 h-auto lg:h-screen sticky top-0 bg-[#FFF2EC] text-[#1a1a1a] flex flex-col p-8 md:p-12 lg:px-20 lg:pb-20 lg:pt-24 border-r border-[#1a1a1a]/10 justify-between order-first">
         
-        {/* Nav - Keep this, it replaces the Global Header */}
+        {/* STANDARDIZED NAV */}
         <div className="flex-none mb-12 lg:mb-0 pt-8 lg:pt-0">
-          <button 
-            onClick={onBack} 
-            className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] opacity-60 hover:opacity-100 hover:text-[#E21E3F] transition-all group"
-          >
-            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" /> 
-            [ ABORT_DIAGNOSIS ]
-          </button>
+          <BackButton onClick={onBack} label="Abort Diagnosis" />
         </div>
 
         {/* The Promise */}
         <div className="flex-1 flex flex-col justify-center">
-          {/* New Black Eyebrow */}
           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] mb-8 block">
             / THE PROMISE
           </span>
           
-          {/* Hero Size Title (8XL) */}
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.0] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-10">
             This is not a <br />
             <span className="italic font-serif text-[#C5A059]">Sales Call.</span>
           </h1>
           
-          {/* UNIFIED BODY COPY (All text-xl, light, consistent) */}
           <div className="space-y-6 max-w-lg">
             <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]">
               I don't employ salespeople. When you submit this brief, you are starting a conversation directly with me.
@@ -96,7 +98,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
       <div className="lg:w-7/12 min-h-screen bg-[#1a1a1a] text-[#FFF2EC] p-8 md:p-12 lg:p-24 flex flex-col justify-center relative">
         
         {!isSent ? (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-xl">
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-xl w-full">
             
             <div className="mb-12 border-b border-white/10 pb-8">
               <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
@@ -110,7 +112,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
               
               {/* Row 1: Name & Email */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -189,17 +191,16 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                 />
               </div>
 
-              {/* Gold Button */}
-              <button 
-                type="submit"
-                disabled={isSubmitting}
-                className="group w-full relative h-20 bg-[#C5A059] text-[#1a1a1a] overflow-hidden flex items-center justify-center mt-8 disabled:opacity-50 shadow-[0_0_20px_rgba(197,160,89,0.2)] hover:shadow-[0_0_40px_rgba(197,160,89,0.4)] transition-shadow duration-500"
-              >
-                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                <span className="relative z-10 font-mono text-xs uppercase tracking-[0.3em] font-bold flex items-center gap-4 transition-colors">
+              {/* STANDARDIZED BUTTON (Dark Theme) */}
+              <div className="pt-8">
+                <CTAButton 
+                  theme="dark"
+                  onClick={handleBtnClick}
+                  className={`w-full ${isSubmitting ? 'opacity-50 cursor-wait' : ''}`}
+                >
                   {isSubmitting ? 'UPLOADING...' : '[ INITIATE DIAGNOSIS ]'}
-                </span>
-              </button>
+                </CTAButton>
+              </div>
               
             </form>
           </motion.div>
@@ -214,9 +215,13 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
              <p className="font-sans text-xl font-light text-white/60 mb-12 leading-relaxed">
                I have received your parameters. I will analyse your architecture and respond personally within 24 hours.
              </p>
-             <button onClick={onBack} className="font-mono text-xs uppercase tracking-[0.2em] border-b border-white/30 pb-1 text-white hover:text-[#C5A059] hover:border-[#C5A059] transition-colors">
-               Return to Homepage
-             </button>
+             
+             {/* STANDARDIZED RETURN BUTTON */}
+             <div className="w-fit">
+                <CTAButton theme="dark" onClick={onBack}>
+                   RETURN TO HQ
+                </CTAButton>
+             </div>
           </motion.div>
         )}
       </div>

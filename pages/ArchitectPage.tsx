@@ -1,10 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  ArrowLeft, Coffee, Code2, ArrowRight, Database, Zap, 
+  Coffee, Code2, Database, Zap, 
   Globe, Quote, Terminal, Fingerprint, Scan, FlaskConical, 
   Award, Wrench, Target
 } from 'lucide-react';
+import CTAButton from '../components/CTAButton'; // STANDARDIZED BUTTON
+import BackButton from '../components/BackButton'; // STANDARDIZED BACK LINK
 
 interface ArchitectPageProps {
   onBack: () => void;
@@ -12,7 +14,6 @@ interface ArchitectPageProps {
 }
 
 // --- COMPONENT: VIDEO HUD (HEADS UP DISPLAY) ---
-// Restored for Vertical (9:16) Layout
 const VideoHUD: React.FC = () => (
   <div className="absolute inset-0 pointer-events-none z-20 p-6 flex flex-col justify-between">
     {/* Top Bar */}
@@ -175,22 +176,13 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
       initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }} 
       exit={{ opacity: 0 }}
-      // BACKGROUND: Locked to clean Cream (#FFF2EC)
       className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-0 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col selection:bg-[#C5A059]/30"
     >
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow relative z-10">
         
-        {/* NAV BACK */}
+        {/* NAV BACK - STANDARDIZED */}
         <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
-          <button 
-            onClick={onBack}
-            className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/60 hover:text-[#C5A059] transition-colors"
-          >
-            <div className="w-8 h-8 rounded-full border border-[#1a1a1a]/10 flex items-center justify-center group-hover:border-[#C5A059] transition-colors bg-white">
-              <ArrowLeft className="w-3 h-3 group-hover:-translate-x-0.5 transition-transform" />
-            </div>
-            <span>Return to Home</span>
-          </button>
+          <BackButton onClick={onBack} label="Return to Home" />
         </div>
 
         {/* HEADER & SWITCH */}
@@ -202,7 +194,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
              </span>
            </div>
            
-           {/* REDESIGNED SWITCH: Toggle Board Style */}
+           {/* SWITCH: Toggle Board Style */}
            <div className="flex items-center gap-0 mb-12 border border-[#1a1a1a]/10 bg-white p-1 rounded-sm w-fit shadow-lg">
               <button 
                 onClick={() => setMode('architect')}
@@ -248,7 +240,6 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
            
            {/* LEFT: VISUAL (VERTICAL PORTAL - 9:16) */}
            <div className="lg:col-span-5 relative order-2 lg:order-1">
-              {/* STICKY CONTAINER: Ensures the video stays visible while scrolling the long timeline */}
               <div className="sticky top-32">
                 <AnimatePresence mode="wait">
                   <motion.div 
@@ -259,7 +250,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                     transition={{ duration: 0.5 }}
                     className="relative group w-full"
                   >
-                    {/* The Frame (Aspect 9:16 = Vertical Phone/Portal) */}
+                    {/* The Frame */}
                     <div className={`aspect-[9/16] relative overflow-hidden transition-all duration-500 shadow-2xl ${
                         mode === 'architect' 
                         ? 'rounded-sm border-2 border-[#1a1a1a]' 
@@ -268,7 +259,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                       
                       {/* Video Source Swap */}
                       <video
-                        key={mode} // Force reload on switch
+                        key={mode}
                         className={`w-full h-full object-cover transition-all duration-700 ${
                             mode === 'architect' 
                             ? 'grayscale contrast-110 saturate-0' 
@@ -280,7 +271,6 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                         playsInline
                       >
                         <source src={mode === 'architect' ? "/videos/architect-mode.mp4" : "/videos/human-mode.mp4"} type="video/mp4" />
-                        {/* Fallback image */}
                         <img 
                             src={mode === 'architect' ? "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000" : "https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2000"} 
                             className="w-full h-full object-cover"
@@ -326,19 +316,13 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
 
                   {/* TIMELINE COMPONENT */}
                   <div className={`relative ml-3 md:ml-6 space-y-0`}>
-                    
-                    {/* Timeline Vertical Line */}
                     <div className={`absolute left-0 top-4 bottom-4 w-px ${mode === 'architect' ? 'bg-gradient-to-b from-[#E21E3F] to-transparent' : 'bg-[#C5A059]/30'}`} />
 
                     {current.timeline.map((step, idx) => (
                       <Section key={step.id} delay={idx * 0.1} className="relative pl-12 md:pl-16 pb-16 group last:pb-0">
-                         
-                         {/* DOT / ICON */}
                          <div className={`absolute -left-3 md:-left-4 top-0 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-[#FFF2EC] z-10 transition-all duration-300 group-hover:scale-110 shadow-sm ${mode === 'architect' ? 'bg-[#1a1a1a] text-white' : 'bg-[#C5A059] text-white'}`}>
                             <step.icon className="w-3 h-3 md:w-4 md:h-4" />
                          </div>
-
-                         {/* CONTENT */}
                          <div>
                            <div className="flex items-center gap-3 mb-2">
                              <span className={`font-mono text-[9px] uppercase tracking-[0.2em] font-bold ${current.accent}`}>
@@ -346,7 +330,6 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                              </span>
                              <div className={`h-px flex-grow max-w-[50px] ${mode === 'architect' ? 'bg-[#E21E3F]/20' : 'bg-[#C5A059]/20'}`} />
                            </div>
-                           
                            <h4 className="font-serif text-2xl md:text-3xl mb-4 text-[#1a1a1a]">
                              {step.title}
                            </h4>
@@ -356,7 +339,6 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                          </div>
                       </Section>
                     ))}
-
                   </div>
 
                   {/* ARCHITECT MODE: CREDENTIALS GRID */}
@@ -378,7 +360,6 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                   {/* HUMAN MODE: PERSONAL TOUCH */}
                   {mode === 'human' && (
                     <div className="space-y-8 mt-8">
-                      {/* QUOTE BLOCK */}
                       <Section delay={0.4} className="relative pl-8 py-2">
                         <Quote className="absolute top-0 left-0 w-6 h-6 text-[#C5A059]/40" />
                         <p className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-4 italic leading-tight">
@@ -392,7 +373,6 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                         </div>
                       </Section>
 
-                      {/* FUN FACT CARD */}
                       <Section delay={0.5} className="bg-[#C5A059]/5 p-8 border border-[#C5A059]/20 relative overflow-hidden rounded-sm">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-[#C5A059]/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
                         <span className="font-mono text-[9px] uppercase tracking-[0.2em] mb-3 block font-bold text-[#C5A059]">
@@ -410,9 +390,8 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
            </div>
         </div>
 
-        {/* FOOTER CTA */}
+        {/* FOOTER CTA - STANDARDIZED */}
         <Section className="border-t border-black/10 py-32 flex flex-col items-center text-center relative overflow-hidden">
-           {/* Decorative Background for CTA */}
            <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#1a1a1a]/[0.02] pointer-events-none" />
            
            <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tighter text-[#1a1a1a] mb-12 max-w-6xl mx-auto relative z-10">
@@ -427,16 +406,15 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
              )}
            </h2>
            
-           <button 
+           {/* STANDARDIZED BUTTON (Swaps Theme based on Mode) */}
+           {/* Architect Mode = Black Action Button (Light Theme) */}
+           {/* Human Mode = Gold Action Button (Dark Theme simulation for accent) */}
+           <CTAButton 
+             theme={mode === 'architect' ? 'light' : 'dark'} 
              onClick={() => handleNavigate('contact')}
-             className={`group relative flex items-center justify-center px-12 py-6 font-mono text-xs uppercase tracking-[0.3em] font-bold overflow-hidden transition-all duration-300 shadow-xl hover:shadow-2xl rounded-sm ${mode === 'architect' ? 'bg-[#1a1a1a] text-white' : 'bg-[#C5A059] text-[#1a1a1a]'}`}
            >
-             <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-             <span className="relative z-10 flex items-center gap-4 group-hover:text-[#1a1a1a] transition-colors duration-500">
-               <span>[ BOOK A CALL ]</span>
-               <ArrowRight className="w-4 h-4" />
-             </span>
-           </button>
+             [ BOOK A CALL ]
+           </CTAButton>
         </Section>
 
       </div>
