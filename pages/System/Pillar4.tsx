@@ -1,25 +1,19 @@
-
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { 
   motion, 
   AnimatePresence, 
-  useScroll, 
-  useMotionValueEvent, 
-  useAnimationFrame, 
-  useMotionValue, 
-  useTransform 
+  useScroll,
+  useAnimationFrame,
+  useMotionValue,
+  useTransform
 } from 'framer-motion';
+import { 
+  ArrowLeft, ArrowRight, Zap, Bot, MessageSquare, Phone, 
+  ShieldCheck, CheckCircle, ChevronDown, ChevronRight, Terminal, HelpCircle,
+  BrainCircuit, Lock
+} from 'lucide-react';
 import FAQSection from '../../components/FAQSection';
 import { getPillarFAQs } from '../../constants/faqData';
-import { 
-  ArrowLeft, ArrowRight, CheckCircle2,
-  Brain, MessageSquare, Shield, Phone, // Main Icons
-  UserCheck, Stethoscope, Globe, // Tier 1 Icons
-  Users, FileCheck, Rocket, // Tier 2 Icons
-  Lock, Book, Building, // Tier 3 Icons
-  Wrench, Activity, Headphones, // Tier 4 Icons
-  Check // UI Icons
-} from 'lucide-react';
 import PillarVisual_Brain from '../../components/PillarVisual_Brain';
 
 interface PillarPageProps {
@@ -27,159 +21,269 @@ interface PillarPageProps {
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
-// --- HELPER COMPONENT: FILL BUTTON ---
+
+// --- HELPER: FILL BUTTON ---
 const FillButton = ({ children, onClick, className = "" }: { children: React.ReactNode, onClick?: () => void, className?: string }) => (
   <button 
     onClick={onClick} 
-    className={`relative overflow-hidden group bg-[#C5A059] text-white border border-[#C5A059] ${className}`}
+    className={`relative overflow-hidden group bg-[#C5A059] text-white border border-[#C5A059] shadow-sm hover:shadow-lg transition-all duration-300 ${className}`}
   >
     <div className="absolute inset-0 bg-[#1a1a1a] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]" />
     <span className="relative z-10 flex items-center justify-center gap-3">{children}</span>
   </button>
 );
 
+// --- VISUALIZATIONS (AI & Agent Concepts) ---
+const TierVisual = ({ tierKey }: { tierKey: string }) => {
+  return (
+    <div className="h-32 w-full mb-6 flex items-center justify-center relative bg-transparent">
+      
+      {tierKey === 'concierge' && (
+        // ANIMATION: "The Smart Filter" (Qualifying Leads)
+        // Concept: Mixed particles fall, only Gold ones pass through.
+        <div className="relative flex flex-col items-center">
+            {/* Incoming Stream (Mixed) */}
+            <div className="relative h-12 w-24 overflow-hidden mb-2">
+                {[...Array(6)].map((_, i) => (
+                   <motion.div
+                     key={i}
+                     initial={{ y: -20, opacity: 0 }}
+                     animate={{ y: 40, opacity: [0, 1, 0] }}
+                     transition={{ duration: 1.5, delay: i * 0.2, repeat: Infinity }}
+                     className={`absolute w-1.5 h-1.5 rounded-full left-[${20 + i * 10}%] ${i % 2 === 0 ? 'bg-[#1a1a1a]/20' : 'bg-[#C5A059]'}`}
+                     style={{ left: `${20 + i * 12}%` }}
+                   />
+                ))}
+            </div>
+            
+            {/* The Filter Gate */}
+            <div className="w-16 h-1 bg-[#C5A059] rounded-full shadow-[0_0_15px_#C5A059]" />
+            
+            {/* Outgoing Stream (Pure Gold) */}
+            <div className="relative h-12 w-24 overflow-hidden mt-2">
+                 <motion.div
+                     animate={{ y: [0, 30], opacity: [1, 0] }}
+                     transition={{ duration: 1.5, repeat: Infinity }}
+                     className="absolute left-1/2 -translate-x-1/2 w-2 h-2 bg-[#C5A059] rounded-full"
+                 />
+            </div>
+        </div>
+      )}
+
+      {tierKey === 'analyst' && (
+        // ANIMATION: "The Scanner" (Knowledge Retrieval)
+        // Concept: A beam scanning a grid to find the truth.
+        <div className="relative w-24 h-16 grid grid-cols-6 gap-1">
+             {[...Array(18)].map((_, i) => (
+                <div key={i} className="w-full h-full bg-[#C5A059]/10 rounded-[1px]" />
+             ))}
+             {/* The Scanning Beam */}
+             <motion.div 
+               animate={{ left: ["0%", "100%", "0%"] }}
+               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+               className="absolute top-0 bottom-0 w-4 bg-gradient-to-r from-transparent via-[#C5A059]/50 to-transparent"
+             />
+             {/* The "Found" Answer */}
+             <motion.div 
+               animate={{ opacity: [0, 1, 0] }}
+               transition={{ duration: 2, repeat: Infinity }}
+               className="absolute top-1/2 left-1/2 w-4 h-4 bg-[#C5A059] -translate-x-1/2 -translate-y-1/2 shadow-[0_0_15px_#C5A059]"
+             />
+        </div>
+      )}
+
+      {tierKey === 'voice' && (
+        // ANIMATION: "The Waveform" (Voice Agent)
+        // Concept: Living audio bars responding.
+        <div className="flex gap-1 items-center h-16">
+            {[...Array(5)].map((_, i) => (
+                <motion.div 
+                   key={i}
+                   animate={{ height: [10, 40, 10] }}
+                   transition={{ 
+                     duration: 0.8, 
+                     repeat: Infinity, 
+                     delay: i * 0.1,
+                     ease: "easeInOut"
+                   }}
+                   className="w-2 bg-[#C5A059] rounded-full"
+                />
+            ))}
+        </div>
+      )}
+
+      {tierKey === 'custom' && (
+        // ANIMATION: "The Vault" (Security)
+        // Concept: A rotating shield protecting a core.
+        <div className="relative flex items-center justify-center w-24 h-24">
+            {/* The Core */}
+            <div className="absolute w-3 h-3 bg-[#C5A059] rounded-sm z-10" />
+            
+            {/* Rotating Shield 1 */}
+            <motion.div 
+               animate={{ rotate: 360 }}
+               transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+               className="absolute w-12 h-12 border-2 border-[#C5A059]/40 rounded-sm"
+            />
+             {/* Rotating Shield 2 (Reverse) */}
+             <motion.div 
+               animate={{ rotate: -360 }}
+               transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+               className="absolute w-16 h-16 border border-[#C5A059]/20 rounded-full border-t-[#C5A059]"
+            />
+        </div>
+      )}
+    </div>
+  );
+};
+
+// --- DATA ---
 const TIERS = {
   concierge: {
     id: 'concierge',
-    label: "TIER 01 / RESPONDER",
-    promise: "Instant answers. Zero wait time. Your front desk, automated.",
-    sprint: "5-DAY SPRINT",
-    specs: ['Voiceflow Logic', 'OpenAI GPT-4o', 'Pinecone Knowledge Base', 'Human-Handoff Protocol'],
+    label: "GROWTH CONCIERGE",
+    hook: "I am overwhelmed by inquiries.",
+    summary: "Choose this if you are getting leads but wasting hours answering the same basic questions ('How much?', 'Where are you?') instead of closing deals.",
+    sprint: "7-DAY SPRINT",
+    specs: ['24/7 Web Chat Agent', 'Lead Qualification Logic', 'Calendar Booking', 'Knowledge Base Training'],
     personas: [
       {
-        id: "overwhelmed",
-        icon: Stethoscope,
-        title: "The Overwhelmed Reception",
-        examples: "Medical Clinics, Dental Practices, Physios, Allied Health",
-        painTitle: "The Monday Morning Surge",
-        painText: "Your phone lines are jammed. Patients sit on hold for 20 minutes, get frustrated, and hang up. Meanwhile, your receptionist is already dealing with someone at the counter.",
-        solution: "I build an always-on AI that answers FAQs and books appointments instantly, freeing your staff to manage the room. Zero hold time, zero missed calls."
+        id: "tirekicker",
+        icon: MessageSquare,
+        title: "The Tire Kicker Victim",
+        examples: "Real Estate, Yacht Brokers, High-Ticket Sales",
+        painTitle: "The 'Just Looking' Drain",
+        painText: "You spend your Saturday morning replying to 'Is this still available?' messages from people with zero budget. You are an expensive customer service rep.",
+        solution: "I build a Gatekeeper AI. It chats with every lead instantly, asks for their budget/timeline, and only books a meeting if they are qualified. You only talk to serious buyers."
       },
       {
-        id: "global",
-        icon: Globe,
-        title: "The Timezone Victim",
-        examples: "E-commerce, Export Businesses, International Services, Online Retailers",
-        painTitle: "The Timezone Tax",
-        painText: "You're losing deals because your leads are in New York and you're asleep in Sydney. By the time you wake up, they're cold. Your competitors answered first.",
-        solution: "I build Infinite Scalability. The AI qualifies leads and answers questions 24/7, turning your sleep time into sales time. You wake up to warm leads, not cold ones."
+        id: "clinic",
+        icon: ShieldCheck,
+        title: "The Practice Manager",
+        examples: "Dental, Cosmetic, Allied Health",
+        painTitle: "The Front Desk Bottleneck",
+        painText: "Your receptionist is great with people in the room, but terrible at answering the web chat. You are paying for ads, but potential patients are being ignored online.",
+        solution: "We install a 24/7 Concierge. It answers FAQs about pricing and procedure recovery times instantly, and books the consultation directly into your practice software."
       },
       {
-        id: "hotel",
-        icon: UserCheck,
-        title: "The Distracted Concierge",
-        examples: "Boutique Hotels, Resorts, Serviced Apartments, Airbnb Managers",
-        painTitle: "The Check-In Interruption",
-        painText: "Your front desk staff are checking in a guest when the phone rings. They have to ignore the guest in front of them to answer 'What time is breakfast?' It kills the service vibe.",
-        solution: "I build an Invisible Concierge. The AI handles all FAQs instantly — wifi passwords, parking, breakfast times. Your staff focus 100% on the guest in the lobby."
+        id: "founder",
+        icon: Zap,
+        title: "The Solo Consultant",
+        examples: "Coaches, Designers, Architects",
+        painTitle: "The 11 PM Reply",
+        painText: "You feel you have to reply instantly to win the job, so you are emailing at midnight. You have no boundaries between 'Work' and 'Life'.",
+        solution: "The Concierge handles the 'First Touch' perfectly. It answers questions, builds rapport, and books the Discovery Call for a time that suits YOU. You get your evenings back."
       }
     ]
   },
   analyst: {
     id: 'analyst',
-    label: "TIER 02 / ANALYST",
-    promise: "Your team's collective brain, searchable in seconds.",
+    label: "INTERNAL ANALYST",
+    hook: "My team asks me everything.",
+    summary: "Choose this if you are the 'Bottleneck Boss'—your staff constantly interrupts you to ask where files are or how to do basic tasks.",
     sprint: "7-DAY SPRINT",
-    specs: ['Private Company Brain', 'Slack/Teams Integration', 'Zero-Hallucination Guard', 'SOP Ingestion'],
+    specs: ['Private Company Brain', 'SOP Ingestion', 'Slack/Teams Integration', 'Zero-Hallucination Guardrails'],
     personas: [
       {
         id: "bottleneck",
-        icon: Users,
+        icon: BrainCircuit,
         title: "The Bottleneck Founder",
-        examples: "Marketing Agencies, Consultancies, Creative Studios, Professional Services",
-        painTitle: "Groundhog Day",
-        painText: "You answer the same 5 questions every week: 'Where's the logo?', 'What's our pricing?'. You're the bottleneck to your own team. You can't do deep work because you're everyone's Google.",
-        solution: "I clone your brain. The AI knows your entire Google Drive and answers staff questions instantly so you can stay in 'Deep Work'. Your team gets answers without interrupting you."
+        examples: "Agency Owners, Engineering Leads",
+        painTitle: "The Groundhog Day",
+        painText: "You answer the same 5 questions every week: 'Where is the logo?', 'What is our pricing for X?', 'Do we have a case study for this?'. Your genius is wasted on repetition.",
+        solution: "I build a 'Company Brain'. We feed it every PDF, SOP, and past proposal you have ever written. Your staff ask the AI, not you. It answers instantly with a link to the file."
       },
       {
-        id: "guardian",
-        icon: FileCheck,
-        title: "The Policy Guardian",
-        examples: "Franchise Groups, Retail Chains, Multi-Site Operations, Hospitality Groups",
-        painTitle: "The Guesswork Risk",
-        painText: "Junior staff guess the answer to a compliance question because they won't read the 50-page handbook. One wrong answer and you've got a lawsuit.",
-        solution: "I build a 'Truth Engine'. The AI answers with a direct citation to the policy document, ensuring 100% compliance. No guessing, no liability."
+        id: "franchise",
+        icon: CheckCircle,
+        title: "The Franchise Guardian",
+        examples: "Gym Groups, Retail Chains",
+        painTitle: "The Rogue Franchisee",
+        painText: "You have 10 locations, and every manager is doing things differently. They ignore the operations manual because it's a boring 100-page PDF.",
+        solution: "We turn the manual into a Chatbot. A manager can ask: 'How do I process a refund?' and get the exact step-by-step guide instantly on their phone. Compliance becomes easy."
       },
       {
         id: "onboarding",
-        icon: Rocket,
+        icon: Terminal,
         title: "The Rapid Scaler",
-        examples: "High-Growth Companies, Scaling Agencies, Fast-Hiring Businesses",
-        painTitle: "The Training Drag",
-        painText: "It takes 3 months for a new hire to be useful. Your senior staff waste hundreds of billable hours training them. You're paying $150/hr for people to answer basic questions.",
-        solution: "I build Just-In-Time Learning. The AI acts as an instant mentor, reducing time-to-competency from months to weeks. New hires ask the bot, not your best people."
-      }
-    ]
-  },
-  compliance: {
-    id: 'compliance',
-    label: "TIER 03 / SANCTUARY",
-    promise: "I architect the right brain for the right job. Safety-first.",
-    sprint: "14-DAY SPRINT",
-    specs: ['Private VPC Hosting', 'PII Redaction Layer', 'Model Agnostic (Llama/Claude)', 'Audit Logs'],
-    personas: [
-      {
-        id: "compliance",
-        icon: Lock,
-        title: "The Shadow AI Fixer",
-        examples: "Wealth Management, Financial Advisors, Accountants, Insurance",
-        painTitle: "The Shadow AI Risk",
-        painText: "You know your juniors are pasting sensitive client data into public ChatGPT to write reports. It's a ticking regulation time bomb. One leak and you're in front of ASIC.",
-        solution: "I build a private 'Walled Garden'. Names and PII are redacted automatically before the data hits the AI. Speed without the risk. Your compliance team sleeps at night."
-      },
-      {
-        id: "intellectual",
-        icon: Book,
-        title: "The IP Protector",
-        examples: "Law Firms, Patent Attorneys, R&D Companies, Engineering Firms",
-        painTitle: "The Data Leak",
-        painText: "You're terrified that your proprietary methodology or case files will be used to train a public model. One leak destroys your competitive edge forever.",
-        solution: "I architect Zero-Retention environments. Your data is processed but never stored or trained on. Your IP stays yours."
-      },
-      {
-        id: "government",
-        icon: Building,
-        title: "The Data Sovereignty Lead",
-        examples: "Government Contractors, Defence Suppliers, Critical Infrastructure",
-        painTitle: "Data Sovereignty",
-        painText: "You want to use AI, but the contract says data cannot leave Australia. Public AI models route through the US. One wrong API call and you've breached the contract.",
-        solution: "I deploy Local Sovereignty. Models run on AWS Bedrock (Sydney Region) so your data never crosses the border. Australian data stays in Australia."
+        examples: "High-Growth Startups",
+        painTitle: "The New Hire Drag",
+        painText: "It takes 3 months for a new hire to become useful because they have to learn 'The Way We Do Things'. You lose money on every new employee for 90 days.",
+        solution: "The Analyst reduces 'Time-to-Competency'. New hires can ask the AI how to use the software or file a report. They learn in real-time without distracting their manager."
       }
     ]
   },
   voice: {
     id: 'voice',
-    label: "TIER 04 / VOICE",
-    promise: "Never miss a call again. I replace the 'robot menu' with a human-sounding agent.",
+    label: "VOICE INTERFACE",
+    hook: "I need a phone receptionist.",
+    summary: "Choose this if you run a high-volume service business where missing a phone call means losing a $500 job to a competitor.",
     sprint: "10-DAY SPRINT",
-    specs: ['Sub-1s Latency', 'Australian Accent Cloning', 'Twilio Telephony', 'CRM Action Trigger'],
+    specs: ['Human-Sounding AI Voice', 'CRM Integration', '24/7 Availability', 'Appointment Booking'],
     personas: [
       {
         id: "muddy",
-        icon: Wrench,
+        icon: Phone,
         title: "The Muddy Hands Operator",
-        examples: "Emergency Plumbers, Electricians, Locksmiths, HVAC",
-        painTitle: "The $500 Missed Call",
-        painText: "You're under a sink or up a ladder. You miss the call. The customer calls the next plumber on Google. You lose money while you work.",
-        solution: "I build a Voice AI that answers, qualifies the emergency, and texts you the details. You secure the job without washing your hands."
+        examples: "Emergency Plumbers, Locksmiths",
+        painTitle: "The Missed Emergency",
+        painText: "You are under a sink or up a ladder. The phone rings. You can't answer. That customer calls the next plumber on Google. You just lost $500.",
+        solution: "I replace your voicemail with a Voice AI. It answers instantly, sounds human, takes the address and problem details, and texts them to you. You secure the job without washing your hands."
       },
       {
-        id: "clinic",
-        icon: Activity,
+        id: "afterhours",
+        icon: CheckCircle,
         title: "The After-Hours Clinic",
-        examples: "Veterinary Clinics, Dental Practices, Medical Centres, Physios",
-        painTitle: "The Emergency Gap",
-        painText: "Patients calling at 2 AM need reassurance, not a voicemail beep. Leaving them unheard damages trust. They call your competitor next time.",
-        solution: "I build AI Triage. The agent answers, assesses urgency, and books the morning slot or escalates true emergencies to the on-call doc. Every caller feels heard."
+        examples: "Vets, Emergency Dental",
+        painTitle: "The Weekend Gap",
+        painText: "Crises happen on weekends when your reception is closed. You rely on an expensive answering service that knows nothing about your business.",
+        solution: "The Voice Agent works 24/7/365. It can triage emergencies, book appointments for Monday morning, or escalate true crises to the on-call doctor."
       },
       {
         id: "sales",
-        icon: Headphones,
-        title: "The Service Bay Director",
-        examples: "Car Dealerships, Mechanics, Tyre Shops, Service Centres",
-        painTitle: "The Status Check Drain",
-        painText: "Mechanics are interrupted every 10 minutes by advisors asking 'Is that BMW ready?' because customers keep calling. It kills your throughput.",
-        solution: "I build a Status Bot. Customers call, get a real-time update on their car, and your mechanics never stop working. Calls answered, techs uninterrupted."
+        icon: Zap,
+        title: "The Lead Qualifier",
+        examples: "Solar Sales, Home Improvements",
+        painTitle: "The Cold Call Grind",
+        painText: "Your sales team burns out calling 100 leads to find 1 interested person. They hate their job and churn quickly.",
+        solution: "The Voice AI does the 'First Pass'. It calls the leads, asks the qualifying questions, and books the interested ones into your closer's calendar. Your team only talks to people who want to buy."
+      }
+    ]
+  },
+  custom: {
+    id: 'custom',
+    label: "CUSTOM & SECURE",
+    hook: "I need AI, but private.",
+    summary: "Choose this if you are in Finance, Law, or IP-heavy industries where data privacy is non-negotiable and 'Public AI' is a risk.",
+    sprint: "BESPOKE SCOPE",
+    specs: ['Private Cloud Hosting', 'PII Redaction', 'Local LLMs', 'Data Sovereignty'],
+    personas: [
+      {
+        id: "compliance",
+        icon: Lock,
+        title: "The Compliance Officer",
+        examples: "Wealth Managers, FinTech",
+        painTitle: "The Shadow AI Risk",
+        painText: "You know your junior staff are pasting sensitive client data into ChatGPT to write reports faster. It is a ticking time bomb for a data breach lawsuit.",
+        solution: "I build a 'Walled Garden'. A private AI interface that works like ChatGPT but is hosted on your secure servers. No data ever leaves your control."
+      },
+      {
+        id: "ip",
+        icon: ShieldCheck,
+        title: "The IP Guardian",
+        examples: "Biotech, Patent Law, R&D",
+        painTitle: "The Leak Fear",
+        painText: "You want to use AI to analyze your research, but you can't risk that data training a public model that your competitors might use.",
+        solution: "We deploy 'Zero-Retention' models. The AI reads your data, gives you the answer, and then instantly 'forgets' everything. Your IP remains exclusively yours."
+      },
+      {
+        id: "complex",
+        icon: BrainCircuit,
+        title: "The Complex Reasoner",
+        examples: "Legal Case Analysis, Medical Diagnosis Support",
+        painTitle: "The Generic Answer",
+        painText: "Standard AI is too generic. It gives 'average' advice. You need an AI trained specifically on Australian Case Law or specific medical protocols.",
+        solution: "We fine-tune a model on your specific dataset. It stops sounding like a generic robot and starts sounding like a Senior Partner in your firm."
       }
     ]
   }
@@ -189,41 +293,15 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('concierge');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
   
-  // Get FAQ data for this pillar
+  // Mobile States
+  const [expandedTier, setExpandedTier] = useState<keyof typeof TIERS | null>('concierge');
+  const [expandedPersona, setExpandedPersona] = useState<string | null>(null);
+
   const pillarFAQs = getPillarFAQs('pillar4');
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [isHovering, setIsHovering] = useState(false);
-
-  // Reset persona and restart autoplay when tier changes
-  useEffect(() => {
-    setActivePersonaIndex(0);
-    setIsAutoPlaying(true);
-  }, [activeTier]);
-
-  // Auto-Rotation Logic
-  useEffect(() => {
-    if (!isAutoPlaying || isHovering) return;
-
-    const interval = setInterval(() => {
-      setActivePersonaIndex((prev) => (prev + 1) % 3);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, isHovering, activeTier]);
-
-  const currentTier = TIERS[activeTier];
-  const currentPersona = currentTier.personas[activePersonaIndex];
-
-  // --- SCROLL LINE ANIMATION ---
   const scrollLineY = useMotionValue(-100);
   const scrollLineSpeed = useMotionValue(0.067);
-  const { scrollY } = useScroll();
-  
-  const scrollVelocityRef = useRef(0);
-  const lastScrollYRef = useRef(0);
-  const lastTimeRef = useRef(Date.now());
-  const decayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  
+
+  // Scroll Animation
   useAnimationFrame((time, delta) => {
     const currentY = scrollLineY.get();
     const speed = scrollLineSpeed.get();
@@ -231,32 +309,26 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
     if (newY >= 100) newY = -100;
     scrollLineY.set(newY);
   });
-  
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const now = Date.now();
-    const timeDelta = now - lastTimeRef.current;
-    if (timeDelta > 0) {
-      const scrollDelta = Math.abs(latest - lastScrollYRef.current);
-      if (scrollDelta > 0) {
-        const velocity = scrollDelta / timeDelta;
-        scrollVelocityRef.current = velocity;
-        const baseSpeed = 0.067;
-        const maxSpeed = 0.5;
-        const newSpeed = Math.min(baseSpeed + (velocity * 0.0001), maxSpeed);
-        scrollLineSpeed.set(newSpeed);
-        if (decayTimeoutRef.current) clearTimeout(decayTimeoutRef.current);
-        decayTimeoutRef.current = setTimeout(() => {
-          const currentSpeed = scrollLineSpeed.get();
-          if (currentSpeed > baseSpeed) {
-            scrollLineSpeed.set(baseSpeed);
-          }
-        }, 100);
-        scrollVelocityRef.current = 0;
-      }
-    }
-    lastScrollYRef.current = latest;
-    lastTimeRef.current = now;
-  });
+
+  const currentTier = TIERS[activeTier];
+  const currentPersona = currentTier.personas[activePersonaIndex];
+
+  // --- AUTO SCROLL FUNCTION ---
+  const handleScrollTo = (id: string) => {
+    setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+            const offset = 100; // Header offset
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - offset;
+      
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth"
+            });
+        }
+    }, 200); 
+  };
 
   return (
     <motion.div 
@@ -264,11 +336,10 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] px-0 relative z-[150] overflow-x-hidden flex flex-col font-sans"
     >
       
-      {/* --- HERO SECTION (100dvh) --- */}
+      {/* --- HERO SECTION --- */}
       <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
           
-          {/* RETURN NAV */}
           <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
             <button 
               onClick={() => onNavigate('system')}
@@ -279,35 +350,32 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
             </button>
           </div>
 
-          {/* HERO GRID */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 flex-1 content-center items-center">
-             
-             {/* LEFT: CONTENT */}
-             <div className="flex flex-col justify-center">
+            <div className="flex flex-col items-start max-w-3xl">
                <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
-                   THE SYSTEM / SCALE FASTER
+                   THE SYSTEM / THE VOICE
                  </span>
                </div>
+
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
-                 AI <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Assistants.</span>
+                 Cognitive <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Infrastructure.</span>
                </h1>
+
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                 I build AI bots that answer your phone, reply to enquiries, and qualify leads — 24/7, even while you sleep. They sound human, and they never take a sick day.
+                 We build "Digital Employees" that can speak, reason, and act. From answering the phone at 2 AM to finding answers in your company handbook instantly.
                </p>
-             </div>
-             
-             {/* RIGHT: VISUAL */}
-             <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
-                <div className="relative w-full max-w-[450px] h-[300px] lg:h-[450px] opacity-90 flex items-center justify-center">
-                   <PillarVisual_Brain />
-                </div>
-             </div>
+            </div>
+            
+            <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
+               <div className="relative w-full max-w-[450px] h-[300px] lg:h-[450px] opacity-90 flex items-center justify-center">
+                 <PillarVisual_Brain />
+               </div>
+            </div>
           </div>
         </div>
 
-        {/* SCROLL LINE ANIMATION */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
           <motion.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
@@ -316,253 +384,285 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         </div>
       </section>
 
-      {/* --- DASHBOARD SECTION --- */}
+      {/* --- ENGINE CONFIGURATOR --- */}
       <section className="w-full px-6 md:px-12 lg:px-20 pt-24 pb-32 max-w-[1400px] mx-auto border-t border-[#1a1a1a]/10">
-        <div className="mb-12">
-           <h2 className="font-serif text-4xl md:text-5xl mb-6 text-[#1a1a1a]">Choose your Agent.</h2>
+
+        {/* HEADER WITH HUMAN EXPLAINER */}
+        <div className="mb-16">
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 flex items-center gap-2">
+              <Terminal className="w-4 h-4" />
+              SYSTEM CONFIGURATION
+           </span>
+           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-none mb-6">
+             Select your <span className="italic text-[#C5A059] font-serif">Situation.</span>
+           </h2>
+           <div className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl space-y-4">
+             <p>
+               AI isn't just about writing emails. It's about cloning your best employees. 
+               <strong className="text-[#1a1a1a] font-medium"> Tap the role you need to fill</strong> to see how we engineer the digital replacement.
+             </p>
+           </div>
         </div>
 
-        <div className="border border-black/10 bg-white shadow-sm mb-32">
-           
-           {/* 1. TABS ROW */}
-           <div className="grid grid-cols-2 md:grid-cols-4 border-b border-black/10 bg-[#FAFAFA]">
+        {/* --- DESKTOP VIEW: TABBED DASHBOARD (HIDDEN ON MOBILE) --- */}
+        <div className="hidden md:block border border-black/10 bg-gradient-to-br from-white to-[#FFF9F0] shadow-sm mb-32 rounded-sm overflow-hidden">
+           {/* TABS (NOW WITH HOOKS) */}
+           <div className="grid grid-cols-4 border-b border-black/10 bg-[#FAFAFA]">
               {Object.entries(TIERS).map(([key, tier]) => (
                 <button 
                   key={key}
                   onClick={() => setActiveTier(key as keyof typeof TIERS)}
-                  className={`py-6 px-4 text-center transition-all duration-300 relative group overflow-hidden ${
+                  className={`py-6 px-4 text-center transition-all duration-300 relative group overflow-hidden flex flex-col justify-center min-h-[100px] ${
                     activeTier === key ? 'bg-white' : 'hover:bg-white/50 text-black/40'
                   }`}
                 >
-                  <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${activeTier === key ? 'text-[#C5A059]' : 'text-inherit'}`}>
-                    {tier.label.split('/')[1]}
+                  <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-2 ${activeTier === key ? 'text-[#C5A059]' : 'text-inherit'}`}>
+                    {tier.label}
                   </span>
-                  <span className={`text-[10px] block ${activeTier === key ? 'text-black/60' : 'text-inherit opacity-60'}`}>
-                    {tier.sprint}
+                  <span className={`font-serif text-lg leading-tight ${activeTier === key ? 'text-black' : 'text-inherit opacity-60'}`}>
+                    "{tier.hook}"
                   </span>
-                  
-                  {/* Active Indicator Top Line */}
-                  {activeTier === key && (
-                    <motion.div layoutId="tab-highlight" className="absolute top-0 left-0 w-full h-1 bg-[#C5A059]" />
-                  )}
+                  {activeTier === key && <motion.div layoutId="tab-highlight" className="absolute top-0 left-0 w-full h-1 bg-[#C5A059]" />}
                 </button>
               ))}
            </div>
+           
+           {/* CONTENT: SPLIT VIEW */}
+           <div className="flex min-h-[600px]">
+              {/* LEFT: Persona List */}
+              <div className="w-1/3 border-r border-black/10 bg-[#FAFAFA] p-8 flex flex-col">
+                 
+                 {/* INTRO SUMMARY (NEW) */}
+                 <div className="mb-8 p-4 bg-white border border-black/5 rounded-sm">
+                    <div className="flex gap-2 items-center mb-2">
+                       <HelpCircle className="w-4 h-4 text-[#C5A059]" />
+                       <span className="font-mono text-[9px] uppercase tracking-widest font-bold text-black/60">Is this you?</span>
+                    </div>
+                    <p className="font-sans text-sm text-black/70 leading-relaxed">
+                       {currentTier.summary}
+                    </p>
+                 </div>
 
-           {/* 2. CONTENT AREA */}
-           <div className="p-8 md:p-12 lg:p-16">
-             <AnimatePresence mode='wait'>
-               <motion.div
-                 key={activeTier}
-                 initial={{ opacity: 0, y: 10 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 exit={{ opacity: 0, y: -10 }}
-                 transition={{ duration: 0.4 }}
-               >
-                  
-                  {/* --- MIDDLE ROW: PERSONA CARDS --- */}
-                  <div 
-                    className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
-                    onMouseEnter={() => setIsHovering(true)}
-                    onMouseLeave={() => setIsHovering(false)}
-                  >
-                      {currentTier.personas.map((p, index) => {
-                          const isActive = activePersonaIndex === index;
-                          return (
-                              <button
-                                  key={p.id}
-                                  onClick={() => { setActivePersonaIndex(index); setIsAutoPlaying(false); }}
-                                  className={`p-6 text-left border rounded-sm transition-all duration-300 relative overflow-hidden group h-full flex flex-col ${
-                                      isActive
-                                      ? `border-[#C5A059] bg-[#FFF9F0] shadow-md scale-[1.02]` 
-                                      : 'border-black/5 hover:border-[#C5A059]/30 bg-white opacity-60 hover:opacity-100'
-                                  }`}
-                              >
-                                  <div className={`mb-4 ${isActive ? 'text-[#C5A059]' : 'text-black/40'}`}>
-                                      <p.icon className="w-6 h-6" />
-                                  </div>
-                                  <h3 className={`font-serif text-xl mb-2 ${isActive ? 'text-black' : 'text-black/60'}`}>
-                                      {p.title}
-                                  </h3>
-                                  <p className="font-sans text-xs text-black/40 leading-relaxed mb-4 flex-grow">
-                                      e.g. {p.examples}
-                                  </p>
-                                  
-                                  {/* Progress Bar for Auto-Rotation */}
-                                  {isActive && isAutoPlaying && !isHovering && (
-                                      <div className="absolute bottom-0 left-0 w-full h-1 bg-[#C5A059]/20">
-                                          <motion.div 
-                                              initial={{ width: "0%" }}
-                                              animate={{ width: "100%" }}
-                                              transition={{ duration: 5, ease: "linear" }}
-                                              className="h-full bg-[#C5A059]"
-                                          />
-                                      </div>
-                                  )}
-                                  {/* Static Active Line */}
-                                  {isActive && (!isAutoPlaying || isHovering) && (
-                                       <div className="absolute bottom-0 left-0 w-full h-1 bg-[#C5A059]" />
-                                  )}
-                              </button>
-                          );
-                      })}
-                  </div>
+                 <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-4 block pl-1">Select Profile</span>
+                 <div className="space-y-3 flex-grow">
+                    {currentTier.personas.map((p, idx) => (
+                      <button
+                        key={p.id}
+                        onClick={() => setActivePersonaIndex(idx)}
+                        className={`w-full text-left p-4 border rounded-sm transition-all duration-300 flex items-center gap-4 group ${
+                           activePersonaIndex === idx ? 'bg-white border-[#C5A059] shadow-md' : 'bg-transparent border-transparent hover:bg-white hover:border-black/5'
+                        }`}
+                      >
+                         <div className={`p-2 rounded-full ${activePersonaIndex === idx ? 'bg-[#C5A059]/10 text-[#C5A059]' : 'bg-black/5 text-black/40'}`}>
+                           <p.icon className="w-4 h-4" />
+                         </div>
+                         <div>
+                           <h4 className={`font-serif text-lg leading-tight ${activePersonaIndex === idx ? 'text-black' : 'text-black/60'}`}>{p.title}</h4>
+                         </div>
+                         {activePersonaIndex === idx && <ChevronRight className="w-4 h-4 ml-auto text-[#C5A059]" />}
+                      </button>
+                    ))}
+                 </div>
 
-                  {/* --- BOTTOM ROW: SOLUTION CONTENT --- */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 border-t border-black/5 pt-16">
-                      
-                      {/* LEFT COL: TEXT (Vertically Centered) */}
-                      <div className="flex flex-col justify-center">
-                          <AnimatePresence mode="wait">
-                              <motion.div
-                                key={currentPersona.id}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: 10 }}
-                                transition={{ duration: 0.3 }}
-                              >
-                                  <div className="mb-10">
-                                    <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">Diagnosis / The Pain Point</span>
-                                    <h2 className="font-serif text-4xl md:text-5xl mb-6 text-[#1a1a1a] leading-tight">
-                                        {currentPersona.painTitle}
-                                    </h2>
-                                    <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#E21E3F] pl-6 italic">
-                                        "{currentPersona.painText}"
-                                    </p>
-                                  </div>
+                 {/* SPECS LIST */}
+                 <div className="mt-8 pt-8 border-t border-black/5">
+                    <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-4 block">Included Specs</span>
+                    <ul className="space-y-2">
+                      {currentTier.specs.map((spec, i) => (
+                        <li key={i} className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wide text-black/60">
+                          <CheckCircle className="w-3 h-3 text-[#C5A059]" />
+                          {spec}
+                        </li>
+                      ))}
+                    </ul>
+                 </div>
+              </div>
 
-                                  <div className="bg-[#1a1a1a] p-8 text-[#FFF2EC] relative overflow-hidden rounded-sm">
-                                      <div className="absolute top-0 left-0 w-1 h-full bg-[#C5A059]" />
-                                      <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-4 font-bold">The Solution Protocol</span>
-                                      <p className="font-sans text-lg leading-relaxed">
-                                          {currentPersona.solution}
-                                      </p>
-                                  </div>
-                              </motion.div>
-                          </AnimatePresence>
-                      </div>
+              {/* RIGHT: Solution */}
+              <div className="w-2/3 p-12 relative flex flex-col">
+                  <AnimatePresence mode="wait">
+                    <motion.div 
+                       key={`${activeTier}-${activePersonaIndex}`}
+                       initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
+                       className="flex-grow flex flex-col"
+                    >
+                       <div className="mb-10">
+                          <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">The Problem</span>
+                          <h2 className="font-serif text-4xl mb-6 text-[#1a1a1a] leading-tight">{currentPersona.painTitle}</h2>
+                          <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#E21E3F] pl-6 italic">"{currentPersona.painText}"</p>
+                       </div>
 
-                      {/* RIGHT COL: VISUALS & CTA */}
-                      <div className="flex flex-col justify-between h-full bg-[#FAFAFA] p-10 border border-black/5 rounded-sm">
-                          
-                          <div className="flex-grow">
-                              <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest block mb-6">Visual Architecture</span>
-                              
-                              {/* MICRO-VISUALS */}
-                              <div className="h-40 w-full mb-8 bg-white border border-black/5 rounded-sm flex items-center justify-center relative overflow-hidden shadow-inner">
-                                  
-                                  {/* TIER 1: GATEKEEPER FILTER (Concierge) */}
-                                  {activeTier === 'concierge' && (
-                                    <div className="relative w-full h-full flex items-center justify-center">
-                                        {/* Incoming Particles */}
-                                        {[0, 1, 2].map(i => (
-                                            <motion.div 
-                                                key={i}
-                                                className={`absolute w-3 h-3 rounded-full ${i === 1 ? 'bg-[#C5A059]' : 'bg-black/20'}`}
-                                                animate={{ 
-                                                    x: [-60, 0, i === 1 ? 60 : 0],
-                                                    opacity: [0, 1, i === 1 ? 1 : 0]
-                                                }}
-                                                transition={{ duration: 2, repeat: Infinity, delay: i * 0.6 }}
-                                            />
-                                        ))}
-                                        {/* The Gate */}
-                                        <div className="h-16 w-1 bg-[#1a1a1a] mx-auto relative">
-                                            <div className="absolute top-1/2 -left-2 w-5 h-1 bg-[#1a1a1a]" />
-                                        </div>
-                                    </div>
-                                  )}
-
-                                  {/* TIER 2: SEARCH NETWORK (Analyst) */}
-                                  {activeTier === 'analyst' && (
-                                    <div className="relative w-full h-full flex items-center justify-center">
-                                        <div className="w-12 h-12 border border-[#C5A059] rounded-full flex items-center justify-center z-10 bg-white">
-                                            <Brain className="w-6 h-6 text-[#C5A059]" />
-                                        </div>
-                                        {/* Satellites */}
-                                        {[0, 1, 2, 3].map(i => (
-                                            <motion.div 
-                                                key={i}
-                                                className="absolute w-2 h-2 bg-[#1a1a1a] rounded-full"
-                                                animate={{ 
-                                                    x: [0, Math.cos(i * 1.57) * 40],
-                                                    y: [0, Math.sin(i * 1.57) * 40],
-                                                    scale: [0, 1]
-                                                }}
-                                                transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse" }}
-                                            />
-                                        ))}
-                                    </div>
-                                  )}
-
-                                  {/* TIER 3: SHIELD PULSE (Compliance) */}
-                                  {activeTier === 'compliance' && (
-                                    <div className="relative w-full h-full flex items-center justify-center">
-                                        <Shield className="w-10 h-10 text-[#1a1a1a] z-10" />
-                                        <motion.div 
-                                            className="absolute w-12 h-12 border border-[#C5A059] rounded-full"
-                                            animate={{ scale: [1, 1.5], opacity: [1, 0] }}
-                                            transition={{ duration: 2, repeat: Infinity }}
-                                        />
-                                        <motion.div 
-                                            className="absolute w-16 h-16 border border-[#C5A059] rounded-full"
-                                            animate={{ scale: [1, 1.5], opacity: [1, 0] }}
-                                            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                                        />
-                                    </div>
-                                  )}
-
-                                  {/* TIER 4: WAVEFORM (Voice) */}
-                                  {activeTier === 'voice' && (
-                                    <div className="flex items-center gap-1 h-12">
-                                        {[1, 2, 3, 4, 5, 4, 3, 2, 1].map((h, i) => (
-                                            <motion.div 
-                                                key={i}
-                                                className="w-2 bg-[#E21E3F] rounded-full"
-                                                animate={{ height: [10, h * 8, 10] }}
-                                                transition={{ duration: 1, repeat: Infinity, delay: i * 0.1 }}
-                                            />
-                                        ))}
-                                    </div>
-                                  )}
-                              </div>
-
-                              <ul className="space-y-4 mb-8">
-                                  {currentTier.specs.map((spec, i) => (
-                                      <motion.li 
-                                          key={i} 
-                                          initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }}
-                                          className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/70"
-                                      >
-                                          <CheckCircle2 className="w-3 h-3 text-[#C5A059]" />
-                                          {spec}
-                                      </motion.li>
-                                  ))}
-                              </ul>
+                       <div className="mt-auto bg-[#1a1a1a] p-8 text-white rounded-sm relative overflow-hidden shadow-2xl">
+                          <div className="absolute top-0 right-0 w-48 h-48 bg-[#C5A059]/10 rounded-full blur-3xl" />
+                          <div className="relative z-10 flex gap-8">
+                             <div className="flex-grow">
+                                <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-4 font-bold">The Fix</span>
+                                <p className="font-sans text-lg leading-relaxed mb-8">{currentPersona.solution}</p>
+                                <FillButton onClick={() => onNavigate('contact')} className="w-fit py-4 px-8 font-mono text-xs uppercase tracking-[0.2em] font-bold">
+                                  [ BOOK A CALL ]
+                                </FillButton>
+                             </div>
+                             <div className="w-32 hidden lg:block flex-shrink-0">
+                                <TierVisual tierKey={activeTier} />
+                             </div>
                           </div>
-
-                          {/* ANCHORED BOTTOM CTA (FILL ANIMATION) */}
-                          <FillButton 
-                              onClick={() => onNavigate('contact')}
-                              className="w-full py-5 font-mono text-xs uppercase tracking-[0.2em] font-bold mt-auto"
-                          >
-                              [ BOOK A CALL ]
-                          </FillButton>
-                      </div>
-
-                  </div>
-               </motion.div>
-             </AnimatePresence>
+                       </div>
+                    </motion.div>
+                  </AnimatePresence>
+              </div>
            </div>
         </div>
+
+        {/* --- MOBILE VIEW: HIGH-CONTRAST VERTICAL ACCORDION (VISIBLE ON MOBILE) --- */}
+        <div className="md:hidden space-y-4 mb-32">
+          {Object.entries(TIERS).map(([key, tier]) => {
+            const isTierExpanded = expandedTier === key;
+            return (
+              <div 
+                key={key} 
+                id={`tier-mobile-${key}`} // ID for Scroll Target
+                className={`border rounded-sm overflow-hidden transition-all duration-300 ${isTierExpanded ? 'border-[#1a1a1a] bg-white shadow-xl scale-[1.02] z-10' : 'border-black/10 bg-white'}`}
+              >
+                
+                {/* LEVEL 1: TIER HEADER (DARK MODE WHEN ACTIVE) */}
+                <button 
+                  onClick={() => {
+                    const willExpand = !isTierExpanded;
+                    setExpandedTier(willExpand ? key as keyof typeof TIERS : null);
+                    setExpandedPersona(null); // Close inner accordions
+                    if (willExpand) {
+                        handleScrollTo(`tier-mobile-${key}`); // TRIGGER SCROLL
+                    }
+                  }}
+                  className={`w-full flex items-center justify-between p-6 text-left transition-colors duration-300 ${isTierExpanded ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}
+                >
+                  <div>
+                    <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${isTierExpanded ? 'text-[#C5A059]' : 'text-black/60'}`}>
+                      {tier.label}
+                    </span>
+                    {/* NEW: Hook visible on closed state too */}
+                    <span className={`font-serif text-lg leading-tight ${isTierExpanded ? 'text-white' : 'text-black'}`}>"{tier.hook}"</span>
+                  </div>
+                  <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isTierExpanded ? 'rotate-180 text-[#C5A059]' : 'text-black/30'}`} />
+                </button>
+
+                {/* LEVEL 1 CONTENT: PERSONA LIST */}
+                <AnimatePresence>
+                  {isTierExpanded && (
+                    <motion.div 
+                      initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }}
+                      className="overflow-hidden bg-[#FAFAFA]"
+                    >
+                      <div className="p-4 space-y-2">
+                         {/* INTRO SUMMARY (NEW FOR MOBILE) */}
+                         <div className="mb-6 p-4 bg-white border border-black/5 rounded-sm">
+                            <p className="font-sans text-sm text-black/70 leading-relaxed">
+                               <strong className="text-[#C5A059] block mb-1 font-bold uppercase text-[9px] tracking-widest">Is this you?</strong>
+                               {tier.summary}
+                            </p>
+                         </div>
+
+                         <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold block mb-2 px-2">Select Profile:</span>
+                         
+                         {tier.personas.map((p) => {
+                           const isPersonaExpanded = expandedPersona === p.id;
+                           return (
+                             <div 
+                                key={p.id} 
+                                id={`persona-mobile-${p.id}`} // ID for Scroll Target
+                                className={`border rounded-sm overflow-hidden transition-all duration-300 ${isPersonaExpanded ? 'border-[#C5A059] bg-white shadow-md' : 'border-black/5 bg-white'}`}
+                             >
+                               
+                               {/* LEVEL 2: PERSONA HEADER (GOLD ACCENT WHEN ACTIVE) */}
+                               <button 
+                                 onClick={() => {
+                                    const willExpand = !isPersonaExpanded;
+                                    setExpandedPersona(willExpand ? p.id : null);
+                                    if (willExpand) {
+                                        handleScrollTo(`persona-mobile-${p.id}`); // TRIGGER SCROLL
+                                    }
+                                 }}
+                                 className="w-full flex items-center gap-4 p-4 text-left hover:bg-black/5 transition-colors"
+                               >
+                                  <div className={`p-2 rounded-full ${isPersonaExpanded ? 'bg-[#C5A059] text-[#1a1a1a]' : 'bg-black/5 text-black/40'}`}>
+                                     <p.icon className="w-4 h-4" />
+                                  </div>
+                                  <div className="flex-grow">
+                                     <h4 className={`font-serif text-lg leading-tight ${isPersonaExpanded ? 'text-[#C5A059]' : 'text-black/70'}`}>{p.title}</h4>
+                                     <span className="text-[10px] text-black/40 block mt-1 line-clamp-1">{p.examples}</span>
+                                  </div>
+                                  <ChevronDown className={`w-4 h-4 transition-transform ${isPersonaExpanded ? 'rotate-180 text-[#C5A059]' : 'text-black/20'}`} />
+                               </button>
+
+                               {/* LEVEL 2 CONTENT: SOLUTION */}
+                               <AnimatePresence>
+                                 {isPersonaExpanded && (
+                                   <motion.div
+                                     initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                                     className="border-t border-[#C5A059]/20 bg-white"
+                                   >
+                                      <div className="p-6">
+                                         {/* Pain */}
+                                         <div className="mb-6">
+                                            <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Problem</span>
+                                            <h5 className="font-serif text-2xl mb-2 text-[#1a1a1a]">{p.painTitle}</h5>
+                                            <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed italic border-l-2 border-[#E21E3F] pl-4">"{p.painText}"</p>
+                                         </div>
+
+                                         {/* Solution */}
+                                         <div className="bg-[#1a1a1a] p-6 text-white rounded-sm mb-6 relative overflow-hidden">
+                                            <div className="absolute top-0 right-0 w-24 h-24 bg-[#C5A059]/20 rounded-full blur-2xl" />
+                                            <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-3 font-bold relative z-10">The Fix</span>
+                                            <p className="font-sans text-base leading-relaxed mb-6 relative z-10">{p.solution}</p>
+                                            
+                                            {/* VISUAL ON MOBILE - Pure Gold on Transparent */}
+                                            <div className="w-full flex justify-center py-4 bg-transparent relative z-10">
+                                               <div className="w-24">
+                                                 <TierVisual tierKey={key} />
+                                               </div>
+                                            </div>
+                                         </div>
+
+                                         <FillButton onClick={() => onNavigate('contact')} className="w-full py-4 font-mono text-xs uppercase tracking-[0.2em] font-bold">
+                                            [ BOOK A CALL ]
+                                         </FillButton>
+
+                                         {/* Specs List (Restored for Mobile) */}
+                                         <div className="mt-8 pt-6 border-t border-black/10">
+                                            <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-3 block">Included Specs</span>
+                                            <ul className="space-y-2">
+                                              {tier.specs.map((spec, i) => (
+                                                <li key={i} className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wide text-black/60">
+                                                  <CheckCircle className="w-3 h-3 text-[#C5A059]" />
+                                                  {spec}
+                                                </li>
+                                              ))}
+                                            </ul>
+                                         </div>
+                                      </div>
+                                   </motion.div>
+                                 )}
+                               </AnimatePresence>
+                             </div>
+                           )
+                         })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+
       </section>
 
       {/* FAQ SECTION */}
       <FAQSection
         faqs={pillarFAQs}
         accentColor="#C5A059"
-        title="Questions about AI?"
-        subtitle="Common questions about AI assistants."
+        title="Questions about CRM?"
+        subtitle="Common questions about data, pipelines, and cleaning up the mess."
         onNavigate={onNavigate}
       />
     </motion.div>

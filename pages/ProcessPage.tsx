@@ -2,8 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { 
   ArrowLeft, Search, PenTool, Hammer, Flag, 
-  ArrowRight, CheckCircle2, Sliders, Zap, 
-  Terminal, ShieldCheck, ChevronDown
+  ArrowRight, CheckCircle2, Sliders, 
+  Terminal
 } from 'lucide-react';
 import ProtocolVisual_Geodesic from '../components/ProtocolVisual_Geodesic';
 
@@ -98,11 +98,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
       exit={{ opacity: 0 }}
       className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-0 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col selection:bg-[#C5A059]/30"
     >
-      {/* Background Texture - Technical Grid (Subtle) */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.02]" 
-           style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }} 
-      />
-
+      
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow relative z-10">
         
         {/* NAV BACK */}
@@ -136,9 +132,8 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
             </p>
           </Section>
 
-          {/* VISUAL: The Geodesic Dome (Wrapped) */}
+          {/* VISUAL: The Geodesic Dome */}
           <Section delay={0.2} className="h-full min-h-[400px] lg:min-h-[500px] flex items-center justify-center lg:justify-end relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#FFF2EC] to-transparent z-10 lg:hidden" /> {/* Fade for mobile */}
             <ProtocolVisual_Geodesic />
           </Section>
         </div>
@@ -180,7 +175,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </div>
 
-        {/* SECTION: THE EXECUTION PATH (TIMELINE) */}
+        {/* SECTION: THE EXECUTION PATH */}
         <div className="mb-32">
           <Section className="mb-20">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center gap-2">
@@ -195,21 +190,19 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
           <div className="relative pl-4 md:pl-0">
              {/* THE CONNECTING LINE */}
              <div className="absolute left-[19px] md:left-[50%] top-0 bottom-0 w-px bg-gradient-to-b from-[#E21E3F] via-[#C5A059] to-[#1a1a1a] hidden md:block" />
-             
-             {/* MOBILE LINE */}
              <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-[#E21E3F] via-[#C5A059] to-[#1a1a1a] md:hidden" />
 
              {steps.map((step, idx) => (
                <Section key={step.id} delay={idx * 0.1} className={`relative flex flex-col md:flex-row gap-8 md:gap-24 py-12 ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                   
-                  {/* CENTER NODE (ABSOLUTE) */}
+                  {/* CENTER NODE */}
                   <div className="absolute left-0 md:left-[50%] top-12 -translate-x-1/2 md:-translate-x-1/2 z-10 bg-[#FFF2EC] p-2">
                      <div className={`w-10 h-10 rounded-full border-2 bg-white flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300 ${step.borderColor}`}>
                         <step.icon className={`w-4 h-4 ${step.color}`} />
                      </div>
                   </div>
 
-                  {/* CONTENT SIDE */}
+                  {/* CONTENT */}
                   <div className={`flex-1 md:text-right ${idx % 2 !== 0 ? 'md:text-left' : ''} pl-12 md:pl-0`}>
                      <span className={`font-mono text-[9px] uppercase tracking-[0.2em] font-bold mb-2 block ${step.color}`}>
                        {step.phase}
@@ -219,7 +212,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                      </h3>
                   </div>
 
-                  {/* DESCRIPTION SIDE */}
+                  {/* DESCRIPTION */}
                   <div className={`flex-1 pl-12 md:pl-0 ${idx % 2 !== 0 ? 'md:text-right' : 'md:text-left'}`}>
                      <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed max-w-md">
                        {step.text}
@@ -231,13 +224,10 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </div>
 
-        {/* BOTTOM CTA */}
+        {/* BOTTOM CTA - FIXED HOVER EFFECT */}
         <Section className="mb-32">
           <div className="bg-[#1a1a1a] text-white p-12 md:p-24 text-center relative overflow-hidden rounded-sm group cursor-default">
-             {/* Hover Glow Effect */}
-             <div className="absolute inset-0 bg-[#C5A059]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#C5A059]/20 rounded-full blur-[100px] opacity-0 group-hover:opacity-30 transition-opacity duration-700" />
-
+             
              <div className="relative z-10 flex flex-col items-center">
                 <span className="font-mono text-xs text-[#C5A059] uppercase tracking-widest mb-6 block">
                   Project Initation
@@ -246,11 +236,15 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                   Ready to <span className="italic font-serif text-[#C5A059]">Start?</span>
                 </h2>
                 
+                {/* STANDARD PRIMARY BUTTON - White hover for black background */}
                 <button 
                   onClick={() => onNavigate('contact')}
-                  className="group relative px-10 py-5 bg-[#C5A059] text-[#1a1a1a] font-mono text-xs uppercase tracking-[0.3em] font-bold overflow-hidden transition-all duration-300 hover:bg-white mb-6"
+                  className="group relative flex items-center justify-center px-10 py-5 bg-[#C5A059] text-[#1a1a1a] font-mono text-xs font-bold uppercase tracking-[0.2em] overflow-hidden border-none mb-6"
                 >
-                   <span className="relative z-10 flex items-center gap-3">
+                   {/* White Overlay Sliding Up (visible on black background) */}
+                   <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]" />
+                   
+                   <span className="relative z-10 flex items-center gap-3 group-hover:text-[#1a1a1a] transition-colors duration-500">
                       [ BOOK A CALL ] <ArrowRight className="w-4 h-4" />
                    </span>
                 </button>

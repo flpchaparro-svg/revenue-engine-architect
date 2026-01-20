@@ -13,7 +13,7 @@ import {
   CheckCircle, ChevronDown, ChevronRight, Terminal, HelpCircle,
   Filter
 } from 'lucide-react';
-import PillarVisual_Catchment from '../../components/PillarVisual_Catchment';
+import PillarVisual_Magnet from '../../components/PillarVisual_Magnet';
 import FAQSection from '../../components/FAQSection';
 import { getPillarFAQs } from '../../constants/faqData';
 
@@ -365,7 +365,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
             
             <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
                <div className="relative w-full max-w-[450px] h-[300px] lg:h-[450px] opacity-90 flex items-center justify-center">
-                 <PillarVisual_Catchment />
+                 <PillarVisual_Magnet />
                </div>
             </div>
           </div>

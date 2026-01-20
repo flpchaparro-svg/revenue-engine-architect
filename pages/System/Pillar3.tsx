@@ -1,184 +1,293 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { 
   motion, 
   AnimatePresence, 
-  useScroll, 
-  useMotionValueEvent, 
-  useAnimationFrame, 
-  useMotionValue, 
-  useTransform 
+  useScroll,
+  useAnimationFrame,
+  useMotionValue,
+  useTransform
 } from 'framer-motion';
 import { 
-  ArrowLeft, ArrowRight, CheckCircle2,
-  Bot, Mail, Share2, Workflow, 
-  FileText, Briefcase, FileJson, 
-  Target, ShoppingCart, UserX, 
-  Mic, Video, CalendarClock, 
-  Briefcase as Case, CheckSquare, Server, 
-  Check 
+  ArrowLeft, ArrowRight, Zap, Bot, Mail, Clapperboard, 
+  Settings, CheckCircle, ChevronDown, ChevronRight, Terminal, HelpCircle,
+  FileText, Mic, Users, Repeat
 } from 'lucide-react';
-import PillarVisual_Turbine from '../../components/PillarVisual_Turbine';
 import FAQSection from '../../components/FAQSection';
 import { getPillarFAQs } from '../../constants/faqData';
+import PillarVisual_Turbine from '../../components/PillarVisual_Turbine';
 
 interface PillarPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
-// --- HELPER COMPONENT: FILL BUTTON ---
+
+// --- HELPER: FILL BUTTON ---
 const FillButton = ({ children, onClick, className = "" }: { children: React.ReactNode, onClick?: () => void, className?: string }) => (
   <button 
     onClick={onClick} 
-    className={`relative overflow-hidden group bg-[#C5A059] text-white border border-[#C5A059] ${className}`}
+    className={`relative overflow-hidden group bg-[#C5A059] text-white border border-[#C5A059] shadow-sm hover:shadow-lg transition-all duration-300 ${className}`}
   >
     <div className="absolute inset-0 bg-[#1a1a1a] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]" />
     <span className="relative z-10 flex items-center justify-center gap-3">{children}</span>
   </button>
 );
 
+// --- VISUALIZATIONS (Pillar 3 Specific - Gold/Transparent) ---
+const TierVisual = ({ tierKey }: { tierKey: string }) => {
+  return (
+    <div className="h-32 w-full mb-6 flex items-center justify-center relative bg-transparent">
+      
+      {tierKey === 'bridge' && (
+        // ANIMATION: "The Compact Bridge" (Hard-Wired Connection)
+        // Concept: Tighter nodes, fast data transfer.
+        <div className="relative flex items-center justify-center gap-1">
+            {/* System A */}
+            <div className="w-10 h-10 border border-[#C5A059]/40 rounded-sm flex items-center justify-center bg-[#1a1a1a] z-10">
+                <div className="w-1.5 h-1.5 bg-[#C5A059] rounded-full" />
+            </div>
+            
+            {/* The Bridge */}
+            <div className="relative w-16 h-[1px] bg-[#C5A059]/20 overflow-hidden">
+                <motion.div 
+                   animate={{ x: [-64, 64] }}
+                   transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                   className="absolute top-0 bottom-0 w-1/3 bg-gradient-to-r from-transparent via-[#C5A059] to-transparent h-full"
+                />
+            </div>
+
+            {/* System B */}
+            <div className="w-10 h-10 border border-[#C5A059]/40 rounded-sm flex items-center justify-center bg-[#1a1a1a] z-10">
+                <div className="w-1.5 h-1.5 bg-[#C5A059] rounded-full" />
+            </div>
+        </div>
+      )}
+
+      {tierKey === 'email' && (
+        // ANIMATION: "Stimulus Response" (Triggered Action)
+        // Concept: A drop hits the center, a ring expands out.
+        <div className="relative flex items-center justify-center w-24 h-24">
+             {/* The Trigger (Incoming) */}
+             <motion.div 
+               animate={{ y: [30, 0], opacity: [0, 1] }}
+               transition={{ duration: 1.5, repeat: Infinity, ease: "easeIn" }}
+               className="absolute w-[2px] h-6 bg-[#C5A059] bottom-1/2 rounded-full"
+             />
+             
+             {/* The Reaction (Outgoing Ring) */}
+             <motion.div 
+               initial={{ scale: 0.5, opacity: 0 }}
+               animate={{ scale: 2, opacity: [1, 0] }}
+               transition={{ duration: 1.5, delay: 1.4, repeat: Infinity, ease: "easeOut" }}
+               className="absolute w-8 h-8 border border-[#C5A059] rounded-full"
+             />
+             
+             {/* Core */}
+             <div className="w-3 h-3 bg-[#1a1a1a] border border-[#C5A059] rounded-full z-10 shadow-[0_0_10px_#C5A059]" />
+        </div>
+      )}
+
+      {tierKey === 'content' && (
+        // ANIMATION: "The Prism" (Multiplication)
+        // Concept: One beam in, three beams out.
+        <div className="relative flex items-center">
+            {/* Input Beam */}
+            <motion.div 
+               animate={{ x: [20, 0], opacity: [0, 1] }}
+               transition={{ duration: 2, repeat: Infinity }}
+               className="w-8 h-[1px] bg-[#C5A059] mr-1"
+            />
+            
+            {/* The Prism */}
+            <div className="w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-b-[16px] border-b-[#C5A059]/20 backdrop-blur-sm relative z-10" />
+            
+            {/* Output Beams (Fan) */}
+            <div className="relative ml-1">
+                {[ -20, 0, 20 ].map((deg, i) => (
+                    <motion.div 
+                       key={i}
+                       animate={{ width: [0, 24], opacity: [1, 0] }}
+                       transition={{ duration: 2, delay: 1, repeat: Infinity }}
+                       className="h-[1px] bg-[#C5A059] absolute left-0 top-0 origin-left"
+                       style={{ rotate: deg }}
+                    />
+                ))}
+            </div>
+        </div>
+      )}
+
+      {tierKey === 'autopilot' && (
+        // ANIMATION: "Self-Assembly" (Automated Fulfillment)
+        // Concept: Blocks falling into a stack.
+        <div className="flex flex-col-reverse gap-1 h-16 w-12 items-center justify-end pb-2">
+            {[0, 1, 2].map((i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: i * 0.5, 
+                    repeat: Infinity, 
+                    repeatDelay: 2 
+                  }}
+                  className="w-8 h-2 border border-[#C5A059] bg-[#C5A059]/10 rounded-sm"
+                />
+            ))}
+            <div className="w-12 h-[1px] bg-[#C5A059]/30 mt-1" />
+        </div>
+      )}
+    </div>
+  );
+};
+
+// --- DATA: DECISION TREE ---
 const TIERS = {
   bridge: {
     id: 'bridge',
-    label: "TIER 01 / BRIDGE",
-    promise: "I turn messy text into clean data, automatically.",
+    label: "COGNITIVE BRIDGE",
+    hook: "I need to stop data entry.",
+    summary: "Choose this if you have expensive staff (Lawyers, Brokers, Consultants) wasting billable hours copy-pasting data from emails into systems.",
     sprint: "7-DAY SPRINT",
-    specs: ['Intelligent Routing', 'Make.com + Claude AI', 'Unstructured Data Parsing', 'Zero-Entry CRM Sync'],
+    specs: ['Messy-Text-to-JSON Logic', 'PDF Parsing', 'Inbox Scraping', 'Database Injection'],
     personas: [
       {
-        id: "prisoner",
+        id: "paperwork",
         icon: FileText,
         title: "The Paperwork Prisoner",
-        examples: "Lawyers, Mortgage Brokers, Conveyancers, Migration Agents",
+        examples: "Family Law, Mortgage Broking, Financial Planning",
         painTitle: "The Narrative Inbox",
-        painText: "Clients send 500-word emotional emails. You spend billable hours reading them just to extract a date or an asset value. You're billing $400/hr to do admin.",
-        solution: "I build an 'Intelligent Paralegal'. An AI Bridge that reads the noise, extracts the facts, and updates your case file instantly. You bill for thinking, not reading."
+        painText: "Clients send you 500-word emotional emails. You have to read the whole thing just to extract a 'Date of Birth' or 'Asset Value.' It kills your focus and costs you $300/hr in lost time.",
+        solution: "I build an AI Bridge. It reads the emotional 'noise,' extracts the specific facts (Signal), and pushes them directly into your Case Management system. You only see the clean data."
       },
       {
         id: "recruiter",
-        icon: Briefcase,
-        title: "The Drowning Recruiter",
-        examples: "Recruitment Agencies, HR Departments, Labour Hire, Executive Search",
-        painTitle: "Resume Parsing Hell",
-        painText: "You live in fear of missing a great candidate because their CV is buried in a generic 'Info@' inbox. The perfect hire is sitting unread while you scroll.",
-        solution: "I build Resume Extraction Logic. The AI reads every PDF, grades the candidate against your criteria, and creates the profile in your CRM. No more inbox archaeology."
+        icon: Users,
+        title: "The Resume Drowning",
+        examples: "Recruitment Agencies, HR Departments",
+        painTitle: "The Parsing Hell",
+        painText: "You get 100 PDFs a day. Every resume is formatted differently. You spend 3 hours a day manually typing 'Skills' and 'Years of Experience' into your database.",
+        solution: "We automate the intake. The system reads the PDF, standardises the format, and ranks the candidate against your criteria before you even open the file."
       },
       {
-        id: "admin",
-        icon: FileJson,
-        title: "The Admin Victim",
-        examples: "Property Managers, Logistics Companies, Strata Managers, Fleet Operators",
-        painTitle: "The Data Entry Trap",
-        painText: "You're manually typing invoice data from PDF attachments into Xero. It's slow, boring, and error-prone. One wrong digit and your BAS is wrong.",
-        solution: "I build Zero-Touch Invoicing. The system detects the invoice, reads the line items, and creates the bill in Xero automatically. You approve, not type."
+        id: "invoices",
+        icon: Bot,
+        title: "The Accounts Payable Victim",
+        examples: "Construction, Logistics, Hospitality",
+        painTitle: "Invoice Chaos",
+        painText: "Suppliers email invoices as PDFs, JPEGs, and inline text. Your bookkeeper spends 2 days a week just entering bills into Xero.",
+        solution: "We deploy an Extraction Agent. It monitors the 'Accounts' inbox, reads the bill regardless of format, and creates the draft bill in Xero for approval."
       }
     ]
   },
-  behavior: {
-    id: 'behavior',
-    label: "TIER 02 / BEHAVIOUR",
-    promise: "The right message, to the right person, at the exact moment of influence.",
+  email: {
+    id: 'email',
+    label: "BEHAVIORAL EMAIL",
+    hook: "I need to convert automatically.",
+    summary: "Choose this if you have traffic or leads but are missing the 'Perfect Moment' to sell because you can't watch every user 24/7.",
     sprint: "7-DAY SPRINT",
-    specs: ['Intent Signal Tracking', 'Segment + HubSpot', 'Dynamic Personalisation', 'Event-Driven Logic'],
+    specs: ['Intent Signal Tracking', 'Segment.com Setup', 'Dynamic Email Content', 'CRM Integration'],
     personas: [
       {
-        id: "hunter",
-        icon: Target,
-        title: "The Signal Hunter",
-        examples: "Consultants, Wealth Managers, Financial Advisors, Business Coaches",
+        id: "blind",
+        icon: Zap,
+        title: "The Blind Signal Hunter",
+        examples: "High-Ticket Consultants, Wealth Managers",
         painTitle: "The Opportunity Gap",
-        painText: "A past prospect visited your Pricing page 3 times this morning. You have no idea, so you don't call them. They sign with your competitor by lunch.",
-        solution: "I build a 'Hot List'. Every morning, you get an alert showing the 5 people who are obsessed with your content right now. You call them first."
+        painText: "A past prospect visited your 'Pricing' page three times this morning, but you didn't know. You missed the 'Hot Window' to call them.",
+        solution: "I build a 'Hot List' Alert. When a prospect shows intent (visits key pages), you get a Slack notification instantly, or the system sends a perfectly timed email: 'Thinking of starting?'"
       },
       {
         id: "abandon",
-        icon: ShoppingCart,
-        title: "The Course Creator",
-        examples: "Online Course Creators, Training Institutes, Coaches, RTOs",
-        painTitle: "The Cold Cart",
-        painText: "100 people start your checkout form, but only 10 finish. You're losing 90% of your revenue at the finish line. They wanted to buy — something stopped them.",
-        solution: "I build Behavioural Recovery. If they type their email but don't pay, the system triggers a personalised recovery sequence. You win back sales you already earned."
+        icon: Mail,
+        title: "The Abandonment Victim",
+        examples: "Course Creators, Online Services",
+        painTitle: "The Tire Kicker",
+        painText: "You see 100 people start your application form, but only 10 finish it. You are losing 90% of your potential revenue to distraction.",
+        solution: "We install 'Save Logic'. If they type their email but don't hit submit, we capture it. 15 minutes later, they get a personal email: 'Did your wifi drop out? Here is a link to finish.'"
       },
       {
         id: "nurture",
-        icon: UserX,
-        title: "The List Bomber",
-        examples: "B2B Services, Marketing Agencies, Software Companies, Consultancies",
-        painTitle: "The Silent List",
-        painText: "You have 5,000 leads but you treat them all the same. You spam them with generic newsletters until they unsubscribe. Your list is dying from boredom.",
-        solution: "I build Intent Segmentation. The system only emails people about what they clicked on. If they read about 'SEO', they get SEO case studies. Relevance, not spam."
+        icon: Repeat,
+        title: "The Manual Nurturer",
+        examples: "Real Estate, B2B Sales",
+        painTitle: "The Follow-Up Fail",
+        painText: "You promised to send a case study, but you got busy. The lead went cold. You rely on your memory to nurture leads, which is a broken system.",
+        solution: "We build Behavioral Nurture. The system watches what they click. If they click 'Commercial,' they get the Commercial Case Study sequence. Relevant, automatic, and reliable."
       }
     ]
   },
   content: {
     id: 'content',
-    label: "TIER 03 / CONTENT",
-    promise: "Create once, publish everywhere. I multiply your voice.",
+    label: "CONTENT VELOCITY",
+    hook: "I need to be everywhere.",
+    summary: "Choose this if you are an Expert or Thought Leader who has the knowledge but lacks the time to spend 10 hours a week on social media.",
     sprint: "5-DAY SPRINT",
-    specs: ['Asset Multiplier', 'Make.com + GPT-4o', 'Omni-Channel Distribution', 'Voice-to-Social Pipeline'],
+    specs: ['Video Slicing (Opus/Munch)', 'Transcript-to-Blog Logic', 'Auto-Scheduling', 'Asset Management'],
     personas: [
       {
-        id: "thought",
-        icon: Mic,
+        id: "expert",
+        icon: Clapperboard,
         title: "The Time-Poor Expert",
-        examples: "Surgeons, M&A Partners, Senior Lawyers, Specialist Consultants",
-        painTitle: "The Deep Work Conflict",
-        painText: "You have the expertise, but switching from 'Strategy Mode' to 'Creator Mode' ruins your day. You won't spend Sunday on Canva. Your knowledge stays locked in your head.",
-        solution: "You provide the 'Signal' — a voice note. I turn it into a blog, 5 posts, and a newsletter. Your expertise gets out without you becoming a content creator."
+        examples: "Surgeons, Architects, Boutique Founders",
+        painTitle: "The Creator Conflict",
+        painText: "You know you need to post to build authority, but switching from 'CEO Mode' to 'Canva Creator Mode' ruins your day. You have zero time for editing.",
+        solution: "I build a Content Supply Chain. You record a 5-minute voice note on your drive home. My system transcribes it, writes the LinkedIn post, and creates the blog. You speak; the machine publishes."
       },
       {
-        id: "omni",
-        icon: Video,
-        title: "The Content Hoarder",
-        examples: "Speakers, Podcasters, YouTubers, Conference Presenters",
+        id: "podcaster",
+        icon: Mic,
+        title: "The Omni-Presence Seeker",
+        examples: "Podcast Hosts, Speakers",
         painTitle: "Legacy Waste",
-        painText: "You have hours of video sitting on a hard drive doing nothing. You're 'wasting' your best assets. Content you already made, collecting dust.",
-        solution: "I build a 'Slicer' Engine. The system cuts your long-form video into shorts and schedules them across all channels. Your archive becomes your content calendar."
+        painText: "You have hours of video content sitting on a hard drive doing nothing. You are 'Rich' in content but 'Poor' in distribution.",
+        solution: "We build a Slicing Engine. We connect your Google Drive to AI slicers. Every time you upload an episode, it automatically generates 10 viral shorts and schedules them."
       },
       {
-        id: "inconsistent",
-        icon: CalendarClock,
-        title: "The Ghost",
-        examples: "Boutique Agencies, Solo Consultants, Small Teams, Busy Founders",
-        painTitle: "Algorithm Punishment",
-        painText: "You post brilliantly for 3 weeks, then get busy and disappear for 2 months. The algorithm hates you for it. You start from zero every time.",
-        solution: "I build Automated Buffering. A content queue that drips your posts out consistently, even when you're on holiday. You stay visible without staying online."
+        id: "writer",
+        icon: FileText,
+        title: "The Blank Page Victim",
+        examples: "Newsletter Writers, LinkedIn Creators",
+        painTitle: "Writer's Block",
+        painText: "Staring at a blank screen waiting for inspiration. It takes you 4 hours to write one good article.",
+        solution: "We build an Idea Factory. The system scrapes trending news in your niche every morning and drafts 3 unique angles for you to review. You start with a draft, never a blank page."
       }
     ]
   },
   autopilot: {
     id: 'autopilot',
-    label: "TIER 04 / AUTOPILOT",
-    promise: "Zero-Lag Onboarding. Professionalism on autopilot.",
+    label: "FULFILLMENT AUTOPILOT",
+    hook: "I need to onboard instantly.",
+    summary: "Choose this if you run an Agency or Service business where the gap between 'Contract Signed' and 'Project Started' is messy and slow.",
     sprint: "7-DAY SPRINT",
-    specs: ['Zero-Lag Onboarding', 'Stripe + Jira + Slack', 'Auto-Project Creation', 'Client Portal Sync'],
+    specs: ['Stripe-to-Jira Automation', 'Slack Channel Creation', 'Welcome Sequence', 'Contract Logic'],
     personas: [
       {
-        id: "bottleneck",
-        icon: Case,
-        title: "The Bottleneck Owner",
-        examples: "Marketing Agencies, IT Providers (MSPs), Consultancies, Creative Studios",
+        id: "agency",
+        icon: Settings,
+        title: "The Bottleneck Agency",
+        examples: "Marketing, Design, Dev Shops",
         painTitle: "The Onboarding Lag",
-        painText: "It takes 3 days to get a new client their folder, Slack invite, and invoice. They feel 'ignored' immediately after paying. You've already damaged the relationship.",
-        solution: "I build Instant Launch. The second the contract is signed, the project board is created and the client gets a 'Welcome' video. First impressions, automated."
+        painText: "You close a deal on Friday, but the client doesn't get their folder or Slack invite until Tuesday because you are busy. They feel ignored immediately after paying.",
+        solution: "I build Zero-Lag Onboarding. The second the contract is signed, the project board is created, the Slack channel opens, and the Welcome Kit is sent. You look professional while you sleep."
       },
       {
-        id: "dataheavy",
-        icon: CheckSquare,
-        title: "The Compliance Chaser",
-        examples: "Construction Recruitment, Healthcare Recruitment, Labour Hire, Mining",
-        painTitle: "The Compliance Chase",
-        painText: "You're chasing candidates for 5 different ID documents via email. It slows down placement and frustrates the talent. Your best candidates drop out of the process.",
-        solution: "I build Automated Collection. The system chases documents via SMS and only alerts you when the file is 100% complete. You place candidates, not paperwork."
+        id: "service",
+        icon: CheckCircle,
+        title: "The High-Volume Service",
+        examples: "Accounting, Compliance, Cleaning",
+        painTitle: "Setup Fatigue",
+        painText: "Setting up a new client takes 2 hours of admin (Folders, logins, emails). Your team dreads new sales because it means more paperwork.",
+        solution: "We automate the Setup. One form fill triggers the entire ecosystem setup. Folders, permissions, and accounts are provisioned in 30 seconds, not 2 hours."
       },
       {
-        id: "provision",
-        icon: Server,
-        title: "The SaaS Founder",
-        examples: "Software Tools, Platforms",
-        painTitle: "Access Delay",
-        painText: "A customer pays for your tool, but a human has to manually create their account. They want to use it NOW.",
-        solution: "The Provisioning Hook. Payment triggers Account Creation instantly. Revenue is decoupled from human effort."
+        id: "membership",
+        icon: Users,
+        title: "The Community Manager",
+        examples: "Masterminds, Coaching Groups",
+        painTitle: "Access Friction",
+        painText: "A new member joins but can't access the course or the community circle because you have to manually approve them.",
+        solution: "We build Instant Access Logic. Payment triggers an invite. If payment fails, access is revoked. The gatekeeping is fully automated."
       }
     ]
   }
@@ -188,41 +297,15 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('bridge');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
   
-  // Get FAQ data for this pillar
+  // Mobile States
+  const [expandedTier, setExpandedTier] = useState<keyof typeof TIERS | null>('bridge');
+  const [expandedPersona, setExpandedPersona] = useState<string | null>(null);
+
   const pillarFAQs = getPillarFAQs('pillar3');
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [isHovering, setIsHovering] = useState(false);
-
-  // Reset persona and restart autoplay when tier changes
-  useEffect(() => {
-    setActivePersonaIndex(0);
-    setIsAutoPlaying(true);
-  }, [activeTier]);
-
-  // Auto-Rotation Logic
-  useEffect(() => {
-    if (!isAutoPlaying || isHovering) return;
-
-    const interval = setInterval(() => {
-      setActivePersonaIndex((prev) => (prev + 1) % 3);
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, isHovering, activeTier]);
-
-  const currentTier = TIERS[activeTier];
-  const currentPersona = currentTier.personas[activePersonaIndex];
-
-  // --- SCROLL LINE ANIMATION ---
   const scrollLineY = useMotionValue(-100);
   const scrollLineSpeed = useMotionValue(0.067);
-  const { scrollY } = useScroll();
-  
-  const scrollVelocityRef = useRef(0);
-  const lastScrollYRef = useRef(0);
-  const lastTimeRef = useRef(Date.now());
-  const decayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  
+
+  // Scroll Animation
   useAnimationFrame((time, delta) => {
     const currentY = scrollLineY.get();
     const speed = scrollLineSpeed.get();
@@ -230,32 +313,26 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
     if (newY >= 100) newY = -100;
     scrollLineY.set(newY);
   });
-  
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const now = Date.now();
-    const timeDelta = now - lastTimeRef.current;
-    if (timeDelta > 0) {
-      const scrollDelta = Math.abs(latest - lastScrollYRef.current);
-      if (scrollDelta > 0) {
-        const velocity = scrollDelta / timeDelta;
-        scrollVelocityRef.current = velocity;
-        const baseSpeed = 0.067;
-        const maxSpeed = 0.5;
-        const newSpeed = Math.min(baseSpeed + (velocity * 0.0001), maxSpeed);
-        scrollLineSpeed.set(newSpeed);
-        if (decayTimeoutRef.current) clearTimeout(decayTimeoutRef.current);
-        decayTimeoutRef.current = setTimeout(() => {
-          const currentSpeed = scrollLineSpeed.get();
-          if (currentSpeed > baseSpeed) {
-            scrollLineSpeed.set(baseSpeed);
-          }
-        }, 100);
-        scrollVelocityRef.current = 0;
-      }
-    }
-    lastScrollYRef.current = latest;
-    lastTimeRef.current = now;
-  });
+
+  const currentTier = TIERS[activeTier];
+  const currentPersona = currentTier.personas[activePersonaIndex];
+
+  // --- AUTO SCROLL FUNCTION (Fixes Mobile Disorientation) ---
+  const handleScrollTo = (id: string) => {
+    setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+            const offset = 100; // Header offset
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - offset;
+      
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth"
+            });
+        }
+    }, 200); // Wait for accordion expansion
+  };
 
   return (
     <motion.div 
@@ -263,11 +340,10 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] px-0 relative z-[150] overflow-x-hidden flex flex-col font-sans"
     >
       
-      {/* --- HERO SECTION (100dvh) --- */}
+      {/* --- HERO SECTION --- */}
       <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
           
-          {/* RETURN NAV */}
           <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
             <button 
               onClick={() => onNavigate('system')}
@@ -278,35 +354,32 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
             </button>
           </div>
 
-          {/* HERO GRID */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 flex-1 content-center items-center">
-             
-             {/* LEFT: CONTENT */}
-             <div className="flex flex-col justify-center">
+            <div className="flex flex-col items-start max-w-3xl">
                <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
-                   THE SYSTEM / GET CLIENTS
+                   THE SYSTEM / THE MUSCLE
                  </span>
                </div>
+
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
-                 <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Automation.</span>
+                 Automation <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Architecture.</span>
                </h1>
+
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                 Invoices, follow-ups, and data entry — the boring stuff that eats your week. I make it run on autopilot so your team can do real work.
+                 Code is the cheapest employee you will ever hire. We use automation to move data, generate documents, and scale your output without increasing your headcount.
                </p>
-             </div>
-             
-             {/* RIGHT: VISUAL */}
-             <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
-                <div className="relative w-full max-w-[450px] h-[300px] lg:h-[450px] opacity-90 flex items-center justify-center">
-                   <PillarVisual_Turbine />
-                </div>
-             </div>
+            </div>
+            
+            <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
+               <div className="relative w-full max-w-[450px] h-[300px] lg:h-[450px] opacity-90 flex items-center justify-center">
+                 <PillarVisual_Turbine />
+               </div>
+            </div>
           </div>
         </div>
 
-        {/* SCROLL LINE ANIMATION */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
           <motion.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
@@ -315,280 +388,285 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         </div>
       </section>
 
-      {/* --- DASHBOARD SECTION --- */}
+      {/* --- ENGINE CONFIGURATOR --- */}
       <section className="w-full px-6 md:px-12 lg:px-20 pt-24 pb-32 max-w-[1400px] mx-auto border-t border-[#1a1a1a]/10">
-        <div className="mb-12">
-           <h2 className="font-serif text-4xl md:text-5xl mb-6 text-[#1a1a1a]">Choose your Engine.</h2>
+
+        {/* HEADER WITH HUMAN EXPLAINER */}
+        <div className="mb-16">
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 flex items-center gap-2">
+              <Terminal className="w-4 h-4" />
+              SYSTEM CONFIGURATION
+           </span>
+           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-none mb-6">
+             Select your <span className="italic text-[#C5A059] font-serif">Situation.</span>
+           </h2>
+           <div className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl space-y-4">
+             <p>
+               Every business has a different bottleneck. I've mapped out the 4 most common "Manual Labour" traps. 
+               <strong className="text-[#1a1a1a] font-medium"> Tap the one that matches your pain</strong> to see how we automate it away.
+             </p>
+           </div>
         </div>
 
-        <div className="border border-black/10 bg-white shadow-sm mb-32">
-           
-           {/* 1. TABS ROW */}
-           <div className="grid grid-cols-2 md:grid-cols-4 border-b border-black/10 bg-[#FAFAFA]">
+        {/* --- DESKTOP VIEW: TABBED DASHBOARD (HIDDEN ON MOBILE) --- */}
+        <div className="hidden md:block border border-black/10 bg-gradient-to-br from-white to-[#FFF9F0] shadow-sm mb-32 rounded-sm overflow-hidden">
+           {/* TABS (NOW WITH HOOKS) */}
+           <div className="grid grid-cols-4 border-b border-black/10 bg-[#FAFAFA]">
               {Object.entries(TIERS).map(([key, tier]) => (
                 <button 
                   key={key}
                   onClick={() => setActiveTier(key as keyof typeof TIERS)}
-                  className={`py-6 px-4 text-center transition-all duration-300 relative group overflow-hidden ${
+                  className={`py-6 px-4 text-center transition-all duration-300 relative group overflow-hidden flex flex-col justify-center min-h-[100px] ${
                     activeTier === key ? 'bg-white' : 'hover:bg-white/50 text-black/40'
                   }`}
                 >
-                  <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${activeTier === key ? 'text-[#C5A059]' : 'text-inherit'}`}>
-                    {tier.label.split('/')[1]}
+                  <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-2 ${activeTier === key ? 'text-[#C5A059]' : 'text-inherit'}`}>
+                    {tier.label}
                   </span>
-                  <span className={`text-[10px] block ${activeTier === key ? 'text-black/60' : 'text-inherit opacity-60'}`}>
-                    {tier.sprint}
+                  <span className={`font-serif text-lg leading-tight ${activeTier === key ? 'text-black' : 'text-inherit opacity-60'}`}>
+                    "{tier.hook}"
                   </span>
-                  
-                  {/* Active Indicator Top Line */}
-                  {activeTier === key && (
-                    <motion.div layoutId="tab-highlight" className="absolute top-0 left-0 w-full h-1 bg-[#C5A059]" />
-                  )}
+                  {activeTier === key && <motion.div layoutId="tab-highlight" className="absolute top-0 left-0 w-full h-1 bg-[#C5A059]" />}
                 </button>
               ))}
            </div>
+           
+           {/* CONTENT: SPLIT VIEW */}
+           <div className="flex min-h-[600px]">
+              {/* LEFT: Persona List */}
+              <div className="w-1/3 border-r border-black/10 bg-[#FAFAFA] p-8 flex flex-col">
+                 
+                 {/* INTRO SUMMARY (NEW) */}
+                 <div className="mb-8 p-4 bg-white border border-black/5 rounded-sm">
+                    <div className="flex gap-2 items-center mb-2">
+                       <HelpCircle className="w-4 h-4 text-[#C5A059]" />
+                       <span className="font-mono text-[9px] uppercase tracking-widest font-bold text-black/60">Is this you?</span>
+                    </div>
+                    <p className="font-sans text-sm text-black/70 leading-relaxed">
+                       {currentTier.summary}
+                    </p>
+                 </div>
 
-           {/* 2. CONTENT AREA */}
-           <div className="p-8 md:p-12 lg:p-16">
-             <AnimatePresence mode='wait'>
-               <motion.div
-                 key={activeTier}
-                 initial={{ opacity: 0, y: 10 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 exit={{ opacity: 0, y: -10 }}
-                 transition={{ duration: 0.4 }}
-               >
-                  
-                  {/* --- MIDDLE ROW: PERSONA CARDS --- */}
-                  <div 
-                    className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16"
-                    onMouseEnter={() => setIsHovering(true)}
-                    onMouseLeave={() => setIsHovering(false)}
-                  >
-                      {currentTier.personas.map((p, index) => {
-                          const isActive = activePersonaIndex === index;
-                          return (
-                              <button
-                                  key={p.id}
-                                  onClick={() => { setActivePersonaIndex(index); setIsAutoPlaying(false); }}
-                                  className={`p-6 text-left border rounded-sm transition-all duration-300 relative overflow-hidden group h-full flex flex-col ${
-                                      isActive
-                                      ? `border-[#C5A059] bg-[#FFF9F0] shadow-md scale-[1.02]` 
-                                      : 'border-black/5 hover:border-[#C5A059]/30 bg-white opacity-60 hover:opacity-100'
-                                  }`}
-                              >
-                                  <div className={`mb-4 ${isActive ? 'text-[#C5A059]' : 'text-black/40'}`}>
-                                      <p.icon className="w-6 h-6" />
-                                  </div>
-                                  <h3 className={`font-serif text-xl mb-2 ${isActive ? 'text-black' : 'text-black/60'}`}>
-                                      {p.title}
-                                  </h3>
-                                  <p className="font-sans text-xs text-black/40 leading-relaxed mb-4 flex-grow">
-                                      e.g. {p.examples}
-                                  </p>
-                                  
-                                  {/* Progress Bar for Auto-Rotation */}
-                                  {isActive && isAutoPlaying && !isHovering && (
-                                      <div className="absolute bottom-0 left-0 w-full h-1 bg-[#C5A059]/20">
-                                          <motion.div 
-                                              initial={{ width: "0%" }}
-                                              animate={{ width: "100%" }}
-                                              transition={{ duration: 5, ease: "linear" }}
-                                              className="h-full bg-[#C5A059]"
-                                          />
-                                      </div>
-                                  )}
-                                  {/* Static Active Line */}
-                                  {isActive && (!isAutoPlaying || isHovering) && (
-                                       <div className="absolute bottom-0 left-0 w-full h-1 bg-[#C5A059]" />
-                                  )}
-                              </button>
-                          );
-                      })}
-                  </div>
+                 <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-4 block pl-1">Select Profile</span>
+                 <div className="space-y-3 flex-grow">
+                    {currentTier.personas.map((p, idx) => (
+                      <button
+                        key={p.id}
+                        onClick={() => setActivePersonaIndex(idx)}
+                        className={`w-full text-left p-4 border rounded-sm transition-all duration-300 flex items-center gap-4 group ${
+                           activePersonaIndex === idx ? 'bg-white border-[#C5A059] shadow-md' : 'bg-transparent border-transparent hover:bg-white hover:border-black/5'
+                        }`}
+                      >
+                         <div className={`p-2 rounded-full ${activePersonaIndex === idx ? 'bg-[#C5A059]/10 text-[#C5A059]' : 'bg-black/5 text-black/40'}`}>
+                           <p.icon className="w-4 h-4" />
+                         </div>
+                         <div>
+                           <h4 className={`font-serif text-lg leading-tight ${activePersonaIndex === idx ? 'text-black' : 'text-black/60'}`}>{p.title}</h4>
+                         </div>
+                         {activePersonaIndex === idx && <ChevronRight className="w-4 h-4 ml-auto text-[#C5A059]" />}
+                      </button>
+                    ))}
+                 </div>
 
-                  {/* --- BOTTOM ROW: SOLUTION CONTENT --- */}
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 border-t border-black/5 pt-16">
-                      
-                      {/* LEFT COL: TEXT (Vertically Centered) */}
-                      <div className="flex flex-col justify-center">
-                          <AnimatePresence mode="wait">
-                              <motion.div
-                                key={currentPersona.id}
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: 10 }}
-                                transition={{ duration: 0.3 }}
-                              >
-                                  <div className="mb-10">
-                                    <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">Diagnosis / The Pain Point</span>
-                                    <h2 className="font-serif text-4xl md:text-5xl mb-6 text-[#1a1a1a] leading-tight">
-                                        {currentPersona.painTitle}
-                                    </h2>
-                                    <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#E21E3F] pl-6 italic">
-                                        "{currentPersona.painText}"
-                                    </p>
-                                  </div>
+                 {/* SPECS LIST */}
+                 <div className="mt-8 pt-8 border-t border-black/5">
+                    <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-4 block">Included Specs</span>
+                    <ul className="space-y-2">
+                      {currentTier.specs.map((spec, i) => (
+                        <li key={i} className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wide text-black/60">
+                          <CheckCircle className="w-3 h-3 text-[#C5A059]" />
+                          {spec}
+                        </li>
+                      ))}
+                    </ul>
+                 </div>
+              </div>
 
-                                  <div className="bg-[#1a1a1a] p-8 text-[#FFF2EC] relative overflow-hidden rounded-sm">
-                                      <div className="absolute top-0 left-0 w-1 h-full bg-[#C5A059]" />
-                                      <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-4 font-bold">The Solution Protocol</span>
-                                      <p className="font-sans text-lg leading-relaxed">
-                                          {currentPersona.solution}
-                                      </p>
-                                  </div>
-                              </motion.div>
-                          </AnimatePresence>
-                      </div>
+              {/* RIGHT: Solution */}
+              <div className="w-2/3 p-12 relative flex flex-col">
+                  <AnimatePresence mode="wait">
+                    <motion.div 
+                       key={`${activeTier}-${activePersonaIndex}`}
+                       initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
+                       className="flex-grow flex flex-col"
+                    >
+                       <div className="mb-10">
+                          <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">The Problem</span>
+                          <h2 className="font-serif text-4xl mb-6 text-[#1a1a1a] leading-tight">{currentPersona.painTitle}</h2>
+                          <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#E21E3F] pl-6 italic">"{currentPersona.painText}"</p>
+                       </div>
 
-                      {/* RIGHT COL: VISUALS & CTA */}
-                      <div className="flex flex-col justify-between h-full bg-[#FAFAFA] p-10 border border-black/5 rounded-sm">
-                          
-                          <div className="flex-grow">
-                              <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest block mb-6">Visual Architecture</span>
-                              
-                              {/* MICRO-VISUALS */}
-                              <div className="h-40 w-full mb-8 bg-white border border-black/5 rounded-sm flex items-center justify-center relative overflow-hidden shadow-inner">
-                                  
-                                  {/* TIER 1: CHAOS TO ORDER (Bridge) */}
-                                  {activeTier === 'bridge' && (
-                                    <div className="relative w-full h-full flex items-center justify-center">
-                                        {/* Chaos Particles Left */}
-                                        {[0,1,2].map(i => (
-                                            <motion.div 
-                                                key={i}
-                                                className="absolute w-2 h-2 bg-[#E21E3F] rounded-full"
-                                                animate={{ 
-                                                    x: [-50, -20, -50], 
-                                                    y: [Math.random()*40-20, Math.random()*40-20, Math.random()*40-20],
-                                                    opacity: [1, 0]
-                                                }}
-                                                transition={{ duration: 2, repeat: Infinity, delay: i*0.5 }}
-                                            />
-                                        ))}
-                                        
-                                        {/* Funnel/Filter */}
-                                        <div className="w-1 h-12 bg-black/10 mx-4" />
-
-                                        {/* Ordered Grid Right */}
-                                        <div className="grid grid-cols-2 gap-2">
-                                            {[0,1,2,3].map(i => (
-                                                <motion.div 
-                                                    key={i}
-                                                    className="w-4 h-4 border border-[#C5A059] bg-[#C5A059]/20"
-                                                    initial={{ opacity: 0, scale: 0 }}
-                                                    animate={{ opacity: 1, scale: 1 }}
-                                                    transition={{ duration: 0.5, delay: 1 + i*0.2, repeat: Infinity, repeatDelay: 2 }}
-                                                />
-                                            ))}
-                                        </div>
-                                    </div>
-                                  )}
-
-                                  {/* TIER 2: RADAR BLIP (Behavior) */}
-                                  {activeTier === 'behavior' && (
-                                    <div className="relative w-full h-full flex items-center justify-center">
-                                        <motion.div 
-                                            className="absolute w-32 h-32 border border-[#C5A059]/30 rounded-full"
-                                            animate={{ scale: [0.5, 1.2], opacity: [1, 0] }}
-                                            transition={{ duration: 2, repeat: Infinity }}
-                                        />
-                                        <motion.div 
-                                            className="absolute w-20 h-20 border border-[#C5A059]/50 rounded-full"
-                                            animate={{ scale: [0.5, 1.2], opacity: [1, 0] }}
-                                            transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
-                                        />
-                                        <div className="w-2 h-2 bg-[#C5A059] rounded-full shadow-[0_0_10px_#C5A059]" />
-                                        {/* Blip */}
-                                        <motion.div 
-                                            className="absolute w-1.5 h-1.5 bg-red-500 rounded-full"
-                                            animate={{ opacity: [0, 1, 0], x: [20, 30], y: [-20, -30] }}
-                                            transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-                                        />
-                                    </div>
-                                  )}
-
-                                  {/* TIER 3: MULTIPLIER (Content) */}
-                                  {activeTier === 'content' && (
-                                    <div className="relative w-full h-full flex items-center justify-center">
-                                        {/* Center Node */}
-                                        <div className="w-8 h-8 bg-[#1a1a1a] rounded-full z-10 flex items-center justify-center text-white text-[8px]">
-                                            IN
-                                        </div>
-                                        {/* Spawning Nodes */}
-                                        {[0, 1, 2, 3].map(i => (
-                                            <motion.div 
-                                                key={i}
-                                                className="absolute w-6 h-6 bg-[#C5A059] rounded-full flex items-center justify-center text-[6px] text-white"
-                                                animate={{ 
-                                                    x: [0, Math.cos(i * 1.57) * 40], 
-                                                    y: [0, Math.sin(i * 1.57) * 40],
-                                                    opacity: [0, 1, 0]
-                                                }}
-                                                transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-                                            >
-                                                x{i+1}
-                                            </motion.div>
-                                        ))}
-                                    </div>
-                                  )}
-
-                                  {/* TIER 4: HANDSHAKE GEARS (Autopilot) */}
-                                  {activeTier === 'autopilot' && (
-                                    <div className="relative w-full h-full flex items-center justify-center gap-1">
-                                        <motion.div 
-                                            animate={{ rotate: 360 }}
-                                            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                                            className="w-12 h-12 border-2 border-dashed border-[#1a1a1a] rounded-full"
-                                        />
-                                        <motion.div 
-                                            animate={{ rotate: -360 }}
-                                            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-                                            className="w-12 h-12 border-2 border-dashed border-[#C5A059] rounded-full"
-                                        />
-                                        <div className="absolute">
-                                            <Check className="w-6 h-6 text-[#C5A059] drop-shadow-md" />
-                                        </div>
-                                    </div>
-                                  )}
-                              </div>
-
-                              <ul className="space-y-4 mb-8">
-                                  {currentTier.specs.map((spec, i) => (
-                                      <motion.li 
-                                          key={i} 
-                                          initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.1 }}
-                                          className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/70"
-                                      >
-                                          <CheckCircle2 className="w-3 h-3 text-[#C5A059]" />
-                                          {spec}
-                                      </motion.li>
-                                  ))}
-                              </ul>
+                       <div className="mt-auto bg-[#1a1a1a] p-8 text-white rounded-sm relative overflow-hidden shadow-2xl">
+                          <div className="absolute top-0 right-0 w-48 h-48 bg-[#C5A059]/10 rounded-full blur-3xl" />
+                          <div className="relative z-10 flex gap-8">
+                             <div className="flex-grow">
+                                <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-4 font-bold">The Fix</span>
+                                <p className="font-sans text-lg leading-relaxed mb-8">{currentPersona.solution}</p>
+                                <FillButton onClick={() => onNavigate('contact')} className="w-fit py-4 px-8 font-mono text-xs uppercase tracking-[0.2em] font-bold">
+                                  [ BOOK A CALL ]
+                                </FillButton>
+                             </div>
+                             <div className="w-32 hidden lg:block flex-shrink-0">
+                                <TierVisual tierKey={activeTier} />
+                             </div>
                           </div>
-
-                          {/* ANCHORED BOTTOM CTA (FILL ANIMATION) */}
-                          <FillButton 
-                              onClick={() => onNavigate('contact')}
-                              className="w-full py-5 font-mono text-xs uppercase tracking-[0.2em] font-bold mt-auto"
-                          >
-                              [ BOOK A CALL ]
-                          </FillButton>
-                      </div>
-
-                  </div>
-               </motion.div>
-             </AnimatePresence>
+                       </div>
+                    </motion.div>
+                  </AnimatePresence>
+              </div>
            </div>
         </div>
+
+        {/* --- MOBILE VIEW: HIGH-CONTRAST VERTICAL ACCORDION (VISIBLE ON MOBILE) --- */}
+        <div className="md:hidden space-y-4 mb-32">
+          {Object.entries(TIERS).map(([key, tier]) => {
+            const isTierExpanded = expandedTier === key;
+            return (
+              <div 
+                key={key} 
+                id={`tier-mobile-${key}`} // ID for Scroll Target
+                className={`border rounded-sm overflow-hidden transition-all duration-300 ${isTierExpanded ? 'border-[#1a1a1a] bg-white shadow-xl scale-[1.02] z-10' : 'border-black/10 bg-white'}`}
+              >
+                
+                {/* LEVEL 1: TIER HEADER (DARK MODE WHEN ACTIVE) */}
+                <button 
+                  onClick={() => {
+                    const willExpand = !isTierExpanded;
+                    setExpandedTier(willExpand ? key as keyof typeof TIERS : null);
+                    setExpandedPersona(null); // Close inner accordions
+                    if (willExpand) {
+                        handleScrollTo(`tier-mobile-${key}`); // TRIGGER SCROLL
+                    }
+                  }}
+                  className={`w-full flex items-center justify-between p-6 text-left transition-colors duration-300 ${isTierExpanded ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}
+                >
+                  <div>
+                    <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${isTierExpanded ? 'text-[#C5A059]' : 'text-black/60'}`}>
+                      {tier.label}
+                    </span>
+                    {/* NEW: Hook visible on closed state too */}
+                    <span className={`font-serif text-lg leading-tight ${isTierExpanded ? 'text-white' : 'text-black'}`}>"{tier.hook}"</span>
+                  </div>
+                  <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isTierExpanded ? 'rotate-180 text-[#C5A059]' : 'text-black/30'}`} />
+                </button>
+
+                {/* LEVEL 1 CONTENT: PERSONA LIST */}
+                <AnimatePresence>
+                  {isTierExpanded && (
+                    <motion.div 
+                      initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }}
+                      className="overflow-hidden bg-[#FAFAFA]"
+                    >
+                      <div className="p-4 space-y-2">
+                         {/* INTRO SUMMARY (NEW FOR MOBILE) */}
+                         <div className="mb-6 p-4 bg-white border border-black/5 rounded-sm">
+                            <p className="font-sans text-sm text-black/70 leading-relaxed">
+                               <strong className="text-[#C5A059] block mb-1 font-bold uppercase text-[9px] tracking-widest">Is this you?</strong>
+                               {tier.summary}
+                            </p>
+                         </div>
+
+                         <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold block mb-2 px-2">Select Profile:</span>
+                         
+                         {tier.personas.map((p) => {
+                           const isPersonaExpanded = expandedPersona === p.id;
+                           return (
+                             <div 
+                                key={p.id} 
+                                id={`persona-mobile-${p.id}`} // ID for Scroll Target
+                                className={`border rounded-sm overflow-hidden transition-all duration-300 ${isPersonaExpanded ? 'border-[#C5A059] bg-white shadow-md' : 'border-black/5 bg-white'}`}
+                             >
+                               
+                               {/* LEVEL 2: PERSONA HEADER (GOLD ACCENT WHEN ACTIVE) */}
+                               <button 
+                                 onClick={() => {
+                                    const willExpand = !isPersonaExpanded;
+                                    setExpandedPersona(willExpand ? p.id : null);
+                                    if (willExpand) {
+                                        handleScrollTo(`persona-mobile-${p.id}`); // TRIGGER SCROLL
+                                    }
+                                 }}
+                                 className="w-full flex items-center gap-4 p-4 text-left hover:bg-black/5 transition-colors"
+                               >
+                                  <div className={`p-2 rounded-full ${isPersonaExpanded ? 'bg-[#C5A059] text-[#1a1a1a]' : 'bg-black/5 text-black/40'}`}>
+                                     <p.icon className="w-4 h-4" />
+                                  </div>
+                                  <div className="flex-grow">
+                                     <h4 className={`font-serif text-lg leading-tight ${isPersonaExpanded ? 'text-[#C5A059]' : 'text-black/70'}`}>{p.title}</h4>
+                                     <span className="text-[10px] text-black/40 block mt-1 line-clamp-1">{p.examples}</span>
+                                  </div>
+                                  <ChevronDown className={`w-4 h-4 transition-transform ${isPersonaExpanded ? 'rotate-180 text-[#C5A059]' : 'text-black/20'}`} />
+                               </button>
+
+                               {/* LEVEL 2 CONTENT: SOLUTION */}
+                               <AnimatePresence>
+                                 {isPersonaExpanded && (
+                                   <motion.div
+                                     initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                                     className="border-t border-[#C5A059]/20 bg-white"
+                                   >
+                                      <div className="p-6">
+                                         {/* Pain */}
+                                         <div className="mb-6">
+                                            <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Problem</span>
+                                            <h5 className="font-serif text-2xl mb-2 text-[#1a1a1a]">{p.painTitle}</h5>
+                                            <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed italic border-l-2 border-[#E21E3F] pl-4">"{p.painText}"</p>
+                                         </div>
+
+                                         {/* Solution */}
+                                         <div className="bg-[#1a1a1a] p-6 text-white rounded-sm mb-6 relative overflow-hidden">
+                                            <div className="absolute top-0 right-0 w-24 h-24 bg-[#C5A059]/20 rounded-full blur-2xl" />
+                                            <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-3 font-bold relative z-10">The Fix</span>
+                                            <p className="font-sans text-base leading-relaxed mb-6 relative z-10">{p.solution}</p>
+                                            
+                                            {/* VISUAL ON MOBILE - Pure Gold on Transparent */}
+                                            <div className="w-full flex justify-center py-4 bg-transparent relative z-10">
+                                               <div className="w-24">
+                                                 <TierVisual tierKey={key} />
+                                               </div>
+                                            </div>
+                                         </div>
+
+                                         <FillButton onClick={() => onNavigate('contact')} className="w-full py-4 font-mono text-xs uppercase tracking-[0.2em] font-bold">
+                                            [ BOOK A CALL ]
+                                         </FillButton>
+
+                                         {/* Specs List (Restored for Mobile) */}
+                                         <div className="mt-8 pt-6 border-t border-black/10">
+                                            <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-3 block">Included Specs</span>
+                                            <ul className="space-y-2">
+                                              {tier.specs.map((spec, i) => (
+                                                <li key={i} className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wide text-black/60">
+                                                  <CheckCircle className="w-3 h-3 text-[#C5A059]" />
+                                                  {spec}
+                                                </li>
+                                              ))}
+                                            </ul>
+                                         </div>
+                                      </div>
+                                   </motion.div>
+                                 )}
+                               </AnimatePresence>
+                             </div>
+                           )
+                         })}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
+        </div>
+
       </section>
 
       {/* FAQ SECTION */}
       <FAQSection
         faqs={pillarFAQs}
         accentColor="#C5A059"
-        title="Questions about automation?"
-        subtitle="Common questions about business automation."
+        title="Questions about CRM?"
+        subtitle="Common questions about data, pipelines, and cleaning up the mess."
         onNavigate={onNavigate}
       />
     </motion.div>
