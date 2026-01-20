@@ -13,26 +13,16 @@ import {
   CheckCircle, ChevronDown, ChevronRight, Terminal, HelpCircle,
   Clapperboard, Repeat
 } from 'lucide-react';
-// CORRECT HERO IMPORT FOR PILLAR 5 (MEDIA)
 import PillarVisual_MediaGrid from '../../components/PillarVisual_MediaGrid';
 import FAQSection from '../../components/FAQSection';
 import { getPillarFAQs } from '../../constants/faqData';
+import CTAButton from '../../components/CTAButton'; // STANDARDIZED BUTTON
+import BackButton from '../../components/BackButton'; // STANDARDIZED BACK LINK
 
 interface PillarPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
 }
-
-// --- HELPER: FILL BUTTON ---
-const FillButton = ({ children, onClick, className = "" }: { children: React.ReactNode, onClick?: () => void, className?: string }) => (
-  <button 
-    onClick={onClick} 
-    className={`relative overflow-hidden group bg-[#C5A059] text-white border border-[#C5A059] shadow-sm hover:shadow-lg transition-all duration-300 ${className}`}
-  >
-    <div className="absolute inset-0 bg-[#1a1a1a] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]" />
-    <span className="relative z-10 flex items-center justify-center gap-3">{children}</span>
-  </button>
-);
 
 // --- VISUALIZATIONS (Service Level - Media Specific) ---
 const TierVisual = ({ tierKey }: { tierKey: string }) => {
@@ -41,7 +31,6 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
       
       {tierKey === 'synthetic' && (
         // ANIMATION: "The Clone" (Synthetic Studio)
-        // Concept: One source creating a perfect digital replica.
         <div className="relative flex items-center justify-center gap-4">
             {/* The Source (Real) */}
             <div className="w-8 h-8 border border-[#C5A059] rounded-full flex items-center justify-center bg-[#1a1a1a] z-10">
@@ -70,7 +59,6 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
 
       {tierKey === 'authority' && (
         // ANIMATION: "The Network" (SEO Matrix)
-        // Concept: Central topic connecting to satellite topics.
         <div className="relative w-24 h-24 flex items-center justify-center">
              {/* Center Node */}
              <div className="w-3 h-3 bg-[#C5A059] rounded-full z-10" />
@@ -94,7 +82,6 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
 
       {tierKey === 'distribution' && (
         // ANIMATION: "The Broadcast" (Distribution Grid)
-        // Concept: Center point radiating outwards.
         <div className="relative flex items-center justify-center">
             <div className="w-2 h-2 bg-[#C5A059] rounded-sm z-10" />
             
@@ -112,7 +99,6 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
 
       {tierKey === 'terminal' && (
         // ANIMATION: "The Launch" (Conversion Terminal)
-        // Concept: Fast vertical deployment.
         <div className="relative h-20 w-12 border-x border-[#C5A059]/20 flex justify-center overflow-hidden">
             <motion.div 
                animate={{ y: [-80, 80] }}
@@ -127,7 +113,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
   );
 };
 
-// --- DATA: PRESERVED COPY + NEW HOOKS ---
+// --- DATA ---
 const TIERS = {
   synthetic: {
     id: 'synthetic',
@@ -326,18 +312,13 @@ const Pillar5: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] px-0 relative z-[150] overflow-x-hidden flex flex-col font-sans"
     >
       
-      {/* --- HERO SECTION (UNCHANGED) --- */}
+      {/* --- HERO SECTION --- */}
       <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
           
+          {/* NAVIGATION - STANDARDIZED */}
           <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
-            <button 
-              onClick={() => onNavigate('system')}
-              className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-              / Return to The System
-            </button>
+            <BackButton onClick={() => onNavigate('system')} label="Return to The System" />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 flex-1 content-center items-center">
@@ -360,7 +341,6 @@ const Pillar5: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
             
             <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
                <div className="relative w-full max-w-[450px] h-[300px] lg:h-[450px] opacity-90 flex items-center justify-center">
-                 {/* HERO VISUAL UNCHANGED */}
                  <PillarVisual_MediaGrid />
                </div>
             </div>
@@ -489,9 +469,12 @@ const Pillar5: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                              <div className="flex-grow">
                                 <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-4 font-bold">The Fix</span>
                                 <p className="font-sans text-lg leading-relaxed mb-8">{currentPersona.solution}</p>
-                                <FillButton onClick={() => onNavigate('contact')} className="w-fit py-4 px-8 font-mono text-xs uppercase tracking-[0.2em] font-bold">
-                                  [ BOOK A CALL ]
-                                </FillButton>
+                                {/* STANDARDIZED CTA BUTTON */}
+                                <div className="w-fit">
+                                  <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
+                                    [ BOOK A CALL ]
+                                  </CTAButton>
+                                </div>
                              </div>
                              <div className="w-32 hidden lg:block flex-shrink-0">
                                 <TierVisual tierKey={activeTier} />
@@ -614,9 +597,12 @@ const Pillar5: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                             </div>
                                          </div>
 
-                                         <FillButton onClick={() => onNavigate('contact')} className="w-full py-4 font-mono text-xs uppercase tracking-[0.2em] font-bold">
-                                            [ BOOK A CALL ]
-                                         </FillButton>
+                                         {/* STANDARDIZED CTA BUTTON MOBILE */}
+                                         <div className="w-full">
+                                            <CTAButton theme="dark" onClick={() => onNavigate('contact')} className="w-full">
+                                                [ BOOK A CALL ]
+                                            </CTAButton>
+                                         </div>
 
                                          {/* Specs List (Restored for Mobile) */}
                                          <div className="mt-8 pt-6 border-t border-black/10">
