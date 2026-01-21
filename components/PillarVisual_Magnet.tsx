@@ -77,7 +77,7 @@ const PillarVisual_Magnet: React.FC = () => {
             y: CENTER_Y + Math.sin(angle) * dist,
             tx: tx,
             ty: ty,
-            speed: 0.15 + Math.random() * 0.1, // 2X Fast particles
+            speed: 0.12 + Math.random() * 0.08, // Tuned particles
             color: Math.random() > 0.7 ? 'rgba(197, 160, 89, 0.3)' : 'rgba(26, 26, 26, 0.2)',
             size: (1.5 + Math.random() * 1.5) * scale,
             dead: false
@@ -282,30 +282,30 @@ const PillarVisual_Magnet: React.FC = () => {
 
         ctx.clearRect(0, 0, width, height);
 
-        // --- STATE MACHINE (2X FAST) ---
+        // --- STATE MACHINE (TUNED) ---
         switch (currentState) {
             case 'INIT':
-                cardOpacity += 0.16;
+                cardOpacity += 0.13;
                 if (cardOpacity >= 1) { cardOpacity = 1; currentState = 'IDLE_EMPTY'; timer = 0; }
                 break;
             case 'IDLE_EMPTY':
                 timer++;
-                if (timer > 5) { currentState = 'BUILDING'; contentOpacity = 1; }
+                if (timer > 6) { currentState = 'BUILDING'; contentOpacity = 1; }
                 break;
             case 'BUILDING':
                 if (fillLevel < 1) {
-                    fillLevel += 0.012;
-                    if (Math.random() > 0.4) spawnParticle(); 
+                    fillLevel += 0.0096;
+                    if (Math.random() > 0.45) spawnParticle(); 
                 } else {
                     fillLevel = 1; currentState = 'COMPLETE'; timer = 0;
                 }
                 break;
             case 'COMPLETE':
                 timer++;
-                if (timer > 20) { currentState = 'CLEARING'; }
+                if (timer > 25) { currentState = 'CLEARING'; }
                 break;
             case 'CLEARING':
-                contentOpacity -= 0.12; 
+                contentOpacity -= 0.096; 
                 if (contentOpacity <= 0) {
                     contentOpacity = 0; fillLevel = 0; cardId++; currentState = 'IDLE_EMPTY'; timer = 0;
                 }
