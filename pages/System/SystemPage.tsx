@@ -111,7 +111,7 @@ const ALL_PILLARS = [
   }
 ];
 
-// --- GRID ITEM COMPONENT (Updated for Color Grouping) ---
+// --- GRID ITEM COMPONENT (Updated for Color Grouping + Mobile) ---
 const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const isPillar7 = pillar.id === 'pillar7';
@@ -119,7 +119,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
   // --- GRID SPAN LOGIC ---
   let spanClasses = "";
   if (isSelected) {
-      spanClasses = "col-span-1 md:col-span-2 lg:col-span-3 row-span-2"; 
+      spanClasses = "col-span-1 md:col-span-2 lg:col-span-3"; 
   } else if (isPillar7) {
       spanClasses = "col-span-1 md:col-span-2 lg:col-span-3"; 
   } else {
@@ -127,43 +127,43 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
   }
 
   // --- SUBCONSCIOUS GROUPING LOGIC ---
-  // We use the pillar's specific categoryHex for borders/accents instead of a generic color.
   const accentColor = pillar.categoryHex;
   
   // FIX: Pillar 7 has black (#1a1a1a) as its accent. When expanded (dark bg), it becomes invisible.
-  // Swap to White only when Pillar 7 is expanded.
   const displayAccent = (isSelected && isPillar7) ? '#FFFFFF' : accentColor;
   
   // Dynamic Styles
   const bgClass = isSelected ? "bg-[#1a1a1a]" : "bg-white hover:bg-[#FFF2EC]";
   
-  // Border Logic:
-  // Closed: Faint border of the specific group color (e.g. Red for 1-3).
-  // Hover: Stronger border of the specific group color.
-  // Expanded: Solid border of specific group color.
   const borderStyle = {
       borderColor: isSelected 
           ? accentColor 
-          : 'rgba(26, 26, 26, 0.1)', // Default grey
-      // On hover, we will let CSS handle the transition to accentColor
+          : 'rgba(26, 26, 26, 0.1)',
+  };
+
+  // Scroll to top of card when expanded (better UX on mobile)
+  const handleToggle = () => {
+    onToggle();
+    // Small delay to let the layout change happen, then scroll
+    if (!isSelected) {
+      setTimeout(() => {
+        if (itemRef.current) {
+          itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
   };
 
   return (
     <motion.div
       layout
       ref={itemRef}
-      onLayoutAnimationComplete={() => {
-        if (isSelected && itemRef.current) {
-           itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-      }}
-      onClick={onToggle}
+      onClick={handleToggle}
       className={`relative ${spanClasses} ${bgClass} border transition-all duration-300 overflow-hidden group cursor-pointer`}
       style={{ 
-          minHeight: isSelected ? '650px' : '320px',
+          minHeight: isSelected ? 'auto' : (isPillar7 ? '200px' : '280px'),
           ...borderStyle
       }}
-      // Hover Effect handled via JS style override for exact color matching
       onMouseEnter={(e) => {
           if(!isSelected) e.currentTarget.style.borderColor = accentColor;
       }}
@@ -178,104 +178,114 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
          />
       )}
 
-      {/* --- CLOSED STATE (Technical Card) --- */}
+      {/* --- CLOSED STATE (Technical Card - Mobile Optimized) --- */}
       {!isSelected && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-8 flex flex-col justify-between">
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-5 md:p-8 flex flex-col justify-between">
            
            {/* Top: Tech Label & Number */}
            <div className="flex justify-between items-start">
               {/* The Label Border matches the group color */}
               <span 
-                className="font-mono text-[10px] uppercase tracking-[0.2em] py-1 px-2 border bg-white/50 font-bold backdrop-blur-sm"
+                className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] py-1 px-2 border bg-white/50 font-bold backdrop-blur-sm"
                 style={{ color: accentColor, borderColor: `${accentColor}40` }}
               >
                  {pillar.technicalLabel.replace(/_/g, ' ')}
               </span>
-              <span className="font-serif text-4xl text-[#1a1a1a]/10 font-bold absolute top-4 right-6 group-hover:text-[#1a1a1a]/20 transition-colors">
+              <span className="font-serif text-3xl md:text-4xl text-[#1a1a1a]/10 font-bold absolute top-3 md:top-4 right-4 md:right-6 group-hover:text-[#1a1a1a]/20 transition-colors">
                  {pillar.number}
               </span>
            </div>
 
            {/* Middle: Content */}
-           <div className="relative z-10 mt-4">
+           <div className="relative z-10 mt-3 md:mt-4">
               <pillar.icon 
-                className="w-8 h-8 mb-6 opacity-100 group-hover:scale-110 transition-all duration-300" 
-                style={{ color: accentColor }} // Icon matches group color
+                className="w-6 h-6 md:w-8 md:h-8 mb-3 md:mb-6 opacity-100 group-hover:scale-110 transition-all duration-300" 
+                style={{ color: accentColor }}
               />
               
-              <h3 className="font-serif text-3xl text-[#1a1a1a] mb-2 leading-none tracking-tight group-hover:translate-x-1 transition-transform duration-300">
+              <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-1 md:mb-2 leading-none tracking-tight group-hover:translate-x-1 transition-transform duration-300">
                  {pillar.title}
               </h3>
-              <p className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold mb-4" style={{ color: `${accentColor}80` }}>
-                 {pillar.subtitle}
+              <p className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-bold mb-2 md:mb-4" style={{ color: `${accentColor}80` }}>
+                 {/* Show shorter subtitle on mobile */}
+                 <span className="md:hidden">{pillar.subtitleMobile || pillar.subtitle}</span>
+                 <span className="hidden md:inline">{pillar.subtitle}</span>
               </p>
               
-              {isPillar7 && (
-                 <p className="font-sans text-sm text-[#1a1a1a]/80 max-w-lg mt-2 hidden md:block">
-                    {pillar.body}
-                 </p>
-              )}
+              {/* Show body text on mobile for all cards (shorter version) */}
+              <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/70 leading-relaxed line-clamp-2 md:line-clamp-none">
+                 <span className="md:hidden">{pillar.bodyMobile || pillar.body}</span>
+                 <span className="hidden md:inline">{isPillar7 ? pillar.body : ''}</span>
+              </p>
            </div>
 
            {/* Bottom: Action */}
-           <div className="flex justify-between items-end border-t border-[#1a1a1a]/10 pt-4 mt-auto">
-              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#1a1a1a]/50 transition-colors font-bold group-hover:text-black">
-                 SYSTEM NODE {pillar.number}
+           <div className="flex justify-between items-center border-t border-[#1a1a1a]/10 pt-3 md:pt-4 mt-auto">
+              <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-[#1a1a1a]/50 transition-colors font-bold group-hover:text-black">
+                 NODE {pillar.number}
               </span>
               <div 
-                className="w-8 h-8 flex items-center justify-center rounded-full bg-[#1a1a1a]/5 transition-colors group-hover:bg-[#1a1a1a]"
+                className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full transition-colors"
+                style={{ backgroundColor: `${accentColor}10` }}
               >
-                 {/* Plus icon turns into Group Color on hover */}
                  <Plus 
-                    className="w-4 h-4 text-[#1a1a1a] group-hover:rotate-90 transition-all duration-300" 
-                    style={{ color: 'inherit' }} // Inherits form parent hover state logic if needed, but lets override via CSS group-hover
+                    className="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:rotate-90 transition-all duration-300" 
+                    style={{ color: accentColor }}
                  />
               </div>
            </div>
         </motion.div>
       )}
 
-      {/* --- EXPANDED STATE (Blueprint Mode - Dark) --- */}
+      {/* --- EXPANDED STATE (Blueprint Mode - Dark + Mobile Optimized) --- */}
       <AnimatePresence>
         {isSelected && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.2 } }} exit={{ opacity: 0 }} className="relative w-full h-full p-8 md:p-16 flex flex-col">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.1 } }} exit={{ opacity: 0 }} className="relative w-full p-5 md:p-10 lg:p-16 flex flex-col">
             
+            {/* Close Button - Always visible at top */}
+            <button 
+               onClick={(e) => { e.stopPropagation(); handleToggle(); }}
+               className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full border border-white/20 text-white/60 hover:text-white hover:border-white transition-all z-20"
+            >
+               <Minus className="w-5 h-5 md:w-6 md:h-6" />
+            </button>
+
             {/* Header Area */}
-            <div className="flex flex-col lg:flex-row justify-between items-start border-b border-white/10 pb-8 mb-10">
+            <div className="flex flex-col justify-between items-start border-b border-white/10 pb-6 md:pb-8 mb-6 md:mb-10 pr-12">
                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                     <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: displayAccent }}>
+                  <div className="flex items-center gap-3 mb-3 md:mb-4">
+                     <span className="font-mono text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: displayAccent }}>
                         {pillar.number} // {pillar.categoryLabel}
                      </span>
                   </div>
-                  <h2 className="font-serif text-5xl md:text-6xl text-white mb-6">
+                  <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
                      {pillar.title}
                   </h2>
-                  <p className="font-sans text-lg md:text-xl text-white/80 max-w-2xl font-light leading-relaxed">
+                  <p className="font-sans text-base md:text-lg lg:text-xl text-white/80 max-w-2xl font-light leading-relaxed">
                      {pillar.description}
                   </p>
                </div>
                
-               {/* Icon Watermark */}
+               {/* Icon Watermark - Hidden on mobile, visible on desktop */}
                <pillar.icon 
-                  className="w-24 h-24 absolute top-8 right-8 lg:relative lg:top-0 lg:right-0 lg:opacity-100" 
+                  className="hidden lg:block w-20 h-20 lg:w-24 lg:h-24 absolute top-16 right-16 opacity-30" 
                   style={{ color: displayAccent }}
                />
             </div>
 
             {/* Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-12">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12 mb-6 md:mb-12">
                {/* Col 1 & 2: Sub-services */}
-               <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+               <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
                   {pillar.subServices.map((sub: any, i: number) => (
-                     <div key={i} className="space-y-3">
+                     <div key={i} className="space-y-2 md:space-y-3">
                         <h4 
-                            className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] border-l-2 pl-3"
+                            className="font-mono text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] border-l-2 pl-3"
                             style={{ color: displayAccent, borderColor: displayAccent }}
                         >
                            {sub.title}
                         </h4>
-                        <p className="font-sans text-sm text-white/70 leading-relaxed pl-3.5">
+                        <p className="font-sans text-xs md:text-sm text-white/70 leading-relaxed pl-3.5">
                            {sub.description}
                         </p>
                      </div>
@@ -283,31 +293,22 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
                </div>
 
                {/* Col 3: System Purpose & CTA */}
-               <div className="bg-white/5 p-6 border border-white/10 flex flex-col justify-between rounded-sm">
+               <div className="bg-white/5 p-5 md:p-6 border border-white/10 flex flex-col justify-between rounded-sm">
                   <div>
-                     <span className="font-mono text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] block mb-2">CORE FUNCTION</span>
-                     <p className="font-serif text-xl italic text-white mb-8">"{pillar.systemPurpose}"</p>
+                     <span className="font-mono text-[9px] md:text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] block mb-2">CORE FUNCTION</span>
+                     <p className="font-serif text-lg md:text-xl italic text-white mb-6 md:mb-8">"{pillar.systemPurpose}"</p>
                   </div>
                   
                   <div className="mt-auto" onClick={(e) => e.stopPropagation()}>
-                     {/* Manual CTA styling to match category color instead of generic Gold */}
                      <button 
                         onClick={() => onNavigate(pillar.id)}
-                        className="w-full py-4 bg-white text-[#1a1a1a] font-mono text-xs uppercase tracking-widest font-bold hover:bg-opacity-90 transition-all flex items-center justify-center gap-2"
+                        className="w-full py-3 md:py-4 bg-white text-[#1a1a1a] font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold hover:bg-opacity-90 transition-all flex items-center justify-center gap-2"
                      >
-                        [ EXPLORE PILLAR ] <ArrowRight className="w-4 h-4" />
+                        EXPLORE PILLAR <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4" />
                      </button>
                   </div>
                </div>
             </div>
-
-            {/* Close Button */}
-            <button 
-               onClick={(e) => { e.stopPropagation(); onToggle(); }}
-               className="absolute top-6 right-6 p-2 rounded-full border border-white/10 text-white/40 hover:text-white hover:border-white transition-all"
-            >
-               <Minus className="w-6 h-6" />
-            </button>
 
           </motion.div>
         )}
@@ -316,9 +317,10 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
   );
 };
 
-// --- MAIN PAGE COMPONENT (Unchanged Structure) ---
+// --- MAIN PAGE COMPONENT ---
 const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
   const [selectedPillarId, setSelectedPillarId] = useState<string | null>(null);
+  const gridSectionRef = useRef<HTMLDivElement>(null);
   const systemFAQs = getSystemPageFAQs();
 
   // Scroll Logic
@@ -419,14 +421,20 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
           </div>
 
           {/* THE GRID CONTAINER */}
-          {/* gap-0 ensures contiguous borders like a schematic */}
-          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-[#1a1a1a]/20 bg-[#1a1a1a]/10">
+          <motion.div 
+            ref={gridSectionRef}
+            layout 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-[#1a1a1a]/20 bg-[#1a1a1a]/10"
+          >
             {ALL_PILLARS.map((pillar) => (
               <GridItem 
                 key={pillar.id}
                 pillar={pillar}
                 isSelected={selectedPillarId === pillar.id}
-                onToggle={() => setSelectedPillarId(selectedPillarId === pillar.id ? null : pillar.id)}
+                onToggle={() => {
+                  const newId = selectedPillarId === pillar.id ? null : pillar.id;
+                  setSelectedPillarId(newId);
+                }}
                 onNavigate={onNavigate}
               />
             ))}
