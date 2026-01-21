@@ -198,7 +198,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
            <div className="flex items-center gap-0 mb-12 border border-[#1a1a1a]/10 bg-white p-1 rounded-sm w-fit shadow-lg">
               <button 
                 onClick={() => setMode('architect')}
-                className={`px-6 md:px-8 py-3 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 relative overflow-hidden rounded-sm flex items-center gap-2 ${
+                className={`px-6 md:px-8 py-3 text-[10px] font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 relative overflow-hidden rounded-sm flex items-center gap-2 ${
                   mode === 'architect' 
                   ? 'text-[#FFF2EC] bg-[#1a1a1a] shadow-md' 
                   : 'text-[#1a1a1a]/40 hover:text-[#1a1a1a] hover:bg-black/5'
@@ -210,7 +210,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
               
               <button 
                 onClick={() => setMode('human')}
-                className={`px-6 md:px-8 py-3 text-[10px] md:text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 relative overflow-hidden rounded-sm flex items-center gap-2 ${
+                className={`px-6 md:px-8 py-3 text-[10px] font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 relative overflow-hidden rounded-sm flex items-center gap-2 ${
                   mode === 'human' 
                   ? 'text-[#1a1a1a] bg-[#C5A059] shadow-md' 
                   : 'text-[#1a1a1a]/40 hover:text-[#1a1a1a] hover:bg-black/5'

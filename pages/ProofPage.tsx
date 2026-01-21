@@ -72,14 +72,9 @@ const TerminalLog: React.FC = () => {
   return (
     <div ref={ref} className="w-full bg-[#111] rounded-sm overflow-hidden shadow-2xl border border-white/10 relative group">
       <div className="bg-[#1a1a1a] px-4 py-3 flex items-center justify-between border-b border-white/10">
-        <div className="flex gap-2">
-          <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50" />
-          <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50" />
-          <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50" />
-        </div>
-        <div className="flex items-center gap-2 text-white/30 text-[10px] font-mono tracking-widest uppercase">
-          <Terminal className="w-3 h-3" />
-          <span>System.Log</span>
+        <div className="flex items-center gap-2">
+          <Terminal className="w-3 h-3 text-[#C5A059]" />
+          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#C5A059]">SYSTEM LOG // EXECUTION</span>
         </div>
       </div>
       
@@ -372,7 +367,9 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         {/* THE EVIDENCE */}
         <Section className="mb-32">
           <div className="mb-20">
+            {/* Type A: Section Anchor with Status Light */}
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center gap-2">
+              <div className="w-2 h-2 rounded-sm bg-[#C5A059]" />
               / THE RESULTS
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
@@ -423,7 +420,9 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         {/* COMPARISON - FIXED: Pass images explicitly */}
         <Section className="mb-32">
            <div className="mb-20">
+            {/* Type A: Section Anchor with Status Light */}
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center gap-2">
+              <div className="w-2 h-2 rounded-sm bg-[#C5A059]" />
               / VISUAL EVIDENCE
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">

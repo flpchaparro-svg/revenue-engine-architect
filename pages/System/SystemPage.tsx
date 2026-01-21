@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Minus, Globe, Database, Zap, Bot, Video, Users, BarChart3, Plus, Terminal } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Minus, Globe, Database, Zap, Bot, Video, Users, BarChart3, Plus } from 'lucide-react';
 import GlobalFooter from '../../components/GlobalFooter';
 import HeroVisual_Suspension from '../../components/HeroVisual_Suspension';
 import FAQSection from '../../components/FAQSection';
@@ -409,8 +409,10 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
           
           <div className="text-center max-w-2xl mx-auto mb-20 pt-10">
-              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block flex items-center justify-center gap-2">
-                 <Terminal className="w-4 h-4" /> / SYSTEM MANIFEST
+              {/* Type A: Section Anchor with Status Light */}
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center justify-center gap-2">
+                 <div className="w-2 h-2 rounded-sm bg-[#C5A059]" />
+                 / SYSTEM MANIFEST
               </span>
               <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
                 The Parts in <span className="italic font-serif text-[#C5A059]">Detail.</span>

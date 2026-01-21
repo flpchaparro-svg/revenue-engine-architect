@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { 
   Search, PenTool, Hammer, Flag, 
-  CheckCircle2, Sliders, Terminal
+  CheckCircle2
 } from 'lucide-react';
 import ProtocolVisual_Geodesic from '../components/ProtocolVisual_Geodesic';
 import CTAButton from '../components/CTAButton'; // IMPORT
@@ -49,7 +49,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
     {
       id: '01',
       phase: 'PHASE I',
-      label: '[ DIAGNOSE ]',
+      label: 'DIAGNOSE',
       title: 'Find the Leaks',
       text: "I don't guess. I look for the repetitive tasks burning your team, the stuff that eats 15 hours a week. I find where data gets typed twice, where leads go cold, and where profit disappears.",
       icon: Search,
@@ -60,7 +60,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
     {
       id: '02',
       phase: 'PHASE II',
-      label: '[ DESIGN ]',
+      label: 'DESIGN',
       title: 'Pick the Right Tools',
       text: "I'm not locked into HubSpot or Salesforce, so I find what actually fits your business. That way you're not paying for features you'll never use. We design the logic before we write a single line of code.",
       icon: PenTool,
@@ -71,7 +71,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
     {
       id: '03',
       phase: 'PHASE III',
-      label: '[ BUILD ]',
+      label: 'BUILD',
       title: 'Ship Fast & Iterate',
       text: "No 6-month projects that drain your budget. I build in sprints so you start seeing progress in weeks, not quarters. We build the core, test it live, and refine as we go.",
       icon: Hammer,
@@ -82,13 +82,13 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
     {
       id: '04',
       phase: 'PHASE IV',
-      label: '[ HANDOVER ]',
+      label: 'HANDOVER',
       title: 'Make It Stick',
       text: "Software fails when people don't use it. I build the training materials and run the workshops so your team actually prefers the new way. I don't leave until it's their new normal.",
       icon: Flag,
-      color: 'text-[#1a1a1a]',
-      borderColor: 'border-[#1a1a1a]',
-      bg: 'bg-[#1a1a1a]'
+      color: 'text-[#C5A059]',
+      borderColor: 'border-[#C5A059]',
+      bg: 'bg-[#C5A059]'
     }
   ];
 
@@ -134,9 +134,9 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* SECTION: PHILOSOPHY CARDS */}
         <div className="mb-32 md:mb-40">
           <Section className="mb-16">
-            {/* Type A: Section Anchor */}
+            {/* Type A: Section Anchor with Status Light */}
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 flex items-center gap-2">
-              <Terminal className="w-4 h-4" />
+              <div className="w-2 h-2 rounded-sm bg-[#E21E3F]" />
               / OPERATING SYSTEM
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
@@ -155,10 +155,10 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                     </span>
                     <principle.icon className="w-6 h-6 text-[#1a1a1a]/20 group-hover:text-[#C5A059] transition-colors" />
                  </div>
-                 <h3 className="font-serif text-3xl text-[#1a1a1a] mb-4 group-hover:translate-x-2 transition-transform duration-300">
+                 <h3 className="font-serif text-3xl text-[#1a1a1a] mb-4 leading-tight tracking-tighter group-hover:translate-x-2 transition-transform duration-300">
                    {principle.title}
                  </h3>
-                 <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">
+                 <p className="font-sans text-lg font-light text-[#1a1a1a]/70 leading-relaxed">
                    {principle.body}
                  </p>
                </Section>
@@ -169,9 +169,9 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* SECTION: THE EXECUTION PATH */}
         <div className="mb-32">
           <Section className="mb-20">
-            {/* Type A: Section Anchor */}
+            {/* Type A: Section Anchor with Status Light */}
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center gap-2">
-              <Sliders className="w-4 h-4" />
+              <div className="w-2 h-2 rounded-sm bg-[#C5A059]" />
               / METHODOLOGY
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
@@ -195,12 +195,12 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                      <span className={`font-mono text-[10px] uppercase tracking-[0.2em] font-bold mb-2 block ${step.color}`}>
                        {step.phase}
                      </span>
-                     <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-4">
+                     <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-4 leading-tight tracking-tighter">
                        {step.title}
                      </h3>
                   </div>
                   <div className={`flex-1 pl-12 md:pl-0 ${idx % 2 !== 0 ? 'md:text-right' : 'md:text-left'}`}>
-                     <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed max-w-md">
+                     <p className="font-sans text-lg font-light text-[#1a1a1a]/70 leading-relaxed max-w-md">
                        {step.text}
                      </p>
                   </div>
