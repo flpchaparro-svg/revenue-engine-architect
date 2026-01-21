@@ -6,8 +6,8 @@ import {
   LayoutTemplate, Clock, Target 
 } from 'lucide-react';
 import EvidenceVisual_Compare from '../components/EvidenceVisual_Compare';
-import CTAButton from '../components/CTAButton'; // FIXED: IMPORT STANDARD BUTTON
-import BackButton from '../components/BackButton'; // FIXED: IMPORT STANDARD BACK LINK
+import CTAButton from '../components/CTAButton'; 
+import BackButton from '../components/BackButton'; 
 
 interface ProofPageProps {
   onBack: () => void;
@@ -129,20 +129,21 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
       exit={{ opacity: 0 }}
       className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-0 relative z-[150] overflow-x-hidden flex flex-col selection:bg-[#C5A059]/30"
     >
-      {/* Background Texture - Technical Grid */}
+      {/* Background Texture */}
       <div className="fixed inset-0 pointer-events-none opacity-[0.03]" 
            style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '24px 24px' }} 
       />
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow pb-32 relative z-10">
         
-        {/* NAVIGATION - FIXED */}
+        {/* NAVIGATION */}
         <div className="flex justify-between items-center mb-12 md:mb-20 pt-24 relative z-20">
           <BackButton onClick={onBack} label="Return to Home" />
         </div>
 
         {/* HERO SECTION */}
-        <Section className="mb-32 relative">
+        {/* FIX: Reduced bottom margin on mobile from mb-32 to mb-20 */}
+        <Section className="mb-20 md:mb-32 relative">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#C5A059]/5 rounded-full blur-3xl -z-10" />
           
           <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
@@ -151,7 +152,8 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
               CASE STUDY: 001
             </span>
           </div>
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-12 max-w-5xl">
+          {/* FIX: Reduced text size on mobile to 4xl for better fit */}
+          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-12 max-w-5xl">
             Results You Can <br/>
             <span className="italic font-serif text-[#C5A059]">Verify.</span>
           </h1>
@@ -161,10 +163,9 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         </Section>
 
         {/* THE BRIEF */}
-        <Section className="mb-32">
+        <Section className="mb-20 md:mb-32">
           <div className="bg-white border border-[#1a1a1a]/5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] p-0 overflow-hidden">
             <div className="bg-[#1a1a1a] text-white px-8 py-4 flex flex-wrap justify-between items-center gap-4">
-              {/* Type B: Card Tag */}
               <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-bold">
                 CLIENT: GROUP 7 SECURITY
               </span>
@@ -177,25 +178,23 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-[#1a1a1a]/5">
               <div className="lg:col-span-4 bg-[#f9f9f9] p-8 border-b lg:border-b-0 lg:border-r border-[#1a1a1a]/5 space-y-8">
+                {/* FIX: Darkened text color from /40 to /60 for readability */}
                 <div>
-                  {/* Type B: Card Tag */}
-                  <span className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 uppercase tracking-[0.2em] block mb-2">INDUSTRY</span>
+                  <span className="font-mono text-[10px] font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">INDUSTRY</span>
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
                     <span className="font-sans font-medium">Security Services</span>
                   </div>
                 </div>
                 <div>
-                  {/* Type B: Card Tag */}
-                  <span className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 uppercase tracking-[0.2em] block mb-2">SCOPE</span>
+                  <span className="font-mono text-[10px] font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">SCOPE</span>
                   <div className="flex items-center gap-2">
                     <LayoutTemplate className="w-4 h-4 text-[#C5A059]" />
                     <span className="font-sans font-medium">Full Rebuild + Local SEO</span>
                   </div>
                 </div>
                 <div>
-                  {/* Type B: Card Tag */}
-                  <span className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 uppercase tracking-[0.2em] block mb-2">TIMELINE</span>
+                  <span className="font-mono text-[10px] font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">TIMELINE</span>
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-[#C5A059]" />
                     <span className="font-sans font-medium">4 Weeks</span>
@@ -216,9 +215,8 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         </Section>
 
         {/* THE PROBLEM */}
-        <Section className="mb-32">
+        <Section className="mb-20 md:mb-32">
           <div className="mb-20">
-            {/* Type A: Section Anchor */}
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block">
               / THE PROBLEM
             </span>
@@ -227,7 +225,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             </h2>
             <div className="inline-flex items-center gap-3 px-4 py-2 bg-[#E21E3F]/5 border border-[#E21E3F]/20 rounded-sm">
                <span className="font-sans text-sm md:text-base font-medium text-[#1a1a1a]/80">group7security.com</span>
-               {/* Type B: Card Tag */}
                <span className="font-mono text-[10px] text-[#E21E3F] uppercase tracking-[0.2em] font-bold">DECOMMISSIONED</span>
             </div>
           </div>
@@ -273,14 +270,13 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                   <div className="p-3 bg-[#E21E3F]/5 rounded-sm">
                     <item.icon className="w-6 h-6 text-[#E21E3F]" />
                   </div>
-                  {/* Type B: Card Tag */}
                   <span className="font-mono text-[10px] font-bold text-[#E21E3F]/60 uppercase tracking-[0.2em] border border-[#E21E3F]/20 px-2 py-1 rounded-sm">
                     CRITICAL ERROR
                   </span>
                 </div>
                 <div className="mb-6">
-                  {/* Type B: Card Tag */}
-                  <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 uppercase tracking-[0.2em] mb-1">{item.label}</div>
+                  {/* FIX: Darkened label text */}
+                  <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] mb-1">{item.label}</div>
                   <div className="text-4xl font-serif text-[#E21E3F] mb-4">{item.metric}</div>
                   <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed mb-4">{item.desc}</p>
                 </div>
@@ -294,9 +290,8 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         </Section>
 
         {/* THE SOLUTION */}
-        <Section className="mb-32">
+        <Section className="mb-20 md:mb-32">
           <div className="mb-20">
-            {/* Type A: Section Anchor */}
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
               / THE SOLUTION
             </span>
@@ -305,7 +300,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             </h2>
             <div className="inline-flex items-center gap-3 px-4 py-2 bg-[#C5A059]/5 border border-[#C5A059]/20 rounded-sm">
                <span className="font-sans text-sm md:text-base font-medium text-[#1a1a1a]/80">group7security.com.au</span>
-               {/* Type B: Card Tag */}
                <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-bold">LIVE SYSTEM</span>
             </div>
           </div>
@@ -350,7 +344,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                     </div>
                   </div>
                   <div className="bg-[#f9f9f9] p-5 border-l-2 border-[#C5A059]">
-                    {/* Type B: Card Tag */}
                     <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-bold block mb-2">THE LOGIC</span>
                     <p className="font-sans text-base md:text-lg text-[#1a1a1a]/80 leading-relaxed">
                       {item.why}
@@ -363,9 +356,8 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         </Section>
 
         {/* THE EVIDENCE */}
-        <Section className="mb-32">
+        <Section className="mb-20 md:mb-32">
           <div className="mb-20">
-            {/* Type A: Section Anchor */}
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
               / THE RESULTS
             </span>
@@ -383,7 +375,8 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
               { label: "Core Web Vitals", val: 100, suffix: "%", icon: ShieldCheck, note: "All Passed (Green)", color: "text-green-600" },
               { label: "Page Weight", val: 89, suffix: "%", prefix: "↓ ", icon: ArrowRight, note: "Reduction in Size", color: "text-[#C5A059]" },
             ].map((m, i) => (
-              <div key={i} className="bg-white p-8 border border-[#1a1a1a]/5 hover:border-[#C5A059] transition-all duration-300 group shadow-sm flex flex-col justify-between h-[280px]">
+              // FIX: Changed h-[280px] to min-h-[280px] to allow content to grow if needed
+              <div key={i} className="bg-white p-8 border border-[#1a1a1a]/5 hover:border-[#C5A059] transition-all duration-300 group shadow-sm flex flex-col justify-between min-h-[280px] h-auto">
                 <div className="flex justify-between items-start">
                   <div className="p-3 bg-zinc-50 rounded-full group-hover:bg-[#C5A059]/10 transition-colors">
                     <m.icon className="w-5 h-5 text-[#1a1a1a] group-hover:text-[#C5A059] transition-colors" />
@@ -391,8 +384,8 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                   <ArrowRight className="w-4 h-4 text-[#1a1a1a]/20 group-hover:-rotate-45 transition-transform duration-300" />
                 </div>
                 <div className="mt-auto">
-                  {/* Type B: Card Tag */}
-                  <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 uppercase tracking-[0.2em] mb-3">{m.label}</div>
+                  {/* FIX: Darkened label text */}
+                  <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] mb-3">{m.label}</div>
                   <div className="flex items-baseline gap-1 mb-2">
                     <span className="text-5xl md:text-6xl font-serif text-[#1a1a1a] tracking-tighter">
                       <CountUp value={m.val} prefix={m.prefix || ""} />
@@ -410,14 +403,13 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         </Section>
 
         {/* BUILD LOG */}
-        <Section className="mb-32">
+        <Section className="mb-20 md:mb-32">
           <TerminalLog />
         </Section>
 
-        {/* COMPARISON - FIXED: Pass images explicitly */}
-        <Section className="mb-32">
+        {/* COMPARISON */}
+        <Section className="mb-20 md:mb-32">
            <div className="mb-20">
-            {/* Type A: Section Anchor */}
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
               / VISUAL EVIDENCE
             </span>
@@ -436,19 +428,17 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
           <div className="mt-8 grid grid-cols-2 gap-8 text-center">
             <div className="border-t border-red-500/20 pt-4">
-              {/* Type B: Card Tag */}
               <span className="font-mono text-[10px] font-bold text-[#E21E3F] uppercase tracking-[0.2em] block mb-2">LEGACY</span>
               <p className="font-sans text-sm text-[#1a1a1a]/50">Slow. Generic. Invisible.</p>
             </div>
             <div className="border-t border-[#C5A059]/20 pt-4">
-               {/* Type B: Card Tag */}
                <span className="font-mono text-[10px] font-bold text-[#C5A059] uppercase tracking-[0.2em] block mb-2">NEW SYSTEM</span>
                <p className="font-sans text-sm text-[#1a1a1a]/50">Instant. Custom. Dominant.</p>
             </div>
           </div>
         </Section>
 
-        {/* BOTTOM CTA - FIXED: Use CTAButton */}
+        {/* BOTTOM CTA */}
         <Section className="mb-16">
           <div className="bg-[#1a1a1a] text-white p-12 md:p-24 text-center relative overflow-hidden rounded-sm group cursor-default">
             {/* Hover Glow Effect */}
@@ -456,7 +446,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#C5A059]/20 rounded-full blur-[100px] opacity-0 group-hover:opacity-30 transition-opacity duration-700" />
 
             <div className="relative z-10 flex flex-col items-center">
-              {/* Type A: Section Anchor (Footer CTA) */}
               <span className="font-mono text-xs font-bold text-[#C5A059] uppercase tracking-[0.2em] mb-6 block">
                 / TRANSFORMATION COMPLETE
               </span>
@@ -468,7 +457,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                 <br/>If your website is holding you back, let's fix it.
               </p>
               
-              {/* FIXED CTA BUTTON */}
               <CTAButton 
                 theme="dark" 
                 onClick={() => onNavigate('contact')}
