@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, Database, Zap, Activity, CheckCircle2, ArrowLeft, X, Terminal } from 'lucide-react';
+import { ShieldCheck, Database, Zap, Activity, CheckCircle2, X, Terminal } from 'lucide-react';
 import EvidenceVisual_Compare from '../components/EvidenceVisual_Compare';
 import CTAButton from '../components/CTAButton'; // STANDARDIZED
 import BackButton from '../components/BackButton'; // STANDARDIZED
@@ -247,7 +247,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
         <section className="py-32 flex flex-col items-center text-center mb-24">
           <h2 className="font-serif text-5xl md:text-7xl mb-12 italic max-w-4xl leading-tight">Your company is the next <span className="text-[#C5A059]">evidence log.</span></h2>
           
-          <CTAButton theme="dark" onClick={() => window.open("https://meetings-ap1.hubspot.com/felipe", "_blank")}>
+          <CTAButton theme="light" onClick={() => window.open("https://meetings-ap1.hubspot.com/felipe", "_blank")}>
              [ AUDIT MY SYSTEM ]
           </CTAButton>
         </section>
