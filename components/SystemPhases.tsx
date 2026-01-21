@@ -256,7 +256,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                     >
                       <span className="flex items-center gap-3">
                         <span style={{ color: isActive ? phase.accent : 'inherit' }}>0{idx + 1}</span>
-                        <span className="hidden xl:inline">//</span>
+                        <span className="hidden xl:inline">/</span>
                         <span className="hidden xl:inline">{phase.title}</span>
                       </span>
                       {isActive && (

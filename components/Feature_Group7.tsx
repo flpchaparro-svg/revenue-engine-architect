@@ -30,7 +30,7 @@ const TerminalLog: React.FC = () => {
       <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
         <Terminal className="w-3 h-3 text-[#C5A059]" />
         {/* Type B: Card Tag (inside terminal component) */}
-        <span className="text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-bold">BUILD LOG // WHAT I DID</span>
+        <span className="text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-bold">BUILD LOG / WHAT I DID</span>
       </div>
       <div className="space-y-3">
         {lines.map((line, i) => (

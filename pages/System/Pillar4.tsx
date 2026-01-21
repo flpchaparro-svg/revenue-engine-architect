@@ -370,9 +370,8 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
         {/* HEADER WITH HUMAN EXPLAINER */}
         <div className="mb-16">
-           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 flex items-center gap-2">
-              <Terminal className="w-4 h-4" />
-              SYSTEM CONFIGURATION
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block">
+              / SYSTEM CONFIGURATION
            </span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-none mb-6">
              Select your <span className="italic text-[#C5A059] font-serif">Situation.</span>

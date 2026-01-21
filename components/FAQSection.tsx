@@ -108,7 +108,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
         {/* HEADER */}
         <div className="mb-12 border-b border-black/10 pb-8">
           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] mb-4 block" style={{ color: accentColor }}>
-            // FAQ
+            / FAQ
           </span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a]">
             {title} <span className="italic" style={{ color: accentColor }}>Answered.</span>

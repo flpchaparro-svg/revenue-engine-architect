@@ -219,8 +219,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         <Section className="mb-32">
           <div className="mb-20">
             {/* Type A: Section Anchor */}
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 flex items-center gap-2">
-              <div className="w-2 h-2 rounded-sm bg-[#E21E3F]" />
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block">
               / THE PROBLEM
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
@@ -298,8 +297,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         <Section className="mb-32">
           <div className="mb-20">
             {/* Type A: Section Anchor */}
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center gap-2">
-              <div className="w-2 h-2 rounded-sm bg-[#C5A059]" />
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
               / THE SOLUTION
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
@@ -367,9 +365,8 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         {/* THE EVIDENCE */}
         <Section className="mb-32">
           <div className="mb-20">
-            {/* Type A: Section Anchor with Status Light */}
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center gap-2">
-              <div className="w-2 h-2 rounded-sm bg-[#C5A059]" />
+            {/* Type A: Section Anchor */}
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
               / THE RESULTS
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
@@ -420,9 +417,8 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         {/* COMPARISON - FIXED: Pass images explicitly */}
         <Section className="mb-32">
            <div className="mb-20">
-            {/* Type A: Section Anchor with Status Light */}
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center gap-2">
-              <div className="w-2 h-2 rounded-sm bg-[#C5A059]" />
+            {/* Type A: Section Anchor */}
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
               / VISUAL EVIDENCE
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">

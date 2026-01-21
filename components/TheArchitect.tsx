@@ -53,7 +53,7 @@ const TheArchitect: React.FC = () => {
                 {/* Type B: Card Tag */}
                 <div className={`font-mono text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-3 transition-colors duration-500 ${mode === 'architect' ? 'text-white/60' : 'text-[#C5A059]'}`}>
                    <span className="w-1.5 h-1.5 rounded-full bg-[#E21E3F] animate-pulse" />
-                   FELIPE CHAPARRO // SYDNEY
+                   FELIPE CHAPARRO / SYDNEY
                 </div>
               </div>
 
