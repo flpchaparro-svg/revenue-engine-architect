@@ -385,7 +385,7 @@ const PillarVisual_Magnet: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex items-center justify-center overflow-hidden relative bg-[#FFF2EC] border border-[#1a1a1a]/5 rounded-sm">
+    <div className="w-full h-full flex items-center justify-center overflow-hidden relative">
       <canvas ref={canvasRef} className="block" />
     </div>
   );
