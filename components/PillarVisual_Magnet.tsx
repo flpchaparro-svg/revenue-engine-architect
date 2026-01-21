@@ -1,31 +1,5 @@
+
 import React, { useEffect, useRef } from 'react';
-
-// --- 3D MATH UTILS ---
-const FL = 1200; // Focal Length (Higher = flatter, more architectural perspective)
-
-interface Point3D { x: number; y: number; z: number; }
-
-const rotateY = (p: Point3D, angle: number): Point3D => ({
-  x: p.x * Math.cos(angle) - p.z * Math.sin(angle),
-  y: p.y,
-  z: p.x * Math.sin(angle) + p.z * Math.cos(angle),
-});
-
-const rotateX = (p: Point3D, angle: number): Point3D => ({
-  x: p.x,
-  y: p.y * Math.cos(angle) - p.z * Math.sin(angle),
-  z: p.y * Math.sin(angle) + p.z * Math.cos(angle),
-});
-
-const project = (p: Point3D, width: number, height: number) => {
-  const scale = FL / (FL + p.z);
-  return {
-    x: width / 2 + p.x * scale,
-    y: height / 2 + p.y * scale,
-    scale,
-    z: p.z // Keep Z for sorting
-  };
-};
 
 const PillarVisual_Magnet: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -36,266 +10,383 @@ const PillarVisual_Magnet: React.FC = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let width = canvas.width = canvas.parentElement?.clientWidth || 600;
+    let width = canvas.width = canvas.parentElement?.clientWidth || 500;
     let height = canvas.height = 450;
 
-    // --- CORE GEOMETRY (Sphere Lat/Long) ---
-    const sphereRadius = 60;
-    const spherePoints: Point3D[][] = []; // Array of rings (arrays of points)
+    // --- CONFIG ---
+    const CARD_W = 220;
+    const CARD_H = 300;
+    const CENTER_X = width / 2;
+    const CENTER_Y = height / 2;
     
-    // Longitude lines (Vertical)
-    const meridianCount = 12;
-    for (let i = 0; i < meridianCount; i++) {
-        const theta = (i / meridianCount) * Math.PI * 2;
-        const ring: Point3D[] = [];
-        for (let j = 0; j <= 20; j++) {
-            const phi = (j / 20) * Math.PI;
-            ring.push({
-                x: sphereRadius * Math.sin(phi) * Math.cos(theta),
-                y: sphereRadius * Math.cos(phi),
-                z: sphereRadius * Math.sin(phi) * Math.sin(theta)
-            });
-        }
-        spherePoints.push(ring);
-    }
+    // State Variables
+    let cardOpacity = 0;    // 0 to 1 (Frame visibility)
+    let contentOpacity = 0; // 0 to 1 (Data visibility)
+    let fillLevel = 0;      // 0 to 1 (Progress of data filling)
     
-    // Latitude lines (Horizontal rings)
-    const parallelCount = 8;
-    for (let i = 1; i < parallelCount; i++) {
-        const phi = (i / parallelCount) * Math.PI;
-        const ring: Point3D[] = [];
-        for (let j = 0; j <= 30; j++) {
-            const theta = (j / 30) * Math.PI * 2;
-            ring.push({
-                x: sphereRadius * Math.sin(phi) * Math.cos(theta),
-                y: sphereRadius * Math.cos(phi),
-                z: sphereRadius * Math.sin(phi) * Math.sin(theta)
-            });
-        }
-        spherePoints.push(ring);
-    }
-
-    // --- INCOMING DATA PANES (3D Rectangles) ---
-    class DataPane {
-        x: number;
-        y: number;
-        z: number;
-        width: number;
-        height: number;
+    // Lifecycle State
+    type AnimState = 'INIT' | 'IDLE_EMPTY' | 'BUILDING' | 'COMPLETE' | 'CLEARING';
+    let currentState: AnimState = 'INIT';
+    
+    let timer = 0;
+    let cardId = 1001; 
+    
+    interface Particle {
+        x: number; y: number;
+        tx: number; ty: number; 
         speed: number;
-        angleX: number;
-        angleY: number;
         color: string;
-
-        constructor() {
-            this.reset(true);
-            this.z = Math.random() * 800; // Scatter initially
-            this.width = 30;
-            this.height = 20;
-            this.speed = 0; // Set in reset
-            this.angleX = 0; // Set in reset
-            this.angleY = 0; // Set in reset
-            this.color = '';
-        }
-
-        reset(initial = false) {
-            // Spawn far away in spherical coordinates
-            const spawnRadius = initial ? 100 + Math.random() * 400 : 600 + Math.random() * 200;
-            const theta = Math.random() * Math.PI * 2;
-            const phi = Math.random() * Math.PI;
-
-            this.x = spawnRadius * Math.sin(phi) * Math.cos(theta);
-            this.y = spawnRadius * Math.cos(phi);
-            this.z = spawnRadius * Math.sin(phi) * Math.sin(theta); // Start behind or in front
-
-            // Orient pane to face center roughly
-            this.angleY = -theta;
-            this.angleX = -phi + Math.PI/2;
-
-            this.speed = 1.5 + Math.random() * 1.5;
-            this.color = Math.random() > 0.8 ? '#C5A059' : '#1a1a1a'; // Ink with Gold accents
-        }
-
-        update() {
-            // Move towards (0,0,0)
-            const dist = Math.sqrt(this.x*this.x + this.y*this.y + this.z*this.z);
-            
-            if (dist < sphereRadius) {
-                this.reset(); // Absorbed
-            } else {
-                const dx = -this.x / dist;
-                const dy = -this.y / dist;
-                const dz = -this.z / dist;
-                
-                this.x += dx * this.speed;
-                this.y += dy * this.speed;
-                this.z += dz * this.speed;
-            }
-        }
-
-        draw(ctx: CanvasRenderingContext2D, globalRotY: number, globalRotX: number) {
-            // 4 Corners of the pane
-            const w = this.width / 2;
-            const h = this.height / 2;
-            
-            // Local shape
-            const corners = [
-                { x: -w, y: -h, z: 0 },
-                { x: w, y: -h, z: 0 },
-                { x: w, y: h, z: 0 },
-                { x: -w, y: h, z: 0 }
-            ];
-
-            // Transform Local -> World -> Camera
-            const transformed = corners.map(p => {
-                // 1. Rotate Pane Local
-                // (Simplified: Just position it for now, rotation adds complexity)
-                // Let's just treat x,y,z as center and draw a small billboard for performance/cleanliness
-                // Or better: Assume pane is facing center.
-                
-                // Actual position in world space
-                let wx = this.x + p.x;
-                let wy = this.y + p.y;
-                let wz = this.z + p.z;
-
-                // 2. Global Scene Rotation
-                let p3d = { x: wx, y: wy, z: wz };
-                p3d = rotateY(p3d, globalRotY);
-                p3d = rotateX(p3d, globalRotX);
-
-                return p3d;
-            });
-
-            // Calculate center depth for sorting
-            const center3d = rotateX(rotateY({x:this.x, y:this.y, z:this.z}, globalRotY), globalRotX);
-            
-            // Project
-            const proj = transformed.map(p => project(p, width, height));
-            const centerProj = project(center3d, width, height);
-
-            // Draw
-            ctx.beginPath();
-            ctx.moveTo(proj[0].x, proj[0].y);
-            ctx.lineTo(proj[1].x, proj[1].y);
-            ctx.lineTo(proj[2].x, proj[2].y);
-            ctx.lineTo(proj[3].x, proj[3].y);
-            ctx.closePath();
-
-            // Style
-            // Distance fade
-            const alpha = Math.min(1, (centerProj.scale - 0.5) * 2);
-            
-            if (this.color === '#C5A059') {
-                ctx.fillStyle = `rgba(197, 160, 89, ${0.8 * alpha})`;
-                ctx.strokeStyle = `rgba(197, 160, 89, ${1 * alpha})`;
-            } else {
-                ctx.fillStyle = `rgba(26, 26, 26, ${0.1 * alpha})`;
-                ctx.strokeStyle = `rgba(26, 26, 26, ${0.4 * alpha})`;
-            }
-            
-            ctx.lineWidth = 1;
-            ctx.fill();
-            ctx.stroke();
-
-            // Draw connecting line to center (The "Tether")
-            const centerScreen = { x: width/2, y: height/2 };
-            ctx.beginPath();
-            ctx.moveTo(centerProj.x, centerProj.y);
-            // Draw only a segment towards center to look like a trail
-            const trailX = centerProj.x + (centerScreen.x - centerProj.x) * 0.2;
-            const trailY = centerProj.y + (centerScreen.y - centerProj.y) * 0.2;
-            ctx.lineTo(trailX, trailY);
-            
-            ctx.strokeStyle = this.color;
-            ctx.globalAlpha = 0.2 * alpha;
-            ctx.stroke();
-            ctx.globalAlpha = 1;
-
-            return centerProj.z; // Return depth for Z-sorting if needed
-        }
+        size: number;
+        dead: boolean;
     }
+    
+    let particles: Particle[] = [];
 
-    const panes: DataPane[] = [];
-    for(let i=0; i<15; i++) panes.push(new DataPane());
-
-    let time = 0;
-
-    const render = () => {
-        ctx.clearRect(0, 0, width, height);
-        time += 0.005;
-
-        const globalRotY = time;
-        const globalRotX = Math.sin(time * 0.5) * 0.2; // Gentle tilt
-
-        // --- 1. DRAW BACK SPHERE (Wireframe) ---
-        ctx.strokeStyle = 'rgba(26, 26, 26, 0.15)';
-        ctx.lineWidth = 1.5;
-
-        spherePoints.forEach(ring => {
-            ctx.beginPath();
-            let first = true;
-            ring.forEach(p => {
-                // Rotate
-                let p3d = rotateY(p, globalRotY);
-                p3d = rotateX(p3d, globalRotX);
-                
-                // Project
-                const proj = project(p3d, width, height);
-                
-                if (first) {
-                    ctx.moveTo(proj.x, proj.y);
-                    first = false;
-                } else {
-                    ctx.lineTo(proj.x, proj.y);
-                }
-            });
-            ctx.closePath();
-            ctx.stroke();
-        });
-
-        // --- 2. DRAW CENTRAL PULSE ---
-        // A solid core inside
-        const coreP = project({x:0, y:0, z:0}, width, height);
-        const pulseSize = sphereRadius * coreP.scale * 0.4 + Math.sin(time * 5) * 5;
+    // Helper to spawn data particles
+    const spawnParticle = () => {
+        const angle = Math.random() * Math.PI * 2;
+        const dist = Math.max(width, height) * 0.7; 
         
-        const grad = ctx.createRadialGradient(coreP.x, coreP.y, 5, coreP.x, coreP.y, pulseSize);
-        grad.addColorStop(0, '#1a1a1a');
-        grad.addColorStop(1, 'rgba(26, 26, 26, 0)');
+        // Target specific zones
+        const zone = Math.random();
+        let tx = 0, ty = 0;
         
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(coreP.x, coreP.y, pulseSize, 0, Math.PI*2);
-        ctx.fill();
-
-        // --- 3. DRAW DATA PANES ---
-        // Sort by Z to draw back-to-front roughly (simple sort)
-        panes.sort((a, b) => b.z - a.z); // Far to near? No, in 3D painter's algo is complex. 
-        // Actually, for this simple scene, just drawing them on top is okay as they are translucent.
-        
-        panes.forEach(pane => {
-            pane.update();
-            pane.draw(ctx, globalRotY, globalRotX);
-        });
-
-        requestAnimationFrame(render);
-    };
-
-    render();
-
-    const handleResize = () => {
-        if (canvas.parentElement) {
-            width = canvas.width = canvas.parentElement.clientWidth;
-            height = canvas.height = canvas.parentElement.clientHeight;
+        if(zone < 0.2) { // Photo Area
+            const r = Math.random() * 30;
+            const a = Math.random() * Math.PI * 2;
+            tx = Math.cos(a) * r;
+            ty = Math.sin(a) * r - 70;
+        } else if (zone < 0.6) { // Text lines
+            tx = (Math.random() - 0.5) * 160;
+            ty = Math.random() * 80;
+        } else { // Score/Badge
+            tx = 80;
+            ty = -120;
         }
+
+        particles.push({
+            x: CENTER_X + Math.cos(angle) * dist,
+            y: CENTER_Y + Math.sin(angle) * dist,
+            tx: tx,
+            ty: ty,
+            speed: 0.03 + Math.random() * 0.03, // Slower particle speed
+            // Much more transparent colors
+            color: Math.random() > 0.7 ? 'rgba(197, 160, 89, 0.3)' : 'rgba(26, 26, 26, 0.2)',
+            size: 1.5 + Math.random() * 1.5,
+            dead: false
+        });
     };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    const drawCard = (frameAlpha: number, dataAlpha: number, progress: number) => {
+        const x = CENTER_X - CARD_W / 2;
+        const y = CENTER_Y - CARD_H / 2;
+        
+        ctx.save();
+        
+        // --- 1. CARD FRAME (Permanent Fixture) ---
+        ctx.globalAlpha = frameAlpha;
+        
+        // Shadow & Body
+        ctx.shadowColor = 'rgba(197, 160, 89, 0.1)';
+        ctx.shadowBlur = 30;
+        ctx.shadowOffsetY = 15;
+        
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; 
+        ctx.beginPath();
+        ctx.roundRect(x, y, CARD_W, CARD_H, 6);
+        ctx.fill();
+        
+        ctx.shadowBlur = 0;
+        ctx.shadowOffsetY = 0;
+        
+        // Border
+        ctx.strokeStyle = 'rgba(26, 26, 26, 0.15)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Corner Accents (Tech look)
+        ctx.strokeStyle = 'rgba(197, 160, 89, 0.3)';
+        const cornerSize = 12;
+        ctx.beginPath(); 
+        ctx.moveTo(x, y+cornerSize); ctx.lineTo(x, y); ctx.lineTo(x+cornerSize, y); // TL
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x+CARD_W-cornerSize, y); ctx.lineTo(x+CARD_W, y); ctx.lineTo(x+CARD_W, y+cornerSize); // TR
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x, y+CARD_H-cornerSize); ctx.lineTo(x, y+CARD_H); ctx.lineTo(x+cornerSize, y+CARD_H); // BL
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(x+CARD_W-cornerSize, y+CARD_H); ctx.lineTo(x+CARD_W, y+CARD_H); ctx.lineTo(x+CARD_W, y+CARD_H-cornerSize); // BR
+        ctx.stroke();
+
+        // --- 2. STATIC PLACEHOLDERS (The "Form") ---
+        const photoCX = x + CARD_W/2;
+        const photoCY = y + 70;
+        const startY = y + 130;
+
+        // Photo Ring Placeholder
+        ctx.strokeStyle = 'rgba(26, 26, 26, 0.05)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(photoCX, photoCY, 35, 0, Math.PI*2);
+        ctx.stroke();
+
+        // Text Line Placeholders
+        ctx.fillStyle = 'rgba(26, 26, 26, 0.03)';
+        ctx.fillRect(x + 40, startY + 4, CARD_W - 80, 8); // Name
+        
+        for(let i=0; i<3; i++) {
+            const ly = startY + 60 + (i * 25);
+            ctx.fillRect(x + 50, ly + 4, CARD_W - 90, 8); // Rows
+            ctx.strokeStyle = 'rgba(26, 26, 26, 0.05)';
+            ctx.strokeRect(x + 25, ly, 16, 16); // Icons
+        }
+
+        // --- 3. DYNAMIC DATA (The "Content") ---
+        const activeAlpha = frameAlpha * dataAlpha;
+        
+        if (activeAlpha > 0.01) {
+            ctx.globalAlpha = activeAlpha;
+
+            // A. Profile Photo Fill
+            if (progress > 0) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(photoCX, photoCY, 35, 0, Math.PI*2);
+                ctx.clip();
+                
+                // Silhouette build up
+                const fillH = 70 * progress;
+                ctx.fillStyle = 'rgba(26, 26, 26, 0.1)';
+                ctx.fillRect(photoCX - 35, photoCY + 35 - fillH, 70, fillH);
+                
+                if (progress > 0.6) {
+                    ctx.fillStyle = '#1a1a1a';
+                    // Head
+                    ctx.beginPath(); ctx.arc(photoCX, photoCY - 5, 12, 0, Math.PI*2); ctx.fill();
+                    // Body
+                    ctx.beginPath(); ctx.arc(photoCX, photoCY + 35, 25, Math.PI, 0); ctx.fill();
+                }
+                ctx.restore();
+                
+                // Active Ring
+                ctx.strokeStyle = '#C5A059';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(photoCX, photoCY, 35, -Math.PI/2, (-Math.PI/2) + (Math.PI*2 * progress));
+                ctx.stroke();
+            }
+
+            // B. Text Lines Fill
+            if (progress > 0.2) {
+                // Name
+                ctx.fillStyle = '#1a1a1a';
+                ctx.fillRect(x + 40, startY, (CARD_W - 80) * Math.min(1, (progress - 0.2)*3), 2);
+            }
+            if (progress > 0.3) {
+                // Subtitle (Gold)
+                ctx.fillStyle = '#C5A059';
+                ctx.fillRect(x + 70, startY + 24, (CARD_W - 140) * Math.min(1, (progress - 0.3)*3), 2);
+            }
+
+            // C. Data Rows
+            for(let i=0; i<3; i++) {
+                const ly = startY + 60 + (i * 25);
+                const threshold = 0.4 + (i * 0.15);
+                
+                if (progress > threshold) {
+                    // Icon active
+                    ctx.fillStyle = '#C5A059';
+                    ctx.fillRect(x + 27, ly + 2, 12, 12);
+                    
+                    // Bar Fill
+                    ctx.fillStyle = '#1a1a1a';
+                    const barProg = Math.min(1, (progress - threshold) * 5);
+                    ctx.fillRect(x + 50, ly + 6, (CARD_W - 90) * barProg, 4);
+                }
+            }
+
+            // D. Verified Stamp (Bottom)
+            if (progress >= 0.9) {
+                ctx.save();
+                ctx.translate(CENTER_X, CENTER_Y);
+                ctx.rotate(-0.15);
+                
+                ctx.strokeStyle = '#C5A059';
+                ctx.lineWidth = 2;
+                const sw = 140; const sh = 40;
+                
+                ctx.beginPath();
+                ctx.moveTo(-sw/2 + 10, -sh/2); ctx.lineTo(-sw/2, -sh/2); ctx.lineTo(-sw/2, sh/2); ctx.lineTo(-sw/2 + 10, sh/2);
+                ctx.moveTo(sw/2 - 10, -sh/2); ctx.lineTo(sw/2, -sh/2); ctx.lineTo(sw/2, sh/2); ctx.lineTo(sw/2 - 10, sh/2);
+                ctx.stroke();
+                
+                ctx.fillStyle = '#C5A059';
+                ctx.font = 'bold 12px monospace';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(`PROFILE_ID [${cardId}]`, 0, 0);
+                
+                ctx.restore();
+            }
+
+            // E. HOT LEAD BADGE (Top Right Red Circle)
+            if (progress > 0.7) {
+                const badgeAlpha = Math.min(1, (progress - 0.7) * 4);
+                ctx.globalAlpha = activeAlpha * badgeAlpha;
+                
+                const badgeX = x + CARD_W - 25;
+                const badgeY = y + 25;
+                
+                ctx.beginPath();
+                ctx.arc(badgeX, badgeY, 14, 0, Math.PI*2);
+                ctx.fillStyle = 'rgba(226, 30, 63, 0.1)'; // Faint Red Background
+                ctx.fill();
+                
+                ctx.strokeStyle = '#E21E3F';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                
+                ctx.fillStyle = '#E21E3F';
+                ctx.font = 'bold 8px monospace';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText("HOT", badgeX, badgeY);
+            }
+        }
+
+        ctx.restore();
+    };
+
+    const animate = () => {
+        // Handle Resize
+        if (canvas.parentElement) {
+             const pWidth = canvas.parentElement.clientWidth;
+             const pHeight = canvas.parentElement.clientHeight;
+             if(canvas.width !== pWidth || canvas.height !== pHeight){
+                 width = canvas.width = pWidth;
+                 height = canvas.height = pHeight;
+             }
+        }
+
+        ctx.clearRect(0, 0, width, height);
+
+        // --- STATE MACHINE ---
+        
+        switch (currentState) {
+            case 'INIT':
+                cardOpacity += 0.02;
+                if (cardOpacity >= 1) {
+                    cardOpacity = 1;
+                    currentState = 'IDLE_EMPTY';
+                    timer = 0;
+                }
+                break;
+
+            case 'IDLE_EMPTY':
+                timer++;
+                if (timer > 60) { // Longer pause on blank (1s)
+                    currentState = 'BUILDING';
+                    contentOpacity = 1; 
+                }
+                break;
+
+            case 'BUILDING':
+                // MUCH SLOWER BUILD
+                if (fillLevel < 1) {
+                    fillLevel += 0.0015; // Slowed down from 0.006
+                    
+                    // Spawn fewer particles for cleaner look
+                    if (Math.random() > 0.8) spawnParticle(); 
+                } else {
+                    fillLevel = 1;
+                    currentState = 'COMPLETE';
+                    timer = 0;
+                }
+                break;
+
+            case 'COMPLETE':
+                timer++;
+                // Longer hold to read the card
+                if (timer > 200) { // ~3.5 seconds hold
+                    currentState = 'CLEARING';
+                }
+                break;
+
+            case 'CLEARING':
+                // Slower fade out
+                contentOpacity -= 0.01; 
+                if (contentOpacity <= 0) {
+                    contentOpacity = 0;
+                    fillLevel = 0;
+                    cardId++;
+                    currentState = 'IDLE_EMPTY';
+                    timer = 0;
+                }
+                break;
+        }
+
+        // Draw Card Layer
+        drawCard(cardOpacity, contentOpacity, fillLevel);
+
+        // --- PARTICLE PHYSICS ---
+        // Particles only visible when content is building or complete
+        for (let i = particles.length - 1; i >= 0; i--) {
+            const p = particles[i];
+            
+            const dx = (CENTER_X + p.tx) - p.x;
+            const dy = (CENTER_Y + p.ty) - p.y;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            
+            if (!p.dead) {
+                p.x += dx * p.speed;
+                p.y += dy * p.speed;
+                
+                if (dist < 10) {
+                    p.dead = true;
+                }
+                
+                // Fade out particles with content opacity
+                let pAlpha = 1;
+                if (currentState === 'CLEARING') pAlpha = contentOpacity;
+                
+                if (pAlpha > 0.01) {
+                    ctx.save();
+                    ctx.globalAlpha = pAlpha;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+                    ctx.fillStyle = p.color;
+                    ctx.fill();
+                    
+                    // Faint Trail
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(p.x - dx*0.2, p.y - dy*0.2);
+                    ctx.strokeStyle = p.color;
+                    ctx.lineWidth = p.size * 0.5;
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            } else {
+                particles.splice(i, 1);
+            }
+        }
+
+        requestAnimationFrame(animate);
+    };
+
+    const animId = requestAnimationFrame(animate);
+
+    return () => {
+        cancelAnimationFrame(animId);
+    };
 
   }, []);
 
   return (
-    <div className="w-full h-full flex items-center justify-center overflow-hidden relative">
-      <canvas ref={canvasRef} className="w-full h-full" />
+    <div className="w-full h-full flex items-center justify-center overflow-hidden relative bg-[#FFF2EC] border border-[#1a1a1a]/5 rounded-sm">
+      <canvas ref={canvasRef} className="block" />
     </div>
   );
 };
