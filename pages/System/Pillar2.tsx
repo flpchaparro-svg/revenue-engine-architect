@@ -326,7 +326,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
             </div>
             
             <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
-               <div className="relative w-full max-w-[450px] h-[300px] lg:h-[450px] opacity-90 flex items-center justify-center">
+               <div className="relative w-full max-w-[450px] h-[220px] md:h-[280px] lg:h-[450px] opacity-90 flex items-center justify-center">
                  <PillarVisual_Magnet />
                </div>
             </div>

@@ -11,18 +11,26 @@ const PillarVisual_Magnet: React.FC = () => {
     if (!ctx) return;
 
     let width = canvas.width = canvas.parentElement?.clientWidth || 500;
-    let height = canvas.height = 450;
+    let height = canvas.height = canvas.parentElement?.clientHeight || 450;
 
-    // --- CONFIG ---
-    const CARD_W = 220;
-    const CARD_H = 300;
-    const CENTER_X = width / 2;
-    const CENTER_Y = height / 2;
+    // --- RESPONSIVE SCALING ---
+    // Base design assumes ~500x450 area. We calculate a ratio for smaller screens.
+    // We limit max scale to 1 so it doesn't get huge on desktop.
+    let scale = Math.min(width / 500, height / 400, 1); 
+
+    // --- CONFIG (SCALED) ---
+    const BASE_CARD_W = 220;
+    const BASE_CARD_H = 300;
+    let CARD_W = BASE_CARD_W * scale;
+    let CARD_H = BASE_CARD_H * scale;
+    
+    let CENTER_X = width / 2;
+    let CENTER_Y = height / 2;
     
     // State Variables
-    let cardOpacity = 0;    // 0 to 1 (Frame visibility)
-    let contentOpacity = 0; // 0 to 1 (Data visibility)
-    let fillLevel = 0;      // 0 to 1 (Progress of data filling)
+    let cardOpacity = 0;    
+    let contentOpacity = 0; 
+    let fillLevel = 0;      
     
     // Lifecycle State
     type AnimState = 'INIT' | 'IDLE_EMPTY' | 'BUILDING' | 'COMPLETE' | 'CLEARING';
@@ -47,21 +55,21 @@ const PillarVisual_Magnet: React.FC = () => {
         const angle = Math.random() * Math.PI * 2;
         const dist = Math.max(width, height) * 0.7; 
         
-        // Target specific zones
+        // Target specific zones (SCALED OFFSETS)
         const zone = Math.random();
         let tx = 0, ty = 0;
         
         if(zone < 0.2) { // Photo Area
-            const r = Math.random() * 30;
+            const r = Math.random() * 30 * scale;
             const a = Math.random() * Math.PI * 2;
             tx = Math.cos(a) * r;
-            ty = Math.sin(a) * r - 70;
+            ty = Math.sin(a) * r - (70 * scale);
         } else if (zone < 0.6) { // Text lines
-            tx = (Math.random() - 0.5) * 160;
-            ty = Math.random() * 80;
+            tx = (Math.random() - 0.5) * 160 * scale;
+            ty = Math.random() * 80 * scale;
         } else { // Score/Badge
-            tx = 80;
-            ty = -120;
+            tx = 80 * scale;
+            ty = -120 * scale;
         }
 
         particles.push({
@@ -69,10 +77,9 @@ const PillarVisual_Magnet: React.FC = () => {
             y: CENTER_Y + Math.sin(angle) * dist,
             tx: tx,
             ty: ty,
-            speed: 0.03 + Math.random() * 0.03, // Slower particle speed
-            // Much more transparent colors
+            speed: 0.03 + Math.random() * 0.03,
             color: Math.random() > 0.7 ? 'rgba(197, 160, 89, 0.3)' : 'rgba(26, 26, 26, 0.2)',
-            size: 1.5 + Math.random() * 1.5,
+            size: (1.5 + Math.random() * 1.5) * scale, // Scale particle size too
             dead: false
         });
     };
@@ -83,17 +90,17 @@ const PillarVisual_Magnet: React.FC = () => {
         
         ctx.save();
         
-        // --- 1. CARD FRAME (Permanent Fixture) ---
+        // --- 1. CARD FRAME ---
         ctx.globalAlpha = frameAlpha;
         
-        // Shadow & Body
+        // Shadow
         ctx.shadowColor = 'rgba(197, 160, 89, 0.1)';
-        ctx.shadowBlur = 30;
-        ctx.shadowOffsetY = 15;
+        ctx.shadowBlur = 30 * scale;
+        ctx.shadowOffsetY = 15 * scale;
         
         ctx.fillStyle = 'rgba(255, 255, 255, 0.6)'; 
         ctx.beginPath();
-        ctx.roundRect(x, y, CARD_W, CARD_H, 6);
+        ctx.roundRect(x, y, CARD_W, CARD_H, 6 * scale);
         ctx.fill();
         
         ctx.shadowBlur = 0;
@@ -101,12 +108,12 @@ const PillarVisual_Magnet: React.FC = () => {
         
         // Border
         ctx.strokeStyle = 'rgba(26, 26, 26, 0.15)';
-        ctx.lineWidth = 1;
+        ctx.lineWidth = 1; // Keep thin lines
         ctx.stroke();
 
-        // Corner Accents (Tech look)
+        // Corner Accents
         ctx.strokeStyle = 'rgba(197, 160, 89, 0.3)';
-        const cornerSize = 12;
+        const cornerSize = 12 * scale;
         ctx.beginPath(); 
         ctx.moveTo(x, y+cornerSize); ctx.lineTo(x, y); ctx.lineTo(x+cornerSize, y); // TL
         ctx.stroke();
@@ -120,94 +127,89 @@ const PillarVisual_Magnet: React.FC = () => {
         ctx.moveTo(x+CARD_W-cornerSize, y+CARD_H); ctx.lineTo(x+CARD_W, y+CARD_H); ctx.lineTo(x+CARD_W, y+CARD_H-cornerSize); // BR
         ctx.stroke();
 
-        // --- 2. STATIC PLACEHOLDERS (The "Form") ---
+        // --- 2. STATIC PLACEHOLDERS ---
         const photoCX = x + CARD_W/2;
-        const photoCY = y + 70;
-        const startY = y + 130;
+        const photoCY = y + (70 * scale);
+        const startY = y + (130 * scale);
+        const photoRad = 35 * scale;
 
-        // Photo Ring Placeholder
+        // Photo Ring
         ctx.strokeStyle = 'rgba(26, 26, 26, 0.05)';
         ctx.lineWidth = 2;
         ctx.beginPath();
-        ctx.arc(photoCX, photoCY, 35, 0, Math.PI*2);
+        ctx.arc(photoCX, photoCY, photoRad, 0, Math.PI*2);
         ctx.stroke();
 
-        // Text Line Placeholders
+        // Text Lines
         ctx.fillStyle = 'rgba(26, 26, 26, 0.03)';
-        ctx.fillRect(x + 40, startY + 4, CARD_W - 80, 8); // Name
+        ctx.fillRect(x + (40 * scale), startY + (4 * scale), CARD_W - (80 * scale), 8 * scale); 
         
         for(let i=0; i<3; i++) {
-            const ly = startY + 60 + (i * 25);
-            ctx.fillRect(x + 50, ly + 4, CARD_W - 90, 8); // Rows
+            const ly = startY + (60 * scale) + (i * 25 * scale);
+            ctx.fillRect(x + (50 * scale), ly + (4 * scale), CARD_W - (90 * scale), 8 * scale); 
             ctx.strokeStyle = 'rgba(26, 26, 26, 0.05)';
-            ctx.strokeRect(x + 25, ly, 16, 16); // Icons
+            ctx.strokeRect(x + (25 * scale), ly, 16 * scale, 16 * scale); 
         }
 
-        // --- 3. DYNAMIC DATA (The "Content") ---
+        // --- 3. DYNAMIC DATA ---
         const activeAlpha = frameAlpha * dataAlpha;
         
         if (activeAlpha > 0.01) {
             ctx.globalAlpha = activeAlpha;
 
-            // A. Profile Photo Fill
+            // A. Profile Photo
             if (progress > 0) {
                 ctx.save();
                 ctx.beginPath();
-                ctx.arc(photoCX, photoCY, 35, 0, Math.PI*2);
+                ctx.arc(photoCX, photoCY, photoRad, 0, Math.PI*2);
                 ctx.clip();
                 
-                // Silhouette build up
-                const fillH = 70 * progress;
+                const fillH = (70 * scale) * progress;
                 ctx.fillStyle = 'rgba(26, 26, 26, 0.1)';
-                ctx.fillRect(photoCX - 35, photoCY + 35 - fillH, 70, fillH);
+                ctx.fillRect(photoCX - photoRad, photoCY + photoRad - fillH, photoRad * 2, fillH);
                 
                 if (progress > 0.6) {
                     ctx.fillStyle = '#1a1a1a';
                     // Head
-                    ctx.beginPath(); ctx.arc(photoCX, photoCY - 5, 12, 0, Math.PI*2); ctx.fill();
+                    ctx.beginPath(); ctx.arc(photoCX, photoCY - (5*scale), 12*scale, 0, Math.PI*2); ctx.fill();
                     // Body
-                    ctx.beginPath(); ctx.arc(photoCX, photoCY + 35, 25, Math.PI, 0); ctx.fill();
+                    ctx.beginPath(); ctx.arc(photoCX, photoCY + (35*scale), 25*scale, Math.PI, 0); ctx.fill();
                 }
                 ctx.restore();
                 
-                // Active Ring
                 ctx.strokeStyle = '#C5A059';
                 ctx.lineWidth = 2;
                 ctx.beginPath();
-                ctx.arc(photoCX, photoCY, 35, -Math.PI/2, (-Math.PI/2) + (Math.PI*2 * progress));
+                ctx.arc(photoCX, photoCY, photoRad, -Math.PI/2, (-Math.PI/2) + (Math.PI*2 * progress));
                 ctx.stroke();
             }
 
-            // B. Text Lines Fill
+            // B. Text Lines
             if (progress > 0.2) {
-                // Name
                 ctx.fillStyle = '#1a1a1a';
-                ctx.fillRect(x + 40, startY, (CARD_W - 80) * Math.min(1, (progress - 0.2)*3), 2);
+                ctx.fillRect(x + (40 * scale), startY, (CARD_W - 80 * scale) * Math.min(1, (progress - 0.2)*3), 2 * scale);
             }
             if (progress > 0.3) {
-                // Subtitle (Gold)
                 ctx.fillStyle = '#C5A059';
-                ctx.fillRect(x + 70, startY + 24, (CARD_W - 140) * Math.min(1, (progress - 0.3)*3), 2);
+                ctx.fillRect(x + (70 * scale), startY + (24 * scale), (CARD_W - 140 * scale) * Math.min(1, (progress - 0.3)*3), 2 * scale);
             }
 
             // C. Data Rows
             for(let i=0; i<3; i++) {
-                const ly = startY + 60 + (i * 25);
+                const ly = startY + (60 * scale) + (i * 25 * scale);
                 const threshold = 0.4 + (i * 0.15);
                 
                 if (progress > threshold) {
-                    // Icon active
                     ctx.fillStyle = '#C5A059';
-                    ctx.fillRect(x + 27, ly + 2, 12, 12);
+                    ctx.fillRect(x + (27 * scale), ly + (2 * scale), 12 * scale, 12 * scale);
                     
-                    // Bar Fill
                     ctx.fillStyle = '#1a1a1a';
                     const barProg = Math.min(1, (progress - threshold) * 5);
-                    ctx.fillRect(x + 50, ly + 6, (CARD_W - 90) * barProg, 4);
+                    ctx.fillRect(x + (50 * scale), ly + (6 * scale), (CARD_W - 90 * scale) * barProg, 4 * scale);
                 }
             }
 
-            // D. Verified Stamp (Bottom)
+            // D. Verified Stamp
             if (progress >= 0.9) {
                 ctx.save();
                 ctx.translate(CENTER_X, CENTER_Y);
@@ -215,7 +217,8 @@ const PillarVisual_Magnet: React.FC = () => {
                 
                 ctx.strokeStyle = '#C5A059';
                 ctx.lineWidth = 2;
-                const sw = 140; const sh = 40;
+                const sw = 140 * scale; 
+                const sh = 40 * scale;
                 
                 ctx.beginPath();
                 ctx.moveTo(-sw/2 + 10, -sh/2); ctx.lineTo(-sw/2, -sh/2); ctx.lineTo(-sw/2, sh/2); ctx.lineTo(-sw/2 + 10, sh/2);
@@ -223,7 +226,7 @@ const PillarVisual_Magnet: React.FC = () => {
                 ctx.stroke();
                 
                 ctx.fillStyle = '#C5A059';
-                ctx.font = 'bold 12px monospace';
+                ctx.font = `bold ${12 * scale}px monospace`;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText(`PROFILE_ID [${cardId}]`, 0, 0);
@@ -231,17 +234,18 @@ const PillarVisual_Magnet: React.FC = () => {
                 ctx.restore();
             }
 
-            // E. HOT LEAD BADGE (Top Right Red Circle)
+            // E. HOT Badge
             if (progress > 0.7) {
                 const badgeAlpha = Math.min(1, (progress - 0.7) * 4);
                 ctx.globalAlpha = activeAlpha * badgeAlpha;
                 
-                const badgeX = x + CARD_W - 25;
-                const badgeY = y + 25;
+                const badgeX = x + CARD_W - (25 * scale);
+                const badgeY = y + (25 * scale);
+                const badgeR = 14 * scale;
                 
                 ctx.beginPath();
-                ctx.arc(badgeX, badgeY, 14, 0, Math.PI*2);
-                ctx.fillStyle = 'rgba(226, 30, 63, 0.1)'; // Faint Red Background
+                ctx.arc(badgeX, badgeY, badgeR, 0, Math.PI*2);
+                ctx.fillStyle = 'rgba(226, 30, 63, 0.1)';
                 ctx.fill();
                 
                 ctx.strokeStyle = '#E21E3F';
@@ -249,7 +253,7 @@ const PillarVisual_Magnet: React.FC = () => {
                 ctx.stroke();
                 
                 ctx.fillStyle = '#E21E3F';
-                ctx.font = 'bold 8px monospace';
+                ctx.font = `bold ${8 * scale}px monospace`;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText("HOT", badgeX, badgeY);
@@ -260,81 +264,59 @@ const PillarVisual_Magnet: React.FC = () => {
     };
 
     const animate = () => {
-        // Handle Resize
         if (canvas.parentElement) {
              const pWidth = canvas.parentElement.clientWidth;
              const pHeight = canvas.parentElement.clientHeight;
              if(canvas.width !== pWidth || canvas.height !== pHeight){
                  width = canvas.width = pWidth;
                  height = canvas.height = pHeight;
+                 
+                 // Recalculate scale on resize
+                 scale = Math.min(width / 500, height / 400, 1);
+                 CARD_W = BASE_CARD_W * scale;
+                 CARD_H = BASE_CARD_H * scale;
+                 CENTER_X = width / 2;
+                 CENTER_Y = height / 2;
              }
         }
 
         ctx.clearRect(0, 0, width, height);
 
         // --- STATE MACHINE ---
-        
         switch (currentState) {
             case 'INIT':
                 cardOpacity += 0.02;
-                if (cardOpacity >= 1) {
-                    cardOpacity = 1;
-                    currentState = 'IDLE_EMPTY';
-                    timer = 0;
-                }
+                if (cardOpacity >= 1) { cardOpacity = 1; currentState = 'IDLE_EMPTY'; timer = 0; }
                 break;
-
             case 'IDLE_EMPTY':
                 timer++;
-                if (timer > 60) { // Longer pause on blank (1s)
-                    currentState = 'BUILDING';
-                    contentOpacity = 1; 
-                }
+                if (timer > 60) { currentState = 'BUILDING'; contentOpacity = 1; }
                 break;
-
             case 'BUILDING':
-                // MUCH SLOWER BUILD
                 if (fillLevel < 1) {
-                    fillLevel += 0.0015; // Slowed down from 0.006
-                    
-                    // Spawn fewer particles for cleaner look
+                    fillLevel += 0.0015;
                     if (Math.random() > 0.8) spawnParticle(); 
                 } else {
-                    fillLevel = 1;
-                    currentState = 'COMPLETE';
-                    timer = 0;
+                    fillLevel = 1; currentState = 'COMPLETE'; timer = 0;
                 }
                 break;
-
             case 'COMPLETE':
                 timer++;
-                // Longer hold to read the card
-                if (timer > 200) { // ~3.5 seconds hold
-                    currentState = 'CLEARING';
-                }
+                if (timer > 200) { currentState = 'CLEARING'; }
                 break;
-
             case 'CLEARING':
-                // Slower fade out
                 contentOpacity -= 0.01; 
                 if (contentOpacity <= 0) {
-                    contentOpacity = 0;
-                    fillLevel = 0;
-                    cardId++;
-                    currentState = 'IDLE_EMPTY';
-                    timer = 0;
+                    contentOpacity = 0; fillLevel = 0; cardId++; currentState = 'IDLE_EMPTY'; timer = 0;
                 }
                 break;
         }
 
-        // Draw Card Layer
         drawCard(cardOpacity, contentOpacity, fillLevel);
 
         // --- PARTICLE PHYSICS ---
-        // Particles only visible when content is building or complete
         for (let i = particles.length - 1; i >= 0; i--) {
             const p = particles[i];
-            
             const dx = (CENTER_X + p.tx) - p.x;
             const dy = (CENTER_Y + p.ty) - p.y;
             const dist = Math.sqrt(dx*dx + dy*dy);
@@ -342,12 +324,8 @@ const PillarVisual_Magnet: React.FC = () => {
             if (!p.dead) {
                 p.x += dx * p.speed;
                 p.y += dy * p.speed;
+                if (dist < 10) p.dead = true;
                 
-                if (dist < 10) {
-                    p.dead = true;
-                }
-                
-                // Fade out particles with content opacity
                 let pAlpha = 1;
                 if (currentState === 'CLEARING') pAlpha = contentOpacity;
                 
@@ -358,8 +336,7 @@ const PillarVisual_Magnet: React.FC = () => {
                     ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
                     ctx.fillStyle = p.color;
                     ctx.fill();
-                    
-                    // Faint Trail
+                    // Trail
                     ctx.beginPath();
                     ctx.moveTo(p.x, p.y);
                     ctx.lineTo(p.x - dx*0.2, p.y - dy*0.2);
@@ -372,16 +349,11 @@ const PillarVisual_Magnet: React.FC = () => {
                 particles.splice(i, 1);
             }
         }
-
         requestAnimationFrame(animate);
     };
 
     const animId = requestAnimationFrame(animate);
-
-    return () => {
-        cancelAnimationFrame(animId);
-    };
-
+    return () => cancelAnimationFrame(animId);
   }, []);
 
   return (
@@ -392,4 +364,3 @@ const PillarVisual_Magnet: React.FC = () => {
 };
 
 export default PillarVisual_Magnet;
-
