@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, Target, Zap, BarChart3, ArrowRight } from 'lucide-react';
+import { Menu, X, ChevronDown, Target, Zap, BarChart3 } from 'lucide-react';
+import CTAButton from './CTAButton';
 
 interface GlobalHeaderProps {
   currentView: string;
@@ -170,16 +171,13 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
 
             {/* CTA */}
             <div className="hidden md:flex items-center">
-               <button 
-                 onClick={() => onNavigate('contact')} 
-                 className="group relative px-6 py-3 border border-[#1a1a1a] overflow-hidden"
+               <CTAButton 
+                 theme="light" 
+                 onClick={() => onNavigate('contact')}
+                 className="py-3 px-6"
                >
-                 <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-300 cubic-bezier(0.23, 1, 0.32, 1)" />
-                 <span className="relative z-10 flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a] group-hover:text-white transition-colors duration-300">
-                   [ LET'S TALK ]
-                   <ArrowRight className="w-3 h-3" />
-                 </span>
-               </button>
+                 [ TALK ]
+               </CTAButton>
             </div>
           </motion.nav>
         )}
@@ -340,16 +338,13 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                
                {/* Center-Aligned "Let's Talk" Button */}
                <div className="w-full flex justify-center mt-8">
-                 <button 
-                   onClick={() => { onNavigate('contact'); setIsMenuOpen(false); }} 
-                   className="w-full max-w-xs group relative h-16 bg-[#1a1a1a] flex items-center justify-center overflow-hidden shadow-xl"
+                 <CTAButton 
+                   theme="light" 
+                   onClick={() => { onNavigate('contact'); setIsMenuOpen(false); }}
+                   className="w-full max-w-xs"
                  >
-                   <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-300 cubic-bezier(0.23, 1, 0.32, 1)" />
-                   <span className="relative z-10 font-mono text-xs font-bold uppercase tracking-[0.3em] text-[#FFF2EC] group-hover:text-[#1a1a1a] transition-colors flex items-center gap-3">
-                     [ LET'S TALK ]
-                     <ArrowRight className="w-4 h-4" />
-                   </span>
-                 </button>
+                   [ LET'S TALK ]
+                 </CTAButton>
                </div>
              </div>
              

@@ -4,6 +4,7 @@ import { ArrowDownRight } from 'lucide-react';
 import { SERVICES } from '../constants';
 import { ServiceDetail } from '../types';
 import ViewportViz from './ViewportViz';
+import CTAButton from './CTAButton';
 
 // Added Prop Interface
 interface SystemPhasesProps {
@@ -361,7 +362,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         {/* FOOTER CTA */}
                         <div className={`mt-auto pt-6 border-t ${isBlueprint ? 'border-[#C5A059]/20' : (activePhase.dark ? 'border-white/10' : 'border-black/5')}`}>
                              {isBlueprint ? (
-                                 <div 
+                                 <CTAButton 
+                                    theme="dark"
                                     onClick={() => {
                                       const systemCardService = {
                                         id: 'system-overview',
@@ -372,20 +374,18 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                       };
                                       handleCardClick(systemCardService as any);
                                     }}
-                                    className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-4 px-6 font-mono text-xs tracking-[0.2em] font-bold text-center uppercase cursor-pointer group/btn"
+                                    className="w-full"
                                  >
-                                    <div className="absolute inset-0 bg-white translate-y-full group-hover/btn:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                                    <span className="relative z-10 transition-colors duration-500">[ EXPLORE THE SYSTEM ]</span>
-                                 </div>
+                                    [ EXPLORE THE SYSTEM ]
+                                 </CTAButton>
                              ) : (
-                                 <button
+                                 <CTAButton
+                                    variant="bracket"
+                                    theme={activePhase.dark ? 'dark' : 'light'}
                                     onClick={() => handleCardClick(displayService)}
-                                    className={`text-left font-mono text-xs font-bold uppercase tracking-[0.2em] mt-1 transition-colors duration-300
-                                        ${activePhase.dark ? 'text-[#C5A059] hover:text-white' : 'text-[#E21E3F] hover:text-black'}
-                                    `}
                                  >
-                                    [ SEE HOW IT WORKS ]
-                                 </button>
+                                    SEE HOW IT WORKS
+                                 </CTAButton>
                              )}
                         </div>
 
@@ -482,17 +482,15 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
 
                          {/* BOTTOM: CTA */}
                          <div className="mt-6 pt-4 border-t border-current/10 flex justify-start">
-                            <span className={`
-                              font-mono text-xs font-bold uppercase tracking-[0.2em]
-                              ${isActive 
-                                 ? (activePhase.dark ? 'text-white' : 'text-black') 
-                                 : (activePhase.dark ? 'text-[#C5A059]' : 'text-[#E21E3F]')
-                              }
-                              lg:transition-colors lg:duration-300 lg:group-hover:text-white lg:group-hover:text-black
-                            `}>
-                              <span className="lg:hidden">[ EXPLORE ]</span>
-                              <span className="hidden lg:inline">[ LEARN MORE ]</span>
-                            </span>
+                            <CTAButton
+                              variant="bracket"
+                              size="sm"
+                              theme={activePhase.dark ? 'dark' : 'light'}
+                              className="pointer-events-none"
+                            >
+                              <span className="lg:hidden">EXPLORE</span>
+                              <span className="hidden lg:inline">LEARN MORE</span>
+                            </CTAButton>
                          </div>
                       </div>
                     </motion.div>
@@ -549,13 +547,12 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       </div>
 
                       <div className="mt-6 pt-4 border-t border-white/10">
-                        <div className="relative overflow-hidden bg-[#C5A059] text-[#1a1a1a] py-3 px-4 font-mono text-xs tracking-[0.2em] font-bold text-center uppercase">
-                          <div className="absolute inset-0 bg-white translate-y-full lg:group-hover:translate-y-0 lg:transition-transform lg:duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                          <span className="relative z-10 lg:transition-colors lg:duration-500">
-                            <span className="lg:hidden">[ SEE ALL ]</span>
-                            <span className="hidden lg:inline">[ SEE ALL ]</span>
-                          </span>
-                        </div>
+                        <CTAButton 
+                          theme="dark"
+                          className="w-full"
+                        >
+                          [ SEE ALL ]
+                        </CTAButton>
                       </div>
                     </motion.div>
                   );

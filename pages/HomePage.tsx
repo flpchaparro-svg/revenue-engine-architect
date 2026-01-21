@@ -317,8 +317,12 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
               <p className="font-serif text-3xl md:text-4xl leading-tight mb-6 md:mb-8 hover:text-[#C5A059] transition-colors duration-300">
                 I build the systems that do the boring work for you. <span className="text-white">You get your business back.</span>
               </p>
-              <CTAButton theme="dark" onClick={() => document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'})}>
-                [ SEE HOW IT WORKS ]
+              <CTAButton 
+                variant="bracket" 
+                theme="dark" 
+                onClick={() => document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'})}
+              >
+                SEE HOW IT WORKS
               </CTAButton>
             </div>
           </div>

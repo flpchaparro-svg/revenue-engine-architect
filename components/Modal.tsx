@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, ArrowRight } from 'lucide-react';
 import { ServiceDetail } from '../types';
 import ViewportViz from './ViewportViz';
+import CTAButton from './CTAButton';
 
 interface ModalProps {
   service: ServiceDetail | null;
@@ -148,29 +149,14 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                       UID: PILLAR_SYS_{service.id.toUpperCase().slice(0,8)}
                    </span>
                    
-                   {/* BUTTON: Outlined with TOP-TO-BOTTOM Fill Animation */}
-                   <button 
+                   {/* STANDARDIZED CTA BUTTON */}
+                   <CTAButton 
+                     theme={currentTheme.dark ? 'dark' : 'light'}
                      onClick={() => window.location.href='/system'}
-                     className={`relative w-full md:w-auto px-8 py-4 flex items-center justify-center gap-4 border overflow-hidden transition-colors duration-300 group
-                        ${currentTheme.dark 
-                           ? 'border-[#C5A059]' 
-                           : 'border-black/10'}
-                     `}
+                     className="w-full md:w-auto"
                    >
-                     {/* ANIMATED FILL: Starts at -100% (Top), Moves to 0 (Fill) */}
-                     <div className={`absolute inset-0 translate-y-[-100%] group-hover:translate-y-0 transition-transform duration-500 ease-out
-                        ${currentTheme.dark ? 'bg-[#C5A059]' : 'bg-[#1a1a1a]'}
-                     `} />
-
-                     {/* TEXT & ICON: Relative z-index to stay on top of fill */}
-                     <span className={`relative z-10 font-mono text-xs font-bold tracking-[0.2em] uppercase transition-colors duration-300
-                       ${currentTheme.dark 
-                         ? 'text-[#C5A059] group-hover:text-black' 
-                         : 'text-[#1a1a1a] group-hover:text-white'}
-                     `}>
-                       [ SEE FULL DETAILS ]
-                     </span>
-                   </button>
+                     [ SEE FULL DETAILS ]
+                   </CTAButton>
                 </div>
 
               </div>
