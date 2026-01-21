@@ -1,324 +1,353 @@
-import React, { useState, useEffect } from 'react';
-import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, AlertTriangle, ArrowRight, Activity, Globe, Zap, X, Terminal } from 'lucide-react';
-import EvidenceVisual_Compare from './EvidenceVisual_Compare';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
+import { XCircle } from 'lucide-react'; // ArrowRight is inside CTAButton
+import HeroVisual from '../components/HeroVisual';
+import SystemPhases from '../components/SystemPhases';
+import TheArchitect from '../components/TheArchitect';
+import Feature_Group7 from '../components/Feature_Group7';
+import BookingCTA from '../components/BookingCTA';
+import BookAuditButton from '../components/BookAuditButton';
+import FrictionAuditSection from '../components/FrictionAuditSection';
+import GrowthGraph, { GraphState } from '../components/GrowthGraph';
+import CTAButton from '../components/CTAButton'; // Standardized Button
+import { ServiceDetail } from '../types';
 
-const TerminalLog: React.FC = () => {
-  const [lines, setLines] = useState<string[]>([]);
+const TECH_STACK = [
+  'WEBSITES', 'CRM', 'MARKETING AUTOMATION', 'AI ASSISTANTS', 'CONTENT MARKETING', 'DASHBOARDS'
+];
+
+interface HomePageProps {
+  onNavigate: (view: string, sectionId?: string) => void;
+  onServiceClick?: (service: ServiceDetail) => void;
+}
+
+const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
+  const [scrambleText, setScrambleText] = useState("ARCHITECT");
+  const [isTickerHovered, setIsTickerHovered] = useState(false);
+  const [graphState, setGraphState] = useState<GraphState>('idle');
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const autoRotateIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const isMobileRef = useRef(false);
   
-  const allLines = [
-    "> Added Sydney location tags for Google... [DONE]",
-    "> Removed slow code... [SAVED 2.1MB]",
-    "> Load time: 4.2s → 0.4s [10x FASTER]"
-  ];
+  // --- MOBILE GRAPH AUTO-ROTATION ---
+  useEffect(() => {
+    const checkMobile = () => {
+      const isMobile = window.innerWidth < 768;
+      isMobileRef.current = isMobile;
+      
+      if (autoRotateIntervalRef.current) {
+        clearInterval(autoRotateIntervalRef.current);
+        autoRotateIntervalRef.current = null;
+      }
+      
+      if (!isMobile) return;
+
+      const scannerStates: GraphState[] = ['bottleneck', 'tax', 'grind', 'cost'];
+      let currentIndex = 0;
+
+      autoRotateIntervalRef.current = setInterval(() => {
+        setGraphState(scannerStates[currentIndex]);
+        currentIndex = (currentIndex + 1) % scannerStates.length;
+      }, 2500); 
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      if (autoRotateIntervalRef.current) {
+        clearInterval(autoRotateIntervalRef.current);
+      }
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+  
+  const handleGraphHover = (state: GraphState) => {
+    if (isMobileRef.current) return;
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    setGraphState(state);
+  };
+  
+  const handleGraphLeave = () => {
+    if (isMobileRef.current) return;
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    hoverTimeoutRef.current = setTimeout(() => {
+      setGraphState('idle');
+    }, 50);
+  };
+
+  const scrollLineY = useMotionValue(-100); 
+  const scrollLineSpeed = useMotionValue(0.067); 
+
+  const { scrollY } = useScroll();
+  const carouselX = useMotionValue(0);
+  const xPercent = useTransform(carouselX, (value) => `${value}%`);
+  
+  const scrollVelocityRef = useRef(0);
+  const lastScrollYRef = useRef(0);
+  const lastTimeRef = useRef(Date.now());
+  const decayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
+  useAnimationFrame((time, delta) => {
+    const currentY = scrollLineY.get();
+    const speed = scrollLineSpeed.get();
+    let newY = currentY + (speed * delta);
+    if (newY >= 100) newY = -100;
+    scrollLineY.set(newY);
+  });
+  
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const now = Date.now();
+    const timeDelta = now - lastTimeRef.current;
+    const scrollDelta = Math.abs(latest - lastScrollYRef.current);
+    
+    if (timeDelta > 0 && timeDelta < 200) {
+      const velocity = scrollDelta / timeDelta;
+      scrollVelocityRef.current = velocity;
+      
+      if (decayTimeoutRef.current) {
+        clearTimeout(decayTimeoutRef.current);
+        decayTimeoutRef.current = null;
+      }
+      
+      const baseSpeed = 0.067;
+      const maxSpeed = 0.133;
+      const speedMultiplier = Math.min(1, velocity * 12);
+      const newSpeed = baseSpeed + (speedMultiplier * (maxSpeed - baseSpeed));
+      
+      scrollLineSpeed.set(newSpeed);
+      
+      decayTimeoutRef.current = setTimeout(() => {
+        const returnToBase = () => {
+          const currentSpeed = scrollLineSpeed.get();
+          if (currentSpeed <= baseSpeed + 0.01) {
+            scrollLineSpeed.set(baseSpeed);
+            return;
+          }
+          const next = Math.max(baseSpeed, currentSpeed - 0.02);
+          scrollLineSpeed.set(next);
+          if (next > baseSpeed + 0.01) setTimeout(returnToBase, 50);
+        };
+        returnToBase();
+        scrollVelocityRef.current = 0;
+      }, 100);
+    }
+    
+    lastScrollYRef.current = latest;
+    lastTimeRef.current = now;
+  });
+
+  useAnimationFrame((t, delta) => {
+    const speed = isTickerHovered ? 0 : 0.0006;
+    let moveBy = speed * delta;
+    const currentX = carouselX.get();
+    let nextX = currentX - moveBy;
+    if (nextX <= -50) nextX = 0;
+    carouselX.set(nextX);
+  });
 
   useEffect(() => {
-    let delay = 200;
-    allLines.forEach((line) => {
-      setTimeout(() => {
-        setLines(prev => [...prev, line]);
-      }, delay);
-      delay += 800; // Sequence delay
-    });
+    const roles = ["ARCHITECT", "NAVIGATOR", "ENGINEER"];
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let roleIndex = 0;
+    const scrambleInterval = setInterval(() => {
+      roleIndex = (roleIndex + 1) % roles.length;
+      const target = roles[roleIndex];
+      let iterations = 0;
+      const interval = setInterval(() => {
+        setScrambleText(prev => target.split("").map((_, i) => i < iterations ? target[i] : chars[Math.floor(Math.random() * chars.length)]).join(""));
+        if (iterations >= target.length) clearInterval(interval);
+        iterations += 1;
+      }, 60);
+    }, 7000);
+    return () => {
+      clearInterval(scrambleInterval);
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+    };
   }, []);
 
   return (
-    // UPGRADE: Increased p-6 to p-8, font size base for better readability
-    <div className="w-full bg-[#1a1a1a] p-8 border-t border-black/10 font-mono text-sm overflow-hidden">
-      <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
-        <Terminal className="w-4 h-4 text-[#C5A059]" />
-        <span className="text-[#C5A059] uppercase tracking-[0.2em] font-bold">Build Log // What I Did</span>
-      </div>
-      <div className="space-y-3">
-        {lines.map((line, i) => (
-          <motion.div 
-            key={i}
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="text-white/80"
-          >
-            <span className="text-[#0F766E] mr-3">➜</span>
-            {line}
-          </motion.div>
-        ))}
-        <motion.div 
-          animate={{ opacity: [0, 1] }} 
-          transition={{ repeat: Infinity, duration: 0.8 }}
-          className="w-2 h-4 bg-[#C5A059] inline-block align-middle ml-2"
-        />
-      </div>
-    </div>
-  );
-};
-
-const Feature_Group7: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // Lock body scroll when modal is open
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isModalOpen]);
-
-  return (
-    <section className="w-full bg-[#FFF2EC] py-24 md:py-32 border-y border-black/5 relative z-20">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
+    <>
+      {/* 1. HERO SECTION */}
+      <section id="hero" aria-label="Hero Section" className="min-h-[100svh] w-full flex items-center pt-32 md:pt-20 overflow-hidden relative z-20 content-layer">
         
-        {/* --- SECTION HEADER --- */}
-        <div className="mb-16 max-w-2xl">
-          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block">
-            // REAL RESULTS
-          </span>
-          {/* FIXED: Smooth scaling 4xl -> 5xl -> 7xl */}
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-[#1a1a1a] leading-[0.95] tracking-tighter mb-6">
-            See It In <span className="italic text-[#C5A059]">Action.</span>
-          </h2>
-          {/* FIXED: Body text smooth scaling */}
-          <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60 border-l-2 border-[#E21E3F]/30 pl-6">
-            Don't just take my word for it. Here's what happened when I rebuilt a Sydney security company's website.
-          </p>
+        {/* HERO VISUAL */}
+        <div className="absolute inset-0 z-[1]">
+           <HeroVisual />
         </div>
 
-        {/* --- THE TRIGGER CARD (Dark Device on Cream Desk) --- */}
-        <motion.div 
-          initial="idle"
-          whileHover="scan"
-          whileInView="scan"
-          viewport={{ once: true, amount: 0.5 }}
-          onClick={() => setIsModalOpen(true)}
-          className="w-full bg-[#1a1a1a] border border-black/10 p-1 rounded-sm overflow-hidden relative group cursor-pointer hover:border-[#C5A059]/50 transition-colors duration-500 shadow-2xl"
-        >
-          
-          {/* THE FORENSIC SCANNER OVERLAY */}
-          <motion.div 
-            className="absolute top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#E21E3F] to-transparent z-50 opacity-0 blur-[1px] pointer-events-none"
-            variants={{
-              idle: { left: '0%', opacity: 0 },
-              scan: { 
-                left: '120%', 
-                opacity: [0, 1, 1, 0], 
-                transition: { duration: 2, ease: "easeInOut" } 
-              }
-            }}
-          />
-          <motion.div 
-            className="absolute top-0 bottom-0 w-[60px] bg-gradient-to-r from-transparent to-[#E21E3F]/10 z-40 opacity-0 pointer-events-none"
-            variants={{
-              idle: { left: '-60px', opacity: 0 },
-              scan: { 
-                left: 'calc(120% - 60px)', 
-                opacity: [0, 1, 1, 0], 
-                transition: { duration: 2, ease: "easeInOut" } 
-              }
-            }}
-          />
-
-          {/* Header Bar */}
-          <div className="flex justify-between items-center px-6 py-4 border-b border-white/5 bg-black/40 relative z-30">
-              <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-[#C5A059] rounded-full animate-pulse" />
-                  <span className="font-mono text-xs font-bold text-[#C5A059] tracking-[0.2em] uppercase">
-                     [ WEBSITE REBUILD ]
-                  </span>
-              </div>
-              <span className="font-mono text-xs font-bold text-white/30 uppercase tracking-[0.2em] flex items-center gap-2">
-                  [ SEE THE TRANSFORMATION ]
-                  <Zap className="w-3 h-3 text-[#C5A059]" />
+        {/* CONTENT */}
+        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 relative z-20">
+          <div className="lg:col-span-12 flex flex-col justify-start md:justify-center items-center lg:items-start text-center lg:text-left pt-8 md:pt-0">
+            
+            {/* LABEL */}
+            <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-center lg:justify-start">
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
+                SYDNEY BUSINESS AUTOMATION 
+                <span className="ml-2 text-[#C5A059]">
+                  [ {scrambleText} ]
+                </span>
               </span>
-          </div>
-
-          {/* The Transformation Engine (Visual Abstract) */}
-          <div className="p-8 md:p-16 relative min-h-[350px] flex flex-col md:flex-row items-center justify-between gap-12 md:gap-0">
-              
-              {/* Background Grid */}
-              <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-50" />
-
-              {/* NODE A: LEGACY (Left - Validated Early) */}
-              <motion.div 
-                className="relative z-10 flex flex-col items-center gap-6"
-                variants={{
-                  idle: { filter: "grayscale(100%)", opacity: 0.5, scale: 1 },
-                  scan: { 
-                    filter: "grayscale(0%)", 
-                    opacity: 1, 
-                    scale: 1.05, 
-                    transition: { duration: 0.4, delay: 0.3 } 
-                  }
-                }}
-              >
-                  <div className="w-24 h-24 rounded-full border border-[#E21E3F]/50 flex items-center justify-center bg-[#E21E3F]/5 relative overflow-hidden">
-                      <motion.div 
-                        className="absolute inset-0 bg-[#E21E3F]/20" 
-                        variants={{ idle: { opacity: 0 }, scan: { opacity: 1, transition: { delay: 0.3 } } }} 
-                      />
-                      <AlertTriangle className="w-10 h-10 text-[#E21E3F] relative z-10" />
-                  </div>
-                  <div className="text-center">
-                      <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-2">Before</div>
-                      {/* Node A */}
-                      <div className="font-serif text-white/60 text-2xl md:text-3xl tracking-tight mb-2">group7security.com</div>
-                      <div className="flex items-center justify-center gap-2 font-mono text-xs font-bold tracking-[0.2em] text-[#E21E3F] bg-[#E21E3F]/10 px-3 py-1.5 rounded">
-                          <Activity className="w-3 h-3" />
-                          <span>4.2s Load</span>
-                      </div>
-                  </div>
-              </motion.div>
-
-              {/* STREAM CORD */}
-              <div className="flex-grow w-full md:w-auto h-[100px] md:h-[1px] bg-white/5 relative mx-4 md:mx-12 flex items-center justify-center">
-                  <motion.div 
-                      className="absolute top-0 bottom-0 left-0 h-full bg-gradient-to-r from-transparent via-[#C5A059] to-transparent w-1/3 opacity-30"
-                      animate={{ left: ['-30%', '130%'] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                  />
-                  <div className="relative z-10 bg-[#1a1a1a] border border-[#C5A059]/30 px-6 py-3 rounded-full flex items-center gap-3">
-                      <span className="font-mono text-xs text-[#C5A059] uppercase tracking-widest font-bold">
-                          VIEW TRANSFORMATION
-                      </span>
-                  </div>
-              </div>
-
-              {/* NODE B: AUTHORITY (Right - Validated Late) */}
-              <motion.div 
-                className="relative z-10 flex flex-col items-center gap-6"
-                variants={{
-                  idle: { scale: 1, opacity: 0.5 },
-                  scan: { 
-                    scale: 1.05, 
-                    opacity: 1, 
-                    transition: { duration: 0.4, delay: 1.2 } 
-                  }
-                }}
-              >
-                  <motion.div 
-                    className="w-28 h-28 rounded-full border-2 flex items-center justify-center relative overflow-hidden"
-                    variants={{
-                      idle: { borderColor: '#333', backgroundColor: 'rgba(0,0,0,0)' },
-                      scan: { 
-                        borderColor: '#0F766E', 
-                        backgroundColor: 'rgba(15, 118, 110, 0.1)', 
-                        boxShadow: '0 0 50px rgba(15, 118, 110, 0.4)',
-                        transition: { delay: 1.2 }
-                      }
-                    }}
-                  >
-                      <ShieldCheck className="w-12 h-12 text-[#C5A059] group-hover:text-[#0F766E] transition-colors duration-500 delay-1000" />
-                  </motion.div>
-                  <div className="text-center">
-                      <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-2 group-hover:text-[#0F766E] transition-colors delay-1000">After</div>
-                      {/* Node B */}
-                      <div className="font-serif text-white text-3xl md:text-4xl tracking-tight mb-2">group7security.com.au</div>
-                      <div className="flex items-center justify-center gap-2 font-mono text-xs font-bold tracking-[0.2em] text-[#0F766E] bg-[#0F766E]/10 px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity delay-1000 duration-500">
-                          <Activity className="w-3 h-3" />
-                          <span>0.4s Load</span>
-                      </div>
-                  </div>
-              </motion.div>
-
-          </div>
-
-          {/* Footer Action */}
-          <div className="py-5 border-t border-white/5 bg-black/40 flex items-center justify-center gap-3 text-white group-hover:text-[#C5A059] transition-colors relative z-30">
-               <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold">See Full Case Study</span>
-          </div>
-
-        </motion.div>
-
-        {/* --- THE EVIDENCE MODAL --- */}
-        {isModalOpen && createPortal(
-          <AnimatePresence mode="wait">
-            <div key="modal" className="fixed inset-0 z-[9999] flex items-center justify-center px-4 md:px-8">
-              
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setIsModalOpen(false)}
-                className="absolute inset-0 bg-black/90 backdrop-blur-md"
-              />
-
-              <motion.div 
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.95, opacity: 0 }}
-                onClick={(e) => e.stopPropagation()}
-                className="relative w-full max-w-6xl bg-[#FFF2EC] overflow-hidden shadow-2xl rounded-sm max-h-[90vh] flex flex-col z-10"
-              >
-                 
-                 {/* MODAL HEADER */}
-                 <div className="flex justify-between items-center p-6 border-b border-black/10 bg-white shrink-0">
-                    <div>
-                      {/* FIXED: Standardized Modal Title */}
-                      <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-tight tracking-tight">
-                         Case Study: Group 7 Security
-                      </h3>
-                      <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/50 mt-1">
-                         [ WEBSITE + SEO OVERHAUL ]
-                      </p>
-                    </div>
-                    <button 
-                      onClick={() => setIsModalOpen(false)}
-                      className="p-2 hover:bg-black/5 rounded-full transition-colors"
-                    >
-                      <X className="w-6 h-6 text-[#1a1a1a]" />
-                    </button>
-                 </div>
-
-                 <div className="flex-grow overflow-y-auto p-0">
-                    <EvidenceVisual_Compare 
-                      beforeLabel="BEFORE: Old .com Site"
-                      afterLabel="AFTER: New .com.au Site"
-                    />
-                    
-                    <TerminalLog />
-
-                    {/* MODAL GRID */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 md:p-12 bg-white border-t border-black/10">
-                        <div>
-                          {/* FIXED: Standardized Eyebrow Title */}
-                          <h4 className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-3">
-                             The Problem
-                          </h4>
-                          <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
-                            They had a slow <strong>.com</strong> website with no local SEO. Google thought they were a global tech company, not a Sydney security firm. Local customers couldn't find them.
-                          </p>
-                        </div>
-                        <div>
-                          {/* FIXED: Standardized Eyebrow Title */}
-                          <h4 className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-3">
-                             What I Did
-                          </h4>
-                          <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
-                            I migrated them to <strong>.com.au</strong> and rebuilt the site from scratch — fast, mobile-first, with proper Sydney location tags so Google knows exactly where they operate.
-                          </p>
-                        </div>
-                        <div>
-                          {/* FIXED: Standardized Eyebrow Title */}
-                          <h4 className="font-mono text-xs font-bold text-[#C5A059] mb-3 uppercase tracking-[0.2em]">
-                             The Result
-                          </h4>
-                          <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
-                            Page load dropped from <strong>4.2s to 0.4s</strong>. Local search rankings improved. The site now converts visitors instead of losing them.
-                          </p>
-                        </div>
-                    </div>
-                 </div>
-
-              </motion.div>
             </div>
-          </AnimatePresence>,
-          document.body
-        )}
+
+            {/* HEADLINE */}
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
+              <div className="overflow-hidden"><span className="block reveal-text">Stop Doing</span></div>
+              <div className="overflow-hidden"><span className="block reveal-text" style={{ animationDelay: '0.2s' }}><span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Everyone's Job.</span></span></div>
+            </h1>
+
+            {/* BODY COPY */}
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 animate-fade-in text-left mx-auto lg:mx-0 mb-12 md:mb-0" style={{ animationDelay: '0.6s' }}>
+              You didn't start a business to chase invoices, re-type data, and answer the same questions all day. I build the systems that do it for you — websites, CRMs, automations, and AI — so you can get back to the work that actually grows revenue.
+            </p>
+
+            <div className="mt-10 md:mt-16 flex flex-col sm:flex-row items-center gap-6 md:gap-12 animate-fade-in relative z-30" style={{ animationDelay: '0.8s' }}>
+              
+              {/* STANDARDIZED CTA BUTTON */}
+              <CTAButton theme="light" onClick={() => onNavigate('contact')}>
+                [ LET'S TALK ]
+              </CTAButton>
+
+              <a href="#friction-audit" onClick={(e) => { e.preventDefault(); document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'}); }} className="relative group flex items-center gap-3 cursor-pointer">
+                <span className="font-mono text-xs font-bold text-[#1a1a1a] uppercase tracking-[0.2em] border-b border-[#1a1a1a] pb-0.5 group-hover:border-b-2 group-hover:pb-1 transition-all duration-300">SEE HOW IT WORKS</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        {/* SCROLL LINE */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
+          <motion.div 
+            style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
+            className="absolute inset-0 bg-[#1a1a1a]/40 w-full h-full" 
+          />
+        </div>
+      </section>
+
+      {/* CAROUSEL */}
+      <div className="w-full bg-[#1a1a1a]/5 py-12 border-y border-black/5 overflow-hidden relative z-30" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }} onMouseEnter={() => setIsTickerHovered(true)} onMouseLeave={() => setIsTickerHovered(false)}>
+        <div className="flex whitespace-nowrap">
+          <motion.div className="flex items-center pr-0" style={{ x: xPercent }}>
+            {[...TECH_STACK, ...TECH_STACK, ...TECH_STACK, ...TECH_STACK].map((tech, i) => (
+              <div key={i} className="flex items-center group cursor-default">
+                <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] opacity-80 group-hover:text-[#C5A059] group-hover:opacity-100 transition-all duration-300 px-12">
+                  {tech}
+                </span>
+                <span className="text-[#C5A059] font-mono text-xs font-bold">//</span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </div>
-    </section>
+
+      {/* 2. PROBLEM SECTION */}
+      <motion.section id="problem" aria-label="Problem Section" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }} className="w-full bg-[#FFF2EC] py-16 md:py-24 lg:py-32 px-6 md:px-12 lg:px-20 relative z-30 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-16 md:h-32 w-[1px] bg-[#1a1a1a]/10" />
+        <div className="max-w-[1600px] mx-auto border-t border-l border-[#1a1a1a]/10">
+          <div className="grid grid-cols-1 md:grid-cols-3">
+            
+            {/* 01: THE PROBLEM */}
+            <div className="col-span-1 md:col-span-2 p-8 md:p-12 lg:p-16 border-r border-b border-[#1a1a1a]/10 flex flex-col justify-center min-h-[300px] md:min-h-[400px] transition-colors duration-300 hover:bg-[#1a1a1a]/5 group">
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 md:mb-10 block">01 / THE PROBLEM</span>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] text-[#1a1a1a] tracking-tighter">
+                You didn't start your business to become an <br className="hidden md:block" />
+                <span className="italic text-[#1a1a1a]/60 group-hover:text-[#E21E3F] transition-colors duration-300">administrative hostage.</span>
+              </h2>
+            </div>
+
+            {/* GRAPH CONTAINER */}
+            <div className="col-span-1 border-r border-b border-[#1a1a1a]/10 bg-transparent flex items-center justify-center p-8">
+              <GrowthGraph currentState={graphState} />
+            </div>
+
+            {/* 02: SYMPTOMS */}
+            <div className="col-span-1 p-8 md:p-12 border-r border-b border-[#1a1a1a]/10 min-h-[300px] md:min-h-[400px] flex flex-col">
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 md:mb-8 block">02 / SYMPTOMS</span>
+              <ul className="space-y-6">
+                <li onMouseEnter={() => handleGraphHover('bottleneck')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
+                  <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
+                  <div className="pointer-events-none leading-relaxed">
+                    <strong className="font-serif text-xl md:text-2xl text-[#1a1a1a] tracking-tight block mb-1">The Bottleneck Boss</strong>
+                    <span className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">You are answering questions instead of doing deep work.</span>
+                  </div>
+                </li>
+                <li onMouseEnter={() => handleGraphHover('tax')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
+                  <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
+                  <div className="pointer-events-none leading-relaxed">
+                    <strong className="font-serif text-xl md:text-2xl text-[#1a1a1a] tracking-tight block mb-1">The Double-Entry Tax</strong>
+                    <span className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">Typing the same data into two different apps.</span>
+                  </div>
+                </li>
+                <li onMouseEnter={() => handleGraphHover('grind')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
+                  <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
+                  <div className="pointer-events-none leading-relaxed">
+                    <strong className="font-serif text-xl md:text-2xl text-[#1a1a1a] tracking-tight block mb-1">The Sunday Grind</strong>
+                    <span className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">Invoicing and admin eating your weekends.</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            {/* 03: THE COST */}
+            <div onMouseEnter={() => handleGraphHover('cost')} onMouseLeave={handleGraphLeave} className="col-span-1 p-8 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#E21E3F]/5 min-h-[250px] md:min-h-[400px] hover:bg-[#E21E3F]/10 transition-colors duration-300 relative overflow-hidden group flex flex-col justify-center">
+              <div className="absolute inset-0 bg-[#E21E3F]/0 group-hover:bg-[#E21E3F]/10 transition-colors duration-500" />
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block relative z-10">03 / THE COST</span>
+              <div className="space-y-4 relative z-10">
+                <div className="font-sans text-3xl md:text-4xl font-bold text-[#E21E3F] uppercase tracking-tighter">BURNING TALENT</div>
+                <p className="font-sans text-sm md:text-base text-[#E21E3F]/80 leading-relaxed uppercase tracking-[0.15em] font-medium max-w-xs">
+                  Paying high-value staff to do low-value data entry.
+                </p>
+              </div>
+            </div>
+
+            {/* 04: THE FIX */}
+            <div onMouseEnter={() => handleGraphHover('fix')} onMouseLeave={handleGraphLeave} className="col-span-1 p-8 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[250px] md:min-h-[400px] flex flex-col justify-between border-l-2 border-l-[#C5A059] group">
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] block mb-4 md:mb-0">04 / THE FIX</span>
+              <p className="font-serif text-3xl md:text-4xl leading-tight mb-6 md:mb-8 group-hover:text-[#C5A059] transition-colors duration-300">
+                I build the systems that do the boring work for you. <span className="text-white">You get your business back.</span>
+              </p>
+              
+              {/* STANDARDIZED CTA BUTTON */}
+              <CTAButton theme="dark" onClick={() => document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'})}>
+                 [ SEE HOW IT WORKS ]
+              </CTAButton>
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* 3. FRICTION AUDIT SECTION */}
+      <section id="friction-audit" aria-label="Friction Audit Section" className="relative bg-[#FFF2EC] z-30">
+        <FrictionAuditSection onNavigate={onNavigate} />
+      </section>
+
+      {/* 4. 7 PILLARS SECTION */}
+      <section id="seven-pillars" aria-label="Seven Pillars Section" className="relative bg-[#FFF2EC] z-30">
+        <SystemPhases onNavigate={onNavigate} />
+      </section>
+
+      {/* 5. ABOUT SECTION */}
+      <section id="about" aria-label="About Section" className="relative bg-[#FFF2EC] z-30">
+        <TheArchitect />
+      </section>
+
+      {/* 6. CASE STUDY SECTION */}
+      <section id="case-study" aria-label="Case Study Section" className="relative bg-[#FFF2EC] z-30">
+        <Feature_Group7 />
+      </section>
+
+      {/* 7. CTA SECTION */}
+      <section id="cta" aria-label="Call to Action Section" className="relative bg-[#FFF2EC] z-30">
+        <BookingCTA />
+      </section>
+
+      {/* Floating Book Audit Button */}
+      <BookAuditButton onNavigate={onNavigate} />
+    </>
   );
 };
 
-export default Feature_Group7;
+export default HomePage;
