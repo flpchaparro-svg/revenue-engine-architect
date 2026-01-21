@@ -1,30 +1,81 @@
-
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowLeft, ShieldCheck, Database, Zap, Activity, ArrowRight, CheckCircle2, X } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ShieldCheck, Database, Zap, Activity, CheckCircle2, ArrowLeft, X, Terminal } from 'lucide-react';
 import EvidenceVisual_Compare from '../components/EvidenceVisual_Compare';
+import CTAButton from '../components/CTAButton'; // STANDARDIZED
+import BackButton from '../components/BackButton'; // STANDARDIZED
 
 interface EvidenceVaultPageProps {
   onBack: () => void;
 }
 
-// --- STANDARDIZED SHAKE BUTTON ---
-const ShakeButton: React.FC<{ onClick?: () => void; children: React.ReactNode; className?: string }> = ({ onClick, children, className = "" }) => (
-  <motion.button
-    onClick={onClick}
-    whileHover={{ x: [0, -2, 2, -2, 0], transition: { duration: 0.3 } }}
-    className={`px-8 py-4 border border-[#1a1a1a] bg-transparent text-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold hover:bg-[#1a1a1a] hover:text-[#FFF2EC] transition-colors flex items-center gap-3 justify-center ${className}`}
-  >
-    {children}
-  </motion.button>
-);
+// --- TERMINAL LOG COMPONENT (Restored) ---
+const TerminalLog: React.FC = () => {
+  const [lines, setLines] = useState<string[]>([]);
+  
+  const allLines = [
+    "> Added Sydney location tags for Google... [DONE]",
+    "> Removed slow code... [SAVED 2.1MB]",
+    "> Load time: 4.2s → 0.4s [10x FASTER]"
+  ];
+
+  useEffect(() => {
+    let delay = 200;
+    allLines.forEach((line) => {
+      setTimeout(() => {
+        setLines(prev => [...prev, line]);
+      }, delay);
+      delay += 800; 
+    });
+  }, []);
+
+  return (
+    <div className="w-full bg-[#1a1a1a] p-8 border-t border-black/10 font-mono text-sm overflow-hidden">
+      <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
+        <Terminal className="w-4 h-4 text-[#C5A059]" />
+        <span className="text-[#C5A059] uppercase tracking-[0.2em] font-bold">Build Log // What I Did</span>
+      </div>
+      <div className="space-y-3">
+        {lines.map((line, i) => (
+          <motion.div 
+            key={i}
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-white/80"
+          >
+            <span className="text-[#0F766E] mr-3">➜</span>
+            {line}
+          </motion.div>
+        ))}
+        <motion.div 
+          animate={{ opacity: [0, 1] }} 
+          transition={{ repeat: Infinity, duration: 0.8 }}
+          className="w-2 h-4 bg-[#C5A059] inline-block align-middle ml-2"
+        />
+      </div>
+    </div>
+  );
+};
 
 const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isModalOpen]);
 
   const caseAudits = [
     {
@@ -80,28 +131,19 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
     >
       {/* FORENSIC ARCHIVE BACKGROUND */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden h-full">
-        {/* Macro Texture Overlay */}
         <div className="absolute inset-0 opacity-[0.03] grayscale bg-[url('https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=2000')] bg-cover mix-blend-multiply" />
         <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(rgba(26,26,26,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(26,26,26,0.1)_1px,transparent_1px)] bg-[size:40px_40px]" />
-        
-        {/* Floating Technical Label */}
         <div className="absolute top-[15%] right-[5%] font-mono text-[9px] text-black/10 uppercase tracking-[0.5em] rotate-90 origin-right fixed">
           [ EVIDENCE VAULT / VERIFIED LOGS V.1 ]
         </div>
       </div>
 
-      {/* Main Content Wrapper - Added pb-32 to prevent Footer Collision */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 relative z-10 pt-0 pb-32">
         
-        {/* BREADCRUMB NAV */}
+        {/* NAVIGATION - STANDARDIZED */}
         <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
-          <div className="flex items-center gap-6">
-            <ShakeButton onClick={onBack} className="!px-4 !py-2 border-black/20 hover:border-black">
-               <ArrowLeft className="w-4 h-4" /> 
-               [ ENGINE OVERVIEW ]
-            </ShakeButton>
-            <span className="hidden md:inline font-mono text-[10px] text-black/20 uppercase tracking-[0.3em]">/ THE EVIDENCE</span>
-          </div>
+          <BackButton onClick={onBack} label="Return to Overview" />
+          
           <div className="hidden md:flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
             <span className="font-mono text-[9px] text-black/40 uppercase tracking-[0.4em]">LOG FILE STATUS: READ ONLY</span>
@@ -161,7 +203,8 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
               <motion.div 
                 key={audit.id}
                 variants={itemVariants as any}
-                className="bg-[#FFF2EC] p-12 flex flex-col justify-between hover:bg-[#1a1a1a] hover:text-[#FFF2EC] transition-colors duration-500 group min-h-[550px]"
+                onClick={() => setIsModalOpen(true)}
+                className="bg-[#FFF2EC] p-12 flex flex-col justify-between hover:bg-[#1a1a1a] hover:text-[#FFF2EC] transition-colors duration-500 group min-h-[550px] cursor-pointer"
               >
                 <div>
                   <div className="flex justify-between items-start mb-12">
@@ -171,11 +214,11 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                   <h3 className="font-serif text-3xl mb-4 leading-none">{audit.title}</h3>
                   <p className="font-mono text-[10px] text-[#E21E3F] uppercase tracking-widest mb-6">{audit.client}</p>
                   <div className="text-4xl font-sans font-light text-[#C5A059] mb-8">{audit.impact}</div>
-                  <p className="font-sans text-sm text-black/50 leading-relaxed mb-10">{audit.desc}</p>
+                  <p className="font-sans text-sm text-black/50 leading-relaxed mb-10 group-hover:text-white/60 transition-colors">{audit.desc}</p>
                 </div>
                 
-                <div className="pt-8 border-t border-black/5">
-                   <h4 className="font-mono text-[9px] uppercase tracking-widest text-black/30 mb-4">Verified Metrics:</h4>
+                <div className="pt-8 border-t border-black/5 group-hover:border-white/10 transition-colors">
+                   <h4 className="font-mono text-[9px] uppercase tracking-widest text-black/30 group-hover:text-white/30 mb-4">Verified Metrics:</h4>
                    <ul className="space-y-2">
                      {audit.metrics.map((m, i) => (
                        <li key={i} className="flex items-center gap-3">
@@ -200,35 +243,105 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
           </div>
         </section>
 
-        {/* CALL TO ACTION - WITH SPACING FIX */}
+        {/* CALL TO ACTION - STANDARDIZED */}
         <section className="py-32 flex flex-col items-center text-center mb-24">
           <h2 className="font-serif text-5xl md:text-7xl mb-12 italic max-w-4xl leading-tight">Your company is the next <span className="text-[#C5A059]">evidence log.</span></h2>
           
-          <ShakeButton onClick={() => window.open("https://meetings-ap1.hubspot.com/felipe", "_blank")}>
+          <CTAButton theme="dark" onClick={() => window.open("https://meetings-ap1.hubspot.com/felipe", "_blank")}>
              [ AUDIT MY SYSTEM ]
-          </ShakeButton>
+          </CTAButton>
         </section>
 
-        {/* BOTTOM NAV / FOOTER SEPARATOR */}
+        {/* BOTTOM FOOTER SEPARATOR */}
         <div className="py-12 border-t border-black/10 flex flex-col md:flex-row items-center justify-between gap-8 mt-20 opacity-60">
           <div className="flex items-center gap-4">
             <CheckCircle2 className="w-5 h-5 text-[#C5A059]" />
             <span className="font-mono text-[10px] uppercase tracking-widest text-black/40">EVIDENCE VERIFIED / LOGS NOMINAL</span>
           </div>
-          <motion.button 
-            onClick={onBack} 
-            whileHover={{ x: [0, -2, 2, -2, 0], transition: { duration: 0.3 } }}
-            className="font-mono text-[10px] uppercase tracking-[0.4em] text-[#E21E3F] hover:underline underline-offset-4"
-          >
-            Return to HQ
-          </motion.button>
         </div>
       </div>
 
-      {/* MODAL (Kept as is but logic streamlined) */}
-      <div className="relative z-50">
-        {/* Logic for EvidenceVisual_Compare modal would go here if needed, removed for brevity as it was inside Feature_Group7 previously */}
-      </div>
+      {/* --- THE EVIDENCE MODAL (Restored) --- */}
+      {isModalOpen && createPortal(
+        <AnimatePresence mode="wait">
+          <div key="modal" className="fixed inset-0 z-[9999] flex items-center justify-center px-4 md:px-8">
+            
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsModalOpen(false)}
+              className="absolute inset-0 bg-black/90 backdrop-blur-md"
+            />
+
+            <motion.div 
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-6xl bg-[#FFF2EC] overflow-hidden shadow-2xl rounded-sm max-h-[90vh] flex flex-col z-10"
+            >
+               
+               {/* MODAL HEADER */}
+               <div className="flex justify-between items-center p-6 border-b border-black/10 bg-white shrink-0">
+                  <div>
+                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-tight tracking-tight">
+                       Case Study: Group 7 Security
+                    </h3>
+                    <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/50 mt-1">
+                       [ WEBSITE + SEO OVERHAUL ]
+                    </p>
+                  </div>
+                  <button 
+                    onClick={() => setIsModalOpen(false)}
+                    className="p-2 hover:bg-black/5 rounded-full transition-colors"
+                  >
+                    <X className="w-6 h-6 text-[#1a1a1a]" />
+                  </button>
+               </div>
+
+               <div className="flex-grow overflow-y-auto p-0">
+                  <EvidenceVisual_Compare 
+                    beforeLabel="BEFORE: Old .com Site"
+                    afterLabel="AFTER: New .com.au Site"
+                  />
+                  
+                  <TerminalLog />
+
+                  {/* MODAL GRID */}
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 md:p-12 bg-white border-t border-black/10">
+                      <div>
+                        <h4 className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-3">
+                           The Problem
+                        </h4>
+                        <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
+                          They had a slow <strong>.com</strong> website with no local SEO. Google thought they were a global tech company, not a Sydney security firm. Local customers couldn't find them.
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-3">
+                           What I Did
+                        </h4>
+                        <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
+                          I migrated them to <strong>.com.au</strong> and rebuilt the site from scratch — fast, mobile-first, with proper Sydney location tags so Google knows exactly where they operate.
+                        </p>
+                      </div>
+                      <div>
+                        <h4 className="font-mono text-xs font-bold text-[#C5A059] mb-3 uppercase tracking-[0.2em]">
+                           The Result
+                        </h4>
+                        <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
+                          Page load dropped from <strong>4.2s to 0.4s</strong>. Local search rankings improved. The site now converts visitors instead of losing them.
+                        </p>
+                      </div>
+                  </div>
+               </div>
+
+            </motion.div>
+          </div>
+        </AnimatePresence>,
+        document.body
+      )}
 
     </motion.div>
   );
