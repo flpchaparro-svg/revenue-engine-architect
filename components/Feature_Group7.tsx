@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, AlertTriangle, Activity, Zap, X, Terminal } from 'lucide-react';
 import EvidenceVisual_Compare from './EvidenceVisual_Compare';
+import CTAButton from './CTAButton';
 
 const TerminalLog: React.FC = () => {
   const [lines, setLines] = useState<string[]>([]);
@@ -245,8 +246,10 @@ const Feature_Group7: React.FC = () => {
           </div>
 
           {/* Footer Action */}
-          <div className="py-5 border-t border-white/5 bg-black/40 flex items-center justify-center gap-3 text-white hover:text-[#C5A059] transition-colors relative z-30">
-               <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold">See Full Case Study</span>
+          <div className="py-5 border-t border-white/5 bg-black/40 flex items-center justify-center relative z-30">
+               <CTAButton variant="bracket" size="sm" theme="dark">
+                 SEE FULL CASE STUDY
+               </CTAButton>
           </div>
 
         </motion.div>

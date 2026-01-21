@@ -208,9 +208,13 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
               <CTAButton theme="light" onClick={() => onNavigate('contact')}>
                 [ LET'S TALK ]
               </CTAButton>
-              <a href="#friction-audit" onClick={(e) => { e.preventDefault(); document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'}); }} className="relative group flex items-center gap-3 cursor-pointer">
-                <span className="font-mono text-xs font-bold text-[#1a1a1a] uppercase tracking-[0.2em] border-b border-[#1a1a1a] pb-0.5 group-hover:border-b-2 group-hover:pb-1 transition-all duration-300">SEE HOW IT WORKS</span>
-              </a>
+              <CTAButton 
+                variant="bracket" 
+                theme="light" 
+                onClick={() => document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'})}
+              >
+                SEE HOW IT WORKS
+              </CTAButton>
             </div>
           </div>
         </div>
