@@ -6,6 +6,8 @@ import HeroVisual_Suspension from '../../components/HeroVisual_Suspension';
 import FAQSection from '../../components/FAQSection';
 import { getSystemPageFAQs } from '../../constants/faqData';
 import { SystemArchitecture } from '../../components/SystemArchitecture';
+import CTAButton from '../../components/CTAButton'; // STANDARDIZED BUTTON
+import BackButton from '../../components/BackButton'; // STANDARDIZED BACK LINK
 
 // --- DATA ---
 const ALL_PILLARS = [
@@ -147,24 +149,19 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
       {!isSelected && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-8 h-full flex flex-col justify-between">
           <div className="flex justify-between items-start">
-            {/* Type B (Micro Label) */}
             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.15em] opacity-40">{pillar.number}</span>
             <pillar.icon className="w-5 h-5 opacity-40 group-hover:opacity-100 transition-opacity" style={{ color: pillar.categoryHex }} />
           </div>
           <div>
-            {/* Type C (Technical Data) */}
             <span className="font-sans text-[10px] font-bold uppercase tracking-[0.1em] mb-2 block" style={{ color: pillar.categoryHex }}>
               <span className="hidden lg:inline">{pillar.technicalLabel}</span>
               <span className="lg:hidden">{pillar.technicalLabel}</span>
             </span>
-            {/* COMPACT TITLE: text-2xl md:text-3xl (Reverted from 3xl/4xl) */}
             <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-2">{pillar.title}</h3>
-            {/* COMPACT BODY: text-sm (Reverted from text-base) */}
             <p className="font-sans text-sm leading-relaxed text-[#1a1a1a]/70 mb-2">
               <span className="hidden lg:inline">{pillar.body}</span>
               <span className="lg:hidden">{pillar.bodyMobile}</span>
             </p>
-            {/* Type A Subtitle */}
             <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40 mt-4">
               <span className="hidden lg:inline">{pillar.subtitle}</span>
               <span className="lg:hidden">{pillar.subtitleMobile}</span>
@@ -187,11 +184,9 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 border-b border-[#1a1a1a]/10 pb-10">
               <div>
                 <div className="flex items-center gap-3 mb-6">
-                  {/* Type A Label */}
                   <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>{pillar.number} / {pillar.categoryLabel}</span>
                   <div className="w-12 h-px" style={{ backgroundColor: pillar.categoryHex }} />
                 </div>
-                {/* H2 Title - Component Standard (Not Mega Header) */}
                 <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl tracking-tight text-[#1a1a1a] mb-2">{pillar.title}</h2>
                 <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed max-w-3xl">{pillar.description}</p>
               </div>
@@ -208,9 +203,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
                     <div className="mb-4 flex items-center justify-between">
                       <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>0{idx + 1}</span>
                     </div>
-                    {/* H3 Title - Sub-header Standard */}
                     <h4 className="font-serif text-xl md:text-2xl leading-tight tracking-tight mb-4 text-[#1a1a1a]">{sub.title}</h4>
-                    {/* Body Text - Component Standard */}
                     <p className="font-sans text-base leading-relaxed text-[#1a1a1a]/70">{sub.description}</p>
                   </motion.div>
                 ))}
@@ -219,13 +212,19 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             {/* Footer: System Purpose & CTA */}
             <div className="mt-12 w-full flex flex-col md:flex-row justify-between items-end border-t border-[#1a1a1a]/10 pt-8">
               <div className="mb-6 md:mb-0">
-                  {/* Type C (Technical Data) */}
                   <span className="font-sans text-[10px] font-bold uppercase tracking-[0.1em] opacity-60 block mb-2">System Purpose</span>
                   <p className="font-serif text-xl italic text-[#1a1a1a]">{pillar.systemPurpose}</p>
               </div>
-              <button onClick={(e) => { e.stopPropagation(); onNavigate(pillar.id); }} className="group flex items-center gap-3">
-                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: pillar.categoryHex }}>[ SEE PILLAR ]</span>
-              </button>
+              
+              {/* STANDARDIZED CTA BUTTON */}
+              <div onClick={(e) => e.stopPropagation()}>
+                <CTAButton 
+                  theme="light" 
+                  onClick={() => onNavigate(pillar.id)}
+                >
+                  [ SEE PILLAR ]
+                </CTAButton>
+              </div>
             </div>
 
             {/* Close Button */}
@@ -297,14 +296,10 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
       {/* HERO SECTION */}
       <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
+          
+          {/* NAV BACK - STANDARDIZED */}
           <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
-            <button 
-              onClick={onBack}
-              className="group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] hover:text-[#C5A059] transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-              / Return to Home
-            </button>
+            <BackButton onClick={onBack} label="Return to Home" />
           </div>
           
           <motion.div 
@@ -315,7 +310,6 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
             className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 flex-1 content-center items-center"
           >
             <div className="flex flex-col justify-center">
-              {/* EYEBROW: Mono, Uppercase, Black (matching Home Page) */}
               <motion.div variants={heroItem} className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
                 <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
                 <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
@@ -323,12 +317,10 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
                 </span>
               </motion.div>
               
-              {/* H1 TITLE: Serif, matching Home Page style */}
               <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
                 Business as an <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Organism.</span>
               </motion.h1>
               
-              {/* SUBTITLE: Muted, Relaxed, with border-l (matching Home Page) */}
               <motion.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
                 Your business is not a machine; it is a living system. We verify the connections between your revenue, your tech, and your team.
               </motion.p>
@@ -382,9 +374,6 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
           </motion.div>
         </div>
       </section>
-
-      {/* CTA BLOCK - REMOVED! */}
-      {/* (Deleted "Ready to stop guessing?" section) */}
 
       <FAQSection faqs={systemFAQs} accentColor="#C5A059" title="Questions?" subtitle="Everything you need to know before choosing a service." onNavigate={onNavigate} />
       <GlobalFooter onNavigate={onNavigate} />
