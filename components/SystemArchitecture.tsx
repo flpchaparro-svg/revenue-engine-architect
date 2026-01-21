@@ -1,233 +1,206 @@
-import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import { X, Check } from 'lucide-react';
-import { VizAcquisition, VizVelocity, VizIntelligence } from './ArchitecturePageVisuals';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { Play, ArrowDown } from 'lucide-react';
 
-// --- DATA: RINGS & FLOATING CARDS ---
-const PILLAR_DATA = [
-  // GET CLIENTS (Left Side)
-  { 
-    id: 'pillar1', group: 'GET CLIENTS', title: 'THE FACE', subtitle: 'Websites & E-commerce',
-    color: '#E21E3F', x: '15%', y: '22%', 
-    modalTitle: 'The Face',
-    modalDesc: "Your website isn't a brochure. It's a lead-catching machine. I build sites that capture enquiries, sell products, and feed everything straight into your CRM so nothing gets lost.",
-    modalFeatures: ["High-Speed Landing Pages", "E-commerce Integration", "Brand-First Design"]
-  },
-  { 
-    id: 'pillar2', group: 'GET CLIENTS', title: 'THE BRAIN', subtitle: 'CRM & Lead Tracking',
-    color: '#E21E3F', x: '15%', y: '42%',
-    modalTitle: 'The Brain',
-    modalDesc: "If it's not in the CRM, it didn't happen. I set up systems that track every call, email, and deal stage automatically. No more lost leads or forgotten follow-ups.",
-    modalFeatures: ["Unified Inbox", "Visual Deal Pipeline", "Automated Follow-Ups"]
-  },
-  { 
-    id: 'pillar3', group: 'GET CLIENTS', title: 'THE MUSCLE', subtitle: 'Automation',
-    color: '#E21E3F', x: '15%', y: '62%',
-    modalTitle: 'The Muscle',
-    modalDesc: "Data entry, invoicing, scheduling. The boring stuff that eats your week. I connect your systems so it runs itself and your team can focus on actual work.",
-    modalFeatures: ["Auto-Invoicing", "Contract Generation", "Task Routing"]
-  },
-  // SCALE FASTER (Right Side)
-  { 
-    id: 'pillar4', group: 'SCALE FASTER', title: 'THE VOICE', subtitle: 'AI Assistants',
-    color: '#C5A059', x: '85%', y: '22%',
-    modalTitle: 'The Voice',
-    modalDesc: "AI that sounds human, reasons like a human, and qualifies leads while you sleep. I build bots that answer your phone, reply to enquiries, and book appointments 24/7.",
-    modalFeatures: ["AI Phone Answering", "Website Chatbots", "Internal Knowledge Bots"]
-  },
-  { 
-    id: 'pillar5', group: 'SCALE FASTER', title: 'THE PRESENCE', subtitle: 'Content Systems',
-    color: '#C5A059', x: '85%', y: '42%',
-    modalTitle: 'The Presence',
-    modalDesc: "You know you should be posting, but who has the time? I turn one voice note into a blog, social posts, and a newsletter. You talk, the machine handles the rest.",
-    modalFeatures: ["Video Production", "Auto-Posting", "Content Repurposing"]
-  },
-  { 
-    id: 'pillar6', group: 'SCALE FASTER', title: 'THE SOUL', subtitle: 'Team Training',
-    color: '#C5A059', x: '85%', y: '62%',
-    modalTitle: 'The Soul',
-    modalDesc: "New tech fails when people don't use it. I create short training videos and guides that make adoption easy. Your team actually uses the tools you paid for.",
-    modalFeatures: ["Micro-Learning Videos", "Visual SOPs", "Q&A Libraries"]
-  },
-  // SEE CLEARLY (Right Side)
-  { 
-    id: 'pillar7', group: 'SEE CLEARLY', title: 'THE EYES', subtitle: 'Dashboards & Reporting',
-    color: '#1a1a1a', x: '50%', y: '75%',
-    modalTitle: 'The Eyes',
-    modalDesc: "Stop flying blind. I build dashboards that show revenue, margins, and pipeline on one screen, updated live. You make decisions based on data, not gut feeling.",
-    modalFeatures: ["Executive Dashboards", "Profit Tracking", "Forecasting"]
-  }
-];
+// --- TYPES ---
+interface NarrativeSectionProps {
+  phase: string;
+  title: string;
+  body: string;
+  color: string;
+  align: 'left' | 'right';
+  isLast?: boolean;
+}
 
-// --- VARIANTS ---
-const cardVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
-  hover: { scale: 1.05, zIndex: 50, transition: { duration: 0.2, ease: "easeOut" } }
-};
+// --- SUB-COMPONENT: VIDEO HOLDER ---
+const VideoPlaceholder = ({ color, delay }: { color: string; delay: number }) => (
+  <motion.div 
+    initial={{ scale: 0.9, opacity: 0, filter: 'blur(10px)' }}
+    whileInView={{ scale: 1, opacity: 1, filter: 'blur(0px)' }}
+    viewport={{ once: true, margin: "-10%" }}
+    transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
+    className="relative w-full aspect-square md:w-[400px] md:h-[400px] bg-[#1a1a1a] border border-[#1a1a1a]/10 group cursor-pointer overflow-hidden"
+  >
+    {/* Ambient Background */}
+    <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-white/0 opacity-50" />
+    
+    {/* Corner Accents */}
+    <div className="absolute top-4 left-4 w-2 h-2 border-t border-l border-white/40" />
+    <div className="absolute top-4 right-4 w-2 h-2 border-t border-r border-white/40" />
+    <div className="absolute bottom-4 left-4 w-2 h-2 border-b border-l border-white/40" />
+    <div className="absolute bottom-4 right-4 w-2 h-2 border-b border-r border-white/40" />
 
-const SystemModal = ({ data, onClose }: { data: typeof PILLAR_DATA[0], onClose: () => void }) => (
-  <div className="fixed inset-0 z-[200] flex items-center justify-center px-4 pointer-events-auto">
-    <motion.div 
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-      onClick={onClose} className="absolute inset-0 bg-white/80 backdrop-blur-sm"
-    />
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95, y: 10 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95, y: 10 }}
-      className="relative w-full max-w-[450px] bg-white border shadow-2xl overflow-hidden rounded-sm"
-      style={{ borderColor: `${data.color}33` }}
-    >
-      <button onClick={onClose} className="absolute top-4 right-4 p-2 hover:bg-gray-50 rounded-full transition-colors z-10">
-          <X className="w-4 h-4 text-gray-400" />
-      </button>
-      <div className="h-1.5 w-full" style={{ backgroundColor: data.color }} />
-      <div className="p-8 md:p-10">
-          <div className="flex items-center gap-3 mb-4">
-             {/* Type A (Eyebrow) - Modal needs to be clear */}
-             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: data.color }}>{data.group}</span>
-             <div className="h-px flex-grow bg-gray-100" />
-          </div>
-          {/* H3 Standard */}
-          <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-2">{data.modalTitle}</h3>
-          <p className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70 mb-8 mt-4">{data.modalDesc}</p>
-          <div className="space-y-4 pt-6 border-t border-gray-100">
-              {data.modalFeatures.map((feature, i) => (
-                  <div key={i} className="flex items-center gap-3 group">
-                      <div className="flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center bg-gray-50 group-hover:bg-gray-100 transition-colors">
-                          <Check className="w-3 h-3" style={{ color: data.color }} />
-                      </div>
-                      <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/70">{feature}</span>
-                  </div>
-              ))}
-          </div>
+    {/* Center Play Button */}
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div 
+        className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center backdrop-blur-sm transition-all duration-500 group-hover:scale-110 group-hover:border-white/60"
+        style={{ backgroundColor: `${color}20` }}
+      >
+        <Play className="w-6 h-6 text-white fill-white ml-1" />
       </div>
-    </motion.div>
-  </div>
+    </div>
+    
+    {/* Scanline Effect */}
+    <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.1)_50%)] bg-[length:100%_4px] pointer-events-none opacity-20" />
+  </motion.div>
 );
 
-export const SystemArchitecture = () => {
-  const [selectedPillar, setSelectedPillar] = useState<typeof PILLAR_DATA[0] | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
-
-  // Animation Maps
-  const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  const acqY = useTransform(scrollYProgress, [0, 0.3], ["20vh", "50%"]);
-  const velY = useTransform(scrollYProgress, [0, 0.3], ["50vh", "50%"]);
-  const intY = useTransform(scrollYProgress, [0, 0.3], ["80vh", "50%"]);
-  const engineScale = useTransform(scrollYProgress, [0.3, 0.4], [1, 1.4]);
+// --- SUB-COMPONENT: NARRATIVE SECTION ---
+const NarrativeSection: React.FC<NarrativeSectionProps> = ({ phase, title, body, color, align, isLast }) => {
+  const containerRef = useRef(null);
   
-  const cardsOpacity = useTransform(scrollYProgress, [0.4, 0.55], [0, 1]); 
-  const lineDraw = useTransform(scrollYProgress, [0.55, 0.7], [0, 1]); 
+  // Local scroll progress for the line growth within this section
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"]
+  });
+
+  const heightScale = useSpring(scrollYProgress, { stiffness: 60, damping: 20 });
 
   return (
-    <div ref={containerRef} className="relative h-[300vh] bg-[#FFF2EC]">
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
+    <div ref={containerRef} className="relative w-full min-h-[80vh] flex items-center justify-center py-20 lg:py-0">
+      
+      {/* CENTRAL SPINE (THE LIVING LINE) */}
+      <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[1px] bg-[#1a1a1a]/10 -translate-x-1/2">
+        {/* The Colored Fill */}
+        <motion.div 
+          style={{ 
+            height: '100%', 
+            scaleY: isLast ? 0 : heightScale, 
+            transformOrigin: 'top',
+            backgroundColor: color
+          }} 
+          className="w-full absolute top-0 left-0"
+        />
         
-        {/* Connection Lines */}
-        <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
-          {PILLAR_DATA.map((card, i) => (
-             <motion.line key={i} x1="50%" y1="50%" x2={card.x} y2={card.y} stroke={card.color} strokeWidth="1" strokeDasharray="4 4" style={{ pathLength: lineDraw, opacity: 0.3 }} />
-          ))}
-        </svg>
+        {/* The Connector Node */}
+        <motion.div 
+          initial={{ scale: 0, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          viewport={{ once: true, margin: "-40%" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full border-2 border-[#FFF2EC] z-10 shadow-sm"
+          style={{ backgroundColor: color }}
+        />
+      </div>
 
-        {/* Central Engine */}
-        <div className="relative w-full max-w-7xl h-full mx-auto pointer-events-none">
-            
-            {/* Acquisition */}
-            <motion.div style={{ top: acqY, scale: engineScale, x: "-50%", y: "-50%" }} className="absolute left-1/2 z-30">
-               <div className="relative flex items-center justify-center">
-                 <VizAcquisition color="#E21E3F" />
-                 <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:left-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-left md:ml-8 md:w-80">
-                    <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] block mb-2 md:mb-1">SYSTEM 01 / GET CLIENTS</span>
-                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-2">Acquisition</h3>
-                    <p className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">
-                      <span className="hidden md:inline">Capture demand, store data, and process revenue without chaos.</span>
-                      <span className="md:hidden">Capture leads automatically</span>
-                    </p>
-                 </motion.div>
-               </div>
-            </motion.div>
-
-            {/* Velocity */}
-            <motion.div style={{ top: velY, scale: engineScale, x: "-50%", y: "-50%" }} className="absolute left-1/2 z-20">
-               <div className="relative flex items-center justify-center">
-                  <VizVelocity color="#C5A059" />
-                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:left-auto md:right-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-right md:mr-8 md:w-80">
-                    <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] block mb-2 md:mb-1">SYSTEM 02 / SCALE FASTER</span>
-                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-2">Velocity</h3>
-                    <p className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">
-                      <span className="hidden md:inline">Do more with less. AI and content that multiply your output.</span>
-                      <span className="md:hidden">Multiply output without hiring</span>
-                    </p>
-                 </motion.div>
-               </div>
-            </motion.div>
-
-            {/* Intelligence */}
-            <motion.div style={{ top: intY, scale: engineScale, x: "-50%", y: "-50%" }} className="absolute left-1/2 z-10">
-               <div className="relative flex items-center justify-center">
-                  <VizIntelligence color="#1a1a1a" />
-                  <motion.div style={{ opacity: textOpacity }} className="absolute w-64 text-center left-1/2 -translate-x-1/2 bottom-24 md:left-full md:bottom-auto md:top-1/2 md:-translate-y-1/2 md:translate-x-0 md:text-left md:ml-8 md:w-80">
-                    <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] block mb-2 md:mb-1">SYSTEM 03 / SEE CLEARLY</span>
-                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-2">Intelligence</h3>
-                    <p className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">
-                      <span className="hidden md:inline">Stop guessing. See your numbers and steer with confidence.</span>
-                      <span className="md:hidden">Real-time business visibility</span>
-                    </p>
-                 </motion.div>
-               </div>
-            </motion.div>
-        </div>
-
-        {/* Floating Cards */}
-        <motion.div style={{ opacity: cardsOpacity }} className="absolute inset-0 pointer-events-none z-40">
-           {PILLAR_DATA.map((card) => (
-              <motion.div
-                key={card.id}
-                variants={cardVariants}
-                initial="hidden"
-                animate="visible"
-                whileHover="hover"
-                style={{ 
-                    left: card.x, 
-                    top: card.y, 
-                    x: "-50%",
-                    y: "-50%",
-                    borderColor: `${card.color}40`
-                }}
-                className="absolute cursor-pointer bg-white/95 backdrop-blur-sm border rounded-[2px] p-3 md:p-5 w-36 md:w-56 flex flex-col items-center text-center shadow-sm pointer-events-auto transition-all duration-300 hover:shadow-xl hover:scale-105 group z-40 text-[#1a1a1a]"
-                onClick={() => setSelectedPillar(card)}
-              >
-                {/* Technical Eyebrow (Tiny on mobile) */}
-                <span 
-                    className="font-mono text-[8px] md:text-[9px] font-bold uppercase tracking-widest mb-1 md:mb-2 opacity-80" 
-                    style={{ color: card.color }}
-                >
-                    {card.group}
-                </span>
-                
-                {/* Solid Serif Title (Tight Leading, Small on Mobile) */}
-                <h4 className="font-serif text-sm md:text-xl text-[#1a1a1a] leading-[1.0] md:leading-[0.9] tracking-tight">
-                  {card.title}
-                </h4>
-                
-                {/* Technical View Indicator (Desktop Only) */}
-                <div className="mt-0 md:mt-4 hidden md:flex items-center gap-2">
-                   <span className="h-px w-3 bg-[#1a1a1a] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                   <span className="font-mono text-[9px] font-bold text-[#1a1a1a] tracking-widest">VIEW</span>
-                   <span className="h-px w-3 bg-[#1a1a1a] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
-              </motion.div>
-           ))}
+      <div className={`w-full max-w-[1400px] px-6 md:px-12 lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center relative z-10 ${align === 'right' ? 'md:grid-flow-dense' : ''}`}>
+        
+        {/* TEXT CONTENT */}
+        <motion.div 
+          initial={{ x: align === 'left' ? -50 : 50, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true, margin: "-20%" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className={`flex flex-col pl-12 md:pl-0 ${align === 'right' ? 'md:order-2 md:pl-12 text-left' : 'md:text-right md:pr-12'}`}
+        >
+          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] mb-4 flex items-center gap-2 md:justify-end" style={{ color: color, flexDirection: align === 'right' ? 'row' : 'row-reverse' }}>
+            {phase}
+            <div className="w-8 h-[1px]" style={{ backgroundColor: color }} />
+          </span>
+          
+          <h3 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] mb-6 leading-none tracking-tighter">
+            {title}
+          </h3>
+          
+          <p className="font-sans text-lg md:text-xl font-light text-[#1a1a1a]/70 leading-relaxed">
+            {body}
+          </p>
         </motion.div>
 
-        <AnimatePresence>
-            {selectedPillar && <SystemModal data={selectedPillar} onClose={() => setSelectedPillar(null)} />}
-        </AnimatePresence>
+        {/* VIDEO CONTENT */}
+        <div className={`pl-12 md:pl-0 ${align === 'right' ? 'md:order-1' : ''} flex justify-center ${align === 'right' ? 'md:justify-end' : 'md:justify-start'}`}>
+          <VideoPlaceholder color={color} delay={0.2} />
+        </div>
+
       </div>
+    </div>
+  );
+};
+
+// --- MAIN COMPONENT ---
+export const SystemArchitecture: React.FC = () => {
+  const originRef = useRef(null);
+  
+  // Initial line growth from origin
+  const { scrollYProgress: originProgress } = useScroll({
+    target: originRef,
+    offset: ["center center", "end start"]
+  });
+
+  return (
+    <div className="w-full bg-[#FFF2EC] relative overflow-hidden">
+      
+      {/* 1. HERO / ORIGIN */}
+      <div ref={originRef} className="relative min-h-[50vh] flex flex-col items-center justify-center text-center pt-32 pb-20">
+         <motion.div 
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ duration: 0.8 }}
+         >
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40 mb-6 block">/ THE ORIGIN</span>
+           <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-[#1a1a1a] tracking-tighter mb-4">
+             How to start your <br />
+             <span className="italic font-serif text-[#C5A059]">Business the Right Way.</span>
+           </h2>
+           <p className="font-sans text-lg text-[#1a1a1a]/60 max-w-lg mx-auto">
+             Most founders guess. We engineer. <br className="hidden md:block"/> This is the blueprint for a self-sustaining organism.
+           </p>
+         </motion.div>
+
+         {/* STARTING LINE */}
+         <div className="absolute left-6 md:left-1/2 bottom-0 w-[1px] h-32 bg-[#1a1a1a]/10 -translate-x-1/2">
+            <motion.div 
+              style={{ scaleY: originProgress, transformOrigin: 'top' }}
+              className="w-full h-full bg-[#E21E3F] absolute top-0 left-0"
+            />
+         </div>
+      </div>
+
+      {/* 2. PHASE I: IGNITION (RED) */}
+      <NarrativeSection 
+        phase="PHASE 01 // TRACTION"
+        title="Get Clients."
+        body="A business is an organism that needs energy. We build the infrastructure to feed it: Lead Magnets to attract, a CRM to organize data, and Automation to streamline the chaos."
+        color="#E21E3F"
+        align="left"
+      />
+
+      {/* 3. PHASE II: MOMENTUM (GOLD) */}
+      <NarrativeSection 
+        phase="PHASE 02 // EXPANSION"
+        title="Scale Faster."
+        body="Why scaling is the only way to go. Once the manual work is gone, we pour fuel on the fire. Efficient systems allow you to handle 10x the volume without 10x the staff."
+        color="#C5A059"
+        align="right"
+      />
+
+      {/* 4. PHASE III: VISION (BLACK) */}
+      <NarrativeSection 
+        phase="PHASE 03 // CLARITY"
+        title="See Clearly."
+        body="You cannot fix what you cannot measure. We install 'Control Towers' so you stop driving blind. See profit, loss, and bottlenecks instantly."
+        color="#1a1a1a"
+        align="left"
+        isLast={true}
+      />
+
+      {/* 5. FOOTER CONNECTOR */}
+      <div className="relative py-24 flex justify-center">
+         <motion.div 
+           initial={{ opacity: 0 }}
+           whileInView={{ opacity: 1 }}
+           viewport={{ once: true }}
+           className="flex flex-col items-center gap-4"
+         >
+           <div className="w-[1px] h-24 bg-gradient-to-b from-[#1a1a1a] to-transparent opacity-20" />
+           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40 animate-pulse">
+             SCROLL TO EXPLORE THE PARTS
+           </span>
+           <ArrowDown className="w-4 h-4 text-[#1a1a1a]/40 animate-bounce" />
+         </motion.div>
+      </div>
+
     </div>
   );
 };
