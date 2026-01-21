@@ -50,9 +50,10 @@ const TheArchitect: React.FC = () => {
 
               {/* Technical Overlay */}
               <div className="absolute top-6 left-6 z-20">
-                <div className={`font-mono text-xs font-bold uppercase tracking-[0.2em] flex items-center gap-3 transition-colors duration-500 ${mode === 'architect' ? 'text-white/60' : 'text-[#C5A059]'}`}>
+                {/* Type B: Card Tag */}
+                <div className={`font-mono text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-3 transition-colors duration-500 ${mode === 'architect' ? 'text-white/60' : 'text-[#C5A059]'}`}>
                    <span className="w-1.5 h-1.5 rounded-full bg-[#E21E3F] animate-pulse" />
-                   FELIPE CHAPARRO / SYDNEY
+                   FELIPE CHAPARRO // SYDNEY
                 </div>
               </div>
 
@@ -67,8 +68,9 @@ const TheArchitect: React.FC = () => {
           <div className="lg:col-span-7 relative">
              {/* PROFILE SWITCH - High Visibility Dashboard Style */}
              <div className="flex flex-col sm:flex-row sm:items-center gap-6 mb-12 border-b border-black/5 pb-8">
+              {/* Type A: Section Anchor */}
               <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/60">
-                / VIEW MODE:
+                / VIEW MODE
               </span>
               
               <div className="flex bg-[#1a1a1a]/5 p-1.5 rounded-sm w-fit">
@@ -126,8 +128,9 @@ const TheArchitect: React.FC = () => {
                  <div className="mt-16 pt-10 border-t border-black/5">
                     <div className="flex items-center gap-8 mb-8">
                        <div>
-                          <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-black/30 mb-1">
-                             {mode === 'architect' ? 'The Architect' : 'The Human'}
+                          {/* Type B: Card Tag */}
+                          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-black/30 mb-1">
+                             {mode === 'architect' ? 'THE ARCHITECT' : 'THE HUMAN'}
                           </p>
                           <p className={`font-serif text-2xl transition-colors duration-500 ${mode === 'architect' ? 'text-[#1a1a1a]' : 'text-[#C5A059]'}`}>
                              Felipe Chaparro

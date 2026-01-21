@@ -48,7 +48,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
   const steps = [
     {
       id: '01',
-      phase: 'PHASE_I',
+      phase: 'PHASE I',
       label: '[ DIAGNOSE ]',
       title: 'Find the Leaks',
       text: "I don't guess. I look for the repetitive tasks burning your team, the stuff that eats 15 hours a week. I find where data gets typed twice, where leads go cold, and where profit disappears.",
@@ -59,7 +59,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
     },
     {
       id: '02',
-      phase: 'PHASE_II',
+      phase: 'PHASE II',
       label: '[ DESIGN ]',
       title: 'Pick the Right Tools',
       text: "I'm not locked into HubSpot or Salesforce, so I find what actually fits your business. That way you're not paying for features you'll never use. We design the logic before we write a single line of code.",
@@ -70,7 +70,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
     },
     {
       id: '03',
-      phase: 'PHASE_III',
+      phase: 'PHASE III',
       label: '[ BUILD ]',
       title: 'Ship Fast & Iterate',
       text: "No 6-month projects that drain your budget. I build in sprints so you start seeing progress in weeks, not quarters. We build the core, test it live, and refine as we go.",
@@ -81,7 +81,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
     },
     {
       id: '04',
-      phase: 'PHASE_IV',
+      phase: 'PHASE IV',
       label: '[ HANDOVER ]',
       title: 'Make It Stick',
       text: "Software fails when people don't use it. I build the training materials and run the workshops so your team actually prefers the new way. I don't leave until it's their new normal.",
@@ -134,9 +134,10 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* SECTION: PHILOSOPHY CARDS */}
         <div className="mb-32 md:mb-40">
           <Section className="mb-16">
+            {/* Type A: Section Anchor */}
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 flex items-center gap-2">
               <Terminal className="w-4 h-4" />
-              OPERATING SYSTEM
+              / OPERATING SYSTEM
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
               Core <span className="italic font-serif text-[#C5A059]">Principles.</span>
@@ -148,7 +149,8 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                <Section key={principle.id} delay={idx * 0.1} className="group bg-white p-8 md:p-12 border border-[#1a1a1a]/5 hover:border-[#1a1a1a]/20 shadow-sm hover:shadow-xl transition-all duration-500 rounded-sm relative overflow-hidden">
                  <div className="absolute top-0 left-0 w-full h-1 bg-[#1a1a1a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                  <div className="flex justify-between items-start mb-8">
-                    <span className="font-mono text-[9px] uppercase tracking-[0.2em] font-bold text-[#1a1a1a]/40 group-hover:text-[#1a1a1a] transition-colors">
+                    {/* Type B: Card Tag */}
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold text-[#1a1a1a]/40 group-hover:text-[#1a1a1a] transition-colors">
                       {principle.label}
                     </span>
                     <principle.icon className="w-6 h-6 text-[#1a1a1a]/20 group-hover:text-[#C5A059] transition-colors" />
@@ -167,9 +169,10 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* SECTION: THE EXECUTION PATH */}
         <div className="mb-32">
           <Section className="mb-20">
+            {/* Type A: Section Anchor */}
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center gap-2">
               <Sliders className="w-4 h-4" />
-              METHODOLOGY
+              / METHODOLOGY
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
               The Execution <span className="italic font-serif text-[#C5A059]">Path.</span>
@@ -188,7 +191,8 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                      </div>
                   </div>
                   <div className={`flex-1 md:text-right ${idx % 2 !== 0 ? 'md:text-left' : ''} pl-12 md:pl-0`}>
-                     <span className={`font-mono text-[9px] uppercase tracking-[0.2em] font-bold mb-2 block ${step.color}`}>
+                     {/* Type B: Card Tag */}
+                     <span className={`font-mono text-[10px] uppercase tracking-[0.2em] font-bold mb-2 block ${step.color}`}>
                        {step.phase}
                      </span>
                      <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] mb-4">
@@ -209,8 +213,9 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         <Section className="mb-32">
           <div className="bg-[#1a1a1a] text-white p-12 md:p-24 text-center relative overflow-hidden rounded-sm group cursor-default">
              <div className="relative z-10 flex flex-col items-center">
-                <span className="font-mono text-xs text-[#C5A059] uppercase tracking-widest mb-6 block">
-                  Project Initation
+                {/* Type A: Section Anchor (Footer CTA) */}
+                <span className="font-mono text-xs font-bold text-[#C5A059] uppercase tracking-[0.2em] mb-6 block">
+                  / PROJECT INITIATION
                 </span>
                 <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tighter text-white mb-12">
                   Ready to <span className="italic font-serif text-[#C5A059]">Start?</span>
@@ -226,8 +231,9 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                 
                 <div className="flex items-center gap-2 opacity-50 mt-6">
                   <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                  <p className="font-mono text-[10px] text-zinc-400 uppercase tracking-widest">
-                    Accepting New Clients
+                  {/* Type B: Card Tag */}
+                  <p className="font-mono text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em]">
+                    ACCEPTING NEW CLIENTS
                   </p>
                 </div>
              </div>

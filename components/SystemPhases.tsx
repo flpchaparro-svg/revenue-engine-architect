@@ -292,6 +292,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       {!isBlueprint && (
                         <div className="h-1/2 relative border-b border-[#1a1a1a]/5 bg-[#FAFAFA]">
                           <div className="absolute top-6 left-6 z-20">
+                            {/* Type B: Card Tag */}
                             <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40">
                               PHASE 0{activeIndex + 1} // {activePhase.title}
                             </div>
@@ -437,7 +438,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       {/* MOBILE TOP VISUALIZER */}
                       <div className="relative h-40 w-full border-b border-[#1a1a1a]/5 lg:hidden shrink-0 overflow-hidden bg-[#FAFAFA]">
                           <div className="absolute top-4 left-4 z-10">
-                             <span className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40">
+                             {/* Type B: Card Tag */}
+                             <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40">
                                {service.subtitle || 'SERVICE'}
                              </span>
                           </div>
@@ -472,8 +474,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                               <span className="hidden lg:inline">{getDisplayTitle(service.title)}</span>
                             </h4>
                             
-                            {/* Subtitle/Label - Mono for technical feel */}
-                            <p className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] mb-4"
+                            {/* Type B: Card Tag - Subtitle */}
+                            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] mb-4"
                                style={{ color: activePhase.accent }}>
                               {service.subtitle}
                             </p>
@@ -543,7 +545,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                              <span className="lg:hidden">{systemCardData.titleMobile}</span>
                              <span className="hidden lg:inline">{systemCardData.title}</span>
                            </h4>
-                           <p className="font-mono text-[9px] text-[#C5A059] mb-4 uppercase tracking-[0.2em] font-bold">
+                           {/* Type B: Card Tag */}
+                           <p className="font-mono text-[10px] text-[#C5A059] mb-4 uppercase tracking-[0.2em] font-bold">
                              {systemCardData.subtitle}
                            </p>
                            <p className="font-sans text-sm text-white/50 leading-relaxed">

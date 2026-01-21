@@ -29,7 +29,8 @@ const TerminalLog: React.FC = () => {
     <div className="w-full bg-[#1a1a1a] p-8 border-t border-black/10 font-mono text-sm overflow-hidden">
       <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
         <Terminal className="w-4 h-4 text-[#C5A059]" />
-        <span className="text-[#C5A059] uppercase tracking-[0.2em] font-bold">Build Log // What I Did</span>
+        {/* Type B: Card Tag */}
+        <span className="text-[#C5A059] uppercase tracking-[0.2em] font-bold">BUILD LOG // WHAT I DID</span>
       </div>
       <div className="space-y-3">
         {lines.map((line, i) => (
@@ -75,7 +76,7 @@ const Feature_Group7: React.FC = () => {
         {/* --- SECTION HEADER --- */}
         <div className="mb-16 max-w-2xl">
           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block">
-            // REAL RESULTS
+            / REAL RESULTS
           </span>
           {/* FIXED: Smooth scaling 4xl -> 5xl -> 7xl */}
           <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-[#1a1a1a] leading-[0.95] tracking-tighter mb-6">
@@ -124,12 +125,14 @@ const Feature_Group7: React.FC = () => {
           <div className="flex justify-between items-center px-6 py-4 border-b border-white/5 bg-black/40 relative z-30">
               <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-[#C5A059] rounded-full animate-pulse" />
-                  <span className="font-mono text-xs font-bold text-[#C5A059] tracking-[0.2em] uppercase">
-                     [ WEBSITE REBUILD ]
+                  {/* Type B: Card Tag */}
+                  <span className="font-mono text-[10px] font-bold text-[#C5A059] tracking-[0.2em] uppercase">
+                     WEBSITE REBUILD
                   </span>
               </div>
-              <span className="font-mono text-xs font-bold text-white/30 uppercase tracking-[0.2em] flex items-center gap-2">
-                  [ SEE THE TRANSFORMATION ]
+              {/* Type B: Card Tag */}
+              <span className="font-mono text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] flex items-center gap-2">
+                  SEE THE TRANSFORMATION
                   <Zap className="w-3 h-3 text-[#C5A059]" />
               </span>
           </div>
@@ -161,10 +164,12 @@ const Feature_Group7: React.FC = () => {
                       <AlertTriangle className="w-10 h-10 text-[#E21E3F] relative z-10" />
                   </div>
                   <div className="text-center">
-                      <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-2">Before</div>
+                      {/* Type B: Card Tag */}
+                      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-2">BEFORE</div>
                       {/* Node A */}
                       <div className="font-serif text-white/60 text-2xl md:text-3xl tracking-tight mb-2">group7security.com</div>
-                      <div className="flex items-center justify-center gap-2 font-mono text-xs font-bold tracking-[0.2em] text-[#E21E3F] bg-[#E21E3F]/10 px-3 py-1.5 rounded">
+                      {/* Type B: Card Tag */}
+                      <div className="flex items-center justify-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] text-[#E21E3F] bg-[#E21E3F]/10 px-3 py-1.5 rounded">
                           <Activity className="w-3 h-3" />
                           <span>4.2s Load</span>
                       </div>
@@ -179,7 +184,8 @@ const Feature_Group7: React.FC = () => {
                       transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                   />
                   <div className="relative z-10 bg-[#1a1a1a] border border-[#C5A059]/30 px-6 py-3 rounded-full flex items-center gap-3">
-                      <span className="font-mono text-xs text-[#C5A059] uppercase tracking-widest font-bold">
+                      {/* Type B: Card Tag */}
+                      <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-bold">
                           VIEW TRANSFORMATION
                       </span>
                   </div>
@@ -220,18 +226,18 @@ const Feature_Group7: React.FC = () => {
                   </motion.div>
                   <div className="text-center">
                       <motion.div 
-                        className="font-mono text-xs font-bold uppercase tracking-[0.2em] mb-2"
+                        className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] mb-2"
                         variants={{
                           idle: { color: '#C5A059' },
                           scan: { color: '#0F766E', transition: { delay: 1.2 } }
                         }}
                       >
-                        After
+                        AFTER
                       </motion.div>
                       {/* Node B */}
                       <div className="font-serif text-white text-3xl md:text-4xl tracking-tight mb-2">group7security.com.au</div>
                       <motion.div 
-                        className="flex items-center justify-center gap-2 font-mono text-xs font-bold tracking-[0.2em] text-[#0F766E] bg-[#0F766E]/10 px-3 py-1.5 rounded"
+                        className="flex items-center justify-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] text-[#0F766E] bg-[#0F766E]/10 px-3 py-1.5 rounded"
                         variants={{
                           idle: { opacity: 0 },
                           scan: { opacity: 1, transition: { delay: 1.5, duration: 0.5 } }
@@ -282,8 +288,9 @@ const Feature_Group7: React.FC = () => {
                       <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-tight tracking-tight">
                          Case Study: Group 7 Security
                       </h3>
-                      <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/50 mt-1">
-                         [ WEBSITE + SEO OVERHAUL ]
+                      {/* Type B: Card Tag */}
+                      <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/50 mt-1">
+                         WEBSITE + SEO OVERHAUL
                       </p>
                     </div>
                     <button 
@@ -305,27 +312,27 @@ const Feature_Group7: React.FC = () => {
                     {/* MODAL GRID */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 md:p-12 bg-white border-t border-black/10">
                         <div>
-                          {/* FIXED: Standardized Eyebrow Title */}
-                          <h4 className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-3">
-                             The Problem
+                          {/* Type B: Card Tag */}
+                          <h4 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-3">
+                             THE PROBLEM
                           </h4>
                           <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
                             They had a slow <strong>.com</strong> website with no local SEO. Google thought they were a global tech company, not a Sydney security firm. Local customers couldn't find them.
                           </p>
                         </div>
                         <div>
-                          {/* FIXED: Standardized Eyebrow Title */}
-                          <h4 className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-3">
-                             What I Did
+                          {/* Type B: Card Tag */}
+                          <h4 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-3">
+                             WHAT I DID
                           </h4>
                           <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
                             I migrated them to <strong>.com.au</strong> and rebuilt the site from scratch — fast, mobile-first, with proper Sydney location tags so Google knows exactly where they operate.
                           </p>
                         </div>
                         <div>
-                          {/* FIXED: Standardized Eyebrow Title */}
-                          <h4 className="font-mono text-xs font-bold text-[#C5A059] mb-3 uppercase tracking-[0.2em]">
-                             The Result
+                          {/* Type B: Card Tag */}
+                          <h4 className="font-mono text-[10px] font-bold text-[#C5A059] mb-3 uppercase tracking-[0.2em]">
+                             THE RESULT
                           </h4>
                           <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
                             Page load dropped from <strong>4.2s to 0.4s</strong>. Local search rankings improved. The site now converts visitors instead of losing them.

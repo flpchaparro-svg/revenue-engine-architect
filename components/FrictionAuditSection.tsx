@@ -114,8 +114,8 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
                     {/* Pain point number: text-4xl → text-6xl */}
                     <span className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a]/10 italic font-bold">{data.id}</span>
                     <div className="h-px flex-1 bg-[#1a1a1a]/20"></div>
-                    {/* FIXED: Technical Data (Type C) - Font-Sans, Bold, text-[10px], Tracking 0.1em */}
-                    <span className="font-sans text-[10px] font-bold uppercase tracking-[0.1em] text-[#E21E3F]/80 border border-[#E21E3F]/20 px-2 py-1">[{data.label}]</span>
+                    {/* Type B: Card Tag - font-mono, font-bold, text-[10px], tracking-[0.2em] */}
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E21E3F] border border-[#E21E3F]/20 px-2 py-1">{data.label}</span>
                  </div>
                  <div>
                     {/* Pain point title: Standardized H3 */}
@@ -182,8 +182,8 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
               </div>
               
               <div>
-                 {/* FIXED: Micro Label (Type B) - text-[10px], Medium, tracking-0.15em */}
-                 <div className="font-mono text-[10px] font-medium text-[#1a1a1a]/40 uppercase tracking-[0.15em] mb-4">Audit Progress</div>
+                 {/* Type B: Card Tag - text-[10px], font-bold, tracking-[0.2em] */}
+                 <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 uppercase tracking-[0.2em] mb-4">AUDIT PROGRESS</div>
                  <div className="w-full h-1 bg-[#1a1a1a]/10 relative overflow-hidden">
                     <motion.div 
                        className="h-full bg-[#E21E3F]" 

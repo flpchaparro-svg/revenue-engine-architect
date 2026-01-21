@@ -66,6 +66,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
         {/* The Promise */}
         <div className="flex-1 flex flex-col justify-center">
+          {/* Type A: Section Anchor */}
           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] mb-8 block">
             / THE PROMISE
           </span>
@@ -88,8 +89,9 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
         {/* Footer */}
         <div className="hidden lg:block flex-none opacity-40">
            <div className="w-12 h-[1px] bg-[#C5A059] mb-4" />
-           <p className="font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]">
-             // DIRECT_LINE [ OPEN ]
+           {/* Type B: Card Tag */}
+           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
+             // DIRECT LINE OPEN
            </p>
         </div>
       </div>
@@ -101,6 +103,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-xl w-full">
             
             <div className="mb-12 border-b border-white/10 pb-8">
+              {/* Type A: Section Anchor */}
               <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
                 / DIAGNOSIS
               </span>
@@ -117,8 +120,9 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
               {/* Row 1: Name & Email */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="group relative">
+                  {/* Type B: Card Tag (Form Label) */}
                   <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
-                    01 // Identification
+                    01 // IDENTIFICATION
                   </label>
                   <input 
                     type="text" 
@@ -130,8 +134,9 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                   />
                 </div>
                 <div className="group relative">
+                  {/* Type B: Card Tag (Form Label) */}
                   <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
-                    02 // Coordinates
+                    02 // COORDINATES
                   </label>
                   <input 
                     type="email" 
@@ -146,8 +151,9 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
               {/* Row 2: Entity */}
               <div className="group relative">
+                {/* Type B: Card Tag (Form Label) */}
                 <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
-                  03 // Entity
+                  03 // ENTITY
                 </label>
                 <input 
                   type="text" 
@@ -160,8 +166,9 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
               {/* Row 3: Dropdown */}
               <div className="group relative">
+                {/* Type B: Card Tag (Form Label) */}
                 <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
-                  04 // The Handbrake
+                  04 // THE HANDBRAKE
                 </label>
                 <div className="relative">
                   <select 
@@ -179,8 +186,9 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
               {/* Row 4: Message */}
               <div className="group relative">
+                {/* Type B: Card Tag (Form Label) */}
                 <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
-                   05 // Context
+                   05 // CONTEXT
                 </label>
                 <textarea 
                   rows={4}

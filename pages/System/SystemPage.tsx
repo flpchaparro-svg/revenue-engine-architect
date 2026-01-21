@@ -186,10 +186,10 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
            <div className="flex justify-between items-start">
               {/* The Label Border matches the group color */}
               <span 
-                className="font-mono text-[9px] uppercase tracking-widest py-1 px-2 border bg-white/50 font-bold backdrop-blur-sm"
+                className="font-mono text-[10px] uppercase tracking-[0.2em] py-1 px-2 border bg-white/50 font-bold backdrop-blur-sm"
                 style={{ color: accentColor, borderColor: `${accentColor}40` }}
               >
-                 {pillar.technicalLabel}
+                 {pillar.technicalLabel.replace(/_/g, ' ')}
               </span>
               <span className="font-serif text-4xl text-[#1a1a1a]/10 font-bold absolute top-4 right-6 group-hover:text-[#1a1a1a]/20 transition-colors">
                  {pillar.number}
@@ -206,7 +206,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
               <h3 className="font-serif text-3xl text-[#1a1a1a] mb-2 leading-none tracking-tight group-hover:translate-x-1 transition-transform duration-300">
                  {pillar.title}
               </h3>
-              <p className="font-mono text-xs uppercase tracking-widest font-bold mb-4" style={{ color: `${accentColor}80` }}>
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold mb-4" style={{ color: `${accentColor}80` }}>
                  {pillar.subtitle}
               </p>
               
@@ -219,8 +219,8 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
 
            {/* Bottom: Action */}
            <div className="flex justify-between items-end border-t border-[#1a1a1a]/10 pt-4 mt-auto">
-              <span className="font-mono text-[9px] uppercase tracking-widest text-[#1a1a1a]/50 transition-colors font-bold group-hover:text-black">
-                 System_Node_{pillar.number}
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#1a1a1a]/50 transition-colors font-bold group-hover:text-black">
+                 SYSTEM NODE {pillar.number}
               </span>
               <div 
                 className="w-8 h-8 flex items-center justify-center rounded-full bg-[#1a1a1a]/5 transition-colors group-hover:bg-[#1a1a1a]"
@@ -244,7 +244,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
             <div className="flex flex-col lg:flex-row justify-between items-start border-b border-white/10 pb-8 mb-10">
                <div>
                   <div className="flex items-center gap-3 mb-4">
-                     <span className="font-mono text-xs uppercase tracking-[0.2em]" style={{ color: displayAccent }}>
+                     <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: displayAccent }}>
                         {pillar.number} // {pillar.categoryLabel}
                      </span>
                   </div>
@@ -270,7 +270,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
                   {pillar.subServices.map((sub: any, i: number) => (
                      <div key={i} className="space-y-3">
                         <h4 
-                            className="font-mono text-xs uppercase tracking-widest border-l-2 pl-3"
+                            className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] border-l-2 pl-3"
                             style={{ color: displayAccent, borderColor: displayAccent }}
                         >
                            {sub.title}
@@ -285,7 +285,7 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
                {/* Col 3: System Purpose & CTA */}
                <div className="bg-white/5 p-6 border border-white/10 flex flex-col justify-between rounded-sm">
                   <div>
-                     <span className="font-mono text-[9px] text-white/40 uppercase tracking-widest block mb-2">Core Function</span>
+                     <span className="font-mono text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] block mb-2">CORE FUNCTION</span>
                      <p className="font-serif text-xl italic text-white mb-8">"{pillar.systemPurpose}"</p>
                   </div>
                   
@@ -408,7 +408,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
           
           <div className="text-center max-w-2xl mx-auto mb-20 pt-10">
               <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block flex items-center justify-center gap-2">
-                 <Terminal className="w-4 h-4" /> SYSTEM_MANIFEST
+                 <Terminal className="w-4 h-4" /> / SYSTEM MANIFEST
               </span>
               <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
                 The Parts in <span className="italic font-serif text-[#C5A059]">Detail.</span>

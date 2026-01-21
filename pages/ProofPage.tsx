@@ -169,8 +169,9 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         <Section className="mb-32">
           <div className="bg-white border border-[#1a1a1a]/5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] p-0 overflow-hidden">
             <div className="bg-[#1a1a1a] text-white px-8 py-4 flex flex-wrap justify-between items-center gap-4">
-              <span className="font-mono text-xs text-[#C5A059] uppercase tracking-widest font-bold">
-                [ CLIENT: GROUP 7 SECURITY ]
+              {/* Type B: Card Tag */}
+              <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-bold">
+                CLIENT: GROUP 7 SECURITY
               </span>
               <div className="flex gap-2">
                  <div className="w-2 h-2 rounded-full bg-[#E21E3F]" title="High Friction (Before)" />
@@ -182,21 +183,24 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-[#1a1a1a]/5">
               <div className="lg:col-span-4 bg-[#f9f9f9] p-8 border-b lg:border-b-0 lg:border-r border-[#1a1a1a]/5 space-y-8">
                 <div>
-                  <span className="font-mono text-[10px] text-[#1a1a1a]/40 uppercase tracking-widest block mb-2">Industry</span>
+                  {/* Type B: Card Tag */}
+                  <span className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 uppercase tracking-[0.2em] block mb-2">INDUSTRY</span>
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
                     <span className="font-sans font-medium">Security Services</span>
                   </div>
                 </div>
                 <div>
-                  <span className="font-mono text-[10px] text-[#1a1a1a]/40 uppercase tracking-widest block mb-2">Scope</span>
+                  {/* Type B: Card Tag */}
+                  <span className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 uppercase tracking-[0.2em] block mb-2">SCOPE</span>
                   <div className="flex items-center gap-2">
                     <LayoutTemplate className="w-4 h-4 text-[#C5A059]" />
                     <span className="font-sans font-medium">Full Rebuild + Local SEO</span>
                   </div>
                 </div>
                 <div>
-                  <span className="font-mono text-[10px] text-[#1a1a1a]/40 uppercase tracking-widest block mb-2">Timeline</span>
+                  {/* Type B: Card Tag */}
+                  <span className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 uppercase tracking-[0.2em] block mb-2">TIMELINE</span>
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-[#C5A059]" />
                     <span className="font-sans font-medium">4 Weeks</span>
@@ -219,16 +223,18 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         {/* THE PROBLEM */}
         <Section className="mb-32">
           <div className="mb-20">
+            {/* Type A: Section Anchor */}
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 flex items-center gap-2">
               <div className="w-2 h-2 rounded-sm bg-[#E21E3F]" />
-              THE PROBLEM
+              / THE PROBLEM
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
               The Old <span className="italic font-serif text-[#E21E3F]">Site.</span>
             </h2>
             <div className="inline-flex items-center gap-3 px-4 py-2 bg-[#E21E3F]/5 border border-[#E21E3F]/20 rounded-sm">
                <span className="font-sans text-sm md:text-base font-medium text-[#1a1a1a]/80">group7security.com</span>
-               <span className="font-mono text-[10px] text-[#E21E3F] uppercase tracking-widest font-bold">[ DECOMMISSIONED ]</span>
+               {/* Type B: Card Tag */}
+               <span className="font-mono text-[10px] text-[#E21E3F] uppercase tracking-[0.2em] font-bold">DECOMMISSIONED</span>
             </div>
           </div>
 
@@ -273,12 +279,14 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                   <div className="p-3 bg-[#E21E3F]/5 rounded-sm">
                     <item.icon className="w-6 h-6 text-[#E21E3F]" />
                   </div>
-                  <span className="font-mono text-[10px] text-[#E21E3F]/60 uppercase tracking-widest border border-[#E21E3F]/20 px-2 py-1 rounded-sm">
-                    Critical Error
+                  {/* Type B: Card Tag */}
+                  <span className="font-mono text-[10px] font-bold text-[#E21E3F]/60 uppercase tracking-[0.2em] border border-[#E21E3F]/20 px-2 py-1 rounded-sm">
+                    CRITICAL ERROR
                   </span>
                 </div>
                 <div className="mb-6">
-                  <div className="font-mono text-[10px] text-[#1a1a1a]/40 uppercase tracking-widest mb-1">{item.label}</div>
+                  {/* Type B: Card Tag */}
+                  <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 uppercase tracking-[0.2em] mb-1">{item.label}</div>
                   <div className="text-4xl font-serif text-[#E21E3F] mb-4">{item.metric}</div>
                   <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed mb-4">{item.desc}</p>
                 </div>
@@ -294,16 +302,18 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         {/* THE SOLUTION */}
         <Section className="mb-32">
           <div className="mb-20">
+            {/* Type A: Section Anchor */}
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center gap-2">
               <div className="w-2 h-2 rounded-sm bg-[#C5A059]" />
-              THE SOLUTION
+              / THE SOLUTION
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
               The New <span className="italic font-serif text-[#C5A059]">Standard.</span>
             </h2>
             <div className="inline-flex items-center gap-3 px-4 py-2 bg-[#C5A059]/5 border border-[#C5A059]/20 rounded-sm">
                <span className="font-sans text-sm md:text-base font-medium text-[#1a1a1a]/80">group7security.com.au</span>
-               <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-widest font-bold">[ LIVE SYSTEM ]</span>
+               {/* Type B: Card Tag */}
+               <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-bold">LIVE SYSTEM</span>
             </div>
           </div>
 
@@ -347,7 +357,8 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                     </div>
                   </div>
                   <div className="bg-[#f9f9f9] p-5 border-l-2 border-[#C5A059]">
-                    <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-widest font-bold block mb-2">The Logic</span>
+                    {/* Type B: Card Tag */}
+                    <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-bold block mb-2">THE LOGIC</span>
                     <p className="font-sans text-base md:text-lg text-[#1a1a1a]/80 leading-relaxed">
                       {item.why}
                     </p>
@@ -386,7 +397,8 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                   <ArrowRight className="w-4 h-4 text-[#1a1a1a]/20 group-hover:-rotate-45 transition-transform duration-300" />
                 </div>
                 <div className="mt-auto">
-                  <div className="font-mono text-[10px] text-[#1a1a1a]/40 uppercase tracking-widest mb-3">{m.label}</div>
+                  {/* Type B: Card Tag */}
+                  <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 uppercase tracking-[0.2em] mb-3">{m.label}</div>
                   <div className="flex items-baseline gap-1 mb-2">
                     <span className="text-5xl md:text-6xl font-serif text-[#1a1a1a] tracking-tighter">
                       <CountUp value={m.val} prefix={m.prefix || ""} />
@@ -429,11 +441,13 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
           <div className="mt-8 grid grid-cols-2 gap-8 text-center">
             <div className="border-t border-red-500/20 pt-4">
-              <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-widest block mb-2">Legacy</span>
+              {/* Type B: Card Tag */}
+              <span className="font-mono text-[10px] font-bold text-[#E21E3F] uppercase tracking-[0.2em] block mb-2">LEGACY</span>
               <p className="font-sans text-sm text-[#1a1a1a]/50">Slow. Generic. Invisible.</p>
             </div>
             <div className="border-t border-[#C5A059]/20 pt-4">
-               <span className="font-mono text-xs text-[#C5A059] uppercase tracking-widest block mb-2">New System</span>
+               {/* Type B: Card Tag */}
+               <span className="font-mono text-[10px] font-bold text-[#C5A059] uppercase tracking-[0.2em] block mb-2">NEW SYSTEM</span>
                <p className="font-sans text-sm text-[#1a1a1a]/50">Instant. Custom. Dominant.</p>
             </div>
           </div>
@@ -447,8 +461,9 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#C5A059]/20 rounded-full blur-[100px] opacity-0 group-hover:opacity-30 transition-opacity duration-700" />
 
             <div className="relative z-10 flex flex-col items-center">
-              <span className="font-mono text-xs text-[#C5A059] uppercase tracking-widest mb-6 block">
-                Transformation Complete
+              {/* Type A: Section Anchor (Footer CTA) */}
+              <span className="font-mono text-xs font-bold text-[#C5A059] uppercase tracking-[0.2em] mb-6 block">
+                / TRANSFORMATION COMPLETE
               </span>
               <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tighter mb-8 text-white">
                 Want Results Like <span className="italic font-serif text-[#C5A059]">This?</span>
