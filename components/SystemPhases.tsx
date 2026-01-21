@@ -14,12 +14,13 @@ interface SystemPhasesProps {
 const PHASES = [
   { 
     id: 'GET CLIENTS', 
-    title: 'GET CLIENTS', 
+    title: 'CAPTURE', // Clean label without underscore
+    subtitle: 'Acquire & Convert',
     bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
-    accent: 'text-[#E21E3F]', 
-    barColor: 'bg-[#E21E3F]',
-    tabLine: 'bg-[#E21E3F]',
+    accent: '#E21E3F', // Red for Phase 1
+    accentClass: 'text-[#E21E3F]',
+    borderAccent: 'border-[#E21E3F]',
     vizType: 'geometric',
     dark: false,
     sidebarText: 'text-black',
@@ -28,26 +29,28 @@ const PHASES = [
   },
   { 
     id: 'SCALE FASTER', 
-    title: 'SCALE FASTER', 
-    bg: 'bg-[#1a1a1a]', 
-    text: 'text-white', 
-    accent: 'text-[#C5A059]', 
-    barColor: 'bg-[#C5A059]',
-    tabLine: 'bg-[#C5A059]',
+    title: 'MULTIPLY', // Clean label
+    subtitle: 'Scale & Automate',
+    bg: 'bg-[#FFF2EC]', // Changed to light background for cleaner look
+    text: 'text-[#1a1a1a]', 
+    accent: '#C5A059', // Gold for Phase 2
+    accentClass: 'text-[#C5A059]',
+    borderAccent: 'border-[#C5A059]',
     vizType: 'neural',
-    dark: true,
-    sidebarText: 'text-white',
-    sidebarBorder: 'border-white/10',
-    sidebarBg: 'bg-black/40'
+    dark: false, // Changed to light
+    sidebarText: 'text-black',
+    sidebarBorder: 'border-black/10',
+    sidebarBg: 'bg-white/80'
   },
   { 
     id: 'SEE CLEARLY', 
-    title: 'SEE CLEARLY', 
-    bg: 'bg-[#f4f4f5]', 
+    title: 'COMMAND', // Clean label
+    subtitle: 'Visibility & Control',
+    bg: 'bg-[#FFF2EC]', // Consistent light background
     text: 'text-[#1a1a1a]', 
-    accent: 'text-[#1a1a1a]', 
-    barColor: 'bg-[#1a1a1a]',
-    tabLine: 'bg-[#1a1a1a]',
+    accent: '#1a1a1a', // Black for Phase 3
+    accentClass: 'text-[#1a1a1a]',
+    borderAccent: 'border-[#1a1a1a]',
     vizType: 'dashboard',
     dark: false,
     sidebarText: 'text-black',
@@ -199,30 +202,24 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       ref={sectionRef} 
       className={`relative min-h-screen flex flex-row lg:flex-col transition-colors duration-700 ${activePhase.bg}`}
     >
-      {/* MOBILE SIDEBAR - FIX: High Contrast Indicators */}
-      <aside className={`lg:hidden sticky top-0 h-screen w-14 shrink-0 flex flex-col items-center justify-center gap-10 z-[70] border-r backdrop-blur-xl transition-all duration-500 ${activePhase.sidebarText} ${activePhase.sidebarBorder} ${activePhase.sidebarBg}`}>
+      {/* MOBILE SIDEBAR - Clean Phase Indicators */}
+      <aside className="lg:hidden sticky top-0 h-screen w-14 shrink-0 flex flex-col items-center justify-center gap-8 z-[70] border-r border-[#1a1a1a]/10 bg-white/95 backdrop-blur-xl">
         {PHASES.map((phase, idx) => {
           const isActive = idx === activeIndex;
           
           return (
-            <button key={phase.id} onClick={() => changePhase(idx)} className="relative flex items-center justify-center w-8 h-8 group">
-              {/* Active Indicator: Solid Circle (High Contrast) */}
-              {isActive && (
-                <motion.div 
-                   layoutId="activeMobilePhase"
-                   className={`absolute inset-0 rounded-full ${activePhase.dark ? 'bg-white' : 'bg-black'}`}
-                   initial={{ scale: 0 }}
-                   animate={{ scale: 1 }}
-                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                />
-              )}
+            <button key={phase.id} onClick={() => changePhase(idx)} className="relative flex items-center justify-center w-10 h-10 group">
+              {/* Active Indicator: Accent colored left bar */}
+              <div 
+                className={`absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`}
+                style={{ backgroundColor: phase.accent }}
+              />
               
-              {/* Number: Explicit color flip for readability */}
-              <span className={`font-mono text-xs font-bold relative z-10 transition-colors duration-300
-                ${isActive 
-                   ? (activePhase.dark ? 'text-black' : 'text-white') // If dark phase (White Circle) -> Black Text
-                   : activePhase.sidebarText} 
-              `}>
+              {/* Number */}
+              <span 
+                className={`font-mono text-xs font-bold transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-30'}`}
+                style={{ color: isActive ? phase.accent : '#1a1a1a' }}
+              >
                 0{idx + 1}
               </span>
             </button>
@@ -233,35 +230,43 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       <div className="flex-1 flex flex-col w-full">
         {/* HEADER */}
         <div className={`pt-24 pb-12 px-6 lg:pt-16 lg:pb-8 text-center max-w-4xl mx-auto ${activePhase.text}`}>
-           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block opacity-100">/ THE SYSTEM</span>
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block">/ THE SYSTEM</span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-none tracking-tighter mb-6">
              7 Ways I Fix <span className="italic text-[#C5A059]">Your Business.</span>
            </h2>
-           <p className="font-sans text-lg md:text-xl font-light leading-relaxed opacity-70 max-w-2xl mx-auto px-4">
-              <span className="hidden lg:inline">I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.</span>
-              <span className="lg:hidden">I treat your business as one connected system, linking Marketing, Sales, and Operations to eliminate the friction that burns out your people.</span>
+           <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto px-4">
+              I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.
            </p>
         </div>
 
-        {/* DESKTOP TIMELINE */}
-        <header className="hidden lg:flex justify-center mb-10 pt-10">
-           <div className="flex justify-between w-full max-w-4xl border-b border-current/10 pb-2">
+        {/* DESKTOP TIMELINE - Premium Phase Tabs */}
+        <header className="hidden lg:flex justify-center mb-10 pt-6">
+           <div className="flex gap-0 bg-white border border-[#1a1a1a]/10 p-1 shadow-sm">
               {PHASES.map((phase, idx) => {
                 const isActive = idx === activeIndex;
-                const isUnvisited = idx > activeIndex;
                 return (
                     <button 
-                    key={phase.id} 
-                    onClick={() => changePhase(idx)}
-                    className={`relative flex items-center font-mono text-xs md:text-sm font-bold tracking-[0.2em] transition-all ${isActive ? 'opacity-100' : 'opacity-40'} ${activePhase.text}`}
-                  >
-                    <motion.span 
-                      animate={isUnvisited ? { opacity: [0.4, 1, 0.4] } : {}}
-                      transition={isUnvisited ? { repeat: Infinity, duration: 2 } : {}}
+                      key={phase.id} 
+                      onClick={() => changePhase(idx)}
+                      className={`relative px-8 py-4 font-mono text-xs font-bold tracking-[0.2em] transition-all duration-300 ${
+                        isActive 
+                          ? 'bg-[#1a1a1a] text-white' 
+                          : 'text-[#1a1a1a]/50 hover:text-[#1a1a1a] hover:bg-[#1a1a1a]/5'
+                      }`}
                     >
-                      0{idx + 1} / {phase.title}
-                    </motion.span>
-                  </button>
+                      <span className="flex items-center gap-3">
+                        <span style={{ color: isActive ? phase.accent : 'inherit' }}>0{idx + 1}</span>
+                        <span className="hidden xl:inline">//</span>
+                        <span className="hidden xl:inline">{phase.title}</span>
+                      </span>
+                      {isActive && (
+                        <motion.div 
+                          layoutId="phase-indicator"
+                          className="absolute bottom-0 left-0 right-0 h-[2px]"
+                          style={{ backgroundColor: phase.accent }}
+                        />
+                      )}
+                    </button>
                 );
               })}
            </div>
@@ -271,23 +276,24 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
         <main className="flex-1 px-6 lg:px-12 pb-24 w-full max-w-screen-2xl mx-auto z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch min-h-[600px]">
               
-              {/* LEFT DISPLAY - MAIN CARD */}
+              {/* LEFT DISPLAY - MAIN CARD (Premium Strategic Card) */}
               <div className="hidden lg:flex lg:col-span-6 flex-col">
                 {(() => {
                   const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
                   return (
-                    <div className={`relative flex-1 rounded-sm border shadow-2xl overflow-hidden flex flex-col transition-colors duration-500 
+                    <div className={`relative flex-1 overflow-hidden flex flex-col transition-all duration-500 
                       ${isBlueprint 
-                        ? 'bg-[#1a1a1a] border-[#C5A059] text-white' 
-                        : (activePhase.dark ? 'bg-white/5 border-white/10 text-white' : 'bg-white border-black/10 text-black')
+                        ? 'bg-[#1a1a1a] text-white border-l-4' 
+                        : 'bg-white text-[#1a1a1a] border border-[#1a1a1a]/10'
                       }`}
+                      style={{ borderLeftColor: isBlueprint ? '#C5A059' : activePhase.accent }}
                     >
-                      {/* VISUAL CONTAINER */}
+                      {/* VISUAL CONTAINER - Clean, minimal */}
                       {!isBlueprint && (
-                        <div className="h-1/2 relative border-b border-current/5">
+                        <div className="h-1/2 relative border-b border-[#1a1a1a]/5 bg-[#FAFAFA]">
                           <div className="absolute top-6 left-6 z-20">
-                            <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-60">
-                              {displayService?.technicalLabel || '[ SYSTEM ARCHITECTURE ]'}
+                            <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40">
+                              PHASE 0{activeIndex + 1} // {activePhase.title}
                             </div>
                           </div>
                           
@@ -295,14 +301,14 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                               <ViewportViz 
                                 key={`viz-${displayService?.id}`} 
                                 type={displayService?.visualPrompt || activePhase.vizType} 
-                                color={activePhase.dark ? '#C5A059' : (activePhase.id === 'GET CLIENTS' ? '#E21E3F' : '#1a1a1a')} 
+                                color={activePhase.accent} 
                               />
                           </AnimatePresence>
                         </div>
                       )}
 
                       {/* TEXT CONTENT */}
-                      <div className={`p-8 flex-1 flex flex-col justify-between ${isBlueprint ? 'justify-center py-12' : ''}`}>
+                      <div className={`p-10 flex-1 flex flex-col justify-between ${isBlueprint ? 'justify-center py-16' : ''}`}>
                         <AnimatePresence mode="wait">
                             {(() => {
                               const displayData = isBlueprint 
@@ -311,7 +317,6 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                     title: systemCard.titleDisplay, 
                                     subtitle: systemCard.subtitleDisplay, 
                                     description: systemCard.description,
-                                    extraText: 'extraText' in systemCard ? systemCard.extraText : undefined
                                   }
                                 : { 
                                     id: displayService?.id, 
@@ -328,39 +333,35 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                     animate="visible"
                                     exit="hidden"
                                 >
-                                    {/* EYEBROW: / ALL 7 PILLARS (Only for Blueprint card) */}
-                                    {isBlueprint && (
-                                      <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4">
-                                        {systemCard.label}
-                                      </p>
-                                    )}
+                                    {/* Eyebrow */}
+                                    <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] mb-6" 
+                                       style={{ color: isBlueprint ? '#C5A059' : activePhase.accent }}>
+                                      {isBlueprint ? systemCard.label : `/ ${displayService?.subtitle || 'SERVICE'}`}
+                                    </p>
                                     
-                                    {/* FIXED: Standardized Display Title (H2 equivalent) */}
-                                    <h3 className={`font-serif mb-2 leading-[0.95] tracking-tighter ${isBlueprint ? 'text-4xl md:text-5xl lg:text-6xl text-[#C5A059]' : 'text-4xl md:text-5xl'}`}>
+                                    {/* Title */}
+                                    <h3 className={`font-serif mb-4 leading-[0.95] tracking-tighter ${isBlueprint ? 'text-5xl lg:text-6xl' : 'text-4xl md:text-5xl'}`}
+                                        style={{ color: isBlueprint ? '#C5A059' : 'inherit' }}>
                                         {displayData?.title}
                                     </h3>
                                     
-                                    {/* FIXED: Standardized Eyebrow */}
-                                    <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] opacity-50 mb-4">
+                                    {/* Subtitle */}
+                                    <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] mb-6"
+                                       style={{ color: isBlueprint ? 'rgba(255,255,255,0.4)' : 'rgba(26,26,26,0.4)' }}>
                                         {displayData?.subtitle}
                                     </p>
                                     
-                                    <p className={`leading-relaxed opacity-70 ${isBlueprint ? 'font-sans text-lg md:text-xl font-light mb-6' : 'font-sans text-base md:text-lg line-clamp-4'}`}>
-                                        {isBlueprint ? systemCard.description : displayService?.description}
+                                    {/* Description */}
+                                    <p className={`font-sans text-lg font-light leading-relaxed ${isBlueprint ? 'text-white/70' : 'text-[#1a1a1a]/70'}`}>
+                                        {displayData?.description}
                                     </p>
-
-                                    {isBlueprint && 'extraText' in displayData && displayData.extraText && (
-                                      <p className="font-sans text-sm opacity-60 leading-relaxed max-w-[90%] mb-8 border-l-2 border-[#C5A059] pl-3">
-                                        {displayData.extraText}
-                                      </p>
-                                    )}
                                 </motion.div>
                               );
                             })()}
                         </AnimatePresence>
                         
                         {/* FOOTER CTA */}
-                        <div className={`mt-auto pt-6 border-t ${isBlueprint ? 'border-[#C5A059]/20' : (activePhase.dark ? 'border-white/10' : 'border-black/5')}`}>
+                        <div className={`mt-auto pt-8 border-t ${isBlueprint ? 'border-white/10' : 'border-[#1a1a1a]/10'}`}>
                              {isBlueprint ? (
                                  <CTAButton 
                                     theme="dark"
@@ -381,10 +382,10 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                              ) : (
                                  <CTAButton
                                     variant="bracket"
-                                    theme={activePhase.dark ? 'dark' : 'light'}
+                                    theme="light"
                                     onClick={() => handleCardClick(displayService)}
                                  >
-                                    SEE HOW IT WORKS
+                                    VIEW DETAILS
                                  </CTAButton>
                              )}
                         </div>
@@ -395,14 +396,14 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                 })()}
               </div>
 
-              {/* RIGHT GRID - SERVICE LIST */}
+              {/* RIGHT GRID - SERVICE LIST (Premium Strategic Cards) */}
               <motion.div 
                 key={activePhase.id} 
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-50px" }}
-                className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6"
+                className="lg:col-span-6 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5"
               >
                 {currentServices.map((service, idx) => {
                   const isActive = displayService?.id === service.id;
@@ -413,83 +414,87 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       variants={cardVariants}
                       onMouseEnter={() => setActiveService(service)}
                       onClick={() => handleCardClick(service)}
-                      className={`relative border rounded-sm lg:transition-all lg:duration-500 lg:ease-out group cursor-pointer flex flex-col
-                        ${activePhase.dark ? 'bg-white/5' : 'bg-white'}
+                      className={`relative bg-white border transition-all duration-300 group cursor-pointer flex flex-col
                         ${isActive 
-                           ? (activePhase.dark 
-                               ? 'border-[#C5A059]/30 lg:border-[#C5A059] lg:-translate-y-2 lg:shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
-                               : 'border-black/5 lg:border-[#E21E3F] lg:-translate-y-2 lg:shadow-xl')
-                           : (activePhase.dark 
-                               ? 'border-[#C5A059]/30 lg:hover:border-[#C5A059] lg:hover:-translate-y-2' 
-                               : 'border-black/5 lg:hover:border-[#E21E3F]/30 lg:hover:-translate-y-2')
+                           ? 'border-l-4 shadow-lg' 
+                           : 'border-[#1a1a1a]/10 hover:border-l-4 hover:shadow-md'
                         }
-                        ${activePhase.dark ? 'text-white' : 'text-black'}
                       `}
+                      style={{ 
+                        borderLeftColor: isActive ? activePhase.accent : 'transparent',
+                      }}
+                      onMouseOver={(e) => {
+                        if (!isActive) {
+                          e.currentTarget.style.borderLeftColor = activePhase.accent;
+                        }
+                      }}
+                      onMouseOut={(e) => {
+                        if (!isActive) {
+                          e.currentTarget.style.borderLeftColor = 'transparent';
+                        }
+                      }}
                     >
                       {/* MOBILE TOP VISUALIZER */}
-                      <div className="relative h-48 w-full border-b border-current/10 lg:hidden shrink-0 overflow-hidden bg-black/5">
+                      <div className="relative h-40 w-full border-b border-[#1a1a1a]/5 lg:hidden shrink-0 overflow-hidden bg-[#FAFAFA]">
                           <div className="absolute top-4 left-4 z-10">
-                             {/* FIXED: Micro Label (Type B) */}
-                             <span className="font-mono text-[10px] font-medium uppercase tracking-[0.15em] opacity-50">
-                               [ {service.subtitle || 'SYSTEM'} ]
+                             <span className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40">
+                               {service.subtitle || 'SERVICE'}
                              </span>
                           </div>
                           <ViewportViz 
                              type={service.visualPrompt} 
-                             color={activePhase.dark ? '#C5A059' : (activePhase.id === 'GET CLIENTS' ? '#E21E3F' : '#1a1a1a')} 
+                             color={activePhase.accent} 
                           />
                       </div>
 
                       {/* CONTENT CONTAINER */}
-                      <div className="p-6 flex flex-col flex-1 h-full min-h-[220px]">
+                      <div className="p-6 flex flex-col flex-1 h-full min-h-[200px]">
                          
-                         {/* TOP: NUMBER + ARROW */}
-                         <div className="flex justify-between items-start mb-4">
-                            {/* FIXED: Micro Label (Type B) */}
-                            <span className={`font-mono text-[10px] font-medium uppercase tracking-[0.15em] ${isActive ? 'opacity-100' : 'opacity-40'} lg:transition-opacity lg:duration-300 lg:group-hover:opacity-100`}>
+                         {/* TOP: Phase Number + Arrow */}
+                         <div className="flex justify-between items-center mb-4">
+                            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]"
+                                  style={{ color: isActive ? activePhase.accent : 'rgba(26,26,26,0.3)' }}>
                               0{idx + 1}
                             </span>
-                            <ArrowDownRight className={`w-4 h-4 ${
-                                isActive 
-                                  ? `opacity-100 ${activePhase.dark ? 'text-[#C5A059]' : 'text-[#E21E3F]'} lg:-rotate-90 lg:transition-all lg:duration-500`
-                                  : `opacity-30 lg:transition-all lg:duration-500 lg:group-hover:opacity-100 lg:group-hover:-rotate-90 ${activePhase.dark ? 'lg:group-hover:text-[#C5A059]' : 'lg:group-hover:text-[#E21E3F]'}`
-                            }`} />
+                            <ArrowDownRight 
+                              className={`w-4 h-4 transition-all duration-300 ${
+                                isActive ? '-rotate-90' : 'group-hover:-rotate-90'
+                              }`}
+                              style={{ color: isActive ? activePhase.accent : 'rgba(26,26,26,0.2)' }}
+                            />
                          </div>
 
                          {/* MIDDLE: CONTENT */}
-                         <div className="mb-auto relative z-10">
-                            {/* Technical Label - Desktop Small Card Only */}
-                            {/* FIXED: Technical Data (Type C) */}
-                            <div className="hidden lg:block mb-2">
-                              <span className="font-sans text-[10px] font-bold uppercase tracking-[0.1em] opacity-60">
-                                {service.technicalLabelShort || service.technicalLabel}
-                              </span>
-                            </div>
-                            
-                            {/* Standardized H3 for Service Cards */}
-                            <h4 className={`font-serif text-xl md:text-2xl mb-3 leading-tight tracking-tight ${isActive ? '' : ''} lg:transition-transform lg:duration-300 lg:translate-x-1 lg:group-hover:translate-x-1`}>
+                         <div className="mb-auto">
+                            {/* Title - Serif for premium feel */}
+                            <h4 className="font-serif text-xl md:text-2xl text-[#1a1a1a] mb-2 leading-tight tracking-tight">
                               <span className="lg:hidden">{MOBILE_TITLES[service.title] || getDisplayTitle(service.title)}</span>
-                              <span className="hidden lg:inline">{service.title}</span>
+                              <span className="hidden lg:inline">{getDisplayTitle(service.title)}</span>
                             </h4>
                             
-                            {/* Desktop Small Card Body - Short hook/question */}
-                            {/* Mobile: Show full mobile description */}
-                            <p className={`font-sans text-sm leading-relaxed line-clamp-none ${isActive ? 'opacity-100' : 'opacity-60'} lg:transition-opacity lg:duration-300 lg:group-hover:opacity-100`}>
+                            {/* Subtitle/Label - Mono for technical feel */}
+                            <p className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] mb-4"
+                               style={{ color: activePhase.accent }}>
+                              {service.subtitle}
+                            </p>
+                            
+                            {/* Description */}
+                            <p className="font-sans text-sm leading-relaxed text-[#1a1a1a]/60">
                               <span className="lg:hidden">{MOBILE_DESCRIPTIONS[service.id] || service.description}</span>
                               <span className="hidden lg:inline">{service.smallCardBody || service.description}</span>
                             </p>
                          </div>
 
                          {/* BOTTOM: CTA */}
-                         <div className="mt-6 pt-4 border-t border-current/10 flex justify-start">
+                         <div className="mt-6 pt-4 border-t border-[#1a1a1a]/5 flex justify-start">
                             <CTAButton
                               variant="bracket"
                               size="sm"
-                              theme={activePhase.dark ? 'dark' : 'light'}
+                              theme="light"
                               className="pointer-events-none"
                             >
-                              <span className="lg:hidden">EXPLORE</span>
-                              <span className="hidden lg:inline">LEARN MORE</span>
+                              <span className="lg:hidden">VIEW</span>
+                              <span className="hidden lg:inline">VIEW DETAILS</span>
                             </CTAButton>
                          </div>
                       </div>
@@ -497,7 +502,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                   );
                 })}
 
-                {/* SYSTEM CTA CARD */}
+                {/* SYSTEM CTA CARD - The Blueprint */}
                 {(() => {
                   const systemCardData = SYSTEM_CARDS[activePhase.id];
                   const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
@@ -513,46 +518,51 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       variants={cardVariants}
                       onMouseEnter={() => setActiveService(systemCardService as any)}
                       onClick={() => handleCardClick(systemCardService as any)}
-                      className={`relative p-6 bg-[#1a1a1a] border rounded-sm group cursor-pointer lg:transition-all min-h-[250px] flex flex-col justify-between 
-                        ${isBlueprint
-                          ? 'border-[#C5A059] lg:-translate-y-2 lg:shadow-[0_0_30px_-10px_rgba(197,160,89,0.3)]' 
-                          : (activePhase.dark ? 'border-[#C5A059] lg:hover:-translate-y-1' : 'border-white/10 lg:shadow-xl lg:hover:-translate-y-1')
-                        }
+                      className={`relative bg-[#1a1a1a] border-l-4 border-[#C5A059] group cursor-pointer transition-all duration-300 min-h-[200px] flex flex-col
+                        ${isBlueprint ? 'shadow-lg' : 'hover:shadow-lg'}
                       `}
                     >
-                      <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none">
+                      {/* Subtle background pattern */}
+                      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
                         <ViewportViz type="neural" color="#C5A059" />
                       </div>
                       
-                      <div className="flex justify-between items-start mb-4 relative z-10">
-                         <span className="font-mono text-xs font-bold text-white/50 block tracking-[0.2em] uppercase">
-                           <span className="lg:hidden">{systemCardData.labelMobile}</span>
-                           <span className="hidden lg:inline">{systemCardData.label}</span>
-                         </span>
-                         <ArrowDownRight className={`w-4 h-4 text-[#C5A059] lg:transition-transform lg:duration-500 ${isBlueprint ? 'lg:-rotate-90' : 'lg:group-hover:-rotate-90'}`} />
-                      </div>
+                      <div className="p-6 flex flex-col flex-1 relative z-10">
+                        {/* TOP */}
+                        <div className="flex justify-between items-center mb-4">
+                           <span className="font-mono text-[10px] font-bold text-[#C5A059] tracking-[0.2em] uppercase">
+                             <span className="lg:hidden">{systemCardData.labelMobile}</span>
+                             <span className="hidden lg:inline">{systemCardData.label}</span>
+                           </span>
+                           <ArrowDownRight className={`w-4 h-4 text-[#C5A059] transition-transform duration-300 ${isBlueprint ? '-rotate-90' : 'group-hover:-rotate-90'}`} />
+                        </div>
 
-                      <div className="relative z-10 mb-auto">
-                         <h4 className="font-serif text-3xl md:text-4xl text-white mb-3 leading-tight tracking-tight">
-                           <span className="lg:hidden">{systemCardData.titleMobile}</span>
-                           <span className="hidden lg:inline">{systemCardData.title}</span>
-                         </h4>
-                         <p className="font-mono text-xs text-white/40 mb-2 uppercase tracking-[0.2em] font-bold">
-                           <span className="hidden lg:inline">{systemCardData.subtitle}</span>
-                         </p>
-                         <p className="font-sans text-sm text-white/60 line-clamp-none">
-                           <span className="lg:hidden">{systemCardData.descriptionMobile}</span>
-                           <span className="hidden lg:inline">{systemCardData.smallCardBody}</span>
-                         </p>
-                      </div>
+                        {/* CONTENT */}
+                        <div className="mb-auto">
+                           <h4 className="font-serif text-2xl md:text-3xl text-white mb-2 leading-tight tracking-tight">
+                             <span className="lg:hidden">{systemCardData.titleMobile}</span>
+                             <span className="hidden lg:inline">{systemCardData.title}</span>
+                           </h4>
+                           <p className="font-mono text-[9px] text-[#C5A059] mb-4 uppercase tracking-[0.2em] font-bold">
+                             {systemCardData.subtitle}
+                           </p>
+                           <p className="font-sans text-sm text-white/50 leading-relaxed">
+                             <span className="lg:hidden">{systemCardData.descriptionMobile}</span>
+                             <span className="hidden lg:inline">{systemCardData.smallCardBody}</span>
+                           </p>
+                        </div>
 
-                      <div className="mt-6 pt-4 border-t border-white/10">
-                        <CTAButton 
-                          theme="dark"
-                          className="w-full"
-                        >
-                          [ SEE ALL ]
-                        </CTAButton>
+                        {/* FOOTER CTA */}
+                        <div className="mt-6 pt-4 border-t border-white/10">
+                          <CTAButton 
+                            variant="bracket"
+                            size="sm"
+                            theme="dark"
+                            className="pointer-events-none"
+                          >
+                            VIEW ALL PILLARS
+                          </CTAButton>
+                        </div>
                       </div>
                     </motion.div>
                   );
