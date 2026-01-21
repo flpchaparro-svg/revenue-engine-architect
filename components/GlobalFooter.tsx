@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Globe, Activity, Terminal, Target, Zap, BarChart3, Shield } from 'lucide-react';
+import { Globe, Terminal, Target, Zap, BarChart3 } from 'lucide-react';
+import CTAButton from './CTAButton';
 
 interface GlobalFooterProps {
   onNavigate: (view: string, sectionId?: string) => void;
@@ -63,16 +64,9 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
           </div>
           
           <div className="flex flex-col items-end gap-6 self-start lg:self-end">
-             {/* HERO PHYSICS BUTTON (INVERTED FOR DARK MODE) */}
-             <button 
-                onClick={() => onNavigate('contact')}
-                className="group relative flex items-center justify-center px-8 py-6 bg-transparent border border-white/20 text-[#FFF2EC] font-mono text-xs uppercase tracking-[0.3em] font-bold overflow-hidden transition-all duration-300"
-              >
-                <div className="absolute inset-0 bg-[#FFF2EC] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                <span className="relative z-10 flex items-center gap-4 group-hover:text-[#1a1a1a] transition-colors duration-500">
-                  [ BOOK A CALL ]
-                </span>
-             </button>
+             <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
+               [ BOOK A CALL ]
+             </CTAButton>
              <span className="font-mono text-[9px] text-white/30 uppercase tracking-widest">
                Response Time: &lt;24hrs
              </span>

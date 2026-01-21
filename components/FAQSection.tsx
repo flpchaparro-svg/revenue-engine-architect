@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Cpu, Plus, Minus } from 'lucide-react';
 import { FAQ } from '../constants/faqData';
+import CTAButton from './CTAButton';
 
 // --- HELPER: Format Answers ---
 const formatFAQAnswer = (answer: string, accentColor: string) => {
@@ -239,18 +240,9 @@ const FAQSection: React.FC<FAQSectionProps> = ({
             <h2 className="font-serif text-4xl md:text-5xl leading-tight tracking-tighter mb-8 text-[#1a1a1a]">
               Still have questions?
             </h2>
-            <button
-              onClick={() => onNavigate?.('contact')}
-              className="group relative overflow-hidden bg-[#1a1a1a] text-[#FFF2EC] px-12 py-6 font-mono text-xs uppercase tracking-[0.2em] font-bold transition-all duration-300 hover:shadow-xl"
-            >
-              <div 
-                className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-500"
-                style={{ backgroundColor: accentColor }}
-              />
-              <span className="relative z-10 flex items-center justify-center gap-3">
-                BOOK A 15-MIN CALL
-              </span>
-            </button>
+            <CTAButton theme="light" onClick={() => onNavigate?.('contact')}>
+              [ BOOK A 15-MIN CALL ]
+            </CTAButton>
           </div>
         )}
       </div>
