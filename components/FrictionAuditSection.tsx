@@ -259,7 +259,8 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                            {/* Mobile: Pain point number should scale too */}
                            <span className="font-serif text-4xl md:text-5xl italic font-bold text-[#E21E3F]">{data.id}</span>
                            <div className="w-8 h-px bg-[#E21E3F]/30"></div>
-                           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F]">
+                           {/* Type B: Card Tag (inside mobile card) */}
+                           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E21E3F]">
                               {data.label}
                            </span>
                         </div>

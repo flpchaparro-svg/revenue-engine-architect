@@ -334,8 +334,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                     animate="visible"
                                     exit="hidden"
                                 >
-                                    {/* Eyebrow */}
-                                    <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] mb-6" 
+                                    {/* Type B: Card Tag (inside display container) */}
+                                    <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] mb-6" 
                                        style={{ color: isBlueprint ? '#C5A059' : activePhase.accent }}>
                                       {isBlueprint ? systemCard.label : `/ ${displayService?.subtitle || 'SERVICE'}`}
                                     </p>
