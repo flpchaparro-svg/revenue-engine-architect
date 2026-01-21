@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
-import { XCircle, ArrowRight } from 'lucide-react';
+import { XCircle } from 'lucide-react';
+import CTAButton from '../components/CTAButton';
 import HeroVisual from '../components/HeroVisual';
 import SystemPhases from '../components/SystemPhases';
 import TheArchitect from '../components/TheArchitect';
@@ -204,11 +205,9 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
             </p>
 
             <div className="mt-10 md:mt-16 flex flex-col sm:flex-row items-center gap-6 md:gap-12 animate-fade-in relative z-30" style={{ animationDelay: '0.8s' }}>
-              <button onClick={() => onNavigate('contact')} className="group relative px-10 py-5 bg-transparent text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs font-bold uppercase tracking-[0.2em] overflow-hidden transition-all duration-300">
-                <div className="absolute inset-0 bg-[#1a1a1a] group-hover:-translate-y-full transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ LET'S TALK ]</span>
-              </button>
+              <CTAButton theme="light" onClick={() => onNavigate('contact')}>
+                [ LET'S TALK ]
+              </CTAButton>
               <a href="#friction-audit" onClick={(e) => { e.preventDefault(); document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'}); }} className="relative group flex items-center gap-3 cursor-pointer">
                 <span className="font-mono text-xs font-bold text-[#1a1a1a] uppercase tracking-[0.2em] border-b border-[#1a1a1a] pb-0.5 group-hover:border-b-2 group-hover:pb-1 transition-all duration-300">SEE HOW IT WORKS</span>
               </a>
@@ -307,16 +306,16 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
             </div>
 
             {/* 04: THE FIX */}
-            <div onMouseEnter={() => handleGraphHover('fix')} onMouseLeave={handleGraphLeave} className="col-span-1 p-8 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[250px] md:min-h-[400px] flex flex-col justify-between border-l-2 border-l-[#C5A059] group">
+            <div onMouseEnter={() => handleGraphHover('fix')} onMouseLeave={handleGraphLeave} className="col-span-1 p-8 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[250px] md:min-h-[400px] flex flex-col justify-between border-l-2 border-l-[#C5A059]">
               {/* 04: THE FIX -> GOLD */}
               <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] block mb-4 md:mb-0">04 / THE FIX</span>
               {/* FIXED: H3 Standard (text-3xl md:text-4xl) */}
-              <p className="font-serif text-3xl md:text-4xl leading-tight mb-6 md:mb-8 group-hover:text-[#C5A059] transition-colors duration-300">
+              <p className="font-serif text-3xl md:text-4xl leading-tight mb-6 md:mb-8 hover:text-[#C5A059] transition-colors duration-300">
                 I build the systems that do the boring work for you. <span className="text-white">You get your business back.</span>
               </p>
-              <button onClick={() => document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'})} className="flex items-center gap-3 font-mono text-xs font-bold text-[#C5A059] uppercase tracking-[0.2em] hover:text-white transition-colors cursor-pointer group">
+              <CTAButton theme="dark" onClick={() => document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'})}>
                 [ SEE HOW IT WORKS ]
-              </button>
+              </CTAButton>
             </div>
           </div>
         </div>

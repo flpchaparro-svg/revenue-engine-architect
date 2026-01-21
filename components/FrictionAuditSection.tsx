@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import CTAButton from './CTAButton';
 
 // --- DATA ---
 export const AUDIT_DATA = [
@@ -102,10 +103,9 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
                 You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
                 <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
               </h2>
-              <button onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({ behavior: 'smooth' })} className="group relative inline-flex items-center justify-center px-12 py-6 bg-[#1a1a1a] text-[#FFF2EC] border border-[#1a1a1a] font-mono text-xs font-bold uppercase tracking-[0.2em] overflow-hidden transition-all duration-300 hover:border-[#C5A059]">
-                 <div className="absolute inset-0 bg-[#C5A059] translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)" />
-                 <span className="relative z-10 group-hover:text-[#1a1a1a] transition-colors duration-500">[ SEE THE SYSTEM ]</span>
-              </button>
+              <CTAButton theme="light" onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({ behavior: 'smooth' })}>
+                [ SEE THE SYSTEM ]
+              </CTAButton>
            </div>
         ) : (
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-center">
@@ -249,9 +249,9 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                            You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
                            <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
                         </h2>
-                        <button onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-5 bg-[#1a1a1a] text-[#FFF2EC] font-mono text-xs uppercase tracking-[0.2em] font-bold">
+                        <CTAButton theme="light" onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({ behavior: 'smooth' })} className="w-full">
                            [ SEE THE SYSTEM ]
-                        </button>
+                        </CTAButton>
                      </div>
                   ) : (
                      <div className="flex flex-col h-full px-6 pt-8 pb-6 bg-[#FFF2EC]">

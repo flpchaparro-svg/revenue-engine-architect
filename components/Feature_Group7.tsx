@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, AlertTriangle, ArrowRight, Activity, Globe, Zap, X, Terminal } from 'lucide-react';
+import { ShieldCheck, AlertTriangle, Activity, Zap, X, Terminal } from 'lucide-react';
 import EvidenceVisual_Compare from './EvidenceVisual_Compare';
 
 const TerminalLog: React.FC = () => {
@@ -89,11 +89,10 @@ const Feature_Group7: React.FC = () => {
         {/* --- THE TRIGGER CARD (Dark Device on Cream Desk) --- */}
         <motion.div 
           initial="idle"
-          whileHover="scan"
           whileInView="scan"
           viewport={{ once: true, amount: 0.5 }}
           onClick={() => setIsModalOpen(true)}
-          className="w-full bg-[#1a1a1a] border border-black/10 p-1 rounded-sm overflow-hidden relative group cursor-pointer hover:border-[#C5A059]/50 transition-colors duration-500 shadow-2xl"
+          className="w-full bg-[#1a1a1a] border border-black/10 p-1 rounded-sm overflow-hidden relative cursor-pointer hover:border-[#C5A059]/50 transition-colors duration-500 shadow-2xl"
         >
           
           {/* THE FORENSIC SCANNER OVERLAY */}
@@ -209,23 +208,44 @@ const Feature_Group7: React.FC = () => {
                       }
                     }}
                   >
-                      <ShieldCheck className="w-12 h-12 text-[#C5A059] group-hover:text-[#0F766E] transition-colors duration-500 delay-1000" />
+                      <motion.div
+                        variants={{
+                          idle: { color: '#C5A059' },
+                          scan: { color: '#0F766E', transition: { delay: 1.2 } }
+                        }}
+                      >
+                        <ShieldCheck className="w-12 h-12" />
+                      </motion.div>
                   </motion.div>
                   <div className="text-center">
-                      <div className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-2 group-hover:text-[#0F766E] transition-colors delay-1000">After</div>
+                      <motion.div 
+                        className="font-mono text-xs font-bold uppercase tracking-[0.2em] mb-2"
+                        variants={{
+                          idle: { color: '#C5A059' },
+                          scan: { color: '#0F766E', transition: { delay: 1.2 } }
+                        }}
+                      >
+                        After
+                      </motion.div>
                       {/* Node B */}
                       <div className="font-serif text-white text-3xl md:text-4xl tracking-tight mb-2">group7security.com.au</div>
-                      <div className="flex items-center justify-center gap-2 font-mono text-xs font-bold tracking-[0.2em] text-[#0F766E] bg-[#0F766E]/10 px-3 py-1.5 rounded opacity-0 group-hover:opacity-100 transition-opacity delay-1000 duration-500">
+                      <motion.div 
+                        className="flex items-center justify-center gap-2 font-mono text-xs font-bold tracking-[0.2em] text-[#0F766E] bg-[#0F766E]/10 px-3 py-1.5 rounded"
+                        variants={{
+                          idle: { opacity: 0 },
+                          scan: { opacity: 1, transition: { delay: 1.5, duration: 0.5 } }
+                        }}
+                      >
                           <Activity className="w-3 h-3" />
                           <span>0.4s Load</span>
-                      </div>
+                      </motion.div>
                   </div>
               </motion.div>
 
           </div>
 
           {/* Footer Action */}
-          <div className="py-5 border-t border-white/5 bg-black/40 flex items-center justify-center gap-3 text-white group-hover:text-[#C5A059] transition-colors relative z-30">
+          <div className="py-5 border-t border-white/5 bg-black/40 flex items-center justify-center gap-3 text-white hover:text-[#C5A059] transition-colors relative z-30">
                <span className="font-mono text-xs uppercase tracking-[0.2em] font-bold">See Full Case Study</span>
           </div>
 
