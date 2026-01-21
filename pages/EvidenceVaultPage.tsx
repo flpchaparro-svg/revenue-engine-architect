@@ -10,7 +10,7 @@ interface EvidenceVaultPageProps {
   onBack: () => void;
 }
 
-// --- TERMINAL LOG COMPONENT (Restored) ---
+// --- TERMINAL LOG COMPONENT (Restored for Modal) ---
 const TerminalLog: React.FC = () => {
   const [lines, setLines] = useState<string[]>([]);
   
