@@ -3,8 +3,8 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, Database, Zap, Activity, CheckCircle2, X, Terminal } from 'lucide-react';
 import EvidenceVisual_Compare from '../components/EvidenceVisual_Compare';
-import CTAButton from '../components/CTAButton'; // STANDARDIZED
-import BackButton from '../components/BackButton'; // STANDARDIZED
+import CTAButton from '../components/CTAButton'; 
+import BackButton from '../components/BackButton'; 
 
 interface EvidenceVaultPageProps {
   onBack: () => void;
@@ -34,7 +34,8 @@ const TerminalLog: React.FC = () => {
     <div className="w-full bg-[#1a1a1a] p-8 border-t border-black/10 font-mono text-sm overflow-hidden">
       <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
         <Terminal className="w-4 h-4 text-[#C5A059]" />
-        <span className="text-[#C5A059] uppercase tracking-[0.2em] font-bold">Build Log // What I Did</span>
+        {/* FIX: Bumped to text-xs */}
+        <span className="text-[#C5A059] uppercase tracking-[0.2em] font-bold text-xs">Build Log // What I Did</span>
       </div>
       <div className="space-y-3">
         {lines.map((line, i) => (
@@ -133,20 +134,22 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden h-full">
         <div className="absolute inset-0 opacity-[0.03] grayscale bg-[url('https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=2000')] bg-cover mix-blend-multiply" />
         <div className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(rgba(26,26,26,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(26,26,26,0.1)_1px,transparent_1px)] bg-[size:40px_40px]" />
-        <div className="absolute top-[15%] right-[5%] font-mono text-[9px] text-black/10 uppercase tracking-[0.5em] rotate-90 origin-right fixed">
+        {/* FIX: Bumped to text-[10px] */}
+        <div className="absolute top-[15%] right-[5%] font-mono text-[10px] text-black/10 uppercase tracking-[0.5em] rotate-90 origin-right fixed">
           [ EVIDENCE VAULT / VERIFIED LOGS V.1 ]
         </div>
       </div>
 
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 relative z-10 pt-0 pb-32">
         
-        {/* NAVIGATION - STANDARDIZED */}
+        {/* NAVIGATION */}
         <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
           <BackButton onClick={onBack} label="Return to Overview" />
           
           <div className="hidden md:flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
-            <span className="font-mono text-[9px] text-black/40 uppercase tracking-[0.4em]">LOG FILE STATUS: READ ONLY</span>
+            {/* FIX: Bumped to text-[10px] */}
+            <span className="font-mono text-[10px] text-black/40 uppercase tracking-[0.4em]">LOG FILE STATUS: READ ONLY</span>
           </div>
         </div>
 
@@ -180,6 +183,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
              <div className="w-full aspect-square max-w-[400px] border border-black/5 bg-white p-12 flex flex-col justify-center items-center relative overflow-hidden shadow-sm">
                 <div className="absolute top-0 left-0 w-full h-1 bg-[#C5A059]"></div>
                 <ShieldCheck className="w-24 h-24 text-[#C5A059] mb-8 stroke-[0.5]" />
+                {/* FIX: Bumped to text-[10px] */}
                 <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-center text-black/40">RESULT AUTHENTICATED / SYSTEM ID 0X44</span>
              </div>
           </div>
@@ -189,6 +193,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
         <section className="mb-40">
           <div className="flex justify-between items-end mb-16 border-b border-black/10 pb-8">
             <h2 className="font-serif text-5xl italic">Case Audits.</h2>
+            {/* FIX: Bumped to text-[10px] */}
             <span className="font-mono text-[10px] text-black/30 tracking-[0.2em] uppercase mb-2">DEPLOYMENT LOG ARCHIVE</span>
           </div>
 
@@ -208,17 +213,20 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
               >
                 <div>
                   <div className="flex justify-between items-start mb-12">
-                    <span className="font-mono text-[9px] text-black/30 tracking-widest uppercase">{audit.id}</span>
+                    {/* FIX: Bumped to text-[10px] */}
+                    <span className="font-mono text-[10px] text-black/30 tracking-widest uppercase">{audit.id}</span>
                     <audit.icon className="w-6 h-6 text-[#C5A059] opacity-30 group-hover:opacity-100 transition-opacity" />
                   </div>
                   <h3 className="font-serif text-3xl mb-4 leading-none">{audit.title}</h3>
+                  {/* FIX: Bumped to text-[10px] */}
                   <p className="font-mono text-[10px] text-[#E21E3F] uppercase tracking-widest mb-6">{audit.client}</p>
                   <div className="text-4xl font-sans font-light text-[#C5A059] mb-8">{audit.impact}</div>
                   <p className="font-sans text-sm text-black/50 leading-relaxed mb-10 group-hover:text-white/60 transition-colors">{audit.desc}</p>
                 </div>
                 
                 <div className="pt-8 border-t border-black/5 group-hover:border-white/10 transition-colors">
-                   <h4 className="font-mono text-[9px] uppercase tracking-widest text-black/30 group-hover:text-white/30 mb-4">Verified Metrics:</h4>
+                   {/* FIX: Bumped to text-[10px] */}
+                   <h4 className="font-mono text-[10px] uppercase tracking-widest text-black/30 group-hover:text-white/30 mb-4">Verified Metrics:</h4>
                    <ul className="space-y-2">
                      {audit.metrics.map((m, i) => (
                        <li key={i} className="flex items-center gap-3">
@@ -235,6 +243,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
 
         {/* VERIFIED PARTNERS */}
         <section className="mb-32">
+          {/* FIX: Bumped to text-[10px] */}
           <span className="font-mono text-[10px] text-black/30 tracking-[0.5em] uppercase mb-12 block text-center">Engineered With The Best</span>
           <div className="flex flex-wrap justify-center md:justify-between items-center gap-12 grayscale opacity-30 py-12 border-y border-black/5">
             {partners.map(p => (
@@ -243,7 +252,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
           </div>
         </section>
 
-        {/* CALL TO ACTION - STANDARDIZED */}
+        {/* CALL TO ACTION */}
         <section className="py-32 flex flex-col items-center text-center mb-24">
           <h2 className="font-serif text-5xl md:text-7xl mb-12 italic max-w-4xl leading-tight">Your company is the next <span className="text-[#C5A059]">evidence log.</span></h2>
           
@@ -256,12 +265,13 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
         <div className="py-12 border-t border-black/10 flex flex-col md:flex-row items-center justify-between gap-8 mt-20 opacity-60">
           <div className="flex items-center gap-4">
             <CheckCircle2 className="w-5 h-5 text-[#C5A059]" />
+            {/* FIX: Bumped to text-[10px] */}
             <span className="font-mono text-[10px] uppercase tracking-widest text-black/40">EVIDENCE VERIFIED / LOGS NOMINAL</span>
           </div>
         </div>
       </div>
 
-      {/* --- THE EVIDENCE MODAL (Restored) --- */}
+      {/* --- THE EVIDENCE MODAL --- */}
       {isModalOpen && createPortal(
         <AnimatePresence mode="wait">
           <div key="modal" className="fixed inset-0 z-[9999] flex items-center justify-center px-4 md:px-8">
