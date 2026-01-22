@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Play, Terminal } from 'lucide-react';
 
@@ -10,17 +10,28 @@ interface NarrativeSectionProps {
   body: string;
   color: string;
   align: 'left' | 'right';
-  isLast?: boolean;
 }
+
+// --- HOOK: DETECT MOBILE ---
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  return isMobile;
+};
 
 // --- SUB-COMPONENT: VIDEO HOLDER ---
 const VideoPlaceholder = ({ color }: { color: string }) => (
   <motion.div 
     initial={{ scale: 0.9, opacity: 0 }}
     whileInView={{ scale: 1, opacity: 1 }}
-    viewport={{ once: true, margin: "-20%" }}
+    viewport={{ once: true, margin: "-10%" }}
     transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-    className="relative w-full aspect-square md:w-[450px] md:h-[450px] bg-[#1a1a1a] group cursor-pointer overflow-hidden rounded-sm shadow-2xl border border-white/5 z-10"
+    className="relative w-full aspect-square md:w-[400px] md:h-[400px] bg-[#1a1a1a] group cursor-pointer overflow-hidden rounded-sm shadow-2xl border border-white/5 z-10"
     style={{ borderColor: `${color}20` }}
   >
     {/* Ambient Glow */}
@@ -45,9 +56,10 @@ const VideoPlaceholder = ({ color }: { color: string }) => (
 );
 
 // --- SUB-COMPONENT: NARRATIVE SECTION ---
-const NarrativeSection: React.FC<NarrativeSectionProps> = ({ phase, title, subtitle, body, color, align, isLast }) => {
+const NarrativeSection: React.FC<NarrativeSectionProps> = ({ phase, title, subtitle, body, color, align }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isRight = align === 'right';
+  const isMobile = useIsMobile();
   
   // SCROLL MATH
   const { scrollYProgress } = useScroll({
@@ -59,13 +71,21 @@ const NarrativeSection: React.FC<NarrativeSectionProps> = ({ phase, title, subti
   const heightScale = useSpring(scrollYProgress, { stiffness: 200, damping: 30, restDelta: 0.001 });
   const dotActive = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
 
-  // ANIMATION: "Behind the Line" Reveal
-  // We use a masking div with overflow-hidden.
-  // The content starts shifted 100% towards the center line, then slides out.
-  const slideDistance = isRight ? "-100%" : "100%"; 
+  // ANIMATION LOGIC:
+  const xOffsetStart = isMobile ? -50 : (isRight ? -50 : 50);
+
+  const textVariants = {
+    hidden: { opacity: 0, x: xOffsetStart },
+    visible: { 
+      opacity: 1, 
+      x: 0,
+      transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+    }
+  };
 
   return (
-    <div ref={containerRef} className="relative w-full min-h-[100vh] flex items-center justify-center py-24 md:py-32">
+    // ADJUSTED HEIGHT: Changed from min-h-[90vh] to min-h-[60vh] to bring sections closer
+    <div ref={containerRef} className="relative w-full min-h-[60vh] flex items-center justify-center py-16 md:py-24">
       
       {/* --- THE SPINE COLUMN --- */}
       <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[2px] -translate-x-1/2 pointer-events-none z-0">
@@ -95,51 +115,26 @@ const NarrativeSection: React.FC<NarrativeSectionProps> = ({ phase, title, subti
             style={{ backgroundColor: color }}
           />
         </div>
-
-        {/* Arrowhead (Only on Last Section) */}
-        {isLast && (
-          <motion.div 
-            style={{ opacity: heightScale }} 
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full flex flex-col items-center -mt-1"
-          >
-            <motion.div
-               animate={{ y: [0, 5, 0], opacity: [0.8, 1, 0.8] }}
-               transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            >
-               <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="square" strokeLinejoin="miter">
-                 <path d="M6 9L12 15L18 9" />
-               </svg>
-            </motion.div>
-            
-            <motion.div 
-              className="mt-4 text-center w-[300px]"
-              animate={{ opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
-            >
-              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40">
-                SCROLL TO EXPLORE THE PARTS
-              </span>
-            </motion.div>
-          </motion.div>
-        )}
       </div>
 
       {/* --- CONTENT GRID --- */}
-      <div className={`w-full max-w-[1400px] px-6 md:px-12 lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-32 items-center relative z-10 ${isRight ? 'md:grid-flow-dense' : ''}`}>
+      <div className={`w-full max-w-[1400px] px-6 md:px-12 lg:px-20 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center relative z-10 ${isRight ? 'md:grid-flow-dense' : ''}`}>
         
-        {/* TEXT CONTENT (Z-20 ensures it's above video) */}
+        {/* TEXT CONTENT */}
         <div className={`relative z-20 flex flex-col ${isRight ? 'md:col-start-2 items-start md:items-end md:text-right pl-12 md:pl-0' : 'items-start text-left pl-12 md:pl-0'}`}>
           
-          {/* MASKED CONTAINER FOR "BEHIND THE LINE" EFFECT */}
-          <div className="overflow-hidden py-2 -my-2 w-full flex flex-col" style={{ alignItems: isRight ? 'flex-end' : 'flex-start' }}>
-            
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-20%" }}
+            transition={{ staggerChildren: 0.1 }}
+            className="w-full flex flex-col"
+            style={{ alignItems: isMobile ? 'flex-start' : (isRight ? 'flex-end' : 'flex-start') }}
+          >
             {/* Eyebrow */}
             <motion.div 
-              initial={{ x: slideDistance, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true, margin: "-20%" }}
-              transition={{ duration: 0.8, ease: [0.215, 0.61, 0.355, 1] }}
-              className={`mb-6 flex items-center gap-4 ${isRight ? 'md:flex-row-reverse' : 'flex-row'}`}
+              variants={textVariants}
+              className={`mb-4 flex items-center gap-4 ${isRight && !isMobile ? 'flex-row-reverse' : 'flex-row'}`}
             >
                <div className="w-8 h-[2px]" style={{ backgroundColor: color }} />
                <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]" style={{ color: color }}>
@@ -149,11 +144,8 @@ const NarrativeSection: React.FC<NarrativeSectionProps> = ({ phase, title, subti
             
             {/* Title */}
             <motion.h3 
-              initial={{ x: slideDistance, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true, margin: "-20%" }}
-              transition={{ duration: 0.8, delay: 0.1, ease: [0.215, 0.61, 0.355, 1] }}
-              className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-[1.0] tracking-tighter mb-6"
+              variants={textVariants}
+              className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-[1.0] tracking-tighter mb-4"
             >
               {title} <br/>
               <span className="italic font-serif" style={{ color: color }}>{subtitle}</span>
@@ -161,15 +153,12 @@ const NarrativeSection: React.FC<NarrativeSectionProps> = ({ phase, title, subti
             
             {/* Body */}
             <motion.p 
-              initial={{ x: slideDistance, opacity: 0 }}
-              whileInView={{ x: 0, opacity: 1 }}
-              viewport={{ once: true, margin: "-20%" }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.215, 0.61, 0.355, 1] }}
+              variants={textVariants}
               className="font-sans text-lg md:text-xl font-light text-[#1a1a1a]/70 leading-relaxed max-w-lg"
             >
               {body}
             </motion.p>
-          </div>
+          </motion.div>
 
         </div>
 
@@ -192,10 +181,10 @@ export const SystemArchitecture: React.FC = () => {
   });
 
   return (
-    <div className="w-full bg-[#FFF2EC] relative pb-32">
+    <div className="w-full bg-[#FFF2EC] relative pb-24">
       
-      {/* 1. HERO HEADER */}
-      <div ref={originRef} className="relative pt-32 pb-32 md:pt-40 md:pb-48 px-6 flex flex-col items-center text-center z-10">
+      {/* 1. HERO HEADER - Reduced Height */}
+      <div ref={originRef} className="relative pt-32 pb-24 md:pt-32 md:pb-32 px-6 flex flex-col items-center text-center z-10 min-h-[50vh]">
          <motion.div 
            initial={{ opacity: 0, y: 20 }}
            whileInView={{ opacity: 1, y: 0 }}
@@ -223,7 +212,7 @@ export const SystemArchitecture: React.FC = () => {
         <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-[1px] bg-[#1a1a1a]/10 -translate-x-1/2 z-0" />
         
         {/* The Starting Fill (Red) */}
-        <div className="absolute left-6 md:left-1/2 top-0 h-48 w-[2px] -translate-x-1/2 overflow-hidden z-0">
+        <div className="absolute left-6 md:left-1/2 top-0 h-32 w-[2px] -translate-x-1/2 overflow-hidden z-0">
             <motion.div 
               style={{ scaleY: originProgress, transformOrigin: 'top' }}
               className="w-full h-full bg-[#E21E3F] absolute top-0 left-0"
@@ -250,7 +239,7 @@ export const SystemArchitecture: React.FC = () => {
           align="right"
         />
 
-        {/* 4. PHASE III: VISION (BLACK + ARROW) */}
+        {/* 4. PHASE III: VISION (BLACK) */}
         <NarrativeSection 
           phase="PHASE 03 // CLARITY"
           title="See"
@@ -258,7 +247,6 @@ export const SystemArchitecture: React.FC = () => {
           body="You cannot fix what you cannot measure. We install 'Control Towers' so you stop driving blind. See profit, loss, and bottlenecks instantly."
           color="#1a1a1a"
           align="left"
-          isLast={true}
         />
         
       </div>
