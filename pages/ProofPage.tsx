@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { 
   ShieldCheck, Activity, Database, ArrowRight, Zap, 
-  MapPin, Terminal, CheckCircle2, Globe, AlertTriangle, 
+  MapPin, Terminal, Globe, AlertTriangle, 
   LayoutTemplate, Clock, Target 
 } from 'lucide-react';
 import EvidenceVisual_Compare from '../components/EvidenceVisual_Compare';
@@ -74,7 +74,8 @@ const TerminalLog: React.FC = () => {
       <div className="bg-[#1a1a1a] px-4 py-3 flex items-center justify-between border-b border-white/10">
         <div className="flex items-center gap-2">
           <Terminal className="w-3 h-3 text-[#C5A059]" />
-          <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-[#C5A059]">SYSTEM LOG // EXECUTION</span>
+          {/* STANDARD LABEL */}
+          <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#C5A059]">SYSTEM LOG // EXECUTION</span>
         </div>
       </div>
       
@@ -142,7 +143,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         </div>
 
         {/* HERO SECTION */}
-        {/* FIX: Reduced bottom margin on mobile from mb-32 to mb-20 */}
         <Section className="mb-20 md:mb-32 relative">
           <div className="absolute top-0 right-0 w-64 h-64 bg-[#C5A059]/5 rounded-full blur-3xl -z-10" />
           
@@ -152,8 +152,9 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
               CASE STUDY: 001
             </span>
           </div>
-          {/* FIX: Reduced text size on mobile to 4xl for better fit */}
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-12 max-w-5xl">
+          
+          {/* STANDARD H1: 5xl -> 6xl -> 7xl -> 8xl */}
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-12 max-w-5xl">
             Results You Can <br/>
             <span className="italic font-serif text-[#C5A059]">Verify.</span>
           </h1>
@@ -166,7 +167,8 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         <Section className="mb-20 md:mb-32">
           <div className="bg-white border border-[#1a1a1a]/5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] p-0 overflow-hidden">
             <div className="bg-[#1a1a1a] text-white px-8 py-4 flex flex-wrap justify-between items-center gap-4">
-              <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-bold">
+              {/* STANDARD LABEL: text-xs */}
+              <span className="font-mono text-xs text-[#C5A059] uppercase tracking-[0.2em] font-bold">
                 CLIENT: GROUP 7 SECURITY
               </span>
               <div className="flex gap-2">
@@ -178,23 +180,23 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
             <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-[#1a1a1a]/5">
               <div className="lg:col-span-4 bg-[#f9f9f9] p-8 border-b lg:border-b-0 lg:border-r border-[#1a1a1a]/5 space-y-8">
-                {/* FIX: Darkened text color from /40 to /60 for readability */}
                 <div>
-                  <span className="font-mono text-[10px] font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">INDUSTRY</span>
+                  {/* STANDARD LABEL */}
+                  <span className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">INDUSTRY</span>
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
                     <span className="font-sans font-medium">Security Services</span>
                   </div>
                 </div>
                 <div>
-                  <span className="font-mono text-[10px] font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">SCOPE</span>
+                  <span className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">SCOPE</span>
                   <div className="flex items-center gap-2">
                     <LayoutTemplate className="w-4 h-4 text-[#C5A059]" />
                     <span className="font-sans font-medium">Full Rebuild + Local SEO</span>
                   </div>
                 </div>
                 <div>
-                  <span className="font-mono text-[10px] font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">TIMELINE</span>
+                  <span className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">TIMELINE</span>
                   <div className="flex items-center gap-2">
                     <Clock className="w-4 h-4 text-[#C5A059]" />
                     <span className="font-sans font-medium">4 Weeks</span>
@@ -214,18 +216,19 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </Section>
 
-        {/* THE PROBLEM */}
+        {/* THE PROBLEM (RED) */}
         <Section className="mb-20 md:mb-32">
           <div className="mb-20">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block">
               / THE PROBLEM
             </span>
+            {/* STANDARD H2 */}
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
               The Old <span className="italic font-serif text-[#E21E3F]">Site.</span>
             </h2>
             <div className="inline-flex items-center gap-3 px-4 py-2 bg-[#E21E3F]/5 border border-[#E21E3F]/20 rounded-sm">
                <span className="font-sans text-sm md:text-base font-medium text-[#1a1a1a]/80">group7security.com</span>
-               <span className="font-mono text-[10px] text-[#E21E3F] uppercase tracking-[0.2em] font-bold">DECOMMISSIONED</span>
+               <span className="font-mono text-xs text-[#E21E3F] uppercase tracking-[0.2em] font-bold">DECOMMISSIONED</span>
             </div>
           </div>
 
@@ -270,13 +273,12 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                   <div className="p-3 bg-[#E21E3F]/5 rounded-sm">
                     <item.icon className="w-6 h-6 text-[#E21E3F]" />
                   </div>
-                  <span className="font-mono text-[10px] font-bold text-[#E21E3F]/60 uppercase tracking-[0.2em] border border-[#E21E3F]/20 px-2 py-1 rounded-sm">
+                  <span className="font-mono text-xs font-bold text-[#E21E3F]/60 uppercase tracking-[0.2em] border border-[#E21E3F]/20 px-2 py-1 rounded-sm">
                     CRITICAL ERROR
                   </span>
                 </div>
                 <div className="mb-6">
-                  {/* FIX: Darkened label text */}
-                  <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] mb-1">{item.label}</div>
+                  <div className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] mb-1">{item.label}</div>
                   <div className="text-4xl font-serif text-[#E21E3F] mb-4">{item.metric}</div>
                   <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed mb-4">{item.desc}</p>
                 </div>
@@ -289,7 +291,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </Section>
 
-        {/* THE SOLUTION */}
+        {/* THE SOLUTION (GOLD) */}
         <Section className="mb-20 md:mb-32">
           <div className="mb-20">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
@@ -300,7 +302,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             </h2>
             <div className="inline-flex items-center gap-3 px-4 py-2 bg-[#C5A059]/5 border border-[#C5A059]/20 rounded-sm">
                <span className="font-sans text-sm md:text-base font-medium text-[#1a1a1a]/80">group7security.com.au</span>
-               <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-bold">LIVE SYSTEM</span>
+               <span className="font-mono text-xs text-[#C5A059] uppercase tracking-[0.2em] font-bold">LIVE SYSTEM</span>
             </div>
           </div>
 
@@ -344,7 +346,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                     </div>
                   </div>
                   <div className="bg-[#f9f9f9] p-5 border-l-2 border-[#C5A059]">
-                    <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-bold block mb-2">THE LOGIC</span>
+                    <span className="font-mono text-xs text-[#C5A059] uppercase tracking-[0.2em] font-bold block mb-2">THE LOGIC</span>
                     <p className="font-sans text-base md:text-lg text-[#1a1a1a]/80 leading-relaxed">
                       {item.why}
                     </p>
@@ -375,7 +377,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
               { label: "Core Web Vitals", val: 100, suffix: "%", icon: ShieldCheck, note: "All Passed (Green)", color: "text-green-600" },
               { label: "Page Weight", val: 89, suffix: "%", prefix: "↓ ", icon: ArrowRight, note: "Reduction in Size", color: "text-[#C5A059]" },
             ].map((m, i) => (
-              // FIX: Changed h-[280px] to min-h-[280px] to allow content to grow if needed
               <div key={i} className="bg-white p-8 border border-[#1a1a1a]/5 hover:border-[#C5A059] transition-all duration-300 group shadow-sm flex flex-col justify-between min-h-[280px] h-auto">
                 <div className="flex justify-between items-start">
                   <div className="p-3 bg-zinc-50 rounded-full group-hover:bg-[#C5A059]/10 transition-colors">
@@ -384,8 +385,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                   <ArrowRight className="w-4 h-4 text-[#1a1a1a]/20 group-hover:-rotate-45 transition-transform duration-300" />
                 </div>
                 <div className="mt-auto">
-                  {/* FIX: Darkened label text */}
-                  <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] mb-3">{m.label}</div>
+                  <div className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] mb-3">{m.label}</div>
                   <div className="flex items-baseline gap-1 mb-2">
                     <span className="text-5xl md:text-6xl font-serif text-[#1a1a1a] tracking-tighter">
                       <CountUp value={m.val} prefix={m.prefix || ""} />
@@ -428,11 +428,11 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
           <div className="mt-8 grid grid-cols-2 gap-8 text-center">
             <div className="border-t border-red-500/20 pt-4">
-              <span className="font-mono text-[10px] font-bold text-[#E21E3F] uppercase tracking-[0.2em] block mb-2">LEGACY</span>
+              <span className="font-mono text-xs font-bold text-[#E21E3F] uppercase tracking-[0.2em] block mb-2">LEGACY</span>
               <p className="font-sans text-sm text-[#1a1a1a]/50">Slow. Generic. Invisible.</p>
             </div>
             <div className="border-t border-[#C5A059]/20 pt-4">
-               <span className="font-mono text-[10px] font-bold text-[#C5A059] uppercase tracking-[0.2em] block mb-2">NEW SYSTEM</span>
+               <span className="font-mono text-xs font-bold text-[#C5A059] uppercase tracking-[0.2em] block mb-2">NEW SYSTEM</span>
                <p className="font-sans text-sm text-[#1a1a1a]/50">Instant. Custom. Dominant.</p>
             </div>
           </div>

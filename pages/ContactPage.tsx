@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Check, ChevronDown } from 'lucide-react';
-import CTAButton from '../components/CTAButton'; // STANDARDIZED BUTTON
-import BackButton from '../components/BackButton'; // STANDARDIZED NAV
+import CTAButton from '../components/CTAButton'; 
+import BackButton from '../components/BackButton'; 
 
 interface ContactPageProps {
   onBack: () => void;
@@ -48,15 +48,12 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
     'Unsure / I need a full system audit'
   ];
 
-  // FIX: Increased placeholder opacity from /30 to /50 for better readability
   const inputBaseStyle = "w-full bg-white/5 border border-white/10 px-4 py-4 font-sans text-xl text-white focus:outline-none focus:border-[#C5A059] focus:bg-white/10 transition-all placeholder:text-white/50 rounded-sm mt-2";
 
   return (
-    // FIX: Main background changed to #1a1a1a so overscrolling on mobile doesn't show cream under the black form
     <div className="min-h-screen w-full flex flex-col lg:flex-row relative z-[9999] bg-[#1a1a1a]">
       
       {/* LEFT COLUMN: THE HUMAN ANCHOR (CREAM) */}
-      {/* FIX: 'h-auto' allows content to dictate height on mobile, preventing large empty gaps */}
       <div className="w-full lg:w-5/12 h-auto lg:h-screen lg:sticky lg:top-0 bg-[#FFF2EC] text-[#1a1a1a] flex flex-col p-8 md:p-12 lg:px-20 lg:pb-20 lg:pt-24 border-r border-[#1a1a1a]/10 justify-between order-first relative z-10">
         
         {/* NAV */}
@@ -66,12 +63,13 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
         {/* The Promise */}
         <div className="flex-1 flex flex-col justify-center py-8 lg:py-0">
-          <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] mb-6 md:mb-8 block">
+          {/* STANDARD LABEL: text-xs */}
+          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] mb-6 md:mb-8 block">
             / THE PROMISE
           </span>
           
-          {/* FIX: Mobile text size reduced to 4xl to prevent bad word breaking on narrow screens */}
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.0] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-10">
+          {/* STANDARD H1: 5xl -> 6xl -> 7xl -> 8xl */}
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.0] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-10">
             This is not a <br />
             <span className="italic font-serif text-[#C5A059]">Sales Call.</span>
           </h1>
@@ -86,10 +84,10 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
           </div>
         </div>
 
-        {/* Footer (Hidden on Mobile to save space) */}
+        {/* Footer */}
         <div className="hidden lg:block flex-none opacity-40">
            <div className="w-12 h-[1px] bg-[#C5A059] mb-4" />
-           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
+           <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
              // DIRECT LINE OPEN
            </p>
         </div>
@@ -102,10 +100,11 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-xl w-full mx-auto lg:mx-0">
             
             <div className="mb-12 border-b border-white/10 pb-8 mt-8 lg:mt-0">
-              <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
                 / DIAGNOSIS
               </span>
-              <h2 className="font-serif text-3xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-white mb-6">
+              {/* STANDARD H2: 4xl -> 5xl -> 7xl */}
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-white mb-6">
                 The <span className="italic font-serif text-[#C5A059]">Situation.</span>
               </h2>
               <p className="font-sans text-lg md:text-xl text-white/60 leading-relaxed max-w-xl">
@@ -118,7 +117,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
               {/* Row 1: Name & Email */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="group relative">
-                  <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
+                  <label className="block font-mono text-xs uppercase tracking-[0.2em] text-[#C5A059] font-bold">
                     01 // IDENTIFICATION
                   </label>
                   <input 
@@ -131,7 +130,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                   />
                 </div>
                 <div className="group relative">
-                  <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
+                  <label className="block font-mono text-xs uppercase tracking-[0.2em] text-[#C5A059] font-bold">
                     02 // COORDINATES
                   </label>
                   <input 
@@ -147,7 +146,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
               {/* Row 2: Entity */}
               <div className="group relative">
-                <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
+                <label className="block font-mono text-xs uppercase tracking-[0.2em] text-[#C5A059] font-bold">
                   03 // ENTITY
                 </label>
                 <input 
@@ -161,7 +160,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
               {/* Row 3: Dropdown */}
               <div className="group relative">
-                <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
+                <label className="block font-mono text-xs uppercase tracking-[0.2em] text-[#C5A059] font-bold">
                   04 // THE HANDBRAKE
                 </label>
                 <div className="relative">
@@ -180,7 +179,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
               {/* Row 4: Message */}
               <div className="group relative">
-                <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
+                <label className="block font-mono text-xs uppercase tracking-[0.2em] text-[#C5A059] font-bold">
                    05 // CONTEXT
                 </label>
                 <textarea 
@@ -209,6 +208,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
              <div className="w-24 h-24 bg-[#C5A059] rounded-full flex items-center justify-center mb-8 shadow-2xl shadow-[#C5A059]/30">
                <Check className="w-12 h-12 text-[#1a1a1a]" />
              </div>
+             {/* SUCCESS H2 STANDARD */}
              <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tighter text-white mb-6">
                Brief <span className="italic font-serif text-[#C5A059]">Received.</span>
              </h2>
