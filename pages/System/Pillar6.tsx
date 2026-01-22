@@ -2,38 +2,35 @@ import React, { useState } from 'react';
 import { 
   motion, 
   AnimatePresence, 
-  useScroll,
   useAnimationFrame,
   useMotionValue,
   useTransform
 } from 'framer-motion';
 import { 
-  ArrowLeft, ArrowRight, CheckCircle,
-  Users, Radio, Video, Map, 
   Truck, HardHat, Heart, 
   Coffee, Package, TrendingUp, 
   Briefcase, AlertTriangle, Calculator, 
   Clock, Store, ShieldCheck, 
-  Check, ChevronDown, ChevronRight, Terminal, HelpCircle
+  CheckCircle, ChevronDown, ChevronRight, HelpCircle
 } from 'lucide-react';
 import PillarVisual_Helix from '../../components/PillarVisual_Helix';
 import FAQSection from '../../components/FAQSection';
 import { getPillarFAQs } from '../../constants/faqData';
-import CTAButton from '../../components/CTAButton'; // STANDARDIZED BUTTON
-import BackButton from '../../components/BackButton'; // STANDARDIZED BACK LINK
+import CTAButton from '../../components/CTAButton'; 
+import BackButton from '../../components/BackButton'; 
 
 interface PillarPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
-// --- VISUALIZATIONS (Service Level - Training Specific) ---
+// --- VISUALIZATIONS (GOLD THEME: #C5A059) ---
 const TierVisual = ({ tierKey }: { tierKey: string }) => {
   return (
     <div className="h-32 w-full mb-6 flex items-center justify-center relative bg-transparent">
       
       {tierKey === 'media' && (
-        // ANIMATION: "The Audio Wave" (Learning while driving)
+        // ANIMATION: "The Audio Wave"
         <div className="flex items-center gap-1 h-12">
             {[1, 2, 4, 3, 5, 4, 2, 1, 3, 5, 2].map((h, i) => (
                 <motion.div 
@@ -47,7 +44,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
       )}
 
       {tierKey === 'matrix' && (
-        // ANIMATION: "The QR Scan" (Just-in-Time Learning)
+        // ANIMATION: "The QR Scan"
         <div className="relative w-20 h-20 border-2 border-[#C5A059] p-1 flex flex-wrap gap-1 content-start rounded-sm">
              {/* QR Dots */}
              {[...Array(16)].map((_, i) => (
@@ -68,7 +65,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
       )}
 
       {tierKey === 'visuals' && (
-        // ANIMATION: "The Diagram" (Visual Logic)
+        // ANIMATION: "The Diagram"
         <div className="relative w-full h-full flex items-center justify-center">
             {/* Top Node */}
             <div className="w-6 h-6 border border-[#C5A059] flex items-center justify-center absolute top-2">
@@ -91,7 +88,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
       )}
 
       {tierKey === 'analyst' && (
-        // ANIMATION: "The Knowledge Node" (AI Brain)
+        // ANIMATION: "The Knowledge Node"
         <div className="relative w-full h-full flex items-center justify-center">
             <motion.div 
                 className="w-10 h-10 bg-[#1a1a1a] border border-[#C5A059] rounded-full z-10 flex items-center justify-center"
@@ -298,7 +295,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         const element = document.getElementById(id);
         if (element) {
             const offset = 100; // Header offset
-            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
             const offsetPosition = elementPosition - offset;
       
             window.scrollTo({
@@ -306,7 +303,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
               behavior: "smooth"
             });
         }
-    }, 200); 
+    }, 300); 
   };
 
   return (
@@ -316,7 +313,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
     >
       
       {/* --- HERO SECTION --- */}
-      <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
+      <section className="relative min-h-[700px] h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
           
           {/* NAVIGATION - STANDARDIZED */}
@@ -333,6 +330,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                  </span>
                </div>
 
+               {/* STANDARD H1 */}
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
                  Team <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Training.</span>
                </h1>
@@ -361,12 +359,13 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       {/* --- ENGINE CONFIGURATOR --- */}
       <section className="w-full px-6 md:px-12 lg:px-20 pt-24 pb-32 max-w-[1400px] mx-auto border-t border-[#1a1a1a]/10">
 
-        {/* HEADER WITH HUMAN EXPLAINER */}
+        {/* HEADER */}
         <div className="mb-16">
            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block">
               / SYSTEM CONFIGURATION
            </span>
-           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-none mb-6">
+           {/* STANDARD H2 */}
+           <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-[#1a1a1a] leading-[0.95] tracking-tighter mb-6">
              Select your <span className="italic text-[#C5A059] font-serif">Situation.</span>
            </h2>
            <div className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl space-y-4">
@@ -379,7 +378,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
         {/* --- DESKTOP VIEW: TABBED DASHBOARD (HIDDEN ON MOBILE) --- */}
         <div className="hidden md:block border border-black/10 bg-gradient-to-br from-white to-[#FFF9F0] shadow-sm mb-32 rounded-sm overflow-hidden">
-           {/* TABS (NOW WITH HOOKS) */}
+           {/* TABS (GOLD HIGHLIGHTS) */}
            <div className="grid grid-cols-4 border-b border-black/10 bg-[#FAFAFA]">
               {Object.entries(TIERS).map(([key, tier]) => (
                 <button 
@@ -405,7 +404,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
               {/* LEFT: Persona List */}
               <div className="w-1/3 border-r border-black/10 bg-[#FAFAFA] p-8 flex flex-col">
                  
-                 {/* INTRO SUMMARY (NEW) */}
+                 {/* INTRO SUMMARY */}
                  <div className="mb-8 p-4 bg-white border border-black/5 rounded-sm">
                     <div className="flex gap-2 items-center mb-2">
                        <HelpCircle className="w-4 h-4 text-[#C5A059]" />
@@ -460,9 +459,9 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                        className="flex-grow flex flex-col"
                     >
                        <div className="mb-10">
-                          <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">The Problem</span>
-                          <h2 className="font-serif text-4xl mb-6 text-[#1a1a1a] leading-tight">{currentPersona.painTitle}</h2>
-                          <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#E21E3F] pl-6 italic">"{currentPersona.painText}"</p>
+                          <span className="text-[#C5A059] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">The Problem</span>
+                          <h2 className="font-serif text-3xl md:text-4xl mb-6 text-[#1a1a1a] leading-tight">{currentPersona.painTitle}</h2>
+                          <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#C5A059] pl-6 italic">"{currentPersona.painText}"</p>
                        </div>
 
                        <div className="mt-auto bg-[#1a1a1a] p-8 text-white rounded-sm relative overflow-hidden shadow-2xl">
@@ -471,13 +470,14 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                              <div className="flex-grow">
                                 <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-4 font-bold">The Fix</span>
                                 <p className="font-sans text-lg leading-relaxed mb-8">{currentPersona.solution}</p>
-                                {/* STANDARDIZED CTA BUTTON */}
+                                
                                 <div className="w-fit">
                                   <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
                                     [ BOOK A CALL ]
                                   </CTAButton>
                                 </div>
                              </div>
+                             {/* VISUAL ON DESKTOP */}
                              <div className="w-32 hidden lg:block flex-shrink-0">
                                 <TierVisual tierKey={activeTier} />
                              </div>
@@ -496,7 +496,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
             return (
               <div 
                 key={key} 
-                id={`tier-mobile-${key}`} // ID for Scroll Target
+                id={`tier-mobile-${key}`} 
                 className={`border rounded-sm overflow-hidden transition-all duration-300 ${isTierExpanded ? 'border-[#1a1a1a] bg-white shadow-xl scale-[1.02] z-10' : 'border-black/10 bg-white'}`}
               >
                 
@@ -505,9 +505,9 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                   onClick={() => {
                     const willExpand = !isTierExpanded;
                     setExpandedTier(willExpand ? key as keyof typeof TIERS : null);
-                    setExpandedPersona(null); // Close inner accordions
+                    setExpandedPersona(null); 
                     if (willExpand) {
-                        handleScrollTo(`tier-mobile-${key}`); // TRIGGER SCROLL
+                        handleScrollTo(`tier-mobile-${key}`);
                     }
                   }}
                   className={`w-full flex items-center justify-between p-6 text-left transition-colors duration-300 ${isTierExpanded ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}
@@ -516,7 +516,6 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                     <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${isTierExpanded ? 'text-[#C5A059]' : 'text-black/60'}`}>
                       {tier.label}
                     </span>
-                    {/* NEW: Hook visible on closed state too */}
                     <span className={`font-serif text-lg leading-tight ${isTierExpanded ? 'text-white' : 'text-black'}`}>"{tier.hook}"</span>
                   </div>
                   <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isTierExpanded ? 'rotate-180 text-[#C5A059]' : 'text-black/30'}`} />
@@ -530,7 +529,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                       className="overflow-hidden bg-[#FAFAFA]"
                     >
                       <div className="p-4 space-y-2">
-                         {/* INTRO SUMMARY (NEW FOR MOBILE) */}
+                         {/* INTRO SUMMARY */}
                          <div className="mb-6 p-4 bg-white border border-black/5 rounded-sm">
                             <p className="font-sans text-sm text-black/70 leading-relaxed">
                                <strong className="text-[#C5A059] block mb-1 font-bold uppercase text-[9px] tracking-widest">Is this you?</strong>
@@ -545,7 +544,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                            return (
                              <div 
                                 key={p.id} 
-                                id={`persona-mobile-${p.id}`} // ID for Scroll Target
+                                id={`persona-mobile-${p.id}`} 
                                 className={`border rounded-sm overflow-hidden transition-all duration-300 ${isPersonaExpanded ? 'border-[#C5A059] bg-white shadow-md' : 'border-black/5 bg-white'}`}
                              >
                                
@@ -555,7 +554,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                     const willExpand = !isPersonaExpanded;
                                     setExpandedPersona(willExpand ? p.id : null);
                                     if (willExpand) {
-                                        handleScrollTo(`persona-mobile-${p.id}`); // TRIGGER SCROLL
+                                        handleScrollTo(`persona-mobile-${p.id}`); 
                                     }
                                  }}
                                  className="w-full flex items-center gap-4 p-4 text-left hover:bg-black/5 transition-colors"
@@ -606,7 +605,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                             </CTAButton>
                                          </div>
 
-                                         {/* Specs List (Restored for Mobile) */}
+                                         {/* Specs List */}
                                          <div className="mt-8 pt-6 border-t border-black/10">
                                             <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-3 block">Included Specs</span>
                                             <ul className="space-y-2">

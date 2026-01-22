@@ -326,7 +326,7 @@ const Feature_Group7: React.FC = () => {
                              WHAT I DID
                           </h4>
                           <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
-                            I migrated them to <strong>.com.au</strong> and rebuilt the site from scratch — fast, mobile-first, with proper Sydney location tags so Google knows exactly where they operate.
+                            I migrated them to <strong>.com.au</strong> and rebuilt the site from scratch. Fast, mobile-first, with proper Sydney location tags so Google knows exactly where they operate.
                           </p>
                         </div>
                         <div>

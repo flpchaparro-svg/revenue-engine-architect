@@ -119,7 +119,7 @@ const TheArchitect: React.FC = () => {
                     <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 border-l-2 border-[#1a1a1a]/10 pl-8 max-w-xl">
                        {mode === 'architect' 
                          ? "No account managers. No junior handoffs. No endless meetings. You talk directly to the person building your system. I use automation and AI to deliver what agencies need a whole team for."
-                         : "Before I built systems for others, I ran my own café, managed car dealerships, and worked on factory floors. I know what it's like to chase invoices at midnight. I don't give you theory — I give you what actually works."
+                         : "Before I built systems for others, I ran my own café, managed car dealerships, and worked on factory floors. I know what it's like to chase invoices at midnight. I don't give you theory. I give you what actually works."
                        }
                     </p>
                  </div>

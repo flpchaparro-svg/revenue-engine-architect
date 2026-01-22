@@ -15,98 +15,98 @@ const ALL_PILLARS = [
     id: 'pillar1', number: '01', icon: Globe, title: 'THE FACE', 
     subtitle: 'Websites & E-commerce', subtitleMobile: 'Websites',
     categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: 'DIGITAL_STOREFRONT',
-    body: 'Your online storefront that captures leads, sells products, and feeds data to every other pillar',
-    bodyMobile: 'Online storefront that captures and converts',
-    description: 'Your online storefront. Not a digital brochure, but a system designed to capture leads and process transactions with zero friction.',
+    body: 'Capture every visitor as a trackable lead.',
+    bodyMobile: 'Capture every visitor as a trackable lead.',
+    description: 'Your website is the first impression. I build sites that don\'t just look good, they capture leads, sell products, and feed your CRM automatically. Every visitor becomes a trackable opportunity.',
     systemPurpose: 'Capture demand and structure data.',
     subServices: [
-       { title: 'How it connects', description: 'The Face feeds the Brain. Every visitor who fills out a form or makes a purchase gets logged in your CRM automatically.' },
-       { title: 'How it helps the whole system', description: 'Without the Face capturing data properly, you can\'t track where your leads come from. Pillar 7 (Dashboards) needs this data to show you what\'s working.' },
-       { title: 'What you get', description: 'You stop losing customers to slower competitors. Leads get captured while you sleep.' }
+       { title: 'How it connects', description: 'The website captures the lead. The CRM tracks it. Automation follows up. That\'s the loop.' },
+       { title: 'How it helps the whole system', description: 'The website captures the lead. The CRM tracks it. Automation follows up. That\'s the loop.' },
+       { title: 'What you get', description: 'A site that works while you sleep. Every visitor becomes an opportunity.' }
     ]
   },
   {
     id: 'pillar2', number: '02', icon: Database, title: 'THE BRAIN', 
     subtitle: 'CRM & Lead Tracking', subtitleMobile: 'CRM',
     categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: 'LEAD_DATABASE',
-    body: 'The single source of truth that tracks every call, email, and deal stage',
-    bodyMobile: 'Tracks every lead, call, and deal',
-    description: 'Your single source of truth. Every call, email, and deal stage tracked in one place. If it\'s not in the CRM, it didn\'t happen.',
+    body: 'Know exactly where every opportunity sits.',
+    bodyMobile: 'Know exactly where every opportunity sits.',
+    description: 'If it\'s not in the CRM, it didn\'t happen. Every lead, every call, every deal logged automatically. You\'ll know exactly where each opportunity sits and who\'s responsible for moving it forward.',
     systemPurpose: 'Capture demand and structure data.',
     subServices: [
-       { title: 'How it connects', description: 'The Brain stores what the Face captures and tells the Muscle what to do next. When a deal is won, automation kicks in.' },
-       { title: 'How it helps the whole system', description: 'The AI assistants (Pillar 4) need CRM data to speak intelligently to customers. Without it, they\'re guessing.' },
-       { title: 'What you get', description: 'Pipeline visibility. You stop managing by memory and start managing by data.' }
+       { title: 'How it connects', description: 'When automation sends a quote or books a call, the CRM updates. When dashboards show pipeline health, the data comes from here.' },
+       { title: 'How it helps the whole system', description: 'When automation sends a quote or books a call, the CRM updates. When dashboards show pipeline health, the data comes from here.' },
+       { title: 'What you get', description: 'Accountability. Nothing slips through. Nothing gets forgotten.' }
     ]
   },
   {
     id: 'pillar3', number: '03', icon: Zap, title: 'THE MUSCLE', 
     subtitle: 'Automation', subtitleMobile: 'Automation',
     categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: 'WORKFLOW_ENGINE',
-    body: 'Replaces data entry, invoicing, and follow-ups with instant code execution',
-    bodyMobile: 'Admin tasks run themselves',
-    description: 'Code doing the boring work. Data entry, invoicing, follow-ups. The stuff that eats your week now runs itself.',
+    body: 'Act fast without lifting a finger.',
+    bodyMobile: 'Act fast without lifting a finger.',
+    description: 'Speed wins deals. I build automations that send quotes in seconds, follow up without being asked, and handle the repetitive tasks that slow your team down. You act fast without lifting a finger.',
     systemPurpose: 'Capture demand and structure data.',
     subServices: [
-       { title: 'How it connects', description: 'When the Brain signals a won deal, the Muscle sends the invoice and contract instantly. No human delay.' },
-       { title: 'How it helps the whole system', description: 'Data moves between Marketing, Sales, and Ops in real time. No more copy-paste between three apps.' },
-       { title: 'What you get', description: 'Time back. Your team focuses on high-value work, not low-value admin.' }
+       { title: 'How it connects', description: 'Automation is the engine that keeps data flowing between your website, CRM, and everything else. It\'s the glue.' },
+       { title: 'How it helps the whole system', description: 'Automation is the engine that keeps data flowing between your website, CRM, and everything else. It\'s the glue.' },
+       { title: 'What you get', description: 'Speed. You act fast without lifting a finger.' }
     ]
   },
   {
     id: 'pillar4', number: '04', icon: Bot, title: 'THE VOICE', 
     subtitle: 'AI Assistants', subtitleMobile: 'AI Bots',
     categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: 'SYNTHETIC_WORKFORCE',
-    body: 'Digital employees that listen, reason, and speak to customers 24/7 via phone or chat',
-    bodyMobile: 'Bots that answer 24/7',
-    description: 'Digital employees that listen, think, and speak. AI that answers your phone, qualifies leads, and books appointments around the clock.',
+    body: 'Handle more leads without hiring.',
+    bodyMobile: 'Handle more leads without hiring.',
+    description: 'It\'s like hiring staff who never sleep. AI bots answer your phone, reply to enquiries, qualify leads, and book appointments 24/7. When leads spike, they don\'t buckle. When it\'s 3am, they\'re still working.',
     systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
-       { title: 'How it connects', description: 'The Voice handles 100 calls at once. When you run a marketing campaign and leads spike, it doesn\'t buckle.' },
-       { title: 'How it helps the whole system', description: 'It reads CRM data to know the customer\'s history. After the call, it updates the record automatically.' },
-       { title: 'What you get', description: 'Scalability. Double your lead volume without doubling your staff.' }
+       { title: 'How it connects', description: 'The AI reads CRM data to know the customer. After the call, it updates the record. The dashboard shows what\'s converting. It\'s all connected.' },
+       { title: 'How it helps the whole system', description: 'The AI reads CRM data to know the customer. After the call, it updates the record. The dashboard shows what\'s converting. It\'s all connected.' },
+       { title: 'What you get', description: 'Scalability. Handle double the volume without doubling staff.' }
     ]
   },
   {
     id: 'pillar5', number: '05', icon: Video, title: 'THE PRESENCE', 
     subtitle: 'Content Systems', subtitleMobile: 'Content',
     categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: 'MEDIA_DISTRIBUTION',
-    body: 'Turns one hour of raw expertise into a month of content across every platform',
-    bodyMobile: 'One input, endless content',
-    description: 'A content supply chain. One hour of your expertise becomes a month of posts, blogs, and videos across every platform.',
+    body: 'Reach more people on autopilot.',
+    bodyMobile: 'Reach more people on autopilot.',
+    description: 'Reach more people without spending your life on social media. One voice note becomes a blog, 5 social posts, and a newsletter. Auto-published across every platform. You stay visible while doing real work.',
     systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
-       { title: 'How it connects', description: 'Content drives traffic to your website (Pillar 1), which captures leads, which feeds the CRM, which triggers automation.' },
-       { title: 'How it helps the whole system', description: 'High-quality content keeps the top of the funnel full. The AI and automation have leads to process.' },
-       { title: 'What you get', description: 'Authority. You become the go-to expert without spending your life on social media.' }
+       { title: 'How it connects', description: 'Content drives traffic to your website. Visitors become leads in your CRM. Automation nurtures them. The dashboard shows what\'s working. Full loop.' },
+       { title: 'How it helps the whole system', description: 'Content drives traffic to your website. Visitors become leads in your CRM. Automation nurtures them. The dashboard shows what\'s working. Full loop.' },
+       { title: 'What you get', description: 'Authority. Stay visible without spending your life on social media.' }
     ]
   },
   {
     id: 'pillar6', number: '06', icon: Users, title: 'THE SOUL', 
     subtitle: 'Team Training', subtitleMobile: 'Training',
     categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: 'KNOWLEDGE_BASE',
-    body: 'Systems designed to ensure your team actually uses the tools you paid for',
-    bodyMobile: 'Makes your team use the tools',
-    description: 'The human element. Training systems that make sure your team actually uses the tools you paid for.',
+    body: 'Make sure your team actually uses it.',
+    bodyMobile: 'Make sure your team actually uses it.',
+    description: 'New tools fail when people don\'t use them. I build short training videos, step-by-step guides, and Q&A libraries so your team actually adopts the technology. No 3-hour Zooms. No confusion. Just adoption.',
     systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
-       { title: 'How it connects', description: 'The fastest car is useless if the driver doesn\'t know how to shift gears. The Soul protects your investment in the other 6 pillars.' },
-       { title: 'How it helps the whole system', description: 'When the team adopts the tools properly, data is clean and the system works as designed.' },
-       { title: 'What you get', description: 'ROI assurance. No more expensive shelfware that nobody uses.' }
+       { title: 'How it connects', description: 'When your team uses the tools properly, data stays clean. When data is clean, the dashboards tell the truth. Training protects your investment in the other 6 pillars.' },
+       { title: 'How it helps the whole system', description: 'When your team uses the tools properly, data stays clean. When data is clean, the dashboards tell the truth. Training protects your investment in the other 6 pillars.' },
+       { title: 'What you get', description: 'Adoption. No more expensive software nobody uses.' }
     ]
   },
   {
     id: 'pillar7', number: '07', icon: BarChart3, title: 'THE EYES', 
     subtitle: 'Dashboards & Reporting', subtitleMobile: 'Dashboards',
     categoryHex: '#1a1a1a', categoryLabel: 'SEE CLEARLY', technicalLabel: 'BI_VISUALIZATION',
-    body: 'Visualises real-time profit, churn, and speed so you move from gut feeling to evidence',
-    bodyMobile: 'Your numbers on one screen',
-    description: 'The control tower. Revenue, margins, and pipeline on one screen, updated live. No more midnight spreadsheets.',
+    body: 'See all your numbers on one screen.',
+    bodyMobile: 'See all your numbers on one screen.',
+    description: 'Revenue, margins, pipeline, team performance. All on one screen, updated live. No more midnight spreadsheets. No more waiting for the accountant. You see exactly where profit is coming from and where it\'s leaking.',
     systemPurpose: 'Navigate with clarity.',
     subServices: [
-       { title: 'How it connects', description: 'The Eyes take data from every other pillar and show you where to steer next. It\'s the feedback loop.' },
-       { title: 'How it helps the whole system', description: 'It tells you if Acquisition is profitable, if Velocity is efficient, and what needs fixing.' },
-       { title: 'What you get', description: 'Certainty. You sleep better knowing exactly where your profit is coming from.' }
+       { title: 'How it connects', description: 'This pillar pulls data from every other pillar. If Acquisition is working, you\'ll see it. If Velocity is efficient, you\'ll know. If something\'s broken, you\'ll catch it before it costs you.' },
+       { title: 'The Full Picture', description: 'This pillar pulls data from every other pillar. If Acquisition is working, you\'ll see it. If Velocity is efficient, you\'ll know. If something\'s broken, you\'ll catch it before it costs you.' },
+       { title: 'History & Forecast', description: 'Track where you\'ve been. See what\'s happening now. Forecast where you\'re headed. That\'s how you steer a business with confidence.' }
     ]
   }
 ];
@@ -384,7 +384,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
                 Business as an <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Organism.</span>
               </motion.h1>
               <motion.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                Your business is not a machine; it is a living system. We verify the connections between your revenue, your tech, and your team.
+                Your business isn't a machine. It's a living system. I connect your revenue, your tech, and your team so they work as one.
               </motion.p>
             </div>
             <motion.div variants={heroItem} className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
@@ -418,7 +418,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
                 The Parts in <span className="italic font-serif text-[#C5A059]">Detail.</span>
               </h2>
               <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto">
-                Select a component to inspect its architecture.
+                Select a component to see how it fits the whole.
               </p>
           </div>
 

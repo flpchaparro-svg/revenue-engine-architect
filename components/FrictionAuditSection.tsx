@@ -9,7 +9,7 @@ export const AUDIT_DATA = [
     title: 'Lead Evaporation',
     metric: '-$500 / DAY',
     label: 'REVENUE LEAK',
-    description: "Demand hits your site and vanishes. Your website captures names but loses intent. You are paying for leads that go cold in the inbox.",
+    description: "Demand hits your site and vanishes. Your website captures names but loses intent. You're paying for leads that go cold in the inbox.",
     type: 'data'
   },
   {
@@ -17,7 +17,7 @@ export const AUDIT_DATA = [
     title: 'The Double-Entry Tax',
     metric: '15 HRS / WK',
     label: 'TIME LEAK',
-    description: "Sales types it. Ops types it again. Finance types it a third time. You are paying triple wages for the same data entry errors.",
+    description: "Sales types it. Ops types it again. Finance types it a third time. You're paying triple wages for the same data entry errors.",
     type: 'data'
   },
   {
@@ -25,7 +25,7 @@ export const AUDIT_DATA = [
     title: 'Admin Paralysis',
     metric: '40% OF YOUR WEEK',
     label: 'GROWTH BLOCKER',
-    description: "You are the 'Chief Admin Officer'. You spend 40% of your week fixing invoices and scheduling instead of steering the ship.",
+    description: "You're the 'Chief Admin Officer'. You spend 40% of your week fixing invoices and scheduling instead of steering the ship.",
     type: 'data'
   },
   {
@@ -33,7 +33,7 @@ export const AUDIT_DATA = [
     title: 'Profit Blindness',
     metric: 'NO VISIBILITY',
     label: 'BLIND SPOT',
-    description: "You know your Revenue, but not your Real-Time Margin. You are flying a 747 through a storm with no radar.",
+    description: "You know your Revenue, but not your Real-Time Margin. You're flying a 747 through a storm with no radar.",
     type: 'data'
   },
   {
@@ -100,7 +100,7 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
            <div className="flex flex-col items-center justify-center text-center h-full max-w-4xl mx-auto">
               {/* FIXED: Reduced to text-7xl max to be smaller than Hero (8xl) */}
               <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-tight tracking-tighter mb-10">
-                You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
+                You've seen the <span className="text-[#E21E3F]">leak.</span><br/>
                 <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
               </h2>
               <CTAButton theme="light" onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({ behavior: 'smooth' })}>
@@ -246,7 +246,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                   {data.type === 'cta' ? (
                      <div className="flex flex-col items-center justify-center text-center h-full px-6 bg-[#FFF2EC]">
                         <h2 className="font-serif text-3xl text-[#1a1a1a] leading-tight tracking-tighter mb-8">
-                           You have seen the <span className="text-[#E21E3F]">leak.</span><br/>
+                           You've seen the <span className="text-[#E21E3F]">leak.</span><br/>
                            <span className="italic">Now see the <span className="text-[#C5A059]">fix.</span></span>
                         </h2>
                         <CTAButton theme="light" onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({ behavior: 'smooth' })} className="w-full">

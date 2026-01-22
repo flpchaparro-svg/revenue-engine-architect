@@ -201,7 +201,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
 
             {/* BODY COPY - Standard: text-lg md:text-lg lg:text-xl */}
             <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 animate-fade-in text-left mx-auto lg:mx-0 mb-12 md:mb-0" style={{ animationDelay: '0.6s' }}>
-              You didn't start a business to chase invoices, re-type data, and answer the same questions all day. I build the systems that do it for you — websites, CRMs, automations, and AI — so you can get back to the work that actually grows revenue.
+              You didn't start a business to chase invoices, re-type data, and answer the same questions all day. I build the systems that do it for you. Websites, CRMs, automations, and AI, so you can get back to the work that actually grows revenue.
             </p>
 
             <div className="mt-10 md:mt-16 flex flex-col sm:flex-row items-center gap-6 md:gap-12 animate-fade-in relative z-30" style={{ animationDelay: '0.8s' }}>
@@ -276,7 +276,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
                   <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
                   <div className="pointer-events-none leading-relaxed">
                     <strong className="font-serif text-xl md:text-2xl text-[#1a1a1a] tracking-tight block mb-1">The Bottleneck Boss</strong>
-                    <span className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">You are answering questions instead of doing deep work.</span>
+                    <span className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">You're answering questions instead of doing deep work.</span>
                   </div>
                 </li>
                 <li onMouseEnter={() => handleGraphHover('tax')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
@@ -315,7 +315,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
               <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] block mb-4 md:mb-0">04 / THE FIX</span>
               {/* FIXED: H3 Standard (text-3xl md:text-4xl) */}
               <p className="font-serif text-3xl md:text-4xl leading-tight mb-6 md:mb-8 hover:text-[#C5A059] transition-colors duration-300">
-                I build the systems that do the boring work for you. <span className="text-white">You get your business back.</span>
+                I build the systems that do the boring work for you. Your team gets their time back. You get your business back.
               </p>
               <CTAButton 
                 variant="bracket" 

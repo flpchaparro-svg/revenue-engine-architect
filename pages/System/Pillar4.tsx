@@ -2,36 +2,35 @@ import React, { useState } from 'react';
 import { 
   motion, 
   AnimatePresence, 
-  useScroll,
   useAnimationFrame,
   useMotionValue,
   useTransform
 } from 'framer-motion';
 import { 
-  ArrowLeft, ArrowRight, Zap, Bot, MessageSquare, Phone, 
+  Zap, MessageSquare, Phone, 
   ShieldCheck, CheckCircle, ChevronDown, ChevronRight, Terminal, HelpCircle,
   BrainCircuit, Lock
 } from 'lucide-react';
 import FAQSection from '../../components/FAQSection';
 import { getPillarFAQs } from '../../constants/faqData';
 import PillarVisual_Brain from '../../components/PillarVisual_Brain';
-import CTAButton from '../../components/CTAButton'; // STANDARDIZED BUTTON
-import BackButton from '../../components/BackButton'; // STANDARDIZED BACK LINK
+import CTAButton from '../../components/CTAButton'; 
+import BackButton from '../../components/BackButton'; 
 
 interface PillarPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
-// --- VISUALIZATIONS (AI & Agent Concepts) ---
+// --- VISUALIZATIONS (GOLD THEME: #C5A059) ---
 const TierVisual = ({ tierKey }: { tierKey: string }) => {
   return (
     <div className="h-32 w-full mb-6 flex items-center justify-center relative bg-transparent">
       
       {tierKey === 'concierge' && (
-        // ANIMATION: "The Smart Filter" (Qualifying Leads)
+        // ANIMATION: "The Smart Filter"
         <div className="relative flex flex-col items-center">
-            {/* Incoming Stream (Mixed) */}
+            {/* Incoming Stream */}
             <div className="relative h-12 w-24 overflow-hidden mb-2">
                 {[...Array(6)].map((_, i) => (
                    <motion.div
@@ -60,7 +59,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
       )}
 
       {tierKey === 'analyst' && (
-        // ANIMATION: "The Scanner" (Knowledge Retrieval)
+        // ANIMATION: "The Scanner"
         <div className="relative w-24 h-16 grid grid-cols-6 gap-1">
              {[...Array(18)].map((_, i) => (
                 <div key={i} className="w-full h-full bg-[#C5A059]/10 rounded-[1px]" />
@@ -81,7 +80,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
       )}
 
       {tierKey === 'voice' && (
-        // ANIMATION: "The Waveform" (Voice Agent)
+        // ANIMATION: "The Waveform"
         <div className="flex gap-1 items-center h-16">
             {[...Array(5)].map((_, i) => (
                 <motion.div 
@@ -100,7 +99,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
       )}
 
       {tierKey === 'custom' && (
-        // ANIMATION: "The Vault" (Security)
+        // ANIMATION: "The Vault"
         <div className="relative flex items-center justify-center w-24 h-24">
             {/* The Core */}
             <div className="absolute w-3 h-3 bg-[#C5A059] rounded-sm z-10" />
@@ -111,7 +110,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                className="absolute w-12 h-12 border-2 border-[#C5A059]/40 rounded-sm"
             />
-             {/* Rotating Shield 2 (Reverse) */}
+             {/* Rotating Shield 2 */}
              <motion.div 
                animate={{ rotate: -360 }}
                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
@@ -305,7 +304,7 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         const element = document.getElementById(id);
         if (element) {
             const offset = 100; // Header offset
-            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
             const offsetPosition = elementPosition - offset;
       
             window.scrollTo({
@@ -313,7 +312,7 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
               behavior: "smooth"
             });
         }
-    }, 200); 
+    }, 300); 
   };
 
   return (
@@ -323,10 +322,10 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
     >
       
       {/* --- HERO SECTION --- */}
-      <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
+      <section className="relative min-h-[700px] h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
           
-          {/* NAVIGATION - STANDARDIZED */}
+          {/* NAVIGATION */}
           <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
             <BackButton onClick={() => onNavigate('system')} label="Return to The System" />
           </div>
@@ -340,6 +339,7 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                  </span>
                </div>
 
+               {/* STANDARD H1 */}
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
                  Cognitive <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Infrastructure.</span>
                </h1>
@@ -357,6 +357,7 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </div>
 
+        {/* SCROLL LINE */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
           <motion.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
@@ -365,15 +366,16 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         </div>
       </section>
 
-      {/* --- ENGINE CONFIGURATOR --- */}
+      {/* --- CONFIGURATOR --- */}
       <section className="w-full px-6 md:px-12 lg:px-20 pt-24 pb-32 max-w-[1400px] mx-auto border-t border-[#1a1a1a]/10">
 
-        {/* HEADER WITH HUMAN EXPLAINER */}
+        {/* HEADER */}
         <div className="mb-16">
            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block">
               / SYSTEM CONFIGURATION
            </span>
-           <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-none mb-6">
+           {/* STANDARD H2 */}
+           <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-[#1a1a1a] leading-[0.95] tracking-tighter mb-6">
              Select your <span className="italic text-[#C5A059] font-serif">Situation.</span>
            </h2>
            <div className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl space-y-4">
@@ -384,9 +386,9 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
            </div>
         </div>
 
-        {/* --- DESKTOP VIEW: TABBED DASHBOARD (HIDDEN ON MOBILE) --- */}
+        {/* --- DESKTOP VIEW --- */}
         <div className="hidden md:block border border-black/10 bg-gradient-to-br from-white to-[#FFF9F0] shadow-sm mb-32 rounded-sm overflow-hidden">
-           {/* TABS (NOW WITH HOOKS) */}
+           {/* TABS (GOLD HIGHLIGHTS) */}
            <div className="grid grid-cols-4 border-b border-black/10 bg-[#FAFAFA]">
               {Object.entries(TIERS).map(([key, tier]) => (
                 <button 
@@ -407,12 +409,10 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
               ))}
            </div>
            
-           {/* CONTENT: SPLIT VIEW */}
+           {/* CONTENT */}
            <div className="flex min-h-[600px]">
-              {/* LEFT: Persona List */}
+              {/* LEFT */}
               <div className="w-1/3 border-r border-black/10 bg-[#FAFAFA] p-8 flex flex-col">
-                 
-                 {/* INTRO SUMMARY (NEW) */}
                  <div className="mb-8 p-4 bg-white border border-black/5 rounded-sm">
                     <div className="flex gap-2 items-center mb-2">
                        <HelpCircle className="w-4 h-4 text-[#C5A059]" />
@@ -444,7 +444,6 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                     ))}
                  </div>
 
-                 {/* SPECS LIST */}
                  <div className="mt-8 pt-8 border-t border-black/5">
                     <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-4 block">Included Specs</span>
                     <ul className="space-y-2">
@@ -458,7 +457,7 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                  </div>
               </div>
 
-              {/* RIGHT: Solution */}
+              {/* RIGHT */}
               <div className="w-2/3 p-12 relative flex flex-col">
                   <AnimatePresence mode="wait">
                     <motion.div 
@@ -467,19 +466,18 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                        className="flex-grow flex flex-col"
                     >
                        <div className="mb-10">
-                          <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">The Problem</span>
-                          <h2 className="font-serif text-4xl mb-6 text-[#1a1a1a] leading-tight">{currentPersona.painTitle}</h2>
-                          <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#E21E3F] pl-6 italic">"{currentPersona.painText}"</p>
+                          <span className="text-[#C5A059] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">The Pain</span>
+                          <h2 className="font-serif text-3xl md:text-4xl mb-6 text-[#1a1a1a] leading-tight">{currentPersona.painTitle}</h2>
+                          <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#C5A059] pl-6 italic">"{currentPersona.painText}"</p>
                        </div>
 
                        <div className="mt-auto bg-[#1a1a1a] p-8 text-white rounded-sm relative overflow-hidden shadow-2xl">
                           <div className="absolute top-0 right-0 w-48 h-48 bg-[#C5A059]/10 rounded-full blur-3xl" />
                           <div className="relative z-10 flex gap-8">
                              <div className="flex-grow">
-                                <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-4 font-bold">The Fix</span>
+                                <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-4 font-bold">The Solution</span>
                                 <p className="font-sans text-lg leading-relaxed mb-8">{currentPersona.solution}</p>
                                 
-                                {/* STANDARDIZED CTA BUTTON */}
                                 <div className="w-fit">
                                   <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
                                     [ BOOK A CALL ]
@@ -497,25 +495,25 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
            </div>
         </div>
 
-        {/* --- MOBILE VIEW: HIGH-CONTRAST VERTICAL ACCORDION (VISIBLE ON MOBILE) --- */}
+        {/* --- MOBILE VIEW: VERTICAL ACCORDION (GOLD THEME) --- */}
         <div className="md:hidden space-y-4 mb-32">
           {Object.entries(TIERS).map(([key, tier]) => {
             const isTierExpanded = expandedTier === key;
             return (
               <div 
                 key={key} 
-                id={`tier-mobile-${key}`} // ID for Scroll Target
+                id={`tier-mobile-${key}`} 
                 className={`border rounded-sm overflow-hidden transition-all duration-300 ${isTierExpanded ? 'border-[#1a1a1a] bg-white shadow-xl scale-[1.02] z-10' : 'border-black/10 bg-white'}`}
               >
                 
-                {/* LEVEL 1: TIER HEADER (DARK MODE WHEN ACTIVE) */}
+                {/* LEVEL 1: HEADER */}
                 <button 
                   onClick={() => {
                     const willExpand = !isTierExpanded;
                     setExpandedTier(willExpand ? key as keyof typeof TIERS : null);
-                    setExpandedPersona(null); // Close inner accordions
+                    setExpandedPersona(null); 
                     if (willExpand) {
-                        handleScrollTo(`tier-mobile-${key}`); // TRIGGER SCROLL
+                        handleScrollTo(`tier-mobile-${key}`);
                     }
                   }}
                   className={`w-full flex items-center justify-between p-6 text-left transition-colors duration-300 ${isTierExpanded ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}
@@ -524,13 +522,12 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                     <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${isTierExpanded ? 'text-[#C5A059]' : 'text-black/60'}`}>
                       {tier.label}
                     </span>
-                    {/* NEW: Hook visible on closed state too */}
                     <span className={`font-serif text-lg leading-tight ${isTierExpanded ? 'text-white' : 'text-black'}`}>"{tier.hook}"</span>
                   </div>
                   <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isTierExpanded ? 'rotate-180 text-[#C5A059]' : 'text-black/30'}`} />
                 </button>
 
-                {/* LEVEL 1 CONTENT: PERSONA LIST */}
+                {/* LEVEL 1 CONTENT */}
                 <AnimatePresence>
                   {isTierExpanded && (
                     <motion.div 
@@ -538,7 +535,6 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                       className="overflow-hidden bg-[#FAFAFA]"
                     >
                       <div className="p-4 space-y-2">
-                         {/* INTRO SUMMARY (NEW FOR MOBILE) */}
                          <div className="mb-6 p-4 bg-white border border-black/5 rounded-sm">
                             <p className="font-sans text-sm text-black/70 leading-relaxed">
                                <strong className="text-[#C5A059] block mb-1 font-bold uppercase text-[9px] tracking-widest">Is this you?</strong>
@@ -553,17 +549,17 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                            return (
                              <div 
                                 key={p.id} 
-                                id={`persona-mobile-${p.id}`} // ID for Scroll Target
+                                id={`persona-mobile-${p.id}`} 
                                 className={`border rounded-sm overflow-hidden transition-all duration-300 ${isPersonaExpanded ? 'border-[#C5A059] bg-white shadow-md' : 'border-black/5 bg-white'}`}
                              >
                                
-                               {/* LEVEL 2: PERSONA HEADER (GOLD ACCENT WHEN ACTIVE) */}
+                               {/* LEVEL 2: HEADER */}
                                <button 
                                  onClick={() => {
                                     const willExpand = !isPersonaExpanded;
                                     setExpandedPersona(willExpand ? p.id : null);
                                     if (willExpand) {
-                                        handleScrollTo(`persona-mobile-${p.id}`); // TRIGGER SCROLL
+                                        handleScrollTo(`persona-mobile-${p.id}`); 
                                     }
                                  }}
                                  className="w-full flex items-center gap-4 p-4 text-left hover:bg-black/5 transition-colors"
@@ -578,7 +574,7 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                   <ChevronDown className={`w-4 h-4 transition-transform ${isPersonaExpanded ? 'rotate-180 text-[#C5A059]' : 'text-black/20'}`} />
                                </button>
 
-                               {/* LEVEL 2 CONTENT: SOLUTION */}
+                               {/* LEVEL 2 CONTENT */}
                                <AnimatePresence>
                                  {isPersonaExpanded && (
                                    <motion.div
@@ -586,35 +582,32 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                      className="border-t border-[#C5A059]/20 bg-white"
                                    >
                                       <div className="p-6">
-                                         {/* Pain */}
                                          <div className="mb-6">
-                                            <span className="text-[#E21E3F] font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Problem</span>
+                                            <span className="text-[#C5A059] font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Pain</span>
                                             <h5 className="font-serif text-2xl mb-2 text-[#1a1a1a]">{p.painTitle}</h5>
-                                            <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed italic border-l-2 border-[#E21E3F] pl-4">"{p.painText}"</p>
+                                            <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed italic border-l-2 border-[#C5A059] pl-4">"{p.painText}"</p>
                                          </div>
 
-                                         {/* Solution */}
                                          <div className="bg-[#1a1a1a] p-6 text-white rounded-sm mb-6 relative overflow-hidden">
                                             <div className="absolute top-0 right-0 w-24 h-24 bg-[#C5A059]/20 rounded-full blur-2xl" />
-                                            <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-3 font-bold relative z-10">The Fix</span>
+                                            <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-3 font-bold relative z-10">The Solution</span>
                                             <p className="font-sans text-base leading-relaxed mb-6 relative z-10">{p.solution}</p>
                                             
-                                            {/* VISUAL ON MOBILE - Pure Gold on Transparent */}
+                                            {/* VISUAL ON MOBILE */}
                                             <div className="w-full flex justify-center py-4 bg-transparent relative z-10">
-                                               <div className="w-24">
+                                               <div className="w-24 h-24 flex items-center justify-center">
                                                  <TierVisual tierKey={key} />
                                                </div>
                                             </div>
                                          </div>
 
-                                         {/* STANDARDIZED CTA BUTTON MOBILE */}
                                          <div className="w-full">
                                             <CTAButton theme="dark" onClick={() => onNavigate('contact')} className="w-full">
                                                 [ BOOK A CALL ]
                                             </CTAButton>
                                          </div>
 
-                                         {/* Specs List (Restored for Mobile) */}
+                                         {/* Specs List */}
                                          <div className="mt-8 pt-6 border-t border-black/10">
                                             <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-3 block">Included Specs</span>
                                             <ul className="space-y-2">

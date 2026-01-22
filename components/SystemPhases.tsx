@@ -235,7 +235,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
              7 Ways I Fix <span className="italic text-[#C5A059]">Your Business.</span>
            </h2>
            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto px-4">
-              I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I eliminate the friction that burns out your people.
+              I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I get rid of the friction that burns out your people.
            </p>
         </div>
 

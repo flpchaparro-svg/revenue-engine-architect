@@ -200,7 +200,7 @@ export const SystemArchitecture: React.FC = () => {
              <span className="italic font-serif text-[#C5A059]">The Right Way.</span>
            </h2>
            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto">
-             Most founders guess. We engineer. This is the blueprint for a self-sustaining organism.
+             Most founders guess. I engineer. This is the blueprint for a self-sustaining business.
            </p>
          </motion.div>
       </div>
