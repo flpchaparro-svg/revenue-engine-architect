@@ -1,6 +1,19 @@
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Minus, Globe, Database, Zap, Bot, Video, Users, BarChart3, Plus } from 'lucide-react';
+import { 
+  motion, 
+  AnimatePresence, 
+  useScroll, 
+  useMotionValueEvent, 
+  useAnimationFrame, 
+  useMotionValue, 
+  useTransform 
+} from 'framer-motion';
+import { 
+  ArrowLeft, ArrowRight, Minus, 
+  Globe, Database, Zap, 
+  Bot, Video, Users, 
+  BarChart3, Plus 
+} from 'lucide-react';
 import GlobalFooter from '../../components/GlobalFooter';
 import HeroVisual_Suspension from '../../components/HeroVisual_Suspension';
 import FAQSection from '../../components/FAQSection';
@@ -9,130 +22,194 @@ import { SystemArchitecture } from '../../components/SystemArchitecture';
 import CTAButton from '../../components/CTAButton'; 
 import BackButton from '../../components/BackButton'; 
 
-// --- DATA (UNCHANGED) ---
+// --- DATA ---
 const ALL_PILLARS = [
   {
     id: 'pillar1', number: '01', icon: Globe, title: 'THE FACE', 
     subtitle: 'Websites & E-commerce', subtitleMobile: 'Websites',
     categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: 'DIGITAL_STOREFRONT',
-    body: 'Capture every visitor as a trackable lead.',
-    bodyMobile: 'Capture every visitor as a trackable lead.',
-    description: 'Your website is the first impression. I build sites that don\'t just look good, they capture leads, sell products, and feed your CRM automatically. Every visitor becomes a trackable opportunity.',
+    body: 'Your online storefront that captures leads, sells products, and feeds data to every other pillar',
+    bodyMobile: 'Online storefront that captures and converts',
+    description: 'Your online storefront. Not a digital brochure, but a system designed to capture leads and process transactions with zero friction.',
     systemPurpose: 'Capture demand and structure data.',
     subServices: [
-       { title: 'How it connects', description: 'The website captures the lead. The CRM tracks it. Automation follows up. That\'s the loop.' },
-       { title: 'How it helps the whole system', description: 'The website captures the lead. The CRM tracks it. Automation follows up. That\'s the loop.' },
-       { title: 'What you get', description: 'A site that works while you sleep. Every visitor becomes an opportunity.' }
+       { title: 'How it connects', description: 'The Face feeds the Brain. Every visitor who fills out a form or makes a purchase gets logged in your CRM automatically.' },
+       { title: 'How it helps the whole system', description: 'Without the Face capturing data properly, you can\'t track where your leads come from. Pillar 7 (Dashboards) needs this data to show you what\'s working.' },
+       { title: 'What you get', description: 'You stop losing customers to slower competitors. Leads get captured while you sleep.' }
     ]
   },
   {
     id: 'pillar2', number: '02', icon: Database, title: 'THE BRAIN', 
     subtitle: 'CRM & Lead Tracking', subtitleMobile: 'CRM',
     categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: 'LEAD_DATABASE',
-    body: 'Know exactly where every opportunity sits.',
-    bodyMobile: 'Know exactly where every opportunity sits.',
-    description: 'If it\'s not in the CRM, it didn\'t happen. Every lead, every call, every deal logged automatically. You\'ll know exactly where each opportunity sits and who\'s responsible for moving it forward.',
+    body: 'The single source of truth that tracks every call, email, and deal stage',
+    bodyMobile: 'Tracks every lead, call, and deal',
+    description: 'Your single source of truth. Every call, email, and deal stage tracked in one place. If it\'s not in the CRM, it didn\'t happen.',
     systemPurpose: 'Capture demand and structure data.',
     subServices: [
-       { title: 'How it connects', description: 'When automation sends a quote or books a call, the CRM updates. When dashboards show pipeline health, the data comes from here.' },
-       { title: 'How it helps the whole system', description: 'When automation sends a quote or books a call, the CRM updates. When dashboards show pipeline health, the data comes from here.' },
-       { title: 'What you get', description: 'Accountability. Nothing slips through. Nothing gets forgotten.' }
+       { title: 'How it connects', description: 'The Brain stores what the Face captures and tells the Muscle what to do next. When a deal is won, automation kicks in.' },
+       { title: 'How it helps the whole system', description: 'The AI assistants (Pillar 4) need CRM data to speak intelligently to customers. Without it, they\'re guessing.' },
+       { title: 'What you get', description: 'Pipeline visibility. You stop managing by memory and start managing by data.' }
     ]
   },
   {
     id: 'pillar3', number: '03', icon: Zap, title: 'THE MUSCLE', 
     subtitle: 'Automation', subtitleMobile: 'Automation',
     categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: 'WORKFLOW_ENGINE',
-    body: 'Act fast without lifting a finger.',
-    bodyMobile: 'Act fast without lifting a finger.',
-    description: 'Speed wins deals. I build automations that send quotes in seconds, follow up without being asked, and handle the repetitive tasks that slow your team down. You act fast without lifting a finger.',
+    body: 'Replaces data entry, invoicing, and follow-ups with instant code execution',
+    bodyMobile: 'Admin tasks run themselves',
+    description: 'Code doing the boring work. Data entry, invoicing, follow-ups. The stuff that eats your week now runs itself.',
     systemPurpose: 'Capture demand and structure data.',
     subServices: [
-       { title: 'How it connects', description: 'Automation is the engine that keeps data flowing between your website, CRM, and everything else. It\'s the glue.' },
-       { title: 'How it helps the whole system', description: 'Automation is the engine that keeps data flowing between your website, CRM, and everything else. It\'s the glue.' },
-       { title: 'What you get', description: 'Speed. You act fast without lifting a finger.' }
+       { title: 'How it connects', description: 'When the Brain signals a won deal, the Muscle sends the invoice and contract instantly. No human delay.' },
+       { title: 'How it helps the whole system', description: 'Data moves between Marketing, Sales, and Ops in real time. No more copy-paste between three apps.' },
+       { title: 'What you get', description: 'Time back. Your team focuses on high-value work, not low-value admin.' }
     ]
   },
   {
     id: 'pillar4', number: '04', icon: Bot, title: 'THE VOICE', 
     subtitle: 'AI Assistants', subtitleMobile: 'AI Bots',
     categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: 'SYNTHETIC_WORKFORCE',
-    body: 'Handle more leads without hiring.',
-    bodyMobile: 'Handle more leads without hiring.',
-    description: 'It\'s like hiring staff who never sleep. AI bots answer your phone, reply to enquiries, qualify leads, and book appointments 24/7. When leads spike, they don\'t buckle. When it\'s 3am, they\'re still working.',
+    body: 'Digital employees that listen, reason, and speak to customers 24/7 via phone or chat',
+    bodyMobile: 'Bots that answer 24/7',
+    description: 'Digital employees that listen, think, and speak. AI that answers your phone, qualifies leads, and books appointments around the clock.',
     systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
-       { title: 'How it connects', description: 'The AI reads CRM data to know the customer. After the call, it updates the record. The dashboard shows what\'s converting. It\'s all connected.' },
-       { title: 'How it helps the whole system', description: 'The AI reads CRM data to know the customer. After the call, it updates the record. The dashboard shows what\'s converting. It\'s all connected.' },
-       { title: 'What you get', description: 'Scalability. Handle double the volume without doubling staff.' }
+       { title: 'How it connects', description: 'The Voice handles 100 calls at once. When you run a marketing campaign and leads spike, it doesn\'t buckle.' },
+       { title: 'How it helps the whole system', description: 'It reads CRM data to know the customer\'s history. After the call, it updates the record automatically.' },
+       { title: 'What you get', description: 'Scalability. Double your lead volume without doubling your staff.' }
     ]
   },
   {
     id: 'pillar5', number: '05', icon: Video, title: 'THE PRESENCE', 
     subtitle: 'Content Systems', subtitleMobile: 'Content',
     categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: 'MEDIA_DISTRIBUTION',
-    body: 'Reach more people on autopilot.',
-    bodyMobile: 'Reach more people on autopilot.',
-    description: 'Reach more people without spending your life on social media. One voice note becomes a blog, 5 social posts, and a newsletter. Auto-published across every platform. You stay visible while doing real work.',
+    body: 'Turns one hour of raw expertise into a month of content across every platform',
+    bodyMobile: 'One input, endless content',
+    description: 'A content supply chain. One hour of your expertise becomes a month of posts, blogs, and videos across every platform.',
     systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
-       { title: 'How it connects', description: 'Content drives traffic to your website. Visitors become leads in your CRM. Automation nurtures them. The dashboard shows what\'s working. Full loop.' },
-       { title: 'How it helps the whole system', description: 'Content drives traffic to your website. Visitors become leads in your CRM. Automation nurtures them. The dashboard shows what\'s working. Full loop.' },
-       { title: 'What you get', description: 'Authority. Stay visible without spending your life on social media.' }
+       { title: 'How it connects', description: 'Content drives traffic to your website (Pillar 1), which captures leads, which feeds the CRM, which triggers automation.' },
+       { title: 'How it helps the whole system', description: 'High-quality content keeps the top of the funnel full. The AI and automation have leads to process.' },
+       { title: 'What you get', description: 'Authority. You become the go-to expert without spending your life on social media.' }
     ]
   },
   {
     id: 'pillar6', number: '06', icon: Users, title: 'THE SOUL', 
     subtitle: 'Team Training', subtitleMobile: 'Training',
     categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: 'KNOWLEDGE_BASE',
-    body: 'Make sure your team actually uses it.',
-    bodyMobile: 'Make sure your team actually uses it.',
-    description: 'New tools fail when people don\'t use them. I build short training videos, step-by-step guides, and Q&A libraries so your team actually adopts the technology. No 3-hour Zooms. No confusion. Just adoption.',
+    body: 'Systems designed to ensure your team actually uses the tools you paid for',
+    bodyMobile: 'Makes your team use the tools',
+    description: 'The human element. Training systems that make sure your team actually uses the tools you paid for.',
     systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
-       { title: 'How it connects', description: 'When your team uses the tools properly, data stays clean. When data is clean, the dashboards tell the truth. Training protects your investment in the other 6 pillars.' },
-       { title: 'How it helps the whole system', description: 'When your team uses the tools properly, data stays clean. When data is clean, the dashboards tell the truth. Training protects your investment in the other 6 pillars.' },
-       { title: 'What you get', description: 'Adoption. No more expensive software nobody uses.' }
+       { title: 'How it connects', description: 'The fastest car is useless if the driver doesn\'t know how to shift gears. The Soul protects your investment in the other 6 pillars.' },
+       { title: 'How it helps the whole system', description: 'When the team adopts the tools properly, data is clean and the system works as designed.' },
+       { title: 'What you get', description: 'ROI assurance. No more expensive shelfware that nobody uses.' }
     ]
   },
   {
     id: 'pillar7', number: '07', icon: BarChart3, title: 'THE EYES', 
     subtitle: 'Dashboards & Reporting', subtitleMobile: 'Dashboards',
     categoryHex: '#1a1a1a', categoryLabel: 'SEE CLEARLY', technicalLabel: 'BI_VISUALIZATION',
-    body: 'See all your numbers on one screen.',
-    bodyMobile: 'See all your numbers on one screen.',
-    description: 'Revenue, margins, pipeline, team performance. All on one screen, updated live. No more midnight spreadsheets. No more waiting for the accountant. You see exactly where profit is coming from and where it\'s leaking.',
+    body: 'Visualises real-time profit, churn, and speed so you move from gut feeling to evidence',
+    bodyMobile: 'Your numbers on one screen',
+    description: 'The control tower. Revenue, margins, and pipeline on one screen, updated live. No more midnight spreadsheets.',
     systemPurpose: 'Navigate with clarity.',
     subServices: [
-       { title: 'How it connects', description: 'This pillar pulls data from every other pillar. If Acquisition is working, you\'ll see it. If Velocity is efficient, you\'ll know. If something\'s broken, you\'ll catch it before it costs you.' },
-       { title: 'The Full Picture', description: 'This pillar pulls data from every other pillar. If Acquisition is working, you\'ll see it. If Velocity is efficient, you\'ll know. If something\'s broken, you\'ll catch it before it costs you.' },
-       { title: 'History & Forecast', description: 'Track where you\'ve been. See what\'s happening now. Forecast where you\'re headed. That\'s how you steer a business with confidence.' }
+       { title: 'How it connects', description: 'The Eyes take data from every other pillar and show you where to steer next. It\'s the feedback loop.' },
+       { title: 'How it helps the whole system', description: 'It tells you if Acquisition is profitable, if Velocity is efficient, and what needs fixing.' },
+       { title: 'What you get', description: 'Certainty. You sleep better knowing exactly where your profit is coming from.' }
     ]
   }
 ];
 
-// --- GRID ITEM COMPONENT (Updated for Color Grouping + Mobile) ---
-const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
+// --- MATHEMATICAL BENTO LOGIC ---
+const getGridClass = (pillarId: string, selectedId: string | null): string => {
+  // DESKTOP: 3 COLUMNS.
+  
+  // MAP 1: DEFAULT STATE (No selection) -> Solid Block
+  // Row 1: P1(2) + P2(1) = 3
+  // Row 2: P3(1) + P4(2) = 3
+  // Row 3: P5(2) + P6(1) = 3
+  // Row 4: P7(3)         = 3
+  if (!selectedId) {
+    if (pillarId === 'pillar1') return "lg:col-span-2";
+    if (pillarId === 'pillar4') return "lg:col-span-2";
+    if (pillarId === 'pillar5') return "lg:col-span-2";
+    if (pillarId === 'pillar7') return "lg:col-span-3";
+    return "lg:col-span-1";
+  }
+
+  // MAP 2: ACTIVE STATE (Dynamic adjustment to close gaps)
+  if (pillarId === selectedId) {
+    return "lg:col-span-3";
+  }
+
+  // Neighbors logic
+  if (selectedId === 'pillar1') {
+    if (pillarId === 'pillar3') return "lg:col-span-2";
+    if (pillarId === 'pillar4') return "lg:col-span-2";
+    if (pillarId === 'pillar7') return "lg:col-span-2";
+    return "lg:col-span-1";
+  }
+
+  if (selectedId === 'pillar2') {
+    if (pillarId === 'pillar1') return "lg:col-span-3";
+    if (pillarId === 'pillar4') return "lg:col-span-2";
+    if (pillarId === 'pillar5') return "lg:col-span-2";
+    if (pillarId === 'pillar7') return "lg:col-span-3";
+    return "lg:col-span-1";
+  }
+
+  if (selectedId === 'pillar3') {
+    if (pillarId === 'pillar2') return "lg:col-span-2";
+    if (pillarId === 'pillar5') return "lg:col-span-2";
+    if (pillarId === 'pillar7') return "lg:col-span-2";
+    return "lg:col-span-1";
+  }
+
+  if (selectedId === 'pillar4') {
+    return "lg:col-span-1"; 
+  }
+
+  if (selectedId === 'pillar5') {
+    if (pillarId === 'pillar1') return "lg:col-span-2";
+    if (pillarId === 'pillar4') return "lg:col-span-2";
+    if (pillarId === 'pillar7') return "lg:col-span-2";
+    return "lg:col-span-1";
+  }
+
+  if (selectedId === 'pillar6') {
+    if (pillarId === 'pillar2') return "lg:col-span-2";
+    if (pillarId === 'pillar3') return "lg:col-span-2";
+    if (pillarId === 'pillar5') return "lg:col-span-3";
+    if (pillarId === 'pillar7') return "lg:col-span-3";
+    return "lg:col-span-1";
+  }
+
+  if (selectedId === 'pillar7') {
+    if (pillarId === 'pillar1') return "lg:col-span-2";
+    if (pillarId === 'pillar4') return "lg:col-span-2";
+    if (pillarId === 'pillar5') return "lg:col-span-2";
+    return "lg:col-span-1";
+  }
+
+  return "lg:col-span-1";
+};
+
+
+// --- GRID ITEM COMPONENT ---
+const GridItem = ({ pillar, isSelected, selectedId, onToggle, onNavigate }: any) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const isPillar7 = pillar.id === 'pillar7';
 
-  // --- GRID SPAN LOGIC ---
-  let spanClasses = "";
-  if (isSelected) {
-      spanClasses = "col-span-1 md:col-span-2 lg:col-span-3"; 
-  } else if (isPillar7) {
-      spanClasses = "col-span-1 md:col-span-2 lg:col-span-3"; 
-  } else {
-      spanClasses = "col-span-1"; 
-  }
+  // Dynamic Spanning
+  const spanClasses = `col-span-1 ${getGridClass(pillar.id, selectedId)}`;
 
-  // --- SUBCONSCIOUS GROUPING LOGIC ---
+  // Accent Logic
   const accentColor = pillar.categoryHex;
-  
-  // FIX: Pillar 7 has black (#1a1a1a) as its accent. When expanded (dark bg), it becomes invisible.
   const displayAccent = (isSelected && isPillar7) ? '#FFFFFF' : accentColor;
-  
-  // Dynamic Styles
   const bgClass = isSelected ? "bg-[#1a1a1a]" : "bg-white hover:bg-[#FFF2EC]";
   
   const borderStyle = {
@@ -141,16 +218,27 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
           : 'rgba(26, 26, 26, 0.1)',
   };
 
-  // Scroll to top of card when expanded (better UX on mobile)
+  // --- IMPROVED SCROLL LOGIC ---
   const handleToggle = () => {
     onToggle();
-    // Small delay to let the layout change happen, then scroll
+    // Only engage scroll if we are OPENING the card
     if (!isSelected) {
+      // 400ms delay: Ensures the layout animation (usually 300ms) is FINISHED.
+      // This prevents the browser from measuring the position while it's still moving.
       setTimeout(() => {
         if (itemRef.current) {
-          itemRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const rect = itemRef.current.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          
+          // -80px offset to leave room for the sticky header
+          const targetY = rect.top + scrollTop - 80;
+
+          window.scrollTo({
+            top: targetY,
+            behavior: "smooth"
+          });
         }
-      }, 100);
+      }, 400); 
     }
   };
 
@@ -159,9 +247,9 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
       layout
       ref={itemRef}
       onClick={handleToggle}
-      className={`relative ${spanClasses} ${bgClass} border transition-all duration-300 overflow-hidden group cursor-pointer`}
+      className={`relative ${spanClasses} ${bgClass} border transition-all duration-500 ease-in-out overflow-hidden group cursor-pointer`}
       style={{ 
-          minHeight: isSelected ? 'auto' : (isPillar7 ? '200px' : '280px'),
+          minHeight: isSelected ? 'auto' : '280px',
           ...borderStyle
       }}
       onMouseEnter={(e) => {
@@ -171,65 +259,56 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
           if(!isSelected) e.currentTarget.style.borderColor = 'rgba(26, 26, 26, 0.1)';
       }}
     >
-      {/* Background Texture for Expanded State (Tinted with Category Color) */}
       {isSelected && (
          <div className="absolute inset-0 opacity-[0.05] pointer-events-none" 
               style={{ backgroundImage: `radial-gradient(circle, ${displayAccent} 1px, transparent 1px)`, backgroundSize: '20px 20px' }} 
          />
       )}
 
-      {/* --- CLOSED STATE (Technical Card - Mobile Optimized) --- */}
+      {/* --- CLOSED STATE --- */}
       {!isSelected && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-5 md:p-8 flex flex-col justify-between">
-           
-           {/* Top: Tech Label & Number */}
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between">
            <div className="flex justify-between items-start">
-              {/* The Label Border matches the group color */}
               <span 
                 className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] py-1 px-2 border bg-white/50 font-bold backdrop-blur-sm"
                 style={{ color: accentColor, borderColor: `${accentColor}40` }}
               >
                  {pillar.technicalLabel.replace(/_/g, ' ')}
               </span>
-              <span className="font-serif text-3xl md:text-4xl text-[#1a1a1a]/10 font-bold absolute top-3 md:top-4 right-4 md:right-6 group-hover:text-[#1a1a1a]/20 transition-colors">
+              <span className="font-serif text-3xl md:text-4xl text-[#1a1a1a]/10 font-bold absolute top-4 right-6 group-hover:text-[#1a1a1a]/20 transition-colors">
                  {pillar.number}
               </span>
            </div>
 
-           {/* Middle: Content */}
-           <div className="relative z-10 mt-3 md:mt-4">
+           <div className="relative z-10 mt-4">
               <pillar.icon 
-                className="w-6 h-6 md:w-8 md:h-8 mb-3 md:mb-6 opacity-100 group-hover:scale-110 transition-all duration-300" 
+                className="w-6 h-6 md:w-8 md:h-8 mb-4 opacity-100 group-hover:scale-110 transition-all duration-300" 
                 style={{ color: accentColor }}
               />
-              
-              <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-1 md:mb-2 leading-none tracking-tight group-hover:translate-x-1 transition-transform duration-300">
+              <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-2 leading-none tracking-tight group-hover:translate-x-1 transition-transform duration-300">
                  {pillar.title}
               </h3>
-              <p className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-bold mb-2 md:mb-4" style={{ color: `${accentColor}80` }}>
-                 {/* Show shorter subtitle on mobile */}
+              <p className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-bold mb-3 md:mb-4" style={{ color: `${accentColor}80` }}>
                  <span className="md:hidden">{pillar.subtitleMobile || pillar.subtitle}</span>
                  <span className="hidden md:inline">{pillar.subtitle}</span>
               </p>
               
-              {/* Show body text on mobile for all cards (shorter version) */}
               <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/70 leading-relaxed line-clamp-2 md:line-clamp-none">
                  <span className="md:hidden">{pillar.bodyMobile || pillar.body}</span>
-                 <span className="hidden md:inline">{isPillar7 ? pillar.body : ''}</span>
+                 <span className="hidden md:inline"></span>
               </p>
            </div>
 
-           {/* Bottom: Action */}
-           <div className="flex justify-between items-center border-t border-[#1a1a1a]/10 pt-3 md:pt-4 mt-auto">
+           <div className="flex justify-between items-center border-t border-[#1a1a1a]/10 pt-4 mt-auto">
               <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-[#1a1a1a]/50 transition-colors font-bold group-hover:text-black">
                  NODE {pillar.number}
               </span>
               <div 
-                className="w-7 h-7 md:w-8 md:h-8 flex items-center justify-center rounded-full transition-colors"
+                className="w-8 h-8 flex items-center justify-center rounded-full transition-colors"
                 style={{ backgroundColor: `${accentColor}10` }}
               >
                  <Plus 
-                    className="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:rotate-90 transition-all duration-300" 
+                    className="w-4 h-4 group-hover:rotate-90 transition-all duration-300" 
                     style={{ color: accentColor }}
                  />
               </div>
@@ -237,28 +316,25 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
         </motion.div>
       )}
 
-      {/* --- EXPANDED STATE (Blueprint Mode - Dark + Mobile Optimized) --- */}
+      {/* --- EXPANDED STATE --- */}
       <AnimatePresence>
         {isSelected && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.1 } }} exit={{ opacity: 0 }} className="relative w-full p-5 md:p-10 lg:p-16 flex flex-col">
-            
-            {/* Close Button - Always visible at top */}
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.1 } }} exit={{ opacity: 0 }} className="relative w-full p-6 md:p-10 lg:p-16 flex flex-col">
             <button 
                onClick={(e) => { e.stopPropagation(); handleToggle(); }}
-               className="absolute top-4 right-4 md:top-6 md:right-6 p-2 rounded-full border border-white/20 text-white/60 hover:text-white hover:border-white transition-all z-20"
+               className="absolute top-4 right-4 md:top-6 md:right-6 p-3 rounded-full border border-white/20 text-white/60 hover:text-white hover:border-white transition-all z-20"
             >
                <Minus className="w-5 h-5 md:w-6 md:h-6" />
             </button>
 
-            {/* Header Area */}
-            <div className="flex flex-col justify-between items-start border-b border-white/10 pb-6 md:pb-8 mb-6 md:mb-10 pr-12">
+            <div className="flex flex-col justify-between items-start border-b border-white/10 pb-8 mb-8 md:mb-10 pr-12">
                <div>
-                  <div className="flex items-center gap-3 mb-3 md:mb-4">
+                  <div className="flex items-center gap-3 mb-4">
                      <span className="font-mono text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: displayAccent }}>
                         {pillar.number} // {pillar.categoryLabel}
                      </span>
                   </div>
-                  <h2 className="font-serif text-3xl md:text-5xl lg:text-6xl text-white mb-4 md:mb-6 leading-tight">
+                  <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-white mb-6 leading-[0.95] tracking-tighter">
                      {pillar.title}
                   </h2>
                   <p className="font-sans text-base md:text-lg lg:text-xl text-white/80 max-w-2xl font-light leading-relaxed">
@@ -266,19 +342,16 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
                   </p>
                </div>
                
-               {/* Icon Watermark - Hidden on mobile, visible on desktop */}
                <pillar.icon 
-                  className="hidden lg:block w-20 h-20 lg:w-24 lg:h-24 absolute top-16 right-16 opacity-30" 
+                  className="hidden lg:block w-24 h-24 absolute top-16 right-16 opacity-30" 
                   style={{ color: displayAccent }}
                />
             </div>
 
-            {/* Content Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12 mb-6 md:mb-12">
-               {/* Col 1 & 2: Sub-services */}
-               <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 mb-8 md:mb-12">
+               <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   {pillar.subServices.map((sub: any, i: number) => (
-                     <div key={i} className="space-y-2 md:space-y-3">
+                     <div key={i} className="space-y-3">
                         <h4 
                             className="font-mono text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] border-l-2 pl-3"
                             style={{ color: displayAccent, borderColor: displayAccent }}
@@ -292,24 +365,22 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
                   ))}
                </div>
 
-               {/* Col 3: System Purpose & CTA */}
-               <div className="bg-white/5 p-5 md:p-6 border border-white/10 flex flex-col justify-between rounded-sm">
+               <div className="bg-white/5 p-6 border border-white/10 flex flex-col justify-between rounded-sm">
                   <div>
                      <span className="font-mono text-[9px] md:text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] block mb-2">CORE FUNCTION</span>
-                     <p className="font-serif text-lg md:text-xl italic text-white mb-6 md:mb-8">"{pillar.systemPurpose}"</p>
+                     <p className="font-serif text-lg md:text-xl italic text-white mb-8">"{pillar.systemPurpose}"</p>
                   </div>
                   
                   <div className="mt-auto" onClick={(e) => e.stopPropagation()}>
                      <button 
                         onClick={() => onNavigate(pillar.id)}
-                        className="w-full py-3 md:py-4 bg-white text-[#1a1a1a] font-mono text-[10px] md:text-xs uppercase tracking-[0.2em] font-bold hover:bg-opacity-90 transition-all flex items-center justify-center gap-2"
+                        className="w-full py-4 bg-white text-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold hover:bg-opacity-90 transition-all flex items-center justify-center gap-2"
                      >
-                        EXPLORE PILLAR <ArrowRight className="w-3.5 h-3.5 md:w-4 md:h-4" />
+                        EXPLORE PILLAR <ArrowRight className="w-4 h-4" />
                      </button>
                   </div>
                </div>
             </div>
-
           </motion.div>
         )}
       </AnimatePresence>
@@ -317,13 +388,13 @@ const GridItem = ({ pillar, isSelected, onToggle, onNavigate }: any) => {
   );
 };
 
-// --- MAIN PAGE COMPONENT ---
+// --- MAIN PAGE ---
 const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
   const [selectedPillarId, setSelectedPillarId] = useState<string | null>(null);
   const gridSectionRef = useRef<HTMLDivElement>(null);
   const systemFAQs = getSystemPageFAQs();
 
-  // Scroll Logic
+  // Scroll Animation Logic
   const { scrollY } = useScroll();
   const scrollLineY = useMotionValue(-100);
   const scrollLineSpeed = useMotionValue(0.067);
@@ -384,7 +455,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
                 Business as an <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Organism.</span>
               </motion.h1>
               <motion.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                Your business isn't a machine. It's a living system. I connect your revenue, your tech, and your team so they work as one.
+                Your business is not a machine; it is a living system. We verify the connections between your revenue, your tech, and your team.
               </motion.p>
             </div>
             <motion.div variants={heroItem} className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
@@ -399,17 +470,16 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
         </div>
       </section>
 
-      {/* SECTION 1: SCROLLYTELLING */}
+      {/* SCROLLYTELLING */}
       <section className="relative z-0 mb-32 border-t border-[#1a1a1a]/10">
          <SystemArchitecture />
       </section>
 
-      {/* SECTION 2: THE BLUEPRINT GRID (Revised) */}
+      {/* GRID BLUEPRINT */}
       <section className="w-full bg-[#FFF2EC] pb-32 relative z-10">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
           
           <div className="text-center max-w-2xl mx-auto mb-20 pt-10">
-              {/* Type A: Section Anchor with Status Light */}
               <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center justify-center gap-2">
                  <div className="w-2 h-2 rounded-sm bg-[#C5A059]" />
                  / SYSTEM MANIFEST
@@ -418,11 +488,10 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
                 The Parts in <span className="italic font-serif text-[#C5A059]">Detail.</span>
               </h2>
               <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto">
-                Select a component to see how it fits the whole.
+                Select a component to inspect its architecture.
               </p>
           </div>
 
-          {/* THE GRID CONTAINER */}
           <motion.div 
             ref={gridSectionRef}
             layout 
@@ -433,6 +502,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
                 key={pillar.id}
                 pillar={pillar}
                 isSelected={selectedPillarId === pillar.id}
+                selectedId={selectedPillarId}
                 onToggle={() => {
                   const newId = selectedPillarId === pillar.id ? null : pillar.id;
                   setSelectedPillarId(newId);

@@ -24,18 +24,18 @@ interface PillarPageProps {
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
-// --- VISUALIZATIONS (GOLD THEME: #C5A059) ---
+// --- VISUALIZATIONS (STRICT WHITE ON DARK BACKGROUND) ---
 const TierVisual = ({ tierKey }: { tierKey: string }) => {
   return (
     <div className="h-32 w-full mb-6 flex items-center justify-center relative bg-transparent">
       
       {tierKey === 'pulse' && (
-        // ANIMATION: "The Pulse"
+        // ANIMATION: "The Pulse" - White bars on dark bg
         <div className="flex items-end gap-1 h-16 w-24">
             {[0.4, 0.7, 0.3, 0.9, 0.5, 0.8].map((h, i) => (
                 <motion.div 
                     key={i}
-                    className="w-full bg-[#C5A059] rounded-t-sm"
+                    className="w-full bg-white rounded-t-sm"
                     animate={{ height: [`${h * 40}%`, `${h * 100}%`, `${h * 40}%`] }}
                     transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.1, ease: "easeInOut" }}
                 />
@@ -44,18 +44,18 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
       )}
 
       {tierKey === 'lab' && (
-        // ANIMATION: "The Heatmap"
+        // ANIMATION: "The Heatmap" - White/Transparent grid
         <div className="relative w-24 h-24 grid grid-cols-4 grid-rows-4 gap-1">
              {[...Array(16)].map((_, i) => (
                 <motion.div 
                     key={i}
-                    className="bg-[#C5A059]/10 rounded-[1px]"
-                    animate={{ backgroundColor: ["rgba(197,160,89,0.1)", "rgba(197,160,89,0.6)", "rgba(197,160,89,0.1)"] }}
+                    className="bg-white/10 rounded-[1px]"
+                    animate={{ backgroundColor: ["rgba(255,255,255,0.1)", "rgba(255,255,255,0.6)", "rgba(255,255,255,0.1)"] }}
                     transition={{ duration: 2, delay: Math.random(), repeat: Infinity }}
                 />
              ))}
              <motion.div 
-                className="absolute w-3 h-3 border border-[#C5A059] rounded-full bg-[#1a1a1a] z-10"
+                className="absolute w-3 h-3 border border-white rounded-full bg-white z-10"
                 animate={{ x: [0, 60, 20, 0], y: [0, 20, 60, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
              />
@@ -63,14 +63,14 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
       )}
 
       {tierKey === 'oracle' && (
-        // ANIMATION: "The Forecast"
+        // ANIMATION: "The Forecast" - White lines
         <div className="relative w-32 h-16">
             <svg className="w-full h-full overflow-visible">
                 {/* Historical Data (Solid) */}
                 <motion.path
                     d="M 0 60 L 40 40 L 70 50"
                     fill="none"
-                    stroke="#C5A059"
+                    stroke="#FFFFFF"
                     strokeWidth="2"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
@@ -80,35 +80,35 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
                 <motion.path
                     d="M 70 50 L 100 20 L 130 10"
                     fill="none"
-                    stroke="#C5A059"
+                    stroke="#FFFFFF"
                     strokeWidth="2"
                     strokeDasharray="4 4"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: [0, 1, 0] }}
                     transition={{ duration: 2, repeat: Infinity, delay: 1 }}
                 />
-                <div className="absolute top-0 right-0 w-2 h-2 bg-[#C5A059] rounded-full animate-pulse" style={{ right: '-5px', top: '8px' }} />
+                <div className="absolute top-0 right-0 w-2 h-2 bg-white rounded-full animate-pulse" style={{ right: '-5px', top: '8px' }} />
             </svg>
         </div>
       )}
 
       {tierKey === 'tower' && (
-        // ANIMATION: "The Control Tower"
+        // ANIMATION: "The Control Tower" - White structure
         <div className="relative flex items-center justify-center w-24 h-24">
             {/* Center */}
-            <div className="w-6 h-6 border border-[#C5A059] bg-[#1a1a1a] z-10 flex items-center justify-center">
-                <div className="w-2 h-2 bg-[#C5A059]" />
+            <div className="w-6 h-6 border border-white bg-[#1a1a1a] z-10 flex items-center justify-center">
+                <div className="w-2 h-2 bg-white" />
             </div>
             
             {/* Connections */}
             {[0, 90, 180, 270].map((deg, i) => (
                 <motion.div 
                     key={i}
-                    className="absolute w-12 h-[1px] bg-[#C5A059]/40 origin-left left-1/2 top-1/2"
+                    className="absolute w-12 h-[1px] bg-white/40 origin-left left-1/2 top-1/2"
                     style={{ rotate: deg }}
                 >
                     <motion.div 
-                        className="w-2 h-2 bg-[#C5A059] rounded-full absolute right-0 -top-1"
+                        className="w-2 h-2 bg-white rounded-full absolute right-0 -top-1"
                         animate={{ scale: [1, 1.5, 1] }}
                         transition={{ duration: 2, delay: i * 0.5, repeat: Infinity }}
                     />
@@ -120,7 +120,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
   );
 };
 
-// --- DATA ---
+// --- DATA (BLACK & WHITE THEME APPLIED) ---
 const TIERS = {
   pulse: {
     id: 'pulse',
@@ -310,7 +310,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
               behavior: "smooth"
             });
         }
-    }, 200); 
+    }, 300); 
   };
 
   return (
@@ -323,7 +323,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       <section className="relative min-h-[700px] h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
           
-          {/* NAVIGATION - STANDARDIZED */}
+          {/* NAVIGATION */}
           <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
             <BackButton onClick={() => onNavigate('system')} label="Return to The System" />
           </div>
@@ -337,12 +337,12 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                  </span>
                </div>
 
-               {/* STANDARD H1: 5xl -> 6xl -> 7xl -> 8xl */}
+               {/* STANDARD H1: BLACK */}
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
-                 Dashboards & <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Reporting.</span>
+                 Dashboards & <span className="italic font-serif text-[#1a1a1a] drop-shadow-[0_0_20px_rgba(26,26,26,0.2)]">Reporting.</span>
                </h1>
 
-               <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
+               <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#1a1a1a] pl-6 mb-8">
                  Stop guessing. I build dashboards that show revenue, margins, and pipeline on one screen — updated live — so you can steer the business with confidence.
                </p>
             </div>
@@ -355,6 +355,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </div>
 
+        {/* SCROLL LINE */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
           <motion.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
@@ -368,12 +369,12 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
         {/* HEADER */}
         <div className="mb-16">
-           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block">
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] mb-4 block">
               / SYSTEM CONFIGURATION
            </span>
-           {/* STANDARD H2: 4xl -> 5xl -> 7xl */}
+           {/* STANDARD H2: BLACK */}
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-[#1a1a1a] leading-[0.95] tracking-tighter mb-6">
-             Select your <span className="italic text-[#C5A059] font-serif">Situation.</span>
+             Select your <span className="italic text-[#1a1a1a] font-serif">Situation.</span>
            </h2>
            <div className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl space-y-4">
              <p>
@@ -385,7 +386,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
         {/* --- DESKTOP VIEW: TABBED DASHBOARD --- */}
         <div className="hidden md:block border border-black/10 bg-gradient-to-br from-white to-[#FFF9F0] shadow-sm mb-32 rounded-sm overflow-hidden">
-           {/* TABS (GOLD HIGHLIGHTS) */}
+           {/* TABS: ACTIVE STATE IS BLACK (#1a1a1a) */}
            <div className="grid grid-cols-4 border-b border-black/10 bg-[#FAFAFA]">
               {Object.entries(TIERS).map(([key, tier]) => (
                 <button 
@@ -395,13 +396,13 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                     activeTier === key ? 'bg-white' : 'hover:bg-white/50 text-black/40'
                   }`}
                 >
-                  <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-2 ${activeTier === key ? 'text-[#C5A059]' : 'text-inherit'}`}>
+                  <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-2 ${activeTier === key ? 'text-[#1a1a1a]' : 'text-inherit'}`}>
                     {tier.label}
                   </span>
                   <span className={`font-serif text-lg leading-tight ${activeTier === key ? 'text-black' : 'text-inherit opacity-60'}`}>
                     "{tier.hook}"
                   </span>
-                  {activeTier === key && <motion.div layoutId="tab-highlight" className="absolute top-0 left-0 w-full h-1 bg-[#C5A059]" />}
+                  {activeTier === key && <motion.div layoutId="tab-highlight" className="absolute top-0 left-0 w-full h-1 bg-[#1a1a1a]" />}
                 </button>
               ))}
            </div>
@@ -414,7 +415,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                  {/* INTRO SUMMARY */}
                  <div className="mb-8 p-4 bg-white border border-black/5 rounded-sm">
                     <div className="flex gap-2 items-center mb-2">
-                       <HelpCircle className="w-4 h-4 text-[#C5A059]" />
+                       <HelpCircle className="w-4 h-4 text-[#1a1a1a]" />
                        <span className="font-mono text-[9px] uppercase tracking-widest font-bold text-black/60">Is this you?</span>
                     </div>
                     <p className="font-sans text-sm text-black/70 leading-relaxed">
@@ -429,16 +430,16 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                         key={p.id}
                         onClick={() => setActivePersonaIndex(idx)}
                         className={`w-full text-left p-4 border rounded-sm transition-all duration-300 flex items-center gap-4 group ${
-                           activePersonaIndex === idx ? 'bg-white border-[#C5A059] shadow-md' : 'bg-transparent border-transparent hover:bg-white hover:border-black/5'
+                           activePersonaIndex === idx ? 'bg-white border-[#1a1a1a] shadow-md' : 'bg-transparent border-transparent hover:bg-white hover:border-black/5'
                         }`}
                       >
-                         <div className={`p-2 rounded-full ${activePersonaIndex === idx ? 'bg-[#C5A059]/10 text-[#C5A059]' : 'bg-black/5 text-black/40'}`}>
+                         <div className={`p-2 rounded-full ${activePersonaIndex === idx ? 'bg-[#1a1a1a]/10 text-[#1a1a1a]' : 'bg-black/5 text-black/40'}`}>
                            <p.icon className="w-4 h-4" />
                          </div>
                          <div>
                            <h4 className={`font-serif text-lg leading-tight ${activePersonaIndex === idx ? 'text-black' : 'text-black/60'}`}>{p.title}</h4>
                          </div>
-                         {activePersonaIndex === idx && <ChevronRight className="w-4 h-4 ml-auto text-[#C5A059]" />}
+                         {activePersonaIndex === idx && <ChevronRight className="w-4 h-4 ml-auto text-[#1a1a1a]" />}
                       </button>
                     ))}
                  </div>
@@ -449,7 +450,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                     <ul className="space-y-2">
                       {currentTier.specs.map((spec, i) => (
                         <li key={i} className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wide text-black/60">
-                          <CheckCircle className="w-3 h-3 text-[#C5A059]" />
+                          <CheckCircle className="w-3 h-3 text-[#1a1a1a]" />
                           {spec}
                         </li>
                       ))}
@@ -466,25 +467,25 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                        className="flex-grow flex flex-col"
                     >
                        <div className="mb-10">
-                          <span className="text-[#C5A059] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">The Pain</span>
+                          <span className="text-[#1a1a1a] font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">The Pain</span>
                           <h2 className="font-serif text-3xl md:text-4xl mb-6 text-[#1a1a1a] leading-tight">{currentPersona.painTitle}</h2>
-                          <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#C5A059] pl-6 italic">"{currentPersona.painText}"</p>
+                          <p className="font-sans text-xl text-[#1a1a1a]/70 leading-relaxed border-l-2 border-[#1a1a1a] pl-6 italic">"{currentPersona.painText}"</p>
                        </div>
 
                        <div className="mt-auto bg-[#1a1a1a] p-8 text-white rounded-sm relative overflow-hidden shadow-2xl">
-                          <div className="absolute top-0 right-0 w-48 h-48 bg-[#C5A059]/10 rounded-full blur-3xl" />
+                          <div className="absolute top-0 right-0 w-48 h-48 bg-white/10 rounded-full blur-3xl" />
                           <div className="relative z-10 flex gap-8">
                              <div className="flex-grow">
-                                <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-4 font-bold">The Solution</span>
+                                <span className="font-mono text-[9px] text-white uppercase tracking-widest block mb-4 font-bold">The Fix</span>
                                 <p className="font-sans text-lg leading-relaxed mb-8">{currentPersona.solution}</p>
                                 
                                 <div className="w-fit">
-                                  <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
+                                  <CTAButton theme="light" onClick={() => onNavigate('contact')}>
                                     [ BOOK A CALL ]
                                   </CTAButton>
                                 </div>
                              </div>
-                             {/* VISUAL ON DESKTOP */}
+                             {/* VISUAL ON DESKTOP - STRICT WHITE */}
                              <div className="w-32 hidden lg:block flex-shrink-0">
                                 <TierVisual tierKey={activeTier} />
                              </div>
@@ -496,7 +497,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
            </div>
         </div>
 
-        {/* --- MOBILE VIEW: VERTICAL ACCORDION (GOLD THEME) --- */}
+        {/* --- MOBILE VIEW: VERTICAL ACCORDION (BLACK THEME) --- */}
         <div className="md:hidden space-y-4 mb-32">
           {Object.entries(TIERS).map(([key, tier]) => {
             const isTierExpanded = expandedTier === key;
@@ -520,12 +521,12 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                   className={`w-full flex items-center justify-between p-6 text-left transition-colors duration-300 ${isTierExpanded ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}
                 >
                   <div>
-                    <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${isTierExpanded ? 'text-[#C5A059]' : 'text-black/60'}`}>
+                    <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${isTierExpanded ? 'text-white' : 'text-black/60'}`}>
                       {tier.label}
                     </span>
                     <span className={`font-serif text-lg leading-tight ${isTierExpanded ? 'text-white' : 'text-black'}`}>"{tier.hook}"</span>
                   </div>
-                  <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isTierExpanded ? 'rotate-180 text-[#C5A059]' : 'text-black/30'}`} />
+                  <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isTierExpanded ? 'rotate-180 text-white' : 'text-black/30'}`} />
                 </button>
 
                 {/* LEVEL 1 CONTENT */}
@@ -539,7 +540,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                          {/* INTRO */}
                          <div className="mb-6 p-4 bg-white border border-black/5 rounded-sm">
                             <p className="font-sans text-sm text-black/70 leading-relaxed">
-                               <strong className="text-[#C5A059] block mb-1 font-bold uppercase text-[9px] tracking-widest">Is this you?</strong>
+                               <strong className="text-[#1a1a1a] block mb-1 font-bold uppercase text-[9px] tracking-widest">Is this you?</strong>
                                {tier.summary}
                             </p>
                          </div>
@@ -552,7 +553,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                              <div 
                                 key={p.id} 
                                 id={`persona-mobile-${p.id}`} 
-                                className={`border rounded-sm overflow-hidden transition-all duration-300 ${isPersonaExpanded ? 'border-[#C5A059] bg-white shadow-md' : 'border-black/5 bg-white'}`}
+                                className={`border rounded-sm overflow-hidden transition-all duration-300 ${isPersonaExpanded ? 'border-[#1a1a1a] bg-white shadow-md' : 'border-black/5 bg-white'}`}
                              >
                                
                                {/* LEVEL 2: PERSONA HEADER */}
@@ -566,14 +567,14 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                  }}
                                  className="w-full flex items-center gap-4 p-4 text-left hover:bg-black/5 transition-colors"
                                >
-                                  <div className={`p-2 rounded-full ${isPersonaExpanded ? 'bg-[#C5A059] text-[#1a1a1a]' : 'bg-black/5 text-black/40'}`}>
+                                  <div className={`p-2 rounded-full ${isPersonaExpanded ? 'bg-[#1a1a1a] text-white' : 'bg-black/5 text-black/40'}`}>
                                      <p.icon className="w-4 h-4" />
                                   </div>
                                   <div className="flex-grow">
-                                     <h4 className={`font-serif text-lg leading-tight ${isPersonaExpanded ? 'text-[#C5A059]' : 'text-black/70'}`}>{p.title}</h4>
+                                     <h4 className={`font-serif text-lg leading-tight ${isPersonaExpanded ? 'text-[#1a1a1a]' : 'text-black/70'}`}>{p.title}</h4>
                                      <span className="text-[10px] text-black/40 block mt-1 line-clamp-1">{p.examples}</span>
                                   </div>
-                                  <ChevronDown className={`w-4 h-4 transition-transform ${isPersonaExpanded ? 'rotate-180 text-[#C5A059]' : 'text-black/20'}`} />
+                                  <ChevronDown className={`w-4 h-4 transition-transform ${isPersonaExpanded ? 'rotate-180 text-[#1a1a1a]' : 'text-black/20'}`} />
                                </button>
 
                                {/* LEVEL 2 CONTENT */}
@@ -581,23 +582,23 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                  {isPersonaExpanded && (
                                    <motion.div
                                      initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-                                     className="border-t border-[#C5A059]/20 bg-white"
+                                     className="border-t border-[#1a1a1a]/20 bg-white"
                                    >
                                       <div className="p-6">
                                          {/* Pain */}
                                          <div className="mb-6">
-                                            <span className="text-[#C5A059] font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Pain</span>
+                                            <span className="text-[#1a1a1a] font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Problem</span>
                                             <h5 className="font-serif text-2xl mb-2 text-[#1a1a1a]">{p.painTitle}</h5>
-                                            <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed italic border-l-2 border-[#C5A059] pl-4">"{p.painText}"</p>
+                                            <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed italic border-l-2 border-[#1a1a1a] pl-4">"{p.painText}"</p>
                                          </div>
 
                                          {/* Solution */}
                                          <div className="bg-[#1a1a1a] p-6 text-white rounded-sm mb-6 relative overflow-hidden">
-                                            <div className="absolute top-0 right-0 w-24 h-24 bg-[#C5A059]/20 rounded-full blur-2xl" />
-                                            <span className="font-mono text-[9px] text-[#C5A059] uppercase tracking-widest block mb-3 font-bold relative z-10">The Solution</span>
+                                            <div className="absolute top-0 right-0 w-24 h-24 bg-white/20 rounded-full blur-2xl" />
+                                            <span className="font-mono text-[9px] text-white uppercase tracking-widest block mb-3 font-bold relative z-10">The Fix</span>
                                             <p className="font-sans text-base leading-relaxed mb-6 relative z-10">{p.solution}</p>
                                             
-                                            {/* VISUAL ON MOBILE */}
+                                            {/* VISUAL ON MOBILE (CENTERED) */}
                                             <div className="w-full flex justify-center py-4 bg-transparent relative z-10">
                                                <div className="w-24 h-24 flex items-center justify-center">
                                                  <TierVisual tierKey={key} />
@@ -606,7 +607,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                          </div>
 
                                          <div className="w-full">
-                                            <CTAButton theme="dark" onClick={() => onNavigate('contact')} className="w-full">
+                                            <CTAButton theme="light" onClick={() => onNavigate('contact')} className="w-full">
                                                 [ BOOK A CALL ]
                                             </CTAButton>
                                          </div>
@@ -617,7 +618,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                             <ul className="space-y-2">
                                               {tier.specs.map((spec, i) => (
                                                 <li key={i} className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wide text-black/60">
-                                                  <CheckCircle className="w-3 h-3 text-[#C5A059]" />
+                                                  <CheckCircle className="w-3 h-3 text-[#1a1a1a]" />
                                                   {spec}
                                                 </li>
                                               ))}
@@ -641,7 +642,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
       </section>
 
-      {/* FAQ SECTION */}
+      {/* FAQ SECTION: KEPT GOLD (#C5A059) AS REQUESTED */}
       <FAQSection
         faqs={pillarFAQs}
         accentColor="#C5A059"
