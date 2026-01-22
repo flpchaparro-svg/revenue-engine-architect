@@ -27,23 +27,23 @@ const ALL_PILLARS = [
   {
     id: 'pillar1', number: '01', icon: Globe, title: 'THE FACE', 
     subtitle: 'Websites & E-commerce', subtitleMobile: 'Websites',
-    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: 'DIGITAL_STOREFRONT',
-    body: 'Your online storefront that captures leads, sells products, and feeds data to every other pillar',
-    bodyMobile: 'Online storefront that captures and converts',
-    description: 'Your online storefront. Not a digital brochure, but a system designed to capture leads and process transactions with zero friction.',
+    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: '',
+    body: 'Capture every visitor as a trackable lead.',
+    bodyMobile: 'Capture every visitor as a trackable lead.',
+    description: 'Your online storefront. Not a digital brochure, but a system designed to capture leads and process sales with zero friction.',
     systemPurpose: 'Capture demand and structure data.',
     subServices: [
        { title: 'How it connects', description: 'The Face feeds the Brain. Every visitor who fills out a form or makes a purchase gets logged in your CRM automatically.' },
-       { title: 'How it helps the whole system', description: 'Without the Face capturing data properly, you can\'t track where your leads come from. Pillar 7 (Dashboards) needs this data to show you what\'s working.' },
+       { title: 'How it helps the whole system', description: 'Without the Face capturing data properly, you can\'t track where leads come from. The dashboard needs this data to show what\'s working.' },
        { title: 'What you get', description: 'You stop losing customers to slower competitors. Leads get captured while you sleep.' }
     ]
   },
   {
     id: 'pillar2', number: '02', icon: Database, title: 'THE BRAIN', 
     subtitle: 'CRM & Lead Tracking', subtitleMobile: 'CRM',
-    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: 'LEAD_DATABASE',
-    body: 'The single source of truth that tracks every call, email, and deal stage',
-    bodyMobile: 'Tracks every lead, call, and deal',
+    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: '',
+    body: 'Know exactly where every opportunity sits.',
+    bodyMobile: 'Know exactly where every opportunity sits.',
     description: 'Your single source of truth. Every call, email, and deal stage tracked in one place. If it\'s not in the CRM, it didn\'t happen.',
     systemPurpose: 'Capture demand and structure data.',
     subServices: [
@@ -55,9 +55,9 @@ const ALL_PILLARS = [
   {
     id: 'pillar3', number: '03', icon: Zap, title: 'THE MUSCLE', 
     subtitle: 'Automation', subtitleMobile: 'Automation',
-    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: 'WORKFLOW_ENGINE',
-    body: 'Replaces data entry, invoicing, and follow-ups with instant code execution',
-    bodyMobile: 'Admin tasks run themselves',
+    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: '',
+    body: 'Act fast without lifting a finger.',
+    bodyMobile: 'Act fast without lifting a finger.',
     description: 'Code doing the boring work. Data entry, invoicing, follow-ups. The stuff that eats your week now runs itself.',
     systemPurpose: 'Capture demand and structure data.',
     subServices: [
@@ -69,9 +69,9 @@ const ALL_PILLARS = [
   {
     id: 'pillar4', number: '04', icon: Bot, title: 'THE VOICE', 
     subtitle: 'AI Assistants', subtitleMobile: 'AI Bots',
-    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: 'SYNTHETIC_WORKFORCE',
-    body: 'Digital employees that listen, reason, and speak to customers 24/7 via phone or chat',
-    bodyMobile: 'Bots that answer 24/7',
+    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: '',
+    body: 'Handle more leads without hiring.',
+    bodyMobile: 'Handle more leads without hiring.',
     description: 'Digital employees that listen, think, and speak. AI that answers your phone, qualifies leads, and books appointments around the clock.',
     systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
@@ -83,9 +83,9 @@ const ALL_PILLARS = [
   {
     id: 'pillar5', number: '05', icon: Video, title: 'THE PRESENCE', 
     subtitle: 'Content Systems', subtitleMobile: 'Content',
-    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: 'MEDIA_DISTRIBUTION',
-    body: 'Turns one hour of raw expertise into a month of content across every platform',
-    bodyMobile: 'One input, endless content',
+    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: '',
+    body: 'Reach more people on autopilot.',
+    bodyMobile: 'Reach more people on autopilot.',
     description: 'A content supply chain. One hour of your expertise becomes a month of posts, blogs, and videos across every platform.',
     systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
@@ -97,9 +97,9 @@ const ALL_PILLARS = [
   {
     id: 'pillar6', number: '06', icon: Users, title: 'THE SOUL', 
     subtitle: 'Team Training', subtitleMobile: 'Training',
-    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: 'KNOWLEDGE_BASE',
-    body: 'Systems designed to ensure your team actually uses the tools you paid for',
-    bodyMobile: 'Makes your team use the tools',
+    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: '',
+    body: 'Make sure your team actually uses it.',
+    bodyMobile: 'Make sure your team actually uses it.',
     description: 'The human element. Training systems that make sure your team actually uses the tools you paid for.',
     systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
@@ -111,9 +111,9 @@ const ALL_PILLARS = [
   {
     id: 'pillar7', number: '07', icon: BarChart3, title: 'THE EYES', 
     subtitle: 'Dashboards & Reporting', subtitleMobile: 'Dashboards',
-    categoryHex: '#1a1a1a', categoryLabel: 'SEE CLEARLY', technicalLabel: 'BI_VISUALIZATION',
-    body: 'Visualises real-time profit, churn, and speed so you move from gut feeling to evidence',
-    bodyMobile: 'Your numbers on one screen',
+    categoryHex: '#1a1a1a', categoryLabel: 'SEE CLEARLY', technicalLabel: '',
+    body: 'See all your numbers on one screen.',
+    bodyMobile: 'See all your numbers on one screen.',
     description: 'The control tower. Revenue, margins, and pipeline on one screen, updated live. No more midnight spreadsheets.',
     systemPurpose: 'Navigate with clarity.',
     subServices: [
@@ -269,12 +269,14 @@ const GridItem = ({ pillar, isSelected, selectedId, onToggle, onNavigate }: any)
       {!isSelected && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between">
            <div className="flex justify-between items-start">
-              <span 
-                className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] py-1 px-2 border bg-white/50 font-bold backdrop-blur-sm"
-                style={{ color: accentColor, borderColor: `${accentColor}40` }}
-              >
-                 {pillar.technicalLabel.replace(/_/g, ' ')}
-              </span>
+              {pillar.technicalLabel && (
+                <span 
+                  className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] py-1 px-2 border bg-white/50 font-bold backdrop-blur-sm"
+                  style={{ color: accentColor, borderColor: `${accentColor}40` }}
+                >
+                   {pillar.technicalLabel}
+                </span>
+              )}
               <span className="font-serif text-3xl md:text-4xl text-[#1a1a1a]/10 font-bold absolute top-4 right-6 group-hover:text-[#1a1a1a]/20 transition-colors">
                  {pillar.number}
               </span>
@@ -488,7 +490,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
                 The Parts in <span className="italic font-serif text-[#C5A059]">Detail.</span>
               </h2>
               <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto">
-                Select a component to inspect its architecture.
+                Select a component to see how it works.
               </p>
           </div>
 

@@ -30,7 +30,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
   const principles = [
     {
       id: 'p1',
-      label: 'RULE 01 // CLARITY',
+      label: 'RULE 01 / CLARITY',
       title: 'Clarity Over Complexity',
       body: "If I can't explain it to you at a pub, it's too complex. You'll understand every part of your system, and if you don't, I haven't done my job.",
       icon: Search

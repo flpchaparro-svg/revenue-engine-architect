@@ -252,7 +252,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         {/* FIX: If Active and Black Phase, number should be White (inherited from button text-white). If not active, use accent color. */}
                         <span style={{ color: isActive ? 'inherit' : phase.accent }}>0{idx + 1}</span>
                         <span className="hidden xl:inline">/</span>
-                        <span className="hidden xl:inline">{phase.title}</span>
+                        <span className="hidden xl:inline">{phase.id}</span>
                       </span>
                       {isActive && (
                         <motion.div 
@@ -287,7 +287,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         <div className="h-1/2 relative border-b border-[#1a1a1a]/5 bg-[#FAFAFA]">
                           <div className="absolute top-6 left-6 z-20">
                             <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40">
-                              PHASE 0{activeIndex + 1} // {activePhase.title}
+                              PHASE 0{activeIndex + 1} / {activePhase.title}
                             </div>
                           </div>
                           

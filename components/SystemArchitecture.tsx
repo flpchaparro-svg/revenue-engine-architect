@@ -50,7 +50,7 @@ const VideoPlaceholder = ({ color }: { color: string }) => (
     </div>
     
     <div className="absolute bottom-6 right-6 font-mono text-[10px] text-white/40 tracking-widest uppercase flex items-center gap-2">
-        <Terminal className="w-3 h-3" /> SYS_VISUAL_01
+        <Terminal className="w-3 h-3" />
     </div>
   </motion.div>
 );
@@ -200,7 +200,7 @@ export const SystemArchitecture: React.FC = () => {
              <span className="italic font-serif text-[#C5A059]">The Right Way.</span>
            </h2>
            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto">
-             Most founders guess. I engineer. This is the blueprint for a self-sustaining business.
+             Most founders guess. I engineer. This is the blueprint for a business that runs without you.
            </p>
          </motion.div>
       </div>
@@ -221,30 +221,30 @@ export const SystemArchitecture: React.FC = () => {
 
         {/* 2. PHASE I: IGNITION (RED) */}
         <NarrativeSection 
-          phase="PHASE 01 // TRACTION"
+          phase="PHASE 01 / GET CLIENTS"
           title="Get"
           subtitle="Clients."
-          body="A business is an organism that needs energy. We build the infrastructure to feed it: Lead Magnets to attract, a CRM to organize data, and Automation to streamline the chaos."
+          body="Every business needs a steady flow of customers. I build the system that makes it happen: a website that captures leads, a CRM that organises them, and automation that follows up before they go cold. Nothing slips through."
           color="#E21E3F"
           align="left"
         />
 
         {/* 3. PHASE II: MOMENTUM (GOLD) */}
         <NarrativeSection 
-          phase="PHASE 02 // EXPANSION"
+          phase="PHASE 02 / SCALE FASTER"
           title="Scale"
           subtitle="Faster."
-          body="Why scaling is the only way to go. Once the manual work is gone, we pour fuel on the fire. Efficient systems allow you to handle 10x the volume without 10x the staff."
+          body="Once leads are flowing, you need to handle more without hiring more. I build AI that answers your phone 24/7, content systems that post while you sleep, and training that makes your team actually use the tools. You multiply output without multiplying headcount."
           color="#C5A059"
           align="right"
         />
 
         {/* 4. PHASE III: VISION (BLACK) */}
         <NarrativeSection 
-          phase="PHASE 03 // CLARITY"
+          phase="PHASE 03 / SEE CLEARLY"
           title="See"
           subtitle="Clearly."
-          body="You cannot fix what you cannot measure. We install 'Control Towers' so you stop driving blind. See profit, loss, and bottlenecks instantly."
+          body="You can't fix what you can't measure. I build dashboards that show where you've been, where you are now, and where you're heading. Track each pillar separately or see the whole system at once. No more guessing. No more midnight spreadsheets."
           color="#1a1a1a"
           align="left"
         />

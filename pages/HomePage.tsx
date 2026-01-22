@@ -211,7 +211,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
 
             {/* BODY COPY - Border Reverted to GOLD */}
             <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 animate-fade-in text-left mx-auto lg:mx-0 mb-12 md:mb-0" style={{ animationDelay: '0.6s' }}>
-              You didn't start a business to chase invoices, re-type data, and answer the same questions all day. I build the systems that do it for you. Websites, CRMs, automations, and AI, so you can get back to the work that actually grows revenue.
+              You didn't start a business to chase invoices, re-type data, and answer the same questions all day. I build the systems that do it for you, so you can get back to the work that actually grows revenue.
             </p>
 
             <div className="mt-10 md:mt-16 flex flex-col sm:flex-row items-center gap-6 md:gap-12 animate-fade-in relative z-30" style={{ animationDelay: '0.8s' }}>
@@ -247,7 +247,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
                 <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a] opacity-80 group-hover:text-[#C5A059] group-hover:opacity-100 transition-all duration-300 px-12">
                   {tech}
                 </span>
-                <span className="text-[#C5A059] font-mono text-[10px] font-bold">//</span>
+                <span className="text-[#C5A059] font-mono text-[10px] font-bold">/</span>
               </div>
             ))}
           </motion.div>
