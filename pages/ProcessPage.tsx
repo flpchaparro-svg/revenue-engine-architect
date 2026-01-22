@@ -102,26 +102,26 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         </div>
 
         {/* HERO SECTION */}
-        {/* FIX: Mobile centering for hero text and visual scaling */}
         <div className="mb-24 lg:mb-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative">
-          <Section className="text-center lg:text-left">
+          <Section className="text-center lg:text-left flex flex-col items-center lg:items-start">
             <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-center lg:justify-start">
               <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
               <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
                 THE PROCESS
               </span>
             </div>
-            <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-12">
+            {/* FIXED: Scaled up to text-5xl on mobile to match Home Page standard */}
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-12">
               How I <span className="italic font-serif text-[#C5A059]">Work.</span>
             </h1>
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-8 py-2 mx-auto lg:mx-0">
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-8 py-2 text-left lg:mx-0">
               A clear path from chaos to order. <br className="hidden md:block" />
               No black boxes. No fluff. Just engineering.
             </p>
           </Section>
 
           <Section delay={0.2} className="h-full min-h-[300px] lg:min-h-[500px] flex items-center justify-center lg:justify-end relative">
-            <div className="w-full max-w-[400px] lg:max-w-none">
+            <div className="w-full max-w-[320px] lg:max-w-none">
                <ProtocolVisual_Geodesic />
             </div>
           </Section>
@@ -133,6 +133,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block">
               / OPERATING SYSTEM
             </span>
+            {/* FIXED: Scaled up to text-4xl on mobile */}
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
               Core <span className="italic font-serif text-[#C5A059]">Principles.</span>
             </h2>
@@ -141,7 +142,6 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
              {principles.map((principle, idx) => (
                <Section key={principle.id} delay={idx * 0.1} className="group bg-white p-8 md:p-12 border border-[#1a1a1a]/5 hover:border-[#1a1a1a]/20 shadow-sm hover:shadow-xl transition-all duration-500 rounded-sm relative overflow-hidden">
-                 {/* FIX: Added will-change-transform for smoother mobile animations */}
                  <div className="absolute top-0 left-0 w-full h-1 bg-[#1a1a1a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left will-change-transform" />
                  <div className="flex justify-between items-start mb-8">
                     <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold text-[#1a1a1a]/60 group-hover:text-[#1a1a1a] transition-colors">
@@ -166,23 +166,29 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
               / METHODOLOGY
             </span>
+            {/* FIXED: Scaled up to text-4xl on mobile */}
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
               The Execution <span className="italic font-serif text-[#C5A059]">Path.</span>
             </h2>
           </Section>
 
-          {/* FIX: Increased horizontal padding on mobile to prevent content-clipping */}
-          <div className="relative px-2 md:px-0">
+          {/* FIX: Increased horizontal padding on mobile to prevent clipping */}
+          <div className="relative px-4 md:px-0">
+             {/* Center Line on Desktop */}
              <div className="absolute left-[19px] md:left-[50%] top-0 bottom-0 w-px bg-gradient-to-b from-[#E21E3F] via-[#C5A059] to-[#1a1a1a] hidden md:block" />
+             {/* Left Line on Mobile */}
              <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-[#E21E3F] via-[#C5A059] to-[#1a1a1a] md:hidden" />
 
              {steps.map((step, idx) => (
                <Section key={step.id} delay={idx * 0.1} className={`relative flex flex-col md:flex-row gap-4 md:gap-24 py-12 ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+                  {/* Icon Node */}
                   <div className="absolute left-0 md:left-[50%] top-12 -translate-x-1/2 md:-translate-x-1/2 z-10 bg-[#FFF2EC] p-2">
                      <div className={`w-10 h-10 rounded-full border-2 bg-white flex items-center justify-center shadow-md transition-transform duration-300 ${step.borderColor}`}>
                         <step.icon className={`w-4 h-4 ${step.color}`} />
                      </div>
                   </div>
+                  
+                  {/* Left/Right Logic for Desktop */}
                   <div className={`flex-1 md:text-right ${idx % 2 !== 0 ? 'md:text-left' : ''} pl-12 md:pl-0`}>
                      <span className={`font-mono text-[10px] uppercase tracking-[0.2em] font-bold mb-2 block ${step.color}`}>
                        {step.phase}
@@ -191,6 +197,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                        {step.title}
                      </h3>
                   </div>
+                  
                   <div className={`flex-1 pl-12 md:pl-0 ${idx % 2 !== 0 ? 'md:text-right' : 'md:text-left'}`}>
                      <p className="font-sans text-base md:text-lg font-light text-[#1a1a1a]/70 leading-relaxed max-w-md mx-auto md:mx-0">
                        {step.text}
@@ -208,7 +215,8 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                 <span className="font-mono text-xs font-bold text-[#C5A059] uppercase tracking-[0.2em] mb-6 block">
                   / PROJECT INITIATION
                 </span>
-                <h2 className="font-serif text-4xl md:text-7xl leading-[0.9] tracking-tighter text-white mb-12">
+                {/* FIXED: Scaled up to text-5xl on mobile */}
+                <h2 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tighter text-white mb-12">
                   Ready to <span className="italic font-serif text-[#C5A059]">Start?</span>
                 </h2>
                 

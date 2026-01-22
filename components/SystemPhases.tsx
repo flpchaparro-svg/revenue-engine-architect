@@ -14,11 +14,11 @@ interface SystemPhasesProps {
 const PHASES = [
   { 
     id: 'GET CLIENTS', 
-    title: 'CAPTURE', // Clean label without underscore
+    title: 'CAPTURE', 
     subtitle: 'Acquire & Convert',
     bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
-    accent: '#E21E3F', // Red for Phase 1
+    accent: '#E21E3F', // Red
     accentClass: 'text-[#E21E3F]',
     borderAccent: 'border-[#E21E3F]',
     vizType: 'geometric',
@@ -29,26 +29,26 @@ const PHASES = [
   },
   { 
     id: 'SCALE FASTER', 
-    title: 'MULTIPLY', // Clean label
+    title: 'MULTIPLY', 
     subtitle: 'Scale & Automate',
-    bg: 'bg-[#FFF2EC]', // Changed to light background for cleaner look
+    bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
-    accent: '#C5A059', // Gold for Phase 2
+    accent: '#C5A059', // Gold
     accentClass: 'text-[#C5A059]',
     borderAccent: 'border-[#C5A059]',
     vizType: 'neural',
-    dark: false, // Changed to light
+    dark: false,
     sidebarText: 'text-black',
     sidebarBorder: 'border-black/10',
     sidebarBg: 'bg-white/80'
   },
   { 
     id: 'SEE CLEARLY', 
-    title: 'COMMAND', // Clean label
+    title: 'COMMAND', 
     subtitle: 'Visibility & Control',
-    bg: 'bg-[#FFF2EC]', // Consistent light background
+    bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
-    accent: '#1a1a1a', // Black for Phase 3
+    accent: '#1a1a1a', // Black
     accentClass: 'text-[#1a1a1a]',
     borderAccent: 'border-[#1a1a1a]',
     vizType: 'dashboard',
@@ -74,7 +74,7 @@ const textVariants = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } }
 };
 
-// MOBILE TITLES - Shortened versions for mobile cards
+// MOBILE TITLES
 const MOBILE_TITLES: Record<string, string> = {
   'WEBSITES & E-COMMERCE': 'Websites',
   'CRM & LEAD TRACKING': 'CRM',
@@ -85,7 +85,7 @@ const MOBILE_TITLES: Record<string, string> = {
   'DASHBOARDS & REPORTING': 'Dashboards',
 };
 
-// MOBILE DESCRIPTIONS - Shortened versions for mobile cards
+// MOBILE DESCRIPTIONS
 const MOBILE_DESCRIPTIONS: Record<string, string> = {
   'pillar1': 'Sites that capture leads and sell, not just look pretty.',
   'pillar2': 'Track every lead, call, and deal. Nothing slips through.',
@@ -96,7 +96,7 @@ const MOBILE_DESCRIPTIONS: Record<string, string> = {
   'pillar7': 'Revenue, margins, pipeline on one screen, live.',
 };
 
-// SYSTEM CARD DATA - Different copy for each group context
+// SYSTEM CARD DATA
 const SYSTEM_CARDS: Record<string, { 
   label: string; 
   labelMobile: string;
@@ -164,12 +164,9 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
   const systemCard = SYSTEM_CARDS[activePhase.id];
   const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
   
-  // Helper to convert title case for display box (e.g., "WEBSITES & E-COMMERCE" -> "Websites & E-commerce")
-  // Special handling for "AI" to keep it fully capitalized
   const getDisplayTitle = (title: string) => {
     return title.split(' & ').map(word => 
       word.split(' ').map(w => {
-        // Keep "AI" fully capitalized
         if (w.toUpperCase() === 'AI') return 'AI';
         return w.charAt(0) + w.slice(1).toLowerCase();
       }).join(' ')
@@ -179,20 +176,17 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
   const changePhase = (newIndex: number) => {
     setPage([newIndex, newIndex > activeIndex ? 1 : -1]);
     
-    // FIX: Scroll to top of section on mobile when changing phases
     if (window.innerWidth < 1024 && sectionRef.current) {
       sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
-  // FIX: Using app navigation instead of window reload
   const handleCardClick = (service: ServiceDetail | any) => {
-    if (!onNavigate) return; // Safety check
+    if (!onNavigate) return;
     
     if (service.id === 'system-overview' || service.id === 'blueprint-architecture') {
       onNavigate('system');
     } else {
-      // Service IDs are already 'pillar1', 'pillar2', etc., which match the routeMap keys
       onNavigate(service.id);
     }
   };
@@ -202,20 +196,17 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       ref={sectionRef} 
       className={`relative min-h-screen flex flex-row lg:flex-col transition-colors duration-700 ${activePhase.bg}`}
     >
-      {/* MOBILE SIDEBAR - Clean Phase Indicators */}
+      {/* MOBILE SIDEBAR */}
       <aside className="lg:hidden sticky top-0 h-screen w-14 shrink-0 flex flex-col items-center justify-center gap-8 z-[70] border-r border-[#1a1a1a]/10 bg-white/95 backdrop-blur-xl">
         {PHASES.map((phase, idx) => {
           const isActive = idx === activeIndex;
           
           return (
             <button key={phase.id} onClick={() => changePhase(idx)} className="relative flex items-center justify-center w-10 h-10 group">
-              {/* Active Indicator: Accent colored left bar */}
               <div 
                 className={`absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-6 transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`}
                 style={{ backgroundColor: phase.accent }}
               />
-              
-              {/* Number */}
               <span 
                 className={`font-mono text-xs font-bold transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-30'}`}
                 style={{ color: isActive ? phase.accent : '#1a1a1a' }}
@@ -239,11 +230,14 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
            </p>
         </div>
 
-        {/* DESKTOP TIMELINE - Premium Phase Tabs */}
+        {/* DESKTOP TIMELINE */}
         <header className="hidden lg:flex justify-center mb-10 pt-6">
            <div className="flex gap-0 bg-white border border-[#1a1a1a]/10 p-1 shadow-sm">
               {PHASES.map((phase, idx) => {
                 const isActive = idx === activeIndex;
+                // FIX: Check if phase 3 (Black) to invert text color when active
+                const isBlackPhase = phase.id === 'SEE CLEARLY'; 
+                
                 return (
                     <button 
                       key={phase.id} 
@@ -255,7 +249,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       }`}
                     >
                       <span className="flex items-center gap-3">
-                        <span style={{ color: isActive ? phase.accent : 'inherit' }}>0{idx + 1}</span>
+                        {/* FIX: If Active and Black Phase, number should be White (inherited from button text-white). If not active, use accent color. */}
+                        <span style={{ color: isActive ? 'inherit' : phase.accent }}>0{idx + 1}</span>
                         <span className="hidden xl:inline">/</span>
                         <span className="hidden xl:inline">{phase.title}</span>
                       </span>
@@ -276,7 +271,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
         <main className="flex-1 px-6 lg:px-12 pb-24 w-full max-w-screen-2xl mx-auto z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch min-h-[600px]">
               
-              {/* LEFT DISPLAY - MAIN CARD (Premium Strategic Card) */}
+              {/* LEFT DISPLAY */}
               <div className="hidden lg:flex lg:col-span-6 flex-col">
                 {(() => {
                   const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
@@ -288,11 +283,9 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       }`}
                       style={{ borderLeftColor: isBlueprint ? '#C5A059' : activePhase.accent }}
                     >
-                      {/* VISUAL CONTAINER - Clean, minimal */}
                       {!isBlueprint && (
                         <div className="h-1/2 relative border-b border-[#1a1a1a]/5 bg-[#FAFAFA]">
                           <div className="absolute top-6 left-6 z-20">
-                            {/* Type B: Card Tag */}
                             <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40">
                               PHASE 0{activeIndex + 1} // {activePhase.title}
                             </div>
@@ -308,7 +301,6 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         </div>
                       )}
 
-                      {/* TEXT CONTENT */}
                       <div className={`p-10 flex-1 flex flex-col justify-between ${isBlueprint ? 'justify-center py-16' : ''}`}>
                         <AnimatePresence mode="wait">
                             {(() => {
@@ -334,25 +326,21 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                     animate="visible"
                                     exit="hidden"
                                 >
-                                    {/* Type B: Card Tag (inside display container) */}
                                     <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] mb-6" 
                                        style={{ color: isBlueprint ? '#C5A059' : activePhase.accent }}>
                                       {isBlueprint ? systemCard.label : `/ ${displayService?.subtitle || 'SERVICE'}`}
                                     </p>
                                     
-                                    {/* Title */}
                                     <h3 className={`font-serif mb-4 leading-[0.95] tracking-tighter ${isBlueprint ? 'text-5xl lg:text-6xl' : 'text-4xl md:text-5xl'}`}
                                         style={{ color: isBlueprint ? '#C5A059' : 'inherit' }}>
                                         {displayData?.title}
                                     </h3>
                                     
-                                    {/* Subtitle */}
                                     <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] mb-6"
                                        style={{ color: isBlueprint ? 'rgba(255,255,255,0.4)' : 'rgba(26,26,26,0.4)' }}>
                                         {displayData?.subtitle}
                                     </p>
                                     
-                                    {/* Description */}
                                     <p className={`font-sans text-lg font-light leading-relaxed ${isBlueprint ? 'text-white/70' : 'text-[#1a1a1a]/70'}`}>
                                         {displayData?.description}
                                     </p>
@@ -361,7 +349,6 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                             })()}
                         </AnimatePresence>
                         
-                        {/* FOOTER CTA */}
                         <div className={`mt-auto pt-8 border-t ${isBlueprint ? 'border-white/10' : 'border-[#1a1a1a]/10'}`}>
                              {isBlueprint ? (
                                  <CTAButton 
@@ -397,7 +384,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                 })()}
               </div>
 
-              {/* RIGHT GRID - SERVICE LIST (Premium Strategic Cards) */}
+              {/* RIGHT GRID - SERVICE LIST */}
               <motion.div 
                 key={activePhase.id} 
                 variants={containerVariants}
@@ -435,10 +422,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         }
                       }}
                     >
-                      {/* MOBILE TOP VISUALIZER */}
                       <div className="relative h-40 w-full border-b border-[#1a1a1a]/5 lg:hidden shrink-0 overflow-hidden bg-[#FAFAFA]">
                           <div className="absolute top-4 left-4 z-10">
-                             {/* Type B: Card Tag */}
                              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40">
                                {service.subtitle || 'SERVICE'}
                              </span>
@@ -449,10 +434,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                           />
                       </div>
 
-                      {/* CONTENT CONTAINER */}
                       <div className="p-6 flex flex-col flex-1 h-full min-h-[200px]">
                          
-                         {/* TOP: Phase Number + Arrow */}
                          <div className="flex justify-between items-center mb-4">
                             <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]"
                                   style={{ color: isActive ? activePhase.accent : 'rgba(26,26,26,0.3)' }}>
@@ -466,28 +449,23 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                             />
                          </div>
 
-                         {/* MIDDLE: CONTENT */}
                          <div className="mb-auto">
-                            {/* Title - Serif for premium feel */}
                             <h4 className="font-serif text-xl md:text-2xl text-[#1a1a1a] mb-2 leading-tight tracking-tight">
                               <span className="lg:hidden">{MOBILE_TITLES[service.title] || getDisplayTitle(service.title)}</span>
                               <span className="hidden lg:inline">{getDisplayTitle(service.title)}</span>
                             </h4>
                             
-                            {/* Type B: Card Tag - Subtitle */}
                             <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] mb-4"
                                style={{ color: activePhase.accent }}>
                               {service.subtitle}
                             </p>
                             
-                            {/* Description */}
                             <p className="font-sans text-sm leading-relaxed text-[#1a1a1a]/60">
                               <span className="lg:hidden">{MOBILE_DESCRIPTIONS[service.id] || service.description}</span>
                               <span className="hidden lg:inline">{service.smallCardBody || service.description}</span>
                             </p>
                          </div>
 
-                         {/* BOTTOM: CTA */}
                          <div className="mt-6 pt-4 border-t border-[#1a1a1a]/5 flex justify-start">
                             <CTAButton
                               variant="bracket"
@@ -504,7 +482,6 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                   );
                 })}
 
-                {/* SYSTEM CTA CARD - The Blueprint */}
                 {(() => {
                   const systemCardData = SYSTEM_CARDS[activePhase.id];
                   const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
@@ -524,13 +501,11 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         ${isBlueprint ? 'shadow-lg' : 'hover:shadow-lg'}
                       `}
                     >
-                      {/* Subtle background pattern */}
                       <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none">
                         <ViewportViz type="neural" color="#C5A059" />
                       </div>
                       
                       <div className="p-6 flex flex-col flex-1 relative z-10">
-                        {/* TOP */}
                         <div className="flex justify-between items-center mb-4">
                            <span className="font-mono text-[10px] font-bold text-[#C5A059] tracking-[0.2em] uppercase">
                              <span className="lg:hidden">{systemCardData.labelMobile}</span>
@@ -539,13 +514,11 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                            <ArrowDownRight className={`w-4 h-4 text-[#C5A059] transition-transform duration-300 ${isBlueprint ? '-rotate-90' : 'group-hover:-rotate-90'}`} />
                         </div>
 
-                        {/* CONTENT */}
                         <div className="mb-auto">
                            <h4 className="font-serif text-2xl md:text-3xl text-white mb-2 leading-tight tracking-tight">
                              <span className="lg:hidden">{systemCardData.titleMobile}</span>
                              <span className="hidden lg:inline">{systemCardData.title}</span>
                            </h4>
-                           {/* Type B: Card Tag */}
                            <p className="font-mono text-[10px] text-[#C5A059] mb-4 uppercase tracking-[0.2em] font-bold">
                              {systemCardData.subtitle}
                            </p>
@@ -555,7 +528,6 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                            </p>
                         </div>
 
-                        {/* FOOTER CTA */}
                         <div className="mt-6 pt-4 border-t border-white/10">
                           <CTAButton 
                             variant="bracket"

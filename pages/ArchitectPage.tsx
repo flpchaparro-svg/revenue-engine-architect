@@ -8,7 +8,6 @@ import {
 import CTAButton from '../components/CTAButton'; 
 import BackButton from '../components/BackButton'; 
 
-// FIX: Explicitly defined interface to resolve the "cannot find" error
 interface ArchitectPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
@@ -21,7 +20,8 @@ const VideoHUD: React.FC = () => (
       <div className="flex flex-col gap-1">
          <div className="flex items-center gap-2 bg-black/40 backdrop-blur-sm px-2 py-1 rounded-sm w-fit">
             <div className="w-1.5 h-1.5 bg-red-500 animate-pulse rounded-full" />
-            <span className="font-mono text-[9px] text-white/90 tracking-widest">REC</span>
+            {/* FIX: Bumped to text-[10px] for readability */}
+            <span className="font-mono text-[10px] text-white/90 tracking-widest">REC</span>
          </div>
       </div>
       <Scan className="w-5 h-5 text-white/60" />
@@ -32,12 +32,13 @@ const VideoHUD: React.FC = () => (
     </div>
 
     <div className="flex justify-between items-end">
-      <div className="space-y-1 font-mono text-[8px] md:text-[9px] text-white/60 tracking-widest">
+      {/* FIX: Bumped to text-[10px] from 8px */}
+      <div className="space-y-1 font-mono text-[10px] text-white/60 tracking-widest">
          <div>ISO: 800</div>
          <div>FPS: 60</div>
       </div>
       <div className="border border-white/20 px-2 py-1 bg-black/20 backdrop-blur-sm">
-         <span className="font-mono text-[9px] text-[#E21E3F] tracking-widest uppercase font-bold">System Active</span>
+         <span className="font-mono text-[10px] text-[#E21E3F] tracking-widest uppercase font-bold">System Active</span>
       </div>
     </div>
   </div>
@@ -55,7 +56,6 @@ const Section: React.FC<{ children: React.ReactNode, className?: string, delay?:
   </motion.div>
 );
 
-// FIX: Correctly applied the interface to the component
 const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => {
   const [mode, setMode] = useState<'architect' | 'human'>('architect');
   
@@ -125,7 +125,8 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
            <div className="flex items-center gap-0 mb-12 border border-[#1a1a1a]/10 bg-white p-1 rounded-sm w-fit shadow-lg mx-auto lg:mx-0">
               <button 
                 onClick={() => setMode('architect')}
-                className={`px-5 md:px-8 py-3.5 text-[9px] md:text-[10px] font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-sm flex items-center gap-2 ${
+                // FIX: Standardized to text-xs for readability
+                className={`px-5 md:px-8 py-3.5 text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-sm flex items-center gap-2 ${
                   mode === 'architect' ? 'text-[#FFF2EC] bg-[#1a1a1a] shadow-md' : 'text-[#1a1a1a]/40'
                 }`}
               >
@@ -133,7 +134,8 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
               </button>
               <button 
                 onClick={() => setMode('human')}
-                className={`px-5 md:px-8 py-3.5 text-[9px] md:text-[10px] font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-sm flex items-center gap-2 ${
+                // FIX: Standardized to text-xs for readability
+                className={`px-5 md:px-8 py-3.5 text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-sm flex items-center gap-2 ${
                   mode === 'human' ? 'text-[#1a1a1a] bg-[#C5A059] shadow-md' : 'text-[#1a1a1a]/40'
                 }`}
               >
@@ -145,7 +147,8 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
              <motion.h1
                key={mode}
                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-               className="font-serif text-3xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] max-w-5xl mb-6 md:mb-10 mx-auto lg:mx-0"
+               // FIX: Bumped mobile H1 to text-5xl to match Home/Process pages
+               className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] max-w-5xl mb-6 md:mb-10 mx-auto lg:mx-0"
              >
                {current.headline}
              </motion.h1>
@@ -199,7 +202,8 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                         {content.architect.credentials.map((cred, i) => (
                           <div key={i} className="flex items-center gap-3">
                              <cred.icon className="w-4 h-4 text-[#1a1a1a]/40" />
-                             <span className="font-mono text-[9px] md:text-[10px] font-bold uppercase">{cred.label}</span>
+                             {/* FIX: Standardized to text-xs */}
+                             <span className="font-mono text-xs font-bold uppercase">{cred.label}</span>
                           </div>
                         ))}
                       </div>
@@ -211,6 +215,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
         </div>
         
         <Section className="border-t border-black/10 py-32 flex flex-col items-center text-center">
+           {/* FIX: Confirmed H2 is standard 4xl on mobile */}
            <h2 className="font-serif text-4xl md:text-7xl tracking-tighter mb-12">
              Ready to build your <span className="italic font-serif text-[#C5A059]">System?</span>
            </h2>
