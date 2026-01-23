@@ -177,7 +177,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       <div className="flex-1 flex flex-col w-full">
         {/* HEADER */}
         <div className={`pt-24 pb-12 px-6 lg:pt-16 lg:pb-8 text-center max-w-4xl mx-auto ${activePhase.text}`}>
-           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block">/ THE SYSTEM</span>
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-4 block">/ THE SYSTEM</span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-none tracking-tighter mb-6">
              7 Ways I Fix <span className="italic text-[#C5A059]">Your Business.</span>
            </h2>

@@ -25,7 +25,7 @@ const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onBack, onNavigat
 
         {/* HEADER */}
         <div className="mb-24 border-b border-[#1a1a1a]/10 pb-12">
-           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block">
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-4 block">
               / LEGAL
            </span>
            <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tighter text-[#1a1a1a]">

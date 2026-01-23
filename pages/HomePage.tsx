@@ -5,7 +5,6 @@ import HeroVisual from '../components/HeroVisual';
 import ScrambleTitle from '../components/ScrambleTitle';
 import ProblemSection from '../components/HomePage/ProblemSection';
 import BookingCTA from '../components/BookingCTA';
-import BookAuditButton from '../components/BookAuditButton';
 import FrictionAuditSection from '../components/FrictionAuditSection';
 import { usePageTitle } from '../hooks/usePageTitle';
 
@@ -183,7 +182,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
                 <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a] opacity-80 group-hover:text-[#C5A059] group-hover:opacity-100 transition-all duration-300 px-12">
                   {tech}
                 </span>
-                <span className="text-[#C5A059] font-mono text-[10px] font-bold">/</span>
+                <span className="text-[#A07E3C] font-mono text-[10px] font-bold">/</span>
               </div>
             ))}
           </motion.div>
@@ -220,9 +219,6 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
       <section id="cta" aria-label="Call to Action Section" className="relative bg-[#FFF2EC] z-30">
         <BookingCTA />
       </section>
-
-      {/* Floating Book Audit Button */}
-      <BookAuditButton onNavigate={onNavigate} />
     </>
   );
 };

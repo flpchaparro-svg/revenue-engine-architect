@@ -105,7 +105,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* SECTION: THE EXECUTION PATH */}
         <div className="mb-32">
           <Section className="mb-20 text-center lg:text-left">
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-6 block">
               / METHODOLOGY
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
@@ -152,7 +152,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         <Section className="mb-24">
           <div className="bg-[#1a1a1a] text-white p-12 md:p-24 text-center relative overflow-hidden rounded-sm group cursor-default">
              <div className="relative z-10 flex flex-col items-center">
-                <span className="font-mono text-xs font-bold text-[#C5A059] uppercase tracking-[0.2em] mb-6 block">
+                <span className="font-mono text-xs font-bold text-[#A07E3C] uppercase tracking-[0.2em] mb-6 block">
                   / PROJECT INITIATION
                 </span>
                 <h2 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tighter text-white mb-12">

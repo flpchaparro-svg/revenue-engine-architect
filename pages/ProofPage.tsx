@@ -170,7 +170,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         {/* THE SOLUTION */}
         <Section className="mb-20 md:mb-32">
           <div className="mb-20">
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-6 block">
               / THE SOLUTION
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
@@ -178,7 +178,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             </h2>
             <div className="inline-flex items-center gap-3 px-4 py-2 bg-[#C5A059]/5 border border-[#C5A059]/20 rounded-sm">
                <span className="font-sans text-sm md:text-base font-medium text-[#1a1a1a]/80">group7security.com.au</span>
-               <span className="font-mono text-xs text-[#C5A059] uppercase tracking-[0.2em] font-bold">LIVE SYSTEM</span>
+               <span className="font-mono text-xs text-[#A07E3C] uppercase tracking-[0.2em] font-bold">LIVE SYSTEM</span>
             </div>
           </div>
 
@@ -197,7 +197,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                     </div>
                   </div>
                   <div className="bg-[#f9f9f9] p-5 border-l-2 border-[#C5A059]">
-                    <span className="font-mono text-xs text-[#C5A059] uppercase tracking-[0.2em] font-bold block mb-2">THE LOGIC</span>
+                    <span className="font-mono text-xs text-[#A07E3C] uppercase tracking-[0.2em] font-bold block mb-2">THE LOGIC</span>
                     <p className="font-sans text-base md:text-lg text-[#1a1a1a]/80 leading-relaxed">
                       {item.why}
                     </p>
@@ -211,7 +211,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         {/* THE EVIDENCE */}
         <Section className="mb-20 md:mb-32">
           <div className="mb-20">
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-6 block">
               / THE RESULTS
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
@@ -254,7 +254,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         {/* COMPARISON */}
         <Section className="mb-20 md:mb-32">
            <div className="mb-20">
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-6 block">
               / VISUAL EVIDENCE
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
@@ -276,7 +276,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
               <p className="font-sans text-sm text-[#1a1a1a]/50">Slow. Generic. Invisible.</p>
             </div>
             <div className="border-t border-[#C5A059]/20 pt-4">
-               <span className="font-mono text-xs font-bold text-[#C5A059] uppercase tracking-[0.2em] block mb-2">NEW SYSTEM</span>
+               <span className="font-mono text-xs font-bold text-[#A07E3C] uppercase tracking-[0.2em] block mb-2">NEW SYSTEM</span>
                <p className="font-sans text-sm text-[#1a1a1a]/50">Instant. Custom. Dominant.</p>
             </div>
           </div>

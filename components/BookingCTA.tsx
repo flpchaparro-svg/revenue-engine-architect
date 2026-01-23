@@ -12,7 +12,7 @@ const BookingCTA: React.FC = () => {
         <div className="w-full md:w-1/2">
           <div className="flex items-center gap-3 mb-6">
             <span className="w-2 h-2 bg-[#E21E3F] rounded-full animate-pulse" />
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059]">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C]">
               Now Accepting Projects
             </span>
           </div>

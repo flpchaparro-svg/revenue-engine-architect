@@ -79,26 +79,26 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
               {/* Row 1: Name & Email */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="group relative">
-                  <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">01 // IDENTIFICATION</label>
-                  <input type="text" required className={inputBaseStyle} placeholder="Full Name" value={formState.name} onChange={e => updateField('name', e.target.value)} />
+                  <label htmlFor="name" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">01 // IDENTIFICATION</label>
+                  <input id="name" type="text" required className={inputBaseStyle} placeholder="Full Name" value={formState.name} onChange={e => updateField('name', e.target.value)} />
                 </div>
                 <div className="group relative">
-                  <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">02 // COORDINATES</label>
-                  <input type="email" required className={inputBaseStyle} placeholder="Email Address" value={formState.email} onChange={e => updateField('email', e.target.value)} />
+                  <label htmlFor="email" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">02 // COORDINATES</label>
+                  <input id="email" type="email" required className={inputBaseStyle} placeholder="Email Address" value={formState.email} onChange={e => updateField('email', e.target.value)} />
                 </div>
               </div>
 
               {/* Row 2: Entity */}
               <div className="group relative">
-                <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">03 // ENTITY</label>
-                <input type="text" className={inputBaseStyle} placeholder="Company / Website" value={formState.company} onChange={e => updateField('company', e.target.value)} />
+                <label htmlFor="company" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">03 // ENTITY</label>
+                <input id="company" type="text" className={inputBaseStyle} placeholder="Company / Website" value={formState.company} onChange={e => updateField('company', e.target.value)} />
               </div>
 
               {/* Row 3: Dropdown */}
               <div className="group relative">
-                <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">04 // THE HANDBRAKE</label>
+                <label htmlFor="frictionPoint" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">04 // THE HANDBRAKE</label>
                 <div className="relative">
-                  <select className={`${inputBaseStyle} appearance-none cursor-pointer pr-10`} value={formState.frictionPoint} onChange={e => updateField('frictionPoint', e.target.value)}>
+                  <select id="frictionPoint" className={`${inputBaseStyle} appearance-none cursor-pointer pr-10`} value={formState.frictionPoint} onChange={e => updateField('frictionPoint', e.target.value)}>
                     {DIAGNOSIS_OPTIONS.map(s => <option key={s} value={s} className="bg-[#1a1a1a] text-white">{s}</option>)}
                   </select>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none mt-1">
@@ -109,8 +109,8 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
               {/* Row 4: Message */}
               <div className="group relative">
-                <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">05 // CONTEXT</label>
-                <textarea rows={4} className={`${inputBaseStyle} resize-none`} placeholder="Give me the details. I analyse the system, not the symptoms." value={formState.message} onChange={e => updateField('message', e.target.value)} />
+                <label htmlFor="message" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">05 // CONTEXT</label>
+                <textarea id="message" rows={4} className={`${inputBaseStyle} resize-none`} placeholder="Give me the details. I analyse the system, not the symptoms." value={formState.message} onChange={e => updateField('message', e.target.value)} />
               </div>
 
               <div className="pt-8 pb-12">

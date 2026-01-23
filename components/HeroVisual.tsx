@@ -327,8 +327,10 @@ const HeroVisual: React.FC = () => {
     <div 
       ref={containerRef}
       className="absolute inset-0 z-0 w-full h-full pointer-events-none select-none overflow-hidden"
+      role="img"
+      aria-label="Interactive 3D network visualization showing connected data nodes"
     >
-      <canvas ref={canvasRef} className="block w-full h-full" />
+      <canvas ref={canvasRef} className="block w-full h-full" aria-hidden="true" />
     </div>
   );
 };

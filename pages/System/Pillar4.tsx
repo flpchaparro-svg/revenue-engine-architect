@@ -108,7 +108,7 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       {/* 2. CONFIGURATOR SECTION */}
       <section className="w-full px-6 md:px-12 lg:px-20 pt-24 pb-32 max-w-[1400px] mx-auto border-t border-[#1a1a1a]/10">
         <div className="mb-16">
-           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block">
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-4 block">
               / SYSTEM CONFIGURATION
            </span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-[#1a1a1a] leading-[0.95] tracking-tighter mb-6">

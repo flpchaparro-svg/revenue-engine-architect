@@ -113,7 +113,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
         {/* HEADER */}
         <div className="mb-16">
-           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block">
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-4 block">
               / SYSTEM CONFIGURATION
            </span>
            {/* STANDARD H2 */}

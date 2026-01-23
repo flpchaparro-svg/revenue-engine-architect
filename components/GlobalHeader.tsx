@@ -111,6 +111,21 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                        if (item.hasDropdown) setIsArchHovered(true);
                        else setIsArchHovered(false);
                      }}
+                     onMouseLeave={() => {
+                       if (!item.hasDropdown) setHoveredNav(null);
+                     }}
+                     onFocus={() => {
+                       setHoveredNav(item.id);
+                       if (item.hasDropdown) setIsArchHovered(true);
+                       else setIsArchHovered(false);
+                     }}
+                     onBlur={(e) => {
+                       // Only close if focus is moving outside this nav item
+                       if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                         setHoveredNav(null);
+                         setIsArchHovered(false);
+                       }
+                     }}
                    >
                      {/* Hover Patch */}
                      {isHovered && (
