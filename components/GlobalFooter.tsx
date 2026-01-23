@@ -1,6 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
-import { Globe, Terminal, Target, Zap, BarChart3 } from 'lucide-react';
+import { Target, Zap, BarChart3, ArrowUpRight } from 'lucide-react';
 import CTAButton from './CTAButton';
 
 interface GlobalFooterProps {
@@ -9,103 +8,122 @@ interface GlobalFooterProps {
 
 const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
   
-  const systems = [
+  const currentYear = new Date().getFullYear();
+
+  const footerLinks = [
     {
-      label: 'GET CLIENTS',
+      title: 'THE ARCHITECT',
+      links: [
+        { label: 'Philosophy', action: () => onNavigate('architect') },
+        { label: 'The Process', action: () => onNavigate('process') },
+        { label: 'Case Studies', action: () => onNavigate('proof') },
+      ]
+    },
+    {
+      title: 'GET CLIENTS',
       icon: Target,
       color: 'text-[#E21E3F]',
       links: [
-        { name: '01 / Websites & E-commerce', id: 'pillar1' },
-        { name: '02 / CRM & Lead Tracking', id: 'pillar2' },
-        { name: '03 / Automation', id: 'pillar3' }
+        { label: 'Websites', action: () => onNavigate('pillar1') },
+        { label: 'CRM Systems', action: () => onNavigate('pillar2') },
+        { label: 'Automation', action: () => onNavigate('pillar3') },
       ]
     },
     {
-      label: 'SCALE FASTER',
+      title: 'SCALE FASTER',
       icon: Zap,
       color: 'text-[#C5A059]',
       links: [
-        { name: '04 / AI Assistants', id: 'pillar4' },
-        { name: '05 / Content Systems', id: 'pillar5' },
-        { name: '06 / Team Training', id: 'pillar6' }
+        { label: 'AI Agents', action: () => onNavigate('pillar4') },
+        { label: 'Content Systems', action: () => onNavigate('pillar5') },
+        { label: 'Team Training', action: () => onNavigate('pillar6') },
       ]
     },
     {
-      label: 'SEE CLEARLY',
+      title: 'SEE CLEARLY',
       icon: BarChart3,
-      color: 'text-[#1a1a1a]',
+      // FIX: Changed from text-[#1a1a1a] (Black) to text-white for visibility on dark footer
+      color: 'text-white', 
       links: [
-        { name: '07 / Dashboards & Reporting', id: 'pillar7' }
+        { label: 'Dashboards', action: () => onNavigate('pillar7') },
       ]
     }
   ];
 
   return (
-    <footer id="footer" className="w-full bg-[#1a1a1a] text-[#FFF2EC] border-t border-white/10 relative z-50 pt-24 pb-12 px-6 md:px-12 lg:px-20 overflow-hidden">
-      
-      {/* Background Grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20 pointer-events-none" />
-      
-      <div className="max-w-[1400px] mx-auto relative z-10">
+    <footer className="bg-[#1a1a1a] text-white pt-24 pb-12 px-6 md:px-12 border-t border-white/10">
+      <div className="max-w-[1400px] mx-auto">
         
-        {/* TOP ROW: HEADLINE & CTA */}
-        <div className="flex flex-col lg:flex-row justify-between items-start mb-24 gap-12">
-          <div className="max-w-2xl">
-            <div className="flex items-center gap-3 mb-6">
-               <span className="w-2 h-2 bg-[#E21E3F] rounded-full animate-pulse" />
-               <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#E21E3F] font-bold">
-                 Let's Talk
-               </span>
-            </div>
-            <h2 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tighter">
-              Ready to fix <br />
-              <span className="italic text-white/30">the chaos?</span>
-            </h2>
-          </div>
-          
-          <div className="flex flex-col items-end gap-6 self-start lg:self-end">
-             <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
-               [ BOOK A CALL ]
-             </CTAButton>
-             <span className="font-mono text-[9px] text-white/30 uppercase tracking-widest">
-               Response Time: &lt;24hrs
-             </span>
-          </div>
+        {/* TOP SECTION: CTA & BRAND */}
+        <div className="flex flex-col lg:flex-row justify-between items-start mb-24 gap-16">
+           <div className="max-w-lg">
+              <div className="flex items-center gap-3 mb-8">
+                 <div className="font-mono text-[10px] font-bold border border-white/20 px-1.5 py-0.5 text-white/80">
+                    [FC)
+                 </div>
+                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">
+                    Felipe Consultancy
+                 </span>
+              </div>
+              <h2 className="font-serif text-4xl md:text-5xl leading-[0.95] tracking-tight mb-8">
+                Stop guessing. <br />
+                Start <span className="italic text-[#C5A059]">building.</span>
+              </h2>
+              <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
+                [ BOOK A CALL ]
+              </CTAButton>
+           </div>
+
+           {/* LINKS GRID */}
+           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-16">
+              {footerLinks.map((group) => (
+                <div key={group.title}>
+                   <div className={`flex items-center gap-2 mb-6 ${group.color}`}>
+                      {group.icon && <group.icon className="w-4 h-4" />}
+                      {/* FIX: Bumped to text-[10px] */}
+                      <span className="font-mono text-[10px] font-bold uppercase tracking-[0.1em]">
+                        {group.title}
+                      </span>
+                   </div>
+                   <ul className="space-y-4">
+                     {group.links.map((link) => (
+                       <li key={link.label}>
+                         <button 
+                           onClick={link.action}
+                           className="font-sans text-sm text-white/60 hover:text-white transition-colors text-left"
+                         >
+                           {link.label}
+                         </button>
+                       </li>
+                     ))}
+                   </ul>
+                </div>
+              ))}
+           </div>
         </div>
 
-        {/* MIDDLE ROW: SYSTEM DIRECTORY */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 border-t border-white/10 pt-16 mb-24">
-          {systems.map((sys) => (
-            <div key={sys.label} className="flex flex-col gap-6">
-              <div className={`flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.3em] ${sys.color}`}>
-                <sys.icon className="w-3 h-3" /> {sys.label}
-              </div>
-              <div className="flex flex-col gap-4">
-                {sys.links.map((link) => (
-                  <button 
-                    key={link.id}
-                    onClick={() => onNavigate(link.id)}
-                    className="text-left font-mono text-[10px] text-white/40 uppercase tracking-[0.2em] hover:text-[#C5A059] hover:pl-2 transition-all duration-300"
-                  >
-                    {link.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* BOTTOM ROW: METADATA */}
-        <div className="flex flex-col md:flex-row justify-between items-end pt-12 border-t border-white/5 opacity-40">
-          <div className="flex flex-col gap-2">
-            <span className="font-mono text-[9px] text-white uppercase tracking-[0.4em] font-bold">[FC) Felipe Consultancy</span>
-            <span className="font-mono text-[9px] text-white/60 uppercase tracking-[0.4em]">Engineered in Sydney</span>
-          </div>
-          
-          <div className="flex gap-8 font-mono text-[9px] text-white/60 uppercase tracking-[0.4em] mt-8 md:mt-0">
-              <span className="flex items-center gap-2"><Globe className="w-3 h-3"/> Sydney, Australia</span>
-              <span className="flex items-center gap-2"><Terminal className="w-3 h-3"/> v5.4.0</span>
-          </div>
+        {/* BOTTOM SECTION: LEGAL */}
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
+           <p className="font-mono text-[10px] text-white/40 uppercase tracking-widest">
+             © {currentYear} Felipe Chaparro. Sydney, Australia.
+           </p>
+           
+           <div className="flex items-center gap-8">
+              <button 
+                onClick={() => onNavigate('privacy')}
+                className="font-mono text-[10px] text-white/40 hover:text-white uppercase tracking-widest transition-colors"
+              >
+                Privacy Policy
+              </button>
+              <a 
+                href="https://linkedin.com/in/felipechaparro" 
+                target="_blank" 
+                rel="noreferrer"
+                className="font-mono text-[10px] text-white/40 hover:text-[#C5A059] uppercase tracking-widest transition-colors flex items-center gap-2"
+              >
+                LinkedIn <ArrowUpRight className="w-3 h-3" />
+              </a>
+           </div>
         </div>
 
       </div>

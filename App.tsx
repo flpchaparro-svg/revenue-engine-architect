@@ -17,6 +17,7 @@ const ProcessPage = lazy(() => import('./pages/ProcessPage'));     // Moved
 const ProofPage = lazy(() => import('./pages/ProofPage'));         // Moved
 const EvidenceVaultPage = lazy(() => import('./pages/EvidenceVaultPage')); // Moved
 const ContactPage = lazy(() => import('./pages/ContactPage'));     // Moved
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage')); // Moved
 
 // 2. System & Pillars (Grouped in src/pages/System)
 const SystemPage = lazy(() => import('./pages/System/SystemPage'));
@@ -49,6 +50,7 @@ const App: React.FC = () => {
       'proof': '/proof',
       'evidence-vault': '/evidence-vault',
       'contact': '/contact',
+      'privacy': '/privacy',
       'pillar1': '/pillar1',
       'pillar2': '/pillar2',
       'pillar3': '/pillar3',
@@ -106,6 +108,7 @@ const App: React.FC = () => {
               <Route path="/proof" element={<ProofPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
               <Route path="/evidence-vault" element={<EvidenceVaultPage onBack={() => handleGlobalNavigate('proof')} />} />
               <Route path="/contact" element={<ContactPage onBack={() => handleGlobalNavigate('homepage')} />} />
+              <Route path="/privacy" element={<PrivacyPolicyPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
               
               {/* Pillars */}
               <Route path="/pillar1" element={<Pillar1 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />} />
