@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, Database, Zap, Activity, CheckCircle2, X, Terminal } from 'lucide-react';
 import EvidenceVisual_Compare from '../components/EvidenceVisual_Compare';
 import CTAButton from '../components/CTAButton'; 
-import BackButton from '../components/BackButton'; 
+import BackButton from '../components/BackButton';
+import { usePageTitle } from '../hooks/usePageTitle'; 
 
 interface EvidenceVaultPageProps {
   onBack: () => void;
@@ -60,6 +61,8 @@ const TerminalLog: React.FC = () => {
 };
 
 const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
+  usePageTitle('Evidence Vault');
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

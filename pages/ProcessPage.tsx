@@ -6,7 +6,8 @@ import {
 } from 'lucide-react';
 import ProtocolVisual_Geodesic from '../components/ProtocolVisual_Geodesic';
 import CTAButton from '../components/CTAButton'; 
-import BackButton from '../components/BackButton'; 
+import BackButton from '../components/BackButton';
+import { usePageTitle } from '../hooks/usePageTitle'; 
 
 interface ProcessPageProps {
   onBack: () => void;
@@ -26,6 +27,7 @@ const Section: React.FC<{ children: React.ReactNode, className?: string, delay?:
 );
 
 const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
+  usePageTitle('The Process');
 
   const principles = [
     {

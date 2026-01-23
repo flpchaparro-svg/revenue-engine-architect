@@ -9,8 +9,8 @@ interface EvidenceVisualCompareProps {
 }
 
 const EvidenceVisual_Compare: React.FC<EvidenceVisualCompareProps> = ({ 
-  beforeLabel = "CURRENT_STATE: FRICTION", 
-  afterLabel = "TARGET_STATE: FLOW",
+  beforeLabel = "BEFORE", 
+  afterLabel = "AFTER",
   beforeImage = "/images/group7-before.webp",
   afterImage = "/images/group7-after.webp"
 }) => {

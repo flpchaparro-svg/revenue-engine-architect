@@ -11,6 +11,7 @@ import BookAuditButton from '../components/BookAuditButton';
 import FrictionAuditSection from '../components/FrictionAuditSection';
 import GrowthGraph, { GraphState } from '../components/GrowthGraph';
 import { ServiceDetail } from '../types';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 const TECH_STACK = [
   'WEBSITES', 'CRM', 'MARKETING AUTOMATION', 'AI ASSISTANTS', 'CONTENT MARKETING', 'DASHBOARDS'
@@ -22,6 +23,8 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
+  usePageTitle('Home');
+  
   const [scrambleText, setScrambleText] = useState("ARCHITECT");
   const [isTickerHovered, setIsTickerHovered] = useState(false);
   const [graphState, setGraphState] = useState<GraphState>('idle');

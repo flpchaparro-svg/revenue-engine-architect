@@ -3,12 +3,15 @@ import { motion } from 'framer-motion';
 import { Check, ChevronDown } from 'lucide-react';
 import CTAButton from '../components/CTAButton'; // STANDARDIZED BUTTON
 import BackButton from '../components/BackButton'; // STANDARDIZED NAV
+import { usePageTitle } from '../hooks/usePageTitle';
 
 interface ContactPageProps {
   onBack: () => void;
 }
 
 const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
+  usePageTitle('Contact');
+  
   const formRef = useRef<HTMLFormElement>(null);
   
   const [formState, setFormState] = useState({

@@ -6,7 +6,8 @@ import {
   Award, Wrench, Target
 } from 'lucide-react';
 import CTAButton from '../components/CTAButton'; 
-import BackButton from '../components/BackButton'; 
+import BackButton from '../components/BackButton';
+import { usePageTitle } from '../hooks/usePageTitle'; 
 
 interface ArchitectPageProps {
   onBack: () => void;
@@ -57,6 +58,8 @@ const Section: React.FC<{ children: React.ReactNode, className?: string, delay?:
 );
 
 const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => {
+  usePageTitle('The Architect');
+  
   const [mode, setMode] = useState<'architect' | 'human'>('architect');
   
   const content = {

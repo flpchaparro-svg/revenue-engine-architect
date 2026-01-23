@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { 
   ShieldCheck, Activity, Database, ArrowRight, Zap, 
   MapPin, Terminal, Globe, AlertTriangle, 
@@ -7,7 +7,8 @@ import {
 } from 'lucide-react';
 import EvidenceVisual_Compare from '../components/EvidenceVisual_Compare';
 import CTAButton from '../components/CTAButton'; 
-import BackButton from '../components/BackButton'; 
+import BackButton from '../components/BackButton';
+import { usePageTitle } from '../hooks/usePageTitle'; 
 
 interface ProofPageProps {
   onBack: () => void;
@@ -120,9 +121,8 @@ const Section: React.FC<{ children: React.ReactNode, className?: string, delay?:
 
 // --- MAIN PAGE COMPONENT ---
 const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
-  const { scrollYProgress } = useScroll();
-  const yParallax = useTransform(scrollYProgress, [0, 1], [0, -50]);
-
+  usePageTitle('Results You Can Verify');
+  
   return (
     <motion.div 
       initial={{ opacity: 0 }} 
