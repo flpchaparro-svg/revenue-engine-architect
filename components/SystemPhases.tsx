@@ -14,7 +14,7 @@ interface SystemPhasesProps {
 const PHASES = [
   { 
     id: 'GET CLIENTS', 
-    title: 'CAPTURE', 
+    title: 'GET CLIENTS', 
     subtitle: 'Acquire & Convert',
     bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
@@ -29,7 +29,7 @@ const PHASES = [
   },
   { 
     id: 'SCALE FASTER', 
-    title: 'MULTIPLY', 
+    title: 'SCALE FASTER', 
     subtitle: 'Scale & Automate',
     bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
@@ -44,7 +44,7 @@ const PHASES = [
   },
   { 
     id: 'SEE CLEARLY', 
-    title: 'COMMAND', 
+    title: 'SEE CLEARLY', 
     subtitle: 'Visibility & Control',
     bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
@@ -272,7 +272,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         <div className="h-1/2 relative border-b border-[#1a1a1a]/5 bg-[#FAFAFA]">
                           <div className="absolute top-6 left-6 z-20">
                             <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40">
-                              PHASE 0{activeIndex + 1} / {activePhase.title}
+                              0{activeIndex + 1} / {activePhase.title}
                             </div>
                           </div>
                           
