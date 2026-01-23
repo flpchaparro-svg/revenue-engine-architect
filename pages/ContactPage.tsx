@@ -21,20 +21,14 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
-  const handleSubmit = (e?: React.FormEvent) => {
-    if (e) e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     setIsSubmitting(true);
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSent(true);
     }, 1500);
-  };
-
-  const handleBtnClick = () => {
-    if (formRef.current) {
-        handleSubmit(); 
-    }
   };
 
   const systems = [
@@ -195,7 +189,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
               <div className="pt-8 pb-12">
                 <CTAButton 
                   theme="dark"
-                  onClick={handleBtnClick}
+                  type="submit"
                   className={`w-full ${isSubmitting ? 'opacity-50 cursor-wait' : ''}`}
                 >
                   {isSubmitting ? 'UPLOADING...' : '[ INITIATE DIAGNOSIS ]'}

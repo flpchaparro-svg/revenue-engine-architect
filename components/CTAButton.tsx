@@ -4,6 +4,7 @@ import { ArrowRight } from 'lucide-react';
 interface CTAButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
   theme?: 'light' | 'dark';
   variant?: 'solid' | 'bracket';
   size?: 'default' | 'sm';
@@ -13,6 +14,7 @@ interface CTAButtonProps {
 const CTAButton: React.FC<CTAButtonProps> = ({ 
   children, 
   onClick, 
+  type = 'button',
   theme = 'light',
   variant = 'solid',
   size = 'default',
@@ -34,6 +36,7 @@ const CTAButton: React.FC<CTAButtonProps> = ({
 
     return (
       <button 
+        type={type}
         onClick={onClick}
         className={`
           group relative inline-flex items-center justify-center gap-[2px]
@@ -74,6 +77,7 @@ const CTAButton: React.FC<CTAButtonProps> = ({
 
   return (
     <button 
+      type={type}
       onClick={onClick}
       className={`
         group relative ${solidSize} 
