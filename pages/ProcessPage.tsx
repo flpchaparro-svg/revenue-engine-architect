@@ -48,7 +48,6 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
     {
       id: '01',
       phase: 'PHASE I',
-      label: 'DIAGNOSE',
       title: 'Find the Leaks',
       text: "I don't guess. I look for the repetitive tasks burning your team, the stuff that eats 15 hours a week. I find where data gets typed twice, where leads go cold, and where profit disappears.",
       icon: Search,
@@ -58,7 +57,6 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
     {
       id: '02',
       phase: 'PHASE II',
-      label: 'DESIGN',
       title: 'Pick the Right Tools',
       text: "I'm not locked into HubSpot or Salesforce, so I find what actually fits your business. We design the logic before we write a single line of code.",
       icon: PenTool,
@@ -68,7 +66,6 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
     {
       id: '03',
       phase: 'PHASE III',
-      label: 'BUILD',
       title: 'Ship Fast & Iterate',
       text: "No 6-month projects that drain your budget. I build in sprints so you start seeing progress in weeks, not quarters.",
       icon: Hammer,
@@ -78,7 +75,6 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
     {
       id: '04',
       phase: 'PHASE IV',
-      label: 'HANDOVER',
       title: 'Make It Stick',
       text: "Software fails when people don't use it. I build the training materials and run the workshops so your team actually prefers the new way.",
       icon: Flag,

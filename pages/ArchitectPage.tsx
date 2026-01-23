@@ -98,10 +98,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
           { id: 'h2', icon: Coffee, label: 'CHAPTER 02 / THE OWNER', title: 'Built My Own Business', text: "I opened a café in Santiago. I did everything: hiring, payroll, marketing. I know what it costs to run a business." },
           { id: 'h3', icon: Globe, label: 'CHAPTER 03 / THE OPERATOR', title: 'Managed Across Cultures', text: "I ran a fitness franchise in Southeast Asia. I learned to adapt systems to people — not force people into systems." },
           { id: 'h4', icon: Code2, label: 'CHAPTER 04 / THE BUILDER', title: 'Now I Build for Others', text: "After studying marketing automation and business analytics, I put it all together. I build the systems I wish I'd had when I was running my café — so you can focus on the work that matters." }
-        ],
-        quote: "Give people the freedom they need to use their talent.",
-        attribution: "— Felipe Chaparro",
-        funFact: { label: "Off the Clock", body: "When I'm not building systems, I play guitar and dance Bachata. Structure and improvisation." }
+        ]
       }
   };
   

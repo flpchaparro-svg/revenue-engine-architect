@@ -77,15 +77,54 @@ This report identifies copy that exists in the code but is not displayed on scre
 
 ---
 
+## 4. HUMAN MODE DETAILS (ArchitectPage.tsx)
+
+**Location:** `pages/ArchitectPage.tsx` (lines 102-104)  
+**Status:** ❌ NOT DISPLAYED - Defined but never rendered  
+**Issue:** Human mode has `quote`, `attribution`, and `funFact` defined, but there's no JSX code to display them (unlike architect mode which has a credentials section)
+
+### Unused Copy:
+- Quote: "Give people the freedom they need to use their talent."
+- Attribution: "— Felipe Chaparro"
+- Fun Fact Title: "Off the Clock"
+- Fun Fact Body: "When I'm not building systems, I play guitar and dance Bachata. Structure and improvisation."
+
+**Current Behavior:** These properties exist in the `content.human` object but are never rendered. Architect mode has a credentials section (lines 199-211), but human mode has no corresponding section.
+
+**Fix Required:** Either remove these properties OR add a section to display them when `mode === 'human'`
+
+---
+
+## 5. PROCESS STEP LABELS (ProcessPage.tsx)
+
+**Location:** `pages/ProcessPage.tsx` (lines 51, 61, 71, 81)  
+**Status:** ❌ NOT DISPLAYED - Defined but never rendered  
+**Issue:** Each step has a `label` property (DIAGNOSE, DESIGN, BUILD, HANDOVER) but the code only renders `step.phase` and `step.title`
+
+### Unused Copy:
+- Phase 1 Label: "DIAGNOSE"
+- Phase 2 Label: "DESIGN"
+- Phase 3 Label: "BUILD"
+- Phase 4 Label: "HANDOVER"
+
+**Current Behavior:** The code renders `{step.phase}` (PHASE I, PHASE II, etc.) and `{step.title}` (Find the Leaks, etc.) but never renders `{step.label}`. These labels are defined but never displayed.
+
+**Fix Required:** Either remove the `label` properties OR add them to the render (e.g., display them alongside or instead of the phase number)
+
+---
+
 ## Recommendations
 
-1. **Fix Modal.tsx bug** - Change `service.question` to `service.symptom` to display correct symptom questions
-2. **Fix SystemPage.tsx desktop body text** - Add `{pillar.body}` to the empty span on line 331
-3. **Remove or use Technical Labels** - Either:
-   - Remove the technicalLabel definitions from constants.ts if not needed, OR
-   - Update SystemPage.tsx ALL_PILLARS to use technicalLabel values from constants.ts
+1. ✅ **FIXED: Modal.tsx bug** - Changed `service.question` to `service.symptom` to display correct symptom questions
+2. ✅ **FIXED: SystemPage.tsx desktop body text** - Added `{pillar.body}` to the empty span on line 331
+3. ✅ **FIXED: Technical Labels** - Removed all unused technicalLabel definitions from constants.ts
+
+**Remaining Issues:**
+4. **Remove Human Mode Details** - Remove `quote`, `attribution`, and `funFact` from ArchitectPage.tsx OR add display code
+5. **Remove Process Step Labels** - Remove `label` properties from ProcessPage.tsx steps OR add display code
 
 **Important:** The user requested NO CHANGES to visible copy. The fixes above will:
-- Fix the Modal bug (will show correct symptom questions instead of default)
-- Show desktop body text (currently hidden)
-- Technical labels are already not showing, so removing them won't change visible copy
+- ✅ Fixed Modal bug (now shows correct symptom questions instead of default)
+- ✅ Fixed desktop body text (now visible on desktop)
+- ✅ Removed technical labels (were already not showing)
+- ⚠️ Human mode details and process labels need to be removed (they're not displayed, so removing won't change visible copy)
