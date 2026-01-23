@@ -24,14 +24,37 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
 
   useEffect(() => {
     setMounted(true);
+    
+    // Store original overflow value before modifying
+    const originalOverflow = document.body.style.overflow;
+    const originalPaddingRight = document.body.style.paddingRight;
+    
     if (isOpen) {
+      // Calculate scrollbar width to prevent layout shift
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      
       document.body.style.overflow = 'hidden';
+      // Add padding to compensate for scrollbar removal (prevents layout shift)
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = originalOverflow || '';
+      document.body.style.paddingRight = originalPaddingRight || '';
     }
+    
+    // Robust cleanup: Always restore original values, even on errors
     return () => {
       setMounted(false);
-      document.body.style.overflow = 'unset';
+      try {
+        document.body.style.overflow = originalOverflow || '';
+        document.body.style.paddingRight = originalPaddingRight || '';
+      } catch (error) {
+        // Fallback: Force restore scroll if cleanup fails
+        console.warn('Scroll restoration failed, forcing restore:', error);
+        document.body.style.overflow = '';
+        document.body.style.paddingRight = '';
+      }
     };
   }, [isOpen]);
 

@@ -193,7 +193,8 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
                 </span>
                 {/* CHANGED TO RED FOR READABILITY */}
                 <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F]">
-                  [ {scrambleText} ]
+                  [ <span aria-hidden="true">{scrambleText}</span> ]
+                  <span className="sr-only">REVENUE ENGINE ARCHITECT</span>
                 </span>
               </div>
             </div>

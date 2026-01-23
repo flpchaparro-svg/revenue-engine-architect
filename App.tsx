@@ -2,24 +2,23 @@ import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from 'framer-motion';
 
-// COMPONENTS (Keep these in src/components)
+// COMPONENTS
 import GlobalHeader from './components/GlobalHeader';
 import GlobalFooter from './components/GlobalFooter';
 import Modal from './components/Modal';
 import PageTransition from './components/PageTransition';
 import { ServiceDetail } from './types';
 
-// PAGES (Everything else moves to src/pages)
-// 1. Main Pages
+// PAGES
 const HomePage = lazy(() => import('./pages/HomePage'));
-const ArchitectPage = lazy(() => import('./pages/ArchitectPage')); // Moved
-const ProcessPage = lazy(() => import('./pages/ProcessPage'));     // Moved
-const ProofPage = lazy(() => import('./pages/ProofPage'));         // Moved
-const EvidenceVaultPage = lazy(() => import('./pages/EvidenceVaultPage')); // Moved
-const ContactPage = lazy(() => import('./pages/ContactPage'));     // Moved
-const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage')); // Moved
+const ArchitectPage = lazy(() => import('./pages/ArchitectPage'));
+const ProcessPage = lazy(() => import('./pages/ProcessPage'));
+const ProofPage = lazy(() => import('./pages/ProofPage'));
+const EvidenceVaultPage = lazy(() => import('./pages/EvidenceVaultPage'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
 
-// 2. System & Pillars (Grouped in src/pages/System)
+// SYSTEM & PILLARS
 const SystemPage = lazy(() => import('./pages/System/SystemPage'));
 const Pillar1 = lazy(() => import('./pages/System/Pillar1'));
 const Pillar2 = lazy(() => import('./pages/System/Pillar2'));
@@ -35,11 +34,43 @@ const App: React.FC = () => {
   const [selectedService, setSelectedService] = useState<ServiceDetail | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  
+  // PRELOADER STATE
+  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
 
   const { scrollY } = useScroll();
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 50);
   });
+
+  // Handle Initial Load Delay
+  useEffect(() => {
+    // Store original overflow value
+    const originalOverflow = document.body.style.overflow || '';
+    
+    // Lock scroll during preloader
+    document.body.style.overflow = 'hidden';
+    
+    const timer = setTimeout(() => {
+      setInitialLoadComplete(true);
+      // Unlock scroll immediately when preloader completes
+      document.body.style.overflow = originalOverflow || 'unset';
+    }, 1000); // Duration of the "Dark Room" experience (1 second)
+
+    return () => {
+      clearTimeout(timer);
+      // Always restore scroll on cleanup
+      document.body.style.overflow = originalOverflow || 'unset';
+    };
+  }, []);
+
+  // Ensure scroll is unlocked when initialLoadComplete changes
+  useEffect(() => {
+    if (initialLoadComplete) {
+      // Force unlock scroll when preloader is done
+      document.body.style.overflow = '';
+    }
+  }, [initialLoadComplete]);
 
   const handleGlobalNavigate = (path: string, sectionId?: string) => {
     const routeMap: Record<string, string> = {
@@ -63,9 +94,8 @@ const App: React.FC = () => {
     navigate(route);
   };
 
-  // FIX: Scroll to top on route change (handles refresh, direct navigation, and pillar clicks)
+  // Scroll Reset on Route Change
   useEffect(() => {
-    // Use requestAnimationFrame to ensure DOM is ready
     requestAnimationFrame(() => {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     });
@@ -87,18 +117,71 @@ const App: React.FC = () => {
   };
 
   return (
-    // BEST PRACTICE FIX: Added 'font-sans antialiased' here to kill ghost fonts globally
-    <div className="bg-[#FFF2EC] font-sans antialiased selection:bg-[#1a1a1a] selection:text-[#FFF2EC] min-h-screen flex flex-col">
+    <div className="bg-[#FFF2EC] font-sans antialiased selection:bg-[#1a1a1a] selection:text-[#FFF2EC] min-h-screen flex flex-col relative">
+      
+      {/* --- THE DARK ROOM PRELOADER --- */}
+      <AnimatePresence mode="wait">
+        {!initialLoadComplete && (
+          <motion.div
+            key="preloader"
+            initial={{ y: 0 }}
+            exit={{ y: "-100%" }} // Leaves to TOP
+            transition={{ 
+              duration: 1.0, 
+              ease: [0.76, 0, 0.24, 1] // Custom Bezier for smooth "Curtain Lift"
+            }}
+            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#1a1a1a] gap-8"
+          >
+            {/* CENTER ANIMATION */}
+            <div className="flex items-center gap-4">
+              <motion.span 
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="font-mono text-4xl md:text-5xl font-light text-[#FFF2EC]"
+              >
+                [
+              </motion.span>
+
+              {/* The Gold Pulse */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: [0.4, 1, 0.4], scale: [0.9, 1.1, 0.9] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                className="w-3 h-3 md:w-4 md:h-4 bg-[#C5A059] shadow-[0_0_20px_rgba(197,160,89,0.6)] rounded-sm"
+              />
+
+              <motion.span 
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+                className="font-mono text-4xl md:text-5xl font-light text-[#FFF2EC]"
+              >
+                ]
+              </motion.span>
+            </div>
+
+            {/* REPLACED LOGO WITH CAPTION */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="font-mono text-[10px] md:text-xs font-bold text-[#C5A059] uppercase tracking-[0.3em] text-center"
+            >
+              SYSTEMS & GROWTH
+            </motion.div>
+
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* --- MAIN APP --- */}
       {location.pathname !== '/contact' && (
         <GlobalHeader currentView={getCurrentView()} onNavigate={handleGlobalNavigate} scrolled={scrolled} />
       )}
 
       <PageTransition currentView={getCurrentView()}>
-        <Suspense fallback={
-          <div className="h-screen w-full flex items-center justify-center bg-[#FFF2EC]">
-            <div className="font-mono text-xs text-[#1a1a1a]/40">Loading...</div>
-          </div>
-        }>
+        <Suspense fallback={<div className="h-screen w-full bg-[#FFF2EC]" />}>
           <AnimatePresence mode="wait">
             <Routes location={location}>
               <Route path="/" element={<HomePage onNavigate={handleGlobalNavigate} onServiceClick={handleServiceClick} />} />
@@ -130,3 +213,4 @@ const App: React.FC = () => {
 };
 
 export default App;
+

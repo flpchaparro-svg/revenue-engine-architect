@@ -78,7 +78,8 @@ const HeroVisual: React.FC = () => {
 
     // State for Animation
     let startTime = performance.now();
-    let animationFrameId: number;
+    let animationFrameId: number | null = null;
+    let isIntersecting = true; // Track visibility state
     
     // Mouse State
     let mouseX = 0;
@@ -261,8 +262,42 @@ const HeroVisual: React.FC = () => {
         }
       }
 
-      animationFrameId = requestAnimationFrame(render);
+      // Only continue render loop if component is visible
+      if (isIntersecting) {
+        animationFrameId = requestAnimationFrame(render);
+      } else {
+        animationFrameId = null;
+      }
     };
+
+    // IntersectionObserver: Stop render loop when not visible (Battery Saver)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isIntersecting = entry.isIntersecting;
+          
+          if (isIntersecting) {
+            // Component is visible, restart render loop
+            if (!animationFrameId) {
+              startTime = performance.now() - (performance.now() - startTime); // Preserve elapsed time
+              render(performance.now());
+            }
+          } else {
+            // Component is not visible, stop render loop
+            if (animationFrameId !== null) {
+              cancelAnimationFrame(animationFrameId);
+              animationFrameId = null;
+            }
+          }
+        });
+      },
+      {
+        threshold: 0, // Trigger as soon as any part of the element is visible/hidden
+        rootMargin: '50px', // Small margin to start rendering slightly before entering viewport
+      }
+    );
+
+    observer.observe(container);
 
     // Init
     window.addEventListener('resize', resize);
@@ -271,9 +306,12 @@ const HeroVisual: React.FC = () => {
     render(performance.now());
 
     return () => {
+      observer.disconnect();
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', onMouseMove);
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId !== null) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
   }, [verts, connections]);
 
