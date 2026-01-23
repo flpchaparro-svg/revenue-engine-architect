@@ -155,7 +155,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                    <div className="md:col-span-5 pt-2 md:pt-0">
                       <h4 className="font-serif text-sm font-bold tracking-widest uppercase mb-6 opacity-60">WHAT YOU GET</h4>
                       <ul className="space-y-4">
-                        {(service.features || ['Smart Lead Forms', 'Inventory Connected to Sales', 'Fast, Mobile-First Design']).map((feature, i) => (
+                        {service.features.map((feature, i) => (
                            <li key={i} className="flex items-start gap-3 group">
                               <ArrowRight className={`w-4 h-4 mt-0.5 transition-transform group-hover:translate-x-1 ${currentTheme.accent}`} />
                               <span className="font-mono text-sm font-bold uppercase tracking-wide">{feature}</span>
