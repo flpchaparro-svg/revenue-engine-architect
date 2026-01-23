@@ -74,82 +74,50 @@ const textVariants = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } }
 };
 
-// MOBILE TITLES
-const MOBILE_TITLES: Record<string, string> = {
-  'WEBSITES & E-COMMERCE': 'Websites',
-  'CRM & LEAD TRACKING': 'CRM',
-  'AUTOMATION': 'Automation',
-  'AI ASSISTANTS': 'AI Bots',
-  'CONTENT SYSTEMS': 'Content',
-  'TEAM TRAINING': 'Training',
-  'DASHBOARDS & REPORTING': 'Dashboards',
-};
-
-// MOBILE DESCRIPTIONS
-const MOBILE_DESCRIPTIONS: Record<string, string> = {
-  'pillar1': 'Sites that capture leads and sell, not just look pretty.',
-  'pillar2': 'Track every lead, call, and deal. Nothing slips through.',
-  'pillar3': 'Invoices, follow-ups, data entry on autopilot.',
-  'pillar4': 'Answer calls and enquiries 24/7, even while you sleep.',
-  'pillar5': 'One voice note becomes blog, socials, newsletter. Auto-published.',
-  'pillar6': 'Short training that makes your team actually use the tools.',
-  'pillar7': 'Revenue, margins, pipeline on one screen, live.',
-};
 
 // SYSTEM CARD DATA
 const SYSTEM_CARDS: Record<string, { 
   label: string; 
-  labelMobile: string;
   title: string; 
   titleDisplay: string;
-  titleMobile: string;
   subtitle: string;
   subtitleDisplay: string;
   smallCardBody: string;
   description: string;
-  descriptionMobile: string;
 }> = {
   'GET CLIENTS': {
     label: '/ ALL 7 PILLARS',
-    labelMobile: '/ ALL 7',
     title: 'See the Full System',
     titleDisplay: 'The Complete System',
-    titleMobile: 'Full System',
     subtitle: 'The Blueprint',
     subtitleDisplay: 'The Blueprint',
     smallCardBody: 'These three get you clients. But there\'s more under the hood.',
     description: 'Websites, CRM, and Automation capture leads. But the system goes further: AI that answers your phone, content that posts itself, dashboards that show you the truth. See how all seven connect.',
-    descriptionMobile: 'These three are just the start. See all seven pillars.',
   },
   'SCALE FASTER': {
     label: '/ ALL 7 PILLARS',
-    labelMobile: '/ ALL 7',
     title: 'See the Full System',
     titleDisplay: 'The Complete System',
-    titleMobile: 'Full System',
     subtitle: 'The Blueprint',
     subtitleDisplay: 'The Blueprint',
     smallCardBody: 'AI and content scale you. But they work better when connected to everything else.',
     description: 'These pillars multiply your output, but they\'re not standalone. Your website feeds the CRM, the CRM triggers the automation, the dashboard shows what\'s working. See the full loop.',
-    descriptionMobile: 'AI and content work better connected to everything else.',
   },
   'SEE CLEARLY': {
     label: '/ ALL 7 PILLARS',
-    labelMobile: '/ ALL 7',
     title: 'See the Full System',
     titleDisplay: 'The Complete System',
-    titleMobile: 'Full System',
     subtitle: 'The Blueprint',
     subtitleDisplay: 'The Blueprint',
     smallCardBody: 'A dashboard is only as good as the data feeding it. Garbage in, garbage out.',
     description: 'Clean dashboards need clean data. When your website, CRM, automation, and AI are all connected, you get one source of truth. No more conflicting spreadsheets. See how the entire system works together.',
-    descriptionMobile: 'Dashboards need clean data. See how all seven connect.',
   },
 };
 
 const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
   const [[page, direction], setPage] = useState([0, 0]);
   const [activeService, setActiveService] = useState<ServiceDetail | null>(null);
+  const [hoveredPhaseIdx, setHoveredPhaseIdx] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   const activeIndex = Math.abs(page % PHASES.length);
@@ -242,17 +210,34 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                     <button 
                       key={phase.id} 
                       onClick={() => changePhase(idx)}
+                      onMouseEnter={() => setHoveredPhaseIdx(idx)}
+                      onMouseLeave={() => setHoveredPhaseIdx(null)}
                       className={`relative px-8 py-4 font-mono text-xs font-bold tracking-[0.2em] transition-all duration-300 ${
                         isActive 
                           ? 'bg-[#1a1a1a] text-white' 
-                          : 'text-[#1a1a1a]/50 hover:text-[#1a1a1a] hover:bg-[#1a1a1a]/5'
+                          : 'text-[#1a1a1a]/50 hover:bg-[#1a1a1a]/5'
                       }`}
                     >
                       <span className="flex items-center gap-3">
-                        {/* FIX: If Active and Black Phase, number should be White (inherited from button text-white). If not active, use accent color. */}
-                        <span style={{ color: isActive ? 'inherit' : phase.accent }}>0{idx + 1}</span>
+                        {/* Number always uses accent color, text changes to accent on hover */}
+                        <span 
+                          style={{ 
+                            color: isActive ? 'inherit' : phase.accent
+                          }}
+                        >
+                          0{idx + 1}
+                        </span>
                         <span className="hidden xl:inline">/</span>
-                        <span className="hidden xl:inline">{phase.id}</span>
+                        <span 
+                          className="hidden xl:inline"
+                          style={{
+                            color: isActive 
+                              ? 'inherit' 
+                              : (hoveredPhaseIdx === idx ? phase.accent : 'rgba(26, 26, 26, 0.5)')
+                          }}
+                        >
+                          {phase.id}
+                        </span>
                       </span>
                       {isActive && (
                         <motion.div 
@@ -451,8 +436,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
 
                          <div className="mb-auto">
                             <h4 className="font-serif text-xl md:text-2xl text-[#1a1a1a] mb-2 leading-tight tracking-tight">
-                              <span className="lg:hidden">{MOBILE_TITLES[service.title] || getDisplayTitle(service.title)}</span>
-                              <span className="hidden lg:inline">{getDisplayTitle(service.title)}</span>
+                              {getDisplayTitle(service.title)}
                             </h4>
                             
                             <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] mb-4"
@@ -461,7 +445,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                             </p>
                             
                             <p className="font-sans text-sm leading-relaxed text-[#1a1a1a]/60">
-                              <span className="lg:hidden">{MOBILE_DESCRIPTIONS[service.id] || service.description}</span>
+                              <span className="lg:hidden">{service.description}</span>
                               <span className="hidden lg:inline">{service.smallCardBody || service.description}</span>
                             </p>
                          </div>
@@ -473,8 +457,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                               theme="light"
                               className="pointer-events-none"
                             >
-                              <span className="lg:hidden">VIEW</span>
-                              <span className="hidden lg:inline">VIEW DETAILS</span>
+                              VIEW DETAILS
                             </CTAButton>
                          </div>
                       </div>
@@ -508,22 +491,20 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       <div className="p-6 flex flex-col flex-1 relative z-10">
                         <div className="flex justify-between items-center mb-4">
                            <span className="font-mono text-[10px] font-bold text-[#C5A059] tracking-[0.2em] uppercase">
-                             <span className="lg:hidden">{systemCardData.labelMobile}</span>
-                             <span className="hidden lg:inline">{systemCardData.label}</span>
+                             {systemCardData.label}
                            </span>
                            <ArrowDownRight className={`w-4 h-4 text-[#C5A059] transition-transform duration-300 ${isBlueprint ? '-rotate-90' : 'group-hover:-rotate-90'}`} />
                         </div>
 
                         <div className="mb-auto">
                            <h4 className="font-serif text-2xl md:text-3xl text-white mb-2 leading-tight tracking-tight">
-                             <span className="lg:hidden">{systemCardData.titleMobile}</span>
-                             <span className="hidden lg:inline">{systemCardData.title}</span>
+                             {systemCardData.title}
                            </h4>
                            <p className="font-mono text-[10px] text-[#C5A059] mb-4 uppercase tracking-[0.2em] font-bold">
                              {systemCardData.subtitle}
                            </p>
                            <p className="font-sans text-sm text-white/50 leading-relaxed">
-                             <span className="lg:hidden">{systemCardData.descriptionMobile}</span>
+                             <span className="lg:hidden">{systemCardData.description}</span>
                              <span className="hidden lg:inline">{systemCardData.smallCardBody}</span>
                            </p>
                         </div>

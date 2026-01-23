@@ -50,7 +50,6 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
       system: 'SEE CLEARLY', 
       icon: BarChart3, 
       color: 'text-[#1a1a1a]', 
-      // FIX: Removed hover:font-bold. Now just darkens to black.
       hoverClass: 'hover:text-black',
       items: [
         { id: 'pillar7', name: '07 / Dashboards & Reporting' }
@@ -78,26 +77,27 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
               onClick={() => onNavigate('homepage')} 
               className="flex items-center gap-3 group z-[310] pointer-events-auto"
             >
-              <div className="font-mono text-[10px] font-bold border border-[#1a1a1a] px-1.5 py-0.5 bg-[#1a1a1a] text-[#FFF2EC] transition-colors">
+              {/* FIX: Added whitespace-nowrap to prevent [FC) breaking */}
+              <div className="font-mono text-[10px] font-bold border border-[#1a1a1a] px-1.5 py-0.5 bg-[#1a1a1a] text-[#FFF2EC] transition-colors whitespace-nowrap">
                 [FC)
               </div>
               <div className="hidden md:flex items-center h-4 text-[#1a1a1a]">
-                 <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">
+                 <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] whitespace-nowrap">
                    Felipe
                  </span>
                  <div className="relative h-4 overflow-hidden ml-2 w-[100px]">
-                   <span className="absolute inset-0 font-mono text-[10px] font-bold uppercase tracking-[0.2em] flex items-center group-hover:-translate-y-full transition-transform duration-300">
+                   <span className="absolute inset-0 font-mono text-[10px] font-bold uppercase tracking-[0.2em] flex items-center group-hover:-translate-y-full transition-transform duration-300 whitespace-nowrap">
                      Consultancy
                    </span>
-                   <span className="absolute inset-0 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] flex items-center translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                   <span className="absolute inset-0 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] flex items-center translate-y-full group-hover:translate-y-0 transition-transform duration-300 whitespace-nowrap">
                      Home
                    </span>
                  </div>
               </div>
             </button>
 
-            {/* DESKTOP NAV */}
-            <div className="hidden md:flex items-center gap-4 lg:gap-8 pointer-events-auto">
+            {/* DESKTOP NAV (Hidden on Mobile/Tablet) */}
+            <div className="hidden lg:flex items-center gap-4 lg:gap-8 pointer-events-auto">
                {navItems.map((item) => {
                  const isActive = currentView === item.id;
                  const isHovered = hoveredNav === item.id;
@@ -123,7 +123,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
 
                      <button 
                        onClick={() => onNavigate(item.id)}
-                       className="relative z-10 flex items-center gap-3 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]"
+                       className="relative z-10 flex items-center gap-3 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a] whitespace-nowrap"
                      >
                        <span className={`w-1.5 h-1.5 rounded-full bg-[#C5A059] transition-all duration-300 ${isActive ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`} />
                        
@@ -134,7 +134,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                        )}
                      </button>
 
-                     {/* MEGA MENU DROPDOWN */}
+                     {/* MEGA MENU */}
                      {item.hasDropdown && (
                         <AnimatePresence>
                           {isArchHovered && (
@@ -173,11 +173,11 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
             </div>
 
             {/* DESKTOP CTA */}
-            <div className="hidden md:flex items-center pointer-events-auto">
+            <div className="hidden lg:flex items-center pointer-events-auto">
                <CTAButton 
                  theme="light" 
                  onClick={() => onNavigate('contact')}
-                 className="py-3 px-6"
+                 className="py-3 px-6 whitespace-nowrap"
                >
                  [ TALK ]
                </CTAButton>
@@ -196,7 +196,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 100, opacity: 0 }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed right-0 top-[20vh] z-[300] hidden md:flex flex-col bg-[#1a1a1a] border-l border-y border-white/10 rounded-l-lg shadow-2xl overflow-hidden w-[54px]"
+            className="fixed right-0 top-[20vh] z-[300] hidden lg:flex flex-col bg-[#1a1a1a] border-l border-y border-white/10 rounded-l-lg shadow-2xl overflow-hidden w-[54px]"
             style={{ maxHeight: 'calc(100vh - 20vh - 4rem)' }}
           >
              <button 
@@ -207,7 +207,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                    : 'text-[#FFF2EC] hover:bg-white/5'
                }`}
              >
-                <span className="font-mono text-[10px] font-bold">[FC)</span>
+                <span className="font-mono text-[10px] font-bold whitespace-nowrap">[FC)</span>
              </button>
 
              <div className="flex flex-col">
@@ -245,14 +245,15 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
       </AnimatePresence>
 
       {/* =======================
-          3. MOBILE NAVIGATION
+          3. MOBILE NAVIGATION (Visible on Mobile & Tablet)
       ======================== */}
-      {/* MOBILE HEADER BUTTONS */}
-      <div className={`md:hidden fixed top-0 w-full z-[310] h-20 flex items-center justify-end px-6 pointer-events-none transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}>
+      {/* FIXED: Changed to lg:hidden so it shows on tablets */}
+      <div className={`lg:hidden fixed top-0 w-full z-[310] h-20 flex items-center justify-end px-6 pointer-events-none transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}>
          <div className="flex items-center gap-3 pointer-events-auto">
             <button 
               onClick={() => onNavigate('contact')}
-              className={`px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] border border-[#1a1a1a] bg-[#1a1a1a] text-[#FFF2EC] ${scrolled ? 'shadow-lg' : ''}`}
+              // FIX: Added whitespace-nowrap to prevent [ TALK ] from breaking
+              className={`px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] border border-[#1a1a1a] bg-[#1a1a1a] text-[#FFF2EC] whitespace-nowrap ${scrolled ? 'shadow-lg' : ''}`}
             >
               [ TALK ]
             </button>
@@ -279,7 +280,8 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
              {/* Header in Menu */}
              <div className="h-20 w-full flex items-center justify-between shrink-0">
                <button onClick={() => { setIsMenuOpen(false); onNavigate('homepage'); }}>
-                  <div className="font-mono text-[10px] font-bold border border-[#1a1a1a] px-1.5 py-0.5 bg-[#1a1a1a] text-[#FFF2EC]">
+                  {/* FIX: Added whitespace-nowrap */}
+                  <div className="font-mono text-[10px] font-bold border border-[#1a1a1a] px-1.5 py-0.5 bg-[#1a1a1a] text-[#FFF2EC] whitespace-nowrap">
                     [FC)
                   </div>
                </button>
@@ -359,7 +361,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                  <CTAButton 
                    theme="light" 
                    onClick={() => { onNavigate('contact'); setIsMenuOpen(false); }}
-                   className="w-full"
+                   className="w-full whitespace-nowrap"
                  >
                    [ LET'S TALK ]
                  </CTAButton>
