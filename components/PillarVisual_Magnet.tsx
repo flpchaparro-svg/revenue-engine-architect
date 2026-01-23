@@ -77,7 +77,7 @@ const PillarVisual_Magnet: React.FC = () => {
             y: CENTER_Y + Math.sin(angle) * dist,
             tx: tx,
             ty: ty,
-            speed: 0.12 + Math.random() * 0.08, // Tuned particles
+            speed: 0.084 + Math.random() * 0.056, // 30% slower (0.7x original)
             color: Math.random() > 0.7 ? 'rgba(197, 160, 89, 0.3)' : 'rgba(26, 26, 26, 0.2)',
             size: (1.5 + Math.random() * 1.5) * scale,
             dead: false
@@ -282,19 +282,19 @@ const PillarVisual_Magnet: React.FC = () => {
 
         ctx.clearRect(0, 0, width, height);
 
-        // --- STATE MACHINE (TUNED) ---
+        // --- STATE MACHINE (TUNED - 30% SLOWER) ---
         switch (currentState) {
             case 'INIT':
-                cardOpacity += 0.13;
+                cardOpacity += 0.091; // 30% slower (0.7x original 0.13)
                 if (cardOpacity >= 1) { cardOpacity = 1; currentState = 'IDLE_EMPTY'; timer = 0; }
                 break;
             case 'IDLE_EMPTY':
                 timer++;
-                if (timer > 6) { currentState = 'BUILDING'; contentOpacity = 1; }
+                if (timer > 9) { currentState = 'BUILDING'; contentOpacity = 1; } // 30% slower (6 / 0.7 ≈ 9)
                 break;
             case 'BUILDING':
                 if (fillLevel < 1) {
-                    fillLevel += 0.0096;
+                    fillLevel += 0.00672; // 30% slower (0.7x original 0.0096)
                     if (Math.random() > 0.45) spawnParticle(); 
                 } else {
                     fillLevel = 1; currentState = 'COMPLETE'; timer = 0;
@@ -302,10 +302,10 @@ const PillarVisual_Magnet: React.FC = () => {
                 break;
             case 'COMPLETE':
                 timer++;
-                if (timer > 25) { currentState = 'CLEARING'; }
+                if (timer > 36) { currentState = 'CLEARING'; } // 30% slower (25 / 0.7 ≈ 36)
                 break;
             case 'CLEARING':
-                contentOpacity -= 0.096; 
+                contentOpacity -= 0.0672; // 30% slower (0.7x original 0.096)
                 if (contentOpacity <= 0) {
                     contentOpacity = 0; fillLevel = 0; cardId++; currentState = 'IDLE_EMPTY'; timer = 0;
                 }

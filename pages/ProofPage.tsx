@@ -149,17 +149,17 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
-              THE PROOF
+              CASE STUDY: 001
             </span>
           </div>
           
           {/* STANDARD H1: 5xl -> 6xl -> 7xl -> 8xl */}
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-12 max-w-5xl">
-            Real Results.<br />
-            <span className="italic font-serif text-[#C5A059]">Real Businesses.</span>
+            Results You Can <br/>
+            <span className="italic font-serif text-[#C5A059]">Verify.</span>
           </h1>
           <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-8 py-2">
-            I could tell you I'm good at this. Or I could show you what happened when I did it for someone else.
+            I don't show testimonials. I show data. Here's what happened when I rebuilt a Sydney security company's entire digital presence.
           </p>
         </Section>
 
@@ -205,11 +205,11 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
               </div>
 
               <div className="lg:col-span-8 p-8 md:p-12">
-                <h3 className="font-serif text-3xl mb-6">The Problem</h3>
+                <h3 className="font-serif text-3xl mb-6">The Brief</h3>
                 <p className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl">
-                  Group 7 had a slow website on a .com domain. Google thought they were a global tech company, not a Sydney security firm. Local customers searching for security services couldn't find them.
+                  Group 7 Security protects some of Sydney's most valuable assets — including properties worth over $3.2 billion. 
                   <br/><br/>
-                  Their old site took 4.2 seconds to load. On mobile, it was worse. Visitors bounced before seeing the services page.
+                  They had a problem: their website made them look like a 1990s WordPress template, not a professional security operation. Google didn't know they were in Sydney. And their competitors were eating their lunch in local search.
                 </p>
               </div>
             </div>
@@ -224,7 +224,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             </span>
             {/* STANDARD H2 */}
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
-              What I <span className="italic font-serif text-[#E21E3F]">Did.</span>
+              The Old <span className="italic font-serif text-[#E21E3F]">Site.</span>
             </h2>
             <div className="inline-flex items-center gap-3 px-4 py-2 bg-[#E21E3F]/5 border border-[#E21E3F]/20 rounded-sm">
                <span className="font-sans text-sm md:text-base font-medium text-[#1a1a1a]/80">group7security.com</span>
@@ -298,7 +298,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
               / THE SOLUTION
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
-              The <span className="italic font-serif text-[#C5A059]">Results.</span>
+              The New <span className="italic font-serif text-[#C5A059]">Standard.</span>
             </h2>
             <div className="inline-flex items-center gap-3 px-4 py-2 bg-[#C5A059]/5 border border-[#C5A059]/20 rounded-sm">
                <span className="font-sans text-sm md:text-base font-medium text-[#1a1a1a]/80">group7security.com.au</span>
@@ -400,245 +400,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
               </div>
             ))}
           </div>
-          
-          <div className="mt-12 bg-white p-8 border-l-4 border-[#C5A059] rounded-sm">
-            <p className="font-serif text-xl md:text-2xl text-[#1a1a1a] mb-4 italic">
-              "The old site was embarrassing. Now when someone Googles security in Sydney, we show up. And when they click, the site actually loads."
-            </p>
-            <CTAButton theme="light" onClick={() => window.open('https://group7security.com.au', '_blank')}>
-              [ VIEW LIVE SITE ]
-            </CTAButton>
-          </div>
-        </Section>
-
-        {/* CASE STUDY 02: TRADE BUSINESS CRM */}
-        <Section className="mb-20 md:mb-32">
-          <div className="bg-white border border-[#1a1a1a]/5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] p-0 overflow-hidden rounded-sm">
-            <div className="bg-[#1a1a1a] text-white px-8 py-4">
-              <span className="font-mono text-xs text-[#C5A059] uppercase tracking-[0.2em] font-bold">
-                CASE STUDY 02: SYDNEY ELECTRICAL CONTRACTOR
-              </span>
-            </div>
-            
-            <div className="p-8 md:p-12 space-y-8">
-              <div>
-                <span className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">INDUSTRY</span>
-                <p className="font-sans font-medium">Trades</p>
-              </div>
-              <div>
-                <span className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">PROJECT TYPE</span>
-                <p className="font-sans font-medium">CRM + Automation</p>
-              </div>
-              
-              <div>
-                <h3 className="font-serif text-3xl mb-6">The Problem</h3>
-                <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">
-                  Leads came in by phone, email, and website form. The owner wrote them on paper, sometimes entered them in a spreadsheet, sometimes forgot. Jobs were quoted but never followed up. Money walked out the door every week.
-                  <br/><br/>
-                  The team had tried HubSpot before but gave up after a month. Too complicated, nobody used it.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="font-serif text-3xl mb-6">What I Did</h3>
-                <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed mb-4">
-                  I set up a simple CRM with three stages: New Lead, Quoted, Won/Lost. Every lead source feeds into the same pipeline. Website forms, missed calls, even texts.
-                </p>
-                <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed mb-4">
-                  I built automation that sends the quote and follows up at day 2, day 5, and day 10 if no response. The owner stopped chasing manually.
-                </p>
-                <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">
-                  Then I trained the team with 5-minute videos. No day-long workshops. Just "here's how you log a lead" and "here's how you update a quote."
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="font-serif text-3xl mb-6">The Results</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="bg-[#f9f9f9] p-6 rounded-sm">
-                    <div className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] mb-2">Before</div>
-                    <div className="font-serif text-3xl text-[#1a1a1a] mb-2">Maybe 40%</div>
-                    <div className="font-sans text-sm text-[#1a1a1a]/70">Leads Tracked</div>
-                  </div>
-                  <div className="bg-[#f9f9f9] p-6 rounded-sm">
-                    <div className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] mb-2">After</div>
-                    <div className="font-serif text-3xl text-[#C5A059] mb-2">100%</div>
-                    <div className="font-sans text-sm text-[#1a1a1a]/70">Leads Tracked</div>
-                  </div>
-                  <div className="bg-[#f9f9f9] p-6 rounded-sm">
-                    <div className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] mb-2">Close Rate</div>
-                    <div className="font-serif text-3xl text-[#C5A059] mb-2">34%</div>
-                    <div className="font-sans text-sm text-[#1a1a1a]/70">Now measurable</div>
-                  </div>
-                </div>
-                <div className="mt-8 bg-white p-6 border-l-4 border-[#C5A059] rounded-sm">
-                  <p className="font-serif text-xl text-[#1a1a1a] italic">
-                    "I used to lose sleep wondering how many leads we forgot about. Now I know exactly where every job is. And the follow-up emails go out whether I remember or not."
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Section>
-
-        {/* CASE STUDY 03: CONSULTANT CONTENT SYSTEM */}
-        <Section className="mb-20 md:mb-32">
-          <div className="bg-white border border-[#1a1a1a]/5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] p-0 overflow-hidden rounded-sm">
-            <div className="bg-[#1a1a1a] text-white px-8 py-4">
-              <span className="font-mono text-xs text-[#C5A059] uppercase tracking-[0.2em] font-bold">
-                CASE STUDY 03: BUSINESS COACH
-              </span>
-            </div>
-            
-            <div className="p-8 md:p-12 space-y-8">
-              <div>
-                <span className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">INDUSTRY</span>
-                <p className="font-sans font-medium">Professional Services</p>
-              </div>
-              <div>
-                <span className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">PROJECT TYPE</span>
-                <p className="font-sans font-medium">Content System</p>
-              </div>
-              
-              <div>
-                <h3 className="font-serif text-3xl mb-6">The Problem</h3>
-                <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed">
-                  She knew she should be posting on LinkedIn. Every marketing person told her so. But between client calls, course creation, and actually running the business, content fell off the list every single week.
-                  <br/><br/>
-                  She'd post three times in a burst of motivation, then nothing for two months. No consistency meant no growth.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="font-serif text-3xl mb-6">What I Did</h3>
-                <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed mb-4">
-                  I set up a monthly recording session. One hour, she talks about what she knows. I ask questions, she answers. No scripts.
-                </p>
-                <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed mb-4">
-                  From that one hour, I produce:
-                </p>
-                <ul className="list-disc pl-6 space-y-2 font-sans text-lg text-[#1a1a1a]/70">
-                  <li>4 blog posts</li>
-                  <li>12 LinkedIn posts</li>
-                  <li>4 newsletter editions</li>
-                  <li>Short video clips for Instagram</li>
-                </ul>
-                <p className="font-sans text-lg text-[#1a1a1a]/70 leading-relaxed mt-4">
-                  Everything scheduled, everything posted automatically. She reviews once, approves, and forgets about it.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="font-serif text-3xl mb-6">The Results</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="bg-[#f9f9f9] p-6 rounded-sm">
-                    <div className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] mb-2">Before</div>
-                    <div className="font-serif text-3xl text-[#1a1a1a] mb-2">2-3</div>
-                    <div className="font-sans text-sm text-[#1a1a1a]/70">Posts per month (inconsistent)</div>
-                  </div>
-                  <div className="bg-[#f9f9f9] p-6 rounded-sm">
-                    <div className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] mb-2">After</div>
-                    <div className="font-serif text-3xl text-[#C5A059] mb-2">16</div>
-                    <div className="font-sans text-sm text-[#1a1a1a]/70">Posts per month (scheduled)</div>
-                  </div>
-                  <div className="bg-[#f9f9f9] p-6 rounded-sm">
-                    <div className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] mb-2">LinkedIn</div>
-                    <div className="font-serif text-3xl text-[#C5A059] mb-2">3,200</div>
-                    <div className="font-sans text-sm text-[#1a1a1a]/70">Followers (in 8 months)</div>
-                  </div>
-                </div>
-                <div className="mt-8 bg-white p-6 border-l-4 border-[#C5A059] rounded-sm">
-                  <p className="font-serif text-xl text-[#1a1a1a] italic">
-                    "I actually enjoy the recording sessions now. It's like having a conversation about what I love. And then content just appears everywhere without me doing anything else."
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Section>
-
-        {/* MORE RESULTS */}
-        <Section className="mb-20 md:mb-32">
-          <div className="mb-20">
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
-              / MORE RESULTS
-            </span>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
-              Summary <span className="italic font-serif text-[#C5A059]">Cards.</span>
-            </h2>
-          </div>
-          
-          <div className="space-y-12">
-            <div>
-              <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-6 tracking-tighter">Website Speed Improvements</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                  { type: 'Retail E-commerce', before: '6.1s load', after: '0.8s load' },
-                  { type: 'Professional Services', before: '3.8s load', after: '0.5s load' },
-                  { type: 'Trades Business', before: '5.2s load', after: '0.6s load' }
-                ].map((item, i) => (
-                  <div key={i} className="bg-white p-6 border border-[#1a1a1a]/5 rounded-sm">
-                    <div className="font-sans font-medium text-[#1a1a1a] mb-4">{item.type}</div>
-                    <div className="flex items-center gap-4">
-                      <div>
-                        <div className="font-mono text-xs text-[#E21E3F] mb-1">Before</div>
-                        <div className="font-serif text-2xl text-[#1a1a1a]">{item.before}</div>
-                      </div>
-                      <ArrowRight className="w-5 h-5 text-[#1a1a1a]/30" />
-                      <div>
-                        <div className="font-mono text-xs text-[#C5A059] mb-1">After</div>
-                        <div className="font-serif text-2xl text-[#C5A059]">{item.after}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-6 tracking-tighter">Automation Hours Saved</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                  { type: 'Wholesale Distributor', task: 'Order processing', hours: '12 hours' },
-                  { type: 'Recruitment Agency', task: 'Candidate follow-up', hours: '8 hours' },
-                  { type: 'Property Manager', task: 'Tenant communications', hours: '6 hours' }
-                ].map((item, i) => (
-                  <div key={i} className="bg-white p-6 border border-[#1a1a1a]/5 rounded-sm">
-                    <div className="font-sans font-medium text-[#1a1a1a] mb-2">{item.type}</div>
-                    <div className="font-sans text-sm text-[#1a1a1a]/60 mb-3">{item.task}</div>
-                    <div className="font-serif text-3xl text-[#C5A059]">{item.hours}</div>
-                    <div className="font-mono text-xs text-[#1a1a1a]/60 mt-1">Saved Weekly</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <div>
-              <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-6 tracking-tighter">CRM Adoption</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {[
-                  { type: 'Sales Team (5 people)', before: '20% usage', after: '95% usage' },
-                  { type: 'Service Business', before: 'Spreadsheets', after: 'Full pipeline visibility' },
-                  { type: 'Franchise (8 locations)', before: '8 different systems', after: '1 unified CRM' }
-                ].map((item, i) => (
-                  <div key={i} className="bg-white p-6 border border-[#1a1a1a]/5 rounded-sm">
-                    <div className="font-sans font-medium text-[#1a1a1a] mb-4">{item.type}</div>
-                    <div className="flex items-center gap-4">
-                      <div>
-                        <div className="font-mono text-xs text-[#E21E3F] mb-1">Before</div>
-                        <div className="font-serif text-lg text-[#1a1a1a]">{item.before}</div>
-                      </div>
-                      <ArrowRight className="w-5 h-5 text-[#1a1a1a]/30" />
-                      <div>
-                        <div className="font-mono text-xs text-[#C5A059] mb-1">After 90 Days</div>
-                        <div className="font-serif text-lg text-[#C5A059]">{item.after}</div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
         </Section>
 
         {/* BUILD LOG */}
@@ -692,14 +453,15 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                 Want Results Like <span className="italic font-serif text-[#C5A059]">This?</span>
               </h2>
               <p className="font-sans text-lg md:text-xl text-white/60 mb-12 max-w-2xl mx-auto leading-relaxed">
-                Every business is different, but the process is the same. Let's talk about what's possible for yours.
+                Group 7 went from invisible to indexed, from slow to instant. 
+                <br/>If your website is holding you back, let's fix it.
               </p>
               
               <CTAButton 
                 theme="dark" 
                 onClick={() => onNavigate('contact')}
               >
-                [ BOOK A CALL ]
+                [ Start Transformation ]
               </CTAButton>
             </div>
           </div>
