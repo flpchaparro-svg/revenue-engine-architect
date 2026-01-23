@@ -21,10 +21,7 @@ const PHASES = [
     accentClass: 'text-[#E21E3F]',
     borderAccent: 'border-[#E21E3F]',
     vizType: 'geometric',
-    dark: false,
-    sidebarText: 'text-black',
-    sidebarBorder: 'border-black/10',
-    sidebarBg: 'bg-white/80'
+    dark: false
   },
   { 
     id: 'SCALE FASTER', 
@@ -35,10 +32,7 @@ const PHASES = [
     accentClass: 'text-[#C5A059]',
     borderAccent: 'border-[#C5A059]',
     vizType: 'neural',
-    dark: false,
-    sidebarText: 'text-black',
-    sidebarBorder: 'border-black/10',
-    sidebarBg: 'bg-white/80'
+    dark: false
   },
   { 
     id: 'SEE CLEARLY', 
@@ -49,10 +43,7 @@ const PHASES = [
     accentClass: 'text-[#1a1a1a]',
     borderAccent: 'border-[#1a1a1a]',
     vizType: 'dashboard',
-    dark: false,
-    sidebarText: 'text-black',
-    sidebarBorder: 'border-black/10',
-    sidebarBg: 'bg-white/80'
+    dark: false
   }
 ];
 

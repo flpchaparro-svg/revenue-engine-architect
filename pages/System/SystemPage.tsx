@@ -29,7 +29,6 @@ const ALL_PILLARS = [
     subtitle: 'Websites & E-commerce', subtitleMobile: 'Websites',
     categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS',
     body: 'Capture every visitor as a trackable lead.',
-    bodyMobile: 'Capture every visitor as a trackable lead.',
     description: 'Your online storefront. Not a digital brochure, but a system designed to capture leads and process sales with zero friction.',
     systemPurpose: 'Capture demand and structure data.',
     subServices: [
@@ -43,7 +42,6 @@ const ALL_PILLARS = [
     subtitle: 'CRM & Lead Tracking', subtitleMobile: 'CRM',
     categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS',
     body: 'Know exactly where every opportunity sits.',
-    bodyMobile: 'Know exactly where every opportunity sits.',
     description: 'Your single source of truth. Every call, email, and deal stage tracked in one place. If it\'s not in the CRM, it didn\'t happen.',
     systemPurpose: 'Capture demand and structure data.',
     subServices: [
@@ -57,7 +55,6 @@ const ALL_PILLARS = [
     subtitle: 'Automation', subtitleMobile: 'Automation',
     categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS',
     body: 'Act fast without lifting a finger.',
-    bodyMobile: 'Act fast without lifting a finger.',
     description: 'Code doing the boring work. Data entry, invoicing, follow-ups. The stuff that eats your week now runs itself.',
     systemPurpose: 'Capture demand and structure data.',
     subServices: [
@@ -71,7 +68,6 @@ const ALL_PILLARS = [
     subtitle: 'AI Assistants', subtitleMobile: 'AI Bots',
     categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER',
     body: 'Handle more leads without hiring.',
-    bodyMobile: 'Handle more leads without hiring.',
     description: 'Digital employees that listen, think, and speak. AI that answers your phone, qualifies leads, and books appointments around the clock.',
     systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
@@ -85,7 +81,6 @@ const ALL_PILLARS = [
     subtitle: 'Content Systems', subtitleMobile: 'Content',
     categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER',
     body: 'Reach more people on autopilot.',
-    bodyMobile: 'Reach more people on autopilot.',
     description: 'A content supply chain. One hour of your expertise becomes a month of posts, blogs, and videos across every platform.',
     systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
@@ -99,7 +94,6 @@ const ALL_PILLARS = [
     subtitle: 'Team Training', subtitleMobile: 'Training',
     categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER',
     body: 'Make sure your team actually uses it.',
-    bodyMobile: 'Make sure your team actually uses it.',
     description: 'The human element. Training systems that make sure your team actually uses the tools you paid for.',
     systemPurpose: 'Multiply output without multiplying hours.',
     subServices: [
@@ -113,7 +107,6 @@ const ALL_PILLARS = [
     subtitle: 'Dashboards & Reporting', subtitleMobile: 'Dashboards',
     categoryHex: '#1a1a1a', categoryLabel: 'SEE CLEARLY',
     body: 'See all your numbers on one screen.',
-    bodyMobile: 'See all your numbers on one screen.',
     description: 'The control tower. Revenue, margins, and pipeline on one screen, updated live. No more midnight spreadsheets.',
     systemPurpose: 'Navigate with clarity.',
     subServices: [
@@ -319,8 +312,7 @@ const GridItem = ({ pillar, isSelected, selectedId, onToggle, onNavigate }: any)
               </p>
               
               <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/70 leading-relaxed line-clamp-2 md:line-clamp-none">
-                 <span className="md:hidden">{pillar.bodyMobile || pillar.body}</span>
-                 <span className="hidden md:inline">{pillar.body}</span>
+                 {pillar.body}
               </p>
            </div>
 

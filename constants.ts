@@ -1,13 +1,6 @@
 
 import { ServiceDetail } from './types';
 
-export const COLORS = {
-  CREAM: '#FFF2EC',
-  INK: '#1a1a1a',
-  GOLD: '#C5A059',
-  SIGNAL_RED: '#E21E3F',
-};
-
 export const SERVICES: ServiceDetail[] = [
   {
     id: 'pillar1',
