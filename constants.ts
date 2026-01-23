@@ -19,7 +19,6 @@ export const SERVICES: ServiceDetail[] = [
     smallCardBody: 'Is your website just a brochure? It should be catching leads while you sleep.',
     features: ['Smart Lead Forms', 'Inventory Connected to Sales', 'Fast, Mobile-First Design'],
     visualPrompt: 'geometric',
-    bgImage: '',
     icon: 'Target',
   },
   {
@@ -32,7 +31,6 @@ export const SERVICES: ServiceDetail[] = [
     smallCardBody: 'How many leads slipped through last month? If you don\'t know, that\'s the problem.',
     features: ['Visual Deal Pipeline', 'Clean, Accurate Data', 'Auto Follow-Up Reminders'],
     visualPrompt: 'network',
-    bgImage: '',
     icon: 'Database',
   },
   {
@@ -45,7 +43,6 @@ export const SERVICES: ServiceDetail[] = [
     smallCardBody: 'Still typing the same data into three different apps? There\'s a better way.',
     features: ['Instant Data Sync', 'Smart Email Sequences', 'Auto-Generated Invoices'],
     visualPrompt: 'flow',
-    bgImage: '',
     icon: 'Zap',
   },
   {
@@ -58,7 +55,6 @@ export const SERVICES: ServiceDetail[] = [
     smallCardBody: 'How many calls did you miss last month? Each one could\'ve been a job.',
     features: ['AI Phone Answering', 'Internal Knowledge Bots', 'Built-In Safety Rules'],
     visualPrompt: 'neural',
-    bgImage: '',
     icon: 'Cpu',
   },
   {
@@ -71,7 +67,6 @@ export const SERVICES: ServiceDetail[] = [
     smallCardBody: 'You know you should be posting. But when? You\'re flat out running the business.',
     features: ['AI Voice & Video Cloning', 'Auto-Post to All Platforms', 'YouTube & Podcast Setup'],
     visualPrompt: 'sequential',
-    bgImage: '',
     icon: 'Layers',
   },
   {
@@ -84,7 +79,6 @@ export const SERVICES: ServiceDetail[] = [
     smallCardBody: 'Bought software your team never used? You\'re not alone. Most tech fails here.',
     features: ['Bite-Sized Training Videos', 'Step-by-Step Guides', 'Team Q&A Library'],
     visualPrompt: 'waves',
-    bgImage: '',
     icon: 'Users',
   },
   {
@@ -97,7 +91,6 @@ export const SERVICES: ServiceDetail[] = [
     smallCardBody: 'Do you actually know your margin right now? Or are you waiting for the accountant?',
     features: ['Live Revenue Tracking', 'Forecasting & Projections', 'One-Screen Business Health'],
     visualPrompt: 'dashboard',
-    bgImage: '',
     icon: 'BarChart3',
   }
 ];

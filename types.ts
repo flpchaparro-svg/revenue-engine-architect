@@ -11,7 +11,7 @@ export interface ServiceDetail {
   smallCardBody?: string; // Short hook/question text for desktop small cards
   features: string[];
   visualPrompt: string;
-  bgImage: string;
+  bgImage?: string; // Optional - not currently used
   icon: string;
 }
 
