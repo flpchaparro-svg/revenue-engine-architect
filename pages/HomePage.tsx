@@ -28,19 +28,22 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const autoRotateIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const isMobileRef = useRef(false);
+  // NEW: State for responsive text rendering
+  const [isMobile, setIsMobile] = useState(false);
   
-  // --- MOBILE GRAPH AUTO-ROTATION ---
+  // --- MOBILE GRAPH AUTO-ROTATION & RESIZE HANDLER ---
   useEffect(() => {
     const checkMobile = () => {
-      const isMobile = window.innerWidth < 768;
-      isMobileRef.current = isMobile;
+      const mobile = window.innerWidth < 768;
+      isMobileRef.current = mobile;
+      setIsMobile(mobile); // Sync state for rendering
       
       if (autoRotateIntervalRef.current) {
         clearInterval(autoRotateIntervalRef.current);
         autoRotateIntervalRef.current = null;
       }
       
-      if (!isMobile) return;
+      if (!mobile) return;
 
       const scannerStates: GraphState[] = ['bottleneck', 'tax', 'grind', 'cost'];
       let currentIndex = 0;
@@ -200,7 +203,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
             </div>
 
             {/* HEADLINE */}
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-10">
               <div className="overflow-hidden"><span className="block reveal-text">Stop Doing</span></div>
               <div className="overflow-hidden">
                 <span className="block reveal-text" style={{ animationDelay: '0.2s' }}>
@@ -217,14 +220,15 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
 
             <div className="mt-10 md:mt-16 flex flex-col sm:flex-row items-center gap-6 md:gap-12 animate-fade-in relative z-30" style={{ animationDelay: '0.8s' }}>
               <CTAButton theme="light" onClick={() => onNavigate('contact')}>
-                [ LET'S TALK ]
+                {isMobile ? "LET'S TALK" : "[ LET'S TALK ]"}
               </CTAButton>
               <CTAButton 
                 variant="bracket" 
                 theme="light" 
                 onClick={() => document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'})}
               >
-                SEE HOW IT WORKS
+                {/* Shortened text on mobile to prevent overflow */}
+                {isMobile ? "HOW IT WORKS" : "SEE HOW IT WORKS"}
               </CTAButton>
             </div>
           </div>
@@ -326,7 +330,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
                 theme="dark" 
                 onClick={() => document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'})}
               >
-                SEE HOW IT WORKS
+                {isMobile ? "HOW IT WORKS" : "SEE HOW IT WORKS"}
               </CTAButton>
             </div>
           </div>

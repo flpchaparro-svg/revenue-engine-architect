@@ -22,7 +22,7 @@ const CTAButton: React.FC<CTAButtonProps> = ({
   const isLightTheme = theme === 'light'; 
 
   // ============================================
-  // VARIANT: BRACKET (Fixed: Uniform Color & Font)
+  // VARIANT: BRACKET (Fixed for Responsive)
   // ============================================
   if (variant === 'bracket') {
     // idleText: Black on Cream, White on Black.
@@ -40,22 +40,23 @@ const CTAButton: React.FC<CTAButtonProps> = ({
           font-mono font-bold uppercase tracking-[0.2em] 
           bg-transparent border-none
           transition-colors duration-300
+          max-w-full whitespace-normal text-center leading-tight
           ${idleText} ${fontSize} ${padding} ${className}
           hover:text-[#C5A059]
         `}
       >
         {/* Left Bracket - Squeezes In */}
-        <span className="transition-transform duration-300 group-hover:translate-x-[2px]">
+        <span className="transition-transform duration-300 group-hover:translate-x-[2px] shrink-0">
           [
         </span>
         
-        {/* The Text */}
-        <span className="mx-1">
+        {/* The Text - Allows Wrapping */}
+        <span className="mx-1 break-words">
           {children}
         </span>
         
         {/* Right Bracket - Squeezes In */}
-        <span className="transition-transform duration-300 group-hover:-translate-x-[2px]">
+        <span className="transition-transform duration-300 group-hover:-translate-x-[2px] shrink-0">
           ]
         </span>
       </button>
@@ -63,7 +64,7 @@ const CTAButton: React.FC<CTAButtonProps> = ({
   }
 
   // ============================================
-  // VARIANT: SOLID (No Changes)
+  // VARIANT: SOLID (Fixed for Responsive)
   // ============================================
   const initialBg = isLightTheme ? 'bg-[#1a1a1a]' : 'bg-[#C5A059]';
   const initialText = isLightTheme ? 'text-[#FFF2EC]' : 'text-[#1a1a1a]';
@@ -74,14 +75,21 @@ const CTAButton: React.FC<CTAButtonProps> = ({
   return (
     <button 
       onClick={onClick}
-      className={`group relative ${solidSize} font-mono font-bold uppercase tracking-[0.2em] overflow-hidden transition-all duration-300 border ${initialBorder} ${initialBg} ${initialText} ${className}`}
+      className={`
+        group relative ${solidSize} 
+        font-mono font-bold uppercase tracking-[0.2em] 
+        overflow-hidden transition-all duration-300 
+        border ${initialBorder} ${initialBg} ${initialText} 
+        max-w-full w-auto h-auto min-h-[3rem]
+        ${className}
+      `}
     >
       <div className={`absolute inset-0 ${initialBg} group-hover:-translate-y-full transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)`} />
       <div className={`absolute inset-0 ${hoverBg} translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)`} />
       
-      <span className={`relative z-10 flex items-center justify-center gap-3 transition-colors duration-500 group-hover:text-[#1a1a1a]`}>
-        {children}
-        <ArrowRight className="w-4 h-4" />
+      <span className={`relative z-10 flex items-center justify-center gap-3 transition-colors duration-500 group-hover:text-[#1a1a1a] flex-wrap text-center`}>
+        <span className="whitespace-normal leading-relaxed">{children}</span>
+        <ArrowRight className="w-4 h-4 shrink-0" />
       </span>
     </button>
   );

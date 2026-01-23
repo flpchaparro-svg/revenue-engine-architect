@@ -232,7 +232,8 @@ const HeroVisual: React.FC = () => {
       projected.sort((a, b) => a.z - b.z); // Painter's algorithm
       
       // Reduce opacity on mobile for better text readability
-      const baseOpacity = isMobile ? 0.3 : 0.6; // Much more transparent on mobile
+      // FIXED: Lowered mobile opacity to 0.15
+      const baseOpacity = isMobile ? 0.15 : 0.6; 
       const opacityRange = isMobile ? 0.2 : 0.4; // Smaller range on mobile
       
       for (let i = 0; i < projected.length; i++) {
