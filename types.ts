@@ -11,7 +11,7 @@ export interface ServiceDetail {
   features: string[];
   visualPrompt: string;
   bgImage?: string; // Optional - not currently used
-  icon: string;
+  icon?: string; // Optional - not currently used (string names are unused, components import icons directly)
 }
 
 export type GridSpan = {

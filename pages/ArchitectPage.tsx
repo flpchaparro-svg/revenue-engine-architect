@@ -71,10 +71,10 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
         ),
         subhead: "Most consultants sell ideas. I build infrastructure. The kind that runs while you sleep and stops your best people from drowning in admin.",
         timeline: [
-          { id: 'a1', icon: FlaskConical, label: 'PHASE 01 / THE APPROACH', title: 'Custom Processes, Not Templates', text: "Real solutions are engineered for the specific situation — never copy-pasted." },
-          { id: 'a2', icon: Award, label: 'PHASE 02 / THE STANDARD', title: 'High Standards, No Shortcuts', text: "In chemistry, if you miss a step, the reaction fails. Same applies to business systems." },
-          { id: 'a3', icon: Wrench, label: 'PHASE 03 / THE TOOLS', title: 'Enterprise-Grade', text: "I use the same tools as large agencies — HubSpot, Make.com — but for real-world businesses." },
-          { id: 'a4', icon: Target, label: 'PHASE 04 / THE RESULT', title: 'Freedom to Do Your Actual Job', text: "If your sales team is doing data entry, something is broken. I fix that." }
+          { id: 'a1', icon: FlaskConical, title: 'Custom Processes, Not Templates', text: "Real solutions are engineered for the specific situation — never copy-pasted." },
+          { id: 'a2', icon: Award, title: 'High Standards, No Shortcuts', text: "In chemistry, if you miss a step, the reaction fails. Same applies to business systems." },
+          { id: 'a3', icon: Wrench, title: 'Enterprise-Grade', text: "I use the same tools as large agencies — HubSpot, Make.com — but for real-world businesses." },
+          { id: 'a4', icon: Target, title: 'Freedom to Do Your Actual Job', text: "If your sales team is doing data entry, something is broken. I fix that." }
         ],
         credentials: [
           { label: '24+ Certifications', icon: Award },
@@ -94,10 +94,10 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
         ),
         subhead: "I've been the person doing the admin at midnight. Running payroll, chasing invoices. That's why I build systems that actually work for real people.",
         timeline: [
-          { id: 'h1', icon: FlaskConical, label: 'CHAPTER 01 / THE SCIENTIST', title: 'Started in the Lab', text: "I trained as a chemist in Chile. Every project needed a custom process — no templates, just problem-solving." },
-          { id: 'h2', icon: Coffee, label: 'CHAPTER 02 / THE OWNER', title: 'Built My Own Business', text: "I opened a café in Santiago. I did everything: hiring, payroll, marketing. I know what it costs to run a business." },
-          { id: 'h3', icon: Globe, label: 'CHAPTER 03 / THE OPERATOR', title: 'Managed Across Cultures', text: "I ran a fitness franchise in Southeast Asia. I learned to adapt systems to people — not force people into systems." },
-          { id: 'h4', icon: Code2, label: 'CHAPTER 04 / THE BUILDER', title: 'Now I Build for Others', text: "After studying marketing automation and business analytics, I put it all together. I build the systems I wish I'd had when I was running my café — so you can focus on the work that matters." }
+          { id: 'h1', icon: FlaskConical, title: 'Started in the Lab', text: "I trained as a chemist in Chile. Every project needed a custom process — no templates, just problem-solving." },
+          { id: 'h2', icon: Coffee, title: 'Built My Own Business', text: "I opened a café in Santiago. I did everything: hiring, payroll, marketing. I know what it costs to run a business." },
+          { id: 'h3', icon: Globe, title: 'Managed Across Cultures', text: "I ran a fitness franchise in Southeast Asia. I learned to adapt systems to people — not force people into systems." },
+          { id: 'h4', icon: Code2, title: 'Now I Build for Others', text: "After studying marketing automation and business analytics, I put it all together. I build the systems I wish I'd had when I was running my café — so you can focus on the work that matters." }
         ]
       }
   };
