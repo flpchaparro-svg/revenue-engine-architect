@@ -27,7 +27,7 @@ const ALL_PILLARS = [
   {
     id: 'pillar1', number: '01', icon: Globe, title: 'THE FACE', 
     subtitle: 'Websites & E-commerce', subtitleMobile: 'Websites',
-    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: '',
+    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS',
     body: 'Capture every visitor as a trackable lead.',
     bodyMobile: 'Capture every visitor as a trackable lead.',
     description: 'Your online storefront. Not a digital brochure, but a system designed to capture leads and process sales with zero friction.',
@@ -41,7 +41,7 @@ const ALL_PILLARS = [
   {
     id: 'pillar2', number: '02', icon: Database, title: 'THE BRAIN', 
     subtitle: 'CRM & Lead Tracking', subtitleMobile: 'CRM',
-    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: '',
+    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS',
     body: 'Know exactly where every opportunity sits.',
     bodyMobile: 'Know exactly where every opportunity sits.',
     description: 'Your single source of truth. Every call, email, and deal stage tracked in one place. If it\'s not in the CRM, it didn\'t happen.',
@@ -55,7 +55,7 @@ const ALL_PILLARS = [
   {
     id: 'pillar3', number: '03', icon: Zap, title: 'THE MUSCLE', 
     subtitle: 'Automation', subtitleMobile: 'Automation',
-    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS', technicalLabel: '',
+    categoryHex: '#E21E3F', categoryLabel: 'GET CLIENTS',
     body: 'Act fast without lifting a finger.',
     bodyMobile: 'Act fast without lifting a finger.',
     description: 'Code doing the boring work. Data entry, invoicing, follow-ups. The stuff that eats your week now runs itself.',
@@ -69,7 +69,7 @@ const ALL_PILLARS = [
   {
     id: 'pillar4', number: '04', icon: Bot, title: 'THE VOICE', 
     subtitle: 'AI Assistants', subtitleMobile: 'AI Bots',
-    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: '',
+    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER',
     body: 'Handle more leads without hiring.',
     bodyMobile: 'Handle more leads without hiring.',
     description: 'Digital employees that listen, think, and speak. AI that answers your phone, qualifies leads, and books appointments around the clock.',
@@ -83,7 +83,7 @@ const ALL_PILLARS = [
   {
     id: 'pillar5', number: '05', icon: Video, title: 'THE PRESENCE', 
     subtitle: 'Content Systems', subtitleMobile: 'Content',
-    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: '',
+    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER',
     body: 'Reach more people on autopilot.',
     bodyMobile: 'Reach more people on autopilot.',
     description: 'A content supply chain. One hour of your expertise becomes a month of posts, blogs, and videos across every platform.',
@@ -97,7 +97,7 @@ const ALL_PILLARS = [
   {
     id: 'pillar6', number: '06', icon: Users, title: 'THE SOUL', 
     subtitle: 'Team Training', subtitleMobile: 'Training',
-    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER', technicalLabel: '',
+    categoryHex: '#C5A059', categoryLabel: 'SCALE FASTER',
     body: 'Make sure your team actually uses it.',
     bodyMobile: 'Make sure your team actually uses it.',
     description: 'The human element. Training systems that make sure your team actually uses the tools you paid for.',
@@ -111,7 +111,7 @@ const ALL_PILLARS = [
   {
     id: 'pillar7', number: '07', icon: BarChart3, title: 'THE EYES', 
     subtitle: 'Dashboards & Reporting', subtitleMobile: 'Dashboards',
-    categoryHex: '#1a1a1a', categoryLabel: 'SEE CLEARLY', technicalLabel: '',
+    categoryHex: '#1a1a1a', categoryLabel: 'SEE CLEARLY',
     body: 'See all your numbers on one screen.',
     bodyMobile: 'See all your numbers on one screen.',
     description: 'The control tower. Revenue, margins, and pipeline on one screen, updated live. No more midnight spreadsheets.',

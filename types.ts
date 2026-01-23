@@ -4,7 +4,6 @@ export interface ServiceDetail {
   title: string;
   subtitle: string;
   technicalLabel?: string; // Full technical label for display box (optional - not currently used)
-  technicalLabelShort?: string; // Short technical label for small cards (optional - not currently used)
   systemGroup?: string; // New field for System Architecture Grouping
   symptom?: string; // New field for Diagnostic Modal
   description: string; // Full description for display box
