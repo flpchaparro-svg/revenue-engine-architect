@@ -102,161 +102,161 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
 
 // --- 2. DATA CONTENT ---
 const TIERS = {
-  velocity: {
-    id: 'velocity',
-    label: "VELOCITY",
+  leadCapture: {
+    id: 'leadCapture',
+    label: "SERVICE 01 / LEAD CAPTURE",
     hook: "I need leads now.",
-    summary: "Choose this if you are a Tradesman, Emergency Service, or Local Professional (Plumbers, Locksmiths) who is losing money because you can't answer the phone while working.",
-    sprint: "7-DAY SPRINT",
-    specs: ['7-Day Turnaround', 'WordPress + Elementor Pro', 'Mobile-First Conversion Design', 'Basic SEO Foundation'],
+    summary: "Who this is for: Trades, service businesses, consultants",
+    sprint: "",
+    specs: ['Mobile-first design', 'Lead capture forms', 'Google Analytics setup', 'Basic SEO'],
     personas: [
       {
-        id: "urgency",
+        id: "plumber",
         icon: Zap,
-        title: "The Urgency Operator",
-        examples: "Emergency Plumbers, Locksmiths",
-        painTitle: "The $500 Missed Call",
-        painText: "You live by the phone. If you miss a call at 11 PM because you're under a sink, that job goes to the next guy on Google. You're tired of losing money while you work.",
-        solution: "I build a 'Digital Catcher'. Every caller gets an instant SMS response, securing the job while you finish the work. No more lost leads at 2 AM."
+        title: "The Plumber",
+        examples: "Local trades (plumbers, electricians, builders)",
+        painTitle: "I get calls but my website looks like it's from 2010. Customers call the competitor with the nicer site.",
+        painText: "I get calls but my website looks like it's from 2010. Customers call the competitor with the nicer site.",
+        solution: "I build a clean, fast website with a quote form that sends leads straight to your phone. You look professional and capture every enquiry."
       },
       {
-        id: "route",
+        id: "consultant",
         icon: Map,
-        title: "The Route Operator",
-        examples: "Pest Control, Solar Installers",
-        painTitle: "The Qualification Time Sink",
-        painText: "You're driving 45 minutes to quote a job only to discover they wanted 'free advice' or their budget is $200 for a $2,000 job. You're burning diesel and daylight on tyre-kickers.",
-        solution: "I act as 'The Gatekeeper'. Conditional logic forms pre-qualify leads so you only talk to high-value clients. Your calendar fills with jobs worth driving to."
+        title: "The Consultant",
+        examples: "Coaches, advisors, accountants",
+        painTitle: "I need a site that explains what I do and lets people book a call. Not a 50-page monster.",
+        painText: "I need a site that explains what I do and lets people book a call. Not a 50-page monster.",
+        solution: "I build a simple site with your services, testimonials, and a calendar booking link. Professional without the complexity."
       },
       {
-        id: "compliance",
+        id: "startup",
         icon: Shield,
-        title: "The Professional",
-        examples: "NDIS, Boutique Law, Allied Health",
-        painTitle: "The 'Free Advice' Trap",
-        painText: "You're drowning in calls from people who have no money or no case, wasting 10 hours a week giving free advice.",
-        solution: "I act as 'The Gatekeeper'. Conditional logic forms pre-qualify leads so you only talk to high-value clients."
+        title: "The Startup",
+        examples: "New businesses launching their first site",
+        painTitle: "I need something up fast that doesn't cost a fortune but doesn't look cheap.",
+        painText: "I need something up fast that doesn't cost a fortune but doesn't look cheap.",
+        solution: "I build a clean launch site in 7 days. Looks premium, captures leads, and you can grow from there."
       }
     ]
   },
-  retail: {
-    id: 'retail',
-    label: "RETAIL",
-    hook: "I need to sync my stock.",
-    summary: "Choose this if you sell physical products (Fashion, Parts, Supplies) and you are tired of overselling, manual inventory updates, or fighting with shipping calculators.",
-    sprint: "14-DAY SPRINT",
-    specs: ['Shopify Architecture', 'POS Integration (Square/Vend)', 'Shipping Logic Automation', 'Automated Email Flows'],
+  ecommerce: {
+    id: 'ecommerce',
+    label: "SERVICE 02 / E-COMMERCE",
+    hook: "I need to sell online.",
+    summary: "Who this is for: Retailers, wholesalers, product businesses",
+    sprint: "",
+    specs: ['Product catalogue', 'Payment processing', 'Shipping calculator', 'Inventory tracking'],
     personas: [
       {
-        id: "chaos",
+        id: "retailer",
         icon: ShoppingBag,
-        title: "The Chaos Founder",
-        examples: "Fashion Boutiques, Local Designers",
-        painTitle: "The Double-Sell Disaster",
-        painText: "You sell the last unique dress in-store at 10 AM and sell it again online at 10:05 AM. It kills your reputation and wastes hours on apology emails. You're terrified of overselling.",
-        solution: "I build a 'Single Source of Truth'. Your POS and your website sync instantly — you never sell what you don't have. Real-time inventory across every channel."
+        title: "The Retailer",
+        examples: "Shops going online or expanding",
+        painTitle: "I'm selling on Instagram DMs and it's chaos. I need a proper store but Shopify confused me.",
+        painText: "I'm selling on Instagram DMs and it's chaos. I need a proper store but Shopify confused me.",
+        solution: "I set up your online store with products, payments, and shipping. You get a link to share and orders come in automatically."
       },
       {
-        id: "logistics",
+        id: "wholesaler",
         icon: Box,
         title: "The Wholesaler",
-        examples: "Auto Parts, Building Materials",
-        painTitle: "Shipping Nightmares",
-        painText: "You're losing margin because a customer ordered a 50kg machine to a remote area with 'Free Shipping' logic that wasn't set up correctly. Every miscalculated freight cost eats your profit.",
-        solution: "I build Dimensional Shipping Logic. The site calculates freight costs in real-time based on weight, size, and postcode. You protect your margin on every order."
+        examples: "B2B suppliers with trade pricing",
+        painTitle: "I need different prices for different customers. Retail vs trade. Nobody builds that properly.",
+        painText: "I need different prices for different customers. Retail vs trade. Nobody builds that properly.",
+        solution: "I build a store with customer logins and tiered pricing. Trade customers see trade prices. Everyone else sees retail."
       },
       {
-        id: "churn",
+        id: "maker",
         icon: RefreshCw,
-        title: "The Subscription",
-        examples: "Coffee Clubs, Pet Supplies",
-        painTitle: "Involuntary Churn",
-        painText: "30% of your cancellations aren't people leaving — they're just expired credit cards the system failed to update. You're losing customers who wanted to stay.",
-        solution: "I install Automated Dunning Engines. The system retries failed cards, sends update reminders, and saves the relationship automatically — before you even know there was a problem."
+        title: "The Maker",
+        examples: "Craftspeople, artists, small batch producers",
+        painTitle: "I make beautiful things but my website doesn't show them properly. And I'm losing sales to shipping confusion.",
+        painText: "I make beautiful things but my website doesn't show them properly. And I'm losing sales to shipping confusion.",
+        solution: "I build a store that showcases your work with proper photos, clear shipping, and easy checkout."
       }
     ]
   },
-  performance: {
-    id: 'performance',
-    label: "PERFORMANCE",
+  highPerformance: {
+    id: 'highPerformance',
+    label: "SERVICE 03 / HIGH PERFORMANCE",
     hook: "I need speed & trust.",
-    summary: "Choose this if you sell high-ticket services (Luxury Homes, Medical, Finance) where a slow or insecure website makes you look 'cheap' and loses you the deal.",
-    sprint: "21-DAY SPRINT",
-    specs: ['Headless Tech (Next.js)', '0.5s Load Times', 'Unhackable Security', 'Advanced CRM Integration'],
+    summary: "Who this is for: Tech companies, funded startups, agencies",
+    sprint: "",
+    specs: ['Sub-second load times', 'Visual content editor', 'Enterprise hosting', 'Security hardening'],
     personas: [
       {
-        id: "precision",
+        id: "funded",
         icon: Compass,
-        title: "The Precision Builder",
-        examples: "Luxury Home Builders, Architects",
-        painTitle: "The Portfolio Lag",
-        painText: "You have 4K photos of stunning work, but your site takes 5 seconds to load them. Clients assume you're 'sloppy' before they even meet you. Your website is destroying the first impression you've spent 20 years building.",
-        solution: "I build Edge Image Optimization. Your 4K portfolio loads instantly on any device. Your work proves your precision — your website finally matches your craftsmanship."
+        title: "The Funded Startup",
+        examples: "Series A/B companies",
+        painTitle: "Investors judge us by our website speed. If it's slow, they think our product is slow.",
+        painText: "Investors judge us by our website speed. If it's slow, they think our product is slow.",
+        solution: "I build on modern tech (Next.js) that loads in under a second. Your site signals you're serious."
       },
       {
-        id: "stakes",
+        id: "tech",
         icon: Lock,
-        title: "The High-Stakes Agent",
-        examples: "Yacht Brokers, Private Jets",
-        painTitle: "The Security Breach",
-        painText: "If your site shows 'Not Secure', your elite clients will never trust you with their sensitive financial data. One warning message and you've lost a $500k deal.",
-        solution: "I build Headless Architecture. No database to hack. A static 'Digital Fortress' that's 100% secure. Your clients see the padlock, not the warning."
+        title: "The Tech Company",
+        examples: "SaaS, fintech, security-conscious",
+        painTitle: "We need a site that can't be hacked and passes compliance checks.",
+        painText: "We need a site that can't be hacked and passes compliance checks.",
+        solution: "I build static sites with no database to attack. Bank-grade security for your public face."
       },
       {
-        id: "knowledge",
+        id: "marketing",
         icon: BookOpen,
-        title: "The Knowledge Hub",
-        examples: "Medical Clinics, Financial Advisors",
-        painTitle: "The Search Sinkhole",
-        painText: "Your site is so bloated that Google is de-ranking your best content. You're losing authority to faster, smaller competitors. The advice you spent years writing is invisible.",
-        solution: "I build Core Web Vitals Dominance. Your knowledge library becomes a high-speed search weapon. Google rewards fast sites with visibility — your expertise finally gets seen."
+        title: "The Marketing Director",
+        examples: "Companies where marketing is blocked by developers",
+        painTitle: "I wait 2 weeks for engineers to change a headline. It's killing our campaigns.",
+        painText: "I wait 2 weeks for engineers to change a headline. It's killing our campaigns.",
+        solution: "I build a site where you can edit content yourself without touching code. Engineers happy, marketers unblocked."
       }
     ]
   },
-  flagship: {
-    id: 'flagship',
-    label: "FLAGSHIP",
-    hook: "I need to show off.",
-    summary: "Choose this if you are a Heritage Brand, Luxury Hotel, or Visionary where 'Standard' isn't enough. You need 3D, Motion, and Cinema to justify premium pricing.",
-    sprint: "30+ DAY SPRINT",
-    specs: ['Custom 3D / WebGL', 'Cinematic Motion Design', 'Bespoke User Journey', 'Award-Winning Aesthetics'],
+  landingPages: {
+    id: 'landingPages',
+    label: "SERVICE 04 / LANDING PAGES",
+    hook: "I need campaign pages.",
+    summary: "Who this is for: Marketers, event organisers, campaign runners",
+    sprint: "",
+    specs: ['Single-page focus', 'A/B testing ready', 'Form integration', 'Mobile optimised'],
     personas: [
       {
-        id: "aesthetic",
+        id: "campaign",
         icon: Gem,
-        title: "The Absolutist",
-        examples: "Heritage Brands, Luxury Fashion",
-        painTitle: "The Commodity Trap",
-        painText: "If your website looks like a $50 template, you lose the ability to charge 10x the market rate. You fear 'Digital Cheapness' — a generic site destroys the mystique you've spent decades building.",
-        solution: "I build Headless Theatre. No white flashes, no lag, no template smell. A cinematic journey that maintains your luxury status from the first pixel to the final purchase."
+        title: "The Campaign Runner",
+        examples: "Agencies, growth teams",
+        painTitle: "We have a winning ad but the client's dev team says they can't build the landing page until next quarter.",
+        painText: "We have a winning ad but the client's dev team says they can't build the landing page until next quarter.",
+        solution: "I build standalone landing pages that bypass your main site. Launch tomorrow, test headlines, optimise fast."
       },
       {
-        id: "variant",
+        id: "event",
         icon: Layers,
-        title: "The Visionary",
-        examples: "Custom Furniture Makers, Lighting",
-        painTitle: "Visualization Paralysis",
-        painText: "Customers won't spend $15k on a sofa if they can't see exactly how the 'Green Velvet' looks with 'Oak Legs' in their lounge room. Imagination isn't enough — they need to see it to buy it.",
-        solution: "I build 3D Configurators and WebAR. Customers place your product in their room instantly, choose every option, and remove all doubt. Configuration becomes conversion."
+        title: "The Event Organiser",
+        examples: "Conferences, webinars, summits",
+        painTitle: "I run events every month. Rebuilding the registration page each time takes hours.",
+        painText: "I run events every month. Rebuilding the registration page each time takes hours.",
+        solution: "I build a template you can duplicate in 5 minutes. Change the date, change the headline, publish."
       },
       {
-        id: "hotel",
+        id: "course",
         icon: Star,
-        title: "The Hotelier",
-        examples: "Boutique Resorts, Safari Lodges",
-        painTitle: "The Commission Drain",
-        painText: "You're paying 20% to Booking.com because your own website is too clunky to handle high-value direct bookings. The OTAs are eating your margin while you handle the service.",
-        solution: "I build Cinematic Booking Engines. Capture the emotion and the full revenue, commission-free. Your guests book direct because the experience demands it."
+        title: "The Course Creator",
+        examples: "Coaches, educators, trainers",
+        painTitle: "My webinar sign-up page is slow and ugly. I'm losing people on mobile.",
+        painText: "My webinar sign-up page is slow and ugly. I'm losing people on mobile.",
+        solution: "I build fast landing pages that load instantly on any device. More sign-ups, less friction."
       }
     ]
   }
 };
 
 const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
-  const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('velocity');
+  const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('leadCapture');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
   
-  const [expandedTier, setExpandedTier] = useState<keyof typeof TIERS | null>('velocity');
+  const [expandedTier, setExpandedTier] = useState<keyof typeof TIERS | null>('leadCapture');
   const [expandedPersona, setExpandedPersona] = useState<string | null>(null);
 
   const pillarFAQs = getPillarFAQs('pillar1');

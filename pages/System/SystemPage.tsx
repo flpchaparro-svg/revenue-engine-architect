@@ -303,7 +303,7 @@ const GridItem = ({ pillar, isSelected, selectedId, onToggle, onNavigate }: any)
 
            <div className="flex justify-between items-center border-t border-[#1a1a1a]/10 pt-4 mt-auto">
               <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-[#1a1a1a]/50 transition-colors font-bold group-hover:text-black">
-                 NODE {pillar.number}
+                 PILLAR {pillar.number}
               </span>
               <div 
                 className="w-8 h-8 flex items-center justify-center rounded-full transition-colors"

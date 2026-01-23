@@ -122,162 +122,162 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
 
 // --- DATA (BLACK & WHITE THEME APPLIED) ---
 const TIERS = {
-  pulse: {
-    id: 'pulse',
-    label: "TIER 01 / PULSE",
-    hook: "Stop guessing, start steering.",
-    summary: "Choose this if you are flying blind. You have data in Xero, Google Ads, and CRM, but no single screen that tells you if you are winning or losing today.",
-    sprint: "7-DAY SPRINT",
-    specs: ['Google Tag Manager', 'Looker Studio', 'Attribution Modelling', 'Unit Economics'],
+  executiveDashboard: {
+    id: 'executiveDashboard',
+    label: "SERVICE 01 / EXECUTIVE DASHBOARD",
+    hook: "I need one-screen clarity.",
+    summary: "Who this is for: Owners who want one-screen clarity",
+    sprint: "",
+    specs: ['Revenue tracking', 'Margin visibility', 'Cash flow view', 'Mobile access'],
     personas: [
       {
-        id: "scaler",
+        id: "spreadsheet",
         icon: Activity,
-        title: "The Blind Scaler",
-        examples: "Multi-Site Businesses, E-commerce",
-        painTitle: "The Ad-Spend Trap",
-        painText: "You spend $20k/mo on ads but don't know which channel is actually driving the profit. You're flying blind. Every month you waste budget on the wrong thing.",
-        solution: "I build a Revenue Pulse that shows the 'Unit Economics' of every lead. You know exactly which dollar is making you two. Ad spend becomes an investment, not a gamble."
+        title: "The Spreadsheet Assembler",
+        examples: "Pulls data from 5 places into one spreadsheet",
+        painTitle: "Every Monday I spend 2 hours copying data into my tracker. By the time I'm done, it's already out of date.",
+        painText: "Every Monday I spend 2 hours copying data into my tracker. By the time I'm done, it's already out of date.",
+        solution: "One dashboard that pulls from all your systems automatically. Always live, zero manual work."
       },
       {
-        id: "wholesaler",
+        id: "gut",
         icon: TrendingDown,
-        title: "The Margin Squeeze",
-        examples: "Distributors, Wholesalers",
-        painTitle: "Operational Blindness",
-        painText: "High volume, thin margins. You don't know your 'Real Profit' until the accountant finishes the books at the end of the quarter. By then, the damage is done.",
-        solution: "I build Real-Time Margin Tracking. Inventory links to Finance so you see the Net Profit on every single order the moment it happens. No more quarter-end surprises."
+        title: "The Gut Feeler",
+        examples: "Makes decisions by instinct",
+        painTitle: "I think we're profitable but I honestly don't know. I find out for sure when the accountant tells me.",
+        painText: "I think we're profitable but I honestly don't know. I find out for sure when the accountant tells me.",
+        solution: "Real-time view of revenue, costs, and margin. Know exactly where you stand, every day."
       },
       {
-        id: "visionary",
+        id: "busy",
         icon: Database,
-        title: "The Data Hoarder",
-        examples: "Founders with Multiple Systems",
-        painTitle: "Analysis Paralysis",
-        painText: "You have thousands of rows of data in Xero and HubSpot, but you still can't answer: 'If I spend $1,000 more, what happens?' Data everywhere, answers nowhere.",
-        solution: "I build The North Star Dashboard. Your fragmented data blends into one single screen that answers the big questions instantly. One screen, total clarity."
+        title: "The Busy Owner",
+        examples: "No time to dig into numbers",
+        painTitle: "I know I should look at my data more but I don't have time. By the time I look, it's too late.",
+        painText: "I know I should look at my data more but I don't have time. By the time I look, it's too late.",
+        solution: "Dashboard on your phone. Glance at it over coffee. Problems surface before they're crises."
       }
     ]
   },
-  lab: {
-    id: 'lab',
-    label: "TIER 02 / LAB",
-    hook: "I see what your customers see.",
-    summary: "Choose this if you have traffic but low conversion. We install 'Forensic' tools to watch users struggle and fix the friction points killing your sales.",
-    sprint: "14-DAY SPRINT",
-    specs: ['Microsoft Clarity', 'Rage-Click Analysis', 'UX Forensics', 'Conversion Rate Opt.'],
+  salesTracking: {
+    id: 'salesTracking',
+    label: "SERVICE 02 / SALES TRACKING",
+    hook: "I need pipeline visibility.",
+    summary: "Who this is for: Sales teams wanting visibility",
+    sprint: "",
+    specs: ['Pipeline visualisation', 'Revenue forecasting', 'Activity tracking', 'Rep performance'],
     personas: [
-      {
-        id: "leaky",
-        icon: Droplets,
-        title: "The Leaky Bucket",
-        examples: "E-commerce Stores, Lead Gen Sites",
-        painTitle: "Traffic Rich, Profit Poor",
-        painText: "You spend huge money on ads to bring people to a site where 40% leave because the 'Contact' button is broken on mobile. You're paying for traffic that can't convert.",
-        solution: "I build Forensic Session Recording. The system watches the user struggle so you don't have to, giving you a 'Fix List' to stop the bleed. Every leak found, every dollar saved."
-      },
       {
         id: "blind",
+        icon: Droplets,
+        title: "The Pipeline Blind",
+        examples: "Doesn't know what's closing this month",
+        painTitle: "I ask my sales team how we're tracking and get different answers. Nobody really knows.",
+        painText: "I ask my sales team how we're tracking and get different answers. Nobody really knows.",
+        solution: "Live pipeline dashboard. See total value, stage by stage, and what's likely to close."
+      },
+      {
+        id: "forecast",
         icon: EyeOff,
-        title: "The Opinion Fighter",
-        examples: "Marketing Teams, Designers",
-        painTitle: "Aesthetic Bias",
-        painText: "You argue about button colours based on 'opinion' rather than data. You're redesigning the wrong things. Meetings waste hours on guesses.",
-        solution: "I build Heatmap Evidence. You see exactly where people click (and where they don't), ending the debate with cold hard facts. Data wins, opinions lose."
+        title: "The Forecast Guesser",
+        examples: "Projects revenue by gut feel",
+        painTitle: "Every month I guess what we'll close. Sometimes I'm right, usually I'm not.",
+        painText: "Every month I guess what we'll close. Sometimes I'm right, usually I'm not.",
+        solution: "Forecasting based on actual pipeline data and historical close rates. Predictions you can trust."
       },
       {
-        id: "friction",
+        id: "activity",
         icon: MousePointerClick,
-        title: "The Form Abandonment",
-        examples: "Lead Gen Agencies, Service Biz",
-        painTitle: "The Drop-off Cliff",
-        painText: "People start your enquiry form but never finish it. You're losing 70% of your leads at the finish line. They wanted to contact you — something stopped them.",
-        solution: "I build Field-Level Telemetry. The system identifies the exact question that causes them to quit. Rewrite it, restore flow. Leads that start, finish."
+        title: "The Activity Tracker",
+        examples: "Wants to see if the team is actually working",
+        painTitle: "I don't know if my salespeople are making calls or just looking busy.",
+        painText: "I don't know if my salespeople are making calls or just looking busy.",
+        solution: "Activity dashboard showing calls, emails, and meetings per rep. Accountability without micromanaging."
       }
     ]
   },
-  oracle: {
-    id: 'oracle',
-    label: "TIER 03 / ORACLE",
-    hook: "Predict the future.",
-    summary: "Choose this if you want to stop reacting to last month's bad numbers and start predicting next month's cashflow using predictive modelling.",
-    sprint: "21-DAY SPRINT",
-    specs: ['BigQuery + AI', 'Churn Prediction', 'LTV Forecasting', 'Propensity Modelling'],
+  operationsView: {
+    id: 'operationsView',
+    label: "SERVICE 03 / OPERATIONS VIEW",
+    hook: "I need delivery visibility.",
+    summary: "Who this is for: Businesses tracking delivery and fulfilment",
+    sprint: "",
+    specs: ['Order/project tracking', 'Status indicators', 'Team utilisation', 'Delay alerts'],
     personas: [
       {
-        id: "exit",
+        id: "delivery",
         icon: Flag,
-        title: "The Exit Founder",
-        examples: "Founders Preparing for Sale",
-        painTitle: "The Valuation Discount",
-        painText: "Buyers pay 4x for 'Predictable Revenue' and only 2x for 'Up and Down' revenue. You need to prove certainty. Without it, you're leaving millions on the table.",
-        solution: "I build Investor-Grade Forecasting. Your 'Net Revenue Retention' and 'Churn Probability' are proven with data. The numbers justify a higher exit multiple."
+        title: "The Delivery Watcher",
+        examples: "Ships physical products",
+        painTitle: "I don't know how many orders are late until customers complain. By then the damage is done.",
+        painText: "I don't know how many orders are late until customers complain. By then the damage is done.",
+        solution: "Dashboard showing orders shipped, in transit, and delivered. Spot delays before customers do."
       },
       {
-        id: "sub",
+        id: "project",
         icon: Repeat,
-        title: "The Churn Fighter",
-        examples: "Subscription Businesses, Gyms",
-        painTitle: "The Silent Churn",
-        painText: "You don't know a customer is unhappy until they cancel. By then, it's too late to save them. You could have kept them — if you'd known.",
-        solution: "I build Behavioural DNA Modelling. The system predicts who's 'At Risk' based on their usage patterns 30 days before they quit. Save them before they leave."
+        title: "The Project Tracker",
+        examples: "Delivers services or projects",
+        painTitle: "I have 20 active projects and no single view of which ones are on track.",
+        painText: "I have 20 active projects and no single view of which ones are on track.",
+        solution: "Project status dashboard. Green, yellow, red at a glance. Focus on the ones that need you."
       },
       {
-        id: "risk",
+        id: "utilisation",
         icon: ShieldAlert,
-        title: "The Cashflow Forecaster",
-        examples: "CFOs, Finance Directors",
-        painTitle: "Cashflow Surprises",
-        painText: "You're blindsided by a bad month because your 'Leading Indicators' were actually just 'Lagging Indicators'. You're steering with a rear-view mirror.",
-        solution: "I build 90-Day Propensity Forecasting. You know what your cashflow will be in 3 months with 95% accuracy. Steer forward, not backward."
+        title: "The Utilisation Problem",
+        examples: "Bills for time",
+        painTitle: "I don't know if my team is fully booked or sitting idle until payroll hits.",
+        painText: "I don't know if my team is fully booked or sitting idle until payroll hits.",
+        solution: "Utilisation dashboard showing billable vs non-billable time. Balance workload before it becomes a problem."
       }
     ]
   },
-  tower: {
-    id: 'tower',
-    label: "TIER 04 / TOWER",
-    hook: "Total Command.",
-    summary: "Choose this if you have a complex organization (Franchise, Multi-Department) and need a 'Central Nervous System' to align everyone.",
-    sprint: "30+ DAY SPRINT",
-    specs: ['Fractional CDO', 'Data Governance', 'Multi-Source Sync', 'Executive Control'],
+  customAnalytics: {
+    id: 'customAnalytics',
+    label: "SERVICE 04 / CUSTOM ANALYTICS",
+    hook: "I need specific data views.",
+    summary: "Who this is for: Businesses with specific data needs",
+    sprint: "",
+    specs: ['Multi-system integration', 'Custom KPIs', 'Automated reports', 'Scheduled delivery'],
     personas: [
       {
-        id: "silo",
+        id: "combiner",
         icon: Layers,
-        title: "The Siloed Exec",
-        examples: "Established Businesses ($20M+)",
-        painTitle: "Fragmented Truth",
-        painText: "Sales doesn't know what Ops is doing. Ops doesn't know what Finance is saying. Your departments fight each other instead of working together.",
-        solution: "I build The Control Tower. A single 'Nervous System' that links every department into one view. The business acts as one organism. Total alignment, total clarity."
+        title: "The Data Combiner",
+        examples: "Data in multiple systems",
+        painTitle: "My sales data is in HubSpot, financials in Xero, and project data in Asana. I can never see the full picture.",
+        painText: "My sales data is in HubSpot, financials in Xero, and project data in Asana. I can never see the full picture.",
+        solution: "I connect your systems and build unified views. One dashboard, all your data."
       },
       {
-        id: "governance",
+        id: "industry",
         icon: Scale,
-        title: "The Data Risk Manager",
-        examples: "Financial Services, Medical",
-        painTitle: "The Data Risk",
-        painText: "You have sensitive client data scattered across 50 spreadsheets. It's a security nightmare waiting to happen. One breach and you're front-page news.",
-        solution: "I build SOC2 Compliant Governance. Your data centralises into a secure Warehouse with strict access controls. Secure, auditable, compliant."
+        title: "The Industry Specific",
+        examples: "Unique metrics for your industry",
+        painTitle: "Generic dashboards don't track what matters in my business. I need custom KPIs.",
+        painText: "Generic dashboards don't track what matters in my business. I need custom KPIs.",
+        solution: "I build dashboards around your specific metrics. Whatever you measure, I visualise."
       },
       {
-        id: "global",
+        id: "board",
         icon: Globe,
-        title: "The HQ Director",
-        examples: "Franchise Groups, Nationals",
-        painTitle: "Local Blindness",
-        painText: "You can't see what the Perth branch is doing until the monthly report. You're steering a giant ship with no radar. Problems grow in the dark.",
-        solution: "I build a Global Command Centre. Every location, every metric, one dashboard. You see problems the moment they start, not the month they end."
+        title: "The Board Reporter",
+        examples: "Needs to report to stakeholders",
+        painTitle: "I spend a day each month preparing board reports. Manual data pulls, formatting, checking.",
+        painText: "I spend a day each month preparing board reports. Manual data pulls, formatting, checking.",
+        solution: "Automated reports that pull live data and format themselves. Review and send, don't build from scratch."
       }
     ]
   }
 };
 
 const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
-  const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('pulse');
+  const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('executiveDashboard');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
   
   // Mobile States
-  const [expandedTier, setExpandedTier] = useState<keyof typeof TIERS | null>('pulse');
+  const [expandedTier, setExpandedTier] = useState<keyof typeof TIERS | null>('executiveDashboard');
   const [expandedPersona, setExpandedPersona] = useState<string | null>(null);
 
   const pillarFAQs = getPillarFAQs('pillar7');
