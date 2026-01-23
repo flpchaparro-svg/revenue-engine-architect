@@ -118,7 +118,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                    <div>
                       <span className="font-mono text-[9px] uppercase tracking-widest opacity-60 block mb-2 text-[#E21E3F]">THE QUESTION</span>
                       <h3 className="font-serif text-xl md:text-2xl italic">
-                        "{service.question || "Are you losing leads in spreadsheets?"}"
+                        "{service.symptom || "Are you losing leads in spreadsheets?"}"
                       </h3>
                    </div>
                    <div className="px-3 py-1 bg-[#E21E3F] text-white text-[9px] font-bold tracking-widest uppercase rounded-full shrink-0">

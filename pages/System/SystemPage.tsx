@@ -124,15 +124,9 @@ const ALL_PILLARS = [
   }
 ];
 
-// --- MATHEMATICAL BENTO LOGIC ---
-const getGridClass = (pillarId: string, selectedId: string | null): string => {
-  // DESKTOP: 3 COLUMNS.
-  
-  // MAP 1: DEFAULT STATE (No selection) -> Solid Block
-  // Row 1: P1(2) + P2(1) = 3
-  // Row 2: P3(1) + P4(2) = 3
-  // Row 3: P5(2) + P6(1) = 3
-  // Row 4: P7(3)         = 3
+// --- DESKTOP BENTO LOGIC (3 COLUMNS) ---
+// This handles the 'lg:' classes. Sums to 3 per row.
+const getDesktopGridClass = (pillarId: string, selectedId: string | null): string => {
   if (!selectedId) {
     if (pillarId === 'pillar1') return "lg:col-span-2";
     if (pillarId === 'pillar4') return "lg:col-span-2";
@@ -141,19 +135,18 @@ const getGridClass = (pillarId: string, selectedId: string | null): string => {
     return "lg:col-span-1";
   }
 
-  // MAP 2: ACTIVE STATE (Dynamic adjustment to close gaps)
+  // Active State logic for Desktop
   if (pillarId === selectedId) {
     return "lg:col-span-3";
   }
 
-  // Neighbors logic
+  // Neighbor Logic for Desktop
   if (selectedId === 'pillar1') {
     if (pillarId === 'pillar3') return "lg:col-span-2";
     if (pillarId === 'pillar4') return "lg:col-span-2";
     if (pillarId === 'pillar7') return "lg:col-span-2";
     return "lg:col-span-1";
   }
-
   if (selectedId === 'pillar2') {
     if (pillarId === 'pillar1') return "lg:col-span-3";
     if (pillarId === 'pillar4') return "lg:col-span-2";
@@ -161,25 +154,19 @@ const getGridClass = (pillarId: string, selectedId: string | null): string => {
     if (pillarId === 'pillar7') return "lg:col-span-3";
     return "lg:col-span-1";
   }
-
   if (selectedId === 'pillar3') {
     if (pillarId === 'pillar2') return "lg:col-span-2";
     if (pillarId === 'pillar5') return "lg:col-span-2";
     if (pillarId === 'pillar7') return "lg:col-span-2";
     return "lg:col-span-1";
   }
-
-  if (selectedId === 'pillar4') {
-    return "lg:col-span-1"; 
-  }
-
+  if (selectedId === 'pillar4') return "lg:col-span-1"; 
   if (selectedId === 'pillar5') {
     if (pillarId === 'pillar1') return "lg:col-span-2";
     if (pillarId === 'pillar4') return "lg:col-span-2";
     if (pillarId === 'pillar7') return "lg:col-span-2";
     return "lg:col-span-1";
   }
-
   if (selectedId === 'pillar6') {
     if (pillarId === 'pillar2') return "lg:col-span-2";
     if (pillarId === 'pillar3') return "lg:col-span-2";
@@ -187,15 +174,63 @@ const getGridClass = (pillarId: string, selectedId: string | null): string => {
     if (pillarId === 'pillar7') return "lg:col-span-3";
     return "lg:col-span-1";
   }
-
   if (selectedId === 'pillar7') {
     if (pillarId === 'pillar1') return "lg:col-span-2";
     if (pillarId === 'pillar4') return "lg:col-span-2";
     if (pillarId === 'pillar5') return "lg:col-span-2";
     return "lg:col-span-1";
   }
-
   return "lg:col-span-1";
+};
+
+// --- TABLET BENTO LOGIC (2 COLUMNS) ---
+// This handles the 'md:' classes. Must always sum to even numbers.
+const getTabletGridClass = (pillarId: string, selectedId: string | null): string => {
+  
+  // DEFAULT STATE (No Selection)
+  // Logic: 6 items @ 1 slot, P7 @ 2 slots = 8 slots (4 rows).
+  if (!selectedId) {
+    if (pillarId === 'pillar7') return "md:col-span-2";
+    return "md:col-span-1";
+  }
+
+  // ACTIVE STATE LOGIC
+  
+  // 1. ACTIVE CARD IS ALWAYS FULL WIDTH
+  if (pillarId === selectedId) {
+    return "md:col-span-2";
+  }
+
+  // 2. EVEN CARDS ACTIVE (2, 4, 6)
+  // Cause misalignment because they start on the right side.
+  // We must expand the PREVIOUS card to push the active card to a new row.
+  // And expand the LAST card (P7) to fill the bottom gap.
+  
+  // P2 Active
+  if (selectedId === 'pillar2') {
+    if (pillarId === 'pillar1') return "md:col-span-2"; // Expand prev
+    if (pillarId === 'pillar7') return "md:col-span-2"; // Balance bottom
+    return "md:col-span-1";
+  }
+
+  // P4 Active
+  if (selectedId === 'pillar4') {
+    if (pillarId === 'pillar3') return "md:col-span-2"; // Expand prev
+    if (pillarId === 'pillar7') return "md:col-span-2"; // Balance bottom
+    return "md:col-span-1";
+  }
+
+  // P6 Active
+  if (selectedId === 'pillar6') {
+    if (pillarId === 'pillar5') return "md:col-span-2"; // Expand prev
+    if (pillarId === 'pillar7') return "md:col-span-2"; // Balance bottom
+    return "md:col-span-1";
+  }
+
+  // 3. ODD CARDS ACTIVE (1, 3, 5, 7)
+  // These naturally start on the left (or fill a row), so remaining items = 6.
+  // 6 items @ 1 slot = 3 rows. No gaps. Everyone stays span-1.
+  return "md:col-span-1";
 };
 
 
@@ -204,8 +239,11 @@ const GridItem = ({ pillar, isSelected, selectedId, onToggle, onNavigate }: any)
   const itemRef = useRef<HTMLDivElement>(null);
   const isPillar7 = pillar.id === 'pillar7';
 
-  // Dynamic Spanning
-  const spanClasses = `col-span-1 ${getGridClass(pillar.id, selectedId)}`;
+  // COMBINE LOGIC: Mobile (1) -> Tablet (2) -> Desktop (3)
+  // col-span-1: Default for mobile (1 col)
+  // md:class: Tablet logic
+  // lg:class: Desktop logic
+  const spanClasses = `col-span-1 ${getTabletGridClass(pillar.id, selectedId)} ${getDesktopGridClass(pillar.id, selectedId)}`;
 
   // Accent Logic
   const accentColor = pillar.categoryHex;
@@ -223,20 +261,13 @@ const GridItem = ({ pillar, isSelected, selectedId, onToggle, onNavigate }: any)
     onToggle();
     // Only engage scroll if we are OPENING the card
     if (!isSelected) {
-      // 400ms delay: Ensures the layout animation (usually 300ms) is FINISHED.
-      // This prevents the browser from measuring the position while it's still moving.
       setTimeout(() => {
         if (itemRef.current) {
           const rect = itemRef.current.getBoundingClientRect();
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          
           // -80px offset to leave room for the sticky header
           const targetY = rect.top + scrollTop - 80;
-
-          window.scrollTo({
-            top: targetY,
-            behavior: "smooth"
-          });
+          window.scrollTo({ top: targetY, behavior: "smooth" });
         }
       }, 400); 
     }
@@ -297,7 +328,7 @@ const GridItem = ({ pillar, isSelected, selectedId, onToggle, onNavigate }: any)
               
               <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/70 leading-relaxed line-clamp-2 md:line-clamp-none">
                  <span className="md:hidden">{pillar.bodyMobile || pillar.body}</span>
-                 <span className="hidden md:inline"></span>
+                 <span className="hidden md:inline">{pillar.body}</span>
               </p>
            </div>
 
@@ -453,7 +484,7 @@ const SystemPage: React.FC<any> = ({ onBack, onNavigate }) => {
                 <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
                 <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">ARCHITECTURE / HOLISTIC</span>
               </motion.div>
-              <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
+              <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10 break-words">
                 Business as an <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Organism.</span>
               </motion.h1>
               <motion.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
