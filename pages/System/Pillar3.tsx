@@ -112,162 +112,162 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
 
 // --- DATA ---
 const TIERS = {
-  adminAutopilot: {
-    id: 'adminAutopilot',
-    label: "SERVICE 01 / ADMIN AUTOPILOT",
-    hook: "I need repetitive tasks automated.",
-    summary: "Who this is for: Owners drowning in repetitive tasks",
-    sprint: "",
-    specs: ['Invoice automation', 'Booking systems', 'Form routing', 'Email notifications'],
+  linear: {
+    id: 'linear',
+    label: "TIER 01 / LINEAR",
+    hook: "I need things to connect.",
+    summary: "Choose this if you are copying and pasting data between emails, spreadsheets, and your phone. You just need System A to talk to System B.",
+    sprint: "7-DAY SPRINT",
+    specs: ['Zapier / Make.com Setup', 'Form-to-Email Sync', 'Lead Notification SMS', 'Google Sheets Logging'],
     personas: [
       {
-        id: "invoice",
+        id: "admin",
         icon: Link,
-        title: "The Invoice Chaser",
-        examples: "Service business billing after jobs",
-        painTitle: "I finish a job, forget to invoice, remember two weeks later. Cash flow is lumpy because I'm disorganised.",
-        painText: "I finish a job, forget to invoice, remember two weeks later. Cash flow is lumpy because I'm disorganised.",
-        solution: "Job marked complete? Invoice sends automatically. No thinking, no forgetting, faster payment."
+        title: "The Copy-Paster",
+        examples: "Solo Founders, Consultants",
+        painTitle: "The Data Entry Tax",
+        painText: "You spend 5 hours a week moving data from website forms into your phone contacts or a spreadsheet. It's boring, prone to error, and a waste of your talent.",
+        solution: "I build Linear Bridges. Someone fills a form? They instantly appear in your contacts, your spreadsheet, and you get a Slack notification. Zero manual entry."
       },
       {
-        id: "scheduler",
+        id: "alert",
         icon: Mail,
-        title: "The Scheduler",
-        examples: "Appointment-based (salons, clinics, consultants)",
-        painTitle: "I spend an hour a day on back-and-forth emails trying to book appointments.",
-        painText: "I spend an hour a day on back-and-forth emails trying to book appointments.",
-        solution: "I set up online booking that syncs to your calendar. Customers book themselves, you get notified."
+        title: "The Late Responder",
+        examples: "Trades, Emergency Services",
+        painTitle: "Cold Leads",
+        painText: "You don't see the email enquiry until 4 hours later. By then, they've hired someone else. Speed is the only advantage you have, and you're losing it.",
+        solution: "I build Instant SMS Alerts. When a lead arrives, your phone buzzes with their details immediately. You call them while they are still looking at your website."
       },
       {
-        id: "form",
+        id: "lost",
         icon: FileJson,
-        title: "The Form Processor",
-        examples: "Anyone receiving enquiries via forms",
-        painTitle: "Leads fill out my website form but I have to manually copy them into my spreadsheet.",
-        painText: "Leads fill out my website form but I have to manually copy them into my spreadsheet.",
-        solution: "Form submissions go straight into your CRM, trigger a welcome email, and alert you on your phone. No copy-paste."
+        title: "The Paper Shuffler",
+        examples: "Event Planners, Admin",
+        painTitle: "Lost Details",
+        painText: "You rely on your memory or sticky notes to remember client details. Eventually, you forget one, and it costs you the relationship.",
+        solution: "I build Digital Logging. Every interaction is automatically saved to a central sheet or database. You never lose a detail again."
       }
     ]
   },
-  salesAutomation: {
-    id: 'salesAutomation',
-    label: "SERVICE 02 / SALES AUTOMATION",
-    hook: "I need sales processes automated.",
-    summary: "Who this is for: Sales teams ready to speed up their process",
-    sprint: "",
-    specs: ['Quote generation', 'Proposal templates', 'E-signatures', 'Follow-up sequences'],
+  logic: {
+    id: 'logic',
+    label: "TIER 02 / LOGIC",
+    hook: "I need rules & routing.",
+    summary: "Choose this if you have a team or multiple services. You need 'If This, Then That' logic to send the right lead to the right person automatically.",
+    sprint: "14-DAY SPRINT",
+    specs: ['Advanced Routers', 'Conditional Logic', 'Lead Qualification', 'Round-Robin Assignment'],
     personas: [
       {
-        id: "quote",
+        id: "router",
         icon: Split,
-        title: "The Quote Factory",
-        examples: "High-volume quoting",
-        painTitle: "I create the same quote template over and over. Copy, paste, change the name, send. It's tedious.",
-        painText: "I create the same quote template over and over. Copy, paste, change the name, send. It's tedious.",
-        solution: "I build quote templates that pull customer data automatically. One click, personalised quote, sent."
+        title: "The Traffic Cop",
+        examples: "Agencies, Multi-Service Biz",
+        painTitle: "Manual Dispatch",
+        painText: "You personally read every enquiry to decide if it goes to Sales, Support, or Accounts. You are the bottleneck. If you take a day off, the business freezes.",
+        solution: "I build Logic Routers. 'If budget > $10k, alert Senior Sales. If Support, create Ticket.' The system reads the lead and routes it instantly without you."
       },
       {
-        id: "proposal",
+        id: "filter",
         icon: GitMerge,
-        title: "The Proposal Writer",
-        examples: "Complex sales with long proposals",
-        painTitle: "Writing proposals takes 4 hours each. Half of them don't close anyway.",
-        painText: "Writing proposals takes 4 hours each. Half of them don't close anyway.",
-        solution: "I create modular proposal templates. Drag in the sections you need, customer data pre-fills, done in 30 minutes."
+        title: "The Qualifier",
+        examples: "High-Ticket Sales, Coaches",
+        painTitle: "Junk Lead Fatigue",
+        painText: "Your calendar is full of people who can't afford you. You waste hours on calls with unqualified prospects because your booking link is open to everyone.",
+        solution: "I build Gatekeeper Logic. The system analyzes their answers. If they don't meet criteria, they get a polite email. If they do, they get your calendar."
       },
       {
-        id: "contract",
+        id: "fairness",
         icon: RefreshCw,
-        title: "The Contract Chaser",
-        examples: "Anyone waiting for signatures",
-        painTitle: "I send contracts and then ping people weekly asking 'did you sign?' It's awkward.",
-        painText: "I send contracts and then ping people weekly asking 'did you sign?' It's awkward.",
-        solution: "I set up e-signatures with automatic reminders. The system chases so you don't have to."
+        title: "The Team Leader",
+        examples: "Real Estate, Sales Teams",
+        painTitle: "The Fairness Fight",
+        painText: "Your sales team complains that 'he got the good lead'. You're manually assigning leads to keep peace, wasting time on politics.",
+        solution: "I build Round-Robin Distributors. Leads are assigned strictly in turns, or weighted by performance. Fair, instant, and automatic."
       }
     ]
   },
-  operationsFlow: {
-    id: 'operationsFlow',
-    label: "SERVICE 03 / OPERATIONS FLOW",
-    hook: "I need team handoffs automated.",
-    summary: "Who this is for: Businesses with handoffs between teams",
-    sprint: "",
-    specs: ['System connections', 'Status updates', 'Team notifications', 'Handoff triggers'],
+  engine: {
+    id: 'engine',
+    label: "TIER 03 / ENGINE",
+    hook: "I need fulfillment.",
+    summary: "Choose this if you want the system to actually DO the work. Generating contracts, creating invoices, and setting up project folders automatically.",
+    sprint: "21-DAY SPRINT",
+    specs: ['Document Generation', 'E-Signature Automation', 'Project Onboarding', 'Finance Sync'],
     personas: [
       {
-        id: "project",
+        id: "builder",
         icon: Workflow,
-        title: "The Project Manager",
-        examples: "Agencies, construction, professional services",
-        painTitle: "Sales closes a deal but ops doesn't know until someone remembers to tell them. We miss kickoff deadlines.",
-        painText: "Sales closes a deal but ops doesn't know until someone remembers to tell them. We miss kickoff deadlines.",
-        solution: "Deal closes in CRM, project auto-creates in your PM tool, team gets notified. No handoff gaps."
+        title: "The Document Creator",
+        examples: "Agencies, Contractors",
+        painTitle: "Proposal Lag",
+        painText: "You finish a call, but it takes you 2 days to write the proposal and contract. The client's excitement fades. You lose the deal to momentum.",
+        solution: "I build One-Click Contracts. You click a button in your CRM, and the system generates a PDF proposal, sends it for e-signature, and follows up until signed."
       },
       {
-        id: "warehouse",
+        id: "onboard",
         icon: Layers,
-        title: "The Warehouse Manager",
-        examples: "Product businesses with inventory",
-        painTitle: "We sell something online but nobody tells the warehouse until it's urgent. Orders ship late.",
-        painText: "We sell something online but nobody tells the warehouse until it's urgent. Orders ship late.",
-        solution: "Order comes in, warehouse gets the pick list immediately. Stock updates automatically."
+        title: "The Onboarder",
+        examples: "SaaS, Service Providers",
+        painTitle: "Setup Fatigue",
+        painText: "Every new client requires 20 manual steps: create folder, add to Slack, send welcome email, create invoice. It kills the joy of winning a deal.",
+        solution: "I build Instant Onboarding. Client signs -> System creates Google Drive folders, Slack channels, Xero invoices, and sends the Welcome Pack. Zero touch."
       },
       {
-        id: "dispatcher",
+        id: "finance",
         icon: CheckCircle,
-        title: "The Service Dispatcher",
-        examples: "Field service (HVAC, pest control, maintenance)",
-        painTitle: "Jobs get booked but techs don't find out until they check their email. Sometimes they don't.",
-        painText: "Jobs get booked but techs don't find out until they check their email. Sometimes they don't.",
-        solution: "Job booked, tech gets SMS with details, customer gets confirmation. Everyone knows instantly."
+        title: "The Collector",
+        examples: "Subscription Biz, Retainers",
+        painTitle: "Chasing Money",
+        painText: "You spend Fridays chasing unpaid invoices. It's awkward and wastes time. You feel like a debt collector, not a CEO.",
+        solution: "I build Automated Accounts Receivable. The system detects an unpaid invoice, sends polite reminders at 3, 7, and 14 days, and alerts you only if they ghost."
       }
     ]
   },
-  customBuilds: {
-    id: 'customBuilds',
-    label: "SERVICE 04 / CUSTOM BUILDS",
-    hook: "I need unique workflows.",
-    summary: "Who this is for: Businesses with unique processes",
-    sprint: "",
-    specs: ['Custom workflow design', 'Multi-system integration', 'Process documentation', 'Ongoing support'],
+  autonomous: {
+    id: 'autonomous',
+    label: "TIER 04 / AGENTIC",
+    hook: "I need intelligent workers.",
+    summary: "Choose this if you want AI Agents to perform complex cognitive tasks—reading emails, drafting responses, and making decisions based on context.",
+    sprint: "30+ DAY SPRINT",
+    specs: ['OpenAI / Claude API', 'Cognitive Agents', 'Sentiment Analysis', 'Autonomous Support'],
     personas: [
       {
-        id: "edge",
+        id: "inbox",
         icon: MessageSquare,
-        title: "The Edge Case",
-        examples: "Unusual workflow nobody else has",
-        painTitle: "We've looked at 10 apps but none of them do what we need. Our process is different.",
-        painText: "We've looked at 10 apps but none of them do what we need. Our process is different.",
-        solution: "I build custom automations for your specific workflow. If you can describe it, I can automate it."
+        title: "The Inbox Slave",
+        examples: "Founders, Consultants",
+        painTitle: "Email Prison",
+        painText: "You spend 3 hours a day replying to emails that require 'thinking'. Standard auto-responders won't work because the answers vary.",
+        solution: "I build AI Correspondence Agents. The system reads the email, checks your calendar/knowledge base, drafts a perfect reply in your tone, and leaves it as a 'Draft' for you to approve."
       },
       {
-        id: "integrator",
+        id: "analyst",
         icon: Cpu,
-        title: "The Integrator",
-        examples: "Multiple systems that need to talk",
-        painTitle: "We use Xero, Asana, and HubSpot. None of them connect. We're the glue.",
-        painText: "We use Xero, Asana, and HubSpot. None of them connect. We're the glue.",
-        solution: "I connect your tools so data flows between them automatically. You stop being a human API."
+        title: "The Data Reader",
+        examples: "Legal, Medical, Research",
+        painTitle: "Information Overload",
+        painText: "You have to read hundreds of applications or forms to find the 'good ones'. It's tedious, high-focus work that burns you out.",
+        solution: "I build Cognitive Classifiers. The AI reads the applications, scores them based on your criteria, extracts key data, and summarizes the top 10% for your review."
       },
       {
-        id: "scale",
+        id: "support",
         icon: HelpCircle,
-        title: "The Scale-Up",
-        examples: "Growing fast and breaking processes",
-        painTitle: "What worked at 10 customers doesn't work at 100. Everything's manual and we can't keep up.",
-        painText: "What worked at 10 customers doesn't work at 100. Everything's manual and we can't keep up.",
-        solution: "I rebuild your processes for scale. What took 3 people now takes zero."
+        title: "The 24/7 Rep",
+        examples: "E-commerce, Tech Support",
+        painTitle: "Support Burnout",
+        painText: "Customers ask the same complex questions 24/7. Chatbots are too dumb; humans are too expensive to scale.",
+        solution: "I build Autonomous Support Agents. They don't just follow a script; they read your documentation, troubleshoot the user's issue, and solve the ticket without human intervention."
       }
     ]
   }
 };
 
 const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
-  const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('adminAutopilot');
+  const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('linear');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
   
   // Mobile States
-  const [expandedTier, setExpandedTier] = useState<keyof typeof TIERS | null>('adminAutopilot');
+  const [expandedTier, setExpandedTier] = useState<keyof typeof TIERS | null>('linear');
   const [expandedPersona, setExpandedPersona] = useState<string | null>(null);
 
   const pillarFAQs = getPillarFAQs('pillar3');

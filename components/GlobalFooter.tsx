@@ -116,7 +116,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
                 Privacy Policy
               </button>
               <a 
-                href="https://linkedin.com/in/felipechaparro" 
+                href="https://www.linkedin.com/in/felipe-chaparro-97a390176/" 
                 target="_blank" 
                 rel="noreferrer"
                 className="font-mono text-[10px] text-white/40 hover:text-[#C5A059] uppercase tracking-widest transition-colors flex items-center gap-2"
