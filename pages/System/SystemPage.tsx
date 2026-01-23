@@ -299,15 +299,7 @@ const GridItem = ({ pillar, isSelected, selectedId, onToggle, onNavigate }: any)
       {/* --- CLOSED STATE --- */}
       {!isSelected && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between">
-           <div className="flex justify-between items-start">
-              {pillar.technicalLabel && (
-                <span 
-                  className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] py-1 px-2 border bg-white/50 font-bold backdrop-blur-sm"
-                  style={{ color: accentColor, borderColor: `${accentColor}40` }}
-                >
-                   {pillar.technicalLabel}
-                </span>
-              )}
+          <div className="flex justify-between items-start">
               <span className="font-serif text-3xl md:text-4xl text-[#1a1a1a]/10 font-bold absolute top-4 right-6 group-hover:text-[#1a1a1a]/20 transition-colors">
                  {pillar.number}
               </span>

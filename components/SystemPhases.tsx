@@ -15,7 +15,6 @@ const PHASES = [
   { 
     id: 'GET CLIENTS', 
     title: 'GET CLIENTS', 
-    subtitle: 'Acquire & Convert',
     bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
     accent: '#E21E3F', // Red
@@ -30,7 +29,6 @@ const PHASES = [
   { 
     id: 'SCALE FASTER', 
     title: 'SCALE FASTER', 
-    subtitle: 'Scale & Automate',
     bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
     accent: '#C5A059', // Gold
@@ -45,7 +43,6 @@ const PHASES = [
   { 
     id: 'SEE CLEARLY', 
     title: 'SEE CLEARLY', 
-    subtitle: 'Visibility & Control',
     bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
     accent: '#1a1a1a', // Black
