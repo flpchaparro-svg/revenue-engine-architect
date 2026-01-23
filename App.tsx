@@ -53,24 +53,31 @@ const App: React.FC = () => {
     
     const timer = setTimeout(() => {
       setInitialLoadComplete(true);
-      // Unlock scroll immediately when preloader completes
-      document.body.style.overflow = originalOverflow || 'unset';
     }, 1000); // Duration of the "Dark Room" experience (1 second)
 
     return () => {
       clearTimeout(timer);
-      // Always restore scroll on cleanup
-      document.body.style.overflow = originalOverflow || 'unset';
     };
   }, []);
 
-  // Ensure scroll is unlocked when initialLoadComplete changes
+  // Ensure scroll is ALWAYS unlocked when preloader completes
   useEffect(() => {
     if (initialLoadComplete) {
-      // Force unlock scroll when preloader is done
+      // Force unlock scroll - remove any overflow restrictions
       document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     }
   }, [initialLoadComplete]);
+
+  // CRITICAL: Ensure scroll is ALWAYS unlocked on every route change
+  useEffect(() => {
+    // Always ensure scroll is unlocked after navigation
+    requestAnimationFrame(() => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    });
+  }, [location.pathname]);
 
   const handleGlobalNavigate = (path: string, sectionId?: string) => {
     const routeMap: Record<string, string> = {
@@ -94,12 +101,6 @@ const App: React.FC = () => {
     navigate(route);
   };
 
-  // Scroll Reset on Route Change
-  useEffect(() => {
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    });
-  }, [location.pathname]);
 
   const getCurrentView = () => {
     const path = location.pathname;
