@@ -12,7 +12,7 @@ import {
   CheckCircle, ChevronDown, ChevronRight, HelpCircle,
   FileJson, Mail, MessageSquare
 } from 'lucide-react';
-import PillarVisual_Helix from '../../components/PillarVisual_Helix';
+import PillarVisual_Turbine from '../../components/PillarVisual_Turbine';
 import FAQSection from '../../components/FAQSection';
 import { getPillarFAQs } from '../../constants/faqData';
 import CTAButton from '../../components/CTAButton'; 
@@ -330,7 +330,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
             
             <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
                <div className="relative w-full max-w-[450px] h-[300px] lg:h-[450px] opacity-90 flex items-center justify-center">
-                 <PillarVisual_Helix />
+                 <PillarVisual_Turbine color="#E21E3F" />
                </div>
             </div>
           </div>
@@ -602,7 +602,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
       <FAQSection
         faqs={pillarFAQs}
-        accentColor="#E21E3F"
+        accentColor="#C5A059"
         title="Questions about automation?"
         subtitle="Common questions about workflows and bots."
         onNavigate={onNavigate}

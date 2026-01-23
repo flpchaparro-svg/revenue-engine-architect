@@ -1,6 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 
-const PillarVisual_Turbine: React.FC = () => {
+interface PillarVisual_TurbineProps {
+  color?: string;
+}
+
+const PillarVisual_Turbine: React.FC<PillarVisual_TurbineProps> = ({ color = '#C5A059' }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -94,8 +98,8 @@ const PillarVisual_Turbine: React.FC = () => {
         ctx.lineJoin = 'round';
 
         if (processed) {
-            // --- PROCESSED: PURE GOLD WIREFRAME (NO FILL) ---
-            ctx.strokeStyle = '#C5A059';
+            // --- PROCESSED: WIREFRAME (NO FILL) ---
+            ctx.strokeStyle = color;
             ctx.lineWidth = 1.5;
 
             faces.forEach(f => {
@@ -110,7 +114,7 @@ const PillarVisual_Turbine: React.FC = () => {
             
             // Add internal highlight (Core Dot)
             const center = project(c.x, c.offsetY, 0);
-            ctx.fillStyle = '#C5A059';
+            ctx.fillStyle = color;
             ctx.beginPath();
             ctx.arc(center.x, center.y, 1.5, 0, Math.PI*2);
             ctx.fill();
@@ -158,10 +162,11 @@ const PillarVisual_Turbine: React.FC = () => {
 
         // Gate Beam (Behind - Very subtle)
         // Keep beam slightly visible to define the transition point
+        const rgb = color === '#E21E3F' ? '226, 30, 63' : '197, 160, 89';
         const grad = ctx.createLinearGradient(top.x, top.y, bot.x, bot.y);
-        grad.addColorStop(0, 'rgba(197, 160, 89, 0)');
-        grad.addColorStop(0.5, 'rgba(197, 160, 89, 0.2)');
-        grad.addColorStop(1, 'rgba(197, 160, 89, 0)');
+        grad.addColorStop(0, `rgba(${rgb}, 0)`);
+        grad.addColorStop(0.5, `rgba(${rgb}, 0.2)`);
+        grad.addColorStop(1, `rgba(${rgb}, 0)`);
         
         ctx.fillStyle = grad;
         ctx.fillRect(top.x - 1, top.y, 2, bot.y - top.y);
@@ -203,7 +208,7 @@ const PillarVisual_Turbine: React.FC = () => {
 
         // Gate Scanner Overlay (Front)
         // Thin bright line
-        ctx.fillStyle = '#C5A059';
+        ctx.fillStyle = color;
         ctx.fillRect(top.x, top.y, 1, bot.y - top.y);
 
         requestAnimationFrame(animate);

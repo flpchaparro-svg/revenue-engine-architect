@@ -6,7 +6,6 @@ import { AnimatePresence, motion, useScroll, useMotionValueEvent } from 'framer-
 import GlobalHeader from './components/GlobalHeader';
 import GlobalFooter from './components/GlobalFooter';
 import Modal from './components/Modal';
-import PageTransition from './components/PageTransition';
 import { ServiceDetail } from './types';
 
 // PAGES
@@ -45,33 +44,21 @@ const App: React.FC = () => {
 
   // Handle Initial Load Delay
   useEffect(() => {
-    // Store original overflow value
-    const originalOverflow = document.body.style.overflow || '';
-    
-    // Lock scroll during preloader
     document.body.style.overflow = 'hidden';
-    
-    const timer = setTimeout(() => {
-      setInitialLoadComplete(true);
-    }, 1000); // Duration of the "Dark Room" experience (1 second)
-
-    return () => {
-      clearTimeout(timer);
-    };
+    const timer = setTimeout(() => setInitialLoadComplete(true), 1000);
+    return () => clearTimeout(timer);
   }, []);
 
-  // Ensure scroll is ALWAYS unlocked when preloader completes
+  // Unlock scroll when preloader completes
   useEffect(() => {
     if (initialLoadComplete) {
-      // Force unlock scroll - remove any overflow restrictions
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
     }
   }, [initialLoadComplete]);
 
-  // CRITICAL: Ensure scroll is ALWAYS unlocked on every route change
+  // Reset scroll on route change
   useEffect(() => {
-    // Always ensure scroll is unlocked after navigation
     requestAnimationFrame(() => {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
@@ -79,7 +66,7 @@ const App: React.FC = () => {
     });
   }, [location.pathname]);
 
-  const handleGlobalNavigate = (path: string, sectionId?: string) => {
+  const handleGlobalNavigate = (path: string) => {
     const routeMap: Record<string, string> = {
       'homepage': '/',
       'architect': '/architect',
@@ -181,7 +168,7 @@ const App: React.FC = () => {
         <GlobalHeader currentView={getCurrentView()} onNavigate={handleGlobalNavigate} scrolled={scrolled} />
       )}
 
-      <PageTransition currentView={getCurrentView()}>
+      <div className="relative min-h-screen w-full">
         <Suspense fallback={<div className="h-screen w-full bg-[#FFF2EC]" />}>
           <AnimatePresence mode="wait">
             <Routes location={location}>
@@ -205,7 +192,7 @@ const App: React.FC = () => {
             </Routes>
           </AnimatePresence>
         </Suspense>
-      </PageTransition>
+      </div>
 
       {location.pathname !== '/system' && <GlobalFooter onNavigate={handleGlobalNavigate} />}
       <Modal service={selectedService} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onViewPillar={(id) => handleGlobalNavigate(id)} />

@@ -51,7 +51,6 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
         document.body.style.paddingRight = originalPaddingRight || '';
       } catch (error) {
         // Fallback: Force restore scroll if cleanup fails
-        console.warn('Scroll restoration failed, forcing restore:', error);
         document.body.style.overflow = '';
         document.body.style.paddingRight = '';
       }
