@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, lazy, Suspense } from 'react';
 import { 
   motion, 
   useScroll, 
@@ -11,16 +11,13 @@ import GlobalFooter from '../../components/GlobalFooter';
 import HeroVisual_Suspension from '../../components/HeroVisual_Suspension';
 import FAQSection from '../../components/FAQSection';
 import { getSystemPageFAQs } from '../../constants/faqData';
-import { SystemArchitecture } from '../../components/SystemArchitecture';
 import BackButton from '../../components/BackButton';
-import GridItem from '../../components/SystemGridItem';
-import { getAllPillars } from '../../constants/systemPillars';
+import SystemGrid from '../../components/SystemGrid';
 import { usePageTitle } from '../../hooks/usePageTitle';
 
-// Get merged pillar data (SERVICES + SystemPage view data)
-const ALL_PILLARS = getAllPillars();
+// Lazy load the scroll-heavy section
+const SystemArchitecture = lazy(() => import('../../components/SystemArchitecture').then(module => ({ default: module.SystemArchitecture })));
 
-// --- MAIN PAGE ---
 interface SystemPageProps {
   onBack: () => void;
   onNavigate: (path: string) => void;
@@ -28,12 +25,10 @@ interface SystemPageProps {
 
 const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
   usePageTitle('The System');
-  
-  const [selectedPillarId, setSelectedPillarId] = useState<string | null>(null);
-  const gridSectionRef = useRef<HTMLDivElement>(null);
   const systemFAQs = getSystemPageFAQs();
 
-  // Scroll Animation Logic
+  // --- OPTIMIZED HERO SCROLL LOGIC ---
+  // (This logic only affects the Hero now, which is correct)
   const { scrollY } = useScroll();
   const scrollLineY = useMotionValue(-100);
   const scrollLineSpeed = useMotionValue(0.067);
@@ -74,7 +69,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
   return (
     <div className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-0 pb-0 px-0 relative z-[150] flex flex-col font-sans">
       
-      {/* HERO SECTION */}
+      {/* 1. HERO SECTION (Static Props, Self-Contained Animation) */}
       <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
           <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
@@ -109,51 +104,19 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
         </div>
       </section>
 
-      {/* SCROLLYTELLING */}
-      <section className="relative z-0 mb-32 border-t border-[#1a1a1a]/10">
-         <SystemArchitecture />
-      </section>
+      {/* 2. SCROLLYTELLING (Lazy Loaded) */}
+      <Suspense fallback={<div className="h-[50vh] bg-[#FFF2EC]" />}>
+        <section className="relative z-0 mb-32 border-t border-[#1a1a1a]/10">
+           <SystemArchitecture />
+        </section>
+      </Suspense>
 
-      {/* GRID BLUEPRINT */}
+      {/* 3. GRID BLUEPRINT (Isolated State) */}
       <section className="w-full bg-[#FFF2EC] pb-32 relative z-10">
-        <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-          
-          <div className="text-center max-w-2xl mx-auto mb-20 pt-10">
-              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center justify-center gap-2">
-                 <div className="w-2 h-2 rounded-sm bg-[#C5A059]" />
-                 / SYSTEM MANIFEST
-              </span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
-                The Parts in <span className="italic font-serif text-[#C5A059]">Detail.</span>
-              </h2>
-              <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto">
-                Select a component to see how it works.
-              </p>
-          </div>
-
-          <motion.div 
-            ref={gridSectionRef}
-            layout 
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-[#1a1a1a]/20 bg-[#1a1a1a]/10"
-          >
-            {ALL_PILLARS.map((pillar) => (
-              <GridItem 
-                key={pillar.id}
-                pillar={pillar}
-                isSelected={selectedPillarId === pillar.id}
-                selectedId={selectedPillarId}
-                onToggle={() => {
-                  const newId = selectedPillarId === pillar.id ? null : pillar.id;
-                  setSelectedPillarId(newId);
-                }}
-                onNavigate={onNavigate}
-              />
-            ))}
-          </motion.div>
-
-        </div>
+        <SystemGrid onNavigate={onNavigate} />
       </section>
 
+      {/* 4. STATIC FOOTER CONTENT */}
       <FAQSection faqs={systemFAQs} accentColor="#C5A059" title="Questions?" subtitle="Everything you need to know before choosing a service." onNavigate={onNavigate} />
       <GlobalFooter onNavigate={onNavigate} />
     </div>

@@ -1,50 +1,22 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Coffee, Code2, Database, Zap, 
-  Globe, Quote, Terminal, Fingerprint, Scan, FlaskConical, 
-  Award, Wrench, Target
-} from 'lucide-react';
+import { Terminal, Fingerprint } from 'lucide-react';
+
+// COMPONENTS
 import CTAButton from '../components/CTAButton'; 
 import BackButton from '../components/BackButton';
+import VideoHUD from '../components/Architect/VideoHUD';
+
+// HOOKS & DATA
 import { usePageTitle } from '../hooks/usePageTitle'; 
+import { ARCHITECT_CONTENT } from '../constants/architectData'; 
 
 interface ArchitectPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
-// --- COMPONENT: VIDEO HUD ---
-const VideoHUD: React.FC = () => (
-  <div className="absolute inset-0 pointer-events-none z-20 p-4 md:p-6 flex flex-col justify-between">
-    <div className="flex justify-between items-start">
-      <div className="flex flex-col gap-1">
-         <div className="flex items-center gap-2 bg-black/40 backdrop-blur-sm px-2 py-1 rounded-sm w-fit">
-            <div className="w-1.5 h-1.5 bg-red-500 animate-pulse rounded-full" />
-            {/* FIX: Bumped to text-[10px] for readability */}
-            <span className="font-mono text-[10px] text-white/90 tracking-widest">REC</span>
-         </div>
-      </div>
-      <Scan className="w-5 h-5 text-white/60" />
-    </div>
-    
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 md:w-32 md:h-32 border border-white/10 rounded-full flex items-center justify-center opacity-50">
-       <div className="w-1 h-1 bg-white/50 rounded-full" />
-    </div>
-
-    <div className="flex justify-between items-end">
-      {/* FIX: Bumped to text-[10px] from 8px */}
-      <div className="space-y-1 font-mono text-[10px] text-white/60 tracking-widest">
-         <div>ISO: 800</div>
-         <div>FPS: 60</div>
-      </div>
-      <div className="border border-white/20 px-2 py-1 bg-black/20 backdrop-blur-sm">
-         <span className="font-mono text-[10px] text-[#E21E3F] tracking-widest uppercase font-bold">System Active</span>
-      </div>
-    </div>
-  </div>
-);
-
+// Reusable Animation Wrapper
 const Section: React.FC<{ children: React.ReactNode, className?: string, delay?: number }> = ({ children, className = "", delay = 0 }) => (
   <motion.div 
     initial={{ opacity: 0, y: 30 }}
@@ -59,53 +31,8 @@ const Section: React.FC<{ children: React.ReactNode, className?: string, delay?:
 
 const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => {
   usePageTitle('The Architect');
-  
   const [mode, setMode] = useState<'architect' | 'human'>('architect');
-  
-  const content = {
-      architect: {
-        label: '/ THE ARCHITECT',
-        accent: 'text-[#E21E3F]',
-        headline: (
-          <>
-            I build the systems that give your team <br className="hidden md:block" />
-            <span className="italic font-serif text-[#C5A059]">their time back.</span>
-          </>
-        ),
-        subhead: "Most consultants sell ideas. I build infrastructure. The kind that runs while you sleep and stops your best people from drowning in admin.",
-        timeline: [
-          { id: 'a1', icon: FlaskConical, title: 'Custom Processes, Not Templates', text: "Real solutions are engineered for the specific situation — never copy-pasted." },
-          { id: 'a2', icon: Award, title: 'High Standards, No Shortcuts', text: "In chemistry, if you miss a step, the reaction fails. Same applies to business systems." },
-          { id: 'a3', icon: Wrench, title: 'Enterprise-Grade', text: "I use the same tools as large agencies — HubSpot, Make.com — but for real-world businesses." },
-          { id: 'a4', icon: Target, title: 'Freedom to Do Your Actual Job', text: "If your sales team is doing data entry, something is broken. I fix that." }
-        ],
-        credentials: [
-          { label: '24+ Certifications', icon: Award },
-          { label: 'HubSpot Expert', icon: Database },
-          { label: 'Based in Sydney', icon: Globe },
-          { label: 'Same-Day Response', icon: Zap }
-        ]
-      },
-      human: {
-        label: '/ THE ARCHITECT',
-        accent: 'text-[#C5A059]',
-        headline: (
-          <>
-            From lab coats <br className="md:hidden" /> to spreadsheets <br className="hidden md:block" />
-            <span className="italic font-serif text-[#C5A059]">to freedom.</span>
-          </>
-        ),
-        subhead: "I've been the person doing the admin at midnight. Running payroll, chasing invoices. That's why I build systems that actually work for real people.",
-        timeline: [
-          { id: 'h1', icon: FlaskConical, title: 'Started in the Lab', text: "I trained as a chemist in Chile. Every project needed a custom process — no templates, just problem-solving." },
-          { id: 'h2', icon: Coffee, title: 'Built My Own Business', text: "I opened a café in Santiago. I did everything: hiring, payroll, marketing. I know what it costs to run a business." },
-          { id: 'h3', icon: Globe, title: 'Managed Across Cultures', text: "I ran a fitness franchise in Southeast Asia. I learned to adapt systems to people — not force people into systems." },
-          { id: 'h4', icon: Code2, title: 'Now I Build for Others', text: "After studying marketing automation and business analytics, I put it all together. I build the systems I wish I'd had when I was running my café — so you can focus on the work that matters." }
-        ]
-      }
-  };
-  
-  const current = content[mode];
+  const current = ARCHITECT_CONTENT[mode];
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] relative z-[150] flex flex-col selection:bg-[#C5A059]/30">
@@ -125,7 +52,6 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
            <div className="flex items-center gap-0 mb-12 border border-[#1a1a1a]/10 bg-white p-1 rounded-sm w-fit shadow-lg mx-auto lg:mx-0">
               <button 
                 onClick={() => setMode('architect')}
-                // FIX: Standardized to text-xs for readability
                 className={`px-5 md:px-8 py-3.5 text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-sm flex items-center gap-2 ${
                   mode === 'architect' ? 'text-[#FFF2EC] bg-[#1a1a1a] shadow-md' : 'text-[#1a1a1a]/40'
                 }`}
@@ -134,7 +60,6 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
               </button>
               <button 
                 onClick={() => setMode('human')}
-                // FIX: Standardized to text-xs for readability
                 className={`px-5 md:px-8 py-3.5 text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-sm flex items-center gap-2 ${
                   mode === 'human' ? 'text-[#1a1a1a] bg-[#C5A059] shadow-md' : 'text-[#1a1a1a]/40'
                 }`}
@@ -147,7 +72,6 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
              <motion.h1
                key={mode}
                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-               // FIX: Bumped mobile H1 to text-5xl to match Home/Process pages
                className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] max-w-5xl mb-6 md:mb-10 mx-auto lg:mx-0"
              >
                {current.headline}
@@ -196,13 +120,13 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                     ))}
                   </div>
 
-                  {mode === 'architect' && (
+                  {/* ARCHITECT CREDENTIALS */}
+                  {mode === 'architect' && ARCHITECT_CONTENT.architect.credentials && (
                     <Section className="bg-white p-6 border border-black/5 rounded-sm">
                       <div className="grid grid-cols-2 gap-4">
-                        {content.architect.credentials.map((cred, i) => (
+                        {ARCHITECT_CONTENT.architect.credentials.map((cred, i) => (
                           <div key={i} className="flex items-center gap-3">
                              <cred.icon className="w-4 h-4 text-[#1a1a1a]/40" />
-                             {/* FIX: Standardized to text-xs */}
                              <span className="font-mono text-xs font-bold uppercase">{cred.label}</span>
                           </div>
                         ))}
@@ -214,8 +138,8 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
            </div>
         </div>
         
+        {/* FOOTER CTA */}
         <Section className="border-t border-black/10 py-32 flex flex-col items-center text-center">
-           {/* FIX: Confirmed H2 is standard 4xl on mobile */}
            <h2 className="font-serif text-4xl md:text-7xl tracking-tighter mb-12">
              Ready to build your <span className="italic font-serif text-[#C5A059]">System?</span>
            </h2>

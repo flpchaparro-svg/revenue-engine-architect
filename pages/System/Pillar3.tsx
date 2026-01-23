@@ -7,270 +7,34 @@ import {
   useTransform
 } from 'framer-motion';
 import { 
-  Zap, GitMerge, Workflow, Cpu, 
-  Link, Split, RefreshCw, Layers, 
-  CheckCircle, ChevronDown, ChevronRight, HelpCircle,
-  FileJson, Mail, MessageSquare
+  CheckCircle, ChevronDown, ChevronRight, HelpCircle
 } from 'lucide-react';
 import PillarVisual_Turbine from '../../components/PillarVisual_Turbine';
 import FAQSection from '../../components/FAQSection';
 import { getPillarFAQs } from '../../constants/faqData';
 import CTAButton from '../../components/CTAButton'; 
 import BackButton from '../../components/BackButton'; 
+import TierVisual from '../../components/Pillar3/TierVisual';
+import { TIERS } from '../../constants/pillar3Data';
 
 interface PillarPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
-// --- VISUALIZATIONS (RED THEME: #E21E3F) ---
-const TierVisual = ({ tierKey }: { tierKey: string }) => {
-  return (
-    <div className="h-32 w-full mb-6 flex items-center justify-center relative bg-transparent">
-      
-      {tierKey === 'linear' && (
-        // ANIMATION: Linear Connection (A -> B)
-        <div className="flex items-center gap-4">
-            <div className="w-8 h-8 border border-[#E21E3F]/40 rounded-sm bg-[#1a1a1a] flex items-center justify-center">
-                <div className="w-2 h-2 bg-[#E21E3F] rounded-full" />
-            </div>
-            <motion.div 
-                className="w-16 h-[2px] bg-[#E21E3F]/20 relative overflow-hidden"
-            >
-                <motion.div 
-                    className="absolute top-0 left-0 w-8 h-full bg-[#E21E3F]"
-                    animate={{ x: [-32, 64] }}
-                    transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-                />
-            </motion.div>
-            <div className="w-8 h-8 border border-[#E21E3F] rounded-sm bg-[#1a1a1a] flex items-center justify-center shadow-[0_0_15px_rgba(226,30,63,0.3)]">
-                <Zap className="w-4 h-4 text-[#E21E3F]" />
-            </div>
-        </div>
-      )}
-
-      {tierKey === 'logic' && (
-        // ANIMATION: Branching Logic
-        <div className="relative w-32 h-20 flex items-center">
-             <div className="absolute left-0 w-2 h-2 bg-[#E21E3F] rounded-full" />
-             <svg className="w-full h-full overflow-visible">
-                <motion.path 
-                    d="M 10 40 L 40 40 L 60 10 L 100 10" 
-                    fill="none" 
-                    stroke="#E21E3F" 
-                    strokeWidth="2"
-                    strokeOpacity="0.3"
-                />
-                <motion.path 
-                    d="M 10 40 L 40 40 L 60 70 L 100 70" 
-                    fill="none" 
-                    stroke="#E21E3F" 
-                    strokeWidth="2"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                />
-             </svg>
-             <div className="absolute right-0 top-2 w-2 h-2 border border-[#E21E3F] rounded-full" />
-             <div className="absolute right-0 bottom-2 w-2 h-2 bg-[#E21E3F] rounded-full shadow-[0_0_10px_#E21E3F]" />
-        </div>
-      )}
-
-      {tierKey === 'engine' && (
-        // ANIMATION: The Engine (Rotating Gears/Cycle)
-        <div className="relative w-24 h-24 flex items-center justify-center">
-            <motion.div 
-               className="absolute inset-0 border-2 border-[#E21E3F]/20 rounded-full border-t-[#E21E3F]"
-               animate={{ rotate: 360 }}
-               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-            />
-            <motion.div 
-               className="absolute inset-4 border-2 border-[#E21E3F]/40 rounded-full border-b-[#E21E3F]"
-               animate={{ rotate: -360 }}
-               transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-            />
-            <Cpu className="w-8 h-8 text-[#E21E3F]" />
-        </div>
-      )}
-
-      {tierKey === 'autonomous' && (
-        // ANIMATION: AI Network
-        <div className="relative w-24 h-24 grid grid-cols-3 gap-2">
-            {[...Array(9)].map((_, i) => (
-                <motion.div 
-                    key={i}
-                    className="w-full h-full bg-[#E21E3F]/10 rounded-full"
-                    animate={{ backgroundColor: ["rgba(226,30,63,0.1)", "rgba(226,30,63,0.8)", "rgba(226,30,63,0.1)"] }}
-                    transition={{ duration: 2, delay: i * 0.2, repeat: Infinity }}
-                />
-            ))}
-        </div>
-      )}
-    </div>
-  );
-};
-
-// --- DATA ---
-const TIERS = {
-  linear: {
-    id: 'linear',
-    label: "TIER 01 / LINEAR",
-    hook: "I need things to connect.",
-    summary: "Choose this if you are copying and pasting data between emails, spreadsheets, and your phone. You just need System A to talk to System B.",
-    sprint: "7-DAY SPRINT",
-    specs: ['Zapier / Make.com Setup', 'Form-to-Email Sync', 'Lead Notification SMS', 'Google Sheets Logging'],
-    personas: [
-      {
-        id: "admin",
-        icon: Link,
-        title: "The Copy-Paster",
-        examples: "Solo Founders, Consultants",
-        painTitle: "The Data Entry Tax",
-        painText: "You spend 5 hours a week moving data from website forms into your phone contacts or a spreadsheet. It's boring, prone to error, and a waste of your talent.",
-        solution: "I build Linear Bridges. Someone fills a form? They instantly appear in your contacts, your spreadsheet, and you get a Slack notification. Zero manual entry."
-      },
-      {
-        id: "alert",
-        icon: Mail,
-        title: "The Late Responder",
-        examples: "Trades, Emergency Services",
-        painTitle: "Cold Leads",
-        painText: "You don't see the email enquiry until 4 hours later. By then, they've hired someone else. Speed is the only advantage you have, and you're losing it.",
-        solution: "I build Instant SMS Alerts. When a lead arrives, your phone buzzes with their details immediately. You call them while they are still looking at your website."
-      },
-      {
-        id: "lost",
-        icon: FileJson,
-        title: "The Paper Shuffler",
-        examples: "Event Planners, Admin",
-        painTitle: "Lost Details",
-        painText: "You rely on your memory or sticky notes to remember client details. Eventually, you forget one, and it costs you the relationship.",
-        solution: "I build Digital Logging. Every interaction is automatically saved to a central sheet or database. You never lose a detail again."
-      }
-    ]
-  },
-  logic: {
-    id: 'logic',
-    label: "TIER 02 / LOGIC",
-    hook: "I need rules & routing.",
-    summary: "Choose this if you have a team or multiple services. You need 'If This, Then That' logic to send the right lead to the right person automatically.",
-    sprint: "14-DAY SPRINT",
-    specs: ['Advanced Routers', 'Conditional Logic', 'Lead Qualification', 'Round-Robin Assignment'],
-    personas: [
-      {
-        id: "router",
-        icon: Split,
-        title: "The Traffic Cop",
-        examples: "Agencies, Multi-Service Biz",
-        painTitle: "Manual Dispatch",
-        painText: "You personally read every enquiry to decide if it goes to Sales, Support, or Accounts. You are the bottleneck. If you take a day off, the business freezes.",
-        solution: "I build Logic Routers. 'If budget > $10k, alert Senior Sales. If Support, create Ticket.' The system reads the lead and routes it instantly without you."
-      },
-      {
-        id: "filter",
-        icon: GitMerge,
-        title: "The Qualifier",
-        examples: "High-Ticket Sales, Coaches",
-        painTitle: "Junk Lead Fatigue",
-        painText: "Your calendar is full of people who can't afford you. You waste hours on calls with unqualified prospects because your booking link is open to everyone.",
-        solution: "I build Gatekeeper Logic. The system analyzes their answers. If they don't meet criteria, they get a polite email. If they do, they get your calendar."
-      },
-      {
-        id: "fairness",
-        icon: RefreshCw,
-        title: "The Team Leader",
-        examples: "Real Estate, Sales Teams",
-        painTitle: "The Fairness Fight",
-        painText: "Your sales team complains that 'he got the good lead'. You're manually assigning leads to keep peace, wasting time on politics.",
-        solution: "I build Round-Robin Distributors. Leads are assigned strictly in turns, or weighted by performance. Fair, instant, and automatic."
-      }
-    ]
-  },
-  engine: {
-    id: 'engine',
-    label: "TIER 03 / ENGINE",
-    hook: "I need fulfillment.",
-    summary: "Choose this if you want the system to actually DO the work. Generating contracts, creating invoices, and setting up project folders automatically.",
-    sprint: "21-DAY SPRINT",
-    specs: ['Document Generation', 'E-Signature Automation', 'Project Onboarding', 'Finance Sync'],
-    personas: [
-      {
-        id: "builder",
-        icon: Workflow,
-        title: "The Document Creator",
-        examples: "Agencies, Contractors",
-        painTitle: "Proposal Lag",
-        painText: "You finish a call, but it takes you 2 days to write the proposal and contract. The client's excitement fades. You lose the deal to momentum.",
-        solution: "I build One-Click Contracts. You click a button in your CRM, and the system generates a PDF proposal, sends it for e-signature, and follows up until signed."
-      },
-      {
-        id: "onboard",
-        icon: Layers,
-        title: "The Onboarder",
-        examples: "SaaS, Service Providers",
-        painTitle: "Setup Fatigue",
-        painText: "Every new client requires 20 manual steps: create folder, add to Slack, send welcome email, create invoice. It kills the joy of winning a deal.",
-        solution: "I build Instant Onboarding. Client signs -> System creates Google Drive folders, Slack channels, Xero invoices, and sends the Welcome Pack. Zero touch."
-      },
-      {
-        id: "finance",
-        icon: CheckCircle,
-        title: "The Collector",
-        examples: "Subscription Biz, Retainers",
-        painTitle: "Chasing Money",
-        painText: "You spend Fridays chasing unpaid invoices. It's awkward and wastes time. You feel like a debt collector, not a CEO.",
-        solution: "I build Automated Accounts Receivable. The system detects an unpaid invoice, sends polite reminders at 3, 7, and 14 days, and alerts you only if they ghost."
-      }
-    ]
-  },
-  autonomous: {
-    id: 'autonomous',
-    label: "TIER 04 / AGENTIC",
-    hook: "I need intelligent workers.",
-    summary: "Choose this if you want AI Agents to perform complex cognitive tasks—reading emails, drafting responses, and making decisions based on context.",
-    sprint: "30+ DAY SPRINT",
-    specs: ['OpenAI / Claude API', 'Cognitive Agents', 'Sentiment Analysis', 'Autonomous Support'],
-    personas: [
-      {
-        id: "inbox",
-        icon: MessageSquare,
-        title: "The Inbox Slave",
-        examples: "Founders, Consultants",
-        painTitle: "Email Prison",
-        painText: "You spend 3 hours a day replying to emails that require 'thinking'. Standard auto-responders won't work because the answers vary.",
-        solution: "I build AI Correspondence Agents. The system reads the email, checks your calendar/knowledge base, drafts a perfect reply in your tone, and leaves it as a 'Draft' for you to approve."
-      },
-      {
-        id: "analyst",
-        icon: Cpu,
-        title: "The Data Reader",
-        examples: "Legal, Medical, Research",
-        painTitle: "Information Overload",
-        painText: "You have to read hundreds of applications or forms to find the 'good ones'. It's tedious, high-focus work that burns you out.",
-        solution: "I build Cognitive Classifiers. The AI reads the applications, scores them based on your criteria, extracts key data, and summarizes the top 10% for your review."
-      },
-      {
-        id: "support",
-        icon: HelpCircle,
-        title: "The 24/7 Rep",
-        examples: "E-commerce, Tech Support",
-        painTitle: "Support Burnout",
-        painText: "Customers ask the same complex questions 24/7. Chatbots are too dumb; humans are too expensive to scale.",
-        solution: "I build Autonomous Support Agents. They don't just follow a script; they read your documentation, troubleshoot the user's issue, and solve the ticket without human intervention."
-      }
-    ]
-  }
-};
-
 const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
+  // STATE
   const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('linear');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
-  
-  // Mobile States
   const [expandedTier, setExpandedTier] = useState<keyof typeof TIERS | null>('linear');
   const [expandedPersona, setExpandedPersona] = useState<string | null>(null);
 
+  // DATA HELPERS
   const pillarFAQs = getPillarFAQs('pillar3');
+  const currentTier = TIERS[activeTier];
+  const currentPersona = currentTier.personas[activePersonaIndex];
+
+  // SCROLL ANIMATION
   const scrollLineY = useMotionValue(-100);
   const scrollLineSpeed = useMotionValue(0.067);
 
@@ -282,15 +46,12 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
     scrollLineY.set(newY);
   });
 
-  const currentTier = TIERS[activeTier];
-  const currentPersona = currentTier.personas[activePersonaIndex];
-
   const handleScrollTo = (id: string) => {
     setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
             const offset = 100;
-            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
             const offsetPosition = elementPosition - offset;
             window.scrollTo({ top: offsetPosition, behavior: "smooth" });
         }
@@ -303,7 +64,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] px-0 relative z-[150] overflow-x-hidden flex flex-col font-sans"
     >
       
-      {/* HERO */}
+      {/* 1. HERO SECTION */}
       <section className="relative min-h-[700px] h-[100dvh] w-full flex flex-col overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full h-full flex flex-col relative z-10">
           <div className="flex justify-between items-center mb-4 pt-24 relative z-20">
@@ -344,7 +105,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         </div>
       </section>
 
-      {/* CONFIGURATOR */}
+      {/* 2. CONFIGURATOR SECTION */}
       <section className="w-full px-6 md:px-12 lg:px-20 pt-24 pb-32 max-w-[1400px] mx-auto border-t border-[#1a1a1a]/10">
         <div className="mb-16">
            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-4 block">
@@ -361,8 +122,9 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
            </div>
         </div>
 
-        {/* DESKTOP VIEW */}
+        {/* --- DESKTOP VIEW --- */}
         <div className="hidden md:block border border-black/10 bg-gradient-to-br from-white to-[#FFF9F0] shadow-sm mb-32 rounded-sm overflow-hidden">
+           {/* TABS */}
            <div className="grid grid-cols-4 border-b border-black/10 bg-[#FAFAFA]">
               {Object.entries(TIERS).map(([key, tier]) => (
                 <button 
@@ -383,7 +145,9 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
               ))}
            </div>
            
+           {/* CONTENT */}
            <div className="flex min-h-[600px]">
+              {/* LEFT SIDEBAR */}
               <div className="w-1/3 border-r border-black/10 bg-[#FAFAFA] p-8 flex flex-col">
                  <div className="mb-8 p-4 bg-white border border-black/5 rounded-sm">
                     <div className="flex gap-2 items-center mb-2">
@@ -429,6 +193,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                  </div>
               </div>
 
+              {/* RIGHT CONTENT */}
               <div className="w-2/3 p-12 relative flex flex-col">
                   <AnimatePresence mode="wait">
                     <motion.div 
@@ -466,7 +231,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
            </div>
         </div>
 
-        {/* MOBILE VIEW */}
+        {/* --- MOBILE VIEW --- */}
         <div className="md:hidden space-y-4 mb-32">
           {Object.entries(TIERS).map(([key, tier]) => {
             const isTierExpanded = expandedTier === key;
@@ -481,9 +246,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                     const willExpand = !isTierExpanded;
                     setExpandedTier(willExpand ? key as keyof typeof TIERS : null);
                     setExpandedPersona(null); 
-                    if (willExpand) {
-                        handleScrollTo(`tier-mobile-${key}`);
-                    }
+                    if (willExpand) handleScrollTo(`tier-mobile-${key}`);
                   }}
                   className={`w-full flex items-center justify-between p-6 text-left transition-colors duration-300 ${isTierExpanded ? 'bg-[#1a1a1a] text-white' : 'bg-white text-black'}`}
                 >
@@ -509,7 +272,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                {tier.summary}
                             </p>
                          </div>
-
+                         
                          <span className="font-mono text-[10px] text-black/30 uppercase tracking-widest font-bold block mb-2 px-2">Select Profile:</span>
                          
                          {tier.personas.map((p) => {
@@ -524,9 +287,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                  onClick={() => {
                                     const willExpand = !isPersonaExpanded;
                                     setExpandedPersona(willExpand ? p.id : null);
-                                    if (willExpand) {
-                                        handleScrollTo(`persona-mobile-${p.id}`); 
-                                    }
+                                    if (willExpand) handleScrollTo(`persona-mobile-${p.id}`); 
                                  }}
                                  className="w-full flex items-center gap-4 p-4 text-left hover:bg-black/5 transition-colors"
                                >
@@ -597,7 +358,6 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
             );
           })}
         </div>
-
       </section>
 
       <FAQSection

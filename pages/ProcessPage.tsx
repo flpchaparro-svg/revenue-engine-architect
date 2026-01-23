@@ -1,19 +1,21 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Search, PenTool, Hammer, Flag, 
-  CheckCircle2
-} from 'lucide-react';
+
+// COMPONENTS
 import ProtocolVisual_Geodesic from '../components/ProtocolVisual_Geodesic';
 import CTAButton from '../components/CTAButton'; 
-import BackButton from '../components/BackButton';
-import { usePageTitle } from '../hooks/usePageTitle'; 
+import BackButton from '../components/BackButton'; 
+
+// HOOKS & DATA
+import { usePageTitle } from '../hooks/usePageTitle';
+import { PRINCIPLES, STEPS } from '../constants/processData'; 
 
 interface ProcessPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
+// Reusable Animation Wrapper
 const Section: React.FC<{ children: React.ReactNode, className?: string, delay?: number }> = ({ children, className = "", delay = 0 }) => (
   <motion.div 
     initial={{ opacity: 0, y: 30 }}
@@ -28,62 +30,6 @@ const Section: React.FC<{ children: React.ReactNode, className?: string, delay?:
 
 const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
   usePageTitle('The Process');
-
-  const principles = [
-    {
-      id: 'p1',
-      label: 'RULE 01 / CLARITY',
-      title: 'Clarity Over Complexity',
-      body: "If I can't explain it to you at a pub, it's too complex. You'll understand every part of your system, and if you don't, I haven't done my job.",
-      icon: Search
-    },
-    {
-      id: 'p2',
-      label: 'RULE 02 // EMPATHY',
-      title: 'People Before Technology',
-      body: "If a new tool makes your team's day harder, it's failed. I build systems that save time, not add more admin.",
-      icon: CheckCircle2
-    }
-  ];
-
-  const steps = [
-    {
-      id: '01',
-      phase: 'PHASE I',
-      title: 'Find the Leaks',
-      text: "I don't guess. I look for the repetitive tasks burning your team, the stuff that eats 15 hours a week. I find where data gets typed twice, where leads go cold, and where profit disappears.",
-      icon: Search,
-      color: 'text-[#E21E3F]',
-      borderColor: 'border-[#E21E3F]'
-    },
-    {
-      id: '02',
-      phase: 'PHASE II',
-      title: 'Pick the Right Tools',
-      text: "I'm not locked into HubSpot or Salesforce, so I find what actually fits your business. We design the logic before we write a single line of code.",
-      icon: PenTool,
-      color: 'text-[#C5A059]',
-      borderColor: 'border-[#C5A059]'
-    },
-    {
-      id: '03',
-      phase: 'PHASE III',
-      title: 'Ship Fast & Iterate',
-      text: "No 6-month projects that drain your budget. I build in sprints so you start seeing progress in weeks, not quarters.",
-      icon: Hammer,
-      color: 'text-[#C5A059]',
-      borderColor: 'border-[#C5A059]'
-    },
-    {
-      id: '04',
-      phase: 'PHASE IV',
-      title: 'Make It Stick',
-      text: "Software fails when people don't use it. I build the training materials and run the workshops so your team actually prefers the new way.",
-      icon: Flag,
-      color: 'text-[#C5A059]',
-      borderColor: 'border-[#C5A059]'
-    }
-  ];
 
   return (
     <motion.div 
@@ -108,7 +54,6 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                 THE PROCESS
               </span>
             </div>
-            {/* FIXED: Scaled up to text-5xl on mobile to match Home Page standard */}
             <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-12">
               How I <span className="italic font-serif text-[#C5A059]">Work.</span>
             </h1>
@@ -131,14 +76,13 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block">
               / OPERATING SYSTEM
             </span>
-            {/* FIXED: Scaled up to text-4xl on mobile */}
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
               Core <span className="italic font-serif text-[#C5A059]">Principles.</span>
             </h2>
           </Section>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-             {principles.map((principle, idx) => (
+             {PRINCIPLES.map((principle, idx) => (
                <Section key={principle.id} delay={idx * 0.1} className="group bg-white p-8 md:p-12 border border-[#1a1a1a]/5 hover:border-[#1a1a1a]/20 shadow-sm hover:shadow-xl transition-all duration-500 rounded-sm relative overflow-hidden">
                  <div className="absolute top-0 left-0 w-full h-1 bg-[#1a1a1a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left will-change-transform" />
                  <div className="flex justify-between items-start mb-8">
@@ -164,20 +108,18 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
               / METHODOLOGY
             </span>
-            {/* FIXED: Scaled up to text-4xl on mobile */}
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
               The Execution <span className="italic font-serif text-[#C5A059]">Path.</span>
             </h2>
           </Section>
 
-          {/* FIX: Increased horizontal padding on mobile to prevent clipping */}
           <div className="relative px-4 md:px-0">
              {/* Center Line on Desktop */}
              <div className="absolute left-[19px] md:left-[50%] top-0 bottom-0 w-px bg-gradient-to-b from-[#E21E3F] via-[#C5A059] to-[#1a1a1a] hidden md:block" />
              {/* Left Line on Mobile */}
              <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-[#E21E3F] via-[#C5A059] to-[#1a1a1a] md:hidden" />
 
-             {steps.map((step, idx) => (
+             {STEPS.map((step, idx) => (
                <Section key={step.id} delay={idx * 0.1} className={`relative flex flex-col md:flex-row gap-4 md:gap-24 py-12 ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                   {/* Icon Node */}
                   <div className="absolute left-0 md:left-[50%] top-12 -translate-x-1/2 md:-translate-x-1/2 z-10 bg-[#FFF2EC] p-2">
@@ -186,7 +128,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                      </div>
                   </div>
                   
-                  {/* Left/Right Logic for Desktop */}
+                  {/* Text Content */}
                   <div className={`flex-1 md:text-right ${idx % 2 !== 0 ? 'md:text-left' : ''} pl-12 md:pl-0`}>
                      <span className={`font-mono text-[10px] uppercase tracking-[0.2em] font-bold mb-2 block ${step.color}`}>
                        {step.phase}
@@ -213,7 +155,6 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                 <span className="font-mono text-xs font-bold text-[#C5A059] uppercase tracking-[0.2em] mb-6 block">
                   / PROJECT INITIATION
                 </span>
-                {/* FIXED: Scaled up to text-5xl on mobile */}
                 <h2 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tighter text-white mb-12">
                   Ready to <span className="italic font-serif text-[#C5A059]">Start?</span>
                 </h2>

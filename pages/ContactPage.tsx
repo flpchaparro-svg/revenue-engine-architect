@@ -1,9 +1,15 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Check, ChevronDown } from 'lucide-react';
-import CTAButton from '../components/CTAButton'; // STANDARDIZED BUTTON
-import BackButton from '../components/BackButton'; // STANDARDIZED NAV
+
+// COMPONENTS
+import CTAButton from '../components/CTAButton'; 
+import BackButton from '../components/BackButton'; 
+
+// HOOKS & DATA
 import { usePageTitle } from '../hooks/usePageTitle';
+import { useContactForm } from '../hooks/useContactForm';
+import { DIAGNOSIS_OPTIONS } from '../constants/contactData';
 
 interface ContactPageProps {
   onBack: () => void;
@@ -11,68 +17,28 @@ interface ContactPageProps {
 
 const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
   usePageTitle('Contact');
+  const { formState, updateField, status, handleSubmit } = useContactForm();
   
-  const formRef = useRef<HTMLFormElement>(null);
-  
-  const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    company: '',
-    frictionPoint: 'Digital Revenue / I need more leads & sales',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSent, setIsSent] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSent(true);
-    }, 1500);
-  };
-
-  const systems = [
-    'Digital Revenue / I need more leads & sales',
-    'Capture Core / My leads aren\'t converting',
-    'Auto-Fulfillment / Delivery is too manual',
-    'AI Agents / I want to automate admin work',
-    'Media Logistics / Content production is too slow',
-    'Internal Adoption / My team won\'t use the tools',
-    'Control Tower / I don\'t trust my data',
-    'Unsure / I need a full system audit'
-  ];
-
-  // FIX: Increased placeholder opacity from /30 to /50 for better readability
   const inputBaseStyle = "w-full bg-white/5 border border-white/10 px-4 py-4 font-sans text-xl text-white focus:outline-none focus:border-[#C5A059] focus:bg-white/10 transition-all placeholder:text-white/50 rounded-sm mt-2";
 
   return (
     // FIX: Main background changed to #1a1a1a so overscrolling on mobile doesn't show cream under the black form
     <div className="min-h-screen w-full flex flex-col lg:flex-row relative z-[9999] bg-[#1a1a1a]">
       
-      {/* LEFT COLUMN: THE HUMAN ANCHOR (CREAM) */}
-      {/* FIX: 'h-auto' allows content to dictate height on mobile, preventing large empty gaps */}
+      {/* LEFT COLUMN: THE HUMAN ANCHOR */}
       <div className="w-full lg:w-5/12 h-auto lg:h-screen lg:sticky lg:top-0 bg-[#FFF2EC] text-[#1a1a1a] flex flex-col p-8 md:p-12 lg:px-20 lg:pb-20 lg:pt-24 border-r border-[#1a1a1a]/10 justify-between order-first relative z-10">
-        
-        {/* NAV */}
         <div className="flex-none mb-12 lg:mb-0 pt-2 lg:pt-0">
           <BackButton onClick={onBack} label="Abort Diagnosis" />
         </div>
 
-        {/* The Promise */}
         <div className="flex-1 flex flex-col justify-center py-8 lg:py-0">
           <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] mb-6 md:mb-8 block">
             / THE PROMISE
           </span>
-          
-          {/* FIX: Mobile text size reduced to 4xl to prevent bad word breaking on narrow screens */}
           <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.0] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-10">
             This is not a <br />
             <span className="italic font-serif text-[#C5A059]">Sales Call.</span>
           </h1>
-          
           <div className="space-y-6 max-w-lg">
             <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]">
               I don't employ salespeople. When you submit this brief, you are starting a conversation directly with me.
@@ -83,7 +49,6 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
           </div>
         </div>
 
-        {/* Footer (Hidden on Mobile to save space) */}
         <div className="hidden lg:block flex-none opacity-40">
            <div className="w-12 h-[1px] bg-[#C5A059] mb-4" />
            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
@@ -92,10 +57,10 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
         </div>
       </div>
 
-      {/* RIGHT COLUMN: THE SYSTEM FORM (BLACK) */}
+      {/* RIGHT COLUMN: THE SYSTEM FORM */}
       <div className="w-full lg:w-7/12 min-h-screen bg-[#1a1a1a] text-[#FFF2EC] p-6 md:p-12 lg:p-24 flex flex-col justify-center relative">
         
-        {!isSent ? (
+        {status !== 'success' ? (
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-xl w-full mx-auto lg:mx-0">
             
             <div className="mb-12 border-b border-white/10 pb-8 mt-8 lg:mt-0">
@@ -110,64 +75,31 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
               </p>
             </div>
 
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
-              
+            <form onSubmit={handleSubmit} className="space-y-8">
               {/* Row 1: Name & Email */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="group relative">
-                  <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
-                    01 // IDENTIFICATION
-                  </label>
-                  <input 
-                    type="text" 
-                    required
-                    className={inputBaseStyle}
-                    placeholder="Full Name"
-                    value={formState.name}
-                    onChange={e => setFormState({...formState, name: e.target.value})}
-                  />
+                  <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">01 // IDENTIFICATION</label>
+                  <input type="text" required className={inputBaseStyle} placeholder="Full Name" value={formState.name} onChange={e => updateField('name', e.target.value)} />
                 </div>
                 <div className="group relative">
-                  <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
-                    02 // COORDINATES
-                  </label>
-                  <input 
-                    type="email" 
-                    required
-                    className={inputBaseStyle}
-                    placeholder="Email Address"
-                    value={formState.email}
-                    onChange={e => setFormState({...formState, email: e.target.value})}
-                  />
+                  <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">02 // COORDINATES</label>
+                  <input type="email" required className={inputBaseStyle} placeholder="Email Address" value={formState.email} onChange={e => updateField('email', e.target.value)} />
                 </div>
               </div>
 
               {/* Row 2: Entity */}
               <div className="group relative">
-                <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
-                  03 // ENTITY
-                </label>
-                <input 
-                  type="text" 
-                  className={inputBaseStyle}
-                  placeholder="Company / Website"
-                  value={formState.company}
-                  onChange={e => setFormState({...formState, company: e.target.value})}
-                />
+                <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">03 // ENTITY</label>
+                <input type="text" className={inputBaseStyle} placeholder="Company / Website" value={formState.company} onChange={e => updateField('company', e.target.value)} />
               </div>
 
               {/* Row 3: Dropdown */}
               <div className="group relative">
-                <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
-                  04 // THE HANDBRAKE
-                </label>
+                <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">04 // THE HANDBRAKE</label>
                 <div className="relative">
-                  <select 
-                    className={`${inputBaseStyle} appearance-none cursor-pointer pr-10`}
-                    value={formState.frictionPoint}
-                    onChange={e => setFormState({...formState, frictionPoint: e.target.value})}
-                  >
-                    {systems.map(s => <option key={s} value={s} className="bg-[#1a1a1a] text-white">{s}</option>)}
+                  <select className={`${inputBaseStyle} appearance-none cursor-pointer pr-10`} value={formState.frictionPoint} onChange={e => updateField('frictionPoint', e.target.value)}>
+                    {DIAGNOSIS_OPTIONS.map(s => <option key={s} value={s} className="bg-[#1a1a1a] text-white">{s}</option>)}
                   </select>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none mt-1">
                      <ChevronDown className="w-5 h-5 text-[#C5A059]" />
@@ -177,28 +109,15 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
               {/* Row 4: Message */}
               <div className="group relative">
-                <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">
-                   05 // CONTEXT
-                </label>
-                <textarea 
-                  rows={4}
-                  className={`${inputBaseStyle} resize-none`}
-                  placeholder="Give me the details. I analyse the system, not the symptoms."
-                  value={formState.message}
-                  onChange={e => setFormState({...formState, message: e.target.value})}
-                />
+                <label className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">05 // CONTEXT</label>
+                <textarea rows={4} className={`${inputBaseStyle} resize-none`} placeholder="Give me the details. I analyse the system, not the symptoms." value={formState.message} onChange={e => updateField('message', e.target.value)} />
               </div>
 
               <div className="pt-8 pb-12">
-                <CTAButton 
-                  theme="dark"
-                  type="submit"
-                  className={`w-full ${isSubmitting ? 'opacity-50 cursor-wait' : ''}`}
-                >
-                  {isSubmitting ? 'UPLOADING...' : '[ INITIATE DIAGNOSIS ]'}
+                <CTAButton theme="dark" type="submit" className={`w-full ${status === 'submitting' ? 'opacity-50 cursor-wait' : ''}`}>
+                  {status === 'submitting' ? 'UPLOADING...' : '[ INITIATE DIAGNOSIS ]'}
                 </CTAButton>
               </div>
-              
             </form>
           </motion.div>
         ) : (

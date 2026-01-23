@@ -1,125 +1,38 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import { 
-  ShieldCheck, Activity, Database, ArrowRight, Zap, 
-  MapPin, Terminal, Globe, AlertTriangle, 
-  LayoutTemplate, Clock, Target 
+  ShieldCheck, ArrowRight, Clock, LayoutTemplate 
 } from 'lucide-react';
+
+// COMPONENTS
 import EvidenceVisual_Compare from '../components/EvidenceVisual_Compare';
 import CTAButton from '../components/CTAButton'; 
-import BackButton from '../components/BackButton';
-import { usePageTitle } from '../hooks/usePageTitle'; 
+import BackButton from '../components/BackButton'; 
+import TerminalLog from '../components/Proof/TerminalLog';
+import CountUp from '../components/CountUp';
+
+// HOOKS & DATA
+import { usePageTitle } from '../hooks/usePageTitle';
+import { PROBLEM_ITEMS, SOLUTION_ITEMS, EVIDENCE_METRICS } from '../constants/proofData'; 
 
 interface ProofPageProps {
   onBack: () => void;
   onNavigate: (view: string, sectionId?: string) => void;
 }
 
-// --- HELPER: ANIMATED COUNTER ---
-const CountUp: React.FC<{ value: number, suffix?: string, prefix?: string }> = ({ value, suffix = '', prefix = '' }) => {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-20px" });
+// Reusable Animation Wrapper
+const Section: React.FC<{ children: React.ReactNode, className?: string, delay?: number }> = ({ children, className = "", delay = 0 }) => (
+  <motion.div 
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-50px" }}
+    transition={{ duration: 0.7, delay, ease: "easeOut" }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+);
 
-  useEffect(() => {
-    if (!isInView) return;
-    let start = 0;
-    const duration = 2000;
-    const incrementTime = duration / (value || 1); 
-    
-    const timer = setInterval(() => {
-      start += 1;
-      if (start > value) start = value;
-      setCount(start);
-      if (start >= value) clearInterval(timer);
-    }, incrementTime);
-    
-    return () => clearInterval(timer);
-  }, [value, isInView]);
-
-  return <span ref={ref}>{prefix}{count}{suffix}</span>;
-};
-
-// --- COMPONENT: TERMINAL LOG ---
-const TerminalLog: React.FC = () => {
-  const [lines, setLines] = useState<string[]>([]);
-  const allLines = [
-    "> Auditing old site... [4.2s load, 42/100 PSI]",
-    "> Migrating domain: .com → .com.au... [DONE]",
-    "> Rebuilding in React + Tailwind... [DONE]",
-    "> Adding Sydney location schema... [47 SIGNALS]",
-    "> Compressing images: 8.2MB → 0.9MB... [SAVED 89%]",
-    "> Enabling CDN distribution... [DONE]",
-    "> Running final PageSpeed audit... [94/100]",
-    "> Load time: 4.2s → 0.4s... [10x FASTER]",
-    "> Deploying to production... [LIVE]",
-    "> Status: TRANSFORMATION_COMPLETE"
-  ];
-
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-
-  useEffect(() => {
-    if (!isInView) return;
-    let delay = 200;
-    allLines.forEach((line) => {
-      setTimeout(() => {
-        setLines(prev => [...prev, line]);
-      }, delay);
-      delay += 600;
-    });
-  }, [isInView]);
-
-  return (
-    <div ref={ref} className="w-full bg-[#111] rounded-sm overflow-hidden shadow-2xl border border-white/10 relative group">
-      <div className="bg-[#1a1a1a] px-4 py-3 flex items-center justify-between border-b border-white/10">
-        <div className="flex items-center gap-2">
-          <Terminal className="w-3 h-3 text-[#C5A059]" />
-          {/* STANDARD LABEL */}
-          <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#C5A059]">SYSTEM LOG // EXECUTION</span>
-        </div>
-      </div>
-      
-      <div className="p-6 font-mono text-xs md:text-sm h-[320px] overflow-y-auto custom-scrollbar bg-[#0d0d0d]">
-        <div className="space-y-3">
-          {lines.map((line, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="text-white/80 border-l-2 border-transparent pl-2 hover:border-[#C5A059] transition-colors"
-            >
-              <span className="text-[#C5A059] mr-3">$</span>
-              {line}
-            </motion.div>
-          ))}
-          <motion.div 
-            animate={{ opacity: [0, 1] }} 
-            transition={{ repeat: Infinity, duration: 0.8 }}
-            className="w-2 h-4 bg-[#C5A059] inline-block align-middle ml-2"
-          />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// --- COMPONENT: SECTION WRAPPER ---
-const Section: React.FC<{ children: React.ReactNode, className?: string, delay?: number }> = ({ children, className = "", delay = 0 }) => {
-  return (
-    <motion.div 
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.7, delay, ease: "easeOut" }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-};
-
-// --- MAIN PAGE COMPONENT ---
 const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
   usePageTitle('Results You Can Verify');
   
@@ -153,7 +66,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             </span>
           </div>
           
-          {/* STANDARD H1: 5xl -> 6xl -> 7xl -> 8xl */}
           <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-12 max-w-5xl">
             Results You Can <br/>
             <span className="italic font-serif text-[#C5A059]">Verify.</span>
@@ -167,7 +79,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         <Section className="mb-20 md:mb-32">
           <div className="bg-white border border-[#1a1a1a]/5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] p-0 overflow-hidden">
             <div className="bg-[#1a1a1a] text-white px-8 py-4 flex flex-wrap justify-between items-center gap-4">
-              {/* STANDARD LABEL: text-xs */}
               <span className="font-mono text-xs text-[#C5A059] uppercase tracking-[0.2em] font-bold">
                 CLIENT: GROUP 7 SECURITY
               </span>
@@ -181,7 +92,6 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             <div className="grid grid-cols-1 lg:grid-cols-12 border-b border-[#1a1a1a]/5">
               <div className="lg:col-span-4 bg-[#f9f9f9] p-8 border-b lg:border-b-0 lg:border-r border-[#1a1a1a]/5 space-y-8">
                 <div>
-                  {/* STANDARD LABEL */}
                   <span className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">INDUSTRY</span>
                   <div className="flex items-center gap-2">
                     <ShieldCheck className="w-4 h-4 text-[#C5A059]" />
@@ -216,13 +126,12 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </Section>
 
-        {/* THE PROBLEM (RED) */}
+        {/* THE PROBLEM */}
         <Section className="mb-20 md:mb-32">
           <div className="mb-20">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block">
               / THE PROBLEM
             </span>
-            {/* STANDARD H2 */}
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
               The Old <span className="italic font-serif text-[#E21E3F]">Site.</span>
             </h2>
@@ -233,40 +142,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {[
-              { 
-                icon: Activity, 
-                title: "Speed Was Killing Conversions", 
-                metric: "4.2 seconds", 
-                label: "Load Time", 
-                desc: "Google says anything over 3 seconds loses 53% of mobile visitors. They were haemorrhaging leads.",
-                impact: "Lost contracts."
-              },
-              { 
-                icon: Globe, 
-                title: "No Local Visibility", 
-                metric: "Near Zero", 
-                label: "Sydney Ranking", 
-                desc: "The .com domain had no location signals. Google thought they were in Texas, not Parramatta.",
-                impact: "Invisible market."
-              },
-              { 
-                icon: AlertTriangle, 
-                title: "Amateur Perception", 
-                metric: "Template", 
-                label: "Trust Score", 
-                desc: "For a company protecting $3.2B in assets, the site looked like a side hustle. Trust destroyed instantly.",
-                impact: "Failed due diligence."
-              },
-              { 
-                icon: Database, 
-                title: "No Lead Capture", 
-                metric: "0%", 
-                label: "Attribution", 
-                desc: "Enquiries went to a generic inbox. No tracking. No automation. No data on what worked.",
-                impact: "Marketing blindness."
-              }
-            ].map((item, i) => (
+            {PROBLEM_ITEMS.map((item, i) => (
               <div key={i} className="group p-8 bg-white border border-[#E21E3F]/10 hover:border-[#E21E3F] hover:shadow-lg transition-all duration-300 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-1 h-full bg-[#E21E3F] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
                 <div className="flex justify-between items-start mb-6">
@@ -291,7 +167,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </Section>
 
-        {/* THE SOLUTION (GOLD) */}
+        {/* THE SOLUTION */}
         <Section className="mb-20 md:mb-32">
           <div className="mb-20">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
@@ -307,32 +183,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
 
           <div className="relative border-l border-[#C5A059]/20 ml-4 md:ml-8 space-y-12 pb-12">
-            {[
-              {
-                title: "Domain Migration",
-                what: "Moved to .com.au with 301 redirects.",
-                why: "Instant geographic signal for Google. Essential for local ranking.",
-                icon: MapPin
-              },
-              {
-                title: "Performance Architecture",
-                what: "React + Tailwind. No WordPress bloat.",
-                why: "Page weight dropped 89%. Load time hit 0.4s. Instant interactions.",
-                icon: Zap
-              },
-              {
-                title: "Local SEO Schema",
-                what: "47 specific location signals injected.",
-                why: "Google now explicitly knows this is a 'Sydney' security company.",
-                icon: Globe
-              },
-              {
-                title: "Lead Intelligence",
-                what: "Smart forms with source tracking.",
-                why: "100% attribution. We know exactly which page generates the money.",
-                icon: Target
-              }
-            ].map((item, i) => (
+            {SOLUTION_ITEMS.map((item, i) => (
               <div key={i} className="relative pl-8 md:pl-16 group">
                 <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-white border-2 border-[#C5A059] z-10 group-hover:scale-125 transition-transform duration-300" />
                 <div className="bg-white p-8 border border-black/5 hover:border-[#C5A059]/50 shadow-sm hover:shadow-xl transition-all duration-300 rounded-sm">
@@ -369,14 +220,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
-              { label: "PageSpeed Score", val: 94, suffix: "/100", icon: Activity, note: "Top Tier Performance", color: "text-green-600" },
-              { label: "Load Time", val: 0.4, suffix: "s", prefix: "", icon: Zap, note: "10x Faster", color: "text-[#C5A059]" },
-              { label: "Lead Attribution", val: 100, suffix: "%", icon: Database, note: "Total Visibility", color: "text-[#C5A059]" },
-              { label: "Sydney Visibility", val: 1, suffix: "st", prefix: "Pg ", icon: MapPin, note: "Indexed & Ranking", color: "text-[#C5A059]" },
-              { label: "Core Web Vitals", val: 100, suffix: "%", icon: ShieldCheck, note: "All Passed (Green)", color: "text-green-600" },
-              { label: "Page Weight", val: 89, suffix: "%", prefix: "↓ ", icon: ArrowRight, note: "Reduction in Size", color: "text-[#C5A059]" },
-            ].map((m, i) => (
+            {EVIDENCE_METRICS.map((m, i) => (
               <div key={i} className="bg-white p-8 border border-[#1a1a1a]/5 hover:border-[#C5A059] transition-all duration-300 group shadow-sm flex flex-col justify-between min-h-[280px] h-auto">
                 <div className="flex justify-between items-start">
                   <div className="p-3 bg-zinc-50 rounded-full group-hover:bg-[#C5A059]/10 transition-colors">

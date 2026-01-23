@@ -4,7 +4,8 @@ import React, { useEffect, useRef, useMemo } from 'react';
 const PROJECT_SCALE = 350;
 const GOLD_COLOR = '#C5A059';
 const INK_COLOR = '#1a1a1a';
-const PARTICLE_COUNT = 100; // Keep 100 for desktop, safe for canvas
+const PARTICLE_COUNT = 100; // Keep 100 for consistent visual design
+const CONNECTION_DIST = 0.55; // Keep original connection distance for proper sphere structure
 
 interface Point3D {
   x: number;
@@ -55,7 +56,7 @@ const generateGeometry = () => {
         Math.pow(verts[i].y - verts[j].y, 2) +
         Math.pow(verts[i].z - verts[j].z, 2)
       );
-      if (d < 0.55) connections.push({ p1: i, p2: j }); 
+      if (d < CONNECTION_DIST) connections.push({ p1: i, p2: j }); 
     }
   }
   return { verts, connections };
@@ -65,7 +66,7 @@ const HeroVisual: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // Stable Geometry
+  // Stable Geometry - Generate once on mount
   const { verts, connections } = useMemo(() => generateGeometry(), []);
 
   useEffect(() => {
@@ -96,7 +97,10 @@ const HeroVisual: React.FC = () => {
       const width = rect.width || window.innerWidth; 
       const height = rect.height || window.innerHeight;
       
-      const dpr = window.devicePixelRatio || 1;
+      // PERFORMANCE HACK: Cap Device Pixel Ratio
+      // High DPI screens (iPhone = 3x) kill performance for full-screen canvas.
+      // Cap it at 1.5 max for a huge speed boost with barely visible quality loss.
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = width * dpr;
       canvas.height = height * dpr;
       ctx.scale(dpr, dpr);
@@ -133,8 +137,10 @@ const HeroVisual: React.FC = () => {
       const rotY = currentRotY + elapsed * 0.1;
 
       // 3. Clear Canvas
-      const width = canvas.width / (window.devicePixelRatio || 1);
-      const height = canvas.height / (window.devicePixelRatio || 1);
+      // Use actual CSS dimensions (not pixel dimensions) for correct scaling
+      const rect = container.getBoundingClientRect();
+      const width = rect.width || window.innerWidth;
+      const height = rect.height || window.innerHeight;
       const cx = width / 2;
       
       // Adaptive vertical positioning: 
@@ -144,10 +150,11 @@ const HeroVisual: React.FC = () => {
       // THE FIX: Mobile sphere moved to 28% to frame the headline and leave bottom clean
       const cy = isMobile ? height * 0.28 : height * 0.45;
       
-      // Adaptive scale based on screen size (mobile-friendly)
+      // Adaptive scale based on screen size - maintain visual prominence
       // Use the smaller dimension to ensure sphere fits on all screens
+      // Keep the same proportional size as before
       const minDimension = Math.min(width, height);
-      const adaptiveScale = minDimension * 0.35; // 35% of smallest dimension
+      const adaptiveScale = minDimension * 0.35; // 35% of smallest dimension - same as original
       
       ctx.clearRect(0, 0, width, height);
 

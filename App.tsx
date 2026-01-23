@@ -42,11 +42,16 @@ const App: React.FC = () => {
     setScrolled(latest > 50);
   });
 
-  // Handle Initial Load Delay
+  // Handle Initial Load - Instant for 100/100 PageSpeed
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    const timer = setTimeout(() => setInitialLoadComplete(true), 1000);
-    return () => clearTimeout(timer);
+    // Set immediately on mount - no artificial delay
+    // For 100/100 PageSpeed, we need LCP under 0.8s-1.2s total
+    // A 1-second delay guarantees failure
+    setInitialLoadComplete(true);
+    
+    // Unlock scroll immediately
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
   }, []);
 
   // Unlock scroll when preloader completes
@@ -115,7 +120,7 @@ const App: React.FC = () => {
             initial={{ y: 0 }}
             exit={{ y: "-100%" }} // Leaves to TOP
             transition={{ 
-              duration: 1.0, 
+              duration: 0.3, // Reduced from 1.0s to 0.3s for faster LCP
               ease: [0.76, 0, 0.24, 1] // Custom Bezier for smooth "Curtain Lift"
             }}
             className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#1a1a1a] gap-8"
