@@ -16,6 +16,7 @@ const ProofPage = lazy(() => import('./pages/ProofPage'));
 const EvidenceVaultPage = lazy(() => import('./pages/EvidenceVaultPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 // SYSTEM & PILLARS
 const SystemPage = lazy(() => import('./pages/System/SystemPage'));
@@ -194,6 +195,9 @@ const App: React.FC = () => {
               <Route path="/pillar5" element={<Pillar5 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />} />
               <Route path="/pillar6" element={<Pillar6 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />} />
               <Route path="/pillar7" element={<Pillar7 onBack={() => handleGlobalNavigate('system')} onNavigate={handleGlobalNavigate} />} />
+              
+              {/* 404 Catch-all */}
+              <Route path="*" element={<NotFoundPage onNavigate={handleGlobalNavigate} />} />
             </Routes>
           </AnimatePresence>
         </Suspense>
