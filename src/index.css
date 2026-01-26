@@ -2,45 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --bg: #FFF2EC;
-    --ink: #1a1a1a;
-    --signal-red: #E21E3F;
-    --gold: #C5A059;
-  }
-  
-  body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg);
-    color: var(--ink);
-    margin: 0;
-    overflow-x: hidden;
-  }
-  
-  h1, h2, h3, h4, .font-serif {
-    font-family: 'Cormorant Garamond', serif;
-    letter-spacing: -0.04em;
-  }
-  
-  ::selection { 
-    background-color: var(--ink); 
-    color: var(--bg); 
-  }
-  
-  ::-webkit-scrollbar { 
-    width: 6px; 
-  }
-  
-  ::-webkit-scrollbar-track { 
-    background: var(--bg); 
-  }
-  
-  ::-webkit-scrollbar-thumb { 
-    background: var(--ink); 
-  }
-}
-
 @layer components {
   /* --- 1. EYEBROWS & MICRO-COPY (The Gold Standard) --- */
   /* Used for: Section Labels, Buttons, Nav, Metrics, Tabs */
