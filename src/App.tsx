@@ -3,30 +3,30 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion, useScroll, useMotionValueEvent } from 'framer-motion';
 
 // COMPONENTS
-import GlobalHeader from './components/GlobalHeader';
-import GlobalFooter from './components/GlobalFooter';
-import Modal from './components/Modal';
-import { ServiceDetail } from './types';
+import GlobalHeader from '../components/GlobalHeader';
+import GlobalFooter from '../components/GlobalFooter';
+import Modal from '../components/Modal';
+import { ServiceDetail } from '../types';
 
 // PAGES
-const HomePage = lazy(() => import('./pages/HomePage'));
-const ArchitectPage = lazy(() => import('./pages/ArchitectPage'));
-const ProcessPage = lazy(() => import('./pages/ProcessPage'));
-const ProofPage = lazy(() => import('./pages/ProofPage'));
-const EvidenceVaultPage = lazy(() => import('./pages/EvidenceVaultPage'));
-const ContactPage = lazy(() => import('./pages/ContactPage'));
-const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
-const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+const HomePage = lazy(() => import('../pages/HomePage'));
+const ArchitectPage = lazy(() => import('../pages/ArchitectPage'));
+const ProcessPage = lazy(() => import('../pages/ProcessPage'));
+const ProofPage = lazy(() => import('../pages/ProofPage'));
+const EvidenceVaultPage = lazy(() => import('../pages/EvidenceVaultPage'));
+const ContactPage = lazy(() => import('../pages/ContactPage'));
+const PrivacyPolicyPage = lazy(() => import('../pages/PrivacyPolicyPage'));
+const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 
 // SYSTEM & PILLARS
-const SystemPage = lazy(() => import('./pages/System/SystemPage'));
-const Pillar1 = lazy(() => import('./pages/System/Pillar1'));
-const Pillar2 = lazy(() => import('./pages/System/Pillar2'));
-const Pillar3 = lazy(() => import('./pages/System/Pillar3'));
-const Pillar4 = lazy(() => import('./pages/System/Pillar4'));
-const Pillar5 = lazy(() => import('./pages/System/Pillar5'));
-const Pillar6 = lazy(() => import('./pages/System/Pillar6'));
-const Pillar7 = lazy(() => import('./pages/System/Pillar7'));
+const SystemPage = lazy(() => import('../pages/System/SystemPage'));
+const Pillar1 = lazy(() => import('../pages/System/Pillar1'));
+const Pillar2 = lazy(() => import('../pages/System/Pillar2'));
+const Pillar3 = lazy(() => import('../pages/System/Pillar3'));
+const Pillar4 = lazy(() => import('../pages/System/Pillar4'));
+const Pillar5 = lazy(() => import('../pages/System/Pillar5'));
+const Pillar6 = lazy(() => import('../pages/System/Pillar6'));
+const Pillar7 = lazy(() => import('../pages/System/Pillar7'));
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -210,4 +210,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
