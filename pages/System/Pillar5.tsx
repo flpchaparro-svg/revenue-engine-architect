@@ -81,7 +81,7 @@ const Pillar5: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                </div>
 
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
-                 <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Content Systems.</span>
+                 <span className="italic font-serif text-[#1a1a1a]">Content</span> <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Systems.</span>
                </h1>
 
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
