@@ -153,14 +153,14 @@ export const pillarFAQs = {
     {
       id: 'p1-tiers',
       question: "What's the difference between your website tiers?",
-      answer: `It comes down to complexity and timeline:
+      answer: `It comes down to what you need and how long it takes:
 
-• Velocity (7 days): Simple service business site — you need to be found and capture leads fast
-• Retail (14 days): E-commerce with inventory, payments, shipping logic
-• Performance (21 days): High-performance sites for businesses where speed and security matter
-• Flagship (30+ days): Custom experiences — 3D configurators, cinematic design, bespoke builds
+• Starter (7 days): A simple site that captures leads. For tradies and local service businesses.
+• E-commerce (14 days): An online store with inventory, payments, and shipping.
+• Professional (21 days): A fast, secure site for high-ticket services.
+• Flagship (30+ days): Custom builds with 3D, animation, and special features.
 
-I'll help you pick the right tier based on your business, not upsell you.`
+I'll help you pick the right one. I don't upsell.`
     },
     {
       id: 'p1-mobile',
@@ -188,11 +188,11 @@ When someone buys from your site, the order can flow directly into your accounti
       question: 'Do you use WordPress, Shopify, or something else?',
       answer: `It depends on your needs:
 
-• WordPress: Great for service businesses, content-heavy sites, flexibility
-• Shopify: Best for e-commerce, inventory management, payments
-• Headless (Next.js/Astro): For high-performance, security-critical, or custom experiences
+• WordPress: Great for service businesses and content-heavy sites
+• Shopify: Best for e-commerce with inventory and payments
+• Custom builds: For high-performance or special requirements
 
-I don't push one platform because I get commission — I recommend what fits your business.`
+I recommend what fits your business, not what pays me the most.`
     }
   ],
 

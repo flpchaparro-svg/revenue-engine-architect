@@ -123,8 +123,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
            </h2>
            <div className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl space-y-4">
              <p>
-               You can't manage what you can't measure. I've mapped out the 4 levels of clarity. 
-               <strong className="text-[#1a1a1a] font-medium"> Tap the one that matches your current blindness</strong> to see the dashboard solution.
+               You can't fix what you can't see. Find your situation below.
              </p>
            </div>
         </div>

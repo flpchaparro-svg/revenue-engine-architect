@@ -14,7 +14,7 @@ const TheArchitect = lazy(() => import('../components/TheArchitect'));
 const Feature_Group7 = lazy(() => import('../components/Feature_Group7'));
 
 const TECH_STACK = [
-  'WEBSITES', 'CRM', 'MARKETING AUTOMATION', 'AI ASSISTANTS', 'CONTENT MARKETING', 'DASHBOARDS'
+  'WEBSITES', 'CRM', 'AUTOMATION', 'AI ASSISTANTS', 'CONTENT', 'DASHBOARDS'
 ];
 
 interface HomePageProps {
@@ -156,9 +156,9 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
               <CTAButton 
                 variant="bracket" 
                 theme="light" 
-                onClick={() => document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'})}
+                onClick={() => onNavigate('system')}
               >
-                {isMobile ? "HOW IT WORKS" : "SEE HOW IT WORKS"}
+                SEE THE SYSTEM
               </CTAButton>
             </div>
           </div>

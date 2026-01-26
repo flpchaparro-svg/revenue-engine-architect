@@ -89,21 +89,21 @@ const ProblemSection: React.FC = () => {
                 <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
                 <div className="pointer-events-none leading-relaxed">
                   <strong className="font-serif text-xl md:text-2xl text-[#1a1a1a] tracking-tight block mb-1">The Bottleneck Boss</strong>
-                  <span className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">You're answering questions instead of doing deep work.</span>
+                  <span className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">Your team asks you 20 questions a day instead of just doing the work.</span>
                 </div>
               </li>
               <li onMouseEnter={() => handleGraphHover('tax')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
                 <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
                 <div className="pointer-events-none leading-relaxed">
                   <strong className="font-serif text-xl md:text-2xl text-[#1a1a1a] tracking-tight block mb-1">The Double-Entry Tax</strong>
-                  <span className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">Typing the same data into two different apps.</span>
+                  <span className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">The same data gets typed into three different apps by three different people.</span>
                 </div>
               </li>
               <li onMouseEnter={() => handleGraphHover('grind')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
                 <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
                 <div className="pointer-events-none leading-relaxed">
-                  <strong className="font-serif text-xl md:text-2xl text-[#1a1a1a] tracking-tight block mb-1">The Sunday Grind</strong>
-                  <span className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">Invoicing and admin eating your weekends.</span>
+                  <strong className="font-serif text-xl md:text-2xl text-[#1a1a1a] tracking-tight block mb-1">The Sunday Dread</strong>
+                  <span className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">You spend weekends on invoicing and admin instead of with your family.</span>
                 </div>
               </li>
             </ul>
@@ -114,9 +114,9 @@ const ProblemSection: React.FC = () => {
             <div className="absolute inset-0 bg-[#E21E3F]/0 group-hover:bg-[#E21E3F]/10 transition-colors duration-500" />
             <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block relative z-10">03 / THE COST</span>
             <div className="space-y-4 relative z-10">
-              <div className="font-mono text-3xl md:text-4xl font-bold text-[#E21E3F] uppercase tracking-tighter">BURNING TALENT</div>
+              <div className="font-mono text-3xl md:text-4xl font-bold text-[#E21E3F] uppercase tracking-tighter">BURNING YOUR BEST PEOPLE</div>
               <p className="font-mono text-sm md:text-base text-[#E21E3F]/80 leading-relaxed uppercase tracking-[0.15em] font-medium max-w-xs">
-                Paying high-value staff to do low-value data entry.
+                You're paying skilled staff to do unskilled work. They get bored. They leave. You start again.
               </p>
             </div>
           </div>
@@ -125,14 +125,14 @@ const ProblemSection: React.FC = () => {
           <div onMouseEnter={() => handleGraphHover('fix')} onMouseLeave={handleGraphLeave} className="col-span-1 p-8 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[250px] md:min-h-[400px] flex flex-col justify-between border-l-2 border-l-[#C5A059]">
             <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] block mb-4 md:mb-0">04 / THE FIX</span>
             <p className="font-serif text-3xl md:text-4xl leading-tight mb-6 md:mb-8 hover:text-[#C5A059] transition-colors duration-300">
-              I build the systems that do the boring work for you. Your team gets their time back. You get your business back.
+              I build the systems that do the boring work automatically. Your team gets their time back. You get your business back.
             </p>
             <CTAButton 
               variant="bracket" 
               theme="dark" 
-              onClick={() => document.getElementById('friction-audit')?.scrollIntoView({behavior: 'smooth'})}
+              onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({behavior: 'smooth'})}
             >
-              SEE HOW IT WORKS
+              SEE THE SYSTEM
             </CTAButton>
           </div>
         </div>

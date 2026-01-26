@@ -62,7 +62,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
-              CASE STUDY: 001
+              CASE STUDY
             </span>
           </div>
           
@@ -71,7 +71,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             <span className="italic font-serif text-[#C5A059]">Verify.</span>
           </h1>
           <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-8 py-2">
-            I don't show testimonials. I show data. Here's what happened when I rebuilt a Sydney security company's entire digital presence.
+            I don't show testimonials. I show data. Here's what happened when I rebuilt a Sydney security company's website.
           </p>
         </Section>
 
@@ -102,7 +102,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                   <span className="font-mono text-xs font-bold text-[#1a1a1a]/60 uppercase tracking-[0.2em] block mb-2">SCOPE</span>
                   <div className="flex items-center gap-2">
                     <LayoutTemplate className="w-4 h-4 text-[#C5A059]" />
-                    <span className="font-sans font-medium">Full Rebuild + Local SEO</span>
+                    <span className="font-sans font-medium">Website Rebuild + Local SEO</span>
                   </div>
                 </div>
                 <div>
@@ -117,9 +117,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
               <div className="lg:col-span-8 p-8 md:p-12">
                 <h3 className="font-serif text-3xl mb-6">The Brief</h3>
                 <p className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl">
-                  Group 7 Security protects some of Sydney's most valuable assets — including properties worth over $3.2 billion. 
-                  <br/><br/>
-                  They had a problem: their website made them look like a 1990s WordPress template, not a professional security operation. Google didn't know they were in Sydney. And their competitors were eating their lunch in local search.
+                  Group 7 Security protects some of Sydney's most valuable assets, including properties worth over $3.2 billion. But their website made them look like a 1990s template, not a professional security operation. Google didn't know they were in Sydney, and their competitors were taking all the local search traffic.
                 </p>
               </div>
             </div>
@@ -128,7 +126,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
         {/* THE PROBLEM */}
         <Section className="mb-20 md:mb-32">
-          <div className="mb-20">
+          <div className="mb-12">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block">
               / THE PROBLEM
             </span>
@@ -169,7 +167,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
         {/* THE SOLUTION */}
         <Section className="mb-20 md:mb-32">
-          <div className="mb-20">
+          <div className="mb-12">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-6 block">
               / THE SOLUTION
             </span>
@@ -210,7 +208,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
         {/* THE EVIDENCE */}
         <Section className="mb-20 md:mb-32">
-          <div className="mb-20">
+          <div className="mb-12">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-6 block">
               / THE RESULTS
             </span>
@@ -253,7 +251,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
         {/* COMPARISON */}
         <Section className="mb-20 md:mb-32">
-           <div className="mb-20">
+           <div className="mb-12">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-6 block">
               / VISUAL EVIDENCE
             </span>
@@ -277,7 +275,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             </div>
             <div className="border-t border-[#C5A059]/20 pt-4">
                <span className="font-mono text-xs font-bold text-[#A07E3C] uppercase tracking-[0.2em] block mb-2">NEW SYSTEM</span>
-               <p className="font-sans text-sm text-[#1a1a1a]/50">Instant. Custom. Dominant.</p>
+               <p className="font-sans text-sm text-[#1a1a1a]/50">Fast. Professional. Findable.</p>
             </div>
           </div>
         </Section>
@@ -291,7 +289,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
             <div className="relative z-10 flex flex-col items-center">
               <span className="font-mono text-xs font-bold text-[#C5A059] uppercase tracking-[0.2em] mb-6 block">
-                / TRANSFORMATION COMPLETE
+                / YOUR TURN
               </span>
               <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tighter mb-8 text-white">
                 Want Results Like <span className="italic font-serif text-[#C5A059]">This?</span>
@@ -305,7 +303,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                 theme="dark" 
                 onClick={() => onNavigate('contact')}
               >
-                [ Start Transformation ]
+                [ BOOK A CALL ]
               </CTAButton>
             </div>
           </div>

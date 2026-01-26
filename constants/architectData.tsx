@@ -11,11 +11,11 @@ export const ARCHITECT_CONTENT = {
     // Storing JSX directly in data allows for rich text formatting
     headline: (
       <>
-        I build the systems that give your team <br className="hidden md:block" />
-        <span className="italic font-serif text-[#C5A059]">their time back.</span>
+        One person. <br className="hidden md:block" />
+        <span className="italic font-serif text-[#C5A059]">Ten person output.</span>
       </>
     ),
-    subhead: "Most consultants sell ideas. I build infrastructure. The kind that runs while you sleep and stops your best people from drowning in admin.",
+    subhead: "No account managers. No junior handoffs. No endless meetings. You talk directly to the person building your system. I use automation and AI to deliver what agencies charge a team for.",
     timeline: [
       { id: 'a1', icon: FlaskConical, title: 'Custom Processes, Not Templates', text: "Real solutions are engineered for the specific situation — never copy-pasted." },
       { id: 'a2', icon: Award, title: 'High Standards, No Shortcuts', text: "In chemistry, if you miss a step, the reaction fails. Same applies to business systems." },
@@ -24,26 +24,26 @@ export const ARCHITECT_CONTENT = {
     ],
     credentials: [
       { label: '24+ Certifications', icon: Award },
-      { label: 'HubSpot Expert', icon: Database },
-      { label: 'Based in Sydney', icon: Globe },
+      { label: 'HubSpot Certified', icon: Database },
+      { label: 'Sydney Based', icon: Globe },
       { label: 'Same-Day Response', icon: Zap }
     ]
   },
   human: {
-    label: '/ THE ARCHITECT',
+    label: '/ THE HUMAN',
     accent: 'text-[#C5A059]',
     headline: (
       <>
-        From lab coats <br className="md:hidden" /> to spreadsheets <br className="hidden md:block" />
-        <span className="italic font-serif text-[#C5A059]">to freedom.</span>
+        I've run businesses. <br className="hidden md:block" />
+        <span className="italic font-serif text-[#C5A059]">Not just consulted them.</span>
       </>
     ),
-    subhead: "I've been the person doing the admin at midnight. Running payroll, chasing invoices. That's why I build systems that actually work for real people.",
+    subhead: "Before I built systems for others, I ran my own café, managed international franchises, and worked factory floors. I know what it's like to chase invoices at midnight. I don't give you theory. I give you what actually works.",
     timeline: [
-      { id: 'h1', icon: FlaskConical, title: 'Started in the Lab', text: "I trained as a chemist in Chile. Every project needed a custom process — no templates, just problem-solving." },
-      { id: 'h2', icon: Coffee, title: 'Built My Own Business', text: "I opened a café in Santiago. I did everything: hiring, payroll, marketing. I know what it costs to run a business." },
-      { id: 'h3', icon: Globe, title: 'Managed Across Cultures', text: "I ran a fitness franchise in Southeast Asia. I learned to adapt systems to people — not force people into systems." },
-      { id: 'h4', icon: Code2, title: 'Now I Build for Others', text: "After studying marketing automation and business analytics, I put it all together. I build the systems I wish I'd had when I was running my café — so you can focus on the work that matters." }
+      { id: 'h1', icon: FlaskConical, title: 'Trained as a Chemist', text: "In Chile, I learned that every problem needs a custom process. No templates. Just problem-solving." },
+      { id: 'h2', icon: Coffee, title: 'Ran My Own Café', text: "I did everything — hiring, payroll, marketing, chasing invoices. I know what running a business actually costs." },
+      { id: 'h3', icon: Globe, title: 'Managed a Franchise', text: "I ran a fitness franchise in Southeast Asia. I learned to adapt systems to people, not force people into systems." },
+      { id: 'h4', icon: Code2, title: 'Now I Build Systems', text: "I build the systems I wish I'd had when I was running my café. So you can focus on the work that matters." }
     ]
   }
 };

@@ -193,14 +193,14 @@ export const SystemArchitecture: React.FC = () => {
            className="max-w-4xl mx-auto"
          >
            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40 mb-6 block">
-             / SYSTEM ARCHITECTURE
+             / THE 3 SYSTEMS
            </span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
-             How to Start <br className="hidden md:block" />
-             <span className="italic font-serif text-[#C5A059]">The Right Way.</span>
+             Three Systems. <br className="hidden md:block" />
+             <span className="italic font-serif text-[#C5A059]">One Goal.</span>
            </h2>
            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto">
-             Most founders guess. I engineer. This is the blueprint for a business that runs without you.
+             Every pillar belongs to one of three systems. Each system solves a different problem. Here's how they work.
            </p>
          </motion.div>
       </div>

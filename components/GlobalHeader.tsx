@@ -20,7 +20,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
     { id: 'architect', label: 'ABOUT', fullLabel: 'THE ARCHITECT' },
     { id: 'system', label: 'SYSTEM', fullLabel: 'THE SYSTEM', hasDropdown: true },
     { id: 'process', label: 'PROCESS', fullLabel: 'THE PROCESS' },
-    { id: 'proof', label: 'RESULTS', fullLabel: 'THE PROOF' },
+    { id: 'proof', label: 'PROOF', fullLabel: 'THE PROOF' },
   ];
 
   const archPillars = [
@@ -85,7 +85,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                  <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] whitespace-nowrap">
                    Felipe
                  </span>
-                 <div className="relative h-4 overflow-hidden ml-2 w-[100px]">
+                 <div className="relative h-4 overflow-hidden ml-2 w-[120px]">
                    <span className="absolute inset-0 font-mono text-[10px] font-bold uppercase tracking-[0.2em] flex items-center group-hover:-translate-y-full transition-transform duration-300 whitespace-nowrap">
                      Consultancy
                    </span>

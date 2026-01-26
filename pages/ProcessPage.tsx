@@ -59,7 +59,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
             </h1>
             <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-8 py-2 text-left lg:mx-0">
               A clear path from chaos to order. <br className="hidden md:block" />
-              No black boxes. No fluff. Just engineering.
+              No mystery. No jargon. Just results.
             </p>
           </Section>
 
@@ -106,10 +106,10 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         <div className="mb-32">
           <Section className="mb-20 text-center lg:text-left">
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-6 block">
-              / METHODOLOGY
+              / THE 4 PHASES
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
-              The Execution <span className="italic font-serif text-[#C5A059]">Path.</span>
+              How Every Project <span className="italic font-serif text-[#C5A059]">Works.</span>
             </h2>
           </Section>
 
@@ -166,7 +166,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                 <div className="flex items-center gap-2 opacity-50 mt-8">
                   <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                   <p className="font-mono text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em]">
-                    ACCEPTING NEW CLIENTS
+                    NOW ACCEPTING PROJECTS
                   </p>
                 </div>
              </div>

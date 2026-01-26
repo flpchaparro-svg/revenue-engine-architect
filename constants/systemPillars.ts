@@ -23,12 +23,12 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     subtitleMobile: 'Websites',
     categoryHex: '#E21E3F',
     categoryLabel: 'GET CLIENTS',
-    body: 'Capture every visitor as a trackable lead.',
-    systemPurpose: 'Capture demand and structure data.',
+    body: 'Your website should catch leads, not just look pretty.',
+    systemPurpose: 'Stop losing leads.',
     subServices: [
-      { title: 'How it connects', description: 'The Face feeds the Brain. Every visitor who fills out a form or makes a purchase gets logged in your CRM automatically.' },
-      { title: 'How it helps the whole system', description: 'Without the Face capturing data properly, you can\'t track where leads come from. The dashboard needs this data to show what\'s working.' },
-      { title: 'What you get', description: 'You stop losing customers to slower competitors. Leads get captured while you sleep.' }
+      { title: 'How it connects', description: 'When someone fills out your website form, their details go straight into your CRM. No copy-pasting. No lost leads.' },
+      { title: 'How it helps the whole system', description: 'Your dashboard can only show you what\'s working if the website is tracking where leads come from. This is where the data starts.' },
+      { title: 'What you get', description: 'Leads captured while you sleep. You stop losing jobs to competitors who replied faster.' }
     ]
   },
   pillar2: {
@@ -39,12 +39,12 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     subtitleMobile: 'CRM',
     categoryHex: '#E21E3F',
     categoryLabel: 'GET CLIENTS',
-    body: 'Know exactly where every opportunity sits.',
-    systemPurpose: 'Capture demand and structure data.',
+    body: 'If it\'s not in the CRM, it didn\'t happen.',
+    systemPurpose: 'Stop losing leads.',
     subServices: [
-      { title: 'How it connects', description: 'The Brain stores what the Face captures and tells the Muscle what to do next. When a deal is won, automation kicks in.' },
-      { title: 'How it helps the whole system', description: 'The AI assistants (Pillar 4) need CRM data to speak intelligently to customers. Without it, they\'re guessing.' },
-      { title: 'What you get', description: 'Pipeline visibility. You stop managing by memory and start managing by data.' }
+      { title: 'How it connects', description: 'The CRM holds everything the website captures. When you win a deal, it tells the automation to send the invoice.' },
+      { title: 'How it helps the whole system', description: 'Your AI assistant reads the CRM to know who\'s calling. Without it, the AI is useless.' },
+      { title: 'What you get', description: 'You see exactly where every deal is. No more "I think we followed up on that."' }
     ]
   },
   pillar3: {
@@ -55,12 +55,12 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     subtitleMobile: 'Automation',
     categoryHex: '#E21E3F',
     categoryLabel: 'GET CLIENTS',
-    body: 'Act fast without lifting a finger.',
-    systemPurpose: 'Capture demand and structure data.',
+    body: 'The boring stuff runs itself.',
+    systemPurpose: 'Stop losing leads.',
     subServices: [
-      { title: 'How it connects', description: 'When the Brain signals a won deal, the Muscle sends the invoice and contract instantly. No human delay.' },
-      { title: 'How it helps the whole system', description: 'Data moves between Marketing, Sales, and Ops in real time. No more copy-paste between three apps.' },
-      { title: 'What you get', description: 'Time back. Your team focuses on high-value work, not low-value admin.' }
+      { title: 'How it connects', description: 'When you mark a deal as won in the CRM, the system sends the invoice and contract automatically. No delay.' },
+      { title: 'How it helps the whole system', description: 'Data moves between your apps automatically. No more typing the same thing into three different systems.' },
+      { title: 'What you get', description: 'Your team stops doing data entry and starts doing real work.' }
     ]
   },
   pillar4: {
@@ -71,12 +71,12 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     subtitleMobile: 'AI Bots',
     categoryHex: '#C5A059',
     categoryLabel: 'SCALE FASTER',
-    body: 'Handle more leads without hiring.',
-    systemPurpose: 'Multiply output without multiplying hours.',
+    body: 'AI that answers your phone at 2am.',
+    systemPurpose: 'Do more without hiring more.',
     subServices: [
-      { title: 'How it connects', description: 'The Voice handles 100 calls at once. When you run a marketing campaign and leads spike, it doesn\'t buckle.' },
-      { title: 'How it helps the whole system', description: 'It reads CRM data to know the customer\'s history. After the call, it updates the record automatically.' },
-      { title: 'What you get', description: 'Scalability. Double your lead volume without doubling your staff.' }
+      { title: 'How it connects', description: 'When your marketing works and leads spike, the AI handles all the calls at once. No missed opportunities.' },
+      { title: 'How it helps the whole system', description: 'The AI reads from your CRM before the call and updates it after. Everything stays in sync.' },
+      { title: 'What you get', description: 'You handle twice the leads without hiring anyone.' }
     ]
   },
   pillar5: {
@@ -87,12 +87,12 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     subtitleMobile: 'Content',
     categoryHex: '#C5A059',
     categoryLabel: 'SCALE FASTER',
-    body: 'Reach more people on autopilot.',
-    systemPurpose: 'Multiply output without multiplying hours.',
+    body: 'One voice note becomes a month of content.',
+    systemPurpose: 'Do more without hiring more.',
     subServices: [
-      { title: 'How it connects', description: 'Content drives traffic to your website (Pillar 1), which captures leads, which feeds the CRM, which triggers automation.' },
-      { title: 'How it helps the whole system', description: 'High-quality content keeps the top of the funnel full. The AI and automation have leads to process.' },
-      { title: 'What you get', description: 'Authority. You become the go-to expert without spending your life on social media.' }
+      { title: 'How it connects', description: 'Content brings people to your website. The website captures their details. The CRM tracks them. Automation follows up. Full loop.' },
+      { title: 'How it helps the whole system', description: 'Without content, your website has no traffic. Without traffic, the rest of the system has nothing to work with.' },
+      { title: 'What you get', description: 'You look like the expert in your field without spending hours on social media.' }
     ]
   },
   pillar6: {
@@ -103,12 +103,12 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     subtitleMobile: 'Training',
     categoryHex: '#C5A059',
     categoryLabel: 'SCALE FASTER',
-    body: 'Make sure your team actually uses it.',
-    systemPurpose: 'Multiply output without multiplying hours.',
+    body: 'Training that sticks. No more shelfware.',
+    systemPurpose: 'Do more without hiring more.',
     subServices: [
-      { title: 'How it connects', description: 'The fastest car is useless if the driver doesn\'t know how to shift gears. The Soul protects your investment in the other 6 pillars.' },
-      { title: 'How it helps the whole system', description: 'When the team adopts the tools properly, data is clean and the system works as designed.' },
-      { title: 'What you get', description: 'ROI assurance. No more expensive shelfware that nobody uses.' }
+      { title: 'How it connects', description: 'The best CRM in the world is useless if your team won\'t use it. Training protects your investment in everything else.' },
+      { title: 'How it helps the whole system', description: 'When your team uses the tools properly, the data stays clean. Clean data means your dashboard tells the truth.' },
+      { title: 'What you get', description: 'The tools you paid for actually get used.' }
     ]
   },
   pillar7: {
@@ -119,12 +119,12 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     subtitleMobile: 'Dashboards',
     categoryHex: '#1a1a1a',
     categoryLabel: 'SEE CLEARLY',
-    body: 'See all your numbers on one screen.',
-    systemPurpose: 'Navigate with clarity.',
+    body: 'Know your real margin right now.',
+    systemPurpose: 'Know your numbers.',
     subServices: [
-      { title: 'How it connects', description: 'The Eyes take data from every other pillar and show you where to steer next. It\'s the feedback loop.' },
-      { title: 'How it helps the whole system', description: 'It tells you if Acquisition is profitable, if Velocity is efficient, and what needs fixing.' },
-      { title: 'What you get', description: 'Certainty. You sleep better knowing exactly where your profit is coming from.' }
+      { title: 'How it connects', description: 'The dashboard pulls data from all 6 other pillars and shows you what\'s working and what\'s not.' },
+      { title: 'How it helps the whole system', description: 'It tells you which marketing is paying off, which sales rep is closing, and where the bottlenecks are.' },
+      { title: 'What you get', description: 'You know your real margin right now, not next month when the accountant tells you.' }
     ]
   }
 };

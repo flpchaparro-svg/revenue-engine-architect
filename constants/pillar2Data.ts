@@ -4,149 +4,149 @@ import { Persona, Tier } from './pillar1Data';
 export const TIERS: Record<string, Tier> = {
   capture: {
     id: 'capture',
-    label: "TIER 01 / CAPTURE",
-    hook: "Stop losing leads.",
-    summary: "Choose this if you have a website but no idea where your leads go. We replace generic contact forms with a database that tracks every person.",
-    sprint: "5-DAY SPRINT",
-    specs: ['HubSpot / Pipedrive Setup', 'Lead Source Tracking', 'Auto-Reply Email', 'Admin Notification'],
+    label: "CAPTURE",
+    hook: "I keep losing leads.",
+    summary: "Choose this if leads come in but disappear into your inbox. You need a system that catches every enquiry in one place.",
+    sprint: "5 DAYS",
+    specs: ['CRM setup (HubSpot or Pipedrive)', 'Track where leads come from', 'Automatic reply to every enquiry', 'Get notified when a lead comes in'],
     personas: [
       {
         id: "inbox",
         icon: MessageSquare,
-        title: "The Inbox Manager",
+        title: "The Inbox Juggler",
         examples: "Solo Consultants, Small Agencies",
-        painTitle: "The Gmail Black Hole",
-        painText: "You run your business from an inbox. You forget to reply to a $5k lead because it got buried under newsletters. You have no list, no history, just email chaos.",
-        solution: "I install a CRM. Every lead from your site goes into a structured database, not your inbox. You see exactly who they are and if you've replied. No more lost money."
+        painTitle: "The Buried Enquiry",
+        painText: "You run your business from your inbox. Last month you forgot to reply to an enquiry worth $5k because it got buried under newsletters.",
+        solution: "I set up a CRM. Every lead goes into one place. You can see who's enquired, when, and whether you've replied. Nothing gets buried."
       },
       {
         id: "blind",
         icon: Filter,
-        title: "The Blind Advertiser",
+        title: "The Ad Spender",
         examples: "Local Services, Tradies",
-        painTitle: "Unknown ROI",
-        painText: "You spend $1,000 on ads but don't know if the phone rang because of the ad or a referral. You're guessing with your wallet.",
-        solution: "I build Source Tracking. The CRM tells you: 'John Smith came from Google Ads'. Now you know exactly which marketing channel pays your bills."
+        painTitle: "The Guessing Game",
+        painText: "You spend $1,000 a month on ads. Someone calls. You have no idea if they came from the ad or a referral. You're guessing where your money goes.",
+        solution: "I set up tracking so you know exactly where each lead came from. Google Ads, Facebook, referral, whatever. You stop guessing."
       },
       {
         id: "slow",
         icon: Magnet,
-        title: "The Slow Responder",
+        title: "The Monday Replier",
         examples: "Real Estate, Finance Brokers",
-        painTitle: "The Speed to Lead Fail",
-        painText: "A lead emails you on Saturday. You reply on Monday. They already hired someone else. Speed kills competition, and you're too slow.",
-        solution: "I build Instant Acknowledgment. They get a professional SMS and Email 10 seconds after submitting. You look 'always on' even when you're off."
+        painTitle: "The Weekend Delay",
+        painText: "Someone enquires on Saturday. You reply Monday. By then, they've already hired your competitor.",
+        solution: "I set up instant auto-replies. They enquire, they get a text and email within 10 seconds. You look responsive even when you're offline."
       }
     ]
   },
   nurture: {
     id: 'nurture',
-    label: "TIER 02 / NURTURE",
-    hook: "Warm them up.",
-    summary: "Choose this if you have leads who aren't ready to buy yet. We build automated email sequences that educate them until they are ready to pay.",
-    sprint: "10-DAY SPRINT",
-    specs: ['5-Email Nurture Sequence', 'Audience Segmentation', 'Newsletter Architecture', 'Lead Scoring'],
+    label: "NURTURE",
+    hook: "My leads go cold.",
+    summary: "Choose this if people enquire but don't buy straight away. You need a system that keeps in touch until they're ready.",
+    sprint: "10 DAYS",
+    specs: ['5-email follow-up sequence', 'Separate lists for different types', 'Newsletter setup', 'Flag hot leads automatically'],
     personas: [
       {
         id: "educator",
         icon: Users,
-        title: "The Expert",
+        title: "The Trusted Advisor",
         examples: "Coaches, Course Creators",
-        painTitle: "The Cold Pitch",
-        painText: "You try to sell on the first call, but they don't trust you yet. You waste hours explaining your methodology to cold leads who ghost you.",
-        solution: "I build a 'Value Sequence'. The system sends them your best advice for 2 weeks before you ever ask for a sale. When they finally book, they already trust you."
+        painTitle: "The First-Call Flop",
+        painText: "You get on a call and try to sell. But they don't trust you yet. They ghost you. You wasted an hour on someone who was never going to buy.",
+        solution: "I build an email sequence that sends your best advice over 2 weeks. By the time they get on a call, they already trust you."
       },
       {
         id: "lister",
         icon: UserPlus,
-        title: "The List Builder",
+        title: "The Dusty List",
         examples: "E-commerce, Authors",
-        painTitle: "The Dead List",
-        painText: "You have 5,000 emails in Mailchimp but you never email them because you don't know what to say. Your biggest asset is gathering dust.",
-        solution: "I build Automated Re-Engagement. The system identifies who hasn't opened an email in 90 days and wakes them up with a specific offer. Dead leads become cash."
+        painTitle: "The Ignored Database",
+        painText: "You have 5,000 emails in your list. You never email them because you don't know what to say. That's money sitting there doing nothing.",
+        solution: "I set up a re-engagement sequence. People who haven't opened in 90 days get a \"still interested?\" email. Dead leads come back to life."
       },
       {
         id: "segment",
         icon: FileText,
-        title: "The Generalist",
+        title: "The Blaster",
         examples: "Multi-Service Agencies",
-        painTitle: "The Wrong Message",
-        painText: "You send a 'Website Design' offer to a client who only wants 'SEO'. They unsubscribe because you're irrelevant. You're blasting, not targeting.",
-        solution: "I build Behavioural Segmentation. If they click on 'SEO', they get the SEO sequence. Relevance protects your open rates."
+        painTitle: "The Unsubscribe",
+        painText: "You send your whole list the same email. Half of them don't care about that topic. They unsubscribe.",
+        solution: "I set up segments based on what people click. If they clicked \"SEO\", they get SEO emails. Relevant emails don't get unsubscribes."
       }
     ]
   },
   pipeline: {
     id: 'pipeline',
-    label: "TIER 03 / PIPELINE",
-    hook: "Manage the deal.",
-    summary: "Choose this if you have a sales team (or just yourself) managing high-ticket deals. We visualize your revenue and automate the follow-up tasks.",
-    sprint: "14-DAY SPRINT",
-    specs: ['Visual Deal Board', 'Task Automation', 'Contract Integration', 'Sales Reporting'],
+    label: "PIPELINE",
+    hook: "I forget to follow up.",
+    summary: "Choose this if you're managing deals worth thousands and things fall through the cracks. You need to see where every deal is and get reminded to follow up.",
+    sprint: "14 DAYS",
+    specs: ['See all your deals on one screen', 'Automatic reminders to follow up', 'Contracts sent automatically', 'See what\'s closing and what\'s stuck'],
     personas: [
       {
         id: "closer",
         icon: Calendar,
-        title: "The Busy Closer",
+        title: "The Forgetter",
         examples: "Solar Sales, Enterprise SaaS",
-        painTitle: "The Follow-Up Fail",
-        painText: "You have 20 active deals. You promised to call Mike back on Tuesday, but you forgot. Mike signs with a competitor. Disorganization cost you $10k.",
-        solution: "I build Automated Task Queues. The CRM reminds you: 'Call Mike'. If you don't call, it nags you. No deal slips through the cracks."
+        painTitle: "The Missed Callback",
+        painText: "You promised to call Mike on Tuesday. You forgot. Mike signed with your competitor. That's $10k gone because of a missed reminder.",
+        solution: "I set up automatic reminders. The CRM tells you to call Mike. If you don't, it reminds you again. Nothing slips."
       },
       {
         id: "manager",
         icon: Phone,
-        title: "The Sales Manager",
+        title: "The Pipeline Blind",
         examples: "Teams of 3+ Reps",
-        painTitle: "The Black Box",
-        painText: "You ask your rep 'How's the pipeline?' and they say 'Good'. You have no data. You can't forecast revenue on 'Good'.",
-        solution: "I build Visual Pipelines. You see every deal, its value, and its stage on one screen. 'Good' becomes '$450k weighted pipeline closing next month'."
+        painTitle: "The \"It's Going Well\"",
+        painText: "You ask your sales rep how things are going. They say \"good.\" You have no idea what that means in dollars.",
+        solution: "I set up a visual pipeline. You see every deal, its value, and its stage. \"Good\" becomes \"$450k closing next month.\""
       },
       {
         id: "admin",
         icon: FileText,
-        title: "The Paperwork Hater",
+        title: "The Contract Dragger",
         examples: "Construction, Events",
-        painTitle: "Contract Hell",
-        painText: "You spend 45 minutes copy-pasting details into a Word doc contract. It's boring, slow, and prone to errors.",
-        solution: "I build One-Click Contracting. Move a deal to 'Won', and the system generates the PDF, pre-fills the data, and sends it for e-signature. 45 minutes becomes 4 seconds."
+        painTitle: "The Proposal Delay",
+        painText: "You win the deal. Then you spend 45 minutes copying details into a Word doc to send the contract. By then, the excitement has faded.",
+        solution: "I set up one-click contracts. You mark a deal as won, the system generates the contract and sends it. 45 minutes becomes 4 seconds."
       }
     ]
   },
   revops: {
     id: 'revops',
-    label: "TIER 04 / REVOPS",
-    hook: "Align the business.",
-    summary: "Choose this if your Marketing, Sales, and Support teams are fighting. We connect your systems so data flows seamlessly from 'Click' to 'Cash'.",
-    sprint: "21-DAY SPRINT",
-    specs: ['Cross-Department Sync', 'Customer Journey Mapping', 'Attribution Modelling', 'Data Hygiene'],
+    label: "OPERATIONS",
+    hook: "My team works in silos.",
+    summary: "Choose this if your departments don't talk to each other. Sales doesn't tell delivery. Marketing doesn't know what's closing. You need one source of truth.",
+    sprint: "21 DAYS",
+    specs: ['Connect your departments', 'See the full customer journey', 'Know which marketing is working', 'Clean up your messy data'],
     personas: [
       {
         id: "silo",
         icon: RefreshCw,
-        title: "The Siloed Director",
+        title: "The Handover Mess",
         examples: "Mid-Market Companies ($5M+)",
-        painTitle: "The Handover Drop",
-        painText: "Sales closes the deal, but forgets to tell Onboarding. The new client sits in silence for 3 days and gets angry. Your internal disconnect hurts the customer.",
-        solution: "I build Department Handshakes. When a deal closes, a project is auto-created in Asana for the delivery team. Sales stops emailing Operations. The system does the talking."
+        painTitle: "The Angry Customer",
+        painText: "Sales closes the deal on Friday. Nobody tells delivery. The customer waits 3 days wondering what's happening. They're already annoyed before you start.",
+        solution: "I connect sales to delivery. When a deal closes, the project is automatically created and assigned. No more \"did anyone tell the team?\""
       },
       {
         id: "leak",
         icon: Filter,
-        title: "The Leak Hunter",
+        title: "The Churn Fighter",
         examples: "SaaS, Membership Sites",
-        painTitle: "The Retention Leak",
-        painText: "Marketing brings in 100 leads, Sales closes 20, but Churn loses 10. You're filling a bucket with a hole in it.",
-        solution: "I build Lifecycle Feedback Loops. When a customer churns, the reason is tagged and fed back to Marketing. You stop paying to acquire bad-fit customers."
+        painTitle: "The Revolving Door",
+        painText: "Marketing brings 100 leads. Sales closes 20. But you lose 10 customers out the back door. You're filling a leaky bucket.",
+        solution: "I track why customers leave and feed that back to marketing. You stop paying to acquire people who were never going to stay."
       },
       {
         id: "data",
         icon: Users,
-        title: "The Data Purist",
+        title: "The Duplicate Nightmare",
         examples: "Financial Services, Insurance",
-        painTitle: "Dirty Data",
-        painText: "You have 'John Smith' in Xero, 'J. Smith' in HubSpot, and 'John' in your support desk. You can't get a single view of the customer.",
-        solution: "I build Data Normalization. We treat the CRM as the 'Single Source of Truth', pushing clean data to finance and support. One customer, one record."
+        painTitle: "The Three Johns",
+        painText: "You've got \"John Smith\" in Xero, \"J. Smith\" in HubSpot, and \"John\" in your help desk. Is that 3 customers or 1? You have no idea.",
+        solution: "I clean up your data and make the CRM the single source of truth. One customer, one record, everywhere."
       }
     ]
   }

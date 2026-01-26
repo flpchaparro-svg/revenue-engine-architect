@@ -105,7 +105,7 @@ const Feature_Group7: React.FC = () => {
           </h2>
           {/* FIXED: Body text smooth scaling */}
           <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60 border-l-2 border-[#E21E3F]/30 pl-6">
-            Don't just take my word for it. Here's what happened when I rebuilt a Sydney security company's website.
+            Don't take my word for it. Here's what happened when I rebuilt a Sydney security company's website.
           </p>
         </div>
 

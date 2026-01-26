@@ -80,10 +80,10 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                  </span>
                </div>
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
-                 Select your <span className="italic font-serif text-[#E21E3F] drop-shadow-[0_0_20px_rgba(226,30,63,0.2)]">Engine.</span>
+                 Pick Your <span className="italic font-serif text-[#E21E3F] drop-shadow-[0_0_20px_rgba(226,30,63,0.2)]">Situation.</span>
                </h1>
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#E21E3F] pl-6 mb-8">
-                 Stop guessing. Identify your business model below to see the exact architecture required to scale it.
+                 Different businesses need different websites. Find yours below and see exactly what I build for it.
                </p>
             </div>
             <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">

@@ -24,7 +24,7 @@ const TerminalLog: React.FC = () => {
       <div className="bg-[#1a1a1a] px-4 py-3 flex items-center justify-between border-b border-white/10">
         <div className="flex items-center gap-2">
           <Terminal className="w-3 h-3 text-[#C5A059]" />
-          <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#C5A059]">SYSTEM LOG // EXECUTION</span>
+          <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#C5A059]">BUILD LOG / WHAT I DID</span>
         </div>
       </div>
       

@@ -23,149 +23,149 @@ export interface Tier {
 export const TIERS: Record<string, Tier> = {
   velocity: {
     id: 'velocity',
-    label: "VELOCITY",
-    hook: "I need leads now.",
-    summary: "Choose this if you are a Tradesman, Emergency Service, or Local Professional (Plumbers, Locksmiths) who is losing money because you can't answer the phone while working.",
-    sprint: "7-DAY SPRINT",
-    specs: ['7-Day Turnaround', 'WordPress + Elementor Pro', 'Mobile-First Conversion Design', 'Basic SEO Foundation'],
+    label: "STARTER",
+    hook: "I need a website that actually works.",
+    summary: "Choose this if you're a tradie or local service business. You need a website that captures enquiries while you're on the tools.",
+    sprint: "7 DAYS",
+    specs: ['Ready in 7 days', 'Built on WordPress', 'Works perfectly on phones', 'Shows up on Google'],
     personas: [
       {
         id: "urgency",
         icon: Zap,
-        title: "The Urgency Operator",
-        examples: "Emergency Plumbers, Locksmiths",
-        painTitle: "The $500 Missed Call",
-        painText: "You live by the phone. If you miss a call at 11 PM because you're under a sink, that job goes to the next guy on Google. You're tired of losing money while you work.",
-        solution: "I build a 'Digital Catcher'. Every caller gets an instant SMS response, securing the job while you finish the work. No more lost leads at 2 AM."
+        title: "The After-Hours Tradie",
+        examples: "Emergency plumbers, locksmiths, after-hours electricians",
+        painTitle: "The Missed Call",
+        painText: "You're under a sink at 11pm. Phone rings. You can't answer. That job goes to the next bloke on Google.",
+        solution: "I set up instant SMS replies. When you miss a call, they get a text saying you'll call back within the hour. The job stays yours."
       },
       {
         id: "route",
         icon: Map,
-        title: "The Route Operator",
-        examples: "Pest Control, Solar Installers",
-        painTitle: "The Qualification Time Sink",
-        painText: "You're driving 45 minutes to quote a job only to discover they wanted 'free advice' or their budget is $200 for a $2,000 job. You're burning diesel and daylight on tyre-kickers.",
-        solution: "I act as 'The Gatekeeper'. Conditional logic forms pre-qualify leads so you only talk to high-value clients. Your calendar fills with jobs worth driving to."
+        title: "The Quote Runner",
+        examples: "Pest control, solar installers, cleaners, pool guys",
+        painTitle: "The Wasted Quote",
+        painText: "You drive 45 minutes to quote a job. Turns out their budget is $200 for a $2,000 job. You just wasted half a day on a tyre-kicker.",
+        solution: "I build forms that ask the right questions before they book. Budget, job size, timeline. You only quote jobs worth quoting."
       },
       {
         id: "compliance",
         icon: Shield,
-        title: "The Professional",
-        examples: "NDIS, Boutique Law, Allied Health",
-        painTitle: "The 'Free Advice' Trap",
-        painText: "You're drowning in calls from people who have no money or no case, wasting 10 hours a week giving free advice.",
-        solution: "I act as 'The Gatekeeper'. Conditional logic forms pre-qualify leads so you only talk to high-value clients."
+        title: "The Local Expert",
+        examples: "NDIS providers, physios, accountants, lawyers",
+        painTitle: "The Free Advice Trap",
+        painText: "You spend 10 hours a week on calls with people who can't afford you or don't actually need you.",
+        solution: "I build intake forms that filter out the time-wasters before they reach your phone."
       }
     ]
   },
   retail: {
     id: 'retail',
-    label: "RETAIL",
-    hook: "I need to sync my stock.",
-    summary: "Choose this if you sell physical products (Fashion, Parts, Supplies) and you are tired of overselling, manual inventory updates, or fighting with shipping calculators.",
-    sprint: "14-DAY SPRINT",
-    specs: ['Shopify Architecture', 'POS Integration (Square/Vend)', 'Shipping Logic Automation', 'Automated Email Flows'],
+    label: "E-COMMERCE",
+    hook: "I sell products online.",
+    summary: "Choose this if you sell physical products online. You need a store that syncs with your stock and calculates shipping properly.",
+    sprint: "14 DAYS",
+    specs: ['Built on Shopify', 'Syncs with your till system', 'Calculates shipping automatically', 'Sends order updates automatically'],
     personas: [
       {
         id: "chaos",
         icon: ShoppingBag,
-        title: "The Chaos Founder",
-        examples: "Fashion Boutiques, Local Designers",
-        painTitle: "The Double-Sell Disaster",
-        painText: "You sell the last unique dress in-store at 10 AM and sell it again online at 10:05 AM. It kills your reputation and wastes hours on apology emails. You're terrified of overselling.",
-        solution: "I build a 'Single Source of Truth'. Your POS and your website sync instantly — you never sell what you don't have. Real-time inventory across every channel."
+        title: "The Boutique Owner",
+        examples: "Fashion boutiques, homewares, gift shops",
+        painTitle: "The Oversell",
+        painText: "You sell the last dress in-store at 10am. Someone buys it online at 10:05am. Now you're writing apology emails and refunding money.",
+        solution: "I connect your shop floor to your website. When something sells in-store, it disappears online instantly. No more overselling."
       },
       {
         id: "logistics",
         icon: Box,
-        title: "The Wholesaler",
-        examples: "Auto Parts, Building Materials",
-        painTitle: "Shipping Nightmares",
-        painText: "You're losing margin because a customer ordered a 50kg machine to a remote area with 'Free Shipping' logic that wasn't set up correctly. Every miscalculated freight cost eats your profit.",
-        solution: "I build Dimensional Shipping Logic. The site calculates freight costs in real-time based on weight, size, and postcode. You protect your margin on every order."
+        title: "The Heavy Goods Seller",
+        examples: "Auto parts, building supplies, equipment, machinery",
+        painTitle: "The Shipping Problem",
+        painText: "Someone orders a 50kg machine to a remote postcode. Your shipping calculator says $15. Real cost is $150. That's your margin gone.",
+        solution: "I set up shipping that calculates based on weight, size, and postcode. You never lose money on freight again."
       },
       {
         id: "churn",
         icon: RefreshCw,
-        title: "The Subscription",
-        examples: "Coffee Clubs, Pet Supplies",
-        painTitle: "Involuntary Churn",
-        painText: "30% of your cancellations aren't people leaving — they're just expired credit cards the system failed to update. You're losing customers who wanted to stay.",
-        solution: "I install Automated Dunning Engines. The system retries failed cards, sends update reminders, and saves the relationship automatically — before you even know there was a problem."
+        title: "The Subscription Box",
+        examples: "Coffee subscriptions, pet food, meal kits, supplements",
+        painTitle: "The Failed Payment",
+        painText: "30% of your cancellations aren't people who wanted to leave. Their card just expired and nobody followed up.",
+        solution: "I set up automatic payment retries and reminder emails. When a card fails, the system chases it up before you even know there was a problem."
       }
     ]
   },
   performance: {
     id: 'performance',
-    label: "PERFORMANCE",
-    hook: "I need speed & trust.",
-    summary: "Choose this if you sell high-ticket services (Luxury Homes, Medical, Finance) where a slow or insecure website makes you look 'cheap' and loses you the deal.",
-    sprint: "21-DAY SPRINT",
-    specs: ['Headless Tech (Next.js)', '0.5s Load Times', 'Unhackable Security', 'Advanced CRM Integration'],
+    label: "PROFESSIONAL",
+    hook: "I sell high-ticket services.",
+    summary: "Choose this if you sell expensive services and your website needs to match. Slow or dated sites cost you deals before you even get the call.",
+    sprint: "21 DAYS",
+    specs: ['Custom-built, not a template', 'Loads in under a second', 'Bank-level security', 'Connects to your CRM'],
     personas: [
       {
         id: "precision",
         icon: Compass,
-        title: "The Precision Builder",
-        examples: "Luxury Home Builders, Architects",
-        painTitle: "The Portfolio Lag",
-        painText: "You have 4K photos of stunning work, but your site takes 5 seconds to load them. Clients assume you're 'sloppy' before they even meet you. Your website is destroying the first impression you've spent 20 years building.",
-        solution: "I build Edge Image Optimization. Your 4K portfolio loads instantly on any device. Your work proves your precision — your website finally matches your craftsmanship."
+        title: "The High-End Builder",
+        examples: "Luxury home builders, architects, high-end renovators",
+        painTitle: "The Slow Portfolio",
+        painText: "You've got beautiful photos of your work. But your website takes 5 seconds to load them. Clients assume you're sloppy before they call.",
+        solution: "I build a site that loads your high-res photos instantly. Your online presence finally matches the quality of your work."
       },
       {
         id: "stakes",
         icon: Lock,
-        title: "The High-Stakes Agent",
-        examples: "Yacht Brokers, Private Jets",
-        painTitle: "The Security Breach",
-        painText: "If your site shows 'Not Secure', your elite clients will never trust you with their sensitive financial data. One warning message and you've lost a $500k deal.",
-        solution: "I build Headless Architecture. No database to hack. A static 'Digital Fortress' that's 100% secure. Your clients see the padlock, not the warning."
+        title: "The Prestige Seller",
+        examples: "Yacht brokers, prestige cars, luxury real estate",
+        painTitle: "The Trust Killer",
+        painText: "Your client is about to enquire about a $2M yacht. The browser shows \"Not Secure.\" They close the tab. You never hear from them.",
+        solution: "I build sites with no database to hack. Your clients see the padlock, not a warning."
       },
       {
         id: "knowledge",
         icon: BookOpen,
-        title: "The Knowledge Hub",
-        examples: "Medical Clinics, Financial Advisors",
-        painTitle: "The Search Sinkhole",
-        painText: "Your site is so bloated that Google is de-ranking your best content. You're losing authority to faster, smaller competitors. The advice you spent years writing is invisible.",
-        solution: "I build Core Web Vitals Dominance. Your knowledge library becomes a high-speed search weapon. Google rewards fast sites with visibility — your expertise finally gets seen."
+        title: "The Authority Site",
+        examples: "Medical clinics, financial advisors, specialist consultants",
+        painTitle: "The Google Problem",
+        painText: "You've written 50 articles answering every question your clients ask. But your site is so slow that Google buries you on page 3.",
+        solution: "I rebuild your site so it loads fast. Google rewards speed with rankings. Your articles finally get seen."
       }
     ]
   },
   flagship: {
     id: 'flagship',
     label: "FLAGSHIP",
-    hook: "I need to show off.",
-    summary: "Choose this if you are a Heritage Brand, Luxury Hotel, or Visionary where 'Standard' isn't enough. You need 3D, Motion, and Cinema to justify premium pricing.",
-    sprint: "30+ DAY SPRINT",
-    specs: ['Custom 3D / WebGL', 'Cinematic Motion Design', 'Bespoke User Journey', 'Award-Winning Aesthetics'],
+    hook: "I need something special.",
+    summary: "Choose this if a normal website isn't enough. You need something that makes people stop and stare.",
+    sprint: "30+ DAYS",
+    specs: ['3D and animation', 'Cinematic feel', 'Custom experience for your customers', 'Built to impress'],
     personas: [
       {
         id: "aesthetic",
         icon: Gem,
-        title: "The Absolutist",
-        examples: "Heritage Brands, Luxury Fashion",
-        painTitle: "The Commodity Trap",
-        painText: "If your website looks like a $50 template, you lose the ability to charge 10x the market rate. You fear 'Digital Cheapness' — a generic site destroys the mystique you've spent decades building.",
-        solution: "I build Headless Theatre. No white flashes, no lag, no template smell. A cinematic journey that maintains your luxury status from the first pixel to the final purchase."
+        title: "The Luxury Brand",
+        examples: "Luxury fashion, fine jewellery, heritage brands",
+        painTitle: "The Template Problem",
+        painText: "Your product costs 10x more than competitors. But your website looks like a $50 template. The site is killing the perception you've spent decades building.",
+        solution: "I build a site that feels like an experience, not a webpage. No templates. No lag. Just a smooth journey that justifies your price."
       },
       {
         id: "variant",
         icon: Layers,
-        title: "The Visionary",
-        examples: "Custom Furniture Makers, Lighting",
-        painTitle: "Visualization Paralysis",
-        painText: "Customers won't spend $15k on a sofa if they can't see exactly how the 'Green Velvet' looks with 'Oak Legs' in their lounge room. Imagination isn't enough — they need to see it to buy it.",
-        solution: "I build 3D Configurators and WebAR. Customers place your product in their room instantly, choose every option, and remove all doubt. Configuration becomes conversion."
+        title: "The Customiser",
+        examples: "Custom furniture, kitchens, lighting, bespoke interiors",
+        painTitle: "The Imagination Gap",
+        painText: "Your customer wants to spend $15k on a custom sofa. But they can't picture how the green velvet looks with oak legs in their lounge. They hesitate. They leave.",
+        solution: "I build a configurator where they pick the fabric, the legs, the size, and see it in their room through their phone camera. Doubt disappears. They buy."
       },
       {
         id: "hotel",
         icon: Star,
-        title: "The Hotelier",
-        examples: "Boutique Resorts, Safari Lodges",
-        painTitle: "The Commission Drain",
-        painText: "You're paying 20% to Booking.com because your own website is too clunky to handle high-value direct bookings. The OTAs are eating your margin while you handle the service.",
-        solution: "I build Cinematic Booking Engines. Capture the emotion and the full revenue, commission-free. Your guests book direct because the experience demands it."
+        title: "The Boutique Hotelier",
+        examples: "Boutique hotels, retreats, safari lodges, destination spas",
+        painTitle: "The Booking.com Tax",
+        painText: "You're paying 20% to Booking.com on every reservation. That's because your own website is clunky and people don't trust it to book direct.",
+        solution: "I build a booking experience so smooth and beautiful that guests want to book direct. You keep the 20%."
       }
     ]
   }

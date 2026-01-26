@@ -4,149 +4,149 @@ import { Persona, Tier } from '../types';
 export const TIERS: Record<string, Tier> = {
   concierge: {
     id: 'concierge',
-    label: "GROWTH CONCIERGE",
-    hook: "I am overwhelmed by inquiries.",
-    summary: "Choose this if you are getting leads but wasting hours answering the same basic questions ('How much?', 'Where are you?') instead of closing deals.",
-    sprint: "7-DAY SPRINT",
-    specs: ['24/7 Web Chat Agent', 'Lead Qualification Logic', 'Calendar Booking', 'Knowledge Base Training'],
+    label: "CHAT & QUALIFY",
+    hook: "I'm drowning in enquiries.",
+    summary: "Choose this if you're wasting hours answering the same questions. \"How much?\" \"Where are you located?\" \"Do you do X?\" The AI handles that.",
+    sprint: "7 DAYS",
+    specs: ['AI chat on your website', 'Qualifies leads before they reach you', 'Books appointments directly', 'Trained on your FAQs'],
     personas: [
       {
         id: "tirekicker",
         icon: MessageSquare,
-        title: "The Tire Kicker Victim",
+        title: "The Time Waster Magnet",
         examples: "Real Estate, Yacht Brokers, High-Ticket Sales",
-        painTitle: "The 'Just Looking' Drain",
-        painText: "You spend your Saturday morning replying to 'Is this still available?' messages from people with zero budget. You are an expensive customer service rep.",
-        solution: "I build a Gatekeeper AI. It chats with every lead instantly, asks for their budget/timeline, and only books a meeting if they are qualified. You only talk to serious buyers."
+        painTitle: "The Saturday Browsers",
+        painText: "You spend Saturday morning replying to \"Is this available?\" messages from people who were never going to buy. You're doing customer service for free.",
+        solution: "I build a chat AI that asks qualifying questions. Budget? Timeline? If they're serious, they get booked. If not, they get a polite goodbye. You only talk to real buyers."
       },
       {
         id: "clinic",
         icon: ShieldCheck,
-        title: "The Practice Manager",
+        title: "The Busy Clinic",
         examples: "Dental, Cosmetic, Allied Health",
-        painTitle: "The Front Desk Bottleneck",
-        painText: "Your receptionist is great with people in the room, but terrible at answering the web chat. You are paying for ads, but potential patients are being ignored online.",
-        solution: "We install a 24/7 Concierge. It answers FAQs about pricing and procedure recovery times instantly, and books the consultation directly into your practice software."
+        painTitle: "The Ignored Chat",
+        painText: "Your receptionist is busy with patients. The website chat goes unanswered. You're paying for ads but losing leads because nobody's there to reply.",
+        solution: "I install AI chat that answers FAQs about pricing, availability, and procedures. It books consultations straight into your calendar. 24/7."
       },
       {
         id: "founder",
         icon: Zap,
-        title: "The Solo Consultant",
+        title: "The 11pm Replier",
         examples: "Coaches, Designers, Architects",
-        painTitle: "The 11 PM Reply",
-        painText: "You feel you have to reply instantly to win the job, so you are emailing at midnight. You have no boundaries between 'Work' and 'Life'.",
-        solution: "The Concierge handles the 'First Touch' perfectly. It answers questions, builds rapport, and books the Discovery Call for a time that suits YOU. You get your evenings back."
+        painTitle: "The Always-On Trap",
+        painText: "You feel like you have to reply instantly or you'll lose the job. So you're answering emails at midnight. No boundaries.",
+        solution: "The AI handles the first reply. It answers questions, builds rapport, and books a call for a time that suits you. You get your evenings back."
       }
     ]
   },
   analyst: {
     id: 'analyst',
-    label: "INTERNAL ANALYST",
-    hook: "My team asks me everything.",
-    summary: "Choose this if you are the 'Bottleneck Boss'—your staff constantly interrupts you to ask where files are or how to do basic tasks.",
-    sprint: "7-DAY SPRINT",
-    specs: ['Private Company Brain', 'SOP Ingestion', 'Slack/Teams Integration', 'Zero-Hallucination Guardrails'],
+    label: "COMPANY BRAIN",
+    hook: "My team keeps asking me questions.",
+    summary: "Choose this if your team asks you the same questions every week. \"Where's the logo?\" \"What's our pricing for X?\" \"How do I do this?\" The AI knows.",
+    sprint: "7 DAYS",
+    specs: ['AI trained on your company info', 'Learns your processes', 'Works in your chat app', 'Only answers from your documents'],
     personas: [
       {
         id: "bottleneck",
         icon: BrainCircuit,
-        title: "The Bottleneck Founder",
+        title: "The Repeat Answerer",
         examples: "Agency Owners, Engineering Leads",
-        painTitle: "The Groundhog Day",
-        painText: "You answer the same 5 questions every week: 'Where is the logo?', 'What is our pricing for X?', 'Do we have a case study for this?'. Your genius is wasted on repetition.",
-        solution: "I build a 'Company Brain'. We feed it every PDF, SOP, and past proposal you have ever written. Your staff ask the AI, not you. It answers instantly with a link to the file."
+        painTitle: "The Same 5 Questions",
+        painText: "Every week you answer the same questions. \"Where's the logo?\" \"What's our pricing?\" \"Do we have a case study for this?\" You're wasting hours.",
+        solution: "I build an AI trained on your documents. Your team asks it instead of you. It gives them the answer and links to the file. You stop repeating yourself."
       },
       {
         id: "franchise",
         icon: CheckCircle,
-        title: "The Franchise Guardian",
+        title: "The Manual Nobody Reads",
         examples: "Gym Groups, Retail Chains",
-        painTitle: "The Rogue Franchisee",
-        painText: "You have 10 locations, and every manager is doing things differently. They ignore the operations manual because it's a boring 100-page PDF.",
-        solution: "We turn the manual into a Chatbot. A manager can ask: 'How do I process a refund?' and get the exact step-by-step guide instantly on their phone. Compliance becomes easy."
+        painTitle: "The Ignored Manual",
+        painText: "You've got 10 locations. Every manager does things differently. The operations manual exists, but nobody reads 100 pages of PDF.",
+        solution: "I turn your manual into a chatbot. A manager asks \"How do I process a refund?\" and gets the exact steps on their phone. They actually use it."
       },
       {
         id: "onboarding",
         icon: Terminal,
-        title: "The Rapid Scaler",
+        title: "The Slow Onboarder",
         examples: "High-Growth Startups",
-        painTitle: "The New Hire Drag",
-        painText: "It takes 3 months for a new hire to become useful because they have to learn 'The Way We Do Things'. You lose money on every new employee for 90 days.",
-        solution: "The Analyst reduces 'Time-to-Competency'. New hires can ask the AI how to use the software or file a report. They learn in real-time without distracting their manager."
+        painTitle: "The 3-Month Ramp",
+        painText: "New hires take 3 months to become useful. They're constantly asking how to do things. You're paying them to learn.",
+        solution: "I build an AI they can ask anything. \"How do I log a support ticket?\" \"Where's the pricing sheet?\" They learn without distracting their manager."
       }
     ]
   },
   voice: {
     id: 'voice',
-    label: "VOICE INTERFACE",
-    hook: "I need a phone receptionist.",
-    summary: "Choose this if you run a high-volume service business where missing a phone call means losing a $500 job to a competitor.",
-    sprint: "10-DAY SPRINT",
-    specs: ['Human-Sounding AI Voice', 'CRM Integration', '24/7 Availability', 'Appointment Booking'],
+    label: "PHONE AI",
+    hook: "I need someone to answer the phone.",
+    summary: "Choose this if you miss calls and lose jobs because of it. The AI answers your phone, qualifies the caller, and books them in. 24/7.",
+    sprint: "10 DAYS",
+    specs: ['Sounds like a real person', 'Updates your CRM automatically', 'Never misses a call', 'Books jobs into your calendar'],
     personas: [
       {
         id: "muddy",
         icon: Phone,
-        title: "The Muddy Hands Operator",
+        title: "The Tradie On The Tools",
         examples: "Emergency Plumbers, Locksmiths",
-        painTitle: "The Missed Emergency",
-        painText: "You are under a sink or up a ladder. The phone rings. You can't answer. That customer calls the next plumber on Google. You just lost $500.",
-        solution: "I replace your voicemail with a Voice AI. It answers instantly, sounds human, takes the address and problem details, and texts them to you. You secure the job without washing your hands."
+        painTitle: "The Missed Call",
+        painText: "You're up a ladder. Phone rings. You can't answer. They call the next guy. You lost the job.",
+        solution: "I replace your voicemail with AI that sounds human. It answers, takes their details, and texts them to you. You get the job without stopping work."
       },
       {
         id: "afterhours",
         icon: CheckCircle,
-        title: "The After-Hours Clinic",
+        title: "The Weekend Clinic",
         examples: "Vets, Emergency Dental",
-        painTitle: "The Weekend Gap",
-        painText: "Crises happen on weekends when your reception is closed. You rely on an expensive answering service that knows nothing about your business.",
-        solution: "The Voice Agent works 24/7/365. It can triage emergencies, book appointments for Monday morning, or escalate true crises to the on-call doctor."
+        painTitle: "The After-Hours Gap",
+        painText: "Patients call on weekends. Your reception is closed. The answering service knows nothing about your clinic.",
+        solution: "I build phone AI that knows your clinic. It can triage, book appointments, or escalate real emergencies to the on-call doctor. 24/7."
       },
       {
         id: "sales",
         icon: Zap,
-        title: "The Lead Qualifier",
+        title: "The Burnt Out SDR",
         examples: "Solar Sales, Home Improvements",
         painTitle: "The Cold Call Grind",
-        painText: "Your sales team burns out calling 100 leads to find 1 interested person. They hate their job and churn quickly.",
-        solution: "The Voice AI does the 'First Pass'. It calls the leads, asks the qualifying questions, and books the interested ones into your closer's calendar. Your team only talks to people who want to buy."
+        painText: "Your sales team calls 100 leads to find 1 interested person. They're burnt out. They quit. You start over.",
+        solution: "I build AI that calls your leads and asks qualifying questions. It only books the interested ones. Your sales team talks to warm leads, not cold ones."
       }
     ]
   },
   custom: {
     id: 'custom',
-    label: "CUSTOM & SECURE",
-    hook: "I need AI, but private.",
-    summary: "Choose this if you are in Finance, Law, or IP-heavy industries where data privacy is non-negotiable and 'Public AI' is a risk.",
-    sprint: "BESPOKE SCOPE",
-    specs: ['Private Cloud Hosting', 'PII Redaction', 'Local LLMs', 'Data Sovereignty'],
+    label: "PRIVATE AI",
+    hook: "I need AI but my data is sensitive.",
+    summary: "Choose this if you're in finance, law, or healthcare where data privacy matters. You need AI that doesn't send your data to the cloud.",
+    sprint: "CUSTOM TIMELINE",
+    specs: ['Runs on your own servers', 'Strips sensitive data automatically', 'AI runs locally, not in the cloud', 'Your data stays in Australia'],
     personas: [
       {
         id: "compliance",
         icon: Lock,
-        title: "The Compliance Officer",
+        title: "The Shadow AI Problem",
         examples: "Wealth Managers, FinTech",
-        painTitle: "The Shadow AI Risk",
-        painText: "You know your junior staff are pasting sensitive client data into ChatGPT to write reports faster. It is a ticking time bomb for a data breach lawsuit.",
-        solution: "I build a 'Walled Garden'. A private AI interface that works like ChatGPT but is hosted on your secure servers. No data ever leaves your control."
+        painTitle: "The ChatGPT Leak",
+        painText: "Your junior staff are pasting client data into ChatGPT. You know it's happening. It's a data breach waiting to happen.",
+        solution: "I build a private AI that works like ChatGPT but runs on your servers. Your staff get the speed. You keep the control."
       },
       {
         id: "ip",
         icon: ShieldCheck,
-        title: "The IP Guardian",
+        title: "The Secret Recipe",
         examples: "Biotech, Patent Law, R&D",
-        painTitle: "The Leak Fear",
-        painText: "You want to use AI to analyze your research, but you can't risk that data training a public model that your competitors might use.",
-        solution: "We deploy 'Zero-Retention' models. The AI reads your data, gives you the answer, and then instantly 'forgets' everything. Your IP remains exclusively yours."
+        painTitle: "The Training Data Fear",
+        painText: "You want AI to analyse your research, but you can't risk that data training a public model. Your competitors could benefit from your IP.",
+        solution: "I set up AI with zero retention. It reads your data, gives you the answer, and forgets everything. Your IP never trains anyone else's model."
       },
       {
         id: "complex",
         icon: BrainCircuit,
-        title: "The Complex Reasoner",
+        title: "The Specialist Need",
         examples: "Legal Case Analysis, Medical Diagnosis Support",
-        painTitle: "The Generic Answer",
-        painText: "Standard AI is too generic. It gives 'average' advice. You need an AI trained specifically on Australian Case Law or specific medical protocols.",
-        solution: "We fine-tune a model on your specific dataset. It stops sounding like a generic robot and starts sounding like a Senior Partner in your firm."
+        painTitle: "The Too-General Problem",
+        painText: "Standard AI gives generic answers. You need AI that knows Australian case law, or your specific medical protocols, or your industry regulations.",
+        solution: "I fine-tune a model on your data. It stops giving generic answers and starts sounding like a senior partner who knows your field."
       }
     ]
   }

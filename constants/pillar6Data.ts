@@ -4,149 +4,149 @@ import { Persona, Tier } from '../types';
 export const TIERS: Record<string, Tier> = {
   media: {
     id: 'media',
-    label: "TIER 01 / MEDIA",
-    hook: "I need them to listen.",
-    summary: "Choose this if your team is 'On the Road' (Logistics, Trade, Sales) and ignores written emails. Turn dead time (driving) into learning time.",
-    sprint: "5-DAY SPRINT",
-    specs: ['ElevenLabs Voice Cloning', 'Private Podcast Feeds', 'Descript Editing', 'Automated Distribution'],
+    label: "AUDIO TRAINING",
+    hook: "My team doesn't read emails.",
+    summary: "Choose this if your team is on the road and never reads emails. They can listen while they drive.",
+    sprint: "5 DAYS",
+    specs: ['Your voice, cloned', 'Private podcast for your team', 'Professional editing', 'Sent automatically'],
     personas: [
       {
         id: "fleet",
         icon: Truck,
         title: "The Fleet Manager",
         examples: "Logistics Companies, Removalists, Couriers",
-        painTitle: "The Unread Bulletin",
-        painText: "You send critical safety updates via email knowing 90% of your drivers never open them because they're on the road. Important information hits the bin, not the brain.",
-        solution: "I turn your weekly bulletin into a 3-minute private podcast. They listen while they drive, and you get a dashboard proving they heard it. Information delivered, attention confirmed."
+        painTitle: "The Ignored Email",
+        painText: "You send important updates by email. 90% of your drivers never open them because they're on the road. The information never lands.",
+        solution: "I turn your updates into a 3-minute podcast. They listen while they drive. You can see who listened."
       },
       {
         id: "field",
         icon: HardHat,
-        title: "The Field Director",
+        title: "The Tech Lead",
         examples: "Solar Installers, Electricians, HVAC",
-        painTitle: "The Site-Start Lag",
-        painText: "Your technicians sit in their vans for 15 minutes trying to find the 'Installation Guide'. It kills billable time. You're paying them to search, not work.",
-        solution: "I build Pre-Arrival Briefs. As they drive to the job, they listen to the specific technical specs. They arrive ready to work, not ready to read."
+        painTitle: "The Van Search",
+        painText: "Your techs sit in their vans for 15 minutes looking for the installation guide. That's billable time wasted.",
+        solution: "I create audio briefs they listen to on the way to the job. They arrive knowing what to do."
       },
       {
         id: "care",
         icon: Heart,
-        title: "The Care Leader",
+        title: "The Remote Manager",
         examples: "NDIS, Aged Care, Disability Services",
-        painTitle: "Cultural Drift",
-        painText: "Your staff feel like 'just a number' because they only receive cold emails from HQ. You're losing the human connection. Culture dies in the inbox.",
-        solution: "I build Monday Encouragement. Clone your voice to deliver personal updates. Hearing the founder's voice builds trust in a way text never can. Your team feels connected, even remotely."
+        painTitle: "The Disconnected Team",
+        painText: "Your remote team only gets cold emails from HQ. They feel disconnected. Culture fades.",
+        solution: "I clone your voice and create weekly updates. Hearing the founder builds connection in a way email never can."
       }
     ]
   },
   matrix: {
     id: 'matrix',
-    label: "TIER 02 / MATRIX",
-    hook: "I need them to do it right.",
-    summary: "Choose this if you have high staff turnover (Retail, Hospitality, Warehousing) and are tired of repeating the same 60-second training speech.",
-    sprint: "7-DAY SPRINT",
-    specs: ['HeyGen Avatars', 'QR Code Library', 'Just-in-Time Delivery', 'Mobile-First Player'],
+    label: "VIDEO GUIDES",
+    hook: "I'm sick of explaining the same thing.",
+    summary: "Choose this if you're explaining the same thing to every new hire. I record it once so you never have to say it again.",
+    sprint: "7 DAYS",
+    specs: ['AI presenter videos', 'Scan to watch', 'Watch when needed', 'Works on phones'],
     personas: [
       {
         id: "retail",
         icon: Coffee,
-        title: "The Retail Manager",
+        title: "The Repeat Trainer",
         examples: "Cafe Groups, Gyms, Retail Chains",
-        painTitle: "Broken Record Syndrome",
-        painText: "You repeat the 'How to close the register' speech for the 50th time this year to a new casual. You're a manager, not a broken record.",
-        solution: "I build a QR Code library behind the counter. A new hire scans it, watches a 60-second video of your clone explaining the task, and does it right. You train once, they learn forever."
+        painTitle: "The 50th Explanation",
+        painText: "You've explained how to close the register 50 times this year. Every new casual. Same speech. You're a manager, not a trainer.",
+        solution: "I create a QR code behind the counter. New hire scans it, watches the video, does it right. You never explain it again."
       },
       {
         id: "warehouse",
         icon: Package,
-        title: "The Warehouse Lead",
+        title: "The Line Stopper",
         examples: "Wholesale Distributors, Manufacturing, 3PLs",
-        painTitle: "The Line Stopper",
-        painText: "A packer stops the line because they 'forgot' how to label a dangerous good. It kills your throughput. One confused worker, whole team waiting.",
-        solution: "I build Point-of-Action Knowledge. A sticker on the bench links to a vertical video on 'Packing Protocol'. Search time becomes pack time. The answer is where they work."
+        painTitle: "The Forgotten Process",
+        painText: "A packer forgets how to label a dangerous good. The line stops. Everyone waits.",
+        solution: "I put a QR code on the bench. They scan, watch the 30-second video, and keep packing. No line stoppage."
       },
       {
         id: "sales",
         icon: TrendingUp,
-        title: "The CRM Police",
+        title: "The Data Cleaner",
         examples: "Real Estate, Finance Brokers, B2B Sales",
-        painTitle: "The CRM Mess",
-        painText: "You spend 5 hours a week cleaning up data because reps 'forgot' the new workflow. You're the most expensive data entry clerk in the building.",
-        solution: "I build In-App Nudges. When a rep moves a deal, a video pops up showing exactly which fields to fill. Rules enforced with video, not nagging. Clean data, happy director."
+        painTitle: "The Dirty Data",
+        painText: "You spend 5 hours a week cleaning up CRM data because reps forget the process. That's not your job.",
+        solution: "I create pop-up video guides inside your CRM. When a rep moves a deal, they see exactly what to fill in. Clean data without nagging."
       }
     ]
   },
   visuals: {
     id: 'visuals',
-    label: "TIER 03 / VISUALS",
-    hook: "I need to explain the complex.",
-    summary: "Choose this if you sell complex services or have dangerous sites where text manuals are ignored. We make safety and sales 'Visually Obvious'.",
-    sprint: "5-DAY SPRINT",
-    specs: ['Napkin.ai Logic', 'Lucidchart Architecture', 'One-Page Cheat Sheets', 'Safety Iconography'],
+    label: "VISUAL EXPLAINERS",
+    hook: "I need to explain something complicated.",
+    summary: "Choose this if you need to explain something complicated and text isn't working. I turn complexity into simple visuals.",
+    sprint: "5 DAYS",
+    specs: ['Simple diagrams', 'Process flowcharts', 'Quick reference guides', 'Visual safety guides'],
     personas: [
       {
         id: "exec",
         icon: Briefcase,
-        title: "The Non-Tech Exec",
+        title: "The Confused Approver",
         examples: "CEOs, Board Members, Business Owners",
-        painTitle: "The Invisible Value",
-        painText: "You reject a $50k automation project because the IT team explained it poorly. You can't sign off on what you don't understand. Good projects die in confusion.",
-        solution: "I turn technical mess into a 'Napkin Sketch'. Customer Pays → Xero Updates → Slack Alerts. When you see the flow, you sign the cheque. Clarity unlocks budget."
+        painTitle: "The Rejected Proposal",
+        painText: "IT pitches a $50k automation project. You don't understand what it does. You reject it. A good project dies because of bad explanation.",
+        solution: "I turn the technical mess into a simple diagram. \"Customer pays → Invoice created → Team notified.\" When you see it, you approve it."
       },
       {
         id: "safety",
         icon: AlertTriangle,
         title: "The Safety Lead",
         examples: "Construction, Mining, Industrial Sites",
-        painTitle: "The Ignored Manual",
-        painText: "Your 500-page safety binders act as doorstops. Workers guess the protocol because the manual is unreadable. One wrong guess and someone gets hurt.",
-        solution: "I build Universal Iconography. High-contrast site posters that tell a worker exactly what to do with zero reading required. Safety becomes instinct, not homework."
+        painTitle: "The Unread Binder",
+        painText: "Your 500-page safety manual is a doorstop. Nobody reads it. They guess the protocol. One day someone guesses wrong.",
+        solution: "I create visual posters with icons. A worker sees exactly what to do without reading anything. Safety becomes obvious."
       },
       {
         id: "estimator",
         icon: Calculator,
-        title: "The Estimator",
+        title: "The Junior Estimator",
         examples: "Civil Engineering, Commercial Fit-outs",
-        painTitle: "The Pricing Error",
-        painText: "Your junior estimator misses a variable like 'Traffic Loading' because it was buried on page 10 of a doc. One missed line, $50k mistake.",
-        solution: "I build Pricing Decision Trees. A visual sheet that asks 3 questions and gives the right multiplier. Juniors can't make mistakes. Accuracy built into the process."
+        painTitle: "The Missed Variable",
+        painText: "Your junior estimator misses a variable buried on page 10. One missed line costs you $50k.",
+        solution: "I create a visual decision tree. 3 questions, one answer. Juniors can't miss a variable."
       }
     ]
   },
   analyst: {
     id: 'analyst',
-    label: "TIER 04 / ANALYST",
-    hook: "I need them to stop asking me.",
-    summary: "Choose this if you are the bottleneck. Your staff ask you 20 questions a day that are already answered in the company handbook (which they don't read).",
-    sprint: "10-DAY SPRINT",
-    specs: ['Private Knowledge Base', 'Slack/Teams Integration', 'RAG Architecture', 'Source Attribution'],
+    label: "KNOWLEDGE BOT",
+    hook: "My team keeps asking me questions.",
+    summary: "Choose this if you're answering the same questions every day. The answers are in the handbook but nobody reads it. An AI will.",
+    sprint: "10 DAYS",
+    specs: ['AI trained on your docs', 'Works in your chat app', 'Only answers from your docs', 'Shows where it found the answer'],
     personas: [
       {
         id: "billable",
         icon: Clock,
-        title: "The Billable Protector",
+        title: "The Expensive Answerer",
         examples: "Senior Lawyers, Consultants, Accountants",
-        painTitle: "The Interruption Drain",
-        painText: "You spend 5 hours a week answering junior questions like 'Where's the precedent for X?'. It kills your billable capacity. Your $500/hr brain is doing $50/hr work.",
-        solution: "I clone your brain. The AI knows every precedent in your firm. Juniors ask the bot first, buying back your expensive time. You bill more, answer less."
+        painTitle: "The $500/hr Question",
+        painText: "Your $500/hr time gets eaten by questions like \"Where's the precedent for X?\" That's $50/hr work.",
+        solution: "I build an AI that knows every document in your firm. Juniors ask the bot, not you. You get your billable hours back."
       },
       {
         id: "franchise",
         icon: Store,
-        title: "The Franchise Guardian",
+        title: "The Consistency Keeper",
         examples: "Franchise Groups, Retail Chains",
-        painTitle: "Operational Drift",
-        painText: "Your manager in Parramatta does things differently to the one in Bondi because the official guide is too hard to find. Every location invents its own rules.",
-        solution: "I build The Franchise Brain. A manager asks 'What's the Summer Promo setup?' and gets the exact guide instantly. Consistency scales. One brand, every location."
+        painTitle: "The Rogue Location",
+        painText: "Every location does things differently because the official guide is too hard to find. Consistency is impossible.",
+        solution: "I build an AI that knows your operations manual. Any manager can ask \"How do I set up the promo?\" and get the exact answer. One way, everywhere."
       },
       {
         id: "compliance",
         icon: ShieldCheck,
-        title: "The Compliance Guardian",
+        title: "The Regulation Expert",
         examples: "Property Managers, Strata, Insurance",
-        painTitle: "The Compliance Maze",
-        painText: "Your junior PM asks 'Can we increase the bond for this tenant?' You have to stop work to look up the Residential Tenancy Act. One wrong answer and you're in court.",
-        solution: "I build a Compliance Bot. Tag @CompanyBrain in Slack: 'What's the maximum bond increase in NSW?' and get the answer with a citation to the legislation. Certainty on the fly."
+        painTitle: "The Risky Answer",
+        painText: "Your junior asks a compliance question. You stop work to look it up. One wrong answer and you're in trouble.",
+        solution: "I build a bot that knows the legislation. Your junior asks in Slack, gets the answer with a citation. No guessing, no risk."
       }
     ]
   }

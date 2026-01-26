@@ -1,10 +1,10 @@
 export const DIAGNOSIS_OPTIONS = [
-  'Digital Revenue / I need more leads & sales',
-  'Capture Core / My leads aren\'t converting',
-  'Auto-Fulfillment / Delivery is too manual',
-  'AI Agents / I want to automate admin work',
-  'Media Logistics / Content production is too slow',
-  'Internal Adoption / My team won\'t use the tools',
-  'Control Tower / I don\'t trust my data',
-  'Unsure / I need a full system audit'
+  'Website & Leads — I need more enquiries',
+  'CRM & Sales — I\'m losing track of leads',
+  'Automation — Too much manual work',
+  'AI — I want bots to handle things',
+  'Content — I can\'t keep up with posting',
+  'Training — My team won\'t use the tools',
+  'Dashboards — I can\'t see my numbers',
+  'Not sure — I just know something\'s broken'
 ];

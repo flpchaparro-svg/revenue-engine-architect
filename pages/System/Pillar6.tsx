@@ -122,8 +122,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
            </h2>
            <div className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl space-y-4">
              <p>
-               Training is usually the bottleneck to scaling. I've mapped out the 4 ways we speed up knowledge transfer. 
-               <strong className="text-[#1a1a1a] font-medium"> Tap the problem you have</strong> to see the solution.
+               You've bought the tools. Now you need your team to actually use them. Find your situation below.
              </p>
            </div>
         </div>

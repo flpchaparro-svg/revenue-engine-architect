@@ -132,7 +132,7 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
                <div>
                   <div className="flex items-center gap-3 mb-4">
                      <span className="font-mono text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em]" style={{ color: displayAccent }}>
-                        {pillar.number} // {pillar.categoryLabel}
+                        {pillar.number} / {pillar.categoryLabel}
                      </span>
                   </div>
                   <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-white mb-6 leading-[0.95] tracking-tighter">
@@ -168,7 +168,7 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
 
                <div className="bg-white/5 p-6 border border-white/10 flex flex-col justify-between rounded-sm">
                   <div>
-                     <span className="font-mono text-[9px] md:text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] block mb-2">CORE FUNCTION</span>
+                     <span className="font-mono text-[9px] md:text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] block mb-2">WHAT THIS SOLVES</span>
                      <p className="font-serif text-lg md:text-xl italic text-white mb-8">"{pillar.systemPurpose}"</p>
                   </div>
                   
@@ -177,7 +177,7 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
                         onClick={() => onNavigate(pillar.id)}
                         className="w-full py-4 bg-white text-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold hover:bg-opacity-90 transition-all flex items-center justify-center gap-2"
                      >
-                        EXPLORE PILLAR <ArrowRight className="w-4 h-4" />
+                        SEE HOW IT WORKS <ArrowRight className="w-4 h-4" />
                      </button>
                   </div>
                </div>

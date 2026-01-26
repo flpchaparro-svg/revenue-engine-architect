@@ -77,16 +77,16 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
-                   THE SYSTEM / CAPTURE CORE
+                   THE SYSTEM / GET CLIENTS
                  </span>
                </div>
 
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
-                 CRM & <span className="italic font-serif text-[#E21E3F] drop-shadow-[0_0_20px_rgba(226,30,63,0.2)]">Sales Logic.</span>
+                 CRM & <span className="italic font-serif text-[#E21E3F] drop-shadow-[0_0_20px_rgba(226,30,63,0.2)]">Lead Tracking.</span>
                </h1>
 
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#E21E3F] pl-6 mb-8">
-                 Most businesses lose money not because of bad ads, but because of a leaky bucket. I build the CRM infrastructure that catches, tags, and nurtures every single lead.
+                 Most businesses don't have a lead problem. They have a follow-up problem. I build the system that tracks every enquiry and makes sure nothing slips through.
                </p>
             </div>
             
@@ -118,8 +118,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
            </h2>
            <div className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl space-y-4">
              <p>
-               A CRM isn't just an address book; it's your revenue engine. I've mapped out the 4 stages of sales maturity. 
-               <strong className="text-[#1a1a1a] font-medium"> Tap the problem you have</strong> to see the solution.
+               A CRM isn't a fancy address book. It's how you stop losing leads. Find your situation below.
              </p>
            </div>
         </div>

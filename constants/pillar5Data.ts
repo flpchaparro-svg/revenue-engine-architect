@@ -4,149 +4,149 @@ import { Persona, Tier } from '../types';
 export const TIERS: Record<string, Tier> = {
   synthetic: {
     id: 'synthetic',
-    label: "SYNTHETIC STUDIO",
+    label: "VIDEO WITHOUT CAMERA",
     hook: "I hate being on camera.",
-    summary: "Choose this if you are a 'Time-Poor' Expert who wants the authority of video but hates the 'Production Circus' of cameras, lights, and retakes.",
-    sprint: "7-DAY SPRINT",
-    specs: ['AI Voice Cloning', 'Video Synthesis', 'Script-to-Video', 'No-Camera Production'],
+    summary: "Choose this if you know video builds trust, but you hate being on camera. I create videos using your voice and likeness without you ever filming.",
+    sprint: "7 DAYS",
+    specs: ['Your voice, cloned', 'Videos created without filming', 'You write it, AI makes it', 'No filming required'],
     personas: [
       {
         id: "camera-shy",
         icon: Mic,
         title: "The Camera-Shy Expert",
         examples: "Lawyers, Finance Partners, Consultants",
-        painTitle: "The Opportunity Cost",
-        painText: "You know video drives trust, but you 'don't have time to look perfect' for a camera. If you spend 4 hours filming, you lose $2,000 in billable time.",
-        solution: "I clone your voice and visual persona. You send me a text script, and my studio produces a video that looks and sounds like you in a professional setting. You never leave your desk."
+        painTitle: "The Time vs Video Trade-off",
+        painText: "You know video builds trust. But 4 hours of filming is 4 hours of lost billable work. The maths doesn't make sense.",
+        solution: "I clone your voice. You send me a script, I produce a video that looks and sounds like you. No camera, no studio, no wasted time."
       },
       {
         id: "founder",
         icon: Video,
-        title: "The Awkward Founder",
+        title: "The Stiff Presenter",
         examples: "SaaS CEOs, Civil Engineers",
-        painTitle: "The Performance Anxiety",
-        painText: "You are brilliant at code or engineering, but freeze up when the red light turns on. Your videos look stiff and awkward, damaging your brand.",
-        solution: "We remove the camera. We use a 'Synthetic Avatar' or high-end B-roll with your cloned voice. You sound confident and articulate every single time, without the anxiety."
+        painTitle: "The Freeze-Up",
+        painText: "You're great at your job. But put a camera on you and you freeze. Your videos come out stiff and awkward.",
+        solution: "I create videos using B-roll and your cloned voice. You sound confident every time because you're not actually on camera."
       },
       {
         id: "scale",
         icon: Clapperboard,
-        title: "The Content Scaling Team",
+        title: "The Bottleneck Founder",
         examples: "Marketing Agencies, News Publishers",
-        painTitle: "Production Bottleneck",
-        painText: "You need to post daily, but your founder is only available for 1 hour a month. Your social channels are starving for content.",
-        solution: "We decouple the face from the time. The marketing team writes the scripts, the AI generates the videos using the founder's likeness. Volume goes up 10x, founder effort stays at zero."
+        painTitle: "The Founder's Face Problem",
+        painText: "Your marketing team needs content. But the founder is only available for an hour a month. Your channels are starving.",
+        solution: "The marketing team writes scripts, the AI creates videos using the founder's voice and likeness. 10x more content, zero founder time."
       }
     ]
   },
   authority: {
     id: 'authority',
-    label: "AUTHORITY MATRIX",
-    hook: "I'm invisible on Google.",
-    summary: "Choose this if you are a Specialist (Medical, Legal, Trade) and want to dominate search results by answering client fears with video precision.",
-    sprint: "14-DAY SPRINT",
-    specs: ['Topic Cluster Protocol', 'Video-Led SEO', 'Blog Automation', 'Search Dominance'],
+    label: "SEO CONTENT",
+    hook: "I want to rank on Google.",
+    summary: "Choose this if you want to show up when people Google questions about your field. I create content that answers their questions and ranks.",
+    sprint: "14 DAYS",
+    specs: ['Content organised by topic', 'Videos that rank on Google', 'Blogs created from your expertise', 'Rank for questions in your field'],
     personas: [
       {
         id: "frustrated",
         icon: Search,
-        title: "The Frustrated Specialist",
+        title: "The Buried Expert",
         examples: "Orthopaedic Surgeons, Family Lawyers",
-        painTitle: "The Expertise Void",
-        painText: "You are the best in Sydney, but you are on page 3 of Google. You watch competitors with 1/10th of your skill get all the leads because they have a better FAQ page.",
-        solution: "I turn your answers into a 'Knowledge Graph.' We record you answering 50 niche questions. Google sees you as the ultimate authority and has no choice but to rank you #1."
+        painTitle: "The Page 3 Problem",
+        painText: "You're the best in Sydney. But you're on page 3 of Google. A competitor with half your skill gets the leads because they actually answer questions online.",
+        solution: "I record you answering 50 questions your customers actually ask. Google sees you as the authority. You start ranking."
       },
       {
         id: "cowboy",
         icon: Zap,
-        title: "The Cowboy Fighter",
+        title: "The Trust Builder",
         examples: "Solar Installers, Cosmetic Injectors",
-        painTitle: "The Trust Deficit",
-        painText: "Your industry is full of cowboys. Clients are scared. They need reassurance before they even call you.",
-        solution: "We build an 'Education Wall.' When they search for 'Solar Risks,' they find your video explaining exactly what to watch out for. You win the trust before you even speak to them."
+        painTitle: "The Industry Sceptic",
+        painText: "Your industry is full of dodgy operators. Clients are sceptical before they even call. They need to trust you first.",
+        solution: "I create content that answers their fears. When they Google \"solar panel scams\" they find your video explaining what to look out for. Trust before the call."
       },
       {
         id: "educator",
         icon: Globe,
-        title: "The Industry Educator",
+        title: "The Course Creator",
         examples: "RTOs, Training Academies",
-        painTitle: "The Content Black Hole",
-        painText: "You have great content inside your course, but nobody sees it on the outside. Your marketing doesn't reflect the quality of your product.",
-        solution: "We extract your curriculum into public-facing SEO assets. We give the market a 'Free Sample' of your genius that leads directly to a purchase."
+        painTitle: "The Hidden Course",
+        painText: "You've built a great course. But nobody knows it exists. Your best content is locked behind a paywall that nobody finds.",
+        solution: "I extract the best bits and turn them into free content that ranks. People find you, trust you, then buy the full course."
       }
     ]
   },
   distribution: {
     id: 'distribution',
-    label: "DISTRIBUTION GRID",
-    hook: "Posting takes forever.",
-    summary: "Choose this if you have the content but are drowning in the 'Admin' of resizing, captioning, and uploading to 5 different platforms.",
-    sprint: "7-DAY SPRINT",
-    specs: ['Auto-Captioning', 'Multi-Channel Posting', 'Asset Resizing', 'Schedule Automation'],
+    label: "AUTO-POSTING",
+    hook: "I don't have time to post.",
+    summary: "Choose this if you have content but don't have time to resize it, caption it, and post it to 5 platforms. I automate all of that.",
+    sprint: "7 DAYS",
+    specs: ['Captions added automatically', 'Posts to all your platforms', 'Resized for each platform', 'Scheduled automatically'],
     personas: [
       {
         id: "sunday",
         icon: Repeat,
-        title: "The Sunday Grind Victim",
+        title: "The Sunday Scheduler",
         examples: "Solo Consultants, Coaches",
-        painTitle: "The Burnout Loop",
-        painText: "You spend your entire Sunday evening fighting with Instagram hashtags and resizing videos instead of resting. You feel like a social media intern.",
-        solution: "I build a 'Drop Zone.' You drop one video into Google Drive. The Grid automatically captions it, resizes it for TikTok/LinkedIn, and schedules it. You get your Sunday back."
+        painTitle: "The Sunday Dread",
+        painText: "You spend Sunday night scheduling posts, resizing videos, and fighting with hashtags. You're doing an intern's job.",
+        solution: "I build a system where you drop one video into a folder. It gets captioned, resized, and scheduled to all platforms automatically. Sundays back."
       },
       {
         id: "franchise",
         icon: Share2,
-        title: "The Franchise Coordinator",
+        title: "The Brand Police",
         examples: "Gym Groups, Retail Chains",
-        painTitle: "Brand Dilution",
-        painText: "Your franchisees are posting low-quality, off-brand content because they don't have the right assets. It looks messy.",
-        solution: "We centralize distribution. HQ drops the high-quality assets into the engine, and it pushes them to the local pages of every franchisee automatically. Perfect brand consistency."
+        painTitle: "The Rogue Poster",
+        painText: "Your franchisees post whatever they want. Different fonts, different messages, off-brand photos. It looks like 10 different companies.",
+        solution: "I build a system where HQ creates the content and it automatically posts to every franchisee's page. One brand, everywhere."
       },
       {
         id: "podcast",
         icon: Mic,
-        title: "The Podcaster",
+        title: "The Audio-Only Host",
         examples: "Audio-First Creators",
-        painTitle: "The Visibility Gap",
-        painText: "You have a great audio podcast, but no video clips for social media. You are invisible on TikTok and Instagram Reels.",
-        solution: "We connect your RSS feed to the Grid. Every new episode automatically triggers the creation of 'Audiograms' and quote cards for social media."
+        painTitle: "The Missing Clips",
+        painText: "You have a podcast. But without video clips, you're invisible on TikTok and Instagram. Audio doesn't cut through.",
+        solution: "I connect your podcast feed to the system. Every episode automatically creates video clips and quote cards for social."
       }
     ]
   },
   terminal: {
     id: 'terminal',
-    label: "CONVERSION TERMINAL",
-    hook: "I need a page fast.",
-    summary: "Choose this if you have a new offer or ad campaign and need a high-speed landing page live in 24 hours, without waiting for your IT team.",
-    sprint: "24-HOUR LAUNCH",
-    specs: ['Framer/Webflow Dev', 'High-Speed Load', 'Stripe Integration', 'Ad-Optimised'],
+    label: "LANDING PAGES",
+    hook: "I need a page for my campaign.",
+    summary: "Choose this if you need a landing page for a campaign and can't wait 2 weeks for IT. I build fast, focused pages that convert.",
+    sprint: "24 HOURS",
+    specs: ['Fast-loading page', 'Loads instantly', 'Takes payments', 'Built to convert ad traffic'],
     personas: [
       {
         id: "ad-spend",
         icon: Grid,
-        title: "The Ad-Spend Optimiser",
+        title: "The Waiting Advertiser",
         examples: "Growth Marketers, E-com Managers",
-        painTitle: "The DevOps Wall",
-        painText: "You have a winning ad idea, but IT says they can't update the website for 2 weeks. You are losing money every day you wait.",
-        solution: "I build a 'Speedboat' page on a subdomain. It launches in 24 hours, loads instantly, and is designed purely for conversion. You don't need IT's permission."
+        painTitle: "The IT Queue",
+        painText: "You've got a winning ad idea. IT says the website update takes 2 weeks. Every day you wait, you lose money.",
+        solution: "I build a landing page on a subdomain. Live in 24 hours. No IT required. Your ad starts converting tomorrow."
       },
       {
         id: "event",
         icon: Layout,
         title: "The Event Runner",
         examples: "Conference Organizers, Webinar Hosts",
-        painTitle: "The Ticket Lag",
-        painText: "You are running an event, but your main website is too cluttered to sell tickets effectively. People get lost in the menu.",
-        solution: "We deploy a single-page 'Terminal.' No menu, no distractions. Just the event details and a Stripe checkout. Conversion rates double immediately."
+        painTitle: "The Cluttered Path",
+        painText: "You're running an event. But your website is cluttered. People click around, get lost, and leave without buying a ticket.",
+        solution: "I build a single-page event site. No menu, no distractions. Just the event info and a buy button. Conversion doubles."
       },
       {
         id: "testing",
         icon: Terminal,
-        title: "The Offer Tester",
+        title: "The Idea Validator",
         examples: "Startups, Serial Entrepreneurs",
-        painTitle: "The Validation Trap",
-        painText: "You want to test a new product idea, but building a whole Shopify store feels like overkill. You need to know if it sells *now*.",
-        solution: "We launch a 'Validation Terminal.' A simple, beautiful page that takes pre-orders. If it sells, you build the business. If not, you saved months of work."
+        painTitle: "The Premature Build",
+        painText: "You've got a product idea. But building a full store before you know if it sells is a waste. You need to test it first.",
+        solution: "I build a simple page that takes pre-orders. If it sells, you build the business. If not, you've saved months of work."
       }
     ]
   }

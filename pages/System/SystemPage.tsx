@@ -83,13 +83,13 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
             <div className="flex flex-col justify-center">
               <motion.div variants={heroItem} className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
                 <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
-                <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">ARCHITECTURE / HOLISTIC</span>
+                <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">THE SYSTEM</span>
               </motion.div>
               <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10 break-words">
-                Business as an <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Organism.</span>
+                How I Fix Your <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Business.</span>
               </motion.h1>
               <motion.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                Your business is not a machine; it is a living system. We verify the connections between your revenue, your tech, and your team.
+                Most consultants sell you one piece at a time. A website here, a CRM there. I build connected systems where everything talks to everything else. That's how you stop the leaks.
               </motion.p>
             </div>
             <motion.div variants={heroItem} className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
@@ -117,7 +117,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
       </section>
 
       {/* 4. STATIC FOOTER CONTENT */}
-      <FAQSection faqs={systemFAQs} accentColor="#C5A059" title="Questions?" subtitle="Everything you need to know before choosing a service." onNavigate={onNavigate} />
+      <FAQSection faqs={systemFAQs} accentColor="#C5A059" title="Questions?" subtitle="Common questions about how this works." onNavigate={onNavigate} />
       <GlobalFooter onNavigate={onNavigate} />
     </div>
   );

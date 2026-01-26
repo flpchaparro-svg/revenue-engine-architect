@@ -28,7 +28,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
       {/* LEFT COLUMN: THE HUMAN ANCHOR */}
       <div className="w-full lg:w-5/12 h-auto lg:h-screen lg:sticky lg:top-0 bg-[#FFF2EC] text-[#1a1a1a] flex flex-col p-8 md:p-12 lg:px-20 lg:pb-20 lg:pt-24 border-r border-[#1a1a1a]/10 justify-between order-first relative z-10">
         <div className="flex-none mb-12 lg:mb-0 pt-2 lg:pt-0">
-          <BackButton onClick={onBack} label="Abort Diagnosis" />
+          <BackButton onClick={onBack} label="Back" />
         </div>
 
         <div className="flex-1 flex flex-col justify-center py-8 lg:py-0">
@@ -41,10 +41,10 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
           </h1>
           <div className="space-y-6 max-w-lg">
             <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]">
-              I don't employ salespeople. When you submit this brief, you are starting a conversation directly with me.
+              I don't have salespeople. When you fill this out, you're starting a conversation directly with me.
             </p>
             <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60">
-              I will personally review your setup, identify the leakage, and determine if my systems can close the gap.
+              I'll personally review your situation and tell you honestly if I can help.
             </p>
           </div>
         </div>
@@ -52,7 +52,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
         <div className="hidden lg:block flex-none opacity-40">
            <div className="w-12 h-[1px] bg-[#C5A059] mb-4" />
            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
-             // DIRECT LINE OPEN
+             DIRECT LINE OPEN
            </p>
         </div>
       </div>
@@ -65,13 +65,13 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
             
             <div className="mb-12 border-b border-white/10 pb-8 mt-8 lg:mt-0">
               <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
-                / DIAGNOSIS
+                / YOUR DETAILS
               </span>
-              <h2 className="font-serif text-3xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-white mb-6">
-                The <span className="italic font-serif text-[#C5A059]">Situation.</span>
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-white mb-6">
+                Tell Me About Your <span className="italic font-serif text-[#C5A059]">Business.</span>
               </h2>
               <p className="font-sans text-lg md:text-xl text-white/60 leading-relaxed max-w-xl">
-                Complete the parameters below to initiate the diagnosis.
+                Fill this out and I'll get back to you within 24 hours.
               </p>
             </div>
 
@@ -79,24 +79,24 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
               {/* Row 1: Name & Email */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="group relative">
-                  <label htmlFor="name" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">01 // IDENTIFICATION</label>
-                  <input id="name" type="text" required className={inputBaseStyle} placeholder="Full Name" value={formState.name} onChange={e => updateField('name', e.target.value)} />
+                  <label htmlFor="name" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">YOUR NAME</label>
+                  <input id="name" type="text" required className={inputBaseStyle} placeholder="Your name" value={formState.name} onChange={e => updateField('name', e.target.value)} />
                 </div>
                 <div className="group relative">
-                  <label htmlFor="email" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">02 // COORDINATES</label>
-                  <input id="email" type="email" required className={inputBaseStyle} placeholder="Email Address" value={formState.email} onChange={e => updateField('email', e.target.value)} />
+                  <label htmlFor="email" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">EMAIL</label>
+                  <input id="email" type="email" required className={inputBaseStyle} placeholder="Your email" value={formState.email} onChange={e => updateField('email', e.target.value)} />
                 </div>
               </div>
 
               {/* Row 2: Entity */}
               <div className="group relative">
-                <label htmlFor="company" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">03 // ENTITY</label>
-                <input id="company" type="text" className={inputBaseStyle} placeholder="Company / Website" value={formState.company} onChange={e => updateField('company', e.target.value)} />
+                <label htmlFor="company" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">BUSINESS</label>
+                <input id="company" type="text" className={inputBaseStyle} placeholder="Company name or website" value={formState.company} onChange={e => updateField('company', e.target.value)} />
               </div>
 
               {/* Row 3: Dropdown */}
               <div className="group relative">
-                <label htmlFor="frictionPoint" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">04 // THE HANDBRAKE</label>
+                <label htmlFor="frictionPoint" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">WHAT DO YOU NEED HELP WITH?</label>
                 <div className="relative">
                   <select id="frictionPoint" className={`${inputBaseStyle} appearance-none cursor-pointer pr-10`} value={formState.frictionPoint} onChange={e => updateField('frictionPoint', e.target.value)}>
                     {DIAGNOSIS_OPTIONS.map(s => <option key={s} value={s} className="bg-[#1a1a1a] text-white">{s}</option>)}
@@ -109,13 +109,13 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
               {/* Row 4: Message */}
               <div className="group relative">
-                <label htmlFor="message" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">05 // CONTEXT</label>
-                <textarea id="message" rows={4} className={`${inputBaseStyle} resize-none`} placeholder="Give me the details. I analyse the system, not the symptoms." value={formState.message} onChange={e => updateField('message', e.target.value)} />
+                <label htmlFor="message" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">ANYTHING ELSE?</label>
+                <textarea id="message" rows={4} className={`${inputBaseStyle} resize-none`} placeholder="Tell me a bit about your situation." value={formState.message} onChange={e => updateField('message', e.target.value)} />
               </div>
 
               <div className="pt-8 pb-12">
                 <CTAButton theme="dark" type="submit" className={`w-full ${status === 'submitting' ? 'opacity-50 cursor-wait' : ''}`}>
-                  {status === 'submitting' ? 'UPLOADING...' : '[ INITIATE DIAGNOSIS ]'}
+                  {status === 'submitting' ? 'SENDING...' : '[ SEND ]'}
                 </CTAButton>
               </div>
             </form>
@@ -126,15 +126,15 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                <Check className="w-12 h-12 text-[#1a1a1a]" />
              </div>
              <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tighter text-white mb-6">
-               Brief <span className="italic font-serif text-[#C5A059]">Received.</span>
+               Got <span className="italic font-serif text-[#C5A059]">It.</span>
              </h2>
              <p className="font-sans text-lg md:text-xl font-light text-white/60 mb-12 leading-relaxed">
-               I have received your parameters. I will analyse your architecture and respond personally within 24 hours.
+               Thanks for reaching out. I'll review your details and get back to you within 24 hours.
              </p>
              
              <div className="w-fit">
                 <CTAButton theme="dark" onClick={onBack}>
-                   RETURN TO HQ
+                   BACK TO HOME
                 </CTAButton>
              </div>
           </motion.div>

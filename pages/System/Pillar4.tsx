@@ -76,16 +76,16 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
-                   THE SYSTEM / THE VOICE
+                   THE SYSTEM / SCALE FASTER
                  </span>
                </div>
 
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
-                 Cognitive <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Infrastructure.</span>
+                 <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">AI Assistants.</span>
                </h1>
 
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                 We build "Digital Employees" that can speak, reason, and act. From answering the phone at 2 AM to finding answers in your company handbook instantly.
+                 I build AI that answers your phone, chats with customers, and handles questions 24/7. It sounds human, works around the clock, and never calls in sick.
                </p>
             </div>
             
@@ -116,8 +116,7 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
            </h2>
            <div className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl space-y-4">
              <p>
-               AI isn't just about writing emails. It's about cloning your best employees. 
-               <strong className="text-[#1a1a1a] font-medium"> Tap the role you need to fill</strong> to see how we engineer the digital replacement.
+               AI isn't just ChatGPT. I build AI that does real jobs: answering phones, qualifying leads, and training new staff. Find your situation below.
              </p>
            </div>
         </div>

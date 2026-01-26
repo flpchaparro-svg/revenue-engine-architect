@@ -76,16 +76,16 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
-                   THE SYSTEM / AUTOMATION
+                   THE SYSTEM / GET CLIENTS
                  </span>
                </div>
 
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
-                 Kill the <span className="italic font-serif text-[#E21E3F] drop-shadow-[0_0_20px_rgba(226,30,63,0.2)]">Admin.</span>
+                 <span className="italic font-serif text-[#E21E3F] drop-shadow-[0_0_20px_rgba(226,30,63,0.2)]">Automation.</span>
                </h1>
 
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#E21E3F] pl-6 mb-8">
-                 Your business shouldn't depend on you hitting 'copy-paste'. I build the invisible muscle that moves data, creates contracts, and fulfills orders while you sleep.
+                 You're copying and pasting between apps all day. Invoices, follow-ups, data entry. I build the systems that do that work automatically.
                </p>
             </div>
             
@@ -112,12 +112,11 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
               / SYSTEM CONFIGURATION
            </span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-[#1a1a1a] leading-[0.95] tracking-tighter mb-6">
-             Select your <span className="italic text-[#E21E3F] font-serif">Complexity.</span>
+             Select your <span className="italic text-[#E21E3F] font-serif">Situation.</span>
            </h2>
            <div className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl space-y-4">
              <p>
-               From simple connections to cognitive AI workers. 
-               <strong className="text-[#1a1a1a] font-medium"> Tap the level that matches your operational friction</strong> to see the solution.
+               From simple app connections to full AI workers. Find the level that matches your needs.
              </p>
            </div>
         </div>

@@ -76,16 +76,16 @@ const Pillar5: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
                  <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
-                   THE SYSTEM / THE PRESENCE
+                   THE SYSTEM / SCALE FASTER
                  </span>
                </div>
 
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10">
-                 Media <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Logistics.</span>
+                 <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Content Systems.</span>
                </h1>
 
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                 Content is a supply chain, not an art project. We industrialize the production of authority assets, using AI to turn one hour of your expertise into a month of presence.
+                 You know you should be posting. But when? I turn one voice note into a month of content. You talk for 10 minutes, the system does the rest.
                </p>
             </div>
             
@@ -116,8 +116,7 @@ const Pillar5: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
            </h2>
            <div className="font-sans text-lg md:text-xl text-[#1a1a1a]/70 leading-relaxed max-w-3xl space-y-4">
              <p>
-               Most experts are "Time-Poor." You have the knowledge, but you lack the bandwidth to be a creator. 
-               <strong className="text-[#1a1a1a] font-medium"> Tap the problem you want to solve</strong> to see the production line.
+               You have the knowledge. You just don't have time to post every day. Find your situation below.
              </p>
            </div>
         </div>

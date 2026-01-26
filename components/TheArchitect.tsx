@@ -111,15 +111,15 @@ const TheArchitect: React.FC = () => {
                     {mode === 'architect' ? (
                        <>One person. <br/><span className="italic text-[#C5A059]">Ten person output.</span></>
                     ) : (
-                       <>I've run businesses. <br/><span className="italic text-[#C5A059]">Not just consulted them.</span></>
+                       <>I've run businesses. <br/><span className="italic text-[#C5A059]">Not just advised them.</span></>
                     )}
                  </h2>
                  <div className="space-y-8 md:space-y-12">
                     {/* FIXED: Body text scaling */}
                     <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 border-l-2 border-[#1a1a1a]/10 pl-8 max-w-xl">
                        {mode === 'architect' 
-                         ? "No account managers. No junior handoffs. No endless meetings. You talk directly to the person building your system. I use automation and AI to deliver what agencies need a whole team for."
-                         : "Before I built systems for others, I ran my own café, managed car dealerships, and worked on factory floors. I know what it's like to chase invoices at midnight. I don't give you theory. I give you what actually works."
+                         ? "No account managers. No junior handoffs. No endless meetings. You talk directly to the person building your system. I use automation and AI to deliver what agencies charge a team for."
+                         : "Before I built systems for others, I ran my own café, managed international franchises, and worked factory floors. I know what it's like to chase invoices at midnight. I don't give you theory. I give you what actually works."
                        }
                     </p>
                  </div>

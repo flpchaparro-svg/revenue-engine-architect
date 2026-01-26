@@ -74,31 +74,31 @@ const SYSTEM_CARDS: Record<string, {
   description: string;
 }> = {
   'GET CLIENTS': {
-    label: '/ ALL 7 PILLARS',
-    title: 'See the Full System',
-    titleDisplay: 'The Complete System',
-    subtitle: 'The Blueprint',
-    subtitleDisplay: 'The Blueprint',
-    smallCardBody: 'These three get you clients. But there\'s more under the hood.',
-    description: 'Websites, CRM, and Automation capture leads. But the system goes further: AI that answers your phone, content that posts itself, dashboards that show you the truth. See how all seven connect.',
+    label: '/ GET CLIENTS',
+    title: 'How These 3 Work Together',
+    titleDisplay: 'How These 3 Work Together',
+    subtitle: 'The Foundation',
+    subtitleDisplay: 'The Foundation',
+    smallCardBody: 'These three capture clients. But they work better when connected to everything else.',
+    description: 'Your website captures leads. Your CRM tracks them. Automation follows up instantly. These three work together so nothing slips through. But they\'re just the start.',
   },
   'SCALE FASTER': {
-    label: '/ ALL 7 PILLARS',
-    title: 'See the Full System',
-    titleDisplay: 'The Complete System',
-    subtitle: 'The Blueprint',
-    subtitleDisplay: 'The Blueprint',
-    smallCardBody: 'AI and content scale you. But they work better when connected to everything else.',
-    description: 'These pillars multiply your output, but they\'re not standalone. Your website feeds the CRM, the CRM triggers the automation, the dashboard shows what\'s working. See the full loop.',
+    label: '/ SCALE FASTER',
+    title: 'How These 3 Work Together',
+    titleDisplay: 'How These 3 Work Together',
+    subtitle: 'The Growth Layer',
+    subtitleDisplay: 'The Growth Layer',
+    smallCardBody: 'AI and content multiply your reach. But they need clean data from the first three pillars to work properly.',
+    description: 'AI answers your phone at 2am. Content posts while you sleep. Training makes sure your team actually uses the tools. These three multiply your output without multiplying your headcount.',
   },
   'SEE CLEARLY': {
-    label: '/ ALL 7 PILLARS',
-    title: 'See the Full System',
-    titleDisplay: 'The Complete System',
-    subtitle: 'The Blueprint',
-    subtitleDisplay: 'The Blueprint',
-    smallCardBody: 'A dashboard is only as good as the data feeding it. Garbage in, garbage out.',
-    description: 'Clean dashboards need clean data. When your website, CRM, automation, and AI are all connected, you get one source of truth. No more conflicting spreadsheets. See how the entire system works together.',
+    label: '/ SEE CLEARLY',
+    title: 'Where It All Comes Together',
+    titleDisplay: 'Where It All Comes Together',
+    subtitle: 'The Dashboard',
+    subtitleDisplay: 'The Dashboard',
+    smallCardBody: 'A dashboard is only as good as the data feeding it. When all 7 pillars are connected, you get one source of truth.',
+    description: 'A dashboard is only as good as the data feeding it. When all 7 pillars are connected, you get one source of truth. No more conflicting spreadsheets.',
   },
 };
 
@@ -139,12 +139,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
 
   const handleCardClick = (service: ServiceDetail | any) => {
     if (!onNavigate) return;
-    
-    if (service.id === 'system-overview' || service.id === 'blueprint-architecture') {
-      onNavigate('system');
-    } else {
-      onNavigate(service.id);
-    }
+    // All cards now navigate to /system to force consideration stage
+    onNavigate('system');
   };
 
   return (
@@ -179,10 +175,10 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
         <div className={`pt-24 pb-12 px-6 lg:pt-16 lg:pb-8 text-center max-w-4xl mx-auto ${activePhase.text}`}>
            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-4 block">/ THE SYSTEM</span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-none tracking-tighter mb-6">
-             7 Ways I Fix <span className="italic text-[#C5A059]">Your Business.</span>
+             7 Pillars. <span className="italic text-[#C5A059]">3 Outcomes.</span>
            </h2>
            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto px-4">
-              I don't just build websites. I treat your business as one connected system. By linking Marketing, Sales, and Operations together, I get rid of the friction that burns out your people.
+              I don't sell isolated tools. I build connected systems. Websites feed your CRM. Your CRM triggers automation. Dashboards show you what's working. Everything talks to everything else.
            </p>
         </div>
 
@@ -344,7 +340,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                  <CTAButton
                                     variant="bracket"
                                     theme="light"
-                                    onClick={() => handleCardClick(displayService)}
+                                    onClick={() => onNavigate && onNavigate('system')}
                                  >
                                     VIEW DETAILS
                                  </CTAButton>
@@ -443,7 +439,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                               variant="bracket"
                               size="sm"
                               theme="light"
-                              className="pointer-events-none"
+                              onClick={() => onNavigate && onNavigate('system', service.id)}
                             >
                               VIEW DETAILS
                             </CTAButton>
@@ -485,7 +481,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         </div>
 
                         <div className="mb-auto">
-                           <h4 className="font-serif text-2xl md:text-3xl text-white mb-2 leading-tight tracking-tight">
+                           <h4 className="font-serif text-xl md:text-2xl text-white mb-2 leading-tight tracking-tight">
                              {systemCardData.title}
                            </h4>
                            <p className="font-mono text-[10px] text-[#C5A059] mb-4 uppercase tracking-[0.2em] font-bold">
@@ -502,7 +498,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                             variant="bracket"
                             size="sm"
                             theme="dark"
-                            className="pointer-events-none"
+                            onClick={() => onNavigate && onNavigate('system')}
                           >
                             VIEW ALL PILLARS
                           </CTAButton>
