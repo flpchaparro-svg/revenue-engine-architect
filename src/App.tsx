@@ -111,7 +111,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#FFF2EC] font-sans antialiased selection:bg-[#1a1a1a] selection:text-[#FFF2EC] min-h-screen flex flex-col relative">
+    <div className="bg-[#FFF2EC] font-sans selection:bg-[#1a1a1a] selection:text-[#FFF2EC] min-h-screen flex flex-col relative">
       
       {/* --- THE DARK ROOM PRELOADER --- */}
       <AnimatePresence mode="wait">

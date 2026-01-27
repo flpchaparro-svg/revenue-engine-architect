@@ -1,175 +1,86 @@
+/* 
+ * REVENUE ENGINE ARCHITECT - Main Stylesheet
+ * This file contains:
+ * 1. Tailwind CSS directives (base, components, utilities)
+ * 2. CSS Custom Properties (colors, etc.)
+ * 3. Base styles (fonts, body)
+ * 4. All custom animations
+ * 5. Component-specific styles
+ */
+
+/* ============================================
+   TAILWIND DIRECTIVES
+   ============================================ */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  /* CSS Variables */
-  :root {
-    --bg: #FFF2EC;
-    --ink: #1a1a1a;
-    --signal-red: #E21E3F;
-    --gold: #C5A059;
-  }
-
-  /* Base Body Styles */
-  body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg);
-    color: var(--ink);
-    margin: 0;
-    overflow-x: hidden;
-  }
-
-  /* Typography */
-  h1, h2, h3, h4, .font-serif {
-    font-family: 'Cormorant Garamond', serif;
-    letter-spacing: -0.04em;
-  }
-
-  /* Selection */
-  ::selection {
-    background-color: var(--ink);
-    color: var(--bg);
-  }
-
-  /* Scrollbar */
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: var(--bg);
-  }
-  ::-webkit-scrollbar-thumb {
-    background: var(--ink);
-  }
+/* ============================================
+   CSS CUSTOM PROPERTIES (Variables)
+   ============================================ */
+:root {
+  --bg: #FFF2EC;
+  --ink: #1a1a1a;
+  --signal-red: #E21E3F;
+  --gold: #C5A059;
 }
 
-@layer components {
-  /* --- 1. EYEBROWS & MICRO-COPY (The Gold Standard) --- */
-  /* Used for: Section Labels, Buttons, Nav, Metrics, Tabs */
-  .type-eyebrow {
-    @apply font-mono text-xs font-bold uppercase tracking-[0.2em];
-  }
-
-  /* --- 2. HEADINGS (The Hierarchy) --- */
-  
-  /* H1: HERO ONLY (The King) */
-  /* Usage: Only the main "Stop Doing Everyone's Job" text */
-  .type-h1 {
-    @apply font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter;
-  }
-  
-  /* H2: SECTION HEADERS (The Princes) */
-  /* Usage: "The Problem", "Friction Audit", "7 Ways I Fix", "Real Results", "CTA" */
-  .type-h2 {
-    @apply font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter;
-  }
-  
-  /* H3: LARGE CARDS & SUB-SECTIONS (The Knights) */
-  /* Usage: Friction Cards, Modal Titles, "The Fix" Card */
-  .type-h3 {
-    @apply font-serif text-3xl md:text-4xl leading-[1.1] tracking-tight;
-  }
-  
-  /* H4: GRID CARDS & LISTS (The Soldiers) */
-  /* Usage: 7 Pillars Grid, Problem List Items ("Bottleneck Boss"), System Overview */
-  .type-h4 {
-    @apply font-serif text-xl md:text-2xl leading-tight tracking-tight;
-  }
-
-  /* --- 3. BODY TEXT --- */
-  
-  /* LEAD BODY: Intros */
-  /* Usage: The paragraph directly under a Section Header */
-  .type-body-lg {
-    @apply font-sans text-lg md:text-xl font-light leading-relaxed;
-  }
-  
-  /* STANDARD BODY: Cards & Content */
-  /* Usage: Inside cards, lists, and modal details */
-  .type-body {
-    @apply font-sans text-base md:text-lg leading-relaxed;
-  }
-
-  /* --- 4. ACCESSIBILITY --- */
-  
-  /* Screen Reader Only: Visually hidden but accessible to screen readers */
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
-
-  #geometric-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  .content-layer {
-    position: relative;
-    z-index: 10;
-  }
-
-  .nav-link {
-    position: relative;
-    display: inline-block;
-    transition: color 0.4s ease, opacity 0.4s ease;
-    letter-spacing: 0.3em;
-  }
-
-  .nav-link::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 1px;
-    bottom: -4px;
-    left: 0;
-    background-color: var(--ink);
-    transform: scaleX(0);
-    transform-origin: center;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .nav-link:hover::before {
-    transform: scaleX(1);
-  }
-
-  /* CAROUSEL MASK */
-  .carousel-mask {
-    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-  }
-
-  /* BLEND MODE UTILITY */
-  .mix-blend-luminosity {
-    mix-blend-mode: luminosity;
-  }
+/* ============================================
+   BASE STYLES
+   ============================================ */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--ink);
+  margin: 0;
+  overflow-x: hidden;
+  /* REMOVED font-smoothing - let fonts render naturally with their loaded weights */
 }
 
-/* ANIMATIONS - Outside layers for global access */
+/* 
+ * CRITICAL: Serif font for headings
+ * This ensures big titles use Cormorant Garamond with tight letter-spacing
+ * Set default weight to 400 (regular) - components can override with font-bold, font-semibold, etc.
+ */
+h1, h2, h3, h4, .font-serif {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; /* Default weight - components override as needed */
+  letter-spacing: -0.04em;
+  /* Ensure fonts are loaded before rendering */
+  font-display: swap;
+}
+
+/* Text selection colors */
+::selection {
+  background-color: var(--ink);
+  color: var(--bg);
+}
+
+/* ============================================
+   REVEAL TEXT ANIMATION
+   For hero section text that slides up
+   ============================================ */
 .reveal-text {
   transform: translateY(120%);
   opacity: 0;
   animation: slideUp 1.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-  letter-spacing: 0.15em; /* Refined from 0.3em for clinical precision */
+  letter-spacing: 0.15em;
 }
 
 @keyframes slideUp {
-  0% { transform: translateY(120%) skewY(8deg); opacity: 0; }
-  100% { transform: translateY(0) skewY(0deg); opacity: 1; }
+  0% {
+    transform: translateY(120%) skewY(8deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) skewY(0deg);
+    opacity: 1;
+  }
 }
 
+/* ============================================
+   FADE IN ANIMATION
+   ============================================ */
 .animate-fade-in {
   opacity: 0;
   transform: translateY(20px);
@@ -177,23 +88,40 @@
 }
 
 @keyframes fadeIn {
-  to { opacity: 1; transform: translateY(0); }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
+/* ============================================
+   EXTEND LINE ANIMATION
+   ============================================ */
 .animate-extend-line {
   width: 0;
   animation: extendLine 4s cubic-bezier(0.85, 0, 0.15, 1) forwards;
 }
 
 @keyframes extendLine {
-  to { width: 4rem; }
+  to {
+    width: 4rem;
+  }
 }
 
-/* GOLD REVENUE SHINE - Refined for Growth Symbolism */
+/* ============================================
+   GOLD SHINE EFFECT (soft-steel-shine)
+   Creates the animated gold text with lens sweep
+   ============================================ */
 @keyframes lensSweep {
-  0% { background-position: 150% 0; }
-  35% { background-position: -50% 0; }
-  100% { background-position: -50% 0; }
+  0% {
+    background-position: 150% 0;
+  }
+  35% {
+    background-position: -50% 0;
+  }
+  100% {
+    background-position: -50% 0;
+  }
 }
 
 .soft-steel-shine {
@@ -201,7 +129,7 @@
     110deg,
     #C5A059 0%,
     #C5A059 40%,
-    rgba(255, 255, 255, 0.4) 48%, 
+    rgba(255, 255, 255, 0.4) 48%,
     rgba(255, 255, 255, 0.6) 50%,
     rgba(255, 255, 255, 0.4) 52%,
     #9A7B3F 60%,
@@ -213,15 +141,117 @@
   color: transparent;
   animation: lensSweep 8s cubic-bezier(0.3, 0, 0.2, 1) infinite;
   display: inline-block;
-  letter-spacing: 0.05em; /* Tight breathing space for italic text */
+  letter-spacing: 0.05em;
 }
 
-/* PRESTIGE FLICKER */
+/* ============================================
+   FLICKER ANIMATION
+   ============================================ */
 @keyframes flicker {
-  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
-  20%, 24%, 55% { opacity: 0.3; }
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    opacity: 0.3;
+  }
 }
 
 .animate-flicker {
   animation: flicker 4s linear infinite;
+}
+
+/* ============================================
+   LAYOUT UTILITIES
+   ============================================ */
+#geometric-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.content-layer {
+  position: relative;
+  z-index: 10;
+}
+
+/* ============================================
+   NAVIGATION STYLES
+   ============================================ */
+.nav-link {
+  position: relative;
+  display: inline-block;
+  transition: color 0.4s ease, opacity 0.4s ease;
+  letter-spacing: 0.3em;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--ink);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-link:hover::before {
+  transform: scaleX(1);
+}
+
+/* ============================================
+   CAROUSEL / SCROLLING ELEMENTS
+   ============================================ */
+.carousel-mask {
+  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+/* ============================================
+   BLEND MODES
+   ============================================ */
+.mix-blend-luminosity {
+  mix-blend-mode: luminosity;
+}
+
+/* ============================================
+   CUSTOM SCROLLBAR
+   ============================================ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ink);
+}
+
+/* ============================================
+   UTILITY CLASSES (if needed beyond Tailwind)
+   ============================================ */
+
+/* Force thick font weight for serif titles */
+.font-serif-thick {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+/* Gold text color */
+.text-gold {
+  color: #C5A059;
+}
+
+/* Signal red text color */
+.text-signal-red {
+  color: #E21E3F;
 }
