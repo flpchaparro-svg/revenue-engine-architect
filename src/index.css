@@ -11,70 +11,144 @@
   }
 
   body {
-    @apply font-sans antialiased;
+    font-family: 'Inter', sans-serif;
     background-color: var(--bg);
     color: var(--ink);
     margin: 0;
     overflow-x: hidden;
   }
 
-  /* * CRITICAL FIX:
-   * This ensures that even if a class is missing, standard headers 
-   * still look like the correct font family (Cormorant).
-   */
+  /* Typography Defaults from Main */
   h1, h2, h3, h4, .font-serif {
     font-family: 'Cormorant Garamond', serif;
-    font-weight: 500;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.04em;
+    /* We do NOT force font-weight here, allowing the classes to control it */
+  }
+
+  ::selection {
+    background-color: var(--ink);
+    color: var(--bg);
+  }
+
+  /* Scrollbar from Main */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--ink);
   }
 }
 
 @layer components {
-  /* * THE MISSING CLASSES:
-   * These are the specific "Luxury" styles your React components are calling.
-   * Without these, the titles look small and wrong.
-   */
-
+  /* --- TYPOGRAPHY CLASSES (EXACT COPY FROM MAIN) --- */
+  
+  /* 1. EYEBROWS */
   .type-eyebrow {
-    @apply font-mono text-xs font-bold uppercase tracking-[0.2em] text-ink/60;
+    @apply font-mono text-xs font-bold uppercase tracking-[0.2em];
   }
 
+  /* 2. HEADINGS */
+  
+  /* H1: HERO ONLY */
   .type-h1 {
-    @apply font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tighter font-medium text-ink;
+    @apply font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter;
   }
   
+  /* H2: SECTION HEADERS */
   .type-h2 {
-    @apply font-serif text-4xl md:text-6xl lg:text-7xl leading-[1] tracking-tighter font-medium text-ink;
+    @apply font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter;
   }
   
+  /* H3: LARGE CARDS */
   .type-h3 {
-    @apply font-serif text-3xl md:text-4xl leading-tight tracking-tight font-medium text-ink;
+    @apply font-serif text-3xl md:text-4xl leading-[1.1] tracking-tight;
   }
   
+  /* H4: GRID CARDS */
   .type-h4 {
-    @apply font-serif text-xl md:text-2xl leading-tight tracking-tight font-medium text-ink;
+    @apply font-serif text-xl md:text-2xl leading-tight tracking-tight;
   }
 
+  /* 3. BODY TEXT */
   .type-body-lg {
     @apply font-sans text-lg md:text-xl font-light leading-relaxed;
   }
   
   .type-body {
-    @apply font-sans text-base leading-relaxed text-ink/80;
+    @apply font-sans text-base md:text-lg leading-relaxed;
   }
+
+  /* 4. UTILITIES */
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+  }
+
+  #geometric-container {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    z-index: 0; pointer-events: none;
+  }
+
+  .content-layer { position: relative; z-index: 10; }
+
+  .nav-link {
+    position: relative; display: inline-block;
+    transition: color 0.4s ease, opacity 0.4s ease;
+    letter-spacing: 0.3em;
+  }
+
+  .nav-link::before {
+    content: ''; position: absolute; width: 100%; height: 1px;
+    bottom: -4px; left: 0; background-color: var(--ink);
+    transform: scaleX(0); transform-origin: center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .nav-link:hover::before { transform: scaleX(1); }
+
+  .carousel-mask {
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  }
+
+  .mix-blend-luminosity { mix-blend-mode: luminosity; }
 }
 
-/* --- ANIMATIONS (Keep these for the "Gold" shine) --- */
+/* --- ANIMATIONS (Moved from Main index.html to here) --- */
+
+.reveal-text {
+  transform: translateY(120%);
+  opacity: 0;
+  animation: slideUp 1.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+  letter-spacing: 0.15em;
+}
+
+@keyframes slideUp {
+  0% { transform: translateY(120%) skewY(8deg); opacity: 0; }
+  100% { transform: translateY(0) skewY(0deg); opacity: 1; }
+}
+
+.animate-fade-in {
+  opacity: 0; transform: translateY(20px); animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+.animate-extend-line {
+  width: 0; animation: extendLine 4s cubic-bezier(0.85, 0, 0.15, 1) forwards;
+}
+
+@keyframes extendLine { to { width: 4rem; } }
+
+/* GOLD SHINE */
 .soft-steel-shine {
   background: linear-gradient(
-    110deg,
-    #C5A059 0%,
-    #C5A059 40%,
-    rgba(255, 255, 255, 0.4) 48%, 
-    rgba(255, 255, 255, 0.6) 50%,
-    rgba(255, 255, 255, 0.4) 52%,
-    #9A7B3F 60%,
-    #C5A059 100%
+    110deg, #C5A059 0%, #C5A059 40%,
+    rgba(255, 255, 255, 0.4) 48%, rgba(255, 255, 255, 0.6) 50%, rgba(255, 255, 255, 0.4) 52%,
+    #9A7B3F 60%, #C5A059 100%
   );
   background-size: 350% 100%;
   -webkit-background-clip: text;
@@ -82,21 +156,18 @@
   color: transparent;
   animation: lensSweep 8s cubic-bezier(0.3, 0, 0.2, 1) infinite;
   display: inline-block;
+  letter-spacing: 0.05em;
 }
 
 @keyframes lensSweep {
   0% { background-position: 150% 0; }
+  35% { background-position: -50% 0; }
   100% { background-position: -50% 0; }
 }
 
-/* Utilities */
-.reveal-text {
-  transform: translateY(120%);
-  opacity: 0;
-  animation: slideUp 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-}
-
-@keyframes slideUp {
-  0% { transform: translateY(120%) skewY(8deg); opacity: 0; }
-  100% { transform: translateY(0) skewY(0deg); opacity: 1; }
+/* FLICKER */
+.animate-flicker { animation: flicker 4s linear infinite; }
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.3; }
 }

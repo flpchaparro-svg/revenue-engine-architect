@@ -3,8 +3,8 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
-    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}", // CRITICAL: This was missing in Main
+    "./pages/**/*.{js,ts,jsx,tsx}",      // CRITICAL: This was missing in Main
   ],
   theme: {
     extend: {
@@ -15,8 +15,10 @@ export default {
         'gold': '#C5A059',
       },
       fontFamily: {
-        'sans': ['Inter', 'sans-serif'],
-        'serif': ['Cormorant Garamond', 'serif'],
+        // Exact definition from your Main repo
+        serif: ['"Cormorant Garamond"', 'serif'],
+        sans: ['Inter', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
       },
     },
   },
