@@ -15,7 +15,6 @@ export default {
         'gold': '#C5A059',
       },
       fontFamily: {
-        // These keys allow you to use 'font-sans' and 'font-serif' in your HTML
         'sans': ['Inter', 'sans-serif'],
         'serif': ['Cormorant Garamond', 'serif'],
       },

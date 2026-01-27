@@ -18,113 +18,53 @@
     overflow-x: hidden;
   }
 
-  /* * CRITICAL FIX: 
-   * 1. Removed 'font-weight: 400' so headers can be bold.
-   * 2. Added 'font-weight: 600' as a default for bare h1-h4 tags.
+  /* * CRITICAL FIX:
+   * This ensures that even if a class is missing, standard headers 
+   * still look like the correct font family (Cormorant).
    */
   h1, h2, h3, h4, .font-serif {
     font-family: 'Cormorant Garamond', serif;
-    font-weight: 600; 
-    letter-spacing: -0.04em;
-    line-height: 1.1;
-  }
-
-  ::selection {
-    background-color: var(--ink);
-    color: var(--bg);
+    font-weight: 500;
+    letter-spacing: -0.02em;
   }
 }
 
 @layer components {
-  /* --- RESTORED TYPOGRAPHY CLASSES --- */
+  /* * THE MISSING CLASSES:
+   * These are the specific "Luxury" styles your React components are calling.
+   * Without these, the titles look small and wrong.
+   */
 
-  /* The Gold Standard Eyebrow */
   .type-eyebrow {
-    @apply font-mono text-xs font-bold uppercase tracking-[0.2em];
+    @apply font-mono text-xs font-bold uppercase tracking-[0.2em] text-ink/60;
   }
 
-  /* H1: HERO ONLY (The King) */
   .type-h1 {
-    @apply font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter font-semibold;
+    @apply font-serif text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tighter font-medium text-ink;
   }
   
-  /* H2: SECTION HEADERS (The Princes) */
   .type-h2 {
-    @apply font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter font-semibold;
+    @apply font-serif text-4xl md:text-6xl lg:text-7xl leading-[1] tracking-tighter font-medium text-ink;
   }
   
-  /* H3: LARGE CARDS & SUB-SECTIONS (The Knights) */
   .type-h3 {
-    @apply font-serif text-3xl md:text-4xl leading-[1.1] tracking-tight font-medium;
+    @apply font-serif text-3xl md:text-4xl leading-tight tracking-tight font-medium text-ink;
   }
   
-  /* H4: GRID CARDS & LISTS (The Soldiers) */
   .type-h4 {
-    @apply font-serif text-xl md:text-2xl leading-tight tracking-tight font-medium;
+    @apply font-serif text-xl md:text-2xl leading-tight tracking-tight font-medium text-ink;
   }
 
-  /* BODY TEXT */
   .type-body-lg {
     @apply font-sans text-lg md:text-xl font-light leading-relaxed;
   }
   
   .type-body {
-    @apply font-sans text-base md:text-lg leading-relaxed;
-  }
-
-  /* UTILITIES */
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
+    @apply font-sans text-base leading-relaxed text-ink/80;
   }
 }
 
-/* --- ANIMATIONS --- */
-.reveal-text {
-  transform: translateY(120%);
-  opacity: 0;
-  animation: slideUp 1.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-  letter-spacing: 0.15em;
-}
-
-@keyframes slideUp {
-  0% { transform: translateY(120%) skewY(8deg); opacity: 0; }
-  100% { transform: translateY(0) skewY(0deg); opacity: 1; }
-}
-
-.animate-fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 0.8s ease forwards;
-}
-
-@keyframes fadeIn {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.animate-extend-line {
-  width: 0;
-  animation: extendLine 4s cubic-bezier(0.85, 0, 0.15, 1) forwards;
-}
-
-@keyframes extendLine {
-  to { width: 4rem; }
-}
-
-/* GOLD SHINE */
-@keyframes lensSweep {
-  0% { background-position: 150% 0; }
-  35% { background-position: -50% 0; }
-  100% { background-position: -50% 0; }
-}
-
+/* --- ANIMATIONS (Keep these for the "Gold" shine) --- */
 .soft-steel-shine {
   background: linear-gradient(
     110deg,
@@ -142,20 +82,21 @@
   color: transparent;
   animation: lensSweep 8s cubic-bezier(0.3, 0, 0.2, 1) infinite;
   display: inline-block;
-  letter-spacing: 0.05em;
 }
 
-/* FLICKER */
-@keyframes flicker {
-  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
-  20%, 24%, 55% { opacity: 0.3; }
+@keyframes lensSweep {
+  0% { background-position: 150% 0; }
+  100% { background-position: -50% 0; }
 }
 
-.animate-flicker {
-  animation: flicker 4s linear infinite;
+/* Utilities */
+.reveal-text {
+  transform: translateY(120%);
+  opacity: 0;
+  animation: slideUp 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
-/* SCROLLBAR */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--ink); }
+@keyframes slideUp {
+  0% { transform: translateY(120%) skewY(8deg); opacity: 0; }
+  100% { transform: translateY(0) skewY(0deg); opacity: 1; }
+}
