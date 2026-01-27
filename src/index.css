@@ -15,45 +15,38 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ============================================
-   CSS CUSTOM PROPERTIES (Variables)
-   ============================================ */
-:root {
-  --bg: #FFF2EC;
-  --ink: #1a1a1a;
-  --signal-red: #E21E3F;
-  --gold: #C5A059;
-}
+@layer base {
+  /* CSS Variables */
+  :root {
+    --bg: #FFF2EC;
+    --ink: #1a1a1a;
+    --signal-red: #E21E3F;
+    --gold: #C5A059;
+  }
 
-/* ============================================
-   BASE STYLES
-   ============================================ */
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg);
-  color: var(--ink);
-  margin: 0;
-  overflow-x: hidden;
-  /* REMOVED font-smoothing - let fonts render naturally with their loaded weights */
-}
+  /* Base Body Styles */
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg);
+    color: var(--ink);
+    margin: 0;
+    overflow-x: hidden;
+  }
 
-/* 
- * CRITICAL: Serif font for headings
- * This ensures big titles use Cormorant Garamond with tight letter-spacing
- * Set default weight to 400 (regular) - components can override with font-bold, font-semibold, etc.
- */
-h1, h2, h3, h4, .font-serif {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 400; /* Default weight - components override as needed */
-  letter-spacing: -0.04em;
-  /* Ensure fonts are loaded before rendering */
-  font-display: swap;
-}
+  /* Typography - Match original GitHub main */
+  /* Note: font-weight: 400 ensures headings render at regular weight (not bold 700) */
+  /* Components can override with Tailwind classes (font-medium, font-semibold, etc.) as needed */
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+  }
 
-/* Text selection colors */
-::selection {
-  background-color: var(--ink);
-  color: var(--bg);
+  /* Selection */
+  ::selection {
+    background-color: var(--ink);
+    color: var(--bg);
+  }
 }
 
 /* ============================================

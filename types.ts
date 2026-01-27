@@ -1,6 +1,26 @@
 
 import { LucideIcon } from 'lucide-react';
 
+export interface Persona {
+  id: string;
+  icon: LucideIcon;
+  title: string;
+  examples: string;
+  painTitle: string;
+  painText: string;
+  solution: string;
+}
+
+export interface Tier {
+  id: string;
+  label: string;
+  hook: string;
+  summary: string;
+  sprint: string;
+  specs: string[];
+  personas: Persona[];
+}
+
 export interface ServiceDetail {
   id: string;
   title: string;
