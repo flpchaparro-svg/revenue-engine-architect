@@ -30,33 +30,35 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const [canAnimate, setCanAnimate] = useState(false); // Guard for initial render performance
   const [shouldLoadVisual, setShouldLoadVisual] = useState(false); // Defer HeroVisual on mobile
 
-  // Mobile Check & Animation Guard
+  // Mobile Check & Animation Guard - OPTIMIZED to avoid forced reflow
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    // Enable animations ONLY after the first paint is done
-    const timer = requestAnimationFrame(() => setCanAnimate(true));
+    // Read innerWidth ONCE to avoid multiple reflows
+    const width = window.innerWidth;
+    const isMobileDevice = width < 768;
 
-    // PERFORMANCE FIX: Defer HeroVisual mount on mobile to prioritize LCP
-    const isMobileDevice = window.innerWidth < 768;
-    if (isMobileDevice) {
-      // On mobile, wait 100ms before mounting the heavy 3D visual
-      const visualTimer = setTimeout(() => setShouldLoadVisual(true), 100);
-      return () => {
-        window.removeEventListener('resize', checkMobile);
-        cancelAnimationFrame(timer);
-        clearTimeout(visualTimer);
-      };
-    } else {
-      // On desktop, load immediately
-      setShouldLoadVisual(true);
-    }
+    setIsMobile(isMobileDevice);
+
+    // Resize handler with debounce to prevent layout thrashing
+    let resizeTimer: NodeJS.Timeout;
+    const checkMobile = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => setIsMobile(window.innerWidth < 768), 100);
+    };
+    window.addEventListener('resize', checkMobile);
+
+    // Enable animations after first paint
+    const animTimer = requestAnimationFrame(() => setCanAnimate(true));
+
+    // Defer HeroVisual on mobile, load immediately on desktop
+    const visualTimer = isMobileDevice
+      ? setTimeout(() => setShouldLoadVisual(true), 100)
+      : (setShouldLoadVisual(true), null);
 
     return () => {
       window.removeEventListener('resize', checkMobile);
-      cancelAnimationFrame(timer);
+      clearTimeout(resizeTimer);
+      cancelAnimationFrame(animTimer);
+      if (visualTimer) clearTimeout(visualTimer);
     };
   }, []);
 

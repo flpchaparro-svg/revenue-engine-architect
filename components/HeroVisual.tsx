@@ -90,22 +90,26 @@ const HeroVisual: React.FC = () => {
     let currentRotX = 0;
     let currentRotY = 0;
 
-    // Handle Resize
+    // CACHED DIMENSIONS - avoid getBoundingClientRect in render loop
+    let cachedWidth = window.innerWidth;
+    let cachedHeight = window.innerHeight;
+
+    // Handle Resize - only place where we read layout
     const resize = () => {
       const rect = container.getBoundingClientRect();
       // Fallback to window size if container is collapsed (layout bug prevention)
-      const width = rect.width || window.innerWidth; 
-      const height = rect.height || window.innerHeight;
-      
+      cachedWidth = rect.width || window.innerWidth;
+      cachedHeight = rect.height || window.innerHeight;
+
       // PERFORMANCE HACK: Cap Device Pixel Ratio
       // High DPI screens (iPhone = 3x) kill performance for full-screen canvas.
       // Cap it at 1.5 max for a huge speed boost with barely visible quality loss.
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
+      canvas.width = cachedWidth * dpr;
+      canvas.height = cachedHeight * dpr;
       ctx.scale(dpr, dpr);
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
+      canvas.style.width = `${cachedWidth}px`;
+      canvas.style.height = `${cachedHeight}px`;
     };
 
     // Handle Mouse
@@ -136,11 +140,9 @@ const HeroVisual: React.FC = () => {
       const rotX = currentRotX + elapsed * 0.05;
       const rotY = currentRotY + elapsed * 0.1;
 
-      // 3. Clear Canvas
-      // Use actual CSS dimensions (not pixel dimensions) for correct scaling
-      const rect = container.getBoundingClientRect();
-      const width = rect.width || window.innerWidth;
-      const height = rect.height || window.innerHeight;
+      // 3. Clear Canvas - USE CACHED DIMENSIONS (no getBoundingClientRect in render loop!)
+      const width = cachedWidth;
+      const height = cachedHeight;
       const cx = width / 2;
       
       // Adaptive vertical positioning: 
