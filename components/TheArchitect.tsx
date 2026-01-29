@@ -51,7 +51,7 @@ const TheArchitect: React.FC = () => {
               {/* Technical Overlay */}
               <div className="absolute top-6 left-6 z-20">
                 {/* Type B: Card Tag */}
-                <div className={`font-mono text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-3 transition-colors duration-500 ${mode === 'architect' ? 'text-white/60' : 'text-[#C5A059]'}`}>
+                <div className={`font-mono text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-3 transition-colors duration-500 ${mode === 'architect' ? 'text-white/80' : 'text-[#C5A059]'}`}>
                    <span className="w-1.5 h-1.5 rounded-full bg-[#E21E3F] animate-pulse" />
                    FELIPE CHAPARRO / SYDNEY
                 </div>
@@ -101,9 +101,9 @@ const TheArchitect: React.FC = () => {
             <AnimatePresence mode="wait">
               <motion.div
                 key={mode}
-                initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
-                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.5 }}
               >
                  {/* FIXED RESPONSIVENESS: Scales smoothly now */}
