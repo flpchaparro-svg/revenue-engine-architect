@@ -11,27 +11,35 @@ const ProblemSection: React.FC = () => {
   const isMobileRef = useRef(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Mobile Auto-Rotation Logic
+  // Mobile Auto-Rotation Logic (delayed to prevent main-thread contention on load)
   useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth < 768;
-      isMobileRef.current = mobile;
-      setIsMobile(mobile);
+    const startRotation = () => {
+      if (!isMobileRef.current) return;
       
-      if (autoRotateIntervalRef.current) {
-        clearInterval(autoRotateIntervalRef.current);
-        autoRotateIntervalRef.current = null;
-      }
-      
-      if (!mobile) return;
-
       const scannerStates: GraphState[] = ['bottleneck', 'tax', 'grind', 'cost'];
       let currentIndex = 0;
 
       autoRotateIntervalRef.current = setInterval(() => {
         setGraphState(scannerStates[currentIndex]);
         currentIndex = (currentIndex + 1) % scannerStates.length;
-      }, 2500); 
+      }, 2500);
+    };
+
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768;
+      isMobileRef.current = mobile;
+      setIsMobile(mobile);
+      
+      // Cleanup existing
+      if (autoRotateIntervalRef.current) {
+        clearInterval(autoRotateIntervalRef.current);
+        autoRotateIntervalRef.current = null;
+      }
+      
+      // Start rotation with a delay (prevent main thread contention on load)
+      if (mobile) {
+        setTimeout(startRotation, 3000); // Wait 3s before starting animation
+      }
     };
     
     checkMobile();

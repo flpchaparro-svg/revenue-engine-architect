@@ -26,10 +26,10 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   usePageTitle('Home');
   
   const [isTickerHovered, setIsTickerHovered] = useState(false);
-  const [isMobile, setIsMobile] = useState(false); // Only needed for Hero Button Text logic
-  const [isAnimationReady, setIsAnimationReady] = useState(false); // Delay animation loop for mobile LCP
+  const [isMobile, setIsMobile] = useState(false);
+  const [isReady, setIsReady] = useState(false); // PERFORMANCE: Delays heavy visuals until LCP completes
 
-  // Simple Mobile Check for Hero Button Text
+  // Mobile Check
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -37,9 +37,11 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Delay animation loop start to allow LCP to complete first (mobile performance fix)
+  // PERFORMANCE CRITICAL: 
+  // We wait 1.5s before mounting the heavy 3D visuals. 
+  // This guarantees the LCP (text) paints first without main-thread contention.
   useEffect(() => {
-    const timer = setTimeout(() => setIsAnimationReady(true), 200);
+    const timer = setTimeout(() => setIsReady(true), 1500);
     return () => clearTimeout(timer);
   }, []);
 
@@ -56,8 +58,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const decayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useAnimationFrame((time, delta) => {
-    // Skip frames until ready (allows LCP to complete first on mobile)
-    if (!isAnimationReady) return;
+    if (!isReady) return; // Stop all math until ready
 
     // Scroll Line Animation
     const currentY = scrollLineY.get();
@@ -121,11 +122,13 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
       {/* 1. HERO SECTION */}
       <section id="hero" aria-label="Hero Section" className="min-h-[100svh] w-full flex items-center pt-32 md:pt-20 overflow-hidden relative z-20 content-layer">
         
-        {/* HERO VISUAL - Lazy loaded for mobile performance */}
+        {/* HERO VISUAL - STRICTLY DELAYED MOUNTING */}
         <div className="absolute inset-0 z-[1]">
-          <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
-            <HeroVisual />
-          </Suspense>
+          {isReady && (
+            <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
+              <HeroVisual />
+            </Suspense>
+          )}
         </div>
 
         {/* CONTENT */}
@@ -134,14 +137,11 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
             
             {/* LABEL */}
             <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-center lg:justify-start">
-              {/* Slash only visible on desktop */}
               <span className="hidden md:inline font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
-              
               <div className="flex items-center gap-2">
                 <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
                   SYDNEY BUSINESS AUTOMATION 
                 </span>
-                {/* OPTIMIZED: Self-contained component - no parent re-renders */}
                 <ScrambleTitle />
               </div>
             </div>
@@ -211,23 +211,20 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
         <FrictionAuditSection onNavigate={onNavigate} />
       </section>
 
-      {/* LAZY LOADED SECTIONS - Below the fold */}
-      <Suspense fallback={<div className="min-h-[500px] bg-[#FFF2EC]" />}>
-        {/* 4. 7 PILLARS SECTION */}
-        <section id="seven-pillars" aria-label="Seven Pillars Section" className="relative bg-[#FFF2EC] z-30">
-          <SystemPhases onNavigate={onNavigate} />
-        </section>
-
-        {/* 5. ABOUT SECTION */}
-        <section id="about" aria-label="About Section" className="relative bg-[#FFF2EC] z-30">
-          <TheArchitect />
-        </section>
-
-        {/* 6. CASE STUDY SECTION */}
-        <section id="case-study" aria-label="Case Study Section" className="relative bg-[#FFF2EC] z-30">
-          <Feature_Group7 />
-        </section>
-      </Suspense>
+      {/* LAZY LOADED SECTIONS - Only load when user scrolls or after initial delay */}
+      {isReady && (
+        <Suspense fallback={<div className="min-h-[500px] bg-[#FFF2EC]" />}>
+          <section id="seven-pillars" className="relative bg-[#FFF2EC] z-30">
+            <SystemPhases onNavigate={onNavigate} />
+          </section>
+          <section id="about" className="relative bg-[#FFF2EC] z-30">
+            <TheArchitect />
+          </section>
+          <section id="case-study" className="relative bg-[#FFF2EC] z-30">
+            <Feature_Group7 />
+          </section>
+        </Suspense>
+      )}
 
       {/* 7. CTA SECTION */}
       <section id="cta" aria-label="Call to Action Section" className="relative bg-[#FFF2EC] z-30">
