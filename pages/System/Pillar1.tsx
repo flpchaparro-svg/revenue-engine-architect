@@ -86,14 +86,14 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                  Different businesses need different websites. Find yours below and see exactly what I build for it.
                </p>
             </div>
-            <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
+            <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end -mt-8 md:mt-0">
                <div className="relative w-full max-w-[450px] h-[300px] lg:h-[450px] opacity-90 flex items-center justify-center">
                  <PillarVisual_Catchment />
                </div>
             </div>
           </div>
         </div>
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-30" aria-hidden="true">
           <motion.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
             className="absolute inset-0 bg-[#1a1a1a]/40 w-full h-full" 

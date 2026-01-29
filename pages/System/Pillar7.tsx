@@ -92,8 +92,8 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                </p>
             </div>
             
-            <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
-               <div className="relative w-full max-w-[450px] h-[300px] lg:h-[450px] opacity-90 flex items-center justify-center">
+            <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end -mt-12 md:mt-0">
+               <div className="relative w-full max-w-[450px] h-[220px] md:h-[300px] lg:h-[450px] max-h-[40dvh] md:max-h-none opacity-90 flex items-center justify-center">
                  <PillarVisual_Dashboard />
                </div>
             </div>
@@ -101,7 +101,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         </div>
 
         {/* SCROLL LINE */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-30" aria-hidden="true">
           <motion.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
             className="absolute inset-0 bg-[#1a1a1a]/40 w-full h-full" 

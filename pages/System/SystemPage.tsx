@@ -92,14 +92,14 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
                 Most consultants sell you one piece at a time. A website here, a CRM there. I build connected systems where everything talks to everything else. That's how you stop the leaks.
               </motion.p>
             </div>
-            <motion.div variants={heroItem} className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
-              <div className="w-full max-w-full flex items-center justify-center pb-16 md:pb-24 lg:pb-0">
+            <motion.div variants={heroItem} className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end -mt-8 md:mt-0">
+              <div className="w-full max-w-full flex items-center justify-center pb-8 md:pb-24 lg:pb-0">
                 <HeroVisual_Suspension />
               </div>
             </motion.div>
           </motion.div>
         </div>
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-30" aria-hidden="true">
           <motion.div style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }} className="absolute inset-0 bg-[#1a1a1a]/40 w-full h-full" />
         </div>
       </section>
