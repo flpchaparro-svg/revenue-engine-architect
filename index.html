@@ -6,19 +6,26 @@
     <meta name="description" content="Revenue Engine Architect helps businesses build automated revenue systems without hiring junior staff or account managers." />
     <title>Revenue Engine Architect | Business Growth</title>
 
-    <!-- CRITICAL: Inline styles for LCP - text paints immediately -->
     <style>
-      /* Fallback fonts so text shows before Google Fonts load */
       body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #FFF2EC; margin: 0; }
       h1, .font-serif { font-family: Georgia, 'Times New Roman', serif; }
-      /* CRITICAL: Ensure headline is visible immediately for LCP */
+      /* LCP helper - ensures text is visible immediately */
       .lcp-visible { opacity: 1 !important; transform: none !important; }
     </style>
 
-    <!-- Font loading: preconnect + standard stylesheet with display=swap -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" 
+      rel="stylesheet" 
+      media="print" 
+      onload="this.media='all'"
+    >
+    
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+    </noscript>
   </head>
   <body>
     <div id="root"></div>
