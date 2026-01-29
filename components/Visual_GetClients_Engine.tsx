@@ -20,6 +20,10 @@ const STATES = [
 const TRANSITION_DURATION = 1500; // ms for laser sweep
 const HOLD_DURATION = 2500;       // ms to stay on a state
 
+// Virtual resolution for 16:9 logic
+const VIRTUAL_WIDTH = 960;
+const VIRTUAL_HEIGHT = 540;
+
 // --- Helper Drawing Functions ---
 
 const drawRoundedRect = (
@@ -178,13 +182,16 @@ const drawBrain = (ctx: CanvasRenderingContext2D, w: number, h: number, time: nu
   const tableY = contentY + 110;
   const rowH = 45;
   
+  // Responsive Columns
+  // Distribute based on available table width
+  const col1 = tableX + 20; // Name
+  const col2 = tableX + tableW * 0.35; // Status
+  const col3 = tableX + tableW * 0.65; // Value
+  const col4 = tableX + tableW * 0.85; // Date
+
   // Headers
   ctx.fillStyle = '#888';
   ctx.font = '600 10px Inter, sans-serif';
-  const col1 = tableX + 15;
-  const col2 = tableX + 180;
-  const col3 = tableX + 320;
-  const col4 = tableX + 440;
 
   ctx.fillText("NAME", col1, tableY);
   ctx.fillText("STATUS", col2, tableY);
@@ -222,10 +229,12 @@ const drawBrain = (ctx: CanvasRenderingContext2D, w: number, h: number, time: nu
     ctx.fillText(row.v, col3, ry);
     ctx.fillText(row.d, col4, ry);
 
-    // Status Pill
+    // Status Pill (Centered on col2)
     const pillW = 70;
     const pillH = 20;
-    const pillX = col2;
+    const pillX = col2; // Align left of pill to col2? Or center? 
+    // Header was drawn at col2 (left align default). Let's keep left align for text.
+    // So pill starts at col2.
     const pillY = ry - 14;
 
     if (row.active) {
@@ -246,6 +255,8 @@ const drawBrain = (ctx: CanvasRenderingContext2D, w: number, h: number, time: nu
 };
 
 const drawMuscle = (ctx: CanvasRenderingContext2D, w: number, h: number, time: number) => {
+  // Clean cream background (no grid)
+  
   // Layout Dimensions
   const nodeW = 120;
   const nodeH = 60;
@@ -257,9 +268,16 @@ const drawMuscle = (ctx: CanvasRenderingContext2D, w: number, h: number, time: n
   const centerY = 44 + (h - 44) / 2; // Center of the content area (below header)
 
   // Determine start X to center the entire structure horizontally
+  // Structure: [Lead] -> [Filter] -> [Email/SMS]
+  // Width = nodeW + gapX + nodeW + gapX + nodeW = 3*nodeW + 2*gapX
   const totalStructW = (nodeW * 3) + (gapX * 2);
   const startX = centerX - (totalStructW / 2);
 
+  // Nodes
+  // Row 1 (Trigger & Filter) are centered on centerY
+  // Row 2 (Branches) are offset by gapY + nodeH? No, let's span them out.
+  
+  // Coordinates
   const col1X = startX;
   const col2X = startX + nodeW + gapX;
   const col3X = startX + (nodeW + gapX) * 2;
@@ -271,8 +289,8 @@ const drawMuscle = (ctx: CanvasRenderingContext2D, w: number, h: number, time: n
   const nodes = [
     { x: col1X, y: rowMidY, w: nodeW, h: nodeH, label: "New Lead", type: "trigger" },
     { x: col2X, y: rowMidY, w: nodeW, h: nodeH, label: "Filter", type: "logic" },
-    { x: col3X, y: rowTopY + 40, w: nodeW, h: nodeH, label: "Email Seq.", type: "action" },
-    { x: col3X, y: rowBotY - 40, w: nodeW, h: nodeH, label: "SMS Alert", type: "action" },
+    { x: col3X, y: rowTopY + 40, w: nodeW, h: nodeH, label: "Email Seq.", type: "action" }, // +40 to bring it slightly closer to center
+    { x: col3X, y: rowBotY - 40, w: nodeW, h: nodeH, label: "SMS Alert", type: "action" },  // -40 to bring it slightly closer to center
   ];
 
   // Connections
@@ -393,11 +411,25 @@ const VisualGetClientsEngine: React.FC = () => {
       
       const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
+      
+      // Set physical canvas size
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-      const w = rect.width;
-      const h = rect.height;
+      
+      // Reset transform before applying new scale
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+      // Compute scale to map VIRTUAL_WIDTH/HEIGHT to physical pixels
+      // We prioritize fitting the width for 16:9
+      const scaleX = (rect.width * dpr) / VIRTUAL_WIDTH;
+      const scaleY = (rect.height * dpr) / VIRTUAL_HEIGHT;
+      
+      // Use the computed scale. Since aspect-video is enforced, scaleX approx scaleY.
+      ctx.scale(scaleX, scaleY);
+      
+      // Drawing logical width/height
+      const w = VIRTUAL_WIDTH;
+      const h = VIRTUAL_HEIGHT;
 
       const elapsed = timestamp - startTimeRef.current;
       

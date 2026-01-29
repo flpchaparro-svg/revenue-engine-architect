@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import VisualGetClientsEngine from './Visual_GetClients_Engine';
+import VisualScaleFasterEngine from './Visual_ScaleFaster_Engine';
+import VisualSeeClearlyEngine from './Visual_SeeClearly_Engine'; // <--- IMPORT
 
 // --- Internal Fallback Component ---
-// This handles Phase 2 & 3 so your code doesn't break if you don't have visuals for them yet.
 const PlaceholderVisual: React.FC<{ color: string; label: string }> = ({ color, label }) => (
   <div className="w-full h-full bg-[#FFF2EC] border border-[#1a1a1a]/10 flex items-center justify-center relative overflow-hidden">
     <div className="absolute inset-0 opacity-10" style={{ backgroundColor: color }}></div>
@@ -17,7 +18,6 @@ const PlaceholderVisual: React.FC<{ color: string; label: string }> = ({ color, 
 );
 
 // --- Narrative Section Component ---
-// Modified to accept a 'visual' prop (The Ninja Move)
 interface NarrativeSectionProps {
   phase: string;
   title: string;
@@ -62,9 +62,8 @@ const NarrativeSection: React.FC<NarrativeSectionProps> = ({
         <div className={`${isRight ? 'md:col-start-1 md:order-1 justify-end' : 'md:col-start-2 md:order-2 justify-start'} flex`}>
           <motion.div 
             style={{ y }}
-            className="w-full aspect-square max-w-[500px] shadow-2xl relative z-10 bg-[#FFF2EC]"
+            className="w-full aspect-video max-w-[600px] shadow-2xl relative z-10 bg-[#FFF2EC]"
           >
-             {/* If a visual is provided, render it. Otherwise, show placeholder. */}
              {visual ? (
                 <div className="w-full h-full">
                   {visual}
@@ -85,7 +84,7 @@ export const SystemArchitecture: React.FC = () => {
   return (
     <div className="relative w-full bg-[#FFF2EC] z-10">
       
-      {/* PHASE 1: IGNITION (Injecting the New Engine) */}
+      {/* PHASE 1: IGNITION */}
       <NarrativeSection 
         phase="PHASE 01 / GET CLIENTS"
         title="Get"
@@ -96,7 +95,7 @@ export const SystemArchitecture: React.FC = () => {
         visual={<VisualGetClientsEngine />} 
       />
 
-      {/* PHASE 2: MOMENTUM (Placeholder) */}
+      {/* PHASE 2: MOMENTUM */}
       <NarrativeSection 
         phase="PHASE 02 / SCALE FASTER"
         title="Scale"
@@ -104,9 +103,10 @@ export const SystemArchitecture: React.FC = () => {
         body="Once the foundation is set, we turn up the volume. Automated workflows and data-driven campaigns to multiply your output without multiplying your effort."
         color="#C5A059"
         align="right"
+        visual={<VisualScaleFasterEngine />} 
       />
 
-      {/* PHASE 3: VISION (Placeholder) */}
+      {/* PHASE 3: VISION */}
       <NarrativeSection 
         phase="PHASE 03 / SEE CLEARLY"
         title="See"
@@ -114,6 +114,7 @@ export const SystemArchitecture: React.FC = () => {
         body="The final piece is intelligence. Unified dashboards that give you a God's-eye view of your entire revenue operation in real-time."
         color="#1a1a1a"
         align="left"
+        visual={<VisualSeeClearlyEngine />} 
       />
 
     </div>
