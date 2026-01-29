@@ -19,10 +19,10 @@
   }
 
   /* Typography Defaults from Main */
-  /* font-weight: 800 (extra-bold) - testing to verify CSS changes are effective */
+  /* Use real 600 weight (now loaded in index.html) for naturally thick, sharp titles */
   h1, h2, h3, h4, .font-serif {
     font-family: 'Cormorant Garamond', serif;
-    font-weight: 800;
+    font-weight: 600;
     letter-spacing: -0.04em;
   }
 
