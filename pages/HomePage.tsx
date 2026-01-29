@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { motion, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
 import CTAButton from '../components/CTAButton';
-import HeroVisual from '../components/HeroVisual';
 import ScrambleTitle from '../components/ScrambleTitle';
 import ProblemSection from '../components/HomePage/ProblemSection';
 import BookingCTA from '../components/BookingCTA';
 import FrictionAuditSection from '../components/FrictionAuditSection';
 import { usePageTitle } from '../hooks/usePageTitle';
 
-// Lazy load heavy sections below the fold
+// Lazy load heavy sections (including HeroVisual for mobile performance)
+const HeroVisual = lazy(() => import('../components/HeroVisual'));
 const SystemPhases = lazy(() => import('../components/SystemPhases'));
 const TheArchitect = lazy(() => import('../components/TheArchitect'));
 const Feature_Group7 = lazy(() => import('../components/Feature_Group7'));
@@ -27,6 +27,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   
   const [isTickerHovered, setIsTickerHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false); // Only needed for Hero Button Text logic
+  const [isAnimationReady, setIsAnimationReady] = useState(false); // Delay animation loop for mobile LCP
 
   // Simple Mobile Check for Hero Button Text
   useEffect(() => {
@@ -34,6 +35,12 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Delay animation loop start to allow LCP to complete first (mobile performance fix)
+  useEffect(() => {
+    const timer = setTimeout(() => setIsAnimationReady(true), 200);
+    return () => clearTimeout(timer);
   }, []);
 
   // --- OPTIMIZED SCROLL LINE LOGIC ---
@@ -49,6 +56,9 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const decayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useAnimationFrame((time, delta) => {
+    // Skip frames until ready (allows LCP to complete first on mobile)
+    if (!isAnimationReady) return;
+
     // Scroll Line Animation
     const currentY = scrollLineY.get();
     const speed = scrollLineSpeed.get();
@@ -111,9 +121,11 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
       {/* 1. HERO SECTION */}
       <section id="hero" aria-label="Hero Section" className="min-h-[100svh] w-full flex items-center pt-32 md:pt-20 overflow-hidden relative z-20 content-layer">
         
-        {/* HERO VISUAL */}
+        {/* HERO VISUAL - Lazy loaded for mobile performance */}
         <div className="absolute inset-0 z-[1]">
-           <HeroVisual />
+          <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
+            <HeroVisual />
+          </Suspense>
         </div>
 
         {/* CONTENT */}
