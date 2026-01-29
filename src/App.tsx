@@ -5,7 +5,8 @@ import { AnimatePresence, useScroll, useMotionValueEvent, LazyMotion, domAnimati
 
 // COMPONENTS
 import GlobalHeader from '../components/GlobalHeader';
-import GlobalFooter from '../components/GlobalFooter';
+// OPTIMIZATION: Footer is now lazy loaded
+const GlobalFooter = lazy(() => import('../components/GlobalFooter')); 
 import Modal from '../components/Modal';
 import { ServiceDetail } from '../types';
 
@@ -41,7 +42,6 @@ const App: React.FC = () => {
     setScrolled(latest > 50);
   });
 
-  // Reset scroll on route change
   useEffect(() => {
     requestAnimationFrame(() => {
       document.body.style.overflow = '';
@@ -94,7 +94,7 @@ const App: React.FC = () => {
       setSelectedService(service);
       setIsModalOpen(true);
     } else {
-      handleGlobalNavigate(service.id); // Fixed: ensure id is passed if needed, or mapped string
+      handleGlobalNavigate(service.id);
     }
   };
 
@@ -109,7 +109,6 @@ const App: React.FC = () => {
         <div className="relative min-h-screen w-full">
           <Suspense fallback={<div className="h-screen w-full bg-[#FFF2EC]" />}>
             <AnimatePresence mode="wait">
-              {/* FIX: Moved key to a wrapper div to solve TypeScript error on <Routes> */}
               <div key={location.pathname} className="w-full">
                 <Routes location={location}>
                   <Route path="/" element={<HomePage onNavigate={handleGlobalNavigate} onServiceClick={handleServiceClick} />} />
@@ -137,7 +136,12 @@ const App: React.FC = () => {
           </Suspense>
         </div>
 
-        {location.pathname !== '/system' && <GlobalFooter onNavigate={handleGlobalNavigate} />}
+        {location.pathname !== '/system' && (
+          <Suspense fallback={null}>
+            <GlobalFooter onNavigate={handleGlobalNavigate} />
+          </Suspense>
+        )}
+        
         <Modal service={selectedService} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onViewPillar={(id) => handleGlobalNavigate(id)} />
       </div>
     </LazyMotion>
