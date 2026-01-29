@@ -135,10 +135,12 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
             </div>
 
             {/* HEADLINE */}
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-10">
-              <div className="overflow-hidden"><span className="block reveal-text">Stop Doing</span></div>
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-[6.5rem] leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-10">
               <div className="overflow-hidden">
-                <span className="block reveal-text" style={{ animationDelay: '0.2s' }}>
+                <span className="block reveal-text tracking-tighter font-serif" style={{ letterSpacing: '-0.04em' }}>Stop Doing</span>
+              </div>
+              <div className="overflow-hidden">
+                <span className="block reveal-text tracking-tighter" style={{ animationDelay: '0.2s', letterSpacing: '-0.04em' }}>
                   <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Everyone's Job.</span>
                 </span>
               </div>
