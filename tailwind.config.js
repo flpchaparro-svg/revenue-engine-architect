@@ -15,8 +15,7 @@ export default {
         'gold': '#C5A059',
       },
       fontFamily: {
-        // Exact definition from your Main repo
-        serif: ['"Cormorant Garamond"', 'serif'],
+        serif: ['Lora', 'serif'],
         sans: ['Inter', 'sans-serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
       },

@@ -18,12 +18,10 @@
     overflow-x: hidden;
   }
 
-  /* Typography Defaults from Main */
-  /* Use real 600 weight (now loaded in index.html) for naturally thick, sharp titles */
+  /* Typography Defaults - Lora */
   h1, h2, h3, h4, .font-serif {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 600;
-    letter-spacing: -0.04em;
+    font-family: 'Lora', serif;
+    letter-spacing: -0.02em; /* Lora needs less squeezing */
   }
 
   ::selection {
