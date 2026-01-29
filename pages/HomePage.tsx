@@ -162,20 +162,16 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
               </div>
             </div>
 
-            {/* HEADLINE */}
+            {/* HEADLINE - LCP CRITICAL: No animation on initial render */}
             <h1 className="font-serif text-5xl md:text-6xl lg:text-[6.5rem] leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-10">
-              <div className="overflow-hidden">
-                <span className="block reveal-text tracking-tighter font-serif" style={{ letterSpacing: '-0.04em' }}>Stop Doing</span>
-              </div>
-              <div className="overflow-hidden">
-                <span className="block reveal-text tracking-tighter" style={{ animationDelay: '0.2s', letterSpacing: '-0.04em' }}>
-                  <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Everyone's Job.</span>
-                </span>
-              </div>
+              <span className="block tracking-tighter font-serif lcp-visible" style={{ letterSpacing: '-0.04em' }}>Stop Doing</span>
+              <span className="block tracking-tighter lcp-visible" style={{ letterSpacing: '-0.04em' }}>
+                <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Everyone's Job.</span>
+              </span>
             </h1>
 
-            {/* BODY COPY */}
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 animate-fade-in text-left mx-auto lg:mx-0 mb-12 md:mb-0" style={{ animationDelay: '0.6s' }}>
+            {/* BODY COPY - Visible immediately for LCP */}
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 text-left mx-auto lg:mx-0 mb-12 md:mb-0">
               You didn't start a business to chase invoices, re-type data, and answer the same questions all day. I build the systems that do it for you, so you can get back to the work that actually grows revenue.
             </p>
 
