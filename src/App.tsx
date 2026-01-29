@@ -5,8 +5,8 @@ import { AnimatePresence, useScroll, useMotionValueEvent, LazyMotion, domAnimati
 
 // COMPONENTS
 import GlobalHeader from '../components/GlobalHeader';
-// OPTIMIZATION: Footer is now lazy loaded
-const GlobalFooter = lazy(() => import('../components/GlobalFooter')); 
+// OPTIMIZATION: Lazy load Footer
+const GlobalFooter = lazy(() => import('../components/GlobalFooter'));
 import Modal from '../components/Modal';
 import { ServiceDetail } from '../types';
 
