@@ -17,8 +17,12 @@ const STATES = [
   { id: 'SOUL', title: 'THE SOUL', sub: 'Team Training' }
 ];
 
-const TRANSITION_DURATION = 1500; // ms
-const HOLD_DURATION = 3500;       // ms
+const TRANSITION_DURATION = 1500;
+const HOLD_DURATION = 3500;
+
+// Virtual resolution (Same as Get Clients)
+const VIRTUAL_WIDTH = 960;
+const VIRTUAL_HEIGHT = 540;
 
 // --- Helper Drawing Functions ---
 
@@ -69,30 +73,30 @@ const drawBrowserFrame = (ctx: CanvasRenderingContext2D, w: number, h: number) =
   ctx.fillRect(90, 12, w - 110, 20);
 };
 
-// --- Specific Scene Drawers ---
+// --- Specific Scene Drawers (FIXED RELATIVE SIZING) ---
 
 const drawVoice = (ctx: CanvasRenderingContext2D, w: number, h: number, time: number) => {
   const availableH = h - 44;
   const contentCenterY = 44 + availableH / 2;
   
-  // 1. Background Chart (Context - "like it's on a chart")
-  const chartW = 400;
-  const chartH = 180;
+  // FIX: Scale content relative to virtual width/height so it fits
+  const chartW = Math.min(w * 0.6, 420);
+  const chartH = Math.min(availableH * 0.6, 200);
   const chartX = (w - chartW) / 2;
   const chartY = contentCenterY - (chartH / 2);
   
+  // 1. Background Chart
   ctx.save();
-  ctx.globalAlpha = 0.05; // Very faint background
+  ctx.globalAlpha = 0.05;
   ctx.strokeStyle = COLORS.ink;
   ctx.lineWidth = 3;
   
   ctx.beginPath();
   ctx.moveTo(chartX, chartY); 
-  ctx.lineTo(chartX, chartY + chartH); // Y axis
-  ctx.lineTo(chartX + chartW, chartY + chartH); // X axis
+  ctx.lineTo(chartX, chartY + chartH); 
+  ctx.lineTo(chartX + chartW, chartY + chartH); 
   ctx.stroke();
   
-  // Graph line
   ctx.beginPath();
   ctx.moveTo(chartX, chartY + chartH);
   ctx.bezierCurveTo(
@@ -104,12 +108,12 @@ const drawVoice = (ctx: CanvasRenderingContext2D, w: number, h: number, time: nu
   ctx.restore();
 
   // 2. Main Chat Widget Card
-  const cardW = 340;
-  const cardH = 220;
+  const cardW = Math.min(w * 0.5, 340);
+  const cardH = Math.min(availableH * 0.6, 220); // Relative height prevents cutting
   const cardX = (w - cardW) / 2;
   const cardY = contentCenterY - (cardH / 2);
 
-  // Card Shadow & Box
+  // Shadow & Box
   ctx.fillStyle = COLORS.white;
   ctx.strokeStyle = COLORS.ink;
   ctx.lineWidth = 2;
@@ -123,80 +127,68 @@ const drawVoice = (ctx: CanvasRenderingContext2D, w: number, h: number, time: nu
   ctx.stroke();
 
   // Header Area
+  const headerH = 44;
   ctx.beginPath();
-  ctx.moveTo(cardX, cardY + 44);
-  ctx.lineTo(cardX + cardW, cardY + 44);
+  ctx.moveTo(cardX, cardY + headerH);
+  ctx.lineTo(cardX + cardW, cardY + headerH);
   ctx.lineWidth = 1;
   ctx.strokeStyle = '#E5E5E5';
   ctx.stroke();
 
-  // Header Title
   ctx.fillStyle = COLORS.ink;
   ctx.font = 'bold 14px Inter, sans-serif';
   ctx.fillText("AI Assistant", cardX + 20, cardY + 28);
 
-  // Status Indicator
   const isTyping = (time % 3000) < 1500;
   
   ctx.fillStyle = '#10B981'; // Green dot
   ctx.beginPath();
-  ctx.arc(cardX + 110, cardY + 24, 3, 0, Math.PI*2);
+  ctx.arc(cardX + cardW - 30, cardY + 24, 3, 0, Math.PI*2);
   ctx.fill();
 
-  // Chat Content
-  const chatAreaY = cardY + 44;
+  // Content Area
+  const chatY = cardY + headerH + 20;
   
-  // User Message (Left aligned)
-  const userRowY = chatAreaY + 30;
+  // User Message
   const userIconX = cardX + 20;
-  
-  // User Icon
   ctx.fillStyle = '#E5E5E5';
-  ctx.beginPath(); ctx.arc(userIconX + 12, userRowY + 12, 12, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(userIconX + 12, chatY + 12, 12, 0, Math.PI*2); ctx.fill();
   
-  // User Bubble
+  const bubbleH = 35;
+  const bubbleW = cardW * 0.55;
+
   ctx.fillStyle = '#F3F4F6';
-  drawRoundedRect(ctx, userIconX + 35, userRowY - 8, 180, 40, 8);
+  drawRoundedRect(ctx, userIconX + 35, chatY - 8, bubbleW, bubbleH, 8);
   ctx.fill();
   
-  ctx.fillStyle = COLORS.ink;
-  ctx.font = '12px Inter, sans-serif';
-  ctx.fillText("How do I scale?", userIconX + 45, userRowY + 16);
+  // Fake Text Lines (User)
+  ctx.fillStyle = '#9CA3AF';
+  ctx.fillRect(userIconX + 45, chatY, bubbleW * 0.6, 4);
+  ctx.fillRect(userIconX + 45, chatY + 8, bubbleW * 0.4, 4);
 
-  // AI Message (Right aligned - Gold)
-  const aiRowY = userRowY + 60;
-  const aiIconX = cardX + cardW - 44; // Right side
-  
-  // AI Icon
-  ctx.fillStyle = COLORS.accent;
-  ctx.beginPath(); ctx.arc(aiIconX + 12, aiRowY + 12, 12, 0, Math.PI*2); ctx.fill();
-  
-  // AI Bubble
-  const aiBubbleW = 180;
-  const aiBubbleX = aiIconX - aiBubbleW - 10;
+  // AI Message
+  const aiY = chatY + 50;
+  const aiIconX = cardX + cardW - 44;
   
   ctx.fillStyle = COLORS.accent;
-  drawRoundedRect(ctx, aiBubbleX, aiRowY - 8, aiBubbleW, 40, 8);
+  ctx.beginPath(); ctx.arc(aiIconX + 12, aiY + 12, 12, 0, Math.PI*2); ctx.fill();
+  
+  const aiBubbleX = aiIconX - bubbleW - 10;
+  ctx.fillStyle = COLORS.accent;
+  drawRoundedRect(ctx, aiBubbleX, aiY - 8, bubbleW, bubbleH, 8);
   ctx.fill();
 
   if (isTyping) {
-     // Typing dots
      ctx.fillStyle = COLORS.white;
-     const dotStart = aiBubbleX + aiBubbleW/2 - 14;
+     const dotStart = aiBubbleX + bubbleW/2 - 14;
      for(let i=0; i<3; i++) {
-        const dy = aiRowY + 12 + Math.sin((time * 0.01) + i) * 2;
+        const dy = aiY + 12 + Math.sin((time * 0.01) + i) * 2;
         ctx.beginPath(); ctx.arc(dotStart + (i * 14), dy, 2.5, 0, Math.PI*2); ctx.fill();
      }
-     
-     // "Thinking" text
-     ctx.fillStyle = '#9CA3AF';
-     ctx.font = 'italic 10px Inter, sans-serif';
-     ctx.fillText("AI is typing...", cardX + 20, cardH + cardY - 15);
   } else {
-     // Text
-     ctx.fillStyle = COLORS.white;
-     ctx.font = '12px Inter, sans-serif';
-     ctx.fillText("I've analyzed the data.", aiBubbleX + 12, aiRowY + 16);
+     ctx.fillStyle = 'rgba(255,255,255,0.8)';
+     ctx.fillRect(aiBubbleX + 15, aiY, bubbleW * 0.7, 4);
+     ctx.fillRect(aiBubbleX + 15, aiY + 8, bubbleW * 0.5, 4);
   }
 };
 
@@ -204,66 +196,50 @@ const drawPresence = (ctx: CanvasRenderingContext2D, w: number, h: number, time:
   const availableH = h - 44;
   const contentCenterY = 44 + availableH / 2;
   
-  const viewH = 260; // Increased view height for better visibility
+  // FIX: Make view height proportional to available space
+  const viewH = Math.min(availableH * 0.7, 260); 
   const clipTop = contentCenterY - (viewH / 2);
   
-  const cardSize = 100;
+  // FIX: Scale card size relative to width to fit
+  const cardSize = Math.min(w * 0.12, 100);
   const gap = 15;
-  const rowH = cardSize + gap; // 115
+  const rowH = cardSize + gap;
   
-  const totalContentW = (cardSize * 2) + gap; // 215
-  // Perfectly center the grid content
+  const totalContentW = (cardSize * 2) + gap;
   const startX = (w - totalContentW) / 2;
 
-  // Mask area
   ctx.save();
   ctx.beginPath();
   ctx.rect(startX - 10, clipTop, totalContentW + 20, viewH);
   ctx.clip();
 
-  // Infinite Scroll Logic
-  // We loop every 2 rows (230px) to ensure the 'Viral' pattern repeats seamlessly
   const loopHeight = 2 * rowH; 
   const scrollSpeed = 0.08;
   const loopOffset = (time * scrollSpeed) % loopHeight; 
   
-  // Calculate which rows are currently visible
-  // We render rows relative to clipTop, shifted up by loopOffset
-  // Row Y = clipTop + (rowIndex * rowH) - loopOffset
-  // We need rows that overlap [clipTop, clipTop + viewH]
   const startRowIndex = Math.floor((loopOffset - cardSize) / rowH);
   const endRowIndex = Math.ceil((loopOffset + viewH) / rowH);
 
   for (let i = startRowIndex; i <= endRowIndex; i++) {
     const y = clipTop + (i * rowH) - loopOffset;
-    
-    // Pattern Logic: Repeat every 2 rows
-    // Row 0: Viral post on right
-    // Row 1: Normal posts
-    // Use abs() to handle potential negative indices safely for pattern matching
     const patternIdx = Math.abs(i) % 2; 
 
-    // Draw Columns
     const x1 = startX;
     const x2 = startX + cardSize + gap;
 
     [x1, x2].forEach((x, colIdx) => {
-        // Highlight specific card: Pattern 0, Col 1
         const isViral = (patternIdx === 0 && colIdx === 1);
         
         ctx.fillStyle = isViral ? COLORS.accent : COLORS.white;
         ctx.strokeStyle = COLORS.ink;
         ctx.lineWidth = 1;
         
-        // Post Box
         ctx.fillRect(x, y, cardSize, cardSize);
         ctx.strokeRect(x, y, cardSize, cardSize);
         
-        // Inner Content
         ctx.fillStyle = isViral ? COLORS.white : '#E5E5E5';
         ctx.fillRect(x + 10, y + 10, cardSize - 20, cardSize - 40);
         
-        // Actions
         ctx.fillStyle = isViral ? COLORS.white : COLORS.ink;
         ctx.beginPath(); ctx.arc(x + 15, y + cardSize - 15, 4, 0, Math.PI*2); ctx.fill();
         ctx.fillRect(x + 25, y + cardSize - 18, 40, 6);
@@ -274,15 +250,15 @@ const drawPresence = (ctx: CanvasRenderingContext2D, w: number, h: number, time:
 };
 
 const drawSoul = (ctx: CanvasRenderingContext2D, w: number, h: number, time: number) => {
-  const cardW = 280;
-  const cardH = 300;
-  
   const availableH = h - 44;
   const contentCenterY = 44 + availableH / 2;
-  const y = contentCenterY - (cardH / 2);
-  const x = (w - cardW) / 2;
 
-  // Main Card
+  // FIX: Constrain height properly to avoid clipping
+  const cardW = Math.min(w * 0.4, 280);
+  const cardH = Math.min(availableH * 0.75, 300);
+  const x = (w - cardW) / 2;
+  const y = contentCenterY - (cardH / 2);
+
   ctx.fillStyle = COLORS.white;
   ctx.strokeStyle = COLORS.ink;
   ctx.lineWidth = 2;
@@ -295,7 +271,7 @@ const drawSoul = (ctx: CanvasRenderingContext2D, w: number, h: number, time: num
   ctx.stroke();
 
   // Profile Header
-  const profileRad = 20;
+  const profileRad = Math.min(cardW * 0.08, 20);
   ctx.fillStyle = COLORS.ink;
   ctx.beginPath();
   ctx.arc(x + 40, y + 40, profileRad, 0, Math.PI*2);
@@ -303,51 +279,46 @@ const drawSoul = (ctx: CanvasRenderingContext2D, w: number, h: number, time: num
   
   ctx.fillStyle = COLORS.ink;
   ctx.font = 'bold 16px Inter, sans-serif';
-  ctx.fillText("Onboarding SOP", x + 75, y + 45);
+  ctx.fillText("SOP Check", x + 70, y + 45);
 
-  // Task List
-  const tasks = ["Review Guidelines", "Setup Accounts", "Shadow Call", "First Assignment"];
-  const listStartY = y + 90;
-  const rowH = 40;
+  // Task List - Distribute dynamically based on card height
+  const listStartY = y + 80;
+  const availListH = cardH - 110; 
+  const rowH = availListH / 4; 
   
-  // Animation Cycle
+  const tasks = ["Guidelines", "Setup", "Shadow Call", "Deploy"];
   const cycleDur = 4000;
   const localTime = time % cycleDur;
-  const progress = Math.min(localTime / 3000, 1); // 0 to 1 over 3s
-  const completedCount = Math.floor(progress * 4.5); // 0 to 4
+  const progress = Math.min(localTime / 3000, 1);
+  const completedCount = Math.floor(progress * 4.5);
 
   tasks.forEach((task, i) => {
     const taskY = listStartY + (i * rowH);
     const isDone = i < completedCount;
 
-    // Checkbox
     ctx.strokeStyle = COLORS.ink;
     ctx.lineWidth = 2;
-    ctx.strokeRect(x + 30, taskY - 10, 16, 16);
+    ctx.strokeRect(x + 30, taskY, 14, 14);
     
     if (isDone) {
         ctx.fillStyle = COLORS.accent;
-        ctx.font = 'bold 16px Inter, sans-serif';
-        ctx.fillText("✓", x + 32, taskY + 4);
+        ctx.font = 'bold 14px Inter, sans-serif';
+        ctx.fillText("✓", x + 32, taskY + 12);
     }
 
-    // Text
     ctx.fillStyle = isDone ? COLORS.ink : '#999';
     ctx.font = '14px Inter, sans-serif';
-    ctx.fillText(task, x + 60, taskY + 3);
+    ctx.fillText(task, x + 60, taskY + 12);
   });
 
   // Progress Bar
   const barW = cardW - 60;
   const barH = 6;
   const barX = x + 30;
-  const barY = y + cardH - 30;
+  const barY = y + cardH - 20;
 
-  // Background
   ctx.fillStyle = '#EEE';
   ctx.fillRect(barX, barY, barW, barH);
-  
-  // Fill
   ctx.fillStyle = COLORS.accent;
   ctx.fillRect(barX, barY, barW * progress, barH);
 };
@@ -377,11 +348,19 @@ const Visual_ScaleFaster_Engine: React.FC = () => {
       
       const dpr = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
+      
       canvas.width = rect.width * dpr;
       canvas.height = rect.height * dpr;
-      ctx.scale(dpr, dpr);
-      const w = rect.width;
-      const h = rect.height;
+      
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+      // --- SCALING LOGIC (Same as GetClients) ---
+      const scaleX = (rect.width * dpr) / VIRTUAL_WIDTH;
+      const scaleY = (rect.height * dpr) / VIRTUAL_HEIGHT;
+      ctx.scale(scaleX, scaleY);
+      
+      const w = VIRTUAL_WIDTH;
+      const h = VIRTUAL_HEIGHT;
 
       const elapsed = timestamp - startTimeRef.current;
       
@@ -413,23 +392,18 @@ const Visual_ScaleFaster_Engine: React.FC = () => {
       ctx.fillRect(0, 0, w, h);
 
       const ease = (t: number) => t < .5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-      // Elevator Slide Offset
-      // If transitioning, we slide everything up.
-      // Offset goes from 0 to h.
       const slideOffset = isTransitioningRef.current ? ease(transitionProgress) * h : 0;
 
-      // 1. Draw CURRENT State (Moves from 0 to -h)
+      // 1. Draw CURRENT State
       ctx.save();
-      // Translate Upwards
       ctx.translate(0, -slideOffset);
       const drawCurrent = [drawVoice, drawPresence, drawSoul][currentStateIdx.current];
       drawCurrent(ctx, w, h, timestamp);
       ctx.restore();
 
-      // 2. Draw NEXT State (Moves from h to 0)
+      // 2. Draw NEXT State
       if (isTransitioningRef.current) {
         ctx.save();
-        // Starts at h, moves to 0
         ctx.translate(0, h - slideOffset);
         
         // Separator Line
@@ -445,7 +419,6 @@ const Visual_ScaleFaster_Engine: React.FC = () => {
         ctx.restore();
       }
 
-      // Always draw browser frame on top (static)
       drawBrowserFrame(ctx, w, h);
 
       animationFrameId = requestAnimationFrame(render);
