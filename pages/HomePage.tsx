@@ -28,6 +28,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const [isTickerHovered, setIsTickerHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [canAnimate, setCanAnimate] = useState(false); // Guard for initial render performance
+  const [shouldLoadVisual, setShouldLoadVisual] = useState(false); // Defer HeroVisual on mobile
 
   // Mobile Check & Animation Guard
   useEffect(() => {
@@ -36,8 +37,22 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
     window.addEventListener('resize', checkMobile);
     
     // Enable animations ONLY after the first paint is done
-    // This removes the "Forced Reflow" penalty from your Lighthouse report
     const timer = requestAnimationFrame(() => setCanAnimate(true));
+
+    // PERFORMANCE FIX: Defer HeroVisual mount on mobile to prioritize LCP
+    const isMobileDevice = window.innerWidth < 768;
+    if (isMobileDevice) {
+      // On mobile, wait 100ms before mounting the heavy 3D visual
+      const visualTimer = setTimeout(() => setShouldLoadVisual(true), 100);
+      return () => {
+        window.removeEventListener('resize', checkMobile);
+        cancelAnimationFrame(timer);
+        clearTimeout(visualTimer);
+      };
+    } else {
+      // On desktop, load immediately
+      setShouldLoadVisual(true);
+    }
 
     return () => {
       window.removeEventListener('resize', checkMobile);
@@ -123,11 +138,13 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
       {/* 1. HERO SECTION */}
       <section id="hero" aria-label="Hero Section" className="min-h-[100svh] w-full flex items-center pt-32 md:pt-20 overflow-hidden relative z-20 content-layer">
         
-        {/* HERO VISUAL - Standard Lazy Load */}
+        {/* HERO VISUAL - Deferred on mobile for better LCP */}
         <div className="absolute inset-0 z-[1]">
-          <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
-            <HeroVisual />
-          </Suspense>
+          {shouldLoadVisual && (
+            <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
+              <HeroVisual />
+            </Suspense>
+          )}
         </div>
 
         {/* CONTENT */}

@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { AnimatePresence, motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 
 // COMPONENTS
 import GlobalHeader from '../components/GlobalHeader';
@@ -34,34 +34,11 @@ const App: React.FC = () => {
   const [selectedService, setSelectedService] = useState<ServiceDetail | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  
-  // PRELOADER STATE
-  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
 
   const { scrollY } = useScroll();
   useMotionValueEvent(scrollY, "change", (latest) => {
     setScrolled(latest > 50);
   });
-
-  // Handle Initial Load - Instant for 100/100 PageSpeed
-  useEffect(() => {
-    // Set immediately on mount - no artificial delay
-    // For 100/100 PageSpeed, we need LCP under 0.8s-1.2s total
-    // A 1-second delay guarantees failure
-    setInitialLoadComplete(true);
-    
-    // Unlock scroll immediately
-    document.body.style.overflow = '';
-    document.documentElement.style.overflow = '';
-  }, []);
-
-  // Unlock scroll when preloader completes
-  useEffect(() => {
-    if (initialLoadComplete) {
-      document.body.style.overflow = '';
-      document.documentElement.style.overflow = '';
-    }
-  }, [initialLoadComplete]);
 
   // Reset scroll on route change
   useEffect(() => {
@@ -94,7 +71,6 @@ const App: React.FC = () => {
     navigate(route);
   };
 
-
   const getCurrentView = () => {
     const path = location.pathname;
     if (path === '/') return 'homepage';
@@ -113,63 +89,7 @@ const App: React.FC = () => {
   return (
     <div className="bg-[#FFF2EC] font-sans selection:bg-[#1a1a1a] selection:text-[#FFF2EC] min-h-screen flex flex-col relative">
       
-      {/* --- THE DARK ROOM PRELOADER --- */}
-      <AnimatePresence mode="wait">
-        {!initialLoadComplete && (
-          <motion.div
-            key="preloader"
-            initial={{ y: 0 }}
-            exit={{ y: "-100%" }} // Leaves to TOP
-            transition={{ 
-              duration: 0.3, // Reduced from 1.0s to 0.3s for faster LCP
-              ease: [0.76, 0, 0.24, 1] // Custom Bezier for smooth "Curtain Lift"
-            }}
-            className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#1a1a1a] gap-8"
-          >
-            {/* CENTER ANIMATION */}
-            <div className="flex items-center gap-4">
-              <motion.span 
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                className="font-mono text-4xl md:text-5xl font-light text-[#FFF2EC]"
-              >
-                [
-              </motion.span>
-
-              {/* The Gold Pulse */}
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: [0.4, 1, 0.4], scale: [0.9, 1.1, 0.9] }}
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                className="w-3 h-3 md:w-4 md:h-4 bg-[#C5A059] shadow-[0_0_20px_rgba(197,160,89,0.6)] rounded-sm"
-              />
-
-              <motion.span 
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-                className="font-mono text-4xl md:text-5xl font-light text-[#FFF2EC]"
-              >
-                ]
-              </motion.span>
-            </div>
-
-            {/* REPLACED LOGO WITH CAPTION */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="font-mono text-[10px] md:text-xs font-bold text-[#C5A059] uppercase tracking-[0.3em] text-center"
-            >
-              SYSTEMS & GROWTH
-            </motion.div>
-
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* --- MAIN APP --- */}
+      {/* --- MAIN APP (No Preloader) --- */}
       {location.pathname !== '/contact' && (
         <GlobalHeader currentView={getCurrentView()} onNavigate={handleGlobalNavigate} scrolled={scrolled} />
       )}

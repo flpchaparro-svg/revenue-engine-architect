@@ -307,11 +307,22 @@ const HeroVisual: React.FC = () => {
 
     observer.observe(container);
 
-    // Init
+    // Init - Use requestIdleCallback to defer initial resize and prevent forced reflow during LCP
+    const init = () => {
+      resize();
+      render(performance.now());
+    };
+
+    // PERFORMANCE FIX: Defer initialization to avoid forced reflow during page load
+    if ('requestIdleCallback' in window) {
+      (window as any).requestIdleCallback(init, { timeout: 100 });
+    } else {
+      // Fallback for Safari
+      setTimeout(init, 0);
+    }
+
     window.addEventListener('resize', resize);
     window.addEventListener('mousemove', onMouseMove);
-    resize();
-    render(performance.now());
 
     return () => {
       observer.disconnect();
