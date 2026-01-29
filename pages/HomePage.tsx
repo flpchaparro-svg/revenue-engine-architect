@@ -27,13 +27,22 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   
   const [isTickerHovered, setIsTickerHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [canAnimate, setCanAnimate] = useState(false); // Guard for initial render performance
 
-  // Mobile Check
+  // Mobile Check & Animation Guard
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    
+    // Enable animations ONLY after the first paint is done
+    // This removes the "Forced Reflow" penalty from your Lighthouse report
+    const timer = requestAnimationFrame(() => setCanAnimate(true));
+
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      cancelAnimationFrame(timer);
+    };
   }, []);
 
   // --- SCROLL LINE LOGIC ---
@@ -49,6 +58,9 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const decayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useAnimationFrame((time, delta) => {
+    // PERFORMANCE FIX: Don't run math loops during page load
+    if (!canAnimate) return;
+
     // Scroll Line Animation
     const currentY = scrollLineY.get();
     const speed = scrollLineSpeed.get();
@@ -111,7 +123,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
       {/* 1. HERO SECTION */}
       <section id="hero" aria-label="Hero Section" className="min-h-[100svh] w-full flex items-center pt-32 md:pt-20 overflow-hidden relative z-20 content-layer">
         
-        {/* HERO VISUAL - Standard Lazy Load (No Delay) */}
+        {/* HERO VISUAL - Standard Lazy Load */}
         <div className="absolute inset-0 z-[1]">
           <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
             <HeroVisual />
