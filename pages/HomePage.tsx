@@ -7,7 +7,7 @@ import BookingCTA from '../components/BookingCTA';
 import FrictionAuditSection from '../components/FrictionAuditSection';
 import { usePageTitle } from '../hooks/usePageTitle';
 
-// Lazy load heavy sections (including HeroVisual for mobile performance)
+// Lazy load heavy sections
 const HeroVisual = lazy(() => import('../components/HeroVisual'));
 const SystemPhases = lazy(() => import('../components/SystemPhases'));
 const TheArchitect = lazy(() => import('../components/TheArchitect'));
@@ -27,7 +27,6 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   
   const [isTickerHovered, setIsTickerHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [isReady, setIsReady] = useState(false); // PERFORMANCE: Delays heavy visuals until LCP completes
 
   // Mobile Check
   useEffect(() => {
@@ -37,15 +36,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // PERFORMANCE CRITICAL: 
-  // We wait 1.5s before mounting the heavy 3D visuals. 
-  // This guarantees the LCP (text) paints first without main-thread contention.
-  useEffect(() => {
-    const timer = setTimeout(() => setIsReady(true), 1500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // --- OPTIMIZED SCROLL LINE LOGIC ---
+  // --- SCROLL LINE LOGIC ---
   const scrollLineY = useMotionValue(-100); 
   const scrollLineSpeed = useMotionValue(0.067); 
   const { scrollY } = useScroll();
@@ -58,8 +49,6 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const decayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useAnimationFrame((time, delta) => {
-    if (!isReady) return; // Stop all math until ready
-
     // Scroll Line Animation
     const currentY = scrollLineY.get();
     const speed = scrollLineSpeed.get();
@@ -122,13 +111,11 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
       {/* 1. HERO SECTION */}
       <section id="hero" aria-label="Hero Section" className="min-h-[100svh] w-full flex items-center pt-32 md:pt-20 overflow-hidden relative z-20 content-layer">
         
-        {/* HERO VISUAL - STRICTLY DELAYED MOUNTING */}
+        {/* HERO VISUAL - Standard Lazy Load (No Delay) */}
         <div className="absolute inset-0 z-[1]">
-          {isReady && (
-            <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
-              <HeroVisual />
-            </Suspense>
-          )}
+          <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
+            <HeroVisual />
+          </Suspense>
         </div>
 
         {/* CONTENT */}
@@ -203,30 +190,25 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
         </div>
       </div>
 
-      {/* 2. PROBLEM SECTION (Optimized - isolated state) */}
       <ProblemSection />
 
-      {/* 3. FRICTION AUDIT */}
       <section id="friction-audit" aria-label="Friction Audit Section" className="relative bg-[#FFF2EC] z-30">
         <FrictionAuditSection onNavigate={onNavigate} />
       </section>
 
-      {/* LAZY LOADED SECTIONS - Only load when user scrolls or after initial delay */}
-      {isReady && (
-        <Suspense fallback={<div className="min-h-[500px] bg-[#FFF2EC]" />}>
-          <section id="seven-pillars" className="relative bg-[#FFF2EC] z-30">
-            <SystemPhases onNavigate={onNavigate} />
-          </section>
-          <section id="about" className="relative bg-[#FFF2EC] z-30">
-            <TheArchitect />
-          </section>
-          <section id="case-study" className="relative bg-[#FFF2EC] z-30">
-            <Feature_Group7 />
-          </section>
-        </Suspense>
-      )}
+      {/* LAZY LOADED SECTIONS */}
+      <Suspense fallback={<div className="min-h-[500px] bg-[#FFF2EC]" />}>
+        <section id="seven-pillars" className="relative bg-[#FFF2EC] z-30">
+          <SystemPhases onNavigate={onNavigate} />
+        </section>
+        <section id="about" className="relative bg-[#FFF2EC] z-30">
+          <TheArchitect />
+        </section>
+        <section id="case-study" className="relative bg-[#FFF2EC] z-30">
+          <Feature_Group7 />
+        </section>
+      </Suspense>
 
-      {/* 7. CTA SECTION */}
       <section id="cta" aria-label="Call to Action Section" className="relative bg-[#FFF2EC] z-30">
         <BookingCTA />
       </section>
