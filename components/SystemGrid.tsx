@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import GridItem from './SystemGridItem';
 import { getAllPillars } from '../constants/systemPillars';
 
-// Get merged pillar data once
 const ALL_PILLARS = getAllPillars();
 
 interface SystemGridProps {
@@ -14,45 +13,55 @@ const SystemGrid: React.FC<SystemGridProps> = ({ onNavigate }) => {
   const [selectedPillarId, setSelectedPillarId] = useState<string | null>(null);
   const gridSectionRef = useRef<HTMLDivElement>(null);
 
-  // --- THE FORMULA ---
-  // This calculates the exact width (span) of every card based on which one is active.
-  // Goal: Ensure rows always add up to 3 columns so there are no empty slots.
-  const getSpan = (currentId: string, selectedId: string | null) => {
-    // 1. If this card is the selected one, it takes FULL width.
-    if (currentId === selectedId) {
-      return 'md:col-span-2 lg:col-span-3';
+  // --- THE LOGIC ENGINE ---
+  const getGridClasses = (currentId: string, selectedId: string | null) => {
+    
+    // --- 1. TABLET LOGIC (2 Columns) ---
+    // Default: 1 Column
+    let tablet = 'md:col-span-1';
+
+    // Rule A: Selected Card & Card 7 are ALWAYS Full Width
+    if (currentId === selectedId || currentId === 'pillar7') {
+      tablet = 'md:col-span-2';
+    } 
+    // Rule B: If Selected is ODD (1, 3, 5), Card 6 must expand to close the offset.
+    else if (['pillar1', 'pillar3', 'pillar5'].includes(selectedId || '')) {
+      if (currentId === 'pillar6') tablet = 'md:col-span-2';
+    }
+    // Rule C: If Selected is EVEN (2, 4, 6), the neighbor BEFORE it must expand.
+    else if (selectedId === 'pillar2' && currentId === 'pillar1') tablet = 'md:col-span-2';
+    else if (selectedId === 'pillar4' && currentId === 'pillar3') tablet = 'md:col-span-2';
+    else if (selectedId === 'pillar6' && currentId === 'pillar5') tablet = 'md:col-span-2';
+
+
+    // --- 2. DESKTOP LOGIC (3 Columns) ---
+    // Default: 1 Column
+    let desktop = 'lg:col-span-1';
+
+    // Rule A: Selected Card & Card 7 are ALWAYS Full Width
+    if (currentId === selectedId || currentId === 'pillar7') {
+      desktop = 'lg:col-span-3';
+    }
+    // Rule B: Row 1 Logic (1-2-3)
+    else if (['pillar1', 'pillar2', 'pillar3'].includes(selectedId || '')) {
+      // If 1 Selected -> 3 Stretches
+      if (selectedId === 'pillar1' && currentId === 'pillar3') desktop = 'lg:col-span-2';
+      // If 2 Selected -> 1 & 3 become Full (to clear row)
+      if (selectedId === 'pillar2' && (currentId === 'pillar1' || currentId === 'pillar3')) desktop = 'lg:col-span-3';
+      // If 3 Selected -> 1 Stretches
+      if (selectedId === 'pillar3' && currentId === 'pillar1') desktop = 'lg:col-span-2';
+    }
+    // Rule C: Row 2 Logic (4-5-6)
+    else if (['pillar4', 'pillar5', 'pillar6'].includes(selectedId || '')) {
+      // If 4 Selected -> 6 Stretches
+      if (selectedId === 'pillar4' && currentId === 'pillar6') desktop = 'lg:col-span-2';
+      // If 5 Selected -> 4 & 6 become Full
+      if (selectedId === 'pillar5' && (currentId === 'pillar4' || currentId === 'pillar6')) desktop = 'lg:col-span-3';
+      // If 6 Selected -> 4 Stretches
+      if (selectedId === 'pillar6' && currentId === 'pillar4') desktop = 'lg:col-span-2';
     }
 
-    // 2. The Last Card (Pillar 7) is ALWAYS full width (unless another logic overrides it, but usually it sits at bottom).
-    if (currentId === 'pillar7') {
-      return 'md:col-span-2 lg:col-span-3';
-    }
-
-    // 3. ROW 1 LOGIC (Pillars 1, 2, 3)
-    // If any card in Row 1 is expanded, the remaining two must fill a row (2+1=3).
-    if (['pillar1', 'pillar2', 'pillar3'].includes(selectedId || '')) {
-      // If 1 is selected -> 2 gets big.
-      if (selectedId === 'pillar1' && currentId === 'pillar2') return 'md:col-span-1 lg:col-span-2';
-      // If 2 is selected -> 1 gets big.
-      if (selectedId === 'pillar2' && currentId === 'pillar1') return 'md:col-span-1 lg:col-span-2';
-      // If 3 is selected -> 1 gets big.
-      if (selectedId === 'pillar3' && currentId === 'pillar1') return 'md:col-span-1 lg:col-span-2';
-    }
-
-    // 4. ROW 2 LOGIC (Pillars 4, 5, 6)
-    // This fixes the "Voice/Card 4" Bug.
-    // If any card in Row 2 is expanded, the remaining two must fill a row.
-    if (['pillar4', 'pillar5', 'pillar6'].includes(selectedId || '')) {
-      // If 4 is selected -> 5 gets big.
-      if (selectedId === 'pillar4' && currentId === 'pillar5') return 'md:col-span-1 lg:col-span-2';
-      // If 5 is selected -> 4 gets big.
-      if (selectedId === 'pillar5' && currentId === 'pillar4') return 'md:col-span-1 lg:col-span-2';
-      // If 6 is selected -> 4 gets big.
-      if (selectedId === 'pillar6' && currentId === 'pillar4') return 'md:col-span-1 lg:col-span-2';
-    }
-
-    // Default: Standard 1 column width
-    return 'col-span-1';
+    return `${tablet} ${desktop}`;
   };
 
   return (
@@ -72,35 +81,36 @@ const SystemGrid: React.FC<SystemGridProps> = ({ onNavigate }) => {
           </p>
       </div>
 
-      {/* INTERACTIVE GRID */}
-      {/* Note: 'grid-flow-dense' is REMOVED to keep cards in logical order (1,2,3,4...) */}
+      {/* GRID */}
       <motion.div 
         ref={gridSectionRef}
-        layout 
+        layout
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-[#1a1a1a]/20 bg-[#1a1a1a]/10"
       >
-        {ALL_PILLARS.map((pillar) => (
-          <motion.div 
-            layout
-            key={pillar.id}
-            className={`
-              relative
-              ${getSpan(pillar.id, selectedPillarId)}
-            `}
-            transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-          >
-            <GridItem 
-              pillar={pillar}
-              isSelected={selectedPillarId === pillar.id}
-              selectedId={selectedPillarId}
-              onToggle={() => {
-                const newId = selectedPillarId === pillar.id ? null : pillar.id;
-                setSelectedPillarId(newId);
-              }}
-              onNavigate={onNavigate}
-            />
-          </motion.div>
-        ))}
+        {ALL_PILLARS.map((pillar) => {
+          const isSelected = selectedPillarId === pillar.id;
+          const gridClasses = getGridClasses(pillar.id, selectedPillarId);
+          
+          return (
+            <motion.div 
+              layout
+              key={pillar.id}
+              className={`relative col-span-1 ${gridClasses}`}
+              transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+            >
+              <GridItem 
+                pillar={pillar}
+                isSelected={isSelected}
+                selectedId={selectedPillarId}
+                onToggle={() => {
+                  const newId = selectedPillarId === pillar.id ? null : pillar.id;
+                  setSelectedPillarId(newId);
+                }}
+                onNavigate={onNavigate}
+              />
+            </motion.div>
+          );
+        })}
       </motion.div>
 
     </div>
