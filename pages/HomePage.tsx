@@ -1,15 +1,13 @@
-import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
-// PERFORMANCE: Use 'm' from framer-motion to utilize LazyMotion
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { m, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
+// FIX: Correct Import Paths for components
 import CTAButton from '../components/CTAButton';
 import ScrambleTitle from '../components/ScrambleTitle';
 import BookingCTA from '../components/BookingCTA';
 import { usePageTitle } from '../hooks/usePageTitle';
-import HeroVisual from '../components/HeroVisual'; // ✅ Correct: Eager Load LCP
+import HeroVisual from '../components/HeroVisual'; 
 
-// --- FIX: LAZY LOAD BELOW-THE-FOLD CONTENT ---
-// These were eager imports blocking your main thread. 
-// Making them lazy allows the Hero to paint first.
+// Lazy Load Sections
 const ProblemSection = lazy(() => import('../components/HomePage/ProblemSection'));
 const FrictionAuditSection = lazy(() => import('../components/FrictionAuditSection'));
 const SystemPhases = lazy(() => import('../components/SystemPhases'));
@@ -33,12 +31,13 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const [canAnimate, setCanAnimate] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
+    // FIX: Use matchMedia to avoid Reflow
+    const mobileQuery = window.matchMedia('(max-width: 768px)');
+    const checkMobile = (e: MediaQueryListEvent | MediaQueryList) => setIsMobile(e.matches);
     
-    // FIX 2: Increased delay to 2000ms.
-    // This effectively "Unblocks" the LCP. The browser can focus 100% on painting the text.
+    checkMobile(mobileQuery);
+    mobileQuery.addEventListener('change', checkMobile);
+    
     const startAnimation = () => setCanAnimate(true);
     if ('requestIdleCallback' in window) {
        (window as any).requestIdleCallback(startAnimation, { timeout: 2000 });
@@ -47,7 +46,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
     }
 
     return () => {
-      window.removeEventListener('resize', checkMobile);
+      mobileQuery.removeEventListener('change', checkMobile);
     };
   }, []);
 
@@ -178,7 +177,6 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
         </div>
       </div>
 
-      {/* FIX: Wrapped in Suspense so they don't block initial load */}
       <Suspense fallback={<div className="min-h-[500px] bg-[#FFF2EC]" />}>
         <ProblemSection />
         
