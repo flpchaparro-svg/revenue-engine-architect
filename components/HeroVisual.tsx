@@ -3,8 +3,14 @@ import React, { useEffect, useRef, useState } from 'react';
 // --- CONFIGURATION ---
 const GOLD_COLOR = '#C5A059';
 const INK_COLOR = '#1a1a1a';
-const PARTICLE_COUNT = 100; 
-const CONNECTION_DIST = 0.55; 
+
+// DESKTOP SETTINGS
+const DESKTOP_COUNT = 100;
+const DESKTOP_DIST = 0.55;
+
+// MOBILE SETTINGS (tuned to look "full" but run fast)
+const MOBILE_COUNT = 60; // Increased from 35
+const MOBILE_DIST = 0.85; // Increased range so lines actually connect
 
 interface Point3D {
   x: number;
@@ -19,20 +25,24 @@ interface Point3D {
 }
 interface Connection { p1: number; p2: number }
 
-// --- LOGIC MOVED OUTSIDE COMPONENT ---
-const generateGeometry = () => {
+// --- GEOMETRY GENERATOR ---
+const generateGeometry = (isMobile: boolean) => {
+  const count = isMobile ? MOBILE_COUNT : DESKTOP_COUNT;
+  const connectionDist = isMobile ? MOBILE_DIST : DESKTOP_DIST;
+
   const verts: Point3D[] = [];
   const phi = Math.PI * (3 - Math.sqrt(5)); 
 
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
-    const y = 1 - (i / (PARTICLE_COUNT - 1)) * 2; 
+  for (let i = 0; i < count; i++) {
+    const y = 1 - (i / (count - 1)) * 2; 
     const radius = Math.sqrt(1 - y * y);
     const theta = phi * i;
 
     const x = Math.cos(theta) * radius;
     const z = Math.sin(theta) * radius;
 
-    const isGold = Math.random() > 0.8;
+    // More gold on mobile to make it pop
+    const isGold = Math.random() > (isMobile ? 0.7 : 0.8);
     
     verts.push({ 
       x, y, z, 
@@ -53,7 +63,7 @@ const generateGeometry = () => {
         Math.pow(verts[i].y - verts[j].y, 2) +
         Math.pow(verts[i].z - verts[j].z, 2)
       );
-      if (d < CONNECTION_DIST) connections.push({ p1: i, p2: j }); 
+      if (d < connectionDist) connections.push({ p1: i, p2: j }); 
     }
   }
   return { verts, connections };
@@ -62,15 +72,17 @@ const generateGeometry = () => {
 const HeroVisual: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  
-  // Start null to allow instant first-paint of text
   const [geometry, setGeometry] = useState<{verts: Point3D[], connections: Connection[]} | null>(null);
 
-  // FIX: Moved delay to 1500ms (1.5s) to guarantee LCP text paints first
   useEffect(() => {
+    // 1. Detect Mobile
+    const isMobile = window.innerWidth < 768;
+    
+    // 2. Generate Geometry (Delayed slightly to prioritize LCP Text)
     const timer = setTimeout(() => {
-       setGeometry(generateGeometry());
-    }, 1500); 
+       setGeometry(generateGeometry(isMobile));
+    }, 100); // Reduced delay so it doesn't feel "broken" or missing
+    
     return () => clearTimeout(timer);
   }, []);
 
@@ -89,16 +101,7 @@ const HeroVisual: React.FC = () => {
     let animationFrameId: number | null = null;
     let isIntersecting = true;
     
-    // Initial resize to ensure canvas has dimensions before first render
-    const rect = container.getBoundingClientRect();
-    const width = rect.width || window.innerWidth;
-    const height = rect.height || window.innerHeight;
-    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-    canvas.width = width * dpr;
-    canvas.height = height * dpr;
-    ctx.scale(dpr, dpr);
-    canvas.style.width = `${width}px`;
-    canvas.style.height = `${height}px`;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x for performance
 
     let mouseX = 0;
     let mouseY = 0;
@@ -107,8 +110,8 @@ const HeroVisual: React.FC = () => {
 
     const resize = () => {
       const rect = container.getBoundingClientRect();
-      const w = rect.width || window.innerWidth; 
-      const h = rect.height || window.innerHeight;
+      const w = rect.width; 
+      const h = rect.height;
       
       canvas.width = w * dpr;
       canvas.height = h * dpr;
@@ -118,41 +121,48 @@ const HeroVisual: React.FC = () => {
     };
 
     const onMouseMove = (e: MouseEvent) => {
-      mouseX = (e.clientX / window.innerWidth - 0.5);
-      mouseY = (e.clientY / window.innerHeight - 0.5);
+      // Smoother mouse tracking
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 1.5;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 1.5;
     };
 
+    // Auto-rotation fallback for mobile
+    let autoRotateAngle = 0;
+
     const render = (now: number) => {
-      // Fade in effect for the visual itself
       const elapsed = (now - startTime) / 1000;
-      let progress = Math.min(1, elapsed / 2.5);
+      
+      // Smooth fade in
+      let progress = Math.min(1, elapsed / 1.5);
       progress = 1 - Math.pow(1 - progress, 3); 
 
+      // Rotation Logic
+      autoRotateAngle += 0.005; // Constant slow rotation
+      
       const targetX = mouseY * 0.5;
       const targetY = mouseX * 0.5;
       
+      // Blend Mouse + Auto Rotation
       currentRotX += (targetX - currentRotX) * 0.05;
       currentRotY += (targetY - currentRotY) * 0.05;
 
-      const rotX = currentRotX + elapsed * 0.05;
-      const rotY = currentRotY + elapsed * 0.1;
+      const rotX = currentRotX + (elapsed * 0.05); 
+      const rotY = currentRotY + (elapsed * 0.08);
 
-      // Re-read dimensions in loop only if needed, otherwise rely on resize listener
-      // Optimizing by using cached canvas width/height logic if possible, 
-      // but for robustness we use container rect here.
       const rect = container.getBoundingClientRect();
       const w = rect.width;
       const h = rect.height;
+      const isMobile = w < 768; 
       
       const cx = w / 2;
-      const isMobile = w < 768; 
-      const cy = isMobile ? h * 0.28 : h * 0.45;
+      const cy = isMobile ? h * 0.35 : h * 0.45; // Adjusted mobile height
       
       const minDimension = Math.min(w, h);
-      const adaptiveScale = minDimension * 0.35; 
+      const adaptiveScale = minDimension * (isMobile ? 0.45 : 0.35); // Larger on mobile
       
       ctx.clearRect(0, 0, w, h);
 
+      // --- PROJECTION ---
       const projected = verts.map(p => {
         let x = p.startX + (p.x - p.startX) * progress;
         let y = p.startY + (p.y - p.startY) * progress;
@@ -173,15 +183,16 @@ const HeroVisual: React.FC = () => {
         };
       });
 
+      // --- SHADOW ---
       if (progress > 0.1) {
         ctx.save();
-        const maxOpacity = isMobile ? 0.1 : 0.2;
+        const maxOpacity = isMobile ? 0.15 : 0.2;
         const shadowOp = Math.min(maxOpacity, progress * maxOpacity);
         ctx.globalAlpha = shadowOp;
         
-        const shadowRadius = adaptiveScale * 0.6;
-        const shadowHeight = adaptiveScale * 0.09;
-        const shadowY = cy + adaptiveScale * 1.25;
+        const shadowRadius = adaptiveScale * 0.7;
+        const shadowHeight = adaptiveScale * 0.1;
+        const shadowY = cy + adaptiveScale * 1.3;
         
         const grad = ctx.createRadialGradient(cx, shadowY, 0, cx, shadowY, shadowRadius);
         grad.addColorStop(0, 'rgba(26,26,26, 0.8)');
@@ -194,10 +205,13 @@ const HeroVisual: React.FC = () => {
         ctx.restore();
       }
 
-      const lineOp = Math.max(0, (progress - 0.5) * 2); 
+      // --- CONNECTIONS ---
+      // Fix: Lines appear sooner and clearer
+      const lineOp = Math.max(0, (progress - 0.2) * 1.5); 
+      
       if (lineOp > 0.01) {
         ctx.strokeStyle = GOLD_COLOR;
-        ctx.lineWidth = 1; 
+        ctx.lineWidth = isMobile ? 0.8 : 1; // Thicker lines on mobile
         
         ctx.beginPath();
         for (let i = 0; i < connections.length; i++) {
@@ -205,19 +219,22 @@ const HeroVisual: React.FC = () => {
           const p2 = projected[connections[i].p2];
           
           const depth = (p1.z + p2.z) / 2;
-          if (depth < -2) continue; 
+          // Culling far lines for performance
+          if (depth < -2.5) continue; 
 
           ctx.moveTo(p1.x, p1.y);
           ctx.lineTo(p2.x, p2.y);
         }
-        ctx.globalAlpha = lineOp * (isMobile ? 0.06 : 0.15); 
+        // Fix: Higher opacity on mobile so lines are actually visible
+        ctx.globalAlpha = lineOp * (isMobile ? 0.2 : 0.15); 
         ctx.stroke();
       }
 
+      // --- PARTICLES ---
       projected.sort((a, b) => a.z - b.z); 
       
-      const baseOpacity = isMobile ? 0.15 : 0.6; 
-      const opacityRange = isMobile ? 0.2 : 0.4; 
+      const baseOpacity = 0.6; 
+      const opacityRange = 0.4; 
       
       for (let i = 0; i < projected.length; i++) {
         const p = projected[i];
@@ -234,9 +251,10 @@ const HeroVisual: React.FC = () => {
         ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
         ctx.fill();
 
+        // Glow effect for Gold particles (optimized)
         if (p.color === GOLD_COLOR && p.z > 0.2) {
-            ctx.shadowColor = isMobile ? 'rgba(197, 160, 89, 0.2)' : 'rgba(197, 160, 89, 0.5)';
-            ctx.shadowBlur = isMobile ? 5 : 10;
+            ctx.shadowColor = 'rgba(197, 160, 89, 0.4)';
+            ctx.shadowBlur = 8;
             ctx.fill();
             ctx.shadowBlur = 0;
         }
@@ -244,39 +262,27 @@ const HeroVisual: React.FC = () => {
 
       if (isIntersecting) {
         animationFrameId = requestAnimationFrame(render);
-      } else {
-        animationFrameId = null;
       }
     };
 
+    // Observer to pause when off-screen
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          isIntersecting = entry.isIntersecting;
-          if (isIntersecting && !animationFrameId) {
-             startTime = performance.now() - (performance.now() - startTime); 
-             render(performance.now());
-          } else if (!isIntersecting && animationFrameId) {
-             cancelAnimationFrame(animationFrameId);
-             animationFrameId = null;
-          }
-        });
+        isIntersecting = entries[0].isIntersecting;
+        if (isIntersecting && !animationFrameId) {
+           startTime = performance.now() - (performance.now() - startTime); 
+           render(performance.now());
+        } else if (!isIntersecting && animationFrameId) {
+           cancelAnimationFrame(animationFrameId);
+           animationFrameId = null;
+        }
       },
-      { threshold: 0, rootMargin: '50px' }
+      { threshold: 0 }
     );
 
     observer.observe(container);
-
-    const init = () => {
-      resize();
-      render(performance.now());
-    };
-
-    if ('requestIdleCallback' in window) {
-      (window as any).requestIdleCallback(init, { timeout: 100 });
-    } else {
-      setTimeout(init, 0);
-    }
+    resize();
+    render(performance.now());
 
     window.addEventListener('resize', resize);
     window.addEventListener('mousemove', onMouseMove);
@@ -285,9 +291,7 @@ const HeroVisual: React.FC = () => {
       observer.disconnect();
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', onMouseMove);
-      if (animationFrameId !== null) {
-        cancelAnimationFrame(animationFrameId);
-      }
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
     };
   }, [geometry]);
 
@@ -296,9 +300,9 @@ const HeroVisual: React.FC = () => {
       ref={containerRef}
       className="absolute inset-0 z-0 w-full h-full pointer-events-none select-none overflow-hidden"
       role="img"
-      aria-label="Interactive 3D network visualization showing connected data nodes"
+      aria-label="Interactive 3D network visualization"
     >
-      <canvas ref={canvasRef} className="block w-full h-full" aria-hidden="true" />
+      <canvas ref={canvasRef} className="block w-full h-full" />
     </div>
   );
 };

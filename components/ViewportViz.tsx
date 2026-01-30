@@ -1,23 +1,23 @@
 import React, { useEffect, useRef } from 'react';
-import * as d3 from 'd3';
+// PERFORMANCE: Named imports allow tree-shaking (removing unused code)
+import { timer, line, curveBasis } from 'd3';
 import { useInView } from 'framer-motion';
 
 interface ViewportVizProps {
   type: string;
   color?: string;
-  lineWidthScale?: number; // NEW PROP
+  lineWidthScale?: number;
 }
 
 const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', lineWidthScale = 1 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const timerRef = useRef<d3.Timer | null>(null);
+  // Type as any to avoid complex d3 typing issues during build
+  const timerRef = useRef<any>(null);
   
-  // Keep the InView optimization
   const isInView = useInView(containerRef, { margin: "0px 0px 100px 0px" });
 
   useEffect(() => {
-    // 1. Setup Canvas & Context
     if (!containerRef.current || !canvasRef.current) return;
     
     const container = containerRef.current;
@@ -25,57 +25,34 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Stop any existing timer from previous render
     if (timerRef.current) {
       timerRef.current.stop();
       timerRef.current = null;
     }
     
-    // Early return if not in view - animations won't start
-    if (!isInView) {
-      return;
-    }
+    if (!isInView) return;
 
-    // Handle High DPI (Retina) Displays for crisp lines
     const dpr = window.devicePixelRatio || 1;
     const rect = container.getBoundingClientRect();
     
-    // Set actual size in memory (scaled to account for extra pixel density)
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
-    
-    // Normalize coordinate system to use CSS pixels
     ctx.scale(dpr, dpr);
-    
-    // Set visible size
     canvas.style.width = `${rect.width}px`;
     canvas.style.height = `${rect.height}px`;
 
     const width = rect.width;
     const height = rect.height;
     
-    // Helper: Convert Hex to RGB for opacity handling
-    const hexToRgb = (hex: string) => {
-      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-      return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-      } : { r: 197, g: 160, b: 89 }; // Default Gold
-    };
-    const rgb = hexToRgb(color);
-
-    // --- RENDERERS (Canvas Version) ---
-
     // 1. GEOMETRIC
     const renderGeometric = () => {
       const cx = width / 2;
       const cy = height / 2;
       const count = 5;
-      const lineGen = d3.line().context(ctx); // Use D3 to draw to Context
+      const lineGen = line().context(ctx); // Use named import
 
-      timerRef.current = d3.timer((elapsed) => {
-        ctx.clearRect(0, 0, width, height); // Clear frame
+      timerRef.current = timer((elapsed) => {
+        ctx.clearRect(0, 0, width, height);
         const t = elapsed * 0.0003;
 
         for (let i = 0; i < count; i++) {
@@ -92,21 +69,18 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
             ]);
           }
 
-          // Draw Path
           ctx.beginPath();
           lineGen(points);
           ctx.strokeStyle = color;
-          // APPLY SCALE
           ctx.lineWidth = 1.0 * lineWidthScale; 
           ctx.globalAlpha = 0.3 - (i * 0.05);
           ctx.stroke();
 
-          // Draw Dots
           ctx.fillStyle = color;
           ctx.globalAlpha = 0.8;
           points.forEach(p => {
             ctx.beginPath();
-            ctx.arc(p[0], p[1], 3 * lineWidthScale, 0, 2 * Math.PI); // Scale dots too
+            ctx.arc(p[0], p[1], 3 * lineWidthScale, 0, 2 * Math.PI);
             ctx.fill();
           });
         }
@@ -119,18 +93,16 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
       const cy = height / 2;
       const satelliteCount = 8;
 
-      timerRef.current = d3.timer((elapsed) => {
+      timerRef.current = timer((elapsed) => {
         ctx.clearRect(0, 0, width, height);
         const t = elapsed * 0.0002;
 
-        // Center Dot
         ctx.beginPath();
         ctx.arc(cx, cy, 6 * lineWidthScale, 0, 2 * Math.PI);
         ctx.fillStyle = color;
         ctx.globalAlpha = 0.9;
         ctx.fill();
 
-        // Inner Ring
         ctx.beginPath();
         ctx.arc(cx, cy, 16, 0, 2 * Math.PI);
         ctx.strokeStyle = color;
@@ -138,7 +110,6 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
         ctx.globalAlpha = 0.5;
         ctx.stroke();
 
-        // Outer Rings (Dashed)
         [100, 180].forEach(r => {
           ctx.beginPath();
           ctx.arc(cx, cy, r, 0, 2 * Math.PI);
@@ -150,7 +121,6 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
           ctx.setLineDash([]);
         });
 
-        // Satellites
         for (let i = 0; i < satelliteCount; i++) {
           const r = 100 + (i % 2) * 80;
           const speed = (i % 2 === 0 ? 1 : -0.7);
@@ -159,7 +129,6 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
           const x = cx + Math.cos(angle) * r;
           const y = cy + Math.sin(angle) * r;
 
-          // Line to center
           ctx.beginPath();
           ctx.moveTo(cx, cy);
           ctx.lineTo(x, y);
@@ -168,7 +137,6 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
           ctx.globalAlpha = 0.4;
           ctx.stroke();
 
-          // Dot
           ctx.beginPath();
           ctx.arc(x, y, 4 * lineWidthScale, 0, 2 * Math.PI);
           ctx.fillStyle = color;
@@ -182,9 +150,8 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
     const renderFlow = () => {
       const gridSize = 40;
       const paths: [number, number][][] = [];
-      const lineGen = d3.line().context(ctx);
+      const lineGen = line().context(ctx); // Use named import
 
-      // Generate paths once
       for (let i = 0; i < 8; i++) {
         let cx = width / 2;
         let cy = height / 2;
@@ -197,11 +164,10 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
         paths.push(path);
       }
 
-      timerRef.current = d3.timer((elapsed) => {
+      timerRef.current = timer((elapsed) => {
         ctx.clearRect(0, 0, width, height);
 
         paths.forEach((p, i) => {
-          // Background static line
           ctx.beginPath();
           lineGen(p);
           ctx.strokeStyle = color;
@@ -210,7 +176,6 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
           ctx.setLineDash([]);
           ctx.stroke();
 
-          // Moving Dash
           const progress = (elapsed * 0.1 + (i * 100)) % 1000 / 1000;
           ctx.beginPath();
           lineGen(p);
@@ -228,17 +193,16 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
     // 4. NEURAL
     const renderNeural = () => {
       const nodeCount = 45;
-      const nodes = d3.range(nodeCount).map(() => ({
+      const nodes = Array.from({ length: nodeCount }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4
       }));
 
-      timerRef.current = d3.timer(() => {
+      timerRef.current = timer(() => {
         ctx.clearRect(0, 0, width, height);
 
-        // Update positions
         nodes.forEach(n => {
           n.x += n.vx;
           n.y += n.vy;
@@ -246,7 +210,6 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
           if (n.y < 0 || n.y > height) n.vy *= -1;
         });
 
-        // Draw Connections
         ctx.strokeStyle = color;
         ctx.lineWidth = 0.8 * lineWidthScale;
         for (let i = 0; i < nodeCount; i++) {
@@ -264,7 +227,6 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
           }
         }
 
-        // Draw Nodes
         ctx.fillStyle = color;
         ctx.globalAlpha = 0.8;
         nodes.forEach(n => {
@@ -280,7 +242,7 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
       const bars = 24;
       const barW = width / bars;
       
-      timerRef.current = d3.timer((elapsed) => {
+      timerRef.current = timer((elapsed) => {
         ctx.clearRect(0, 0, width, height);
         ctx.strokeStyle = color;
         ctx.lineWidth = 1.0 * lineWidthScale;
@@ -298,10 +260,10 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
 
     // 6. WAVES
     const renderWaves = () => {
-      const lineGen = d3.line().curve(d3.curveBasis).context(ctx);
+      const lineGen = line().curve(curveBasis).context(ctx); // Use named imports
       const layers = 6;
 
-      timerRef.current = d3.timer((elapsed) => {
+      timerRef.current = timer((elapsed) => {
         ctx.clearRect(0, 0, width, height);
         ctx.strokeStyle = color;
         ctx.lineWidth = 1.0 * lineWidthScale;
@@ -327,10 +289,9 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
       const cy = height / 2;
       const maxR = Math.min(width, height) * 0.35;
 
-      timerRef.current = d3.timer((elapsed) => {
+      timerRef.current = timer((elapsed) => {
         ctx.clearRect(0, 0, width, height);
 
-        // Static Rings
         ctx.strokeStyle = color;
         ctx.lineWidth = 2 * lineWidthScale;
         ctx.globalAlpha = 0.3;
@@ -340,7 +301,6 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
           ctx.stroke();
         });
 
-        // Crosshairs
         ctx.lineWidth = 1.5 * lineWidthScale;
         ctx.globalAlpha = 0.25;
         ctx.beginPath();
@@ -353,7 +313,6 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
         ctx.lineTo(cx, cy + maxR);
         ctx.stroke();
 
-        // Radar Sweep
         const angle = elapsed * 0.0015;
         const lx = cx + Math.cos(angle) * maxR;
         const ly = cy + Math.sin(angle) * maxR;
@@ -367,7 +326,6 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
       });
     };
 
-    // Switcher
     switch (type) {
       case 'geometric': renderGeometric(); break;
       case 'network': renderNetwork(); break;
@@ -379,7 +337,6 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
       default: renderGeometric(); break;
     }
 
-    // Handle Resize
     const observer = new ResizeObserver(() => {
       if (timerRef.current) {
         timerRef.current.stop();
@@ -393,7 +350,6 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
       canvas.style.width = `${rect.width}px`;
       canvas.style.height = `${rect.height}px`;
       
-      // Restart animation with new dimensions
       switch (type) {
         case 'geometric': renderGeometric(); break;
         case 'network': renderNetwork(); break;
@@ -415,14 +371,11 @@ const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', line
       observer.disconnect();
     };
 
-  }, [type, color, isInView, lineWidthScale]); // Added lineWidthScale dependency
+  }, [type, color, isInView, lineWidthScale]);
 
   return (
     <div ref={containerRef} className="w-full h-full bg-transparent relative overflow-hidden">
-      {/* Canvas Layer */}
       <canvas ref={canvasRef} className="absolute inset-0 block w-full h-full" />
-
-      {/* Optional: Very subtle background grid for texture */}
       <div 
         className="absolute inset-0 pointer-events-none opacity-10"
         style={{
