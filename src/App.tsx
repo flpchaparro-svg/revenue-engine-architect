@@ -1,16 +1,16 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-// PERFORMANCE: LazyMotion strips ~100KB from initial load
+// PERFORMANCE: Keep this. It was the key to the 91 score.
 import { AnimatePresence, useScroll, useMotionValueEvent, LazyMotion, domAnimation } from 'framer-motion';
 
 // COMPONENTS
 import GlobalHeader from '../components/GlobalHeader';
-import GlobalFooter from '../components/GlobalFooter';
+// RESTORED: Standard import for Footer (Stable LCP)
+import GlobalFooter from '../components/GlobalFooter'; 
 import Modal from '../components/Modal';
 import { ServiceDetail } from '../types';
 
 // PAGES
-// PERFORMANCE: HomePage MUST be lazy loaded to keep FCP under 2.5s
 const HomePage = lazy(() => import('../pages/HomePage'));
 const ArchitectPage = lazy(() => import('../pages/ArchitectPage'));
 const ProcessPage = lazy(() => import('../pages/ProcessPage'));
@@ -109,7 +109,6 @@ const App: React.FC = () => {
         <div className="relative min-h-screen w-full">
           <Suspense fallback={<div className="h-screen w-full bg-[#FFF2EC]" />}>
             <AnimatePresence mode="wait">
-              {/* Wrapper div solves the TS key error */}
               <div key={location.pathname} className="w-full">
                 <Routes location={location}>
                   <Route path="/" element={<HomePage onNavigate={handleGlobalNavigate} onServiceClick={handleServiceClick} />} />
