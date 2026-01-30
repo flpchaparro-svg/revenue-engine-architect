@@ -119,6 +119,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
                 href="https://www.linkedin.com/in/felipe-chaparro-97a390176/" 
                 target="_blank" 
                 rel="noreferrer"
+                aria-label="Visit Felipe Chaparro's LinkedIn Profile"
                 className="font-mono text-[10px] text-white/40 hover:text-[#C5A059] uppercase tracking-widest transition-colors flex items-center gap-2"
               >
                 LinkedIn <ArrowUpRight className="w-3 h-3" />
