@@ -7,49 +7,58 @@
     <title>Revenue Engine Architect | Business Growth</title>
 
     <style>
-      /* CRITICAL: Base styles to match the React app exactly */
-      body { 
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; 
-        background: #FFF2EC; 
-        margin: 0; 
-        overflow-x: hidden;
+      /* CRITICAL CSS: Matches Tailwind classes exactly to prevent layout shift */
+      body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #FFF2EC; margin: 0; }
+      
+      /* Fallbacks that match the size of your webfonts */
+      h1, .font-serif { font-family: 'Lora', Georgia, 'Times New Roman', serif; }
+      
+      /* UTILITIES needed for the static hero */
+      .static-hero-container { min-height: 100svh; width: 100%; display: flex; align-items: center; position: relative; padding-top: 5rem; overflow: hidden; }
+      .static-content { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 20; }
+      .static-sub { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; color: #1a1a1a; text-transform: uppercase; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; }
+      .static-h1 { font-family: 'Lora', Georgia, serif; font-size: 3rem; line-height: 1.1; letter-spacing: -0.04em; color: #1a1a1a; margin-bottom: 2rem; }
+      .static-gold { color: #C5A059; font-style: italic; }
+      
+      @media (min-width: 768px) {
+        .static-h1 { font-size: 6rem; line-height: 0.9; }
+        .static-sub { font-size: 12px; }
       }
-      /* Fallback font stack to prevent CLS */
-      h1, h2, h3, .font-serif { 
-        font-family: 'Lora', Georgia, 'Times New Roman', serif; 
+
+      /* OPTIMIZED FONTS: 'optional' prevents the invisible text penalty */
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400 600;
+        font-display: optional;
+        src: url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2) format('woff2');
+      }
+      @font-face {
+        font-family: 'Lora';
+        font-style: normal;
+        font-weight: 400 700;
+        font-display: optional;
+        src: url(https://fonts.gstatic.com/s/lora/v35/0QI6MX1D_JOuGQbT0gvTJPa787weuxJMkq0.woff2) format('woff2');
       }
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link 
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=optional" 
-      rel="stylesheet"
-    >
   </head>
   <body>
     <div id="root">
-      <div style="min-height:100vh; width:100%; display:flex; align-items:center; position:relative; padding-top: 5rem;">
-        <div style="width:100%; max-width:1400px; margin:0 auto; padding:0 24px;">
-          
-          <div style="margin-bottom: 2.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
-             <div style="display:flex; align-items:center; gap:8px;">
-                <span style="font-family:monospace; font-size:10px; font-weight:bold; letter-spacing:0.2em; color:#1a1a1a;">SYDNEY BUSINESS AUTOMATION</span>
-             </div>
+      <section class="static-hero-container">
+        <div class="static-content">
+          <div class="static-sub">
+            <span>/</span>
+            <span>SYDNEY BUSINESS AUTOMATION</span>
           </div>
-
-          <h1 style="font-family:'Lora', serif; font-size: clamp(3rem, 6vw, 6.5rem); line-height: 1.1; letter-spacing: -0.04em; color:#1a1a1a; margin-bottom: 2.5rem;">
-            Stop Doing <br />
-            <span style="color:#C5A059; font-style:italic;">Everyone's Job.</span>
+          <h1 class="static-h1">
+            Stop Doing<br/>
+            <span class="static-gold">Everyone's Job.</span>
           </h1>
-
-          <p style="font-family:sans-serif; font-size: 1.125rem; font-weight: 300; line-height: 1.6; color:rgba(26,26,26,0.7); max-width: 42rem; border-left: 2px solid #C5A059; padding-left: 1.5rem;">
-            You didn't start a business to chase invoices, re-type data, and answer the same questions all day.
-          </p>
-
         </div>
-      </div>
+      </section>
     </div>
     <script type="module" src="/src/index.tsx"></script>
   </body>
