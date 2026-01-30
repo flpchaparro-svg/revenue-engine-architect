@@ -2,14 +2,12 @@ import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { AnimatePresence, useScroll, useMotionValueEvent, LazyMotion, domAnimation } from 'framer-motion';
 
-// COMPONENTS
 import GlobalHeader from '../components/GlobalHeader';
-import GlobalFooter from '../components/GlobalFooter';
+import GlobalFooter from '../components/GlobalFooter'; // Standard Import (Stable)
 import Modal from '../components/Modal';
 import { ServiceDetail } from '../types';
 
-// PAGES
-// FIX: Lazy load HomePage to reduce initial bundle size and speed up FCP
+// PERFORMANCE: Keep HomePage Lazy
 const HomePage = lazy(() => import('../pages/HomePage'));
 const ArchitectPage = lazy(() => import('../pages/ArchitectPage'));
 const ProcessPage = lazy(() => import('../pages/ProcessPage'));
@@ -19,7 +17,6 @@ const ContactPage = lazy(() => import('../pages/ContactPage'));
 const PrivacyPolicyPage = lazy(() => import('../pages/PrivacyPolicyPage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 
-// SYSTEM & PILLARS
 const SystemPage = lazy(() => import('../pages/System/SystemPage'));
 const Pillar1 = lazy(() => import('../pages/System/Pillar1'));
 const Pillar2 = lazy(() => import('../pages/System/Pillar2'));
@@ -93,7 +90,7 @@ const App: React.FC = () => {
       setSelectedService(service);
       setIsModalOpen(true);
     } else {
-      handleGlobalNavigate(service.id); 
+      handleGlobalNavigate(service.id);
     }
   };
 

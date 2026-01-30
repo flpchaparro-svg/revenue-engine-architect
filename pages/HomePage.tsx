@@ -1,15 +1,12 @@
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { m, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
-// COMPONENTS
 import CTAButton from '../components/CTAButton';
 import ScrambleTitle from '../components/ScrambleTitle';
 import BookingCTA from '../components/BookingCTA';
 import { usePageTitle } from '../hooks/usePageTitle';
 
-// FIX: Lazy load the HeroVisual so it doesn't block the main thread
+// PERFORMANCE: Keep Lazy Loading
 const HeroVisual = lazy(() => import('../components/HeroVisual'));
-
-// Lazy Sections
 const ProblemSection = lazy(() => import('../components/HomePage/ProblemSection'));
 const FrictionAuditSection = lazy(() => import('../components/FrictionAuditSection'));
 const SystemPhases = lazy(() => import('../components/SystemPhases'));
@@ -33,18 +30,14 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const [canAnimate, setCanAnimate] = useState(false);
 
   useEffect(() => {
-    // FIX: MatchMedia for mobile check (Faster than innerWidth)
-    const mobileQuery = window.matchMedia('(max-width: 768px)');
-    const checkMobile = (e: MediaQueryListEvent | MediaQueryList) => setIsMobile(e.matches);
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
     
-    checkMobile(mobileQuery);
-    mobileQuery.addEventListener('change', checkMobile);
-    
-    // Performance guard
     const timer = setTimeout(() => setCanAnimate(true), 100);
 
     return () => {
-      mobileQuery.removeEventListener('change', checkMobile);
+      window.removeEventListener('resize', checkMobile);
       clearTimeout(timer);
     };
   }, []);
@@ -112,7 +105,6 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
       <section id="hero" aria-label="Hero Section" className="min-h-[100svh] w-full flex items-center pt-32 md:pt-20 overflow-hidden relative z-20 content-layer">
         
         <div className="absolute inset-0 z-[1]">
-          {/* FIX: Suspense Wrapper allows text to load before this heavy component */}
           <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
             <HeroVisual />
           </Suspense>
