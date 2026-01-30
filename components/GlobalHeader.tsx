@@ -75,7 +75,6 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
             {/* LOGO */}
             <button 
               onClick={() => onNavigate('homepage')} 
-              aria-label="Go to Homepage"
               className="flex items-center gap-3 group z-[310] pointer-events-auto"
             >
               {/* FIX: Added whitespace-nowrap to prevent [FC) breaking */}
@@ -217,7 +216,6 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
           >
              <button 
                onClick={() => onNavigate('homepage')} 
-               aria-label="Go to Homepage"
                className={`p-4 transition-all duration-300 border-b border-white/10 ${
                  currentView === 'homepage' 
                    ? 'bg-[#C5A059] text-[#1a1a1a]' 
@@ -276,7 +274,6 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
             </button>
             <button 
               onClick={() => setIsMenuOpen(true)} 
-              aria-label="Open main menu"
               className={`p-2 bg-white/80 backdrop-blur-md border border-[#1a1a1a]/10 rounded-full text-[#1a1a1a] ${scrolled ? 'shadow-lg' : ''}`}
             >
               <Menu className="w-5 h-5" />
@@ -297,7 +294,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
           >
              {/* Header in Menu */}
              <div className="h-20 w-full flex items-center justify-between shrink-0">
-               <button onClick={() => { setIsMenuOpen(false); onNavigate('homepage'); }} aria-label="Go to Homepage">
+               <button onClick={() => { setIsMenuOpen(false); onNavigate('homepage'); }}>
                   {/* FIX: Added whitespace-nowrap */}
                   <div className="font-mono text-[10px] font-bold border border-[#1a1a1a] px-1.5 py-0.5 bg-[#1a1a1a] text-[#FFF2EC] whitespace-nowrap">
                     [FC)
@@ -306,7 +303,6 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                
                <button 
                  onClick={() => setIsMenuOpen(false)} 
-                 aria-label="Close menu"
                  className="p-2 text-[#1a1a1a] bg-white rounded-full border border-[#1a1a1a]/10"
                >
                  <X className="w-6 h-6" />
@@ -332,8 +328,6 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                      {item.hasDropdown && (
                        <button 
                          onClick={() => setIsMobileSystemOpen(!isMobileSystemOpen)}
-                         aria-label="Toggle system menu"
-                         aria-expanded={isMobileSystemOpen}
                          className="p-2 -mr-2 text-[#1a1a1a]/40 hover:text-[#1a1a1a] transition-colors"
                        >
                          <ChevronDown className={`w-8 h-8 transition-transform duration-300 ${isMobileSystemOpen ? 'rotate-180' : ''}`} />
