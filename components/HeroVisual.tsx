@@ -8,9 +8,9 @@ const INK_COLOR = '#1a1a1a';
 const DESKTOP_COUNT = 100;
 const DESKTOP_DIST = 0.55;
 
-// MOBILE SETTINGS (tuned to look "full" but run fast)
-const MOBILE_COUNT = 60; // Increased from 35
-const MOBILE_DIST = 0.85; // Increased range so lines actually connect
+// MOBILE SETTINGS (Optimized for battery & aesthetics)
+const MOBILE_COUNT = 60; 
+const MOBILE_DIST = 0.85; // Wider reach so lines connect despite fewer dots
 
 interface Point3D {
   x: number;
@@ -41,7 +41,6 @@ const generateGeometry = (isMobile: boolean) => {
     const x = Math.cos(theta) * radius;
     const z = Math.sin(theta) * radius;
 
-    // More gold on mobile to make it pop
     const isGold = Math.random() > (isMobile ? 0.7 : 0.8);
     
     verts.push({ 
@@ -78,10 +77,10 @@ const HeroVisual: React.FC = () => {
     // 1. Detect Mobile
     const isMobile = window.innerWidth < 768;
     
-    // 2. Generate Geometry (Delayed slightly to prioritize LCP Text)
+    // 2. Generate Geometry (Slight delay to prioritize LCP Text)
     const timer = setTimeout(() => {
        setGeometry(generateGeometry(isMobile));
-    }, 100); // Reduced delay so it doesn't feel "broken" or missing
+    }, 100); 
     
     return () => clearTimeout(timer);
   }, []);
@@ -101,7 +100,7 @@ const HeroVisual: React.FC = () => {
     let animationFrameId: number | null = null;
     let isIntersecting = true;
     
-    const dpr = Math.min(window.devicePixelRatio || 1, 2); // Cap at 2x for performance
+    const dpr = Math.min(window.devicePixelRatio || 1, 2); 
 
     let mouseX = 0;
     let mouseY = 0;
@@ -121,28 +120,22 @@ const HeroVisual: React.FC = () => {
     };
 
     const onMouseMove = (e: MouseEvent) => {
-      // Smoother mouse tracking
       mouseX = (e.clientX / window.innerWidth - 0.5) * 1.5;
       mouseY = (e.clientY / window.innerHeight - 0.5) * 1.5;
     };
 
-    // Auto-rotation fallback for mobile
     let autoRotateAngle = 0;
 
     const render = (now: number) => {
       const elapsed = (now - startTime) / 1000;
-      
-      // Smooth fade in
       let progress = Math.min(1, elapsed / 1.5);
       progress = 1 - Math.pow(1 - progress, 3); 
 
-      // Rotation Logic
-      autoRotateAngle += 0.005; // Constant slow rotation
+      autoRotateAngle += 0.005; 
       
       const targetX = mouseY * 0.5;
       const targetY = mouseX * 0.5;
       
-      // Blend Mouse + Auto Rotation
       currentRotX += (targetX - currentRotX) * 0.05;
       currentRotY += (targetY - currentRotY) * 0.05;
 
@@ -155,14 +148,13 @@ const HeroVisual: React.FC = () => {
       const isMobile = w < 768; 
       
       const cx = w / 2;
-      const cy = isMobile ? h * 0.35 : h * 0.45; // Adjusted mobile height
+      const cy = isMobile ? h * 0.35 : h * 0.45;
       
       const minDimension = Math.min(w, h);
-      const adaptiveScale = minDimension * (isMobile ? 0.45 : 0.35); // Larger on mobile
+      const adaptiveScale = minDimension * (isMobile ? 0.45 : 0.35); 
       
       ctx.clearRect(0, 0, w, h);
 
-      // --- PROJECTION ---
       const projected = verts.map(p => {
         let x = p.startX + (p.x - p.startX) * progress;
         let y = p.startY + (p.y - p.startY) * progress;
@@ -183,7 +175,6 @@ const HeroVisual: React.FC = () => {
         };
       });
 
-      // --- SHADOW ---
       if (progress > 0.1) {
         ctx.save();
         const maxOpacity = isMobile ? 0.15 : 0.2;
@@ -205,13 +196,11 @@ const HeroVisual: React.FC = () => {
         ctx.restore();
       }
 
-      // --- CONNECTIONS ---
-      // Fix: Lines appear sooner and clearer
       const lineOp = Math.max(0, (progress - 0.2) * 1.5); 
       
       if (lineOp > 0.01) {
         ctx.strokeStyle = GOLD_COLOR;
-        ctx.lineWidth = isMobile ? 0.8 : 1; // Thicker lines on mobile
+        ctx.lineWidth = isMobile ? 0.8 : 1; 
         
         ctx.beginPath();
         for (let i = 0; i < connections.length; i++) {
@@ -219,18 +208,15 @@ const HeroVisual: React.FC = () => {
           const p2 = projected[connections[i].p2];
           
           const depth = (p1.z + p2.z) / 2;
-          // Culling far lines for performance
           if (depth < -2.5) continue; 
 
           ctx.moveTo(p1.x, p1.y);
           ctx.lineTo(p2.x, p2.y);
         }
-        // Fix: Higher opacity on mobile so lines are actually visible
         ctx.globalAlpha = lineOp * (isMobile ? 0.2 : 0.15); 
         ctx.stroke();
       }
 
-      // --- PARTICLES ---
       projected.sort((a, b) => a.z - b.z); 
       
       const baseOpacity = 0.6; 
@@ -251,7 +237,6 @@ const HeroVisual: React.FC = () => {
         ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
         ctx.fill();
 
-        // Glow effect for Gold particles (optimized)
         if (p.color === GOLD_COLOR && p.z > 0.2) {
             ctx.shadowColor = 'rgba(197, 160, 89, 0.4)';
             ctx.shadowBlur = 8;
@@ -265,7 +250,6 @@ const HeroVisual: React.FC = () => {
       }
     };
 
-    // Observer to pause when off-screen
     const observer = new IntersectionObserver(
       (entries) => {
         isIntersecting = entries[0].isIntersecting;
@@ -296,12 +280,7 @@ const HeroVisual: React.FC = () => {
   }, [geometry]);
 
   return (
-    <div 
-      ref={containerRef}
-      className="absolute inset-0 z-0 w-full h-full pointer-events-none select-none overflow-hidden"
-      role="img"
-      aria-label="Interactive 3D network visualization"
-    >
+    <div ref={containerRef} className="absolute inset-0 z-0 w-full h-full pointer-events-none select-none overflow-hidden">
       <canvas ref={canvasRef} className="block w-full h-full" />
     </div>
   );
