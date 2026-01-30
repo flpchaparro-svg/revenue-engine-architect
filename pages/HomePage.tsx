@@ -7,8 +7,10 @@ import ProblemSection from '../components/HomePage/ProblemSection';
 import BookingCTA from '../components/BookingCTA';
 import FrictionAuditSection from '../components/FrictionAuditSection';
 import { usePageTitle } from '../hooks/usePageTitle';
+// FIX 1: Eager load the LCP Element (HeroVisual)
+import HeroVisual from '../components/HeroVisual';
 
-const HeroVisual = lazy(() => import('../components/HeroVisual'));
+// Keep other heavy components lazy
 const SystemPhases = lazy(() => import('../components/SystemPhases'));
 const TheArchitect = lazy(() => import('../components/TheArchitect'));
 const Feature_Group7 = lazy(() => import('../components/Feature_Group7'));
@@ -34,12 +36,16 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     
-    // PERFORMANCE: 100ms guard prevents Main Thread blockage during initial paint
-    const timer = setTimeout(() => setCanAnimate(true), 100);
+    // FIX 2: Use requestIdleCallback for smoother animation startup
+    const startAnimation = () => setCanAnimate(true);
+    if ('requestIdleCallback' in window) {
+       (window as any).requestIdleCallback(startAnimation, { timeout: 200 });
+    } else {
+       setTimeout(startAnimation, 100);
+    }
 
     return () => {
       window.removeEventListener('resize', checkMobile);
-      clearTimeout(timer);
     };
   }, []);
 
@@ -105,10 +111,9 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
     <>
       <section id="hero" aria-label="Hero Section" className="min-h-[100svh] w-full flex items-center pt-32 md:pt-20 overflow-hidden relative z-20 content-layer">
         
+        {/* FIX 3: Removed Suspense for instant load */}
         <div className="absolute inset-0 z-[1]">
-          <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
-            <HeroVisual />
-          </Suspense>
+          <HeroVisual />
         </div>
 
         <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 relative z-20">

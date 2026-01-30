@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import * as d3 from 'd3';
+// FIX 1: Named imports for tree-shaking (Massive bundle savings)
+import { select, easeCubicInOut } from 'd3';
 import { useInView } from 'framer-motion';
 
 export type GraphState = 'idle' | 'bottleneck' | 'tax' | 'grind' | 'cost' | 'fix';
@@ -14,21 +15,22 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
   const previousStateRef = useRef<GraphState | null>(null);
   const hasAnimatedRef = useRef(false);
   
-  // FIX: Detect when graph appears on screen
+  // Detect when graph appears on screen
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   // 1. SETUP (Runs once)
   useEffect(() => {
     if (!containerRef.current) return;
     
-    d3.select(containerRef.current).selectAll('*').remove();
+    // FIX 2: Use specific 'select' instead of 'd3.select'
+    select(containerRef.current).selectAll('*').remove();
 
     const width = 400; 
     const height = 240;
     const margin = { top: 80, right: 20, bottom: 40, left: 20 };
     const chartWidth = width - margin.left - margin.right;
     
-    const svg = d3.select(containerRef.current)
+    const svg = select(containerRef.current)
       .append('svg')
       .attr('width', '100%')
       .attr('height', '100%')
@@ -40,7 +42,7 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
     // --- THE ELEMENTS ---
     const barY = 60; 
     
-    // 1. The Track (Simple, thin grey line)
+    // 1. The Track
     chart.append('rect')
         .attr('x', 0)
         .attr('y', barY + 10) 
@@ -49,7 +51,7 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
         .attr('fill', '#1a1a1a')
         .attr('opacity', 0.1);
 
-    // 2. The Active Bar (Clean solid bar)
+    // 2. The Active Bar
     const activeBar = chart.append('rect')
         .attr('x', 0)
         .attr('y', barY)
@@ -57,15 +59,14 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
         .attr('width', 0)
         .attr('opacity', 1);
 
-    // 3. The Label - Use font-mono to match Friction Audit section
+    // 3. The Label
     const labelText = chart.append('text')
         .attr('x', 0)
         .attr('y', barY - 30) 
         .attr('class', 'font-mono text-xs font-bold uppercase tracking-[0.2em]') 
         .style('fill', '#1a1a1a');
 
-    // 4. The Value - Use font-mono to match Friction Audit section
-    // Keeping it larger because it's a Hero Graph, but enforcing the font family
+    // 4. The Value
     const valueText = chart.append('text')
         .attr('x', 0)
         .attr('y', barY + 60) 
@@ -74,7 +75,7 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
 
     svgRef.current = { activeBar, valueText, labelText, chartWidth };
 
-    return () => { d3.select(containerRef.current).selectAll('*').remove(); };
+    return () => { select(containerRef.current).selectAll('*').remove(); };
   }, []);
 
   // 2. UPDATE (Runs on hover and initial appearance)
@@ -84,44 +85,21 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
     const { activeBar, valueText, labelText, chartWidth } = svgRef.current;
 
     const config = {
-        // IDLE: The Baseline
         idle: { label: 'Average Admin Load', value: 65, color: '#E21E3F', text: '15 hrs/wk' },
-        
-        // SYMPTOMS
-        bottleneck: { 
-            label: 'Deep Work Lost',   
-            value: 40, 
-            color: '#E21E3F', 
-            text: '-20% Focus' 
-        },
-        tax: { 
-            label: 'Redundant Labor',  
-            value: 30, 
-            color: '#E21E3F', 
-            text: 'Double Entry' 
-        },
-        grind: { 
-            label: 'Weekend Sacrifice', 
-            value: 80, 
-            color: '#E21E3F', 
-            text: '0 Hrs Off' 
-        },
-        
-        // COST
+        bottleneck: { label: 'Deep Work Lost', value: 40, color: '#E21E3F', text: '-20% Focus' },
+        tax: { label: 'Redundant Labor', value: 30, color: '#E21E3F', text: 'Double Entry' },
+        grind: { label: 'Weekend Sacrifice', value: 80, color: '#E21E3F', text: '0 Hrs Off' },
         cost: { label: 'Capital Burn', value: 95, color: '#E21E3F', text: '$120k / yr' },
-        
-        // FIX
         fix: { label: 'System Efficiency', value: 5, color: '#C5A059', text: 'Optimized' }
     };
 
     const target = config[currentState] || config.idle;
     const targetWidth = (target.value / 100) * chartWidth;
 
-    // FIX: Smoother transitions with longer duration and better easing
     const duration = 900;
-    const ease = d3.easeCubicInOut;
+    // FIX 3: Use specific ease function import
+    const ease = easeCubicInOut;
 
-    // FIX: Initial animation when graph appears on screen
     const isInitialAnimation = !hasAnimatedRef.current && isInView;
     const isStateChange = previousStateRef.current !== currentState && previousStateRef.current !== null;
     
@@ -131,13 +109,13 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
         hasAnimatedRef.current = true;
       }
 
-      // 1. Label - Smooth color transition
+      // 1. Label
       labelText
           .text(target.label)
           .transition().duration(duration).ease(ease)
           .style('fill', target.color === '#C5A059' ? '#C5A059' : '#1a1a1a');
 
-      // 2. Bar - Smooth width and color transition (animate from 0 on initial load)
+      // 2. Bar
       if (isInitialAnimation) {
         activeBar
             .attr('width', 0)
@@ -151,7 +129,7 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
             .attr('fill', target.color);
       }
 
-      // 3. Value - Smooth color transition
+      // 3. Value
       valueText
           .text(target.text)
           .transition().duration(duration).ease(ease)
