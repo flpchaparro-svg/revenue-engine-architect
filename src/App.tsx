@@ -5,13 +5,15 @@ import { AnimatePresence, useScroll, useMotionValueEvent, LazyMotion, domAnimati
 
 // COMPONENTS
 import GlobalHeader from '../components/GlobalHeader';
-// OPTIMIZATION: Lazy load Footer
-const GlobalFooter = lazy(() => import('../components/GlobalFooter'));
+const GlobalFooter = lazy(() => import('../components/GlobalFooter')); // Keep Footer Lazy
 import Modal from '../components/Modal';
 import { ServiceDetail } from '../types';
 
 // PAGES
-const HomePage = lazy(() => import('../pages/HomePage'));
+// PERFORMANCE FIX: Eager load HomePage so LCP text appears instantly (No 750ms delay)
+import HomePage from '../pages/HomePage';
+
+// Keep other pages lazy to save bandwidth
 const ArchitectPage = lazy(() => import('../pages/ArchitectPage'));
 const ProcessPage = lazy(() => import('../pages/ProcessPage'));
 const ProofPage = lazy(() => import('../pages/ProofPage'));
@@ -107,6 +109,7 @@ const App: React.FC = () => {
         )}
 
         <div className="relative min-h-screen w-full">
+          {/* Suspense is still needed for the other lazy pages */}
           <Suspense fallback={<div className="h-screen w-full bg-[#FFF2EC]" />}>
             <AnimatePresence mode="wait">
               <div key={location.pathname} className="w-full">
