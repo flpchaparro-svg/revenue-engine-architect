@@ -3,14 +3,15 @@ import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { m, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
 import CTAButton from '../components/CTAButton';
 import ScrambleTitle from '../components/ScrambleTitle';
-import ProblemSection from '../components/HomePage/ProblemSection';
 import BookingCTA from '../components/BookingCTA';
-import FrictionAuditSection from '../components/FrictionAuditSection';
 import { usePageTitle } from '../hooks/usePageTitle';
-// FIX 1: Eager load the LCP Element (HeroVisual)
-import HeroVisual from '../components/HeroVisual';
+import HeroVisual from '../components/HeroVisual'; // ✅ Correct: Eager Load LCP
 
-// Keep other heavy components lazy
+// --- FIX: LAZY LOAD BELOW-THE-FOLD CONTENT ---
+// These were eager imports blocking your main thread. 
+// Making them lazy allows the Hero to paint first.
+const ProblemSection = lazy(() => import('../components/HomePage/ProblemSection'));
+const FrictionAuditSection = lazy(() => import('../components/FrictionAuditSection'));
 const SystemPhases = lazy(() => import('../components/SystemPhases'));
 const TheArchitect = lazy(() => import('../components/TheArchitect'));
 const Feature_Group7 = lazy(() => import('../components/Feature_Group7'));
@@ -36,7 +37,6 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     
-    // FIX 2: Use requestIdleCallback for smoother animation startup
     const startAnimation = () => setCanAnimate(true);
     if ('requestIdleCallback' in window) {
        (window as any).requestIdleCallback(startAnimation, { timeout: 200 });
@@ -111,7 +111,6 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
     <>
       <section id="hero" aria-label="Hero Section" className="min-h-[100svh] w-full flex items-center pt-32 md:pt-20 overflow-hidden relative z-20 content-layer">
         
-        {/* FIX 3: Removed Suspense for instant load */}
         <div className="absolute inset-0 z-[1]">
           <HeroVisual />
         </div>
@@ -177,13 +176,14 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
         </div>
       </div>
 
-      <ProblemSection />
-      
-      <section id="friction-audit" aria-label="Friction Audit Section" className="relative bg-[#FFF2EC] z-30">
-        <FrictionAuditSection onNavigate={onNavigate} />
-      </section>
-
+      {/* FIX: Wrapped in Suspense so they don't block initial load */}
       <Suspense fallback={<div className="min-h-[500px] bg-[#FFF2EC]" />}>
+        <ProblemSection />
+        
+        <section id="friction-audit" aria-label="Friction Audit Section" className="relative bg-[#FFF2EC] z-30">
+          <FrictionAuditSection onNavigate={onNavigate} />
+        </section>
+
         <section id="seven-pillars" className="relative bg-[#FFF2EC] z-30">
           <SystemPhases onNavigate={onNavigate} />
         </section>
@@ -193,11 +193,11 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
         <section id="case-study" className="relative bg-[#FFF2EC] z-30">
           <Feature_Group7 />
         </section>
-      </Suspense>
 
-      <section id="cta" aria-label="Call to Action Section" className="relative bg-[#FFF2EC] z-30">
-        <BookingCTA />
-      </section>
+        <section id="cta" aria-label="Call to Action Section" className="relative bg-[#FFF2EC] z-30">
+          <BookingCTA />
+        </section>
+      </Suspense>
     </>
   );
 };
