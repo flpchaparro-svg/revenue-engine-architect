@@ -37,11 +37,13 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     
+    // FIX 2: Increased delay to 2000ms.
+    // This effectively "Unblocks" the LCP. The browser can focus 100% on painting the text.
     const startAnimation = () => setCanAnimate(true);
     if ('requestIdleCallback' in window) {
-       (window as any).requestIdleCallback(startAnimation, { timeout: 200 });
+       (window as any).requestIdleCallback(startAnimation, { timeout: 2000 });
     } else {
-       setTimeout(startAnimation, 100);
+       setTimeout(startAnimation, 2000);
     }
 
     return () => {

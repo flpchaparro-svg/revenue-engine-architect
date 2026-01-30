@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 // --- CONFIGURATION ---
 const GOLD_COLOR = '#C5A059';
@@ -20,7 +20,6 @@ interface Point3D {
 interface Connection { p1: number; p2: number }
 
 // --- LOGIC MOVED OUTSIDE COMPONENT ---
-// (We keep the function definition here, but we won't call it synchronously)
 const generateGeometry = () => {
   const verts: Point3D[] = [];
   const phi = Math.PI * (3 - Math.sqrt(5)); 
@@ -64,21 +63,18 @@ const HeroVisual: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   
-  // FIX: Start with null state to allow instant first-paint
+  // Start null to allow instant first-paint of text
   const [geometry, setGeometry] = useState<{verts: Point3D[], connections: Connection[]} | null>(null);
 
-  // FIX: Calculate geometry AFTER the component has mounted (Non-blocking)
+  // FIX: Moved delay to 1500ms (1.5s) to guarantee LCP text paints first
   useEffect(() => {
-    // This timeout pushes the heavy math to the end of the event loop
-    // allowing the browser to paint the "Stop Doing Everyone's Job" text first.
     const timer = setTimeout(() => {
        setGeometry(generateGeometry());
-    }, 0);
+    }, 1500); 
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    // Don't start animation loop until geometry is ready
     if (!geometry) return;
     
     const { verts, connections } = geometry;
@@ -93,6 +89,17 @@ const HeroVisual: React.FC = () => {
     let animationFrameId: number | null = null;
     let isIntersecting = true;
     
+    // Initial resize to ensure canvas has dimensions before first render
+    const rect = container.getBoundingClientRect();
+    const width = rect.width || window.innerWidth;
+    const height = rect.height || window.innerHeight;
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.scale(dpr, dpr);
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+
     let mouseX = 0;
     let mouseY = 0;
     let currentRotX = 0;
@@ -100,15 +107,14 @@ const HeroVisual: React.FC = () => {
 
     const resize = () => {
       const rect = container.getBoundingClientRect();
-      const width = rect.width || window.innerWidth; 
-      const height = rect.height || window.innerHeight;
+      const w = rect.width || window.innerWidth; 
+      const h = rect.height || window.innerHeight;
       
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
       ctx.scale(dpr, dpr);
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
     };
 
     const onMouseMove = (e: MouseEvent) => {
@@ -117,6 +123,7 @@ const HeroVisual: React.FC = () => {
     };
 
     const render = (now: number) => {
+      // Fade in effect for the visual itself
       const elapsed = (now - startTime) / 1000;
       let progress = Math.min(1, elapsed / 2.5);
       progress = 1 - Math.pow(1 - progress, 3); 
@@ -130,18 +137,21 @@ const HeroVisual: React.FC = () => {
       const rotX = currentRotX + elapsed * 0.05;
       const rotY = currentRotY + elapsed * 0.1;
 
+      // Re-read dimensions in loop only if needed, otherwise rely on resize listener
+      // Optimizing by using cached canvas width/height logic if possible, 
+      // but for robustness we use container rect here.
       const rect = container.getBoundingClientRect();
-      const width = rect.width || window.innerWidth;
-      const height = rect.height || window.innerHeight;
-      const cx = width / 2;
+      const w = rect.width;
+      const h = rect.height;
       
-      const isMobile = width < 768; 
-      const cy = isMobile ? height * 0.28 : height * 0.45;
+      const cx = w / 2;
+      const isMobile = w < 768; 
+      const cy = isMobile ? h * 0.28 : h * 0.45;
       
-      const minDimension = Math.min(width, height);
+      const minDimension = Math.min(w, h);
       const adaptiveScale = minDimension * 0.35; 
       
-      ctx.clearRect(0, 0, width, height);
+      ctx.clearRect(0, 0, w, h);
 
       const projected = verts.map(p => {
         let x = p.startX + (p.x - p.startX) * progress;
@@ -279,7 +289,7 @@ const HeroVisual: React.FC = () => {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, [geometry]); // Effect only runs when geometry is calculated
+  }, [geometry]);
 
   return (
     <div 
