@@ -78,7 +78,6 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
               aria-label="Go to Homepage"
               className="flex items-center gap-3 group z-[310] pointer-events-auto"
             >
-              {/* FIX: Added whitespace-nowrap to prevent [FC) breaking */}
               <div className="font-mono text-[10px] font-bold border border-[#1a1a1a] px-1.5 py-0.5 bg-[#1a1a1a] text-[#FFF2EC] transition-colors whitespace-nowrap">
                 [FC)
               </div>
@@ -97,7 +96,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
               </div>
             </button>
 
-            {/* DESKTOP NAV (Hidden on Mobile/Tablet) */}
+            {/* DESKTOP NAV */}
             <div className="hidden lg:flex items-center gap-4 lg:gap-8 pointer-events-auto">
                {navItems.map((item) => {
                  const isActive = currentView === item.id;
@@ -121,14 +120,12 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                        else setIsArchHovered(false);
                      }}
                      onBlur={(e) => {
-                       // Only close if focus is moving outside this nav item
                        if (!e.currentTarget.contains(e.relatedTarget as Node)) {
                          setHoveredNav(null);
                          setIsArchHovered(false);
                        }
                      }}
                    >
-                     {/* Hover Patch */}
                      {isHovered && (
                        <motion.div 
                          layoutId="nav-bg"
@@ -142,9 +139,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                        className="relative z-10 flex items-center gap-3 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a] whitespace-nowrap"
                      >
                        <span className={`w-1.5 h-1.5 rounded-full bg-[#C5A059] transition-all duration-300 ${isActive ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`} />
-                       
                        {item.fullLabel}
-                       
                        {item.hasDropdown && (
                          <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${isArchHovered ? 'rotate-180' : ''}`} />
                        )}
@@ -163,6 +158,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                             >
                               {archPillars.map((group) => (
                                 <div key={group.system} className="space-y-4">
+                                  {/* FIX: Changed <h4> to <div> to prevent Accessibility "Skipped Heading Level" Error */}
                                   <div className={`flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] ${group.color} border-b border-black/5 pb-2`}>
                                      <group.icon className="w-3 h-3" /> {group.system}
                                   </div>
@@ -262,14 +258,12 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
       </AnimatePresence>
 
       {/* =======================
-          3. MOBILE NAVIGATION (Visible on Mobile & Tablet)
+          3. MOBILE NAVIGATION
       ======================== */}
-      {/* FIXED: Changed to lg:hidden so it shows on tablets */}
       <div className={`lg:hidden fixed top-0 w-full z-[310] h-20 flex items-center justify-end px-6 pointer-events-none transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}>
          <div className="flex items-center gap-3 pointer-events-auto">
             <button 
               onClick={() => onNavigate('contact')}
-              // FIX: Added whitespace-nowrap to prevent [ TALK ] from breaking
               className={`px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] border border-[#1a1a1a] bg-[#1a1a1a] text-[#FFF2EC] whitespace-nowrap ${scrolled ? 'shadow-lg' : ''}`}
             >
               [ TALK ]
@@ -295,15 +289,12 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
             style={{ willChange: "transform" }}
             className="fixed inset-0 bg-[#FFF2EC] z-[400] flex flex-col px-8 overflow-y-auto"
           >
-             {/* Header in Menu */}
              <div className="h-20 w-full flex items-center justify-between shrink-0">
                <button onClick={() => { setIsMenuOpen(false); onNavigate('homepage'); }} aria-label="Go to Homepage">
-                  {/* FIX: Added whitespace-nowrap */}
                   <div className="font-mono text-[10px] font-bold border border-[#1a1a1a] px-1.5 py-0.5 bg-[#1a1a1a] text-[#FFF2EC] whitespace-nowrap">
                     [FC)
                   </div>
                </button>
-               
                <button 
                  onClick={() => setIsMenuOpen(false)} 
                  aria-label="Close menu"
@@ -313,7 +304,6 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                </button>
              </div>
 
-             {/* Nav Items */}
              <div className="flex flex-col gap-8 flex-grow pt-12">
                {navItems.map((item) => (
                  <div key={item.id} className="flex flex-col">
@@ -377,7 +367,6 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                  </div>
                ))}
                
-               {/* Mobile CTA at Bottom */}
                <div className="mt-auto w-full flex justify-center pb-8 pt-12">
                  <CTAButton 
                    theme="light" 
@@ -389,7 +378,6 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                </div>
              </div>
              
-             {/* Response Time Indicator */}
              <div className="mb-8 border-t border-[#1a1a1a]/10 pt-4 shrink-0">
                <div className="flex justify-between items-center">
                  <span className="font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40">Response Time</span>
