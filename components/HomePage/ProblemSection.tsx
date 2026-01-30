@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { XCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-// FIX: Import 'type' only so we don't bundle the heavy file
+// FIX 1: Import Type only (saves bundle size)
 import type { GraphState } from '../GrowthGraph';
 import CTAButton from '../CTAButton';
 
-// FIX: Lazy Load the heavy graph component
+// FIX 2: Lazy load the heavy component to stop "Forced Reflow" on load
 const GrowthGraph = lazy(() => import('../GrowthGraph'));
 
 const ProblemSection: React.FC = () => {
@@ -86,10 +86,11 @@ const ProblemSection: React.FC = () => {
             </h2>
           </div>
 
-          {/* GRAPH CONTAINER (FIX: WRAPPED IN SUSPENSE) */}
+          {/* GRAPH CONTAINER */}
           <div className="col-span-1 border-r border-b border-[#1a1a1a]/10 bg-transparent flex items-center justify-center p-8">
-            <Suspense fallback={<div className="w-full h-full min-h-[300px] flex items-center justify-center text-[#E21E3F]/20 font-mono text-xs tracking-widest">LOADING DATA...</div>}>
-              <GrowthGraph currentState={graphState} />
+            {/* FIX 3: Suspense Wrapper - Keeps layout intact but loads graph later */}
+            <Suspense fallback={<div className="w-full h-full min-h-[300px] flex items-center justify-center font-mono text-xs text-[#E21E3F]/30 tracking-widest">LOADING DATA...</div>}>
+               <GrowthGraph currentState={graphState} />
             </Suspense>
           </div>
 

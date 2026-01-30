@@ -20,20 +20,20 @@ export default defineConfig(({ mode }) => {
         }
       },
       build: {
+        minify: 'terser', // REPORT REC: Better compression
+        terserOptions: {
+            compress: {
+                drop_console: true, // REPORT REC: Remove logs
+                drop_debugger: true
+            }
+        },
         rollupOptions: {
           output: {
             manualChunks: {
-              // Core React (Keep this small)
-              'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-              
-              // Animations (Heavy, load later)
-              'vendor-motion': ['framer-motion'],
-              
-              // Visualization (The D3 stuff causing reflows)
-              'vendor-viz': ['d3'],
-              
-              // Icons
-              'vendor-icons': ['lucide-react']
+              'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+              'framer-motion': ['framer-motion'],
+              'icons': ['lucide-react'],
+              'viz-core': ['d3'] // CRITICAL: Isolates D3 from the main bundle
             }
           }
         }
