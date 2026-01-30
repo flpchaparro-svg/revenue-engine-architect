@@ -1,88 +1,155 @@
-import React, { useState, useEffect, useCallback, lazy, Suspense } from 'react';
-import { m } from 'framer-motion';
-// Named import to ensure tree-shaking works if d3 is used here
-import { select } from 'd3'; 
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import { XCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
+// FIX: Import 'type' only so we don't bundle the heavy file
+import type { GraphState } from '../GrowthGraph';
+import CTAButton from '../CTAButton';
 
-// Lazy load the graph to isolate the D3 dependency completely
+// FIX: Lazy Load the heavy graph component
 const GrowthGraph = lazy(() => import('../GrowthGraph'));
 
 const ProblemSection: React.FC = () => {
-  const [activeState, setActiveState] = useState<'idle' | 'bottleneck' | 'tax' | 'grind' | 'cost' | 'fix'>('idle');
+  const [graphState, setGraphState] = useState<GraphState>('idle');
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const autoRotateIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const isMobileRef = useRef(false);
   const [isMobile, setIsMobile] = useState(false);
 
+  // Mobile Auto-Rotation Logic
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    const startRotation = () => {
+      if (!isMobileRef.current) return;
+      
+      const scannerStates: GraphState[] = ['bottleneck', 'tax', 'grind', 'cost'];
+      let currentIndex = 0;
+
+      autoRotateIntervalRef.current = setInterval(() => {
+        setGraphState(scannerStates[currentIndex]);
+        currentIndex = (currentIndex + 1) % scannerStates.length;
+      }, 2500);
+    };
+
+    const checkMobile = () => {
+      const mobile = window.innerWidth < 768;
+      isMobileRef.current = mobile;
+      setIsMobile(mobile);
+      
+      if (autoRotateIntervalRef.current) {
+        clearInterval(autoRotateIntervalRef.current);
+        autoRotateIntervalRef.current = null;
+      }
+      
+      if (mobile) {
+        setTimeout(startRotation, 3000); 
+      }
+    };
+    
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    return () => {
+      if (autoRotateIntervalRef.current) clearInterval(autoRotateIntervalRef.current);
+      window.removeEventListener('resize', checkMobile);
+    };
   }, []);
 
-  const handleHover = useCallback((state: any) => {
-    if (!isMobile) setActiveState(state);
-  }, [isMobile]);
-
-  // FIX: Unblock Main Thread
-  // We accept that this section might take 100ms to hydrate. 
-  // It's below the fold, so it doesn't matter for LCP.
+  const handleGraphHover = (state: GraphState) => {
+    if (isMobileRef.current) return;
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    setGraphState(state);
+  };
   
+  const handleGraphLeave = () => {
+    if (isMobileRef.current) return;
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    hoverTimeoutRef.current = setTimeout(() => setGraphState('idle'), 50);
+  };
+
   return (
-    <section id="problem" className="py-24 md:py-32 bg-[#FFF2EC] relative overflow-hidden">
-      <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          {/* Left Column: Text Content */}
-          <div className="order-2 lg:order-1">
-             {/* ... (Keep your existing text content here exactly as is) ... */}
-             {/* If you need the text content again, let me know, but assume you keep existing JSX */}
-             <div className="space-y-8">
-                <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a] leading-[1.1]">
-                  Success is <span className="italic text-[#E21E3F]">suffocating</span> you.
-                </h2>
-                <p className="font-sans text-lg text-[#1a1a1a]/70 max-w-xl">
-                  You hit $50k/mo, but your day didn't get easier. It got harder. 
-                  Now you're the bottleneck, the manager, and the firefighter.
-                </p>
-                
-                {/* LIST */}
-                <ul className="space-y-4 mt-8">
-                  {[
-                    { id: 'bottleneck', label: 'THE BOTTLENECK', desc: 'You personally approve every decision.' },
-                    { id: 'tax', label: 'THE ADMIN TAX', desc: '40% of your week is low-value logistics.' },
-                    { id: 'grind', label: 'THE GRIND', desc: 'Revenue grows linearly with your stress.' }
-                  ].map((item) => (
-                    <li 
-                      key={item.id}
-                      onMouseEnter={() => handleHover(item.id)}
-                      onMouseLeave={() => handleHover('idle')}
-                      className="group cursor-default"
-                    >
-                      <div className="flex items-baseline justify-between border-b border-[#1a1a1a]/10 pb-2 transition-all duration-300 group-hover:border-[#E21E3F]">
-                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] group-hover:text-[#E21E3F] transition-colors">
-                          {item.label}
-                        </span>
-                        <span className="font-sans text-sm text-[#1a1a1a]/40 group-hover:text-[#1a1a1a] transition-colors text-right">
-                          {item.desc}
-                        </span>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-             </div>
+    <motion.section 
+      id="problem" 
+      aria-label="Problem Section" 
+      initial={{ opacity: 0 }} 
+      whileInView={{ opacity: 1 }} 
+      viewport={{ once: true, margin: "-100px" }} 
+      className="w-full bg-[#FFF2EC] py-16 md:py-24 lg:py-32 px-6 md:px-12 lg:px-20 relative z-30 overflow-hidden"
+    >
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 h-16 md:h-32 w-[1px] bg-[#1a1a1a]/10" />
+      <div className="max-w-[1600px] mx-auto border-t border-l border-[#1a1a1a]/10">
+        <div className="grid grid-cols-1 md:grid-cols-3">
+            
+          {/* 01: THE PROBLEM */}
+          <div className="col-span-1 md:col-span-2 p-8 md:p-12 lg:p-16 border-r border-b border-[#1a1a1a]/10 flex flex-col justify-center min-h-[300px] md:min-h-[400px] transition-colors duration-300 hover:bg-[#1a1a1a]/5 group">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 md:mb-10 block">01 / THE PROBLEM</span>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] text-[#1a1a1a] tracking-tighter">
+              You didn't start your business to become an <br className="hidden md:block" />
+              <span className="italic text-[#1a1a1a]/60 group-hover:text-[#E21E3F] transition-colors duration-300">administrative hostage.</span>
+            </h2>
           </div>
 
-          {/* Right Column: Visual */}
-          <div className="order-1 lg:order-2 relative h-[300px] md:h-[400px] w-full flex items-center justify-center">
-             <div className="absolute inset-0 bg-[#E21E3F]/5 rounded-sm transform rotate-3 scale-95" />
-             <div className="absolute inset-0 border border-[#E21E3F]/10 rounded-sm" />
-             
-             {/* LAZY LOADED GRAPH */}
-             <Suspense fallback={<div className="w-full h-full flex items-center justify-center text-[#E21E3F]/20 font-mono text-xs">ANALYZING...</div>}>
-                <GrowthGraph currentState={activeState} />
-             </Suspense>
+          {/* GRAPH CONTAINER (FIX: WRAPPED IN SUSPENSE) */}
+          <div className="col-span-1 border-r border-b border-[#1a1a1a]/10 bg-transparent flex items-center justify-center p-8">
+            <Suspense fallback={<div className="w-full h-full min-h-[300px] flex items-center justify-center text-[#E21E3F]/20 font-mono text-xs tracking-widest">LOADING DATA...</div>}>
+              <GrowthGraph currentState={graphState} />
+            </Suspense>
+          </div>
+
+          {/* 02: SYMPTOMS */}
+          <div className="col-span-1 p-8 md:p-12 border-r border-b border-[#1a1a1a]/10 min-h-[300px] md:min-h-[400px] flex flex-col">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 md:mb-8 block">02 / SYMPTOMS</span>
+            <ul className="space-y-6">
+              <li onMouseEnter={() => handleGraphHover('bottleneck')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
+                <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
+                <div className="pointer-events-none leading-relaxed">
+                  <strong className="font-serif text-xl md:text-2xl text-[#1a1a1a] tracking-tight block mb-1">The Bottleneck Boss</strong>
+                  <span className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">Your team asks you 20 questions a day instead of just doing the work.</span>
+                </div>
+              </li>
+              <li onMouseEnter={() => handleGraphHover('tax')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
+                <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
+                <div className="pointer-events-none leading-relaxed">
+                  <strong className="font-serif text-xl md:text-2xl text-[#1a1a1a] tracking-tight block mb-1">The Double-Entry Tax</strong>
+                  <span className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">The same data gets typed into three different apps by three different people.</span>
+                </div>
+              </li>
+              <li onMouseEnter={() => handleGraphHover('grind')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-[#1a1a1a]/5 transition-colors duration-200">
+                <XCircle className="w-5 h-5 text-[#E21E3F] shrink-0 mt-1 pointer-events-none" />
+                <div className="pointer-events-none leading-relaxed">
+                  <strong className="font-serif text-xl md:text-2xl text-[#1a1a1a] tracking-tight block mb-1">The Sunday Dread</strong>
+                  <span className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70">You spend weekends on invoicing and admin instead of with your family.</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          {/* 03: THE COST */}
+          <div onMouseEnter={() => handleGraphHover('cost')} onMouseLeave={handleGraphLeave} className="col-span-1 p-8 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#E21E3F]/5 min-h-[250px] md:min-h-[400px] hover:bg-[#E21E3F]/10 transition-colors duration-300 relative overflow-hidden group flex flex-col justify-center">
+            <div className="absolute inset-0 bg-[#E21E3F]/0 group-hover:bg-[#E21E3F]/10 transition-colors duration-500" />
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block relative z-10">03 / THE COST</span>
+            <div className="space-y-4 relative z-10">
+              <div className="font-mono text-3xl md:text-4xl font-bold text-[#E21E3F] uppercase tracking-tighter">BURNING YOUR BEST PEOPLE</div>
+              <p className="font-mono text-sm md:text-base text-[#E21E3F]/80 leading-relaxed uppercase tracking-[0.15em] font-medium max-w-xs">
+                You're paying skilled staff to do unskilled work. They get bored. They leave. You start again.
+              </p>
+            </div>
+          </div>
+
+          {/* 04: THE FIX */}
+          <div onMouseEnter={() => handleGraphHover('fix')} onMouseLeave={handleGraphLeave} className="col-span-1 p-8 md:p-12 border-r border-b border-[#1a1a1a]/10 bg-[#1a1a1a] text-white min-h-[250px] md:min-h-[400px] flex flex-col justify-between border-l-2 border-l-[#C5A059]">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] block mb-4 md:mb-0">04 / THE FIX</span>
+            <p className="font-serif text-3xl md:text-4xl leading-tight mb-6 md:mb-8 hover:text-[#C5A059] transition-colors duration-300">
+              I build the systems that do the boring work automatically. Your team gets their time back. You get your business back.
+            </p>
+            <CTAButton 
+              variant="bracket" 
+              theme="dark" 
+              onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({behavior: 'smooth'})}
+            >
+              SEE THE SYSTEM
+            </CTAButton>
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
