@@ -67,3 +67,15 @@ export const VizIntelligence = ({ color = '#1a1a1a' }: { color?: string }) => (
     />
   </div>
 );
+
+// --- THIS IS THE FIX ---
+// We add this Default Export so TheArchitect.tsx can import it without error.
+const ArchitecturePageVisuals = () => {
+  return (
+    <div className="w-full h-full flex items-center justify-center opacity-80">
+      <VizVelocity />
+    </div>
+  );
+};
+
+export default ArchitecturePageVisuals;

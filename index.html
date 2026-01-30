@@ -16,7 +16,7 @@
       h1, .font-serif { font-family: 'Lora', Georgia, 'Times New Roman', serif; }
       .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
 
-      /* Static Hero Layout (Replaces Tailwind Classes for Initial Paint) */
+      /* Static Hero Layout */
       .static-hero-container {
         min-height: 100vh;
         min-height: 100svh;
@@ -37,12 +37,8 @@
         z-index: 20;
       }
 
-      @media (min-width: 768px) {
-        .static-content { padding: 0 3rem; }
-      }
-      @media (min-width: 1024px) {
-        .static-content { padding: 0 5rem; }
-      }
+      @media (min-width: 768px) { .static-content { padding: 0 3rem; } }
+      @media (min-width: 1024px) { .static-content { padding: 0 5rem; } }
 
       .static-header-row {
         display: flex;
@@ -51,13 +47,7 @@
         margin-bottom: 2.5rem;
       }
       
-      @media (min-width: 768px) {
-        .static-header-row { 
-          flex-direction: row; 
-          align-items: center; 
-          gap: 1rem; 
-        }
-      }
+      @media (min-width: 768px) { .static-header-row { flex-direction: row; align-items: center; gap: 1rem; } }
 
       .static-sub {
         font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -81,34 +71,16 @@
         margin-bottom: 2.5rem;
       }
 
-      @media (min-width: 768px) {
-        .static-h1 { font-size: 3.75rem; }
-      }
-      @media (min-width: 1024px) {
-        .static-h1 { font-size: 6.5rem; line-height: 0.9; }
-      }
+      @media (min-width: 768px) { .static-h1 { font-size: 3.75rem; } }
+      @media (min-width: 1024px) { .static-h1 { font-size: 6.5rem; line-height: 0.9; } }
 
       .static-gold { color: #C5A059; font-style: italic; }
-      
-      /* FIXED: Updated 'v13' to 'v18' to fix the 404 Error */
-      @font-face {
-        font-family: 'Inter';
-        font-style: normal;
-        font-weight: 400 600;
-        font-display: optional;
-        src: url(https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2) format('woff2');
-      }
-      @font-face {
-        font-family: 'Lora';
-        font-style: normal;
-        font-weight: 400 700;
-        font-display: optional;
-        src: url(https://fonts.gstatic.com/s/lora/v35/0QI6MX1D_JOuGQbT0gvTJPa787weuxJMkq0.woff2) format('woff2');
-      }
     </style>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
   </head>
   <body>
     <div id="root">
