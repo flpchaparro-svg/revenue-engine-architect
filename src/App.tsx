@@ -9,11 +9,8 @@ import Modal from '../components/Modal';
 import { ServiceDetail } from '../types';
 
 // PAGES
-// --- FIX START: Eager Load HomePage ---
-// We remove 'lazy' here so the browser gets the Hero text immediately.
-import HomePage from '../pages/HomePage';
-// --- FIX END ---
-
+// FIX: Lazy load HomePage to reduce initial bundle size and speed up FCP
+const HomePage = lazy(() => import('../pages/HomePage'));
 const ArchitectPage = lazy(() => import('../pages/ArchitectPage'));
 const ProcessPage = lazy(() => import('../pages/ProcessPage'));
 const ProofPage = lazy(() => import('../pages/ProofPage'));
@@ -109,15 +106,11 @@ const App: React.FC = () => {
         )}
 
         <div className="relative min-h-screen w-full">
-          {/* Note: HomePage is now eager, so it doesn't strictly need Suspense for itself, 
-              but we keep Suspense for the OTHER routes. */}
           <Suspense fallback={<div className="h-screen w-full bg-[#FFF2EC]" />}>
             <AnimatePresence mode="wait">
               <div key={location.pathname} className="w-full">
                 <Routes location={location}>
-                  {/* FIX: Render HomePage directly since it is imported eagerly */}
                   <Route path="/" element={<HomePage onNavigate={handleGlobalNavigate} onServiceClick={handleServiceClick} />} />
-                  
                   <Route path="/architect" element={<ArchitectPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
                   <Route path="/system" element={<SystemPage onNavigate={handleGlobalNavigate} />} />
                   <Route path="/process" element={<ProcessPage onNavigate={handleGlobalNavigate} />} />

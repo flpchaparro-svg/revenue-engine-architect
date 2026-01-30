@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
+import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { m, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
-// FIX: Correct Import Paths for components
+// COMPONENTS
 import CTAButton from '../components/CTAButton';
 import ScrambleTitle from '../components/ScrambleTitle';
 import BookingCTA from '../components/BookingCTA';
 import { usePageTitle } from '../hooks/usePageTitle';
-import HeroVisual from '../components/HeroVisual'; 
 
-// Lazy Load Sections
+// FIX: Lazy load the HeroVisual so it doesn't block the main thread
+const HeroVisual = lazy(() => import('../components/HeroVisual'));
+
+// Lazy Sections
 const ProblemSection = lazy(() => import('../components/HomePage/ProblemSection'));
 const FrictionAuditSection = lazy(() => import('../components/FrictionAuditSection'));
 const SystemPhases = lazy(() => import('../components/SystemPhases'));
@@ -31,22 +33,19 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const [canAnimate, setCanAnimate] = useState(false);
 
   useEffect(() => {
-    // FIX: Use matchMedia to avoid Reflow
+    // FIX: MatchMedia for mobile check (Faster than innerWidth)
     const mobileQuery = window.matchMedia('(max-width: 768px)');
     const checkMobile = (e: MediaQueryListEvent | MediaQueryList) => setIsMobile(e.matches);
     
     checkMobile(mobileQuery);
     mobileQuery.addEventListener('change', checkMobile);
     
-    const startAnimation = () => setCanAnimate(true);
-    if ('requestIdleCallback' in window) {
-       (window as any).requestIdleCallback(startAnimation, { timeout: 2000 });
-    } else {
-       setTimeout(startAnimation, 2000);
-    }
+    // Performance guard
+    const timer = setTimeout(() => setCanAnimate(true), 100);
 
     return () => {
       mobileQuery.removeEventListener('change', checkMobile);
+      clearTimeout(timer);
     };
   }, []);
 
@@ -113,7 +112,10 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
       <section id="hero" aria-label="Hero Section" className="min-h-[100svh] w-full flex items-center pt-32 md:pt-20 overflow-hidden relative z-20 content-layer">
         
         <div className="absolute inset-0 z-[1]">
-          <HeroVisual />
+          {/* FIX: Suspense Wrapper allows text to load before this heavy component */}
+          <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
+            <HeroVisual />
+          </Suspense>
         </div>
 
         <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 relative z-20">
