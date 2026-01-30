@@ -1,6 +1,5 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-// PERFORMANCE: LazyMotion strips ~100KB from initial load
 import { AnimatePresence, useScroll, useMotionValueEvent, LazyMotion, domAnimation } from 'framer-motion';
 
 // COMPONENTS
@@ -10,7 +9,11 @@ import Modal from '../components/Modal';
 import { ServiceDetail } from '../types';
 
 // PAGES
-const HomePage = lazy(() => import('../pages/HomePage'));
+// --- FIX START: Eager Load HomePage ---
+// We remove 'lazy' here so the browser gets the Hero text immediately.
+import HomePage from '../pages/HomePage';
+// --- FIX END ---
+
 const ArchitectPage = lazy(() => import('../pages/ArchitectPage'));
 const ProcessPage = lazy(() => import('../pages/ProcessPage'));
 const ProofPage = lazy(() => import('../pages/ProofPage'));
@@ -41,7 +44,6 @@ const App: React.FC = () => {
     setScrolled(latest > 50);
   });
 
-  // Reset scroll on route change
   useEffect(() => {
     requestAnimationFrame(() => {
       document.body.style.overflow = '';
@@ -94,7 +96,7 @@ const App: React.FC = () => {
       setSelectedService(service);
       setIsModalOpen(true);
     } else {
-      handleGlobalNavigate(service.id); // Fixed: ensure id is passed if needed, or mapped string
+      handleGlobalNavigate(service.id); 
     }
   };
 
@@ -107,12 +109,15 @@ const App: React.FC = () => {
         )}
 
         <div className="relative min-h-screen w-full">
+          {/* Note: HomePage is now eager, so it doesn't strictly need Suspense for itself, 
+              but we keep Suspense for the OTHER routes. */}
           <Suspense fallback={<div className="h-screen w-full bg-[#FFF2EC]" />}>
             <AnimatePresence mode="wait">
-              {/* FIX: Moved key to a wrapper div to solve TypeScript error on <Routes> */}
               <div key={location.pathname} className="w-full">
                 <Routes location={location}>
+                  {/* FIX: Render HomePage directly since it is imported eagerly */}
                   <Route path="/" element={<HomePage onNavigate={handleGlobalNavigate} onServiceClick={handleServiceClick} />} />
+                  
                   <Route path="/architect" element={<ArchitectPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
                   <Route path="/system" element={<SystemPage onNavigate={handleGlobalNavigate} />} />
                   <Route path="/process" element={<ProcessPage onNavigate={handleGlobalNavigate} />} />
@@ -121,7 +126,6 @@ const App: React.FC = () => {
                   <Route path="/contact" element={<ContactPage onNavigate={handleGlobalNavigate} />} />
                   <Route path="/privacy" element={<PrivacyPolicyPage onBack={() => handleGlobalNavigate('homepage')} />} />
                   
-                  {/* Pillars */}
                   <Route path="/pillar1" element={<Pillar1 onNavigate={handleGlobalNavigate} />} />
                   <Route path="/pillar2" element={<Pillar2 onNavigate={handleGlobalNavigate} />} />
                   <Route path="/pillar3" element={<Pillar3 onNavigate={handleGlobalNavigate} />} />
