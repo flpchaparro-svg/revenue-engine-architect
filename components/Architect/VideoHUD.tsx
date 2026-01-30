@@ -1,35 +1,64 @@
-import React from 'react';
-import { Scan } from 'lucide-react';
+import React, { useRef, useEffect, useState } from 'react';
 
-const VideoHUD: React.FC = () => (
-  <div className="absolute inset-0 pointer-events-none z-20 p-4 md:p-6 flex flex-col justify-between">
-    {/* TOP BAR */}
-    <div className="flex justify-between items-start">
-      <div className="flex flex-col gap-1">
-         <div className="flex items-center gap-2 bg-black/40 backdrop-blur-sm px-2 py-1 rounded-sm w-fit">
-            <div className="w-1.5 h-1.5 bg-red-500 animate-pulse rounded-full" />
-            <span className="font-mono text-[10px] text-white/90 tracking-widest">REC</span>
-         </div>
-      </div>
-      <Scan className="w-5 h-5 text-white/60" />
-    </div>
-    
-    {/* CENTER TARGET */}
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 md:w-32 md:h-32 border border-white/10 rounded-full flex items-center justify-center opacity-50">
-       <div className="w-1 h-1 bg-white/50 rounded-full" />
-    </div>
+const VideoHUD: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
 
-    {/* BOTTOM DATA */}
-    <div className="flex justify-between items-end">
-      <div className="space-y-1 font-mono text-[10px] text-white/60 tracking-widest">
-         <div>ISO: 800</div>
-         <div>FPS: 60</div>
-      </div>
-      <div className="border border-white/20 px-2 py-1 bg-black/20 backdrop-blur-sm">
-         <span className="font-mono text-[10px] text-[#E21E3F] tracking-widest uppercase font-bold">System Active</span>
+  useEffect(() => {
+    // 1. Only load video when this component is actually visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' } // Load when it's 200px away from view
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    // 2. Play only when loaded
+    if (shouldLoad && videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Autoplay prevented (common in browsers), silence error
+      });
+    }
+  }, [shouldLoad]);
+
+  return (
+    <div className="relative w-full h-full rounded-sm overflow-hidden bg-black/10">
+      {/* SCANLINES OVERLAY */}
+      <div className="absolute inset-0 z-20 pointer-events-none opacity-20 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%] bg-repeat" />
+      
+      {/* VIDEO ELEMENT */}
+      <video
+        ref={videoRef}
+        muted
+        loop
+        playsInline
+        // CRITICAL: Stop the 2.5MB download on page load
+        preload="none" 
+        className="w-full h-full object-cover opacity-60 grayscale mix-blend-screen"
+        // Only add src if we are ready to load
+        src={shouldLoad ? "/videos/revenue-engine-architecture-system-About-video.webm" : undefined}
+      >
+        {/* Fallback poster or color while loading */}
+      </video>
+
+      {/* RETICLE UI (Keep your existing UI) */}
+      <div className="absolute top-4 left-4 z-30 flex items-center gap-2">
+         <div className="w-2 h-2 bg-[#E21E3F] rounded-full animate-pulse" />
+         <span className="font-mono text-[10px] text-[#E21E3F] tracking-widest">LIVE FEED</span>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default VideoHUD;

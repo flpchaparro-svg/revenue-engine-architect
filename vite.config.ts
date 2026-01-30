@@ -5,35 +5,30 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
-      server: {
-        port: 3000,
-        host: '0.0.0.0',
-      },
+      // ... server config ...
       plugins: [react()],
-      define: {
-        'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
-        'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
-      },
       resolve: {
-        alias: {
-          '@': path.resolve(__dirname, '.'),
-        }
+        alias: { '@': path.resolve(__dirname, '.') }
       },
       build: {
-        minify: 'terser', // REPORT REC: Better compression
+        minify: 'terser',
         terserOptions: {
             compress: {
-                drop_console: true, // REPORT REC: Remove logs
-                drop_debugger: true
+                drop_console: true,
+                drop_debugger: true,
+                pure_funcs: ['console.log'] // Aggressively remove logs
+            },
+            format: {
+                comments: false // Remove comments
             }
         },
         rollupOptions: {
           output: {
             manualChunks: {
-              'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-              'framer-motion': ['framer-motion'],
-              'icons': ['lucide-react'],
-              'viz-core': ['d3'] // CRITICAL: Isolates D3 from the main bundle
+              'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+              'vendor-motion': ['framer-motion'],
+              'vendor-viz': ['d3'],
+              'vendor-icons': ['lucide-react']
             }
           }
         }
