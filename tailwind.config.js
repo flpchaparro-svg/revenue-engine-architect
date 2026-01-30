@@ -3,14 +3,13 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}", // <--- RESTORED: Scans your components folder
-    "./pages/**/*.{js,ts,jsx,tsx}",      // <--- RESTORED: Scans your pages folder
-    "./constants/**/*.{js,ts,jsx,tsx}",  // <--- RESTORED: Scans constants
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./constants/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       fontFamily: {
-        // PERFORMANCE: Fallback fonts prevent the 750ms "Invisible Text" delay
         sans: [
           'Inter', 
           'ui-sans-serif', 

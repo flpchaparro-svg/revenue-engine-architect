@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
-// PERFORMANCE: 'm' component is lighter than 'motion'
+// PERFORMANCE: Import 'm' to use with LazyMotion (essential for mobile score)
 import { m, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
 import CTAButton from '../components/CTAButton';
 import ScrambleTitle from '../components/ScrambleTitle';
@@ -34,7 +34,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     
-    // PERFORMANCE GUARD: Wait 100ms before starting animation loops to prevent LCP contention
+    // PERFORMANCE: 100ms delay prevents Main Thread contention on load
     const timer = setTimeout(() => setCanAnimate(true), 100);
 
     return () => {
@@ -55,7 +55,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const decayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useAnimationFrame((time, delta) => {
-    if (!canAnimate) return; // Guard against Reflows on load
+    if (!canAnimate) return; 
 
     const currentY = scrollLineY.get();
     const speed = scrollLineSpeed.get();

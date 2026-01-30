@@ -1,6 +1,6 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-// PERFORMANCE: LazyMotion keeps the main bundle small
+// PERFORMANCE: LazyMotion strips ~100KB from initial load
 import { AnimatePresence, useScroll, useMotionValueEvent, LazyMotion, domAnimation } from 'framer-motion';
 
 // COMPONENTS
@@ -10,7 +10,7 @@ import Modal from '../components/Modal';
 import { ServiceDetail } from '../types';
 
 // PAGES
-// CRITICAL: Keep HomePage Lazy. Eager loading destroys mobile score.
+// PERFORMANCE: HomePage MUST be lazy loaded to keep FCP under 2.5s
 const HomePage = lazy(() => import('../pages/HomePage'));
 const ArchitectPage = lazy(() => import('../pages/ArchitectPage'));
 const ProcessPage = lazy(() => import('../pages/ProcessPage'));
@@ -42,7 +42,6 @@ const App: React.FC = () => {
     setScrolled(latest > 50);
   });
 
-  // Reset scroll on route change
   useEffect(() => {
     requestAnimationFrame(() => {
       document.body.style.overflow = '';
@@ -110,7 +109,7 @@ const App: React.FC = () => {
         <div className="relative min-h-screen w-full">
           <Suspense fallback={<div className="h-screen w-full bg-[#FFF2EC]" />}>
             <AnimatePresence mode="wait">
-              {/* Wrapping Routes in div to solve TS key error */}
+              {/* Wrapper div solves the TS key error */}
               <div key={location.pathname} className="w-full">
                 <Routes location={location}>
                   <Route path="/" element={<HomePage onNavigate={handleGlobalNavigate} onServiceClick={handleServiceClick} />} />
@@ -122,7 +121,6 @@ const App: React.FC = () => {
                   <Route path="/contact" element={<ContactPage onNavigate={handleGlobalNavigate} />} />
                   <Route path="/privacy" element={<PrivacyPolicyPage onBack={() => handleGlobalNavigate('homepage')} />} />
                   
-                  {/* Pillars */}
                   <Route path="/pillar1" element={<Pillar1 onNavigate={handleGlobalNavigate} />} />
                   <Route path="/pillar2" element={<Pillar2 onNavigate={handleGlobalNavigate} />} />
                   <Route path="/pillar3" element={<Pillar3 onNavigate={handleGlobalNavigate} />} />
