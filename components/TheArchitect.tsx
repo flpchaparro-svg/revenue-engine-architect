@@ -6,14 +6,14 @@ import ArchitecturePageVisuals from './ArchitecturePageVisuals';
 const TheArchitect: React.FC = () => {
   return (
     <section id="about" className="relative min-h-screen flex flex-col lg:flex-row bg-[#FFF2EC] overflow-hidden">
-      
+
       {/* LEFT COLUMN: Image & Visuals */}
       <div className="w-full lg:w-1/2 relative h-[50vh] lg:h-auto border-b lg:border-b-0 lg:border-r border-[#1a1a1a]/10">
         <div className="absolute inset-0 bg-[#1a1a1a]">
            <ArchitecturePageVisuals />
-           
+
            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-60" />
-           
+
            <div className="absolute bottom-8 left-8 z-10">
               <div className="flex items-center gap-3 mb-2">
                  <div className="w-8 h-[1px] bg-[#C5A059]" />
@@ -30,7 +30,7 @@ const TheArchitect: React.FC = () => {
 
       {/* RIGHT COLUMN: Content */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center p-8 md:p-16 lg:p-24 relative z-10">
-         
+
          <div className="mb-12">
             <span className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 tracking-[0.2em] uppercase mb-6 block">
                / Background
@@ -40,7 +40,7 @@ const TheArchitect: React.FC = () => {
                <span className="text-[#C5A059] italic">I run them.</span>
             </h3>
             <div className="w-12 h-1 bg-[#1a1a1a] mb-8" />
-            
+
             <div className="space-y-6 text-[#1a1a1a]/70 font-sans text-lg font-light leading-relaxed">
                <p>
                   Most "consultants" have never managed a P&L. They sell theory.
@@ -79,9 +79,9 @@ const TheArchitect: React.FC = () => {
          {/* LinkedIn CTA */}
          <div className="mt-16">
             <div className="flex items-center gap-4 group cursor-pointer">
-               <a 
-                 href="https://www.linkedin.com/in/felipe-chaparro-97a390176/" 
-                 target="_blank" 
+               <a
+                 href="https://www.linkedin.com/in/felipe-chaparro-97a390176/"
+                 target="_blank"
                  rel="noopener noreferrer"
                  aria-label="Visit Felipe Chaparro's LinkedIn Profile"
                  className="group/arrow flex items-center justify-center w-14 h-14 border border-[#1a1a1a]/20 rounded-full hover:bg-[#1a1a1a] hover:border-[#1a1a1a] transition-all duration-300"
@@ -92,9 +92,9 @@ const TheArchitect: React.FC = () => {
                   <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 tracking-[0.2em] uppercase mb-1">
                      Connect
                   </div>
-                  <a 
-                    href="https://www.linkedin.com/in/felipe-chaparro-97a390176/" 
-                    target="_blank" 
+                  <a
+                    href="https://www.linkedin.com/in/felipe-chaparro-97a390176/"
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="font-serif text-lg text-[#1a1a1a] group-hover:text-[#C5A059] transition-colors"
                   >
