@@ -7,31 +7,95 @@
     <title>Revenue Engine Architect | Business Growth</title>
 
     <style>
-      /* CRITICAL CSS: Matches Tailwind classes exactly to prevent layout shift */
-      body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #FFF2EC; margin: 0; }
+      /* CRITICAL CSS: Inlined to prevent 300ms Render Blocking Delay */
+      /* Resets & Base */
+      body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #FFF2EC; margin: 0; padding: 0; }
+      *, ::before, ::after { box-sizing: border-box; }
       
-      /* Fallbacks that match the size of your webfonts */
+      /* Typography Fallbacks (Prevent Layout Shift) */
       h1, .font-serif { font-family: 'Lora', Georgia, 'Times New Roman', serif; }
+      .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+      /* Static Hero Layout (Replaces Tailwind Classes for Initial Paint) */
+      .static-hero-container {
+        min-height: 100vh;
+        min-height: 100svh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding-top: 5rem;
+        overflow: hidden;
+      }
       
-      /* UTILITIES needed for the static hero */
-      .static-hero-container { min-height: 100svh; width: 100%; display: flex; align-items: center; position: relative; padding-top: 5rem; overflow: hidden; }
-      .static-content { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 20; }
-      .static-sub { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; font-weight: 700; letter-spacing: 0.2em; color: #1a1a1a; text-transform: uppercase; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.5rem; }
-      .static-h1 { font-family: 'Lora', Georgia, serif; font-size: 3rem; line-height: 1.1; letter-spacing: -0.04em; color: #1a1a1a; margin-bottom: 2rem; }
-      .static-gold { color: #C5A059; font-style: italic; }
-      
-      @media (min-width: 768px) {
-        .static-h1 { font-size: 6rem; line-height: 0.9; }
-        .static-sub { font-size: 12px; }
+      .static-content {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        position: relative;
+        z-index: 20;
       }
 
-      /* OPTIMIZED FONTS: 'optional' prevents the invisible text penalty */
+      @media (min-width: 768px) {
+        .static-content { padding: 0 3rem; }
+      }
+      @media (min-width: 1024px) {
+        .static-content { padding: 0 5rem; }
+      }
+
+      .static-header-row {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 2.5rem;
+      }
+      
+      @media (min-width: 768px) {
+        .static-header-row { 
+          flex-direction: row; 
+          align-items: center; 
+          gap: 1rem; 
+        }
+      }
+
+      .static-sub {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: #1a1a1a;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .static-h1 {
+        font-family: 'Lora', Georgia, serif;
+        font-size: 3rem;
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+        color: #1a1a1a;
+        margin: 0;
+        margin-bottom: 2.5rem;
+      }
+
+      @media (min-width: 768px) {
+        .static-h1 { font-size: 3.75rem; }
+      }
+      @media (min-width: 1024px) {
+        .static-h1 { font-size: 6.5rem; line-height: 0.9; }
+      }
+
+      .static-gold { color: #C5A059; font-style: italic; }
+      
+      /* FIXED: Updated 'v13' to 'v18' to fix the 404 Error */
       @font-face {
         font-family: 'Inter';
         font-style: normal;
         font-weight: 400 600;
         font-display: optional;
-        /* FIXED: Changed v13 to v18 */
         src: url(https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2) format('woff2');
       }
       @font-face {
@@ -50,9 +114,11 @@
     <div id="root">
       <section class="static-hero-container">
         <div class="static-content">
-          <div class="static-sub">
-            <span>/</span>
-            <span>SYDNEY BUSINESS AUTOMATION</span>
+          <div class="static-header-row">
+            <div class="static-sub">
+              <span>/</span>
+              <span>SYDNEY BUSINESS AUTOMATION</span>
+            </div>
           </div>
           <h1 class="static-h1">
             Stop Doing<br/>
