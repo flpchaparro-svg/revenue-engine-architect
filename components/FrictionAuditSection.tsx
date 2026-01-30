@@ -117,10 +117,10 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
                     <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E21E3F] border border-[#E21E3F]/20 px-2 py-1">{data.label}</span>
                  </div>
                  <div>
-                    {/* Pain point title: Standardized H3 */}
-                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-8">
+                    {/* Pain point title: Standardized H3 -> H2 (Fixed Accessibility Hierarchy) */}
+                    <h2 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-8">
                       {data.title}
-                    </h3>
+                    </h2>
                     <div className="inline-block bg-[#E21E3F]/10 px-6 py-3">
                        {/* Stat callouts: text-base → text-lg (labels like "NO VISIBILITY" should be smaller) */}
                        <span className="font-mono text-xs md:text-sm text-[#E21E3F] font-bold tracking-[0.2em] uppercase">{data.metric}</span>
@@ -262,10 +262,10 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                               {data.label}
                            </span>
                         </div>
-                        {/* Pain point title: Standardized H3 */}
-                        <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-4">
+                        {/* Pain point title: Standardized H3 -> H2 (Fixed Accessibility Hierarchy) */}
+                        <h2 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-4">
                           {data.title}
-                        </h3>
+                        </h2>
                         <div className="mb-6">
                            {/* Mobile: Stat callouts: text-base → text-lg (labels like "NO VISIBILITY" should be smaller) */}
                            <span className="font-mono text-xs md:text-sm text-[#E21E3F] font-bold tracking-[0.2em] uppercase bg-[#E21E3F]/5 px-3 py-1">
