@@ -106,10 +106,11 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                     }`}>
                       
                       {/* MAIN VIDEO PLAYER - COLOR (no grayscale), with seamless loop */}
+                      {/* scale-[1.15] zooms in slightly to crop out the VEO watermark */}
                       <video
                         ref={videoRef}
                         key={mode}
-                        className="w-full h-full object-cover contrast-110"
+                        className="w-full h-full object-cover contrast-110 scale-[1.15]"
                         autoPlay
                         muted
                         playsInline
