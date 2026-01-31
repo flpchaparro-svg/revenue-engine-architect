@@ -1,112 +1,187 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-import ArchitecturePageVisuals from './ArchitecturePageVisuals';
+import React, { useState, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Terminal, Fingerprint } from 'lucide-react';
 
-const TheArchitect: React.FC = () => {
+// COMPONENTS
+import CTAButton from '../components/CTAButton'; 
+import BackButton from '../components/BackButton';
+import VideoHUD from '../components/Architect/VideoHUD';
+
+// HOOKS & DATA
+import { usePageTitle } from '../hooks/usePageTitle'; 
+import { ARCHITECT_CONTENT } from '../constants/architectData'; 
+
+interface ArchitectPageProps {
+  onBack: () => void;
+  onNavigate: (view: string, sectionId?: string) => void;
+}
+
+// Reusable Animation Wrapper
+const Section: React.FC<{ children: React.ReactNode, className?: string, delay?: number }> = ({ children, className = "", delay = 0 }) => (
+  <motion.div 
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-50px" }}
+    transition={{ duration: 0.7, delay, ease: "easeOut" }}
+    className={className}
+  >
+    {children}
+  </motion.div>
+);
+
+const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => {
+  usePageTitle('The Architect');
+  const [mode, setMode] = useState<'architect' | 'human'>('architect');
+  const current = ARCHITECT_CONTENT[mode];
+
+  // --- VIDEO LOOP LOGIC ---
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // Cut the video 0.5s before the end to avoid the white frame
+  const CUT_OFF_TIME = 0.5; 
+
+  const handleTimeUpdate = () => {
+    const video = videoRef.current;
+    if (video && video.duration) {
+      if (video.currentTime >= video.duration - CUT_OFF_TIME) {
+        video.currentTime = 0;
+        video.play();
+      }
+    }
+  };
+
   return (
-    <section id="about" className="relative min-h-screen flex flex-col lg:flex-row bg-[#FFF2EC] overflow-hidden">
-      
-      {/* LEFT COLUMN: Image & Visuals */}
-      <div className="w-full lg:w-1/2 relative h-[50vh] lg:h-auto border-b lg:border-b-0 lg:border-r border-[#1a1a1a]/10">
-        <div className="absolute inset-0 bg-[#1a1a1a]">
-           <ArchitecturePageVisuals />
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] relative z-[150] flex flex-col selection:bg-[#C5A059]/30">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow relative z-10">
+        
+        <div className="flex justify-between items-center mb-12 md:mb-20 pt-24 relative z-[200]">
+          <BackButton onClick={onBack} label="Return to Home" />
+        </div>
+
+        {/* HEADER & SWITCH */}
+        <Section className="mb-16 md:mb-24 relative text-center lg:text-left">
+           <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-center lg:justify-start">
+             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]">/</span>
+             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]">{current.label.replace('/', '').trim()}</span>
+           </div>
            
-           <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-60" />
-           
-           <div className="absolute bottom-8 left-8 z-10">
-              <div className="flex items-center gap-3 mb-2">
-                 <div className="w-8 h-[1px] bg-[#C5A059]" />
-                 <span className="font-mono text-[10px] font-bold text-[#C5A059] tracking-[0.2em] uppercase">
-                    The Operator
-                 </span>
+           <div className="flex items-center gap-0 mb-12 border border-[#1a1a1a]/10 bg-white p-1 rounded-sm w-fit shadow-lg mx-auto lg:mx-0">
+              <button 
+                onClick={() => setMode('architect')}
+                className={`px-5 md:px-8 py-3.5 text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-sm flex items-center gap-2 ${
+                  mode === 'architect' ? 'text-[#FFF2EC] bg-[#1a1a1a] shadow-md' : 'text-[#1a1a1a]/40'
+                }`}
+              >
+                {mode === 'architect' && <Terminal className="w-3 h-3" />} THE ARCHITECT
+              </button>
+              <button 
+                onClick={() => setMode('human')}
+                className={`px-5 md:px-8 py-3.5 text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-sm flex items-center gap-2 ${
+                  mode === 'human' ? 'text-[#1a1a1a] bg-[#C5A059] shadow-md' : 'text-[#1a1a1a]/40'
+                }`}
+              >
+                {mode === 'human' && <Fingerprint className="w-3 h-3" />} THE HUMAN
+              </button>
+           </div>
+
+           <AnimatePresence mode="wait">
+             <motion.h1
+               key={mode}
+               initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+               className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] max-w-5xl mb-6 md:mb-10 mx-auto lg:mx-0"
+             >
+               {current.headline}
+             </motion.h1>
+           </AnimatePresence>
+        </Section>
+        
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mb-32">
+           <div className="lg:col-span-5 relative order-2 lg:order-1">
+              <div className="sticky top-32">
+                <AnimatePresence mode="wait">
+                  <motion.div key={mode} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="relative w-full max-w-[400px] mx-auto lg:max-w-none">
+                    <div className={`aspect-[9/16] relative overflow-hidden transition-all duration-500 shadow-2xl ${
+                        mode === 'architect' ? 'rounded-sm border-2 border-[#1a1a1a]' : 'rounded-t-full border-4 border-[#C5A059]/20'
+                    }`}>
+                      
+                      {/* MAIN VIDEO PLAYER */}
+                      <video 
+                        ref={videoRef}
+                        key={mode} 
+                        className="w-full h-full object-cover grayscale contrast-110" 
+                        autoPlay 
+                        muted 
+                        playsInline
+                        onTimeUpdate={handleTimeUpdate}
+                      >
+                        {/* Ensure your file "the_architect_strategy.webm" is in the public/videos folder */}
+                        <source 
+                          src={mode === 'architect' ? "/videos/the_architect_strategy.webm" : "/videos/human-mode.mp4"} 
+                          type={mode === 'architect' ? "video/webm" : "video/mp4"} 
+                        />
+                      </video>
+
+                      <div className="absolute inset-0 bg-black/10" />
+                      
+                      {/* VideoHUD is now just an overlay, it won't block the video underneath */}
+                      {mode === 'architect' && <VideoHUD />}
+                    
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
               </div>
-              <h2 className="font-serif text-3xl text-white">
-                 Felipe Chaparro
-              </h2>
+           </div>
+
+           <div className="lg:col-span-7 order-1 lg:order-2">
+              <AnimatePresence mode="wait">
+                <motion.div key={mode} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-16">
+                  <Section>
+                    <p className={`font-sans text-lg md:text-xl font-light leading-relaxed border-l-2 pl-6 mb-8 ${mode === 'architect' ? 'border-[#E21E3F]' : 'border-[#C5A059]'}`}>
+                      {current.subhead}
+                    </p>
+                  </Section>
+
+                  <div className="relative ml-3 md:ml-6 space-y-0">
+                    <div className="absolute left-0 top-4 bottom-4 w-px bg-[#1a1a1a]/10" />
+                    {current.timeline.map((step, idx) => (
+                      <Section key={step.id} delay={idx * 0.1} className="relative pl-12 md:pl-16 pb-16 group last:pb-0">
+                         <div className={`absolute -left-3 md:-left-4 top-0 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-[#FFF2EC] z-10 ${mode === 'architect' ? 'bg-[#1a1a1a] text-white' : 'bg-[#C5A059] text-white'}`}>
+                            <step.icon className="w-3 h-3 md:w-4 md:h-4" />
+                         </div>
+                         <h4 className="font-serif text-2xl md:text-3xl mb-4">{step.title}</h4>
+                         <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed max-w-lg">{step.text}</p>
+                      </Section>
+                    ))}
+                  </div>
+
+                  {mode === 'architect' && ARCHITECT_CONTENT.architect.credentials && (
+                    <Section className="bg-white p-6 border border-black/5 rounded-sm">
+                      <div className="grid grid-cols-2 gap-4">
+                        {ARCHITECT_CONTENT.architect.credentials.map((cred, i) => (
+                          <div key={i} className="flex items-center gap-3">
+                             <cred.icon className="w-4 h-4 text-[#1a1a1a]/40" />
+                             <span className="font-mono text-xs font-bold uppercase">{cred.label}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </Section>
+                  )}
+                </motion.div>
+              </AnimatePresence>
            </div>
         </div>
+        
+        <Section className="border-t border-black/10 py-32 flex flex-col items-center text-center">
+           <h2 className="font-serif text-4xl md:text-7xl tracking-tighter mb-12">
+             Ready to build your <span className="italic font-serif text-[#C5A059]">system?</span>
+           </h2>
+           <CTAButton theme={mode === 'architect' ? 'light' : 'dark'} onClick={() => onNavigate('contact')}>
+             [ BOOK A CALL ]
+           </CTAButton>
+        </Section>
       </div>
-
-      {/* RIGHT COLUMN: Content */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center p-8 md:p-16 lg:p-24 relative z-10">
-         
-         <div className="mb-12">
-            <span className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 tracking-[0.2em] uppercase mb-6 block">
-               / Background
-            </span>
-            <h3 className="font-serif text-3xl md:text-4xl lg:text-5xl text-[#1a1a1a] leading-[1.1] mb-8">
-               I don't just build systems. <br />
-               <span className="text-[#C5A059] italic">I run them.</span>
-            </h3>
-            <div className="w-12 h-1 bg-[#1a1a1a] mb-8" />
-            
-            <div className="space-y-6 text-[#1a1a1a]/70 font-sans text-lg font-light leading-relaxed">
-               <p>
-                  Most "consultants" have never managed a P&L. They sell theory.
-               </p>
-               <p>
-                  I come from the operations floor. I've managed teams, built logistics networks, and scaled revenue engines for real businesses in Sydney.
-               </p>
-               <p>
-                  I learned that a pretty website is useless if the backend is chaos. That's why I became a <strong>Revenue Engine Architect</strong>. I bridge the gap between "looking good" and "working flawlessly."
-               </p>
-            </div>
-         </div>
-
-         {/* Credentials Grid */}
-         <div className="grid grid-cols-2 gap-x-8 gap-y-12 border-t border-[#1a1a1a]/10 pt-12">
-            <div>
-               {/* FIX: Changed h4 to div to prevent heading order error */}
-               <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 tracking-[0.2em] uppercase mb-2">
-                  Focus
-               </div>
-               <p className="font-serif text-xl text-[#1a1a1a]">
-                  System Architecture
-               </p>
-            </div>
-            <div>
-               {/* FIX: Changed h4 to div */}
-               <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 tracking-[0.2em] uppercase mb-2">
-                  Location
-               </div>
-               <p className="font-serif text-xl text-[#1a1a1a]">
-                  Sydney, Australia
-               </p>
-            </div>
-         </div>
-
-         {/* LinkedIn CTA */}
-         <div className="mt-16">
-            <div className="flex items-center gap-4 group cursor-pointer">
-               <a 
-                 href="https://www.linkedin.com/in/felipe-chaparro-97a390176/" 
-                 target="_blank" 
-                 rel="noopener noreferrer"
-                 aria-label="Visit Felipe Chaparro's LinkedIn Profile"
-                 className="group/arrow flex items-center justify-center w-14 h-14 border border-[#1a1a1a]/20 rounded-full hover:bg-[#1a1a1a] hover:border-[#1a1a1a] transition-all duration-300"
-               >
-                  <ArrowUpRight className="w-5 h-5 text-[#1a1a1a] group-hover/arrow:text-white transition-colors" />
-               </a>
-               <div>
-                  <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 tracking-[0.2em] uppercase mb-1">
-                     Connect
-                  </div>
-                  <a 
-                    href="https://www.linkedin.com/in/felipe-chaparro-97a390176/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="font-serif text-lg text-[#1a1a1a] group-hover:text-[#C5A059] transition-colors"
-                  >
-                     View LinkedIn Profile
-                  </a>
-               </div>
-            </div>
-         </div>
-
-      </div>
-    </section>
+    </motion.div>
   );
 };
 
-export default TheArchitect;
+export default ArchitectPage;

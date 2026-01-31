@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Terminal, Fingerprint } from 'lucide-react';
 
@@ -33,6 +33,23 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
   usePageTitle('The Architect');
   const [mode, setMode] = useState<'architect' | 'human'>('architect');
   const current = ARCHITECT_CONTENT[mode];
+
+  // --- VIDEO SEAMLESS LOOP LOGIC ---
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // Dynamic cut-off time based on mode (human video needs more time cut)
+  const CUT_OFF_TIME = mode === 'human' ? 0.8 : 0.7;
+
+  const handleTimeUpdate = () => {
+    const video = videoRef.current;
+    if (video && video.duration) {
+      // If we're within CUT_OFF_TIME of the end, jump back to start
+      if (video.currentTime >= video.duration - CUT_OFF_TIME) {
+        video.currentTime = 0;
+        video.play();
+      }
+    }
+  };
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] relative z-[150] flex flex-col selection:bg-[#C5A059]/30">
@@ -87,11 +104,29 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                     <div className={`aspect-[9/16] relative overflow-hidden transition-all duration-500 shadow-2xl ${
                         mode === 'architect' ? 'rounded-sm border-2 border-[#1a1a1a]' : 'rounded-t-full border-4 border-[#C5A059]/20'
                     }`}>
-                      <video key={mode} className="w-full h-full object-cover grayscale contrast-110" autoPlay loop muted playsInline>
-                        <source src={mode === 'architect' ? "/videos/architect-mode.mp4" : "/videos/human-mode.mp4"} type="video/mp4" />
+                      
+                      {/* MAIN VIDEO PLAYER - COLOR (no grayscale), with seamless loop */}
+                      <video
+                        ref={videoRef}
+                        key={mode}
+                        className="w-full h-full object-cover contrast-110"
+                        autoPlay
+                        muted
+                        playsInline
+                        onTimeUpdate={handleTimeUpdate}
+                      >
+                        <source 
+                          src={mode === 'architect' ? "/videos/the_architect_strategy.webm" : "/videos/the_architect_human.webm"} 
+                          type="video/webm" 
+                        />
                       </video>
+
+                      {/* Dark overlay for better contrast */}
                       <div className="absolute inset-0 bg-black/10" />
+                      
+                      {/* VideoHUD is just a transparent overlay with scanlines & LIVE FEED indicator */}
                       {mode === 'architect' && <VideoHUD />}
+
                     </div>
                   </motion.div>
                 </AnimatePresence>
