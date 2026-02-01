@@ -39,6 +39,7 @@ const TheArchitect: React.FC = () => {
                     loop
                     muted
                     playsInline
+                    preload="metadata"
                     aria-hidden="true"
                     role="presentation"
                   >

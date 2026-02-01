@@ -115,6 +115,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                         autoPlay
                         muted
                         playsInline
+                        preload="metadata"
                         onTimeUpdate={handleTimeUpdate}
                         aria-hidden="true"
                         role="presentation"
