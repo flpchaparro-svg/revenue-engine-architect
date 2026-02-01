@@ -2,8 +2,10 @@ import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { m, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
 import CTAButton from '../components/CTAButton';
 import ScrambleTitle from '../components/ScrambleTitle';
-import BookingCTA from '../components/BookingCTA';
 import { usePageTitle } from '../hooks/usePageTitle';
+
+// Lazy load BookingCTA (at bottom of page)
+const BookingCTA = lazy(() => import('../components/BookingCTA'));
 
 // FIX: Lazy load HeroVisual so text paints FIRST
 const HeroVisual = lazy(() => import('../components/HeroVisual'));
