@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Minus, Plus } from 'lucide-react';
 import { SystemPillarDetail } from '../types';
 import { getDesktopGridClass, getTabletGridClass } from '../utils/gridHelpers';
@@ -51,7 +51,7 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
   };
 
   return (
-    <motion.div
+    <m.div
       layout
       ref={itemRef}
       onClick={handleToggle}
@@ -75,7 +75,7 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
 
       {/* --- CLOSED STATE --- */}
       {!isSelected && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between">
+        <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between">
           <div className="flex justify-between items-start">
               <span className="font-serif text-3xl md:text-4xl text-[#1a1a1a]/10 font-bold absolute top-4 right-6 group-hover:text-[#1a1a1a]/20 transition-colors">
                  {pillar.number}
@@ -114,13 +114,13 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
                  />
               </div>
            </div>
-        </motion.div>
+        </m.div>
       )}
 
       {/* --- EXPANDED STATE --- */}
       <AnimatePresence>
         {isSelected && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.1 } }} exit={{ opacity: 0 }} className="relative w-full p-6 md:p-10 lg:p-16 flex flex-col">
+          <m.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.1 } }} exit={{ opacity: 0 }} className="relative w-full p-6 md:p-10 lg:p-16 flex flex-col">
             <button 
                onClick={(e) => { e.stopPropagation(); handleToggle(); }}
                className="absolute top-4 right-4 md:top-6 md:right-6 p-3 rounded-full border border-white/20 text-white/60 hover:text-white hover:border-white transition-all z-20"
@@ -182,10 +182,10 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
                   </div>
                </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </m.div>
   );
 };
 

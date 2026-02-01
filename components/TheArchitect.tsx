@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, ArrowUpRight } from 'lucide-react';
 
 const TheArchitect: React.FC = () => {
@@ -12,7 +12,7 @@ const TheArchitect: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 relative items-center">
       
           {/* LEFT: LIVING PORTRAIT CONTAINER */}
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -27,7 +27,7 @@ const TheArchitect: React.FC = () => {
               {/* Video container with overflow-hidden to clip video content */}
               <div className="w-full h-full relative overflow-hidden">
                 {/* Video in 9:16 ratio */}
-                <motion.div
+                <m.div
                   className="w-full h-full relative"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
@@ -47,7 +47,7 @@ const TheArchitect: React.FC = () => {
                   </video>
                   {/* Vignette Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a1a] via-transparent to-transparent opacity-60" />
-                </motion.div>
+                </m.div>
               </div>
            
               {/* Technical Overlay */}
@@ -64,7 +64,7 @@ const TheArchitect: React.FC = () => {
                  <ShieldCheck className={`w-10 h-10 transition-colors duration-700 ${mode === 'architect' ? 'text-white/20' : 'text-[#8B6914]'}`} />
               </div>
             </div>
-          </motion.div>
+          </m.div>
 
           {/* RIGHT: TEXT CONTENT */}
           <div className="lg:col-span-7 relative">
@@ -101,7 +101,7 @@ const TheArchitect: React.FC = () => {
             </div>
 
             <AnimatePresence mode="wait">
-              <motion.div
+              <m.div
                 key={mode}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -149,7 +149,7 @@ const TheArchitect: React.FC = () => {
                       </a>
                     </div>
                  </div>
-              </motion.div>
+              </m.div>
             </AnimatePresence>
           </div>
 

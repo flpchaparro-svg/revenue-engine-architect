@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, AlertTriangle, Activity, Zap, X, Terminal } from 'lucide-react';
 import EvidenceVisual_Compare from './EvidenceVisual_Compare';
 import CTAButton from './CTAButton';
@@ -34,7 +34,7 @@ const TerminalLog: React.FC = () => {
       </div>
       <div className="space-y-3">
         {lines.map((line, i) => (
-          <motion.div 
+          <m.div 
             key={i}
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
@@ -42,9 +42,9 @@ const TerminalLog: React.FC = () => {
           >
             <span className="text-[#0F766E] mr-3">➜</span>
             {line}
-          </motion.div>
+          </m.div>
         ))}
-        <motion.div 
+        <m.div 
           animate={{ opacity: [0, 1] }} 
           transition={{ repeat: Infinity, duration: 0.8 }}
           className="w-2 h-4 bg-[#C5A059] inline-block align-middle ml-2"
@@ -110,7 +110,7 @@ const Feature_Group7: React.FC = () => {
         </div>
 
         {/* --- THE TRIGGER CARD (Dark Device on Cream Desk) --- */}
-        <motion.div 
+        <m.div 
           initial="idle"
           whileInView="scan"
           viewport={{ once: true, amount: 0.5 }}
@@ -119,7 +119,7 @@ const Feature_Group7: React.FC = () => {
         >
           
           {/* THE FORENSIC SCANNER OVERLAY */}
-          <motion.div 
+          <m.div 
             className="absolute top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#E21E3F] to-transparent z-50 opacity-0 blur-[1px] pointer-events-none"
             variants={{
               idle: { left: '0%', opacity: 0 },
@@ -130,7 +130,7 @@ const Feature_Group7: React.FC = () => {
               }
             }}
           />
-          <motion.div 
+          <m.div 
             className="absolute top-0 bottom-0 w-[60px] bg-gradient-to-r from-transparent to-[#E21E3F]/10 z-40 opacity-0 pointer-events-none"
             variants={{
               idle: { left: '-60px', opacity: 0 },
@@ -165,7 +165,7 @@ const Feature_Group7: React.FC = () => {
               <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] opacity-50" />
 
               {/* NODE A: LEGACY (Left - Validated Early) */}
-              <motion.div 
+              <m.div 
                 className="relative z-10 flex flex-col items-center gap-6"
                 variants={{
                   idle: { filter: "grayscale(100%)", opacity: 0.5, scale: 1 },
@@ -178,7 +178,7 @@ const Feature_Group7: React.FC = () => {
                 }}
               >
                   <div className="w-24 h-24 rounded-full border border-[#E21E3F]/50 flex items-center justify-center bg-[#E21E3F]/5 relative overflow-hidden">
-                      <motion.div 
+                      <m.div 
                         className="absolute inset-0 bg-[#E21E3F]/20" 
                         variants={{ idle: { opacity: 0 }, scan: { opacity: 1, transition: { delay: 0.3 } } }} 
                       />
@@ -195,11 +195,11 @@ const Feature_Group7: React.FC = () => {
                           <span>4.2s Load</span>
                       </div>
                   </div>
-              </motion.div>
+              </m.div>
 
               {/* STREAM CORD */}
               <div className="flex-grow w-full md:w-auto h-[100px] md:h-[1px] bg-white/5 relative mx-4 md:mx-12 flex items-center justify-center">
-                  <motion.div 
+                  <m.div 
                       className="absolute top-0 bottom-0 left-0 h-full bg-gradient-to-r from-transparent via-[#C5A059] to-transparent w-1/3 opacity-30"
                       animate={{ left: ['-30%', '130%'] }}
                       transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -213,7 +213,7 @@ const Feature_Group7: React.FC = () => {
               </div>
 
               {/* NODE B: AUTHORITY (Right - Validated Late) */}
-              <motion.div 
+              <m.div 
                 className="relative z-10 flex flex-col items-center gap-6"
                 variants={{
                   idle: { scale: 1, opacity: 0.5 },
@@ -224,7 +224,7 @@ const Feature_Group7: React.FC = () => {
                   }
                 }}
               >
-                  <motion.div 
+                  <m.div 
                     className="w-28 h-28 rounded-full border-2 flex items-center justify-center relative overflow-hidden"
                     variants={{
                       idle: { borderColor: '#333', backgroundColor: 'rgba(0,0,0,0)' },
@@ -236,17 +236,17 @@ const Feature_Group7: React.FC = () => {
                       }
                     }}
                   >
-                      <motion.div
+                      <m.div
                         variants={{
                           idle: { color: '#C5A059' },
                           scan: { color: '#0F766E', transition: { delay: 1.2 } }
                         }}
                       >
                         <ShieldCheck className="w-12 h-12" />
-                      </motion.div>
-                  </motion.div>
+                      </m.div>
+                  </m.div>
                   <div className="text-center">
-                      <motion.div 
+                      <m.div 
                         className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] mb-2"
                         variants={{
                           idle: { color: '#C5A059' },
@@ -254,10 +254,10 @@ const Feature_Group7: React.FC = () => {
                         }}
                       >
                         AFTER
-                      </motion.div>
+                      </m.div>
                       {/* Node B */}
                       <div className="font-serif text-white text-3xl md:text-4xl tracking-tight mb-2">group7security.com.au</div>
-                      <motion.div 
+                      <m.div 
                         className="flex items-center justify-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] text-[#0F766E] bg-[#0F766E]/10 px-3 py-1.5 rounded"
                         variants={{
                           idle: { opacity: 0 },
@@ -266,9 +266,9 @@ const Feature_Group7: React.FC = () => {
                       >
                           <Activity className="w-3 h-3" />
                           <span>0.4s Load</span>
-                      </motion.div>
+                      </m.div>
                   </div>
-              </motion.div>
+              </m.div>
 
           </div>
 
@@ -279,14 +279,14 @@ const Feature_Group7: React.FC = () => {
                </CTAButton>
           </div>
 
-        </motion.div>
+        </m.div>
 
         {/* --- THE EVIDENCE MODAL --- */}
         {isModalOpen && createPortal(
           <AnimatePresence mode="wait">
             <div key="modal" className="fixed inset-0 z-[9999] flex items-center justify-center px-4 md:px-8">
               
-              <motion.div 
+              <m.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -294,7 +294,7 @@ const Feature_Group7: React.FC = () => {
                 className="absolute inset-0 bg-black/90 backdrop-blur-md"
               />
 
-              <motion.div 
+              <m.div 
                 initial={{ scale: 0.95, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
@@ -363,7 +363,7 @@ const Feature_Group7: React.FC = () => {
                     </div>
                  </div>
 
-              </motion.div>
+              </m.div>
             </div>
           </AnimatePresence>,
           document.body

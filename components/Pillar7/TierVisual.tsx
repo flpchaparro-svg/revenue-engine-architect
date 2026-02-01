@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const TierVisual = ({ tierKey }: { tierKey: string }) => {
   return (
@@ -9,7 +9,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
         // ANIMATION: "The Pulse" - White bars on dark bg
         <div className="flex items-end gap-1 h-16 w-24">
             {[0.4, 0.7, 0.3, 0.9, 0.5, 0.8].map((h, i) => (
-                <motion.div 
+                <m.div 
                     key={i}
                     className="w-full bg-white rounded-t-sm"
                     animate={{ height: [`${h * 40}%`, `${h * 100}%`, `${h * 40}%`] }}
@@ -23,14 +23,14 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
         // ANIMATION: "The Heatmap" - White/Transparent grid
         <div className="relative w-24 h-24 grid grid-cols-4 grid-rows-4 gap-1">
              {[...Array(16)].map((_, i) => (
-                <motion.div 
+                <m.div 
                     key={i}
                     className="bg-white/10 rounded-[1px]"
                     animate={{ backgroundColor: ["rgba(255,255,255,0.1)", "rgba(255,255,255,0.6)", "rgba(255,255,255,0.1)"] }}
                     transition={{ duration: 2, delay: Math.random(), repeat: Infinity }}
                 />
              ))}
-             <motion.div 
+             <m.div 
                 className="absolute w-3 h-3 border border-white rounded-full bg-white z-10"
                 animate={{ x: [0, 60, 20, 0], y: [0, 20, 60, 0] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
@@ -43,7 +43,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
         <div className="relative w-32 h-16">
             <svg className="w-full h-full overflow-visible">
                 {/* Historical Data (Solid) */}
-                <motion.path
+                <m.path
                     d="M 0 60 L 40 40 L 70 50"
                     fill="none"
                     stroke="#FFFFFF"
@@ -53,7 +53,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
                     transition={{ duration: 1 }}
                 />
                 {/* Prediction (Dashed) */}
-                <motion.path
+                <m.path
                     d="M 70 50 L 100 20 L 130 10"
                     fill="none"
                     stroke="#FFFFFF"
@@ -78,17 +78,17 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
             
             {/* Connections */}
             {[0, 90, 180, 270].map((deg, i) => (
-                <motion.div 
+                <m.div 
                     key={i}
                     className="absolute w-12 h-[1px] bg-white/40 origin-left left-1/2 top-1/2"
                     style={{ rotate: deg }}
                 >
-                    <motion.div 
+                    <m.div 
                         className="w-2 h-2 bg-white rounded-full absolute right-0 -top-1"
                         animate={{ scale: [1, 1.5, 1] }}
                         transition={{ duration: 2, delay: i * 0.5, repeat: Infinity }}
                     />
-                </motion.div>
+                </m.div>
             ))}
         </div>
       )}

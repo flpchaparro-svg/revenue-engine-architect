@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Check, ChevronDown } from 'lucide-react';
 
 // COMPONENTS
@@ -61,7 +61,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
       <div className="w-full lg:w-7/12 min-h-screen bg-[#1a1a1a] text-[#FFF2EC] p-6 md:p-12 lg:p-24 flex flex-col justify-center relative">
         
         {status !== 'success' ? (
-          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-xl w-full mx-auto lg:mx-0">
+          <m.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-xl w-full mx-auto lg:mx-0">
             
             <div className="mb-12 border-b border-white/10 pb-8 mt-8 lg:mt-0">
               <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#8B6914] mb-6 block">
@@ -119,9 +119,9 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                 </CTAButton>
               </div>
             </form>
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-md mt-10 md:mt-20">
+          <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-md mt-10 md:mt-20">
              <div className="w-24 h-24 bg-[#C5A059] rounded-full flex items-center justify-center mb-8 shadow-2xl shadow-[#C5A059]/30">
                <Check className="w-12 h-12 text-[#1a1a1a]" />
              </div>
@@ -137,7 +137,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                    BACK TO HOME
                 </CTAButton>
              </div>
-          </motion.div>
+          </m.div>
         )}
       </div>
     </div>

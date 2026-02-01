@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { XCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 // FIX 1: Import Type only (saves bundle size)
 import type { GraphState } from '../GrowthGraph';
 import CTAButton from '../CTAButton';
@@ -74,7 +74,7 @@ const ProblemSection: React.FC = () => {
   };
 
   return (
-    <motion.section 
+    <m.section 
       id="problem" 
       aria-label="Problem Section" 
       initial={{ opacity: 0 }} 
@@ -159,7 +159,7 @@ const ProblemSection: React.FC = () => {
           </div>
         </div>
       </div>
-    </motion.section>
+    </m.section>
   );
 };
 

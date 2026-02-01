@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence, useAnimationFrame } from 'framer-motion';
+import { m, AnimatePresence, useAnimationFrame } from 'framer-motion';
 
 const PHI = (1 + Math.sqrt(5)) / 2;
 
@@ -85,7 +85,7 @@ const ProtocolVisual_Geodesic: React.FC = () => {
 
             return (
               <React.Fragment key={i}>
-                <motion.path
+                <m.path
                   d={pathData}
                   initial={false}
                   animate={{ 
@@ -105,7 +105,7 @@ const ProtocolVisual_Geodesic: React.FC = () => {
                 {/* SOPHISTICATED TARGET LOCK UI */}
                 <AnimatePresence>
                   {isHovered && (
-                    <motion.g
+                    <m.g
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
@@ -117,15 +117,15 @@ const ProtocolVisual_Geodesic: React.FC = () => {
                       <circle cx={cx} cy={cy} r="4" stroke="#E21E3F" strokeWidth="0.5" fill="none" opacity="0.6" />
                       
                       {/* Triangulation Lines (Connecting center to vertices) */}
-                      <motion.line x1={cx} y1={cy} x2={p1.x} y2={p1.y} stroke="#E21E3F" strokeWidth="0.5" opacity="0.4" />
-                      <motion.line x1={cx} y1={cy} x2={p2.x} y2={p2.y} stroke="#E21E3F" strokeWidth="0.5" opacity="0.4" />
-                      <motion.line x1={cx} y1={cy} x2={p3.x} y2={p3.y} stroke="#E21E3F" strokeWidth="0.5" opacity="0.4" />
+                      <m.line x1={cx} y1={cy} x2={p1.x} y2={p1.y} stroke="#E21E3F" strokeWidth="0.5" opacity="0.4" />
+                      <m.line x1={cx} y1={cy} x2={p2.x} y2={p2.y} stroke="#E21E3F" strokeWidth="0.5" opacity="0.4" />
+                      <m.line x1={cx} y1={cy} x2={p3.x} y2={p3.y} stroke="#E21E3F" strokeWidth="0.5" opacity="0.4" />
                       
                       {/* Vertex Markers */}
                       <circle cx={p1.x} cy={p1.y} r="1" fill="#E21E3F" opacity="0.5" />
                       <circle cx={p2.x} cy={p2.y} r="1" fill="#E21E3F" opacity="0.5" />
                       <circle cx={p3.x} cy={p3.y} r="1" fill="#E21E3F" opacity="0.5" />
-                    </motion.g>
+                    </m.g>
                   )}
                 </AnimatePresence>
               </React.Fragment>

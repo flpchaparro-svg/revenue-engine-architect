@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, Database, Zap, Activity, CheckCircle2, X, Terminal } from 'lucide-react';
 import EvidenceVisual_Compare from '../components/EvidenceVisual_Compare';
 import CTAButton from '../components/CTAButton'; 
@@ -40,7 +40,7 @@ const TerminalLog: React.FC = () => {
       </div>
       <div className="space-y-3">
         {lines.map((line, i) => (
-          <motion.div 
+          <m.div 
             key={i}
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
@@ -48,9 +48,9 @@ const TerminalLog: React.FC = () => {
           >
             <span className="text-[#0F766E] mr-3">➜</span>
             {line}
-          </motion.div>
+          </m.div>
         ))}
-        <motion.div 
+        <m.div 
           animate={{ opacity: [0, 1] }} 
           transition={{ repeat: Infinity, duration: 0.8 }}
           className="w-2 h-4 bg-[#C5A059] inline-block align-middle ml-2"
@@ -127,7 +127,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
   };
 
   return (
-    <motion.div 
+    <m.div 
       initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }} 
       exit={{ opacity: 0 }}
@@ -158,7 +158,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
 
         {/* HERO SECTION */}
         <section className="mb-40">
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
+          <m.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
             <span className="font-mono text-xs text-[#B91C36] tracking-[0.4em] mb-6 block uppercase">/ Verification_Repository</span>
             <h1 className="font-serif text-6xl md:text-8xl lg:text-[8.5rem] leading-[0.9] tracking-tighter mb-10">
               The Forensic <br />
@@ -168,7 +168,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
             <p className="font-sans text-xl md:text-2xl font-light text-[#1a1a1a]/70 max-w-3xl leading-relaxed border-l border-black/20 pl-8">
               We don’t sell promises. We sell verified architectural outcomes. This is the evidence of systems that scale without headcount.
             </p>
-          </motion.div>
+          </m.div>
         </section>
 
         {/* PHILOSOPHY BLOCK */}
@@ -200,7 +200,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
             <span className="font-mono text-[10px] text-black/60 tracking-[0.2em] uppercase mb-2">DEPLOYMENT LOG ARCHIVE</span>
           </div>
 
-          <motion.div 
+          <m.div 
             variants={containerVariants}
             initial="hidden"
             whileInView="show"
@@ -208,7 +208,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 bg-black/5 border border-black/5"
           >
             {caseAudits.map((audit) => (
-              <motion.div 
+              <m.div 
                 key={audit.id}
                 variants={itemVariants as any}
                 onClick={() => setIsModalOpen(true)}
@@ -239,9 +239,9 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                      ))}
                    </ul>
                 </div>
-              </motion.div>
+              </m.div>
             ))}
-          </motion.div>
+          </m.div>
         </section>
 
         {/* VERIFIED PARTNERS */}
@@ -279,7 +279,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
         <AnimatePresence mode="wait">
           <div key="modal" className="fixed inset-0 z-[9999] flex items-center justify-center px-4 md:px-8">
             
-            <motion.div 
+            <m.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -287,7 +287,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
               className="absolute inset-0 bg-black/90 backdrop-blur-md"
             />
 
-            <motion.div 
+            <m.div 
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
@@ -351,13 +351,13 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                   </div>
                </div>
 
-            </motion.div>
+            </m.div>
           </div>
         </AnimatePresence>,
         document.body
       )}
 
-    </motion.div>
+    </m.div>
   );
 };
 

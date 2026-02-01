@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Users, RefreshCw } from 'lucide-react';
 
 const TierVisual = ({ tierKey }: { tierKey: string }) => {
@@ -11,7 +11,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
         <div className="relative flex flex-col items-center">
             {/* Particles falling in */}
             {[...Array(6)].map((_, i) => (
-                <motion.div 
+                <m.div 
                     key={i}
                     className="absolute w-1.5 h-1.5 bg-[#E21E3F] rounded-full"
                     initial={{ y: -40, x: (Math.random() - 0.5) * 40, opacity: 0 }}
@@ -32,13 +32,13 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
                 <Users className="w-4 h-4 text-[#B91C36]" />
              </div>
              {/* Tag appearing */}
-             <motion.div 
+             <m.div 
                animate={{ x: [ -10, 0 ], opacity: [0, 1] }}
                transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
                className="px-2 py-1 bg-[#E21E3F] text-[8px] font-mono text-[#1a1a1a] font-bold rounded-sm"
              >
                 TAG: VIP
-             </motion.div>
+             </m.div>
         </div>
       )}
 
@@ -47,7 +47,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
         <div className="flex gap-2 items-center">
             <div className="w-8 h-12 border border-[#E21E3F]/20 rounded-sm" />
             <div className="w-8 h-12 border border-[#E21E3F]/40 rounded-sm flex items-center justify-center">
-                <motion.div 
+                <m.div 
                     className="w-4 h-4 bg-[#E21E3F] rounded-sm"
                     animate={{ x: [ -40, 0, 40 ], opacity: [0, 1, 0] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
@@ -60,7 +60,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
       {tierKey === 'revops' && (
         // ANIMATION: "The Sync"
         <div className="relative w-16 h-16">
-            <motion.div 
+            <m.div 
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
               className="absolute inset-0 border-2 border-[#E21E3F]/30 rounded-full border-t-[#E21E3F]"

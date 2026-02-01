@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { 
   ShieldCheck, ArrowRight, Clock, LayoutTemplate 
 } from 'lucide-react';
@@ -22,7 +22,7 @@ interface ProofPageProps {
 
 // Reusable Animation Wrapper
 const Section: React.FC<{ children: React.ReactNode, className?: string, delay?: number }> = ({ children, className = "", delay = 0 }) => (
-  <motion.div 
+  <m.div 
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-50px" }}
@@ -30,14 +30,14 @@ const Section: React.FC<{ children: React.ReactNode, className?: string, delay?:
     className={className}
   >
     {children}
-  </motion.div>
+  </m.div>
 );
 
 const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
   usePageTitle('Results You Can Verify');
   
   return (
-    <motion.div 
+    <m.div 
       initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }} 
       exit={{ opacity: 0 }}
@@ -310,7 +310,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         </Section>
 
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

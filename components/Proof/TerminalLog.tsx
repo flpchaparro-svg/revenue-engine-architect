@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 import { Terminal } from 'lucide-react';
 import { TERMINAL_LINES } from '../../constants/proofData';
 
@@ -31,7 +31,7 @@ const TerminalLog: React.FC = () => {
       <div className="p-6 font-mono text-xs md:text-sm h-[320px] overflow-y-auto custom-scrollbar bg-[#0d0d0d]">
         <div className="space-y-3">
           {lines.map((line, i) => (
-            <motion.div 
+            <m.div 
               key={i}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -39,9 +39,9 @@ const TerminalLog: React.FC = () => {
             >
               <span className="text-[#8B6914] mr-3">$</span>
               {line}
-            </motion.div>
+            </m.div>
           ))}
-          <motion.div 
+          <m.div 
             animate={{ opacity: [0, 1] }} 
             transition={{ repeat: Infinity, duration: 0.8 }}
             className="w-2 h-4 bg-[#C5A059] inline-block align-middle ml-2"

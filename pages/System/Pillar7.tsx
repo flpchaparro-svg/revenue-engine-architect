@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  motion, 
+  m, 
   AnimatePresence, 
   useAnimationFrame,
   useMotionValue,
@@ -59,7 +59,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   };
 
   return (
-    <motion.div 
+    <m.div 
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] px-0 relative z-[150] overflow-x-hidden flex flex-col font-sans"
     >
@@ -102,7 +102,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
         {/* SCROLL LINE */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-30" aria-hidden="true">
-          <motion.div 
+          <m.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
             className="absolute inset-0 bg-[#1a1a1a]/40 w-full h-full" 
           />
@@ -146,7 +146,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                   <span className={`font-serif text-lg leading-tight ${activeTier === key ? 'text-black' : 'text-inherit opacity-60'}`}>
                     "{tier.hook}"
                   </span>
-                  {activeTier === key && <motion.div layoutId="tab-highlight" className="absolute top-0 left-0 w-full h-1 bg-[#1a1a1a]" />}
+                  {activeTier === key && <m.div layoutId="tab-highlight" className="absolute top-0 left-0 w-full h-1 bg-[#1a1a1a]" />}
                 </button>
               ))}
            </div>
@@ -205,7 +205,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
               {/* RIGHT: Solution */}
               <div className="w-2/3 p-12 relative flex flex-col">
                   <AnimatePresence mode="wait">
-                    <motion.div 
+                    <m.div 
                        key={`${activeTier}-${activePersonaIndex}`}
                        initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}
                        className="flex-grow flex flex-col"
@@ -235,7 +235,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                              </div>
                           </div>
                        </div>
-                    </motion.div>
+                    </m.div>
                   </AnimatePresence>
               </div>
            </div>
@@ -276,7 +276,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                 {/* LEVEL 1 CONTENT */}
                 <AnimatePresence>
                   {isTierExpanded && (
-                    <motion.div 
+                    <m.div 
                       initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }}
                       className="overflow-hidden bg-[#FAFAFA]"
                     >
@@ -324,7 +324,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                {/* LEVEL 2 CONTENT */}
                                <AnimatePresence>
                                  {isPersonaExpanded && (
-                                   <motion.div
+                                   <m.div
                                      initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }}
                                      className="border-t border-[#1a1a1a]/20 bg-white"
                                    >
@@ -369,14 +369,14 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                             </ul>
                                          </div>
                                       </div>
-                                   </motion.div>
+                                   </m.div>
                                  )}
                                </AnimatePresence>
                              </div>
                            )
                          })}
                       </div>
-                    </motion.div>
+                    </m.div>
                   )}
                 </AnimatePresence>
               </div>
@@ -394,7 +394,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         subtitle="Common questions about dashboards and reporting."
         onNavigate={onNavigate}
       />
-    </motion.div>
+    </m.div>
   );
 };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const TierVisual = ({ tierKey }: { tierKey: string }) => {
   return (
@@ -9,7 +9,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
         // ANIMATION: "The Audio Wave"
         <div className="flex items-center gap-1 h-12">
             {[1, 2, 4, 3, 5, 4, 2, 1, 3, 5, 2].map((h, i) => (
-                <motion.div 
+                <m.div 
                     key={i}
                     className="w-1.5 bg-[#C5A059] rounded-full"
                     animate={{ height: [10, h * 8, 10] }}
@@ -24,7 +24,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
         <div className="relative w-20 h-20 border-2 border-[#C5A059] p-1 flex flex-wrap gap-1 content-start rounded-sm">
              {/* QR Dots */}
              {[...Array(16)].map((_, i) => (
-                <motion.div 
+                <m.div 
                     key={i}
                     className="w-3.5 h-3.5 bg-[#C5A059]/20 rounded-[1px]"
                     animate={{ opacity: [0.2, 1, 0.2] }}
@@ -32,7 +32,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
                 />
              ))}
              {/* Scanning Line */}
-             <motion.div 
+             <m.div 
                animate={{ top: ['0%', '100%', '0%'] }}
                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                className="absolute left-0 w-full h-[2px] bg-[#C5A059] shadow-[0_0_10px_#C5A059]"
@@ -54,7 +54,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
             <div className="absolute w-[1px] h-4 bg-[#C5A059]/40 top-16 right-[calc(50%-32px)]" />
             
             {/* Bottom Nodes */}
-            <motion.div 
+            <m.div 
                animate={{ scale: [1, 1.2, 1] }}
                transition={{ duration: 2, repeat: Infinity }}
                className="w-4 h-4 bg-[#C5A059] absolute top-[72px] left-[calc(50%-40px)] rounded-sm" 
@@ -66,19 +66,19 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
       {tierKey === 'analyst' && (
         // ANIMATION: "The Knowledge Node"
         <div className="relative w-full h-full flex items-center justify-center">
-            <motion.div 
+            <m.div 
                 className="w-10 h-10 bg-[#1a1a1a] border border-[#C5A059] rounded-full z-10 flex items-center justify-center"
                 animate={{ scale: [1, 1.1, 1] }}
                 transition={{ duration: 3, repeat: Infinity }}
             >
                 <div className="w-3 h-3 bg-[#C5A059] rounded-full shadow-[0_0_15px_#C5A059]" />
-            </motion.div>
-            <motion.div 
+            </m.div>
+            <m.div 
                 className="absolute w-20 h-20 border border-[#C5A059]/20 rounded-full border-dashed"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
             />
-             <motion.div 
+             <m.div 
                 className="absolute w-28 h-28 border border-[#C5A059]/10 rounded-full"
                 animate={{ scale: [0.9, 1.1, 0.9], opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 3, repeat: Infinity }}

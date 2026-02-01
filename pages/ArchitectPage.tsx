@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Terminal, Fingerprint } from 'lucide-react';
 
 // COMPONENTS
@@ -18,7 +18,7 @@ interface ArchitectPageProps {
 
 // Reusable Animation Wrapper
 const Section: React.FC<{ children: React.ReactNode, className?: string, delay?: number }> = ({ children, className = "", delay = 0 }) => (
-  <motion.div 
+  <m.div 
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-50px" }}
@@ -26,7 +26,7 @@ const Section: React.FC<{ children: React.ReactNode, className?: string, delay?:
     className={className}
   >
     {children}
-  </motion.div>
+  </m.div>
 );
 
 const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => {
@@ -52,7 +52,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
   };
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] relative z-[150] flex flex-col selection:bg-[#C5A059]/30">
+    <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] relative z-[150] flex flex-col selection:bg-[#C5A059]/30">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow relative z-10">
         
         <div className="flex justify-between items-center mb-12 md:mb-20 pt-24 relative z-[200]">
@@ -86,13 +86,13 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
            </div>
 
            <AnimatePresence mode="wait">
-             <motion.h1
+             <m.h1
                key={mode}
                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] max-w-5xl mb-6 md:mb-10 mx-auto lg:mx-0"
              >
                {current.headline}
-             </motion.h1>
+             </m.h1>
            </AnimatePresence>
         </Section>
         
@@ -100,7 +100,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
            <div className="lg:col-span-5 relative order-2 lg:order-1">
               <div className="sticky top-32">
                 <AnimatePresence mode="wait">
-                  <motion.div key={mode} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="relative w-full max-w-[400px] mx-auto lg:max-w-none">
+                  <m.div key={mode} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="relative w-full max-w-[400px] mx-auto lg:max-w-none">
                     <div className={`aspect-[9/16] relative overflow-hidden transition-all duration-500 shadow-2xl ${
                         mode === 'architect' ? 'rounded-sm border-2 border-[#1a1a1a]' : 'rounded-t-full border-4 border-[#C5A059]/20'
                     }`}>
@@ -132,14 +132,14 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                       {mode === 'architect' && <VideoHUD />}
 
                     </div>
-                  </motion.div>
+                  </m.div>
                 </AnimatePresence>
               </div>
            </div>
 
            <div className="lg:col-span-7 order-1 lg:order-2">
               <AnimatePresence mode="wait">
-                <motion.div key={mode} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-16">
+                <m.div key={mode} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-16">
                   <Section>
                     <p className={`font-sans text-lg md:text-xl font-light leading-relaxed border-l-2 pl-6 mb-8 ${mode === 'architect' ? 'border-[#E21E3F]' : 'border-[#C5A059]'}`}>
                       {current.subhead}
@@ -172,7 +172,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                       </div>
                     </Section>
                   )}
-                </motion.div>
+                </m.div>
               </AnimatePresence>
            </div>
         </div>
@@ -187,7 +187,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
            </CTAButton>
         </Section>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

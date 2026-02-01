@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import BackButton from '../components/BackButton';
 import GlobalFooter from '../components/GlobalFooter';
 
@@ -10,7 +10,7 @@ interface PrivacyPolicyPageProps {
 
 const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onBack, onNavigate }) => {
   return (
-    <motion.div 
+    <m.div 
       initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }} 
       exit={{ opacity: 0 }}
@@ -77,7 +77,7 @@ const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onBack, onNavigat
       </div>
 
       <GlobalFooter onNavigate={onNavigate} />
-    </motion.div>
+    </m.div>
   );
 };
 

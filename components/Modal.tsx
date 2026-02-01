@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { X, ArrowRight } from 'lucide-react';
 import { ServiceDetail } from '../types';
 import ViewportViz from './ViewportViz';
@@ -74,7 +74,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
       {isOpen && (
         <>
           {/* OVERLAY: Fixed to viewport, z-index 9999 to beat parallax */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -83,7 +83,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
           />
           
           {/* MODAL CONTAINER: z-index 10000 */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.98, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.98, y: 20 }}
@@ -184,7 +184,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
 
               </div>
             </div>
-          </motion.div>
+          </m.div>
         </>
       )}
     </AnimatePresence>

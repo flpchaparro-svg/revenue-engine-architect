@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Users } from 'lucide-react';
 
 const TierVisual = ({ tierKey }: { tierKey: string }) => {
@@ -12,7 +12,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
             {/* Incoming Stream */}
             <div className="relative h-12 w-24 overflow-hidden mb-2">
                 {[...Array(6)].map((_, i) => (
-                   <motion.div
+                   <m.div
                      key={i}
                      initial={{ y: -20, opacity: 0 }}
                      animate={{ y: 40, opacity: [0, 1, 0] }}
@@ -28,7 +28,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
             
             {/* Outgoing Stream (Pure Gold) */}
             <div className="relative h-12 w-24 overflow-hidden mt-2">
-                 <motion.div
+                 <m.div
                      animate={{ y: [0, 30], opacity: [1, 0] }}
                      transition={{ duration: 1.5, repeat: Infinity }}
                      className="absolute left-1/2 -translate-x-1/2 w-2 h-2 bg-[#C5A059] rounded-full"
@@ -44,13 +44,13 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
                 <div key={i} className="w-full h-full bg-[#C5A059]/10 rounded-[1px]" />
              ))}
              {/* The Scanning Beam */}
-             <motion.div 
+             <m.div 
                animate={{ left: ["0%", "100%", "0%"] }}
                transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                className="absolute top-0 bottom-0 w-4 bg-gradient-to-r from-transparent via-[#C5A059]/50 to-transparent"
              />
              {/* The "Found" Answer */}
-             <motion.div 
+             <m.div 
                animate={{ opacity: [0, 1, 0] }}
                transition={{ duration: 2, repeat: Infinity }}
                className="absolute top-1/2 left-1/2 w-4 h-4 bg-[#C5A059] -translate-x-1/2 -translate-y-1/2 shadow-[0_0_15px_#C5A059]"
@@ -62,7 +62,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
         // ANIMATION: "The Waveform"
         <div className="flex gap-1 items-center h-16">
             {[...Array(5)].map((_, i) => (
-                <motion.div 
+                <m.div 
                    key={i}
                    animate={{ height: [10, 40, 10] }}
                    transition={{ 
@@ -84,13 +84,13 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
             <div className="absolute w-3 h-3 bg-[#C5A059] rounded-sm z-10" />
             
             {/* Rotating Shield 1 */}
-            <motion.div 
+            <m.div 
                animate={{ rotate: 360 }}
                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                className="absolute w-12 h-12 border-2 border-[#C5A059]/40 rounded-sm"
             />
              {/* Rotating Shield 2 */}
-             <motion.div 
+             <m.div 
                animate={{ rotate: -360 }}
                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
                className="absolute w-16 h-16 border border-[#C5A059]/20 rounded-full border-t-[#C5A059]"

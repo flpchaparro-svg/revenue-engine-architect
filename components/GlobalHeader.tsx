@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, Target, Zap, BarChart3 } from 'lucide-react';
 import CTAButton from './CTAButton';
 
@@ -64,7 +64,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
       ======================== */}
       <AnimatePresence>
         {!scrolled && (
-          <motion.nav 
+          <m.nav 
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -100, opacity: 0 }}
@@ -127,7 +127,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                      }}
                    >
                      {isHovered && (
-                       <motion.div 
+                       <m.div 
                          layoutId="nav-bg"
                          className="absolute inset-0 bg-[#1a1a1a]/5 rounded-sm z-0"
                          transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
@@ -149,7 +149,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                      {item.hasDropdown && (
                         <AnimatePresence>
                           {isArchHovered && (
-                            <motion.div 
+                            <m.div 
                               initial={{ opacity: 0, y: 10, clipPath: 'inset(0% 0% 100% 0%)' }}
                               animate={{ opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)' }}
                               exit={{ opacity: 0, y: 10, clipPath: 'inset(0% 0% 100% 0%)' }}
@@ -175,7 +175,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                                   </div>
                                 </div>
                               ))}
-                            </motion.div>
+                            </m.div>
                           )}
                         </AnimatePresence>
                      )}
@@ -194,7 +194,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                  [ TALK ]
                </CTAButton>
             </div>
-          </motion.nav>
+          </m.nav>
         )}
       </AnimatePresence>
 
@@ -203,7 +203,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
       ======================== */}
       <AnimatePresence>
         {scrolled && (
-          <motion.div 
+          <m.div 
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             exit={{ x: 100, opacity: 0 }}
@@ -253,7 +253,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                    [ TALK ]
                 </span>
              </button>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
@@ -281,7 +281,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
       {/* MOBILE FULLSCREEN MENU */}
       <AnimatePresence>
         {isMenuOpen && (
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, x: '100%' }} 
             animate={{ opacity: 1, x: '0%' }} 
             exit={{ opacity: 0, x: '100%' }}
@@ -334,7 +334,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                    {item.hasDropdown && (
                      <AnimatePresence>
                        {isMobileSystemOpen && (
-                         <motion.div
+                         <m.div
                            initial={{ height: 0, opacity: 0 }}
                            animate={{ height: 'auto', opacity: 1 }}
                            exit={{ height: 0, opacity: 0 }}
@@ -360,7 +360,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                                </div>
                              ))}
                            </div>
-                         </motion.div>
+                         </m.div>
                        )}
                      </AnimatePresence>
                    )}
@@ -387,7 +387,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                  </div>
                </div>
              </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

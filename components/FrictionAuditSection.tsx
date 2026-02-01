@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import CTAButton from './CTAButton';
 
 // --- DATA ---
@@ -54,12 +54,12 @@ const AuditCubeVisual: React.FC<AuditCubeVisualProps> = ({ scrollYProgress }) =>
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 720]);
   return (
     <div className="relative w-24 h-24 md:w-32 md:h-32 mb-10 border-2 border-[#1a1a1a] bg-transparent">
-      <motion.div 
+      <m.div 
         className="absolute inset-0 border-2 border-[#1a1a1a] bg-transparent"
         style={{ rotate, willChange: "transform" }}
       >
          <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-[#1a1a1a] -translate-x-1/2 -translate-y-1/2" />
-      </motion.div>
+      </m.div>
       <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 pointer-events-none">
         <div className="border-r border-b border-[#1a1a1a]/10"></div>
         <div className="border-b border-[#1a1a1a]/10"></div>
@@ -91,7 +91,7 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
   const pointerEvents = useTransform(opacity, v => v > 0.5 ? 'auto' : 'none');
 
   return (
-    <motion.div
+    <m.div
       style={{ opacity, rotateX, scale, y, zIndex, pointerEvents, transformStyle: "preserve-3d", backfaceVisibility: "hidden", willChange: "transform, opacity" }}
       className="absolute inset-0 w-full h-full flex flex-col justify-center bg-[#FFF2EC] origin-center"
     >
@@ -135,7 +135,7 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
            </div>
         )}
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 
@@ -184,15 +184,15 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                  {/* Type B: Card Tag - text-[10px], font-bold, tracking-[0.2em] */}
                  <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 uppercase tracking-[0.2em] mb-4">AUDIT PROGRESS</div>
                  <div className="w-full h-1 bg-[#1a1a1a]/10 relative overflow-hidden">
-                    <motion.div 
+                    <m.div 
                        className="h-full bg-[#E21E3F]" 
                        style={{ scaleX: scrollYProgress, transformOrigin: 'left' }}
                     />
                  </div>
                  <div className="mt-3 text-right font-mono text-xs font-bold text-[#1a1a1a]">
-                    <motion.span>
+                    <m.span>
                        {useTransform(scrollYProgress, v => `${Math.min(100, Math.round(v * 100))}%`)}
-                    </motion.span>
+                    </m.span>
                  </div>
               </div>
            </div>

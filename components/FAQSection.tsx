@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Cpu, Plus, Minus } from 'lucide-react';
 import { FAQ } from '../constants/faqData';
 import CTAButton from './CTAButton';
@@ -175,7 +175,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                     <div className="lg:hidden">
                       <AnimatePresence>
                         {isActive && (
-                          <motion.div
+                          <m.div
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
@@ -186,7 +186,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                                   {formatFAQAnswer(faq.answer, accentColor)}
                                 </div>
                              </div>
-                          </motion.div>
+                          </m.div>
                         )}
                       </AnimatePresence>
                     </div>
@@ -199,7 +199,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
             <div className="hidden lg:flex lg:col-span-7 bg-[#1a1a1a] text-[#FFF2EC] p-16 flex-col justify-center relative border-b border-black/10">
               <AnimatePresence mode="wait">
                 {activeIndex !== null ? (
-                  <motion.div
+                  <m.div
                     key={activeIndex}
                     initial={{ opacity: 0, x: 10 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -222,7 +222,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                     <div className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#FFF2EC]/70 border-l pl-6 space-y-4" style={{ borderColor: accentColor }}>
                       {formatFAQAnswer(faqs[activeIndex].answer, accentColor)}
                     </div>
-                  </motion.div>
+                  </m.div>
                 ) : (
                    <div className="flex items-center justify-center h-full opacity-30 font-mono text-xs font-bold uppercase tracking-[0.2em]">
                       [ SELECT A QUESTION ]

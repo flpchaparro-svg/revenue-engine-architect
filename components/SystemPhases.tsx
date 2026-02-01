@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { ArrowDownRight } from 'lucide-react';
 import { SERVICES } from '../constants';
 import { ServiceDetail } from '../types';
@@ -183,7 +183,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
         </div>
 
         {/* DESKTOP TIMELINE */}
-        <header className="hidden lg:flex justify-center mb-10 pt-6">
+        <nav className="hidden lg:flex justify-center mb-10 pt-6" aria-label="System phases">
            <div className="flex gap-0 bg-white border border-[#1a1a1a]/10 p-1 shadow-sm">
               {PHASES.map((phase, idx) => {
                 const isActive = idx === activeIndex;
@@ -224,7 +224,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         </span>
                       </span>
                       {isActive && (
-                        <motion.div 
+                        <m.div 
                           layoutId="phase-indicator"
                           className="absolute bottom-0 left-0 right-0 h-[2px]"
                           style={{ backgroundColor: phase.accent }}
@@ -234,7 +234,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                 );
               })}
            </div>
-        </header>
+        </nav>
 
         {/* DASHBOARD AREA */}
         <main className="flex-1 px-6 lg:px-12 pb-24 w-full max-w-screen-2xl mx-auto z-10">
@@ -288,7 +288,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                   };
                               
                               return (
-                                <motion.div
+                                <m.div
                                     key={displayData?.id}
                                     variants={textVariants}
                                     initial="hidden"
@@ -313,7 +313,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                     <p className={`font-sans text-lg font-light leading-relaxed ${isBlueprint ? 'text-white/70' : 'text-[#1a1a1a]/70'}`}>
                                         {displayData?.description}
                                     </p>
-                                </motion.div>
+                                </m.div>
                               );
                             })()}
                         </AnimatePresence>
@@ -354,7 +354,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
               </div>
 
               {/* RIGHT GRID - SERVICE LIST */}
-              <motion.div 
+              <m.div 
                 key={activePhase.id} 
                 variants={containerVariants}
                 initial="hidden"
@@ -366,7 +366,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                   const isActive = displayService?.id === service.id;
 
                   return (
-                    <motion.div
+                    <m.div
                       key={service.id}
                       variants={cardVariants}
                       onMouseEnter={() => setActiveService(service)}
@@ -445,7 +445,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                             </CTAButton>
                          </div>
                       </div>
-                    </motion.div>
+                    </m.div>
                   );
                 })}
 
@@ -460,7 +460,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                     technicalLabel: systemCardData.label,
                   };
                   return (
-                    <motion.div 
+                    <m.div 
                       variants={cardVariants}
                       onMouseEnter={() => setActiveService(systemCardService as any)}
                       onClick={() => handleCardClick(systemCardService as any)}
@@ -504,10 +504,10 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                           </CTAButton>
                         </div>
                       </div>
-                    </motion.div>
+                    </m.div>
                   );
                 })()}
-              </motion.div>
+              </m.div>
             </div>
         </main>
       </div>

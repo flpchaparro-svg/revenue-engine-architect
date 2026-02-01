@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const TierVisual = ({ tierKey }: { tierKey: string }) => {
   return (
@@ -15,7 +15,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
             
             {/* The Transfer */}
             <div className="w-12 h-[1px] bg-[#C5A059]/30 overflow-hidden relative">
-               <motion.div 
+               <m.div 
                  animate={{ x: [-48, 48] }}
                  transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
                  className="absolute top-0 bottom-0 w-1/3 bg-[#C5A059]"
@@ -23,13 +23,13 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
             </div>
 
             {/* The Clone (Digital) */}
-            <motion.div 
+            <m.div 
                animate={{ opacity: [0.5, 1, 0.5] }}
                transition={{ duration: 2, repeat: Infinity }}
                className="w-8 h-8 border border-[#C5A059] border-dashed rounded-full flex items-center justify-center bg-[#1a1a1a] z-10"
             >
                <div className="w-2 h-2 bg-[#C5A059] rounded-full" />
-            </motion.div>
+            </m.div>
         </div>
       )}
 
@@ -41,7 +41,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
              
              {/* Satellite Nodes */}
              {[0, 60, 120, 180, 240, 300].map((deg, i) => (
-                <motion.div
+                <m.div
                   key={i}
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -51,7 +51,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
                 >
                    <div className="w-[1px] h-8 bg-[#C5A059]/30 absolute top-1/2 left-1/2 origin-top -translate-x-1/2" />
                    <div className="w-1.5 h-1.5 border border-[#C5A059] rounded-full absolute top-[85%] bg-[#1a1a1a]" />
-                </motion.div>
+                </m.div>
              ))}
         </div>
       )}
@@ -62,7 +62,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
             <div className="w-2 h-2 bg-[#C5A059] rounded-sm z-10" />
             
             {[0, 1, 2].map((i) => (
-                <motion.div 
+                <m.div 
                    key={i}
                    initial={{ width: 10, height: 10, opacity: 1 }}
                    animate={{ width: 80, height: 80, opacity: 0 }}
@@ -76,7 +76,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
       {tierKey === 'terminal' && (
         // ANIMATION: "The Launch"
         <div className="relative h-20 w-12 border-x border-[#C5A059]/20 flex justify-center overflow-hidden">
-            <motion.div 
+            <m.div 
                animate={{ y: [-80, 80] }}
                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                className="w-1 h-8 bg-[#C5A059]"

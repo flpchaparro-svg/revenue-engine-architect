@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { m, useScroll, useTransform } from 'framer-motion';
 import VisualGetClientsEngine from './Visual_GetClients_Engine';
 import VisualScaleFasterEngine from './Visual_ScaleFaster_Engine';
 import VisualSeeClearlyEngine from './Visual_SeeClearly_Engine'; // <--- IMPORT
@@ -60,7 +60,7 @@ const NarrativeSection: React.FC<NarrativeSectionProps> = ({
 
         {/* Visual Column */}
         <div className={`${isRight ? 'md:col-start-1 md:order-1 justify-end' : 'md:col-start-2 md:order-2 justify-start'} flex`}>
-          <motion.div 
+          <m.div 
             style={{ y }}
             className="w-full aspect-video max-w-[600px] shadow-2xl relative z-10 bg-[#FFF2EC]"
           >
@@ -71,7 +71,7 @@ const NarrativeSection: React.FC<NarrativeSectionProps> = ({
              ) : (
                 <PlaceholderVisual color={color} label={`Visual for ${title}`} />
              )}
-          </motion.div>
+          </m.div>
         </div>
 
       </div>

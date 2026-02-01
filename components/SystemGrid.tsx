@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import GridItem from './SystemGridItem';
 import { getAllPillars } from '../constants/systemPillars';
 
@@ -82,7 +82,7 @@ const SystemGrid: React.FC<SystemGridProps> = ({ onNavigate }) => {
       </div>
 
       {/* GRID */}
-      <motion.div 
+      <m.div 
         ref={gridSectionRef}
         layout
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t border-l border-[#1a1a1a]/20 bg-[#1a1a1a]/10"
@@ -92,7 +92,7 @@ const SystemGrid: React.FC<SystemGridProps> = ({ onNavigate }) => {
           const gridClasses = getGridClasses(pillar.id, selectedPillarId);
           
           return (
-            <motion.div 
+            <m.div 
               layout
               key={pillar.id}
               className={`relative col-span-1 ${gridClasses}`}
@@ -108,10 +108,10 @@ const SystemGrid: React.FC<SystemGridProps> = ({ onNavigate }) => {
                 }}
                 onNavigate={onNavigate}
               />
-            </motion.div>
+            </m.div>
           );
         })}
-      </motion.div>
+      </m.div>
 
     </div>
   );
