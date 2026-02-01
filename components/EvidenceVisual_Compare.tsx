@@ -61,6 +61,8 @@ const EvidenceVisual_Compare: React.FC<EvidenceVisualCompareProps> = ({
           src={afterImage} 
           alt={afterLabel}
           className="w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
         />
       </div>
 
@@ -70,6 +72,8 @@ const EvidenceVisual_Compare: React.FC<EvidenceVisualCompareProps> = ({
           src={beforeImage} 
           alt={beforeLabel}
           className="w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
           style={{ clipPath }}
         />
       </div>
