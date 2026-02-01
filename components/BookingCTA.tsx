@@ -26,7 +26,7 @@ const BookingCTA: React.FC = () => {
             You've seen how it works. You know what the chaos is costing you. I take on a limited number of projects each quarter so every build gets my full attention.
           </p>
 
-          <div className="flex items-center gap-8 mt-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/40">
+          <div className="flex items-center gap-8 mt-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/70">
              <span className="flex items-center gap-2"><Clock className="w-3 h-3 text-[#8B6914]" /> Timeline: 3-4 Weeks</span>
              <span className="flex items-center gap-2"><CheckCircle2 className="w-3 h-3 text-[#8B6914]" /> Focus: Results Only</span>
           </div>

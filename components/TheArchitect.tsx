@@ -81,7 +81,7 @@ const TheArchitect: React.FC = () => {
                   className={`relative px-8 py-3 font-mono text-xs uppercase tracking-[0.25em] font-bold transition-all duration-300 rounded-sm ${
                     mode === 'architect' 
                       ? 'bg-[#1a1a1a] text-[#FFF2EC] shadow-lg' 
-                      : 'text-[#1a1a1a]/50 hover:text-[#1a1a1a] hover:bg-black/5'
+                      : 'text-[#1a1a1a]/70 hover:text-[#1a1a1a] hover:bg-black/5'
                   }`}
                 >
                   THE ARCHITECT
@@ -92,7 +92,7 @@ const TheArchitect: React.FC = () => {
                   className={`relative px-8 py-3 font-mono text-xs uppercase tracking-[0.25em] font-bold transition-all duration-300 rounded-sm ${
                     mode === 'human' 
                       ? 'bg-[#C5A059] text-white shadow-lg' 
-                      : 'text-[#1a1a1a]/50 hover:text-[#1a1a1a] hover:bg-black/5'
+                      : 'text-[#1a1a1a]/70 hover:text-[#1a1a1a] hover:bg-black/5'
                   }`}
                 >
                   THE HUMAN

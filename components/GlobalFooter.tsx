@@ -32,7 +32,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
     {
       title: 'SCALE FASTER',
       icon: Zap,
-      color: 'text-[#8B6914]',
+      color: 'text-[#D4A84B]',
       links: [
         { label: 'AI Agents', action: () => onNavigate('pillar4') },
         { label: 'Content Systems', action: () => onNavigate('pillar5') },
@@ -67,7 +67,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
               </div>
               <h2 className="font-serif text-4xl md:text-5xl leading-[0.95] tracking-tight mb-8">
                 Stop guessing. <br />
-                Start <span className="italic text-[#8B6914]">building.</span>
+                Start <span className="italic text-[#D4A84B]">building.</span>
               </h2>
               <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
                 [ BOOK A CALL ]

@@ -147,14 +147,14 @@ const Feature_Group7: React.FC = () => {
               <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-[#C5A059] rounded-full animate-pulse" />
                   {/* Type B: Card Tag */}
-                  <span className="font-mono text-[10px] font-bold text-[#8B6914] tracking-[0.2em] uppercase">
+                  <span className="font-mono text-[10px] font-bold text-[#D4A84B] tracking-[0.2em] uppercase">
                      WEBSITE REBUILD
                   </span>
               </div>
               {/* Type B: Card Tag */}
               <span className="font-mono text-[10px] font-bold text-white/60 uppercase tracking-[0.2em] flex items-center gap-2">
                   SEE THE TRANSFORMATION
-                  <Zap className="w-3 h-3 text-[#8B6914]" />
+                  <Zap className="w-3 h-3 text-[#D4A84B]" />
               </span>
           </div>
 
@@ -206,7 +206,7 @@ const Feature_Group7: React.FC = () => {
                   />
                   <div className="relative z-10 bg-[#1a1a1a] border border-[#C5A059]/30 px-6 py-3 rounded-full flex items-center gap-3">
                       {/* Type B: Card Tag */}
-                      <span className="font-mono text-[10px] text-[#8B6914] uppercase tracking-[0.2em] font-bold">
+                      <span className="font-mono text-[10px] text-[#D4A84B] uppercase tracking-[0.2em] font-bold">
                           VIEW TRANSFORMATION
                       </span>
                   </div>
