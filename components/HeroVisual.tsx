@@ -102,21 +102,32 @@ const HeroVisual: React.FC = () => {
     let mouseY = 0;
     let currentRotX = 0;
     let currentRotY = 0;
+    
+    // Cache dimensions to avoid forced reflow in render loop
+    let cachedWidth = 0;
+    let cachedHeight = 0;
+    let cachedIsMobile = false;
+    let cachedWindowWidth = window.innerWidth;
+    let cachedWindowHeight = window.innerHeight;
 
     const resize = () => {
       const rect = container.getBoundingClientRect();
-      const w = rect.width; 
-      const h = rect.height;
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
+      cachedWidth = rect.width; 
+      cachedHeight = rect.height;
+      cachedIsMobile = cachedWidth < 768;
+      cachedWindowWidth = window.innerWidth;
+      cachedWindowHeight = window.innerHeight;
+      canvas.width = cachedWidth * dpr;
+      canvas.height = cachedHeight * dpr;
       ctx.scale(dpr, dpr);
-      canvas.style.width = `${w}px`;
-      canvas.style.height = `${h}px`;
+      canvas.style.width = `${cachedWidth}px`;
+      canvas.style.height = `${cachedHeight}px`;
     };
 
     const onMouseMove = (e: MouseEvent) => {
-      mouseX = (e.clientX / window.innerWidth - 0.5) * 1.5;
-      mouseY = (e.clientY / window.innerHeight - 0.5) * 1.5;
+      // Use cached window dimensions instead of reading live
+      mouseX = (e.clientX / cachedWindowWidth - 0.5) * 1.5;
+      mouseY = (e.clientY / cachedWindowHeight - 0.5) * 1.5;
     };
 
     const render = (now: number) => {
@@ -131,10 +142,10 @@ const HeroVisual: React.FC = () => {
       const rotX = currentRotX + (elapsed * 0.05); 
       const rotY = currentRotY + (elapsed * 0.08);
 
-      const rect = container.getBoundingClientRect();
-      const w = rect.width;
-      const h = rect.height;
-      const isMobile = w < 768; 
+      // Use cached dimensions instead of getBoundingClientRect() every frame
+      const w = cachedWidth;
+      const h = cachedHeight;
+      const isMobile = cachedIsMobile; 
       
       const cx = w / 2;
       const cy = isMobile ? h * 0.35 : h * 0.45;
