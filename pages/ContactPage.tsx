@@ -23,10 +23,10 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
   return (
     // FIX: Main background changed to #1a1a1a so overscrolling on mobile doesn't show cream under the black form
-    <div className="min-h-screen w-full flex flex-col lg:flex-row relative z-[9999] bg-[#1a1a1a]">
+    <div className="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row relative z-[9999] bg-[#1a1a1a] lg:overflow-hidden">
       
       {/* LEFT COLUMN: THE HUMAN ANCHOR */}
-      <div className="w-full lg:w-5/12 h-auto lg:h-screen lg:sticky lg:top-0 bg-[#FFF2EC] text-[#1a1a1a] flex flex-col p-8 md:p-12 lg:px-20 lg:pb-20 lg:pt-24 border-r border-[#1a1a1a]/10 justify-between order-first relative z-10">
+      <div className="w-full lg:w-5/12 h-auto lg:h-screen bg-[#FFF2EC] text-[#1a1a1a] flex flex-col p-8 md:p-12 lg:px-16 lg:pb-12 lg:pt-20 border-r border-[#1a1a1a]/10 justify-between order-first relative z-10">
         <div className="flex-none mb-12 lg:mb-0 pt-2 lg:pt-0">
           <BackButton onClick={onBack} label="Back" />
         </div>
@@ -58,16 +58,16 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
       </div>
 
       {/* RIGHT COLUMN: THE SYSTEM FORM */}
-      <div className="w-full lg:w-7/12 min-h-screen bg-[#1a1a1a] text-[#FFF2EC] p-6 md:p-12 lg:p-24 flex flex-col justify-center relative">
+      <div className="w-full lg:w-7/12 min-h-screen lg:h-screen bg-[#1a1a1a] text-[#FFF2EC] p-6 md:p-12 lg:px-16 lg:py-12 flex flex-col justify-center relative lg:overflow-y-auto">
         
         {status !== 'success' ? (
           <m.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-xl w-full mx-auto lg:mx-0">
             
-            <div className="mb-12 border-b border-white/10 pb-8 mt-8 lg:mt-0">
-              <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#D4A84B] mb-6 block">
+            <div className="mb-8 lg:mb-6 border-b border-white/10 pb-6 mt-8 lg:mt-0">
+              <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#D4A84B] mb-4 block">
                 / YOUR DETAILS
               </span>
-              <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-white mb-6">
+              <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[0.95] tracking-tighter text-white mb-4">
                 Tell Me About Your <span className="italic font-serif text-[#D4A84B]">Business.</span>
               </h2>
               <p className="font-sans text-lg md:text-xl text-white/60 leading-relaxed max-w-xl">
@@ -75,9 +75,9 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <form onSubmit={handleSubmit} className="space-y-6 lg:space-y-5">
               {/* Row 1: Name & Email */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-5">
                 <div className="group relative">
                   <label htmlFor="name" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#D4A84B] font-bold">YOUR NAME</label>
                   <input id="name" type="text" required className={inputBaseStyle} placeholder="Your name" value={formState.name} onChange={e => updateField('name', e.target.value)} />
@@ -110,10 +110,10 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
               {/* Row 4: Message */}
               <div className="group relative">
                 <label htmlFor="message" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#D4A84B] font-bold">ANYTHING ELSE?</label>
-                <textarea id="message" rows={4} className={`${inputBaseStyle} resize-none`} placeholder="Tell me a bit about your situation." value={formState.message} onChange={e => updateField('message', e.target.value)} />
+                <textarea id="message" rows={3} className={`${inputBaseStyle} resize-none`} placeholder="Tell me a bit about your situation." value={formState.message} onChange={e => updateField('message', e.target.value)} />
               </div>
 
-              <div className="pt-8 pb-12">
+              <div className="pt-6 pb-8 lg:pt-4 lg:pb-0">
                 <CTAButton theme="dark" type="submit" className={`w-full ${status === 'submitting' ? 'opacity-50 cursor-wait' : ''}`}>
                   {status === 'submitting' ? 'SENDING...' : '[ SEND ]'}
                 </CTAButton>

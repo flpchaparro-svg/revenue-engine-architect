@@ -131,7 +131,7 @@ const App: React.FC = () => {
           </Suspense>
         </div>
 
-        {location.pathname !== '/system' && <GlobalFooter onNavigate={handleGlobalNavigate} />}
+        {location.pathname !== '/system' && location.pathname !== '/contact' && <GlobalFooter onNavigate={handleGlobalNavigate} />}
         <Modal service={selectedService} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onViewPillar={(id) => handleGlobalNavigate(id)} />
       </div>
     </LazyMotion>

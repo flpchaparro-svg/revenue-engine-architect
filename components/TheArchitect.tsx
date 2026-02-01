@@ -19,7 +19,7 @@ const TheArchitect: React.FC = () => {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5 relative group lg:sticky lg:top-1/2 lg:-translate-y-1/2 lg:self-start"
           >
-            <div className="aspect-[9/16] md:max-h-[70vh] lg:max-h-none bg-[#1a1a1a] relative overflow-visible shadow-2xl">
+            <div className="aspect-[9/16] md:max-h-[70vh] lg:max-h-[85vh] bg-[#1a1a1a] relative overflow-visible shadow-2xl">
               {/* Structural Frame - Inside the video container so it scales together */}
               <div className={`absolute -inset-4 border border-[#1a1a1a]/10 transition-all duration-1000 pointer-events-none ${mode === 'architect' ? 'opacity-100' : 'opacity-30'}`} />
               <div className={`absolute -inset-1 border border-[#1a1a1a] transition-all duration-1000 pointer-events-none ${mode === 'architect' ? 'border-[#1a1a1a]' : 'border-[#C5A059]'}`} />
