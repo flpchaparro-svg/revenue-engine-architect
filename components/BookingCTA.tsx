@@ -19,7 +19,7 @@ const BookingCTA: React.FC = () => {
           
           <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] mb-6 tracking-tight text-[#1a1a1a]">
             Ready to stop <br />
-            <span className="italic text-[#B91C36]">the grind?</span>
+            <span className="italic text-[#9A1730]">the grind?</span>
           </h2>
           
           <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/80 border-l-2 border-[#1a1a1a]/10 pl-6 max-w-lg">

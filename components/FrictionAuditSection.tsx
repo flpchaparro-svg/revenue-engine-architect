@@ -100,7 +100,7 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
            <div className="flex flex-col items-center justify-center text-center h-full max-w-4xl mx-auto">
               {/* FIXED: Reduced to text-7xl max to be smaller than Hero (8xl) */}
               <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-tight tracking-tighter mb-10">
-                You've seen the <span className="text-[#B91C36]">leak</span>. Now call to see the <span className="text-[#8B6914]">fix</span>.
+                You've seen the <span className="text-[#9A1730]">leak</span>. Now call to see the <span className="text-[#8B6914]">fix</span>.
               </h2>
               <CTAButton theme="light" onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({ behavior: 'smooth' })}>
                 SEE THE SYSTEM
@@ -114,7 +114,7 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
                     <span className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a]/10 italic font-bold">{data.id}</span>
                     <div className="h-px flex-1 bg-[#1a1a1a]/20"></div>
                     {/* Type B: Card Tag - font-mono, font-bold, text-[10px], tracking-[0.2em] */}
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#B91C36] border border-[#E21E3F]/20 px-2 py-1">{data.label}</span>
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#9A1730] border border-[#E21E3F]/20 px-2 py-1">{data.label}</span>
                  </div>
                  <div>
                     {/* Pain point title: Standardized H3 -> H2 (Fixed Accessibility Hierarchy) */}
@@ -123,7 +123,7 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
                     </h2>
                     <div className="inline-block bg-[#E21E3F]/10 px-6 py-3">
                        {/* Stat callouts: text-base → text-lg (labels like "NO VISIBILITY" should be smaller) */}
-                       <span className="font-mono text-xs md:text-sm text-[#B91C36] font-bold tracking-[0.2em] uppercase">{data.metric}</span>
+                       <span className="font-mono text-xs md:text-sm text-[#9A1730] font-bold tracking-[0.2em] uppercase">{data.metric}</span>
                     </div>
                  </div>
                  {/* Pain point body: text-base → text-lg */}
@@ -166,13 +166,13 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
            {/* Desktop Left Panel */}
            <div className="w-[450px] xl:w-[500px] h-full border-r border-[#1a1a1a]/10 bg-[#FFF2EC] p-12 xl:p-16 flex flex-col justify-between shrink-0 z-50">
               <div>
-                 <div className="mb-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#B91C36] flex items-center gap-2">
+                 <div className="mb-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#9A1730] flex items-center gap-2">
                     / THE FRICTION AUDIT
                  </div>
                  <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] text-[#1a1a1a] tracking-tighter mb-10">
                     Where your <br/>
-                    <span className="text-[#B91C36]">week</span> <br/>
-                    <span className="italic text-[#B91C36]">disappears.</span>
+                    <span className="text-[#9A1730]">week</span> <br/>
+                    <span className="italic text-[#9A1730]">disappears.</span>
                  </h1>
                  <div className="w-16 h-1 bg-[#1a1a1a] mb-10"></div>
                  <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-sm">
@@ -221,13 +221,13 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
          
          {/* HEADER */}
          <div className="sticky top-0 h-[45vh] w-full bg-[#FFF2EC] border-b border-[#1a1a1a]/10 p-6 flex flex-col justify-center z-10">
-            <div className="mb-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#B91C36] flex items-center gap-2">
+            <div className="mb-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#9A1730] flex items-center gap-2">
                / THE FRICTION AUDIT
             </div>
             <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
                Where your <br/>
-               <span className="text-[#B91C36]">week</span> <br/>
-               <span className="italic text-[#B91C36]">disappears.</span>
+               <span className="text-[#9A1730]">week</span> <br/>
+               <span className="italic text-[#9A1730]">disappears.</span>
             </h1>
             <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-sm">
                Your business isn't broken, but it is leaking. These are the 4 places where time and money vanish before you notice.
@@ -245,7 +245,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                   {data.type === 'cta' ? (
                      <div className="flex flex-col items-center justify-center text-center h-full px-6 bg-[#FFF2EC]">
                         <h2 className="font-serif text-3xl text-[#1a1a1a] leading-tight tracking-tighter mb-8">
-                           You've seen the <span className="text-[#B91C36]">leak</span>. Now call to see the <span className="text-[#8B6914]">fix</span>.
+                           You've seen the <span className="text-[#9A1730]">leak</span>. Now call to see the <span className="text-[#8B6914]">fix</span>.
                         </h2>
                         <CTAButton theme="light" onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({ behavior: 'smooth' })} className="w-full">
                            SEE THE SYSTEM
@@ -255,10 +255,10 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                      <div className="flex flex-col h-full px-6 pt-8 pb-6 bg-[#FFF2EC]">
                         <div className="flex items-center gap-3 mb-6 opacity-80">
                            {/* Mobile: Pain point number should scale too */}
-                           <span className="font-serif text-4xl md:text-5xl italic font-bold text-[#B91C36]">{data.id}</span>
+                           <span className="font-serif text-4xl md:text-5xl italic font-bold text-[#9A1730]">{data.id}</span>
                            <div className="w-8 h-px bg-[#E21E3F]/30"></div>
                            {/* Type B: Card Tag (inside mobile card) */}
-                           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#B91C36]">
+                           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#9A1730]">
                               {data.label}
                            </span>
                         </div>
@@ -268,7 +268,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                         </h2>
                         <div className="mb-6">
                            {/* Mobile: Stat callouts: text-base → text-lg (labels like "NO VISIBILITY" should be smaller) */}
-                           <span className="font-mono text-xs md:text-sm text-[#B91C36] font-bold tracking-[0.2em] uppercase bg-[#E21E3F]/5 px-3 py-1">
+                           <span className="font-mono text-xs md:text-sm text-[#9A1730] font-bold tracking-[0.2em] uppercase bg-[#E21E3F]/5 px-3 py-1">
                               {data.metric}
                            </span>
                         </div>

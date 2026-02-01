@@ -22,7 +22,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
     {
       title: 'GET CLIENTS',
       icon: Target,
-      color: 'text-[#B91C36]',
+      color: 'text-[#9A1730]',
       links: [
         { label: 'Websites', action: () => onNavigate('pillar1') },
         { label: 'CRM Systems', action: () => onNavigate('pillar2') },

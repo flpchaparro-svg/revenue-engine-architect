@@ -28,9 +28,9 @@ const TerminalLog: React.FC = () => {
     // UPGRADE: Increased p-6 to p-8, font size base for better readability
     <div className="w-full bg-[#1a1a1a] p-8 border-t border-black/10 font-mono text-sm overflow-hidden">
       <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
-        <Terminal className="w-3 h-3 text-[#8B6914]" />
+        <Terminal className="w-3 h-3 text-[#D4A84B]" />
         {/* Type B: Card Tag (inside terminal component) */}
-        <span className="text-[10px] text-[#8B6914] uppercase tracking-[0.2em] font-bold">BUILD LOG / WHAT I DID</span>
+        <span className="text-[10px] text-[#D4A84B] uppercase tracking-[0.2em] font-bold">BUILD LOG / WHAT I DID</span>
       </div>
       <div className="space-y-3">
         {lines.map((line, i) => (
@@ -182,15 +182,15 @@ const Feature_Group7: React.FC = () => {
                         className="absolute inset-0 bg-[#E21E3F]/20" 
                         variants={{ idle: { opacity: 0 }, scan: { opacity: 1, transition: { delay: 0.3 } } }} 
                       />
-                      <AlertTriangle className="w-10 h-10 text-[#B91C36] relative z-10" />
+                      <AlertTriangle className="w-10 h-10 text-[#9A1730] relative z-10" />
                   </div>
                   <div className="text-center">
                       {/* Type B: Card Tag */}
-                      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#B91C36] mb-2">BEFORE</div>
+                      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#9A1730] mb-2">BEFORE</div>
                       {/* Node A */}
                       <div className="font-serif text-white/60 text-2xl md:text-3xl tracking-tight mb-2">group7security.com</div>
                       {/* Type B: Card Tag */}
-                      <div className="flex items-center justify-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] text-[#B91C36] bg-[#E21E3F]/10 px-3 py-1.5 rounded">
+                      <div className="flex items-center justify-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] text-[#9A1730] bg-[#E21E3F]/10 px-3 py-1.5 rounded">
                           <Activity className="w-3 h-3" />
                           <span>4.2s Load</span>
                       </div>
@@ -335,7 +335,7 @@ const Feature_Group7: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 md:p-12 bg-white border-t border-black/10">
                         <div>
                           {/* Type B: Card Tag - using span since this is a label, not a heading */}
-                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#B91C36] mb-3 block">
+                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#9A1730] mb-3 block">
                              THE PROBLEM
                           </span>
                           <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">

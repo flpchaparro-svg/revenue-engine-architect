@@ -159,7 +159,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
         {/* HERO SECTION */}
         <section className="mb-40">
           <m.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <span className="font-mono text-xs text-[#B91C36] tracking-[0.4em] mb-6 block uppercase">/ Verification_Repository</span>
+            <span className="font-mono text-xs text-[#9A1730] tracking-[0.4em] mb-6 block uppercase">/ Verification_Repository</span>
             <h1 className="font-serif text-6xl md:text-8xl lg:text-[8.5rem] leading-[0.9] tracking-tighter mb-10">
               The Forensic <br />
               <span className="italic text-[#8B6914]">Archive</span> <br />
@@ -222,7 +222,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                   </div>
                   <h3 className="font-serif text-3xl mb-4 leading-none">{audit.title}</h3>
                   {/* FIX: Bumped to text-[10px] */}
-                  <p className="font-mono text-[10px] text-[#B91C36] uppercase tracking-widest mb-6">{audit.client}</p>
+                  <p className="font-mono text-[10px] text-[#9A1730] uppercase tracking-widest mb-6">{audit.client}</p>
                   <div className="text-4xl font-sans font-light text-[#8B6914] mb-8">{audit.impact}</div>
                   <p className="font-sans text-sm text-black/50 leading-relaxed mb-10 group-hover:text-white/60 transition-colors">{audit.desc}</p>
                 </div>
@@ -325,7 +325,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                   {/* MODAL GRID */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 md:p-12 bg-white border-t border-black/10">
                       <div>
-                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#B91C36] mb-3 block">
+                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#9A1730] mb-3 block">
                            The Problem
                         </span>
                         <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">

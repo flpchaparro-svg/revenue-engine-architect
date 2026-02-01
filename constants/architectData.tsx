@@ -7,7 +7,7 @@ import {
 export const ARCHITECT_CONTENT = {
   architect: {
     label: '/ THE ARCHITECT',
-    accent: 'text-[#B91C36]',
+    accent: 'text-[#9A1730]',
     // Storing JSX directly in data allows for rich text formatting
     headline: (
       <>

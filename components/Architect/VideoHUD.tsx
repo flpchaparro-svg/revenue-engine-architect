@@ -16,7 +16,7 @@ const VideoHUD: React.FC = () => {
       {/* LIVE FEED INDICATOR */}
       <div className="absolute top-4 left-4 z-30 flex items-center gap-2">
         <div className="w-2 h-2 bg-[#E21E3F] rounded-full animate-pulse" />
-        <span className="font-mono text-[10px] text-[#B91C36] tracking-widest">LIVE FEED</span>
+        <span className="font-mono text-[10px] text-[#9A1730] tracking-widest">LIVE FEED</span>
       </div>
 
       {/* CORNER BRACKETS - Technical Frame */}

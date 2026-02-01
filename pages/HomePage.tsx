@@ -32,6 +32,14 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const [isTickerHovered, setIsTickerHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [canAnimate, setCanAnimate] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+
+  // Pause animations when tab is not visible
+  useEffect(() => {
+    const handleVisibility = () => setIsVisible(document.visibilityState === 'visible');
+    document.addEventListener('visibilitychange', handleVisibility);
+    return () => document.removeEventListener('visibilitychange', handleVisibility);
+  }, []);
 
   useEffect(() => {
     // FIX: Faster mobile check
@@ -61,7 +69,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
   const decayTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useAnimationFrame((time, delta) => {
-    if (!canAnimate) return;
+    if (!canAnimate || !isVisible) return;
 
     const currentY = scrollLineY.get();
     const speed = scrollLineSpeed.get();
@@ -166,7 +174,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
 
       <div className="w-full bg-[#1a1a1a]/5 py-12 border-y border-black/5 overflow-hidden relative z-30" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }} onMouseEnter={() => setIsTickerHovered(true)} onMouseLeave={() => setIsTickerHovered(false)}>
         <div className="flex whitespace-nowrap">
-          <m.div className="flex items-center pr-0" style={{ x: xPercent }}>
+          <m.div className="flex items-center pr-0" style={{ x: xPercent, willChange: 'transform' }}>
             {[...TECH_STACK, ...TECH_STACK, ...TECH_STACK, ...TECH_STACK].map((tech, i) => (
               <div key={i} className="flex items-center group cursor-default">
                 <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a] opacity-80 group-hover:text-[#8B6914] group-hover:opacity-100 transition-all duration-300 px-12">

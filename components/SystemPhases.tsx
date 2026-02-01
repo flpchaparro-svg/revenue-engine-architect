@@ -18,7 +18,7 @@ const PHASES = [
     bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
     accent: '#E21E3F', // Red
-    accentClass: 'text-[#B91C36]',
+    accentClass: 'text-[#9A1730]',
     borderAccent: 'border-[#E21E3F]',
     vizType: 'geometric',
     dark: false
@@ -419,9 +419,9 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                          </div>
 
                          <div className="mb-auto">
-                            <h4 className="font-serif text-xl md:text-2xl text-[#1a1a1a] mb-2 leading-tight tracking-tight">
-                              {getDisplayTitle(service.title)}
-                            </h4>
+                             <h3 className="font-serif text-xl md:text-2xl text-[#1a1a1a] mb-2 leading-tight tracking-tight">
+                               {getDisplayTitle(service.title)}
+                             </h3>
                             
                             <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] mb-4"
                                style={{ color: activePhase.accent }}>
@@ -474,17 +474,17 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       
                       <div className="p-6 flex flex-col flex-1 relative z-10">
                         <div className="flex justify-between items-center mb-4">
-                           <span className="font-mono text-[10px] font-bold text-[#8B6914] tracking-[0.2em] uppercase">
+                           <span className="font-mono text-[10px] font-bold text-[#D4A84B] tracking-[0.2em] uppercase">
                              {systemCardData.label}
                            </span>
-                           <ArrowDownRight className={`w-4 h-4 text-[#8B6914] transition-transform duration-300 ${isBlueprint ? '-rotate-90' : 'group-hover:-rotate-90'}`} />
+                           <ArrowDownRight className={`w-4 h-4 text-[#D4A84B] transition-transform duration-300 ${isBlueprint ? '-rotate-90' : 'group-hover:-rotate-90'}`} />
                         </div>
 
                         <div className="mb-auto">
-                           <h4 className="font-serif text-xl md:text-2xl text-white mb-2 leading-tight tracking-tight">
+                           <h3 className="font-serif text-xl md:text-2xl text-white mb-2 leading-tight tracking-tight">
                              {systemCardData.title}
-                           </h4>
-                           <p className="font-mono text-[10px] text-[#8B6914] mb-4 uppercase tracking-[0.2em] font-bold">
+                           </h3>
+                           <p className="font-mono text-[10px] text-[#D4A84B] mb-4 uppercase tracking-[0.2em] font-bold">
                              {systemCardData.subtitle}
                            </p>
                            <p className="font-sans text-sm text-white/50 leading-relaxed">

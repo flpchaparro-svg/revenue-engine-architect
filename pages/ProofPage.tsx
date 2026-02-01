@@ -79,7 +79,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         <Section className="mb-20 md:mb-32">
           <div className="bg-white border border-[#1a1a1a]/5 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] p-0 overflow-hidden">
             <div className="bg-[#1a1a1a] text-white px-8 py-4 flex flex-wrap justify-between items-center gap-4">
-              <span className="font-mono text-xs text-[#8B6914] uppercase tracking-[0.2em] font-bold">
+              <span className="font-mono text-xs text-[#D4A84B] uppercase tracking-[0.2em] font-bold">
                 CLIENT: GROUP 7 SECURITY
               </span>
               <div className="flex gap-2">
@@ -127,15 +127,15 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         {/* THE PROBLEM */}
         <Section className="mb-20 md:mb-32">
           <div className="mb-12">
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#B91C36] mb-6 block">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#9A1730] mb-6 block">
               / THE PROBLEM
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-8">
-              The Old <span className="italic font-serif text-[#B91C36]">Site.</span>
+              The Old <span className="italic font-serif text-[#9A1730]">Site.</span>
             </h2>
             <div className="inline-flex items-center gap-3 px-4 py-2 bg-[#E21E3F]/5 border border-[#E21E3F]/20 rounded-sm">
                <span className="font-sans text-sm md:text-base font-medium text-[#1a1a1a]/80">group7security.com</span>
-               <span className="font-mono text-xs text-[#B91C36] uppercase tracking-[0.2em] font-bold">DECOMMISSIONED</span>
+               <span className="font-mono text-xs text-[#9A1730] uppercase tracking-[0.2em] font-bold">DECOMMISSIONED</span>
             </div>
           </div>
 
@@ -145,19 +145,19 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                 <div className="absolute top-0 left-0 w-1 h-full bg-[#E21E3F] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
                 <div className="flex justify-between items-start mb-6">
                   <div className="p-3 bg-[#E21E3F]/5 rounded-sm">
-                    <item.icon className="w-6 h-6 text-[#B91C36]" />
+                    <item.icon className="w-6 h-6 text-[#9A1730]" />
                   </div>
-                  <span className="font-mono text-xs font-bold text-[#B91C36]/60 uppercase tracking-[0.2em] border border-[#E21E3F]/20 px-2 py-1 rounded-sm">
+                  <span className="font-mono text-xs font-bold text-[#9A1730]/60 uppercase tracking-[0.2em] border border-[#E21E3F]/20 px-2 py-1 rounded-sm">
                     CRITICAL ERROR
                   </span>
                 </div>
                 <div className="mb-6">
                   <div className="font-mono text-xs font-bold text-[#1a1a1a]/80 uppercase tracking-[0.2em] mb-1">{item.label}</div>
-                  <div className="text-4xl font-serif text-[#B91C36] mb-4">{item.metric}</div>
+                  <div className="text-4xl font-serif text-[#9A1730] mb-4">{item.metric}</div>
                   <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed mb-4">{item.desc}</p>
                 </div>
                 <div className="pt-4 border-t border-[#E21E3F]/10 flex items-center gap-2">
-                  <span className="text-[#B91C36] text-xs font-bold uppercase tracking-wide">Impact:</span>
+                  <span className="text-[#9A1730] text-xs font-bold uppercase tracking-wide">Impact:</span>
                   <span className="text-sm font-medium text-[#1a1a1a]">{item.impact}</span>
                 </div>
               </div>
@@ -270,7 +270,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
           <div className="mt-8 grid grid-cols-2 gap-8 text-center">
             <div className="border-t border-red-500/20 pt-4">
-              <span className="font-mono text-xs font-bold text-[#B91C36] uppercase tracking-[0.2em] block mb-2">LEGACY</span>
+              <span className="font-mono text-xs font-bold text-[#9A1730] uppercase tracking-[0.2em] block mb-2">LEGACY</span>
               <p className="font-sans text-sm text-[#1a1a1a]/50">Slow. Generic. Invisible.</p>
             </div>
             <div className="border-t border-[#C5A059]/20 pt-4">

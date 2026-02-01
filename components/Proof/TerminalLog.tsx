@@ -23,8 +23,8 @@ const TerminalLog: React.FC = () => {
     <div ref={ref} className="w-full bg-[#111] rounded-sm overflow-hidden shadow-2xl border border-white/10 relative group">
       <div className="bg-[#1a1a1a] px-4 py-3 flex items-center justify-between border-b border-white/10">
         <div className="flex items-center gap-2">
-          <Terminal className="w-3 h-3 text-[#8B6914]" />
-          <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#8B6914]">BUILD LOG / WHAT I DID</span>
+          <Terminal className="w-3 h-3 text-[#D4A84B]" />
+          <span className="text-xs font-mono font-bold uppercase tracking-[0.2em] text-[#D4A84B]">BUILD LOG / WHAT I DID</span>
         </div>
       </div>
       
@@ -37,7 +37,7 @@ const TerminalLog: React.FC = () => {
               animate={{ opacity: 1, x: 0 }}
               className="text-white/80 border-l-2 border-transparent pl-2 hover:border-[#C5A059] transition-colors"
             >
-              <span className="text-[#8B6914] mr-3">$</span>
+              <span className="text-[#D4A84B] mr-3">$</span>
               {line}
             </m.div>
           ))}
