@@ -48,8 +48,8 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
     checkMobile(mobileQuery);
     mobileQuery.addEventListener('change', checkMobile);
     
-    // Performance guard
-    const timer = setTimeout(() => setCanAnimate(true), 100);
+    // Performance guard - defer animations until page is interactive
+    const timer = setTimeout(() => setCanAnimate(true), 1000);
 
     return () => {
       mobileQuery.removeEventListener('change', checkMobile);
@@ -70,6 +70,9 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
 
   useAnimationFrame((time, delta) => {
     if (!canAnimate || !isVisible) return;
+    
+    // Skip if frame took too long (likely initial load or heavy work)
+    if (delta > 100) return;
 
     const currentY = scrollLineY.get();
     const speed = scrollLineSpeed.get();
