@@ -117,7 +117,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
       </section>
 
       {/* 4. STATIC FOOTER CONTENT */}
-      <FAQSection faqs={systemFAQs} accentColor="#C5A059" title="Questions?" subtitle="Common questions about how this works." onNavigate={onNavigate} />
+      <FAQSection faqs={systemFAQs} accentColor="#8B6914" title="Questions?" subtitle="Common questions about how this works." onNavigate={onNavigate} />
       <GlobalFooter onNavigate={onNavigate} />
     </div>
   );

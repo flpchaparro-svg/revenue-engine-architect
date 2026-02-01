@@ -361,7 +361,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
       <FAQSection
         faqs={pillarFAQs}
-        accentColor="#C5A059"
+        accentColor="#8B6914"
         title="Questions about automation?"
         subtitle="Common questions about workflows and bots."
         onNavigate={onNavigate}

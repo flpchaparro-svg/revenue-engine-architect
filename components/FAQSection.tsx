@@ -87,7 +87,7 @@ interface FAQSectionProps {
 
 const FAQSection: React.FC<FAQSectionProps> = ({
   faqs,
-  accentColor = '#C5A059',
+  accentColor = '#8B6914',
   title = 'Questions?',
   subtitle = 'Everything you need to know before we start.',
   showBookingCTA = true,
