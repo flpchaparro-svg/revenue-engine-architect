@@ -14,13 +14,20 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
   const svgRef = useRef<any>(null);
   const previousStateRef = useRef<GraphState | null>(null);
   const hasAnimatedRef = useRef(false);
+  const [shouldRender, setShouldRender] = useState(false);
   
   // Detect when graph appears on screen
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
-  // 1. SETUP (Runs once)
+  // Delay D3 initialization to let main thread finish critical work
   useEffect(() => {
-    if (!containerRef.current) return;
+    const timer = setTimeout(() => setShouldRender(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // 1. SETUP (Runs once after delay)
+  useEffect(() => {
+    if (!containerRef.current || !shouldRender) return;
     
     // FIX 2: Use specific 'select' instead of 'd3.select'
     select(containerRef.current).selectAll('*').remove();
@@ -76,7 +83,7 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
     svgRef.current = { activeBar, valueText, labelText, chartWidth };
 
     return () => { select(containerRef.current).selectAll('*').remove(); };
-  }, []);
+  }, [shouldRender]);
 
   // 2. UPDATE (Runs on hover and initial appearance)
   useEffect(() => {

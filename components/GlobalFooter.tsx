@@ -13,6 +13,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
   const footerLinks = [
     {
       title: 'THE ARCHITECT',
+      color: 'text-white/80',
       links: [
         { label: 'Philosophy', action: () => onNavigate('architect') },
         { label: 'The Process', action: () => onNavigate('process') },
@@ -22,7 +23,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
     {
       title: 'GET CLIENTS',
       icon: Target,
-      color: 'text-[#9A1730]',
+      color: 'text-[#FF6B6B]',
       links: [
         { label: 'Websites', action: () => onNavigate('pillar1') },
         { label: 'CRM Systems', action: () => onNavigate('pillar2') },
