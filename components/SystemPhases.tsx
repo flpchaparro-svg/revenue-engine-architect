@@ -18,7 +18,7 @@ const PHASES = [
     bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
     accent: '#E21E3F', // Red
-    accentClass: 'text-[#E21E3F]',
+    accentClass: 'text-[#B91C36]',
     borderAccent: 'border-[#E21E3F]',
     vizType: 'geometric',
     dark: false
@@ -29,7 +29,7 @@ const PHASES = [
     bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
     accent: '#C5A059', // Gold
-    accentClass: 'text-[#C5A059]',
+    accentClass: 'text-[#8B6914]',
     borderAccent: 'border-[#C5A059]',
     vizType: 'neural',
     dark: false
@@ -173,9 +173,9 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       <div className="flex-1 flex flex-col w-full">
         {/* HEADER */}
         <div className={`pt-24 pb-12 px-6 lg:pt-16 lg:pb-8 text-center max-w-4xl mx-auto ${activePhase.text}`}>
-           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-4 block">/ THE SYSTEM</span>
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#7A5D12] mb-4 block">/ THE SYSTEM</span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-none tracking-tighter mb-6">
-             7 Pillars. <span className="italic text-[#C5A059]">3 Outcomes.</span>
+             7 Pillars. <span className="italic text-[#8B6914]">3 Outcomes.</span>
            </h2>
            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto px-4">
               I don't sell isolated tools. I build connected systems. Websites feed your CRM. Your CRM triggers automation. Dashboards show you what's working. Everything talks to everything else.
@@ -428,7 +428,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                               {service.subtitle}
                             </p>
                             
-                            <p className="font-sans text-sm leading-relaxed text-[#1a1a1a]/60">
+                            <p className="font-sans text-sm leading-relaxed text-[#1a1a1a]/80">
                               <span className="lg:hidden">{service.description}</span>
                               <span className="hidden lg:inline">{service.smallCardBody || service.description}</span>
                             </p>
@@ -474,17 +474,17 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       
                       <div className="p-6 flex flex-col flex-1 relative z-10">
                         <div className="flex justify-between items-center mb-4">
-                           <span className="font-mono text-[10px] font-bold text-[#C5A059] tracking-[0.2em] uppercase">
+                           <span className="font-mono text-[10px] font-bold text-[#8B6914] tracking-[0.2em] uppercase">
                              {systemCardData.label}
                            </span>
-                           <ArrowDownRight className={`w-4 h-4 text-[#C5A059] transition-transform duration-300 ${isBlueprint ? '-rotate-90' : 'group-hover:-rotate-90'}`} />
+                           <ArrowDownRight className={`w-4 h-4 text-[#8B6914] transition-transform duration-300 ${isBlueprint ? '-rotate-90' : 'group-hover:-rotate-90'}`} />
                         </div>
 
                         <div className="mb-auto">
                            <h4 className="font-serif text-xl md:text-2xl text-white mb-2 leading-tight tracking-tight">
                              {systemCardData.title}
                            </h4>
-                           <p className="font-mono text-[10px] text-[#C5A059] mb-4 uppercase tracking-[0.2em] font-bold">
+                           <p className="font-mono text-[10px] text-[#8B6914] mb-4 uppercase tracking-[0.2em] font-bold">
                              {systemCardData.subtitle}
                            </p>
                            <p className="font-sans text-sm text-white/50 leading-relaxed">

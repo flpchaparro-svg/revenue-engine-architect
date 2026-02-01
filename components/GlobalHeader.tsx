@@ -27,8 +27,8 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
     { 
       system: 'GET CLIENTS', 
       icon: Target, 
-      color: 'text-[#E21E3F]', 
-      hoverClass: 'hover:text-[#E21E3F]',
+      color: 'text-[#B91C36]', 
+      hoverClass: 'hover:text-[#B91C36]',
       items: [
         { id: 'pillar1', name: '01 / Websites & E-commerce' },
         { id: 'pillar2', name: '02 / CRM & Lead Tracking' },
@@ -38,8 +38,8 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
     { 
       system: 'SCALE FASTER', 
       icon: Zap, 
-      color: 'text-[#C5A059]', 
-      hoverClass: 'hover:text-[#C5A059]',
+      color: 'text-[#8B6914]', 
+      hoverClass: 'hover:text-[#8B6914]',
       items: [
         { id: 'pillar4', name: '04 / AI Assistants' },
         { id: 'pillar5', name: '05 / Content Systems' },
@@ -89,7 +89,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                    <span className="absolute inset-0 font-mono text-[10px] font-bold uppercase tracking-[0.2em] flex items-center group-hover:-translate-y-full transition-transform duration-300 whitespace-nowrap">
                      Consultancy
                    </span>
-                   <span className="absolute inset-0 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] flex items-center translate-y-full group-hover:translate-y-0 transition-transform duration-300 whitespace-nowrap">
+                   <span className="absolute inset-0 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#8B6914] flex items-center translate-y-full group-hover:translate-y-0 transition-transform duration-300 whitespace-nowrap">
                      Home
                    </span>
                  </div>
@@ -232,7 +232,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                       onClick={() => onNavigate(item.id)}
                       className={`group relative h-24 w-full flex items-center justify-center transition-all duration-300 border-b border-white/5 ${
                         isActive 
-                          ? 'bg-white/10 text-[#C5A059]' 
+                          ? 'bg-white/10 text-[#8B6914]' 
                           : 'text-[#FFF2EC]/60 hover:text-[#FFF2EC] hover:bg-white/5'
                       }`}
                     >
@@ -313,7 +313,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                          onNavigate(item.id); 
                          setIsMenuOpen(false); 
                        }} 
-                       className="flex items-center gap-4 text-4xl font-serif text-[#1a1a1a] text-left hover:text-[#C5A059] transition-colors"
+                       className="flex items-center gap-4 text-4xl font-serif text-[#1a1a1a] text-left hover:text-[#8B6914] transition-colors"
                      >
                        {currentView === item.id && <div className="w-2 h-2 rounded-full bg-[#C5A059]" />}
                        {item.fullLabel}
@@ -351,7 +351,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                                      <button
                                        key={sub.id}
                                        onClick={() => { onNavigate(sub.id); setIsMenuOpen(false); }}
-                                       className="text-left font-serif text-lg text-[#1a1a1a]/70 hover:text-[#1a1a1a] active:text-[#C5A059] transition-colors"
+                                       className="text-left font-serif text-lg text-[#1a1a1a]/70 hover:text-[#1a1a1a] active:text-[#8B6914] transition-colors"
                                      >
                                        {sub.name}
                                      </button>
@@ -381,7 +381,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
              <div className="mb-8 border-t border-[#1a1a1a]/10 pt-4 shrink-0">
                <div className="flex justify-between items-center">
                  <span className="font-mono text-[10px] uppercase tracking-widest text-[#1a1a1a]/40">Response Time</span>
-                 <div className="flex items-center gap-2 text-[#C5A059] font-mono text-xs uppercase tracking-widest">
+                 <div className="flex items-center gap-2 text-[#8B6914] font-mono text-xs uppercase tracking-widest">
                    <div className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
                    &lt; 24 HRS
                  </div>

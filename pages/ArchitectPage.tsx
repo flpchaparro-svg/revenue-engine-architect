@@ -180,7 +180,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
         {/* FOOTER CTA */}
         <Section className="border-t border-black/10 py-32 flex flex-col items-center text-center">
            <h2 className="font-serif text-4xl md:text-7xl tracking-tighter mb-12">
-             Ready to build your <span className="italic font-serif text-[#C5A059]">system?</span>
+             Ready to build your <span className="italic font-serif text-[#8B6914]">system?</span>
            </h2>
            <CTAButton theme={mode === 'architect' ? 'light' : 'dark'} onClick={() => onNavigate('contact')}>
              [ BOOK A CALL ]

@@ -168,7 +168,7 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
 
                <div className="bg-white/5 p-6 border border-white/10 flex flex-col justify-between rounded-sm">
                   <div>
-                     <span className="font-mono text-[9px] md:text-[10px] font-bold text-white/40 uppercase tracking-[0.2em] block mb-2">WHAT THIS SOLVES</span>
+                     <span className="font-mono text-[9px] md:text-[10px] font-bold text-white/70 uppercase tracking-[0.2em] block mb-2">WHAT THIS SOLVES</span>
                      <p className="font-serif text-lg md:text-xl italic text-white mb-8">"{pillar.systemPurpose}"</p>
                   </div>
                   

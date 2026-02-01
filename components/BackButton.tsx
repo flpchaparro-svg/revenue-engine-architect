@@ -15,7 +15,7 @@ const BackButton: React.FC<BackButtonProps> = ({
   return (
     <button 
       onClick={onClick}
-      className={`group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/60 hover:text-[#C5A059] transition-colors ${className}`}
+      className={`group flex items-center gap-3 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/80 hover:text-[#8B6914] transition-colors ${className}`}
     >
       {/* Arrow moves slightly left on hover */}
       <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />

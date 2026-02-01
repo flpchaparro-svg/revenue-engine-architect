@@ -55,7 +55,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
               </span>
             </div>
             <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-12">
-              How I <span className="italic font-serif text-[#C5A059]">Work.</span>
+              How I <span className="italic font-serif text-[#8B6914]">Work.</span>
             </h1>
             <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-8 py-2 text-left lg:mx-0">
               A clear path from chaos to order. <br className="hidden md:block" />
@@ -73,11 +73,11 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* SECTION: PHILOSOPHY CARDS */}
         <div className="mb-24 md:mb-40">
           <Section className="mb-16 text-center lg:text-left">
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-6 block">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#B91C36] mb-6 block">
               / OPERATING SYSTEM
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
-              Core <span className="italic font-serif text-[#C5A059]">Principles.</span>
+              Core <span className="italic font-serif text-[#8B6914]">Principles.</span>
             </h2>
           </Section>
 
@@ -86,10 +86,10 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                <Section key={principle.id} delay={idx * 0.1} className="group bg-white p-8 md:p-12 border border-[#1a1a1a]/5 hover:border-[#1a1a1a]/20 shadow-sm hover:shadow-xl transition-all duration-500 rounded-sm relative overflow-hidden">
                  <div className="absolute top-0 left-0 w-full h-1 bg-[#1a1a1a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left will-change-transform" />
                  <div className="flex justify-between items-start mb-8">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold text-[#1a1a1a]/60 group-hover:text-[#1a1a1a] transition-colors">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold text-[#1a1a1a]/80 group-hover:text-[#1a1a1a] transition-colors">
                       {principle.label}
                     </span>
-                    <principle.icon className="w-6 h-6 text-[#1a1a1a]/20 group-hover:text-[#C5A059] transition-colors" />
+                    <principle.icon className="w-6 h-6 text-[#1a1a1a]/20 group-hover:text-[#8B6914] transition-colors" />
                  </div>
                  <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-4 leading-tight tracking-tighter group-hover:translate-x-2 transition-transform duration-300">
                    {principle.title}
@@ -105,11 +105,11 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* SECTION: THE EXECUTION PATH */}
         <div className="mb-32">
           <Section className="mb-20 text-center lg:text-left">
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-6 block">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#7A5D12] mb-6 block">
               / THE 4 PHASES
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
-              How Every Project <span className="italic font-serif text-[#C5A059]">Works.</span>
+              How Every Project <span className="italic font-serif text-[#8B6914]">Works.</span>
             </h2>
           </Section>
 
@@ -152,11 +152,11 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         <Section className="mb-24">
           <div className="bg-[#1a1a1a] text-white p-12 md:p-24 text-center relative overflow-hidden rounded-sm group cursor-default">
              <div className="relative z-10 flex flex-col items-center">
-                <span className="font-mono text-xs font-bold text-[#A07E3C] uppercase tracking-[0.2em] mb-6 block">
+                <span className="font-mono text-xs font-bold text-[#7A5D12] uppercase tracking-[0.2em] mb-6 block">
                   / PROJECT INITIATION
                 </span>
                 <h2 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tighter text-white mb-12">
-                  Ready to <span className="italic font-serif text-[#C5A059]">Start?</span>
+                  Ready to <span className="italic font-serif text-[#8B6914]">Start?</span>
                 </h2>
                 
                 <CTAButton theme="dark" onClick={() => onNavigate('contact')}>

@@ -86,7 +86,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
                 <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">THE SYSTEM</span>
               </motion.div>
               <motion.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10 break-words">
-                How I Fix Your <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Business.</span>
+                How I Fix Your <span className="italic font-serif text-[#8B6914] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Business.</span>
               </motion.h1>
               <motion.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
                 Most consultants sell you one piece at a time. A website here, a CRM there. I build connected systems where everything talks to everything else. That's how you stop the leaks.

@@ -62,7 +62,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
   const currentTheme = theme || { 
     bg: 'bg-[#FFF2EC]', 
     text: 'text-[#1a1a1a]', 
-    accent: 'text-[#E21E3F]', 
+    accent: 'text-[#B91C36]', 
     dark: false 
   };
 
@@ -117,7 +117,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                     ${currentTheme.dark ? 'bg-white/5 border-white/10' : 'bg-[#E21E3F]/5 border-[#E21E3F]/10'}`}
                 >
                    <div>
-                      <span className="font-mono text-[9px] uppercase tracking-widest opacity-60 block mb-2 text-[#E21E3F]">THE QUESTION</span>
+                      <span className="font-mono text-[9px] uppercase tracking-widest opacity-60 block mb-2 text-[#B91C36]">THE QUESTION</span>
                       <h3 className="font-serif text-xl md:text-2xl italic">
                         "{service.symptom || "Are you losing leads in spreadsheets?"}"
                       </h3>

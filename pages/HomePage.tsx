@@ -134,7 +134,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
               </div>
               <div className="overflow-hidden">
                 <span className="block reveal-text tracking-tighter" style={{ animationDelay: '0.2s', letterSpacing: '-0.04em' }}>
-                  <span className="italic font-serif text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Everyone's Job.</span>
+                  <span className="italic font-serif text-[#8B6914] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Everyone's Job.</span>
                 </span>
               </div>
             </h1>
@@ -167,10 +167,10 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
           <m.div className="flex items-center pr-0" style={{ x: xPercent }}>
             {[...TECH_STACK, ...TECH_STACK, ...TECH_STACK, ...TECH_STACK].map((tech, i) => (
               <div key={i} className="flex items-center group cursor-default">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a] opacity-80 group-hover:text-[#C5A059] group-hover:opacity-100 transition-all duration-300 px-12">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a] opacity-80 group-hover:text-[#8B6914] group-hover:opacity-100 transition-all duration-300 px-12">
                   {tech}
                 </span>
-                <span className="text-[#A07E3C] font-mono text-[10px] font-bold">/</span>
+                <span className="text-[#7A5D12] font-mono text-[10px] font-bold">/</span>
               </div>
             ))}
           </m.div>

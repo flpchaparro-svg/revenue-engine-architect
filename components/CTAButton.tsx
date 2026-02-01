@@ -45,7 +45,7 @@ const CTAButton: React.FC<CTAButtonProps> = ({
           transition-colors duration-300
           max-w-full whitespace-normal text-center leading-tight
           ${idleText} ${fontSize} ${padding} ${className}
-          hover:text-[#C5A059]
+          hover:text-[#8B6914]
         `}
       >
         {/* Left Bracket - Squeezes In */}

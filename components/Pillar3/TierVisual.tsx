@@ -22,7 +22,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
                 />
             </motion.div>
             <div className="w-8 h-8 border border-[#E21E3F] rounded-sm bg-[#1a1a1a] flex items-center justify-center shadow-[0_0_15px_rgba(226,30,63,0.3)]">
-                <Zap className="w-4 h-4 text-[#E21E3F]" />
+                <Zap className="w-4 h-4 text-[#B91C36]" />
             </div>
         </div>
       )}
@@ -67,7 +67,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
                animate={{ rotate: -360 }}
                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
             />
-            <Cpu className="w-8 h-8 text-[#E21E3F]" />
+            <Cpu className="w-8 h-8 text-[#B91C36]" />
         </div>
       )}
 

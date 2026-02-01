@@ -69,12 +69,12 @@ const SystemGrid: React.FC<SystemGridProps> = ({ onNavigate }) => {
       
       {/* HEADER SECTION */}
       <div className="text-center max-w-2xl mx-auto mb-20 pt-10">
-          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 flex items-center justify-center gap-2">
+          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#8B6914] mb-6 flex items-center justify-center gap-2">
              <div className="w-2 h-2 rounded-sm bg-[#C5A059]" />
              / THE 7 PILLARS
           </span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
-            Pick What You <span className="italic font-serif text-[#C5A059]">Need.</span>
+            Pick What You <span className="italic font-serif text-[#8B6914]">Need.</span>
           </h2>
           <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto">
             Click any pillar to see how it works and how it connects to the others.

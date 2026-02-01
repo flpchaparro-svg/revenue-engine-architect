@@ -167,7 +167,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                     </p>
                  </div>
 
-                 <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-4 block pl-1">Select Profile</span>
+                 <span className="font-mono text-[9px] text-black/60 uppercase tracking-widest font-bold mb-4 block pl-1">Select Profile</span>
                  <div className="space-y-3 flex-grow">
                     {currentTier.personas.map((p, idx) => (
                       <button
@@ -190,7 +190,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
                  {/* SPECS LIST */}
                  <div className="mt-8 pt-8 border-t border-black/5">
-                    <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-4 block">Included Specs</span>
+                    <span className="font-mono text-[9px] text-black/60 uppercase tracking-widest font-bold mb-4 block">Included Specs</span>
                     <ul className="space-y-2">
                       {currentTier.specs.map((spec, i) => (
                         <li key={i} className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wide text-black/60">
@@ -270,7 +270,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                     </span>
                     <span className={`font-serif text-lg leading-tight ${isTierExpanded ? 'text-white' : 'text-black'}`}>"{tier.hook}"</span>
                   </div>
-                  <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isTierExpanded ? 'rotate-180 text-white' : 'text-black/30'}`} />
+                  <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isTierExpanded ? 'rotate-180 text-white' : 'text-black/60'}`} />
                 </button>
 
                 {/* LEVEL 1 CONTENT */}
@@ -289,7 +289,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                             </p>
                          </div>
 
-                         <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold block mb-2 px-2">Select Profile:</span>
+                         <span className="font-mono text-[9px] text-black/60 uppercase tracking-widest font-bold block mb-2 px-2">Select Profile:</span>
                          
                          {tier.personas.map((p) => {
                            const isPersonaExpanded = expandedPersona === p.id;
@@ -358,7 +358,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
                                          {/* Specs List Mobile */}
                                          <div className="mt-8 pt-6 border-t border-black/10">
-                                            <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mb-3 block">Included Specs</span>
+                                            <span className="font-mono text-[9px] text-black/60 uppercase tracking-widest font-bold mb-3 block">Included Specs</span>
                                             <ul className="space-y-2">
                                               {tier.specs.map((spec, i) => (
                                                 <li key={i} className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wide text-black/60">

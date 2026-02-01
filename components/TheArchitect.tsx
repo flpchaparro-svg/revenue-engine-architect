@@ -53,7 +53,7 @@ const TheArchitect: React.FC = () => {
               {/* Technical Overlay */}
               <div className="absolute top-6 left-6 z-20">
                 {/* Type B: Card Tag */}
-                <div className={`font-mono text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-3 transition-colors duration-500 ${mode === 'architect' ? 'text-white/80' : 'text-[#C5A059]'}`}>
+                <div className={`font-mono text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-3 transition-colors duration-500 ${mode === 'architect' ? 'text-white/80' : 'text-[#8B6914]'}`}>
                    <span className="w-1.5 h-1.5 rounded-full bg-[#E21E3F] animate-pulse" />
                    FELIPE CHAPARRO / SYDNEY
                 </div>
@@ -61,7 +61,7 @@ const TheArchitect: React.FC = () => {
 
               {/* Bottom Badge */}
               <div className="absolute bottom-0 right-0 p-6 z-20">
-                 <ShieldCheck className={`w-10 h-10 transition-colors duration-700 ${mode === 'architect' ? 'text-white/20' : 'text-[#C5A059]'}`} />
+                 <ShieldCheck className={`w-10 h-10 transition-colors duration-700 ${mode === 'architect' ? 'text-white/20' : 'text-[#8B6914]'}`} />
               </div>
             </div>
           </motion.div>
@@ -71,7 +71,7 @@ const TheArchitect: React.FC = () => {
              {/* PROFILE SWITCH - High Visibility Dashboard Style */}
              <div className="flex flex-col sm:flex-row sm:items-center gap-6 mb-12 border-b border-black/5 pb-8">
               {/* Type A: Section Anchor */}
-              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/60">
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/80">
                 / VIEW MODE
               </span>
          
@@ -111,9 +111,9 @@ const TheArchitect: React.FC = () => {
                  {/* FIXED RESPONSIVENESS: Scales smoothly now */}
                  <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] mb-8 md:mb-12 text-[#1a1a1a] tracking-tight">
                     {mode === 'architect' ? (
-                       <>One person. <br/><span className="italic text-[#C5A059]">Ten person output.</span></>
+                       <>One person. <br/><span className="italic text-[#8B6914]">Ten person output.</span></>
                     ) : (
-                       <>I've run businesses. <br/><span className="italic text-[#C5A059]">Not just advised them.</span></>
+                       <>I've run businesses. <br/><span className="italic text-[#8B6914]">Not just advised them.</span></>
                     )}
                  </h2>
                  <div className="space-y-8 md:space-y-12">
@@ -131,10 +131,10 @@ const TheArchitect: React.FC = () => {
                     <div className="flex items-center gap-8 mb-8">
                       <div>
                           {/* Type B: Card Tag */}
-                          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-black/30 mb-1">
+                          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-black/60 mb-1">
                              {mode === 'architect' ? 'THE ARCHITECT' : 'THE HUMAN'}
                           </p>
-                          <p className={`font-serif text-2xl transition-colors duration-500 ${mode === 'architect' ? 'text-[#1a1a1a]' : 'text-[#C5A059]'}`}>
+                          <p className={`font-serif text-2xl transition-colors duration-500 ${mode === 'architect' ? 'text-[#1a1a1a]' : 'text-[#8B6914]'}`}>
                              Felipe Chaparro
                           </p>
                       </div>

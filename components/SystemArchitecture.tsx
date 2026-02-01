@@ -10,7 +10,7 @@ const PlaceholderVisual: React.FC<{ color: string; label: string }> = ({ color, 
     <div className="absolute inset-0 opacity-10" style={{ backgroundColor: color }}></div>
     <div className="text-center p-6">
       <div className="text-4xl mb-2 opacity-20">construction</div>
-      <div className="font-mono text-sm uppercase tracking-widest text-[#1a1a1a]/60">
+      <div className="font-mono text-sm uppercase tracking-widest text-[#1a1a1a]/80">
         {label}
       </div>
     </div>

@@ -28,9 +28,9 @@ const TerminalLog: React.FC = () => {
     // UPGRADE: Increased p-6 to p-8, font size base for better readability
     <div className="w-full bg-[#1a1a1a] p-8 border-t border-black/10 font-mono text-sm overflow-hidden">
       <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
-        <Terminal className="w-3 h-3 text-[#C5A059]" />
+        <Terminal className="w-3 h-3 text-[#8B6914]" />
         {/* Type B: Card Tag (inside terminal component) */}
-        <span className="text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-bold">BUILD LOG / WHAT I DID</span>
+        <span className="text-[10px] text-[#8B6914] uppercase tracking-[0.2em] font-bold">BUILD LOG / WHAT I DID</span>
       </div>
       <div className="space-y-3">
         {lines.map((line, i) => (
@@ -96,15 +96,15 @@ const Feature_Group7: React.FC = () => {
         
         {/* --- SECTION HEADER --- */}
         <div className="mb-16 max-w-2xl">
-          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-4 block">
+          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#8B6914] mb-4 block">
             / REAL RESULTS
           </span>
           {/* FIXED: Smooth scaling 4xl -> 5xl -> 7xl */}
           <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-[#1a1a1a] leading-[0.95] tracking-tighter mb-6">
-            See It In <span className="italic text-[#C5A059]">Action.</span>
+            See It In <span className="italic text-[#8B6914]">Action.</span>
           </h2>
           {/* FIXED: Body text smooth scaling */}
-          <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60 border-l-2 border-[#E21E3F]/30 pl-6">
+          <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/80 border-l-2 border-[#E21E3F]/30 pl-6">
             Don't take my word for it. Here's what happened when I rebuilt a Sydney security company's website.
           </p>
         </div>
@@ -147,14 +147,14 @@ const Feature_Group7: React.FC = () => {
               <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-[#C5A059] rounded-full animate-pulse" />
                   {/* Type B: Card Tag */}
-                  <span className="font-mono text-[10px] font-bold text-[#C5A059] tracking-[0.2em] uppercase">
+                  <span className="font-mono text-[10px] font-bold text-[#8B6914] tracking-[0.2em] uppercase">
                      WEBSITE REBUILD
                   </span>
               </div>
               {/* Type B: Card Tag */}
-              <span className="font-mono text-[10px] font-bold text-white/30 uppercase tracking-[0.2em] flex items-center gap-2">
+              <span className="font-mono text-[10px] font-bold text-white/60 uppercase tracking-[0.2em] flex items-center gap-2">
                   SEE THE TRANSFORMATION
-                  <Zap className="w-3 h-3 text-[#C5A059]" />
+                  <Zap className="w-3 h-3 text-[#8B6914]" />
               </span>
           </div>
 
@@ -182,15 +182,15 @@ const Feature_Group7: React.FC = () => {
                         className="absolute inset-0 bg-[#E21E3F]/20" 
                         variants={{ idle: { opacity: 0 }, scan: { opacity: 1, transition: { delay: 0.3 } } }} 
                       />
-                      <AlertTriangle className="w-10 h-10 text-[#E21E3F] relative z-10" />
+                      <AlertTriangle className="w-10 h-10 text-[#B91C36] relative z-10" />
                   </div>
                   <div className="text-center">
                       {/* Type B: Card Tag */}
-                      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-2">BEFORE</div>
+                      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#B91C36] mb-2">BEFORE</div>
                       {/* Node A */}
                       <div className="font-serif text-white/60 text-2xl md:text-3xl tracking-tight mb-2">group7security.com</div>
                       {/* Type B: Card Tag */}
-                      <div className="flex items-center justify-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] text-[#E21E3F] bg-[#E21E3F]/10 px-3 py-1.5 rounded">
+                      <div className="flex items-center justify-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] text-[#B91C36] bg-[#E21E3F]/10 px-3 py-1.5 rounded">
                           <Activity className="w-3 h-3" />
                           <span>4.2s Load</span>
                       </div>
@@ -206,7 +206,7 @@ const Feature_Group7: React.FC = () => {
                   />
                   <div className="relative z-10 bg-[#1a1a1a] border border-[#C5A059]/30 px-6 py-3 rounded-full flex items-center gap-3">
                       {/* Type B: Card Tag */}
-                      <span className="font-mono text-[10px] text-[#C5A059] uppercase tracking-[0.2em] font-bold">
+                      <span className="font-mono text-[10px] text-[#8B6914] uppercase tracking-[0.2em] font-bold">
                           VIEW TRANSFORMATION
                       </span>
                   </div>
@@ -335,7 +335,7 @@ const Feature_Group7: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 md:p-12 bg-white border-t border-black/10">
                         <div>
                           {/* Type B: Card Tag - using span since this is a label, not a heading */}
-                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-3 block">
+                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#B91C36] mb-3 block">
                              THE PROBLEM
                           </span>
                           <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
@@ -344,7 +344,7 @@ const Feature_Group7: React.FC = () => {
                         </div>
                         <div>
                           {/* Type B: Card Tag - using span since this is a label, not a heading */}
-                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-3 block">
+                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#8B6914] mb-3 block">
                              WHAT I DID
                           </span>
                           <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
@@ -353,7 +353,7 @@ const Feature_Group7: React.FC = () => {
                         </div>
                         <div>
                           {/* Type B: Card Tag - using span since this is a label, not a heading */}
-                          <span className="font-mono text-[10px] font-bold text-[#C5A059] mb-3 uppercase tracking-[0.2em] block">
+                          <span className="font-mono text-[10px] font-bold text-[#8B6914] mb-3 uppercase tracking-[0.2em] block">
                              THE RESULT
                           </span>
                           <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">

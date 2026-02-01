@@ -25,13 +25,13 @@ const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onBack, onNavigat
 
         {/* HEADER */}
         <div className="mb-24 border-b border-[#1a1a1a]/10 pb-12">
-           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#A07E3C] mb-4 block">
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#7A5D12] mb-4 block">
               / LEGAL
            </span>
            <h1 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tighter text-[#1a1a1a]">
-             Privacy <span className="italic font-serif text-[#C5A059]">Policy.</span>
+             Privacy <span className="italic font-serif text-[#8B6914]">Policy.</span>
            </h1>
-           <p className="mt-8 font-sans text-lg text-[#1a1a1a]/60 max-w-2xl">
+           <p className="mt-8 font-sans text-lg text-[#1a1a1a]/80 max-w-2xl">
              I don't sell your data. I use it to build your system. Here is the plain English explanation of how we handle information.
            </p>
         </div>

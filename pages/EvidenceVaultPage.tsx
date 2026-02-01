@@ -34,9 +34,9 @@ const TerminalLog: React.FC = () => {
   return (
     <div className="w-full bg-[#1a1a1a] p-8 border-t border-black/10 font-mono text-sm overflow-hidden">
       <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
-        <Terminal className="w-4 h-4 text-[#C5A059]" />
+        <Terminal className="w-4 h-4 text-[#8B6914]" />
         {/* FIX: Bumped to text-xs */}
-        <span className="text-[#C5A059] uppercase tracking-[0.2em] font-bold text-xs">Build Log // What I Did</span>
+        <span className="text-[#8B6914] uppercase tracking-[0.2em] font-bold text-xs">Build Log // What I Did</span>
       </div>
       <div className="space-y-3">
         {lines.map((line, i) => (
@@ -159,10 +159,10 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
         {/* HERO SECTION */}
         <section className="mb-40">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <span className="font-mono text-xs text-[#E21E3F] tracking-[0.4em] mb-6 block uppercase">/ Verification_Repository</span>
+            <span className="font-mono text-xs text-[#B91C36] tracking-[0.4em] mb-6 block uppercase">/ Verification_Repository</span>
             <h1 className="font-serif text-6xl md:text-8xl lg:text-[8.5rem] leading-[0.9] tracking-tighter mb-10">
               The Forensic <br />
-              <span className="italic text-[#C5A059]">Archive</span> <br />
+              <span className="italic text-[#8B6914]">Archive</span> <br />
               of Results.
             </h1>
             <p className="font-sans text-xl md:text-2xl font-light text-[#1a1a1a]/70 max-w-3xl leading-relaxed border-l border-black/20 pl-8">
@@ -185,7 +185,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
           <div className="lg:col-span-5 flex justify-center">
              <div className="w-full aspect-square max-w-[400px] border border-black/5 bg-white p-12 flex flex-col justify-center items-center relative overflow-hidden shadow-sm">
                 <div className="absolute top-0 left-0 w-full h-1 bg-[#C5A059]"></div>
-                <ShieldCheck className="w-24 h-24 text-[#C5A059] mb-8 stroke-[0.5]" />
+                <ShieldCheck className="w-24 h-24 text-[#8B6914] mb-8 stroke-[0.5]" />
                 {/* FIX: Bumped to text-[10px] */}
                 <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-center text-black/40">RESULT AUTHENTICATED / SYSTEM ID 0X44</span>
              </div>
@@ -197,7 +197,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
           <div className="flex justify-between items-end mb-16 border-b border-black/10 pb-8">
             <h2 className="font-serif text-5xl italic">Case Audits.</h2>
             {/* FIX: Bumped to text-[10px] */}
-            <span className="font-mono text-[10px] text-black/30 tracking-[0.2em] uppercase mb-2">DEPLOYMENT LOG ARCHIVE</span>
+            <span className="font-mono text-[10px] text-black/60 tracking-[0.2em] uppercase mb-2">DEPLOYMENT LOG ARCHIVE</span>
           </div>
 
           <motion.div 
@@ -217,19 +217,19 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                 <div>
                   <div className="flex justify-between items-start mb-12">
                     {/* FIX: Bumped to text-[10px] */}
-                    <span className="font-mono text-[10px] text-black/30 tracking-widest uppercase">{audit.id}</span>
-                    <audit.icon className="w-6 h-6 text-[#C5A059] opacity-30 group-hover:opacity-100 transition-opacity" />
+                    <span className="font-mono text-[10px] text-black/60 tracking-widest uppercase">{audit.id}</span>
+                    <audit.icon className="w-6 h-6 text-[#8B6914] opacity-30 group-hover:opacity-100 transition-opacity" />
                   </div>
                   <h3 className="font-serif text-3xl mb-4 leading-none">{audit.title}</h3>
                   {/* FIX: Bumped to text-[10px] */}
-                  <p className="font-mono text-[10px] text-[#E21E3F] uppercase tracking-widest mb-6">{audit.client}</p>
-                  <div className="text-4xl font-sans font-light text-[#C5A059] mb-8">{audit.impact}</div>
+                  <p className="font-mono text-[10px] text-[#B91C36] uppercase tracking-widest mb-6">{audit.client}</p>
+                  <div className="text-4xl font-sans font-light text-[#8B6914] mb-8">{audit.impact}</div>
                   <p className="font-sans text-sm text-black/50 leading-relaxed mb-10 group-hover:text-white/60 transition-colors">{audit.desc}</p>
                 </div>
                 
                 <div className="pt-8 border-t border-black/5 group-hover:border-white/10 transition-colors">
                    {/* FIX: Changed to span for proper heading hierarchy */}
-                   <span className="font-mono text-[10px] uppercase tracking-widest text-black/30 group-hover:text-white/30 mb-4 block">Verified Metrics:</span>
+                   <span className="font-mono text-[10px] uppercase tracking-widest text-black/60 group-hover:text-white/60 mb-4 block">Verified Metrics:</span>
                    <ul className="space-y-2">
                      {audit.metrics.map((m, i) => (
                        <li key={i} className="flex items-center gap-3">
@@ -247,7 +247,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
         {/* VERIFIED PARTNERS */}
         <section className="mb-32">
           {/* FIX: Bumped to text-[10px] */}
-          <span className="font-mono text-[10px] text-black/30 tracking-[0.5em] uppercase mb-12 block text-center">Engineered With The Best</span>
+          <span className="font-mono text-[10px] text-black/60 tracking-[0.5em] uppercase mb-12 block text-center">Engineered With The Best</span>
           <div className="flex flex-wrap justify-center md:justify-between items-center gap-12 grayscale opacity-30 py-12 border-y border-black/5">
             {partners.map(p => (
               <span key={p} className="font-mono text-xs font-bold tracking-[0.4em] uppercase">{p}</span>
@@ -257,7 +257,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
 
         {/* CALL TO ACTION */}
         <section className="py-32 flex flex-col items-center text-center mb-24">
-          <h2 className="font-serif text-5xl md:text-7xl mb-12 italic max-w-4xl leading-tight">Your company is the next <span className="text-[#C5A059]">evidence log.</span></h2>
+          <h2 className="font-serif text-5xl md:text-7xl mb-12 italic max-w-4xl leading-tight">Your company is the next <span className="text-[#8B6914]">evidence log.</span></h2>
           
           <CTAButton theme="light" onClick={() => window.open("https://meetings-ap1.hubspot.com/felipe", "_blank")}>
              [ AUDIT MY SYSTEM ]
@@ -267,7 +267,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
         {/* BOTTOM FOOTER SEPARATOR */}
         <div className="py-12 border-t border-black/10 flex flex-col md:flex-row items-center justify-between gap-8 mt-20 opacity-60">
           <div className="flex items-center gap-4">
-            <CheckCircle2 className="w-5 h-5 text-[#C5A059]" />
+            <CheckCircle2 className="w-5 h-5 text-[#8B6914]" />
             {/* FIX: Bumped to text-[10px] */}
             <span className="font-mono text-[10px] uppercase tracking-widest text-black/40">EVIDENCE VERIFIED / LOGS NOMINAL</span>
           </div>
@@ -325,7 +325,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                   {/* MODAL GRID */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 md:p-12 bg-white border-t border-black/10">
                       <div>
-                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-3 block">
+                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#B91C36] mb-3 block">
                            The Problem
                         </span>
                         <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
@@ -333,7 +333,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                         </p>
                       </div>
                       <div>
-                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-3 block">
+                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#8B6914] mb-3 block">
                            What I Did
                         </span>
                         <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
@@ -341,7 +341,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                         </p>
                       </div>
                       <div>
-                        <span className="font-mono text-xs font-bold text-[#C5A059] mb-3 uppercase tracking-[0.2em] block">
+                        <span className="font-mono text-xs font-bold text-[#8B6914] mb-3 uppercase tracking-[0.2em] block">
                            The Result
                         </span>
                         <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">

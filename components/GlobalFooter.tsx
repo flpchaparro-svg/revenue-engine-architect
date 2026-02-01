@@ -22,7 +22,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
     {
       title: 'GET CLIENTS',
       icon: Target,
-      color: 'text-[#E21E3F]',
+      color: 'text-[#B91C36]',
       links: [
         { label: 'Websites', action: () => onNavigate('pillar1') },
         { label: 'CRM Systems', action: () => onNavigate('pillar2') },
@@ -32,7 +32,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
     {
       title: 'SCALE FASTER',
       icon: Zap,
-      color: 'text-[#C5A059]',
+      color: 'text-[#8B6914]',
       links: [
         { label: 'AI Agents', action: () => onNavigate('pillar4') },
         { label: 'Content Systems', action: () => onNavigate('pillar5') },
@@ -67,7 +67,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
               </div>
               <h2 className="font-serif text-4xl md:text-5xl leading-[0.95] tracking-tight mb-8">
                 Stop guessing. <br />
-                Start <span className="italic text-[#C5A059]">building.</span>
+                Start <span className="italic text-[#8B6914]">building.</span>
               </h2>
               <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
                 [ BOOK A CALL ]
@@ -104,14 +104,14 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
 
         {/* BOTTOM SECTION: LEGAL */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
-           <p className="font-mono text-[10px] text-white/40 uppercase tracking-widest">
+           <p className="font-mono text-[10px] text-white/70 uppercase tracking-widest">
              © {currentYear} Felipe Chaparro. Sydney, Australia.
            </p>
            
            <div className="flex items-center gap-8">
               <button 
                 onClick={() => onNavigate('privacy')}
-                className="font-mono text-[10px] text-white/40 hover:text-white uppercase tracking-widest transition-colors"
+                className="font-mono text-[10px] text-white/70 hover:text-white uppercase tracking-widest transition-colors"
               >
                 Privacy Policy
               </button>
@@ -120,7 +120,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
                 target="_blank" 
                 rel="noreferrer"
                 aria-label="Visit Felipe Chaparro's LinkedIn Profile"
-                className="font-mono text-[10px] text-white/40 hover:text-[#C5A059] uppercase tracking-widest transition-colors flex items-center gap-2"
+                className="font-mono text-[10px] text-white/70 hover:text-[#8B6914] uppercase tracking-widest transition-colors flex items-center gap-2"
               >
                 LinkedIn <ArrowUpRight className="w-3 h-3" />
               </a>

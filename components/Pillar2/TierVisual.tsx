@@ -29,7 +29,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
         // ANIMATION: "The Tag"
         <div className="relative flex items-center gap-2">
              <div className="w-10 h-10 border border-[#E21E3F] rounded-full flex items-center justify-center bg-[#1a1a1a]">
-                <Users className="w-4 h-4 text-[#E21E3F]" />
+                <Users className="w-4 h-4 text-[#B91C36]" />
              </div>
              {/* Tag appearing */}
              <motion.div 
@@ -66,7 +66,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
               className="absolute inset-0 border-2 border-[#E21E3F]/30 rounded-full border-t-[#E21E3F]"
             />
             <div className="absolute inset-2 border border-[#E21E3F]/10 rounded-full flex items-center justify-center">
-                <RefreshCw className="w-4 h-4 text-[#E21E3F]" />
+                <RefreshCw className="w-4 h-4 text-[#B91C36]" />
             </div>
         </div>
       )}

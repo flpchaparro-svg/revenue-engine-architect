@@ -37,13 +37,13 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
           </span>
           <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.0] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-10">
             This is not a <br />
-            <span className="italic font-serif text-[#C5A059]">Sales Call.</span>
+            <span className="italic font-serif text-[#8B6914]">Sales Call.</span>
           </h1>
           <div className="space-y-6 max-w-lg">
             <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]">
               I don't have salespeople. When you fill this out, you're starting a conversation directly with me.
             </p>
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/60">
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/80">
               I'll personally review your situation and tell you honestly if I can help.
             </p>
           </div>
@@ -64,11 +64,11 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-xl w-full mx-auto lg:mx-0">
             
             <div className="mb-12 border-b border-white/10 pb-8 mt-8 lg:mt-0">
-              <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-6 block">
+              <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#8B6914] mb-6 block">
                 / YOUR DETAILS
               </span>
               <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-white mb-6">
-                Tell Me About Your <span className="italic font-serif text-[#C5A059]">Business.</span>
+                Tell Me About Your <span className="italic font-serif text-[#8B6914]">Business.</span>
               </h2>
               <p className="font-sans text-lg md:text-xl text-white/60 leading-relaxed max-w-xl">
                 Fill this out and I'll get back to you within 24 hours.
@@ -79,37 +79,37 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
               {/* Row 1: Name & Email */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="group relative">
-                  <label htmlFor="name" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">YOUR NAME</label>
+                  <label htmlFor="name" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#8B6914] font-bold">YOUR NAME</label>
                   <input id="name" type="text" required className={inputBaseStyle} placeholder="Your name" value={formState.name} onChange={e => updateField('name', e.target.value)} />
                 </div>
                 <div className="group relative">
-                  <label htmlFor="email" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">EMAIL</label>
+                  <label htmlFor="email" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#8B6914] font-bold">EMAIL</label>
                   <input id="email" type="email" required className={inputBaseStyle} placeholder="Your email" value={formState.email} onChange={e => updateField('email', e.target.value)} />
                 </div>
               </div>
 
               {/* Row 2: Entity */}
               <div className="group relative">
-                <label htmlFor="company" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">BUSINESS</label>
+                <label htmlFor="company" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#8B6914] font-bold">BUSINESS</label>
                 <input id="company" type="text" className={inputBaseStyle} placeholder="Company name or website" value={formState.company} onChange={e => updateField('company', e.target.value)} />
               </div>
 
               {/* Row 3: Dropdown */}
               <div className="group relative">
-                <label htmlFor="frictionPoint" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">WHAT DO YOU NEED HELP WITH?</label>
+                <label htmlFor="frictionPoint" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#8B6914] font-bold">WHAT DO YOU NEED HELP WITH?</label>
                 <div className="relative">
                   <select id="frictionPoint" className={`${inputBaseStyle} appearance-none cursor-pointer pr-10`} value={formState.frictionPoint} onChange={e => updateField('frictionPoint', e.target.value)}>
                     {DIAGNOSIS_OPTIONS.map(s => <option key={s} value={s} className="bg-[#1a1a1a] text-white">{s}</option>)}
                   </select>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none mt-1">
-                     <ChevronDown className="w-5 h-5 text-[#C5A059]" />
+                     <ChevronDown className="w-5 h-5 text-[#8B6914]" />
                   </div>
                 </div>
               </div>
 
               {/* Row 4: Message */}
               <div className="group relative">
-                <label htmlFor="message" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold">ANYTHING ELSE?</label>
+                <label htmlFor="message" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#8B6914] font-bold">ANYTHING ELSE?</label>
                 <textarea id="message" rows={4} className={`${inputBaseStyle} resize-none`} placeholder="Tell me a bit about your situation." value={formState.message} onChange={e => updateField('message', e.target.value)} />
               </div>
 
@@ -126,7 +126,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
                <Check className="w-12 h-12 text-[#1a1a1a]" />
              </div>
              <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tighter text-white mb-6">
-               Got <span className="italic font-serif text-[#C5A059]">It.</span>
+               Got <span className="italic font-serif text-[#8B6914]">It.</span>
              </h2>
              <p className="font-sans text-lg md:text-xl font-light text-white/60 mb-12 leading-relaxed">
                Thanks for reaching out. I'll review your details and get back to you within 24 hours.
