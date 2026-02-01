@@ -39,6 +39,8 @@ const TheArchitect: React.FC = () => {
                     loop
                     muted
                     playsInline
+                    aria-hidden="true"
+                    role="presentation"
                   >
                     <source src="/videos/revenue-engine-architecture-system-About-video.webm" type="video/webm" />
                     Your browser does not support the video tag.
@@ -140,6 +142,7 @@ const TheArchitect: React.FC = () => {
                         href="https://www.linkedin.com/in/felipe-chaparro-97a390176/" 
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label="Visit Felipe Chaparro's LinkedIn Profile"
                         className={`group/arrow flex items-center justify-center w-14 h-14 border transition-all duration-300 ${mode === 'architect' ? 'border-black/10 hover:bg-[#1a1a1a] hover:text-white' : 'border-[#C5A059]/30 hover:bg-[#C5A059] hover:text-white'}`}
                       >
                           <ArrowUpRight className="w-6 h-6 stroke-[1.5] group-hover/arrow:translate-x-1 group-hover/arrow:-translate-y-1 transition-transform duration-300 ease-out" />

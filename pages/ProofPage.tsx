@@ -190,7 +190,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                       <item.icon className="w-6 h-6 text-[#C5A059]" />
                     </div>
                     <div>
-                      <h4 className="font-serif text-2xl text-[#1a1a1a]">{item.title}</h4>
+                      <h3 className="font-serif text-2xl text-[#1a1a1a]">{item.title}</h3>
                       <p className="font-sans text-base text-[#1a1a1a]/60 mt-1">{item.what}</p>
                     </div>
                   </div>

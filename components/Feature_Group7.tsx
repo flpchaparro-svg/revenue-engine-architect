@@ -316,6 +316,7 @@ const Feature_Group7: React.FC = () => {
                     </div>
                     <button 
                       onClick={() => setIsModalOpen(false)}
+                      aria-label="Close modal"
                       className="p-2 hover:bg-black/5 rounded-full transition-colors"
                     >
                       <X className="w-6 h-6 text-[#1a1a1a]" />
@@ -333,28 +334,28 @@ const Feature_Group7: React.FC = () => {
                     {/* MODAL GRID */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 md:p-12 bg-white border-t border-black/10">
                         <div>
-                          {/* Type B: Card Tag */}
-                          <h4 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-3">
+                          {/* Type B: Card Tag - using span since this is a label, not a heading */}
+                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#E21E3F] mb-3 block">
                              THE PROBLEM
-                          </h4>
+                          </span>
                           <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
                             They had a slow <strong>.com</strong> website with no local SEO. Google thought they were a global tech company, not a Sydney security firm. Local customers couldn't find them.
                           </p>
                         </div>
                         <div>
-                          {/* Type B: Card Tag */}
-                          <h4 className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-3">
+                          {/* Type B: Card Tag - using span since this is a label, not a heading */}
+                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#C5A059] mb-3 block">
                              WHAT I DID
-                          </h4>
+                          </span>
                           <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
                             I migrated them to <strong>.com.au</strong> and rebuilt the site from scratch. Fast, mobile-first, with proper Sydney location tags so Google knows exactly where they operate.
                           </p>
                         </div>
                         <div>
-                          {/* Type B: Card Tag */}
-                          <h4 className="font-mono text-[10px] font-bold text-[#C5A059] mb-3 uppercase tracking-[0.2em]">
+                          {/* Type B: Card Tag - using span since this is a label, not a heading */}
+                          <span className="font-mono text-[10px] font-bold text-[#C5A059] mb-3 uppercase tracking-[0.2em] block">
                              THE RESULT
-                          </h4>
+                          </span>
                           <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
                             Page load dropped from <strong>4.2s to 0.4s</strong>. Local search rankings improved. The site now converts visitors instead of losing them.
                           </p>

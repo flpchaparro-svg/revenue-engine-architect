@@ -109,12 +109,12 @@ const App: React.FC = () => {
                 <Routes location={location}>
                   <Route path="/" element={<HomePage onNavigate={handleGlobalNavigate} onServiceClick={handleServiceClick} />} />
                   <Route path="/architect" element={<ArchitectPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
-                  <Route path="/system" element={<SystemPage onNavigate={handleGlobalNavigate} />} />
-                  <Route path="/process" element={<ProcessPage onNavigate={handleGlobalNavigate} />} />
-                  <Route path="/proof" element={<ProofPage onNavigate={handleGlobalNavigate} />} />
-                  <Route path="/evidence-vault" element={<EvidenceVaultPage onNavigate={handleGlobalNavigate} />} />
-                  <Route path="/contact" element={<ContactPage onNavigate={handleGlobalNavigate} />} />
-                  <Route path="/privacy" element={<PrivacyPolicyPage onBack={() => handleGlobalNavigate('homepage')} />} />
+                  <Route path="/system" element={<SystemPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
+                  <Route path="/process" element={<ProcessPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
+                  <Route path="/proof" element={<ProofPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
+                  <Route path="/evidence-vault" element={<EvidenceVaultPage onBack={() => handleGlobalNavigate('homepage')} />} />
+                  <Route path="/contact" element={<ContactPage onBack={() => handleGlobalNavigate('homepage')} />} />
+                  <Route path="/privacy" element={<PrivacyPolicyPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
                   
                   <Route path="/pillar1" element={<Pillar1 onNavigate={handleGlobalNavigate} />} />
                   <Route path="/pillar2" element={<Pillar2 onNavigate={handleGlobalNavigate} />} />

@@ -97,6 +97,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
               <div className="h-48 md:h-64 relative bg-[#1a1a1a] border-b border-black/10 shrink-0">
                  <button 
                     onClick={onClose} 
+                    aria-label="Close modal"
                     className="absolute top-6 right-6 z-50 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
                  >
                    <X className="w-5 h-5" />
@@ -153,7 +154,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                    </div>
 
                    <div className="md:col-span-5 pt-2 md:pt-0">
-                      <h4 className="font-serif text-sm font-bold tracking-widest uppercase mb-6 opacity-60">WHAT YOU GET</h4>
+                      <span className="font-serif text-sm font-bold tracking-widest uppercase mb-6 opacity-60 block">WHAT YOU GET</span>
                       <ul className="space-y-4">
                         {service.features.map((feature, i) => (
                            <li key={i} className="flex items-start gap-3 group">

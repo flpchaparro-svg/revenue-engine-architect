@@ -107,6 +107,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                       
                       {/* MAIN VIDEO PLAYER - COLOR (no grayscale), with seamless loop */}
                       {/* scale-[1.15] zooms in slightly to crop out the VEO watermark */}
+                      {/* aria-hidden & role="presentation" for decorative video with no speech */}
                       <video
                         ref={videoRef}
                         key={mode}
@@ -115,6 +116,8 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                         muted
                         playsInline
                         onTimeUpdate={handleTimeUpdate}
+                        aria-hidden="true"
+                        role="presentation"
                       >
                         <source 
                           src={mode === 'architect' ? "/videos/the_architect_strategy.webm" : "/videos/the_architect_human.webm"} 
@@ -150,7 +153,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                          <div className={`absolute -left-3 md:-left-4 top-0 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-[#FFF2EC] z-10 ${mode === 'architect' ? 'bg-[#1a1a1a] text-white' : 'bg-[#C5A059] text-white'}`}>
                             <step.icon className="w-3 h-3 md:w-4 md:h-4" />
                          </div>
-                         <h4 className="font-serif text-2xl md:text-3xl mb-4">{step.title}</h4>
+                         <h2 className="font-serif text-2xl md:text-3xl mb-4">{step.title}</h2>
                          <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed max-w-lg">{step.text}</p>
                       </Section>
                     ))}

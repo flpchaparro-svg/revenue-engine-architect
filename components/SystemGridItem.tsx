@@ -153,12 +153,12 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
                <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   {pillar.subServices.map((sub, i: number) => (
                      <div key={i} className="space-y-3">
-                        <h4 
-                            className="font-mono text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] border-l-2 pl-3"
+                        <span 
+                            className="font-mono text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] border-l-2 pl-3 block"
                             style={{ color: displayAccent, borderColor: displayAccent }}
                         >
                            {sub.title}
-                        </h4>
+                        </span>
                         <p className="font-sans text-xs md:text-sm text-white/70 leading-relaxed pl-3.5">
                            {sub.description}
                         </p>

@@ -181,7 +181,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                            <p.icon className="w-4 h-4" />
                          </div>
                          <div>
-                           <h4 className={`font-serif text-lg leading-tight ${activePersonaIndex === idx ? 'text-black' : 'text-black/60'}`}>{p.title}</h4>
+                           <h3 className={`font-serif text-lg leading-tight ${activePersonaIndex === idx ? 'text-black' : 'text-black/60'}`}>{p.title}</h3>
                          </div>
                          {activePersonaIndex === idx && <ChevronRight className="w-4 h-4 ml-auto text-[#1a1a1a]" />}
                       </button>
@@ -315,7 +315,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                      <p.icon className="w-4 h-4" />
                                   </div>
                                   <div className="flex-grow">
-                                     <h4 className={`font-serif text-lg leading-tight ${isPersonaExpanded ? 'text-[#1a1a1a]' : 'text-black/70'}`}>{p.title}</h4>
+                                     <h3 className={`font-serif text-lg leading-tight ${isPersonaExpanded ? 'text-[#1a1a1a]' : 'text-black/70'}`}>{p.title}</h3>
                                      <span className="text-[10px] text-black/40 block mt-1 line-clamp-1">{p.examples}</span>
                                   </div>
                                   <ChevronDown className={`w-4 h-4 transition-transform ${isPersonaExpanded ? 'rotate-180 text-[#1a1a1a]' : 'text-black/20'}`} />
