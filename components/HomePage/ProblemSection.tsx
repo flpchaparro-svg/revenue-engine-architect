@@ -17,6 +17,8 @@ const ProblemSection: React.FC = () => {
 
   // Mobile Auto-Rotation Logic
   useEffect(() => {
+    let resizeTimeout: NodeJS.Timeout | null = null;
+    
     const startRotation = () => {
       if (!isMobileRef.current) return;
       
@@ -44,11 +46,18 @@ const ProblemSection: React.FC = () => {
       }
     };
     
+    // Debounced resize handler
+    const handleResize = () => {
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(checkMobile, 150);
+    };
+    
     checkMobile();
-    window.addEventListener('resize', checkMobile);
+    window.addEventListener('resize', handleResize);
     return () => {
       if (autoRotateIntervalRef.current) clearInterval(autoRotateIntervalRef.current);
-      window.removeEventListener('resize', checkMobile);
+      if (resizeTimeout) clearTimeout(resizeTimeout);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
