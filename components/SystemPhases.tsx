@@ -319,7 +319,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         </AnimatePresence>
                         
                         <div className={`mt-auto pt-8 border-t ${isBlueprint ? 'border-white/10' : 'border-[#1a1a1a]/10'}`}>
-                             {isBlueprint ? (
+                             {isBlueprint && (
                                  <CTAButton 
                                     theme="dark"
                                     onClick={() => {
@@ -335,14 +335,6 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                     className="w-full"
                                  >
                                     [ EXPLORE THE SYSTEM ]
-                                 </CTAButton>
-                             ) : (
-                                 <CTAButton
-                                    variant="bracket"
-                                    theme="light"
-                                    onClick={() => onNavigate && onNavigate('system')}
-                                 >
-                                    VIEW DETAILS
                                  </CTAButton>
                              )}
                         </div>
@@ -370,8 +362,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       key={service.id}
                       variants={cardVariants}
                       onMouseEnter={() => setActiveService(service)}
-                      onClick={() => handleCardClick(service)}
-                      className={`relative bg-white border transition-all duration-300 group cursor-pointer flex flex-col
+                      className={`relative bg-white border transition-all duration-300 group flex flex-col
                         ${isActive 
                            ? 'border-l-4 shadow-lg' 
                            : 'border-[#1a1a1a]/10 hover:border-l-4 hover:shadow-md'
@@ -434,16 +425,6 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                             </p>
                          </div>
 
-                         <div className="mt-6 pt-4 border-t border-[#1a1a1a]/5 flex justify-start">
-                            <CTAButton
-                              variant="bracket"
-                              size="sm"
-                              theme="light"
-                              onClick={() => onNavigate && onNavigate('system', service.id)}
-                            >
-                              VIEW DETAILS
-                            </CTAButton>
-                         </div>
                       </div>
                     </m.div>
                   );
