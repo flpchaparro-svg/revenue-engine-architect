@@ -40,6 +40,7 @@ const TheArchitect: React.FC = () => {
                     muted
                     playsInline
                     preload="metadata"
+                    poster="/images/felipe-chaparro-revenue-engine-architect-sydney.webp"
                     aria-hidden="true"
                     role="presentation"
                   >

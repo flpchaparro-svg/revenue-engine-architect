@@ -116,6 +116,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                         muted
                         playsInline
                         preload="metadata"
+                        poster={mode === 'architect' ? "/images/revenue-engine-system-architecture-strategy.webp" : "/images/felipe-chaparro-business-consultant-profile.webp"}
                         onTimeUpdate={handleTimeUpdate}
                         aria-hidden="true"
                         role="presentation"
