@@ -46,8 +46,17 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
       // If we're within CUT_OFF_TIME of the end, jump back to start
       if (video.currentTime >= video.duration - CUT_OFF_TIME) {
         video.currentTime = 0;
-        video.play();
+        video.play().catch(() => {}); // Catch autoplay rejection on mobile
       }
+    }
+  };
+
+  // Fallback for mobile where onTimeUpdate may not fire reliably
+  const handleEnded = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.currentTime = 0;
+      video.play().catch(() => {});
     }
   };
 
@@ -113,11 +122,13 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                         key={mode}
                         className="w-full h-full object-cover contrast-110 scale-[1.15]"
                         autoPlay
+                        loop
                         muted
                         playsInline
                         preload="metadata"
                         poster={mode === 'architect' ? "/images/revenue-engine-system-architecture-strategy.webp" : "/images/felipe-chaparro-business-consultant-profile.webp"}
                         onTimeUpdate={handleTimeUpdate}
+                        onEnded={handleEnded}
                         aria-hidden="true"
                         role="presentation"
                       >
