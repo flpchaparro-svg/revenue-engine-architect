@@ -92,7 +92,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                </p>
             </div>
             
-            <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end">
+            <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end -mb-8 md:mb-0">
                <div className="relative w-full max-w-[450px] h-[300px] lg:h-[450px] opacity-90 flex items-center justify-center">
                  <PillarVisual_Helix />
                </div>

@@ -11,7 +11,7 @@ const BookingCTA: React.FC = () => {
         {/* LEFT: TEXT */}
         <div className="w-full md:w-1/2">
           <div className="flex items-center gap-3 mb-6">
-            <span className="w-2 h-2 bg-[#E21E3F] rounded-full animate-pulse" />
+            <span className="w-2 h-2 bg-[#C5A059] rounded-full animate-pulse" />
             <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#7A5D12]">
               Now Accepting Projects
             </span>
@@ -36,7 +36,7 @@ const BookingCTA: React.FC = () => {
         <div className="w-full md:w-1/2 flex justify-center md:justify-end">
           <div className="w-full max-w-md bg-[#1a1a1a] p-8 border border-black/10 shadow-2xl relative">
              
-             <div className="mb-8 flex justify-between items-end text-[#FFF2EC]">
+             <div className="mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-2 md:gap-0 text-[#FFF2EC]">
                 <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-white/70 block">Availability</span>
                 <div className="flex items-center gap-2">
                     {/* Gold Pulse Status */}

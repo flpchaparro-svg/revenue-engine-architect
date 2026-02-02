@@ -164,7 +164,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                 </CTAButton>
                 
                 <div className="flex items-center gap-2 opacity-50 mt-8">
-                  <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-pulse" />
                   <p className="font-mono text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em]">
                     NOW ACCEPTING PROJECTS
                   </p>
