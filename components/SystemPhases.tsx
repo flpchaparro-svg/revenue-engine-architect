@@ -20,7 +20,8 @@ type GridItem =
       label: string; 
       title: string; 
       body: string; 
-      accentColor: string; // For Border/Text highlights ONLY
+      accentColor: string; // For Borders & Icons (Graphics)
+      textColor: string;   // For Text (Accessibility)
       buttonText: string;
       targetPillarId: string;
     };
@@ -30,10 +31,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-  // Phase header colors (see constants/theme.ts for full usage guide):
-  // • Phase 01 (GET CLIENTS): accentColor = colors.redSolid  (headline red)
-  // • Phase 02 (SCALE FASTER): accentColor = colors.gold     (headline gold)
-  // • Phase 03 (SEE CLEARLY): accentColor = colors.dark     (headline black)
+  // 1. CONSTRUCT ITEMS
   const ITEMS: GridItem[] = [
     { type: 'service', data: SERVICES.find(s => s.id === 'pillar1')! },
     { type: 'service', data: SERVICES.find(s => s.id === 'pillar2')! },
@@ -47,6 +45,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       title: 'The Capture Loop', 
       body: "Website catches. CRM holds. Automation chases. A closed loop where no lead is left behind.", 
       accentColor: colors.redSolid,
+      textColor: colors.redSolid,
       buttonText: 'VIEW SYSTEM',
       targetPillarId: 'system'
     },
@@ -62,7 +61,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       label: 'PHASE 02 / SCALE FASTER', 
       title: 'The Multiplier', 
       body: "Content fills the funnel. AI handles the volume. Training aligns the team. You grow without burning out.", 
-      accentColor: colors.gold,
+      accentColor: colors.gold,        
+      textColor: colors.goldOnCream,   
       buttonText: 'VIEW SYSTEM',
       targetPillarId: 'system'
     },
@@ -76,7 +76,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       label: 'PHASE 03 / SEE CLEARLY', 
       title: "The Feedback Loop", 
       body: "One dashboard. Real-time data. You see what's working and fix what's broken before it costs you money.", 
-      accentColor: colors.dark, // Black Accent
+      accentColor: colors.dark,
+      textColor: colors.dark,
       buttonText: 'VIEW SYSTEM',
       targetPillarId: 'system'
     },
@@ -147,14 +148,14 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                             layout
                             onClick={() => handleItemClick(item.id)}
                             className={`
-                                relative overflow-hidden cursor-pointer transition-all duration-500 border-r border-dark/10
+                                relative overflow-hidden cursor-pointer transition-all duration-500 
+                                border-b lg:border-b-0 lg:border-r border-dark/10
                                 ${isHeaderActive 
-                                    ? 'lg:flex-[5] flex-[10] min-h-[400px]' // Active
+                                    ? 'lg:flex-[5] flex-[10] h-auto min-h-[400px]' // Active
                                     : 'lg:flex-[0.8] flex-[1] min-h-[60px]' // Inactive
                                 }
                                 flex flex-col
                             `}
-                            // BACKGROUND IS NOW CREAM FOR EVERYTHING
                             style={{ 
                                 backgroundColor: colors.cream, 
                                 borderTop: isHeaderActive ? `4px solid ${item.accentColor}` : 'none'
@@ -164,19 +165,22 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                 <motion.div 
                                     initial={{ opacity: 0 }} 
                                     animate={{ opacity: 1 }} 
-                                    className="p-10 h-full flex flex-col justify-between"
+                                    className="p-8 lg:p-10 h-full flex flex-col justify-between"
                                 >
                                     <div>
                                         <div className="flex items-center gap-3 mb-8 opacity-100">
                                             <LucideIcons.LayoutGrid className="w-4 h-4" style={{ color: item.accentColor }} />
                                             <span 
                                                 className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold"
-                                                style={{ color: item.accentColor }}
+                                                style={{ color: item.textColor }}
                                             >
                                                 {item.label}
                                             </span>
                                         </div>
-                                        <h3 className="font-serif text-4xl md:text-5xl leading-[0.95] mb-6 tracking-tighter" style={{ color: item.accentColor }}>
+                                        <h3 
+                                            className="font-serif text-3xl md:text-5xl leading-[0.95] mb-6 tracking-tighter"
+                                            style={{ color: item.textColor }}
+                                        >
                                             {item.title}
                                         </h3>
                                         <p className="font-sans text-lg md:text-xl font-light leading-relaxed max-w-xl text-dark/80">
@@ -196,7 +200,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                 <div className="absolute inset-0 flex items-center justify-center bg-cream hover:bg-cream-light transition-colors">
                                     <span 
                                         className="font-mono text-[10px] uppercase tracking-[0.3em] font-bold lg:-rotate-90 whitespace-nowrap flex items-center gap-3"
-                                        style={{ color: item.accentColor }}
+                                        style={{ color: item.textColor }}
                                     >
                                         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: item.accentColor }}></span>
                                         {item.label.split('/')[1]?.trim() || item.label}
@@ -213,10 +217,18 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                 const sysGroup = service.systemGroup || 'GET CLIENTS';
                 const Icon = getIcon(service.icon);
                 
-                // --- COLOR LOGIC (ACCENTS ONLY) ---
+                // --- COLOR LOGIC ---
                 let accentColor: string = colors.redSolid; 
-                if (sysGroup === 'SCALE FASTER') accentColor = colors.gold; 
-                if (sysGroup === 'SEE CLEARLY') accentColor = colors.dark;
+                let textColor: string = colors.redSolid;
+
+                if (sysGroup === 'SCALE FASTER') {
+                    accentColor = colors.gold;
+                    textColor = colors.goldOnCream;
+                } 
+                if (sysGroup === 'SEE CLEARLY') {
+                    accentColor = colors.dark;
+                    textColor = colors.dark;
+                }
 
                 return (
                     <motion.div
@@ -227,10 +239,11 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         onMouseEnter={() => setHoveredId(service.id)}
                         onMouseLeave={() => setHoveredId(null)}
                         className={`
-                            relative overflow-hidden cursor-pointer transition-colors duration-500 border-r border-dark/10
+                            relative overflow-hidden cursor-pointer transition-colors duration-500 
+                            border-b lg:border-b-0 lg:border-r border-dark/10
                             ${isActive 
-                                ? 'lg:flex-[12] flex-[12] min-h-[600px] lg:min-h-auto' // WIDE ACTIVE
-                                : 'lg:flex-[0.6] flex-[1] min-h-[60px]'              // THIN INACTIVE
+                                ? 'lg:flex-[12] flex-[12] h-auto min-h-[600px] lg:min-h-auto' // Active Mobile: h-auto to fit content
+                                : 'lg:flex-[0.6] flex-[1] min-h-[60px]' // Inactive
                             }
                             ${isActive ? 'bg-off-white' : 'bg-white hover:bg-cream-light'}
                             flex flex-col lg:flex-row
@@ -241,24 +254,26 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                 initial={{ opacity: 0 }} 
                                 animate={{ opacity: 1 }} 
                                 transition={{ duration: 0.4, delay: 0.1 }}
-                                className="absolute inset-0 w-full h-full flex flex-col lg:flex-row"
+                                // MOBILE: Relative + Flex-Col (Stack) | DESKTOP: Absolute + Flex-Row
+                                className="relative lg:absolute inset-0 w-full h-full flex flex-col lg:flex-row"
                             >
                                 {/* LEFT: CONTENT (45%) */}
                                 <motion.div 
                                     layout
-                                    className="w-full lg:w-[45%] h-[50%] lg:h-full p-8 lg:p-12 flex flex-col justify-between relative z-20 bg-white border-b lg:border-b-0 lg:border-r border-dark/5"
+                                    // MOBILE: w-full, h-auto (grows with text) | DESKTOP: w-[45%], h-full
+                                    className="w-full lg:w-[45%] h-auto lg:h-full p-8 lg:p-12 flex flex-col justify-between relative z-20 bg-white border-b lg:border-b-0 lg:border-r border-dark/5"
                                 >
                                     <div>
                                         <div className="flex items-center gap-3 mb-6">
                                             <span 
                                                 className="font-mono text-[9px] uppercase tracking-widest px-2 py-1 border"
-                                                style={{ borderColor: accentColor, color: accentColor }}
+                                                style={{ borderColor: accentColor, color: textColor }}
                                             >
                                                 {sysGroup}
                                             </span>
                                             <span 
                                                 className="font-mono text-[9px] uppercase tracking-widest"
-                                                style={{ color: accentColor }}
+                                                style={{ color: textColor }}
                                             >
                                                 0{Number(service.id.replace('pillar', ''))}
                                             </span>
@@ -266,7 +281,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                         
                                         <h3 
                                             className="font-serif text-3xl md:text-4xl leading-[1.0] mb-6 tracking-tight"
-                                            style={{ color: accentColor }}
+                                            style={{ color: textColor }}
                                         >
                                             {service.title}
                                         </h3>
@@ -285,7 +300,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                         </ul>
                                     </div>
 
-                                    <div className="mt-auto">
+                                    <div className="mt-8 lg:mt-auto">
                                         <CTAButton 
                                             theme="light"
                                             variant="bracket"
@@ -299,9 +314,9 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                 {/* RIGHT: VISUALIZER (55%) */}
                                 <motion.div 
                                     layout
-                                    className="w-full lg:w-[55%] h-[50%] lg:h-full relative bg-gray-100 overflow-hidden border-l border-dark/5"
+                                    // MOBILE: w-full, fixed height 350px (Visual below text) | DESKTOP: w-[55%], h-full
+                                    className="w-full lg:w-[55%] h-[350px] lg:h-full relative bg-gray-100 overflow-hidden border-l border-dark/5"
                                 >
-                                    {/* FLEX CENTER THE ANIMATION */}
                                     <div className="w-full h-full flex items-center justify-center">
                                         <ViewportViz type={service.visualPrompt} color={accentColor} />
                                     </div>
@@ -311,7 +326,6 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
 
                         {!isActive && (
                             <div className="absolute inset-0 w-full h-full flex flex-row lg:flex-col items-center justify-center p-4">
-                                {/* DYNAMIC HOVER COLOR */}
                                 <div 
                                     className="absolute bottom-0 left-0 w-1 lg:w-full h-full lg:h-1 bg-transparent transition-colors duration-300"
                                     style={{ backgroundColor: hoveredId === service.id ? accentColor : 'transparent', opacity: 0.1 }}
@@ -325,7 +339,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                     <div className="lg:-rotate-90 lg:whitespace-nowrap">
                                         <span 
                                             className="font-mono text-[10px] uppercase tracking-[0.25em] font-bold transition-colors flex items-center gap-2"
-                                            style={{ color: hoveredId === service.id ? accentColor : 'rgba(26,26,26,0.4)' }}
+                                            style={{ color: hoveredId === service.id ? textColor : 'rgba(26,26,26,0.4)' }}
                                         >
                                             {service.title}
                                         </span>
@@ -335,7 +349,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                 <div className="absolute bottom-6 lg:left-0 lg:right-0 text-center">
                                     <span 
                                         className="font-mono text-[10px] font-bold transition-colors"
-                                        style={{ color: hoveredId === service.id ? accentColor : 'rgba(26,26,26,0.2)' }}
+                                        style={{ color: hoveredId === service.id ? textColor : 'rgba(26,26,26,0.2)' }}
                                     >
                                         0{Number(service.id.replace('pillar', ''))}
                                     </span>
