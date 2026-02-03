@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-// FIX 1: Named imports for tree-shaking (Massive bundle savings)
 import { select, easeCubicInOut } from 'd3';
 import { useInView } from 'framer-motion';
+import { colors } from '../constants/theme';
 
 export type GraphState = 'idle' | 'bottleneck' | 'tax' | 'grind' | 'cost' | 'fix';
 
@@ -55,7 +55,7 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
         .attr('y', barY + 10) 
         .attr('width', chartWidth)
         .attr('height', 1) 
-        .attr('fill', '#1a1a1a')
+        .attr('fill', colors.dark)
         .attr('opacity', 0.1);
 
     // 2. The Active Bar
@@ -71,14 +71,14 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
         .attr('x', 0)
         .attr('y', barY - 30) 
         .attr('class', 'font-mono text-xs font-bold uppercase tracking-[0.2em]') 
-        .style('fill', '#1a1a1a');
+        .style('fill', colors.dark);
 
     // 4. The Value
     const valueText = chart.append('text')
         .attr('x', 0)
         .attr('y', barY + 60) 
         .attr('class', 'font-mono text-xl md:text-2xl font-bold tracking-tight') 
-        .style('fill', '#1a1a1a');
+        .style('fill', colors.dark);
 
     svgRef.current = { activeBar, valueText, labelText, chartWidth };
 
@@ -92,12 +92,12 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
     const { activeBar, valueText, labelText, chartWidth } = svgRef.current;
 
     const config = {
-        idle: { label: 'Average Admin Load', value: 65, color: '#E21E3F', text: '15 hrs/wk' },
-        bottleneck: { label: 'Deep Work Lost', value: 40, color: '#E21E3F', text: '-20% Focus' },
-        tax: { label: 'Redundant Labor', value: 30, color: '#E21E3F', text: 'Double Entry' },
-        grind: { label: 'Weekend Sacrifice', value: 80, color: '#E21E3F', text: '0 Hrs Off' },
-        cost: { label: 'Capital Burn', value: 95, color: '#E21E3F', text: '$120k / yr' },
-        fix: { label: 'System Efficiency', value: 5, color: '#C5A059', text: 'Optimized' }
+        idle: { label: 'Average Admin Load', value: 65, color: colors.redSolid, text: '15 hrs/wk' },
+        bottleneck: { label: 'Deep Work Lost', value: 40, color: colors.redSolid, text: '-20% Focus' },
+        tax: { label: 'Redundant Labor', value: 30, color: colors.redSolid, text: 'Double Entry' },
+        grind: { label: 'Weekend Sacrifice', value: 80, color: colors.redSolid, text: '0 Hrs Off' },
+        cost: { label: 'Capital Burn', value: 95, color: colors.redSolid, text: '$120k / yr' },
+        fix: { label: 'System Efficiency', value: 5, color: colors.gold, text: 'Optimized' }
     };
 
     const target = config[currentState] || config.idle;
@@ -120,7 +120,7 @@ const GrowthGraph: React.FC<GrowthGraphProps> = ({ currentState }) => {
       labelText
           .text(target.label)
           .transition().duration(duration).ease(ease)
-          .style('fill', target.color === '#C5A059' ? '#C5A059' : '#1a1a1a');
+          .style('fill', target.color === colors.gold ? colors.gold : colors.dark);
 
       // 2. Bar
       if (isInitialAnimation) {

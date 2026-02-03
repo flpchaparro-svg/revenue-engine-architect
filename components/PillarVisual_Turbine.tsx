@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react';
+import { colors } from '../constants/theme';
 
 interface PillarVisual_TurbineProps {
   color?: string;
 }
 
-const PillarVisual_Turbine: React.FC<PillarVisual_TurbineProps> = ({ color = '#C5A059' }) => {
+const PillarVisual_Turbine: React.FC<PillarVisual_TurbineProps> = ({ color = colors.gold }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -162,7 +163,8 @@ const PillarVisual_Turbine: React.FC<PillarVisual_TurbineProps> = ({ color = '#C
 
         // Gate Beam (Behind - Very subtle)
         // Keep beam slightly visible to define the transition point
-        const rgb = color === '#E21E3F' ? '226, 30, 63' : '197, 160, 89';
+        const colorStr: string = color ?? colors.gold;
+        const rgb = colorStr === colors.redSolid ? '226, 30, 63' : '197, 160, 89';
         const grad = ctx.createLinearGradient(top.x, top.y, bot.x, bot.y);
         grad.addColorStop(0, `rgba(${rgb}, 0)`);
         grad.addColorStop(0.5, `rgba(${rgb}, 0.2)`);
@@ -230,7 +232,7 @@ const PillarVisual_Turbine: React.FC<PillarVisual_TurbineProps> = ({ color = '#C
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-full bg-[#FFF2EC] relative overflow-hidden flex items-center justify-center">
+    <div ref={containerRef} className="w-full h-full bg-cream relative overflow-hidden flex items-center justify-center">
         <canvas ref={canvasRef} className="block" />
     </div>
   );

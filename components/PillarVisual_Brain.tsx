@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { colors } from '../constants/theme';
 
 // --- CONFIGURATION ---
 const FL = 1000; // Focal Length (Depth perception)
@@ -232,9 +233,9 @@ const PillarVisual_Brain: React.FC = () => {
          const size = 3 * p1.scale; 
 
          // Draw Glow
-         ctx.fillStyle = '#C5A059'; // Gold
+         ctx.fillStyle = colors.gold;
          ctx.shadowBlur = 10;
-         ctx.shadowColor = '#C5A059';
+         ctx.shadowColor = colors.gold;
          ctx.beginPath();
          ctx.arc(cx, cy, size, 0, Math.PI*2);
          ctx.fill();
@@ -265,7 +266,7 @@ const PillarVisual_Brain: React.FC = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-full flex items-center justify-center relative overflow-hidden bg-[#FFF2EC] cursor-move">
+    <div ref={containerRef} className="w-full h-full flex items-center justify-center relative overflow-hidden bg-cream cursor-move">
       <canvas ref={canvasRef} className="w-full h-full block" />
       
     </div>

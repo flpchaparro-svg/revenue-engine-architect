@@ -1,14 +1,14 @@
 import React, { useRef, useEffect } from 'react';
+import { colors } from '../constants/theme';
 
-// --- Configuration & Constants ---
 const COLORS = {
-  bg: '#FFF2EC',    // Cream
-  ink: '#1a1a1a',   // Black
-  accent: '#E21E3F',// Red
+  bg: colors.cream,
+  ink: colors.dark,
+  accent: colors.redSolid,
   accentDim: 'rgba(226, 30, 63, 0.1)',
   inkDim: 'rgba(26, 26, 26, 0.05)',
-  white: '#FFFFFF',
-  grid: '#E5E5E5'
+  white: colors.white,
+  grid: colors.gray200
 };
 
 const STATES = [
@@ -69,7 +69,7 @@ const drawBrowserFrame = (ctx: CanvasRenderingContext2D, w: number, h: number) =
   ctx.beginPath(); ctx.arc(60, 22, 4, 0, Math.PI * 2); ctx.fill();
 
   // URL Bar placeholder
-  ctx.fillStyle = '#F0F0F0';
+  ctx.fillStyle = colors.gray50;
   ctx.fillRect(90, 12, w - 110, 20);
 };
 
@@ -120,14 +120,14 @@ const drawFace = (ctx: CanvasRenderingContext2D, w: number, h: number, time: num
     ctx.strokeRect(cx, gridY, cardW, cardH);
     
     // Inner graphic
-    ctx.fillStyle = '#F0F0F0';
+    ctx.fillStyle = colors.gray50;
     ctx.fillRect(cx + 10, gridY + 10, cardW - 20, cardH - 40);
 
     // Price Line
     ctx.fillStyle = COLORS.ink;
     ctx.font = 'bold 14px Inter, sans-serif';
     ctx.fillText("$129.00", cx, gridY + cardH + 20);
-    ctx.fillStyle = '#666';
+    ctx.fillStyle = colors.gray500;
     ctx.font = '12px Inter, sans-serif';
     ctx.fillText("Essential Tee", cx, gridY + cardH + 35);
   }
@@ -144,7 +144,7 @@ const drawBrain = (ctx: CanvasRenderingContext2D, w: number, h: number, time: nu
   
   // Sidebar Icons
   for(let i=0; i<5; i++) {
-    ctx.fillStyle = i === 1 ? COLORS.white : '#444';
+    ctx.fillStyle = i === 1 ? COLORS.white : colors.gray600;
     ctx.fillRect(20, contentY + 20 + (i*50), 30, 30);
   }
 
@@ -169,7 +169,7 @@ const drawBrain = (ctx: CanvasRenderingContext2D, w: number, h: number, time: nu
     ctx.strokeStyle = COLORS.ink;
     ctx.strokeRect(sx, contentY, statW, 70);
     
-    ctx.fillStyle = '#666';
+    ctx.fillStyle = colors.gray500;
     ctx.font = '600 10px Inter, sans-serif';
     ctx.fillText(stats[i].label, sx + 12, contentY + 25);
     
@@ -190,7 +190,7 @@ const drawBrain = (ctx: CanvasRenderingContext2D, w: number, h: number, time: nu
   const col4 = tableX + tableW * 0.85; // Date
 
   // Headers
-  ctx.fillStyle = '#888';
+  ctx.fillStyle = colors.gray400;
   ctx.font = '600 10px Inter, sans-serif';
 
   ctx.fillText("NAME", col1, tableY);
@@ -240,7 +240,7 @@ const drawBrain = (ctx: CanvasRenderingContext2D, w: number, h: number, time: nu
     if (row.active) {
       ctx.fillStyle = COLORS.accent;
     } else {
-      ctx.fillStyle = '#D4D4D4';
+      ctx.fillStyle = colors.gray300;
     }
     
     drawRoundedRect(ctx, pillX, pillY, pillW, pillH, 10);

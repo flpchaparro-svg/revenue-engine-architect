@@ -1,14 +1,14 @@
 import React, { useRef, useEffect } from 'react';
+import { colors } from '../constants/theme';
 
-// --- Configuration & Constants ---
 const COLORS = {
-  bg: '#FFF2EC',    // Cream
-  ink: '#1a1a1a',   // Black
-  accent: '#C5A059',// Gold
+  bg: colors.cream,
+  ink: colors.dark,
+  accent: colors.gold,
   accentDim: 'rgba(197, 160, 89, 0.1)',
   inkDim: 'rgba(26, 26, 26, 0.05)',
-  white: '#FFFFFF',
-  grid: '#E5E5E5'
+  white: colors.white,
+  grid: colors.gray200
 };
 
 const STATES = [
@@ -69,7 +69,7 @@ const drawBrowserFrame = (ctx: CanvasRenderingContext2D, w: number, h: number) =
   ctx.beginPath(); ctx.arc(60, 22, 4, 0, Math.PI * 2); ctx.fill();
 
   // URL Bar placeholder
-  ctx.fillStyle = '#F0F0F0';
+  ctx.fillStyle = colors.gray50;
   ctx.fillRect(90, 12, w - 110, 20);
 };
 
@@ -132,7 +132,7 @@ const drawVoice = (ctx: CanvasRenderingContext2D, w: number, h: number, time: nu
   ctx.moveTo(cardX, cardY + headerH);
   ctx.lineTo(cardX + cardW, cardY + headerH);
   ctx.lineWidth = 1;
-  ctx.strokeStyle = '#E5E5E5';
+  ctx.strokeStyle = colors.gray200;
   ctx.stroke();
 
   ctx.fillStyle = COLORS.ink;
@@ -141,7 +141,7 @@ const drawVoice = (ctx: CanvasRenderingContext2D, w: number, h: number, time: nu
 
   const isTyping = (time % 3000) < 1500;
   
-  ctx.fillStyle = '#10B981'; // Green dot
+  ctx.fillStyle = colors.gold; // Typing indicator (gold)
   ctx.beginPath();
   ctx.arc(cardX + cardW - 30, cardY + 24, 3, 0, Math.PI*2);
   ctx.fill();
@@ -151,18 +151,18 @@ const drawVoice = (ctx: CanvasRenderingContext2D, w: number, h: number, time: nu
   
   // User Message
   const userIconX = cardX + 20;
-  ctx.fillStyle = '#E5E5E5';
+  ctx.fillStyle = colors.gray200;
   ctx.beginPath(); ctx.arc(userIconX + 12, chatY + 12, 12, 0, Math.PI*2); ctx.fill();
   
   const bubbleH = 35;
   const bubbleW = cardW * 0.55;
 
-  ctx.fillStyle = '#F3F4F6';
+  ctx.fillStyle = colors.gray50;
   drawRoundedRect(ctx, userIconX + 35, chatY - 8, bubbleW, bubbleH, 8);
   ctx.fill();
   
   // Fake Text Lines (User)
-  ctx.fillStyle = '#9CA3AF';
+  ctx.fillStyle = colors.gray400;
   ctx.fillRect(userIconX + 45, chatY, bubbleW * 0.6, 4);
   ctx.fillRect(userIconX + 45, chatY + 8, bubbleW * 0.4, 4);
 
@@ -237,7 +237,7 @@ const drawPresence = (ctx: CanvasRenderingContext2D, w: number, h: number, time:
         ctx.fillRect(x, y, cardSize, cardSize);
         ctx.strokeRect(x, y, cardSize, cardSize);
         
-        ctx.fillStyle = isViral ? COLORS.white : '#E5E5E5';
+        ctx.fillStyle = isViral ? COLORS.white : colors.gray200;
         ctx.fillRect(x + 10, y + 10, cardSize - 20, cardSize - 40);
         
         ctx.fillStyle = isViral ? COLORS.white : COLORS.ink;
@@ -306,7 +306,7 @@ const drawSoul = (ctx: CanvasRenderingContext2D, w: number, h: number, time: num
         ctx.fillText("✓", x + 32, taskY + 12);
     }
 
-    ctx.fillStyle = isDone ? COLORS.ink : '#999';
+    ctx.fillStyle = isDone ? COLORS.ink : colors.gray400;
     ctx.font = '14px Inter, sans-serif';
     ctx.fillText(task, x + 60, taskY + 12);
   });
@@ -317,7 +317,7 @@ const drawSoul = (ctx: CanvasRenderingContext2D, w: number, h: number, time: num
   const barX = x + 30;
   const barY = y + cardH - 20;
 
-  ctx.fillStyle = '#EEE';
+  ctx.fillStyle = colors.gray200;
   ctx.fillRect(barX, barY, barW, barH);
   ctx.fillStyle = COLORS.accent;
   ctx.fillRect(barX, barY, barW * progress, barH);

@@ -13,29 +13,29 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
             {[...Array(6)].map((_, i) => (
                 <m.div 
                     key={i}
-                    className="absolute w-1.5 h-1.5 bg-[#E21E3F] rounded-full"
+                    className="absolute w-1.5 h-1.5 bg-red-solid rounded-full"
                     initial={{ y: -40, x: (Math.random() - 0.5) * 40, opacity: 0 }}
                     animate={{ y: [ -40, 0, 40 ], x: [ (Math.random() - 0.5) * 40, 0, 0 ], opacity: [0, 1, 0] }}
                     transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
                 />
             ))}
             {/* Funnel Shape */}
-            <div className="w-0 h-0 border-l-[20px] border-r-[20px] border-t-[30px] border-l-transparent border-r-transparent border-t-[#E21E3F]/20 mb-1" />
-            <div className="w-1.5 h-10 bg-[#E21E3F]/40 rounded-sm" />
+            <div className="w-0 h-0 border-l-[20px] border-r-[20px] border-t-[30px] border-l-transparent border-r-transparent border-t-red-solid/20 mb-1" />
+            <div className="w-1.5 h-10 bg-red-solid/40 rounded-sm" />
         </div>
       )}
 
       {tierKey === 'nurture' && (
         // ANIMATION: "The Tag"
         <div className="relative flex items-center gap-2">
-             <div className="w-10 h-10 border border-[#E21E3F] rounded-full flex items-center justify-center bg-[#1a1a1a]">
-                <Users className="w-4 h-4 text-[#9A1730]" />
+             <div className="w-10 h-10 border border-red-solid rounded-full flex items-center justify-center bg-dark">
+                <Users className="w-4 h-4 text-red-solid" />
              </div>
              {/* Tag appearing */}
              <m.div 
                animate={{ x: [ -10, 0 ], opacity: [0, 1] }}
                transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 1 }}
-               className="px-2 py-1 bg-[#E21E3F] text-[8px] font-mono text-[#1a1a1a] font-bold rounded-sm"
+               className="px-2 py-1 bg-red-solid text-[8px] font-mono text-dark font-bold rounded-sm"
              >
                 TAG: VIP
              </m.div>
@@ -45,15 +45,15 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
       {tierKey === 'pipeline' && (
         // ANIMATION: "The Stages"
         <div className="flex gap-2 items-center">
-            <div className="w-8 h-12 border border-[#E21E3F]/20 rounded-sm" />
-            <div className="w-8 h-12 border border-[#E21E3F]/40 rounded-sm flex items-center justify-center">
+            <div className="w-8 h-12 border border-red-solid/20 rounded-sm" />
+            <div className="w-8 h-12 border border-red-solid/40 rounded-sm flex items-center justify-center">
                 <m.div 
-                    className="w-4 h-4 bg-[#E21E3F] rounded-sm"
+                    className="w-4 h-4 bg-red-solid rounded-sm"
                     animate={{ x: [ -40, 0, 40 ], opacity: [0, 1, 0] }}
                     transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 />
             </div>
-            <div className="w-8 h-12 border border-[#E21E3F] rounded-sm shadow-[0_0_10px_#E21E3F]" />
+            <div className="w-8 h-12 border border-red-solid rounded-sm shadow-[0_0_10px_var(--red-solid)]" />
         </div>
       )}
 
@@ -63,10 +63,10 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
             <m.div 
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-              className="absolute inset-0 border-2 border-[#E21E3F]/30 rounded-full border-t-[#E21E3F]"
+              className="absolute inset-0 border-2 border-red-solid/30 rounded-full border-t-red-solid"
             />
-            <div className="absolute inset-2 border border-[#E21E3F]/10 rounded-full flex items-center justify-center">
-                <RefreshCw className="w-4 h-4 text-[#9A1730]" />
+            <div className="absolute inset-2 border border-red-solid/10 rounded-full flex items-center justify-center">
+                <RefreshCw className="w-4 h-4 text-red-solid" />
             </div>
         </div>
       )}

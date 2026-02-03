@@ -23,7 +23,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
     {
       title: 'GET CLIENTS',
       icon: Target,
-      color: 'text-[#FF6B6B]',
+      color: 'text-red-on-dark',
       links: [
         { label: 'Websites', action: () => onNavigate('pillar1') },
         { label: 'CRM Systems', action: () => onNavigate('pillar2') },
@@ -33,7 +33,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
     {
       title: 'SCALE FASTER',
       icon: Zap,
-      color: 'text-[#D4A84B]',
+      color: 'text-gold-on-dark',
       links: [
         { label: 'AI Agents', action: () => onNavigate('pillar4') },
         { label: 'Content Systems', action: () => onNavigate('pillar5') },
@@ -43,7 +43,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
     {
       title: 'SEE CLEARLY',
       icon: BarChart3,
-      // FIX: Changed from text-[#1a1a1a] (Black) to text-white for visibility on dark footer
+      // FIX: Changed from text-dark (Black) to text-white for visibility on dark footer
       color: 'text-white', 
       links: [
         { label: 'Dashboards', action: () => onNavigate('pillar7') },
@@ -52,7 +52,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <footer className="bg-[#1a1a1a] text-white pt-24 pb-12 px-6 md:px-12 border-t border-white/10">
+    <footer className="bg-dark text-white pt-24 pb-12 px-6 md:px-12 border-t border-white/10">
       <div className="max-w-[1400px] mx-auto">
         
         {/* TOP SECTION: CTA & BRAND */}
@@ -68,7 +68,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
               </div>
               <h2 className="font-serif text-4xl md:text-5xl leading-[0.95] tracking-tight mb-8">
                 Stop guessing. <br />
-                Start <span className="italic text-[#D4A84B]">building.</span>
+                Start <span className="italic text-gold-on-dark">building.</span>
               </h2>
               <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
                 [ BOOK A CALL ]
@@ -121,7 +121,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
                 target="_blank" 
                 rel="noreferrer"
                 aria-label="Visit Felipe Chaparro's LinkedIn Profile"
-                className="font-mono text-[10px] text-white/70 hover:text-[#8B6914] uppercase tracking-widest transition-colors flex items-center gap-2"
+                className="font-mono text-[10px] text-white/70 hover:text-gold-on-cream uppercase tracking-widest transition-colors flex items-center gap-2"
               >
                 LinkedIn <ArrowUpRight className="w-3 h-3" />
               </a>

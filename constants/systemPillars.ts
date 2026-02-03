@@ -1,6 +1,7 @@
 import { Globe, Database, Zap, Bot, Video, Users, BarChart3, LucideIcon } from 'lucide-react';
 import { SystemPillarDetail } from '../types';
 import { SERVICES } from '../constants';
+import { colors } from './theme';
 
 // SystemPage-specific view data that extends SERVICES
 const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
@@ -21,7 +22,7 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     displayTitle: 'THE FACE',
     subtitle: 'Websites & E-commerce',
     subtitleMobile: 'Websites',
-    categoryHex: '#E21E3F',
+    categoryHex: colors.redSolid,
     categoryLabel: 'GET CLIENTS',
     body: 'Your website is the front door.',
     systemPurpose: 'Stop losing leads.',
@@ -36,7 +37,7 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     displayTitle: 'THE BRAIN',
     subtitle: 'CRM & Lead Tracking',
     subtitleMobile: 'CRM',
-    categoryHex: '#E21E3F',
+    categoryHex: colors.redSolid,
     categoryLabel: 'GET CLIENTS',
     body: 'The CRM is the memory.',
     systemPurpose: 'Stop losing leads.',
@@ -51,7 +52,7 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     displayTitle: 'THE MUSCLE',
     subtitle: 'Automation',
     subtitleMobile: 'Automation',
-    categoryHex: '#E21E3F',
+    categoryHex: colors.redSolid,
     categoryLabel: 'GET CLIENTS',
     body: 'Automation is the speed.',
     systemPurpose: 'Stop losing leads.',
@@ -66,7 +67,7 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     displayTitle: 'THE VOICE',
     subtitle: 'AI Assistants',
     subtitleMobile: 'AI Bots',
-    categoryHex: '#C5A059',
+    categoryHex: colors.gold,
     categoryLabel: 'SCALE FASTER',
     body: 'AI handles the overflow.',
     systemPurpose: 'Do more without hiring more.',
@@ -81,7 +82,7 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     displayTitle: 'THE PRESENCE',
     subtitle: 'Content Systems',
     subtitleMobile: 'Content',
-    categoryHex: '#C5A059',
+    categoryHex: colors.gold,
     categoryLabel: 'SCALE FASTER',
     body: 'Content fills the top of the funnel.',
     systemPurpose: 'Do more without hiring more.',
@@ -96,7 +97,7 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     displayTitle: 'THE SOUL',
     subtitle: 'Team Training',
     subtitleMobile: 'Training',
-    categoryHex: '#C5A059',
+    categoryHex: colors.gold,
     categoryLabel: 'SCALE FASTER',
     body: 'Training protects everything else.',
     systemPurpose: 'Do more without hiring more.',
@@ -111,7 +112,7 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     displayTitle: 'THE EYES',
     subtitle: 'Dashboards & Reporting',
     subtitleMobile: 'Dashboards',
-    categoryHex: '#1a1a1a',
+    categoryHex: colors.dark,
     categoryLabel: 'SEE CLEARLY',
     body: 'The dashboard pulls from everything.',
     systemPurpose: 'Know your numbers.',

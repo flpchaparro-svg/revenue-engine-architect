@@ -24,8 +24,8 @@ export const STEPS = [
     title: 'Find the Leaks',
     text: "I don't guess. I look for the repetitive tasks burning your team. Where data gets typed twice. Where leads go cold. Where profit disappears.",
     icon: Search,
-    color: 'text-[#E21E3F]',
-    borderColor: 'border-[#E21E3F]'
+    color: 'text-red-solid',
+    borderColor: 'border-red-solid'
   },
   {
     id: '02',
@@ -33,8 +33,8 @@ export const STEPS = [
     title: 'Pick the Right Tools',
     text: "I'm not locked into any platform. I pick what actually fits your business. We design the logic before writing a single line of code.",
     icon: PenTool,
-    color: 'text-[#C5A059]',
-    borderColor: 'border-[#C5A059]'
+    color: 'text-gold',
+    borderColor: 'border-gold'
   },
   {
     id: '03',
@@ -42,8 +42,8 @@ export const STEPS = [
     title: 'Build in Sprints',
     text: "No 6-month projects that drain your budget. I build in short sprints. You see progress in weeks, not quarters.",
     icon: Hammer,
-    color: 'text-[#C5A059]',
-    borderColor: 'border-[#C5A059]'
+    color: 'text-gold',
+    borderColor: 'border-gold'
   },
   {
     id: '04',
@@ -51,7 +51,7 @@ export const STEPS = [
     title: 'Make It Stick',
     text: "Software fails when people don't use it. I build training materials and support your team until they actually adopt it.",
     icon: Flag,
-    color: 'text-[#C5A059]',
-    borderColor: 'border-[#C5A059]'
+    color: 'text-gold',
+    borderColor: 'border-gold'
   }
 ];

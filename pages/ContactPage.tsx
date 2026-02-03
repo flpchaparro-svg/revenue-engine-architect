@@ -19,56 +19,56 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
   usePageTitle('Contact');
   const { formState, updateField, status, handleSubmit } = useContactForm();
   
-  const inputBaseStyle = "w-full bg-white/5 border border-white/10 px-4 py-4 font-sans text-xl text-white focus:outline-none focus:border-[#C5A059] focus:bg-white/10 transition-all placeholder:text-white/50 rounded-sm mt-2";
+  const inputBaseStyle = "w-full bg-white/5 border border-white/10 px-4 py-4 font-sans text-xl text-white focus:outline-none focus:border-gold focus:bg-white/10 transition-all placeholder:text-white/50 rounded-sm mt-2";
 
   return (
     // FIX: Main background changed to #1a1a1a so overscrolling on mobile doesn't show cream under the black form
-    <div className="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row relative z-[9999] bg-[#1a1a1a] lg:overflow-hidden">
+    <div className="min-h-screen lg:h-screen w-full flex flex-col lg:flex-row relative z-[9999] bg-dark lg:overflow-hidden">
       
       {/* LEFT COLUMN: THE HUMAN ANCHOR */}
-      <div className="w-full lg:w-5/12 h-auto lg:h-screen bg-[#FFF2EC] text-[#1a1a1a] flex flex-col p-8 md:p-12 lg:px-16 lg:pb-12 lg:pt-20 border-r border-[#1a1a1a]/10 justify-between order-first relative z-10">
+      <div className="w-full lg:w-5/12 h-auto lg:h-screen bg-cream text-dark flex flex-col p-8 md:p-12 lg:px-16 lg:pb-12 lg:pt-20 border-r border-dark/10 justify-between order-first relative z-10">
         <div className="flex-none mb-12 lg:mb-0 pt-2 lg:pt-0">
           <BackButton onClick={onBack} label="Back" />
         </div>
 
         <div className="flex-1 flex flex-col justify-center py-8 lg:py-0">
-          <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a] mb-6 md:mb-8 block">
+          <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-dark mb-6 md:mb-8 block">
             / THE PROMISE
           </span>
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.0] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-10">
+          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.0] lg:leading-[0.9] tracking-tighter text-dark mb-8 md:mb-10">
             This is not a <br />
-            <span className="italic font-serif text-[#8B6914]">Sales Call.</span>
+            <span className="italic font-serif text-gold-on-cream">Sales Call.</span>
           </h1>
           <div className="space-y-6 max-w-lg">
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]">
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark">
               I don't have salespeople. When you fill this out, you're starting a conversation directly with me.
             </p>
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/80">
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/80">
               I'll personally review your situation and tell you honestly if I can help.
             </p>
           </div>
         </div>
 
         <div className="hidden lg:block flex-none opacity-40">
-           <div className="w-12 h-[1px] bg-[#C5A059] mb-4" />
-           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
+           <div className="w-12 h-[1px] bg-gold mb-4" />
+           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-dark">
              DIRECT LINE OPEN
            </p>
         </div>
       </div>
 
       {/* RIGHT COLUMN: THE SYSTEM FORM */}
-      <div className="w-full lg:w-7/12 min-h-screen lg:h-screen bg-[#1a1a1a] text-[#FFF2EC] p-6 md:p-12 lg:px-16 lg:py-12 flex flex-col justify-center relative lg:overflow-y-auto">
+      <div className="w-full lg:w-7/12 min-h-screen lg:h-screen bg-dark text-cream p-6 md:p-12 lg:px-16 lg:py-12 flex flex-col justify-center relative lg:overflow-y-auto">
         
         {status !== 'success' ? (
           <m.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="max-w-xl w-full mx-auto lg:mx-0">
             
             <div className="mb-8 lg:mb-6 border-b border-white/10 pb-6 mt-8 lg:mt-0">
-              <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#D4A84B] mb-4 block">
+              <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-gold-on-dark mb-4 block">
                 / YOUR DETAILS
               </span>
               <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[0.95] tracking-tighter text-white mb-4">
-                Tell Me About Your <span className="italic font-serif text-[#D4A84B]">Business.</span>
+                Tell Me About Your <span className="italic font-serif text-gold-on-dark">Business.</span>
               </h2>
               <p className="font-sans text-lg md:text-xl text-white/60 leading-relaxed max-w-xl">
                 Fill this out and I'll get back to you within 24 hours.
@@ -79,37 +79,37 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
               {/* Row 1: Name & Email */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-5">
                 <div className="group relative">
-                  <label htmlFor="name" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#D4A84B] font-bold">YOUR NAME</label>
+                  <label htmlFor="name" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-gold-on-dark font-bold">YOUR NAME</label>
                   <input id="name" type="text" required className={inputBaseStyle} placeholder="Your name" value={formState.name} onChange={e => updateField('name', e.target.value)} />
                 </div>
                 <div className="group relative">
-                  <label htmlFor="email" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#D4A84B] font-bold">EMAIL</label>
+                  <label htmlFor="email" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-gold-on-dark font-bold">EMAIL</label>
                   <input id="email" type="email" required className={inputBaseStyle} placeholder="Your email" value={formState.email} onChange={e => updateField('email', e.target.value)} />
                 </div>
               </div>
 
               {/* Row 2: Entity */}
               <div className="group relative">
-                <label htmlFor="company" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#D4A84B] font-bold">BUSINESS</label>
+                <label htmlFor="company" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-gold-on-dark font-bold">BUSINESS</label>
                 <input id="company" type="text" className={inputBaseStyle} placeholder="Company name or website" value={formState.company} onChange={e => updateField('company', e.target.value)} />
               </div>
 
               {/* Row 3: Dropdown */}
               <div className="group relative">
-                <label htmlFor="frictionPoint" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#D4A84B] font-bold">WHAT DO YOU NEED HELP WITH?</label>
+                <label htmlFor="frictionPoint" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-gold-on-dark font-bold">WHAT DO YOU NEED HELP WITH?</label>
                 <div className="relative">
                   <select id="frictionPoint" className={`${inputBaseStyle} appearance-none cursor-pointer pr-10`} value={formState.frictionPoint} onChange={e => updateField('frictionPoint', e.target.value)}>
-                    {DIAGNOSIS_OPTIONS.map(s => <option key={s} value={s} className="bg-[#1a1a1a] text-white">{s}</option>)}
+                    {DIAGNOSIS_OPTIONS.map(s => <option key={s} value={s} className="bg-dark text-white">{s}</option>)}
                   </select>
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none mt-1">
-                     <ChevronDown className="w-5 h-5 text-[#D4A84B]" />
+                     <ChevronDown className="w-5 h-5 text-gold-on-dark" />
                   </div>
                 </div>
               </div>
 
               {/* Row 4: Message */}
               <div className="group relative">
-                <label htmlFor="message" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-[#D4A84B] font-bold">ANYTHING ELSE?</label>
+                <label htmlFor="message" className="block font-mono text-[10px] uppercase tracking-[0.2em] text-gold-on-dark font-bold">ANYTHING ELSE?</label>
                 <textarea id="message" rows={3} className={`${inputBaseStyle} resize-none`} placeholder="Tell me a bit about your situation." value={formState.message} onChange={e => updateField('message', e.target.value)} />
               </div>
 
@@ -122,11 +122,11 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
           </m.div>
         ) : (
           <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-md mt-10 md:mt-20">
-             <div className="w-24 h-24 bg-[#C5A059] rounded-full flex items-center justify-center mb-8 shadow-2xl shadow-[#C5A059]/30">
-               <Check className="w-12 h-12 text-[#1a1a1a]" />
+             <div className="w-24 h-24 bg-gold rounded-full flex items-center justify-center mb-8 shadow-2xl shadow-gold/30">
+               <Check className="w-12 h-12 text-dark" />
              </div>
              <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl leading-[0.95] tracking-tighter text-white mb-6">
-               Got <span className="italic font-serif text-[#D4A84B]">It.</span>
+               Got <span className="italic font-serif text-gold-on-dark">It.</span>
              </h2>
              <p className="font-sans text-lg md:text-xl font-light text-white/60 mb-12 leading-relaxed">
                Thanks for reaching out. I'll review your details and get back to you within 24 hours.

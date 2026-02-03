@@ -1,5 +1,6 @@
 import React, { useRef, useMemo } from 'react';
 import { useAnimationFrame } from 'framer-motion';
+import { colors } from '../constants/theme';
 
 const FL = 800; // Focal Length
 const LAYER_COUNT = 10;
@@ -162,7 +163,7 @@ const PillarVisual_Catchment: React.FC = () => {
         // Draw Particle
         ctx.beginPath();
         ctx.arc(p.x, p.y, 2.5 * p.scale, 0, Math.PI * 2);
-        ctx.fillStyle = '#C5A059';
+        ctx.fillStyle = colors.gold;
         ctx.fill();
         
         // Trail
@@ -196,7 +197,7 @@ const PillarVisual_Catchment: React.FC = () => {
     ctx.fill();
     
     // Core Solid
-    ctx.fillStyle = '#C5A059';
+    ctx.fillStyle = colors.gold;
     ctx.beginPath();
     ctx.arc(bottomP.x, bottomP.y, 4 * bottomP.scale, 0, Math.PI * 2);
     ctx.fill();

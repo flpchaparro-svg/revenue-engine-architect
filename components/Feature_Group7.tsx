@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { m, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, AlertTriangle, Activity, Zap, X, Terminal } from 'lucide-react';
+import { colors } from '../constants/theme';
 import EvidenceVisual_Compare from './EvidenceVisual_Compare';
 import CTAButton from './CTAButton';
 
@@ -26,11 +27,11 @@ const TerminalLog: React.FC = () => {
 
   return (
     // UPGRADE: Increased p-6 to p-8, font size base for better readability
-    <div className="w-full bg-[#1a1a1a] p-8 border-t border-black/10 font-mono text-sm overflow-hidden">
+    <div className="w-full bg-dark p-8 border-t border-black/10 font-mono text-sm overflow-hidden">
       <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
-        <Terminal className="w-3 h-3 text-[#D4A84B]" />
+        <Terminal className="w-3 h-3 text-gold-on-dark" />
         {/* Type B: Card Tag (inside terminal component) */}
-        <span className="text-[10px] text-[#D4A84B] uppercase tracking-[0.2em] font-bold">BUILD LOG / WHAT I DID</span>
+        <span className="text-[10px] text-gold-on-dark uppercase tracking-[0.2em] font-bold">BUILD LOG / WHAT I DID</span>
       </div>
       <div className="space-y-3">
         {lines.map((line, i) => (
@@ -40,14 +41,14 @@ const TerminalLog: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             className="text-white/80"
           >
-            <span className="text-[#0F766E] mr-3">➜</span>
+            <span className="text-teal mr-3">➜</span>
             {line}
           </m.div>
         ))}
         <m.div 
           animate={{ opacity: [0, 1] }} 
           transition={{ repeat: Infinity, duration: 0.8 }}
-          className="w-2 h-4 bg-[#C5A059] inline-block align-middle ml-2"
+          className="w-2 h-4 bg-gold inline-block align-middle ml-2"
         />
       </div>
     </div>
@@ -91,20 +92,20 @@ const Feature_Group7: React.FC = () => {
   }, [isModalOpen]);
 
   return (
-    <section className="w-full bg-[#FFF2EC] py-24 md:py-32 border-y border-black/5 relative z-20">
+    <section className="w-full bg-cream py-24 md:py-32 border-y border-black/5 relative z-20">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20">
         
         {/* --- SECTION HEADER --- */}
         <div className="mb-16 max-w-2xl">
-          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#8B6914] mb-4 block">
+          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-gold-on-cream mb-4 block">
             / REAL RESULTS
           </span>
           {/* FIXED: Smooth scaling 4xl -> 5xl -> 7xl */}
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-[#1a1a1a] leading-[0.95] tracking-tighter mb-6">
-            See It In <span className="italic text-[#8B6914]">Action.</span>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-dark leading-[0.95] tracking-tighter mb-6">
+            See It In <span className="italic text-gold-on-cream">Action.</span>
           </h2>
           {/* FIXED: Body text smooth scaling */}
-          <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/80 border-l-2 border-[#E21E3F]/30 pl-6">
+          <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/80 border-l-2 border-red-solid/30 pl-6">
             Don't take my word for it. Here's what happened when I rebuilt a Sydney security company's website.
           </p>
         </div>
@@ -115,12 +116,12 @@ const Feature_Group7: React.FC = () => {
           whileInView="scan"
           viewport={{ once: true, amount: 0.5 }}
           onClick={() => setIsModalOpen(true)}
-          className="w-full bg-[#1a1a1a] border border-black/10 p-1 rounded-sm overflow-hidden relative cursor-pointer hover:border-[#C5A059]/50 transition-colors duration-500 shadow-2xl"
+          className="w-full bg-dark border border-black/10 p-1 rounded-sm overflow-hidden relative cursor-pointer hover:border-gold/50 transition-colors duration-500 shadow-2xl"
         >
           
           {/* THE FORENSIC SCANNER OVERLAY */}
           <m.div 
-            className="absolute top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-[#E21E3F] to-transparent z-50 opacity-0 blur-[1px] pointer-events-none"
+            className="absolute top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-red-solid to-transparent z-50 opacity-0 blur-[1px] pointer-events-none"
             variants={{
               idle: { left: '0%', opacity: 0 },
               scan: { 
@@ -131,7 +132,7 @@ const Feature_Group7: React.FC = () => {
             }}
           />
           <m.div 
-            className="absolute top-0 bottom-0 w-[60px] bg-gradient-to-r from-transparent to-[#E21E3F]/10 z-40 opacity-0 pointer-events-none"
+            className="absolute top-0 bottom-0 w-[60px] bg-gradient-to-r from-transparent to-red-solid/10 z-40 opacity-0 pointer-events-none"
             variants={{
               idle: { left: '-60px', opacity: 0 },
               scan: { 
@@ -145,16 +146,16 @@ const Feature_Group7: React.FC = () => {
           {/* Header Bar */}
           <div className="flex justify-between items-center px-6 py-4 border-b border-white/5 bg-black/40 relative z-30">
               <div className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-[#C5A059] rounded-full animate-pulse" />
+                  <div className="w-2 h-2 bg-gold rounded-full animate-pulse" />
                   {/* Type B: Card Tag */}
-                  <span className="font-mono text-[10px] font-bold text-[#D4A84B] tracking-[0.2em] uppercase">
+                  <span className="font-mono text-[10px] font-bold text-gold-on-dark tracking-[0.2em] uppercase">
                      WEBSITE REBUILD
                   </span>
               </div>
               {/* Type B: Card Tag */}
               <span className="font-mono text-[10px] font-bold text-white/60 uppercase tracking-[0.2em] flex items-center gap-2">
                   SEE THE TRANSFORMATION
-                  <Zap className="w-3 h-3 text-[#D4A84B]" />
+                  <Zap className="w-3 h-3 text-gold-on-dark" />
               </span>
           </div>
 
@@ -177,20 +178,20 @@ const Feature_Group7: React.FC = () => {
                   }
                 }}
               >
-                  <div className="w-24 h-24 rounded-full border border-[#E21E3F]/50 flex items-center justify-center bg-[#E21E3F]/5 relative overflow-hidden">
+                  <div className="w-24 h-24 rounded-full border border-red-solid/50 flex items-center justify-center bg-red-solid/5 relative overflow-hidden">
                       <m.div 
-                        className="absolute inset-0 bg-[#E21E3F]/20" 
+                        className="absolute inset-0 bg-red-solid/20" 
                         variants={{ idle: { opacity: 0 }, scan: { opacity: 1, transition: { delay: 0.3 } } }} 
                       />
-                      <AlertTriangle className="w-10 h-10 text-[#9A1730] relative z-10" />
+                      <AlertTriangle className="w-10 h-10 text-red-solid relative z-10" />
                   </div>
                   <div className="text-center">
                       {/* Type B: Card Tag */}
-                      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#9A1730] mb-2">BEFORE</div>
+                      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-solid mb-2">BEFORE</div>
                       {/* Node A */}
                       <div className="font-serif text-white/60 text-2xl md:text-3xl tracking-tight mb-2">group7security.com</div>
                       {/* Type B: Card Tag */}
-                      <div className="flex items-center justify-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] text-[#9A1730] bg-[#E21E3F]/10 px-3 py-1.5 rounded">
+                      <div className="flex items-center justify-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] text-red-solid bg-red-solid/10 px-3 py-1.5 rounded">
                           <Activity className="w-3 h-3" />
                           <span>4.2s Load</span>
                       </div>
@@ -200,13 +201,13 @@ const Feature_Group7: React.FC = () => {
               {/* STREAM CORD */}
               <div className="flex-grow w-full md:w-auto h-[100px] md:h-[1px] bg-white/5 relative mx-4 md:mx-12 flex items-center justify-center">
                   <m.div 
-                      className="absolute top-0 bottom-0 left-0 h-full bg-gradient-to-r from-transparent via-[#C5A059] to-transparent w-1/3 opacity-30"
+                      className="absolute top-0 bottom-0 left-0 h-full bg-gradient-to-r from-transparent via-gold to-transparent w-1/3 opacity-30"
                       animate={{ left: ['-30%', '130%'] }}
                       transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                   />
-                  <div className="relative z-10 bg-[#1a1a1a] border border-[#C5A059]/30 px-6 py-3 rounded-full flex items-center gap-3">
+                  <div className="relative z-10 bg-dark border border-gold/30 px-6 py-3 rounded-full flex items-center gap-3">
                       {/* Type B: Card Tag */}
-                      <span className="font-mono text-[10px] text-[#D4A84B] uppercase tracking-[0.2em] font-bold">
+                      <span className="font-mono text-[10px] text-gold-on-dark uppercase tracking-[0.2em] font-bold">
                           VIEW TRANSFORMATION
                       </span>
                   </div>
@@ -227,19 +228,19 @@ const Feature_Group7: React.FC = () => {
                   <m.div 
                     className="w-28 h-28 rounded-full border-2 flex items-center justify-center relative overflow-hidden"
                     variants={{
-                      idle: { borderColor: '#333', backgroundColor: 'rgba(0,0,0,0)' },
-                      scan: { 
-                        borderColor: '#0F766E', 
-                        backgroundColor: 'rgba(15, 118, 110, 0.1)', 
-                        boxShadow: '0 0 50px rgba(15, 118, 110, 0.4)',
+idle: { borderColor: colors.gray700, backgroundColor: 'rgba(0,0,0,0)' },
+                    scan: { 
+                        borderColor: colors.teal, 
+                        backgroundColor: `${colors.teal}1a`, 
+                        boxShadow: `0 0 50px ${colors.teal}66`,
                         transition: { delay: 1.2 }
                       }
                     }}
                   >
                       <m.div
                         variants={{
-                          idle: { color: '#C5A059' },
-                          scan: { color: '#0F766E', transition: { delay: 1.2 } }
+                          idle: { color: colors.gold },
+                          scan: { color: colors.teal, transition: { delay: 1.2 } }
                         }}
                       >
                         <ShieldCheck className="w-12 h-12" />
@@ -249,8 +250,8 @@ const Feature_Group7: React.FC = () => {
                       <m.div 
                         className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] mb-2"
                         variants={{
-                          idle: { color: '#C5A059' },
-                          scan: { color: '#0F766E', transition: { delay: 1.2 } }
+                          idle: { color: colors.gold },
+                          scan: { color: colors.teal, transition: { delay: 1.2 } }
                         }}
                       >
                         AFTER
@@ -258,7 +259,7 @@ const Feature_Group7: React.FC = () => {
                       {/* Node B */}
                       <div className="font-serif text-white text-3xl md:text-4xl tracking-tight mb-2">group7security.com.au</div>
                       <m.div 
-                        className="flex items-center justify-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] text-[#0F766E] bg-[#0F766E]/10 px-3 py-1.5 rounded"
+                        className="flex items-center justify-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] text-teal bg-teal/10 px-3 py-1.5 rounded"
                         variants={{
                           idle: { opacity: 0 },
                           scan: { opacity: 1, transition: { delay: 1.5, duration: 0.5 } }
@@ -299,18 +300,18 @@ const Feature_Group7: React.FC = () => {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
                 onClick={(e) => e.stopPropagation()}
-                className="relative w-full max-w-6xl bg-[#FFF2EC] overflow-hidden shadow-2xl rounded-sm max-h-[90vh] flex flex-col z-10"
+                className="relative w-full max-w-6xl bg-cream overflow-hidden shadow-2xl rounded-sm max-h-[90vh] flex flex-col z-10"
               >
                  
                  {/* MODAL HEADER */}
                  <div className="flex justify-between items-center p-6 border-b border-black/10 bg-white shrink-0">
                     <div>
                       {/* FIXED: Standardized Modal Title */}
-                      <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-tight tracking-tight">
+                      <h3 className="font-serif text-3xl md:text-4xl text-dark leading-tight tracking-tight">
                          Case Study: Group 7 Security
                       </h3>
                       {/* Type B: Card Tag */}
-                      <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/50 mt-1">
+                      <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-dark/50 mt-1">
                          WEBSITE + SEO OVERHAUL
                       </p>
                     </div>
@@ -319,7 +320,7 @@ const Feature_Group7: React.FC = () => {
                       aria-label="Close modal"
                       className="p-2 hover:bg-black/5 rounded-full transition-colors"
                     >
-                      <X className="w-6 h-6 text-[#1a1a1a]" />
+                      <X className="w-6 h-6 text-dark" />
                     </button>
                  </div>
 
@@ -335,28 +336,28 @@ const Feature_Group7: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 md:p-12 bg-white border-t border-black/10">
                         <div>
                           {/* Type B: Card Tag - using span since this is a label, not a heading */}
-                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#9A1730] mb-3 block">
+                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-solid mb-3 block">
                              THE PROBLEM
                           </span>
-                          <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
+                          <p className="font-sans text-base md:text-lg text-dark/70 leading-relaxed">
                             They had a slow <strong>.com</strong> website with no local SEO. Google thought they were a global tech company, not a Sydney security firm. Local customers couldn't find them.
                           </p>
                         </div>
                         <div>
                           {/* Type B: Card Tag - using span since this is a label, not a heading */}
-                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#8B6914] mb-3 block">
+                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-gold-on-cream mb-3 block">
                              WHAT I DID
                           </span>
-                          <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
+                          <p className="font-sans text-base md:text-lg text-dark/70 leading-relaxed">
                             I migrated them to <strong>.com.au</strong> and rebuilt the site from scratch. Fast, mobile-first, with proper Sydney location tags so Google knows exactly where they operate.
                           </p>
                         </div>
                         <div>
                           {/* Type B: Card Tag - using span since this is a label, not a heading */}
-                          <span className="font-mono text-[10px] font-bold text-[#8B6914] mb-3 uppercase tracking-[0.2em] block">
+                          <span className="font-mono text-[10px] font-bold text-gold-on-cream mb-3 uppercase tracking-[0.2em] block">
                              THE RESULT
                           </span>
-                          <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
+                          <p className="font-sans text-base md:text-lg text-dark/70 leading-relaxed">
                             Page load dropped from <strong>4.2s to 0.4s</strong>. Local search rankings improved. The site now converts visitors instead of losing them.
                           </p>
                         </div>

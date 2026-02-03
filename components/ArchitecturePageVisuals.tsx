@@ -1,7 +1,8 @@
 import React from 'react';
 import { m } from 'framer-motion';
+import { colors } from '../constants/theme';
 
-export const VizAcquisition = ({ color = '#E21E3F' }: { color?: string }) => (
+export const VizAcquisition = ({ color = colors.redSolid }: { color?: string }) => (
   <div className="w-24 h-24 md:w-32 md:h-32 relative flex items-center justify-center">
     <div className="absolute w-1.5 h-1.5 rounded-full z-10" style={{ backgroundColor: color, boxShadow: `0 0 15px ${color}` }} />
     <m.div 
@@ -23,7 +24,7 @@ export const VizAcquisition = ({ color = '#E21E3F' }: { color?: string }) => (
   </div>
 );
 
-export const VizVelocity = ({ color = '#C5A059' }: { color?: string }) => (
+export const VizVelocity = ({ color = colors.gold }: { color?: string }) => (
   <div className="w-24 h-24 md:w-32 md:h-32 relative flex items-center justify-center">
     <div className="absolute w-1 h-1 rounded-full" style={{ backgroundColor: color }} />
     <m.div 
@@ -49,7 +50,7 @@ export const VizVelocity = ({ color = '#C5A059' }: { color?: string }) => (
   </div>
 );
 
-export const VizIntelligence = ({ color = '#1a1a1a' }: { color?: string }) => (
+export const VizIntelligence = ({ color = colors.dark }: { color?: string }) => (
   <div className="w-24 h-24 md:w-32 md:h-32 relative flex items-center justify-center border rounded-full" style={{ borderColor: `${color}33` }}>
     <div className="absolute w-full h-[1px]" style={{ backgroundColor: `${color}33` }} />
     <div className="absolute h-full w-[1px]" style={{ backgroundColor: `${color}33` }} />

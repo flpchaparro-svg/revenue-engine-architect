@@ -7,12 +7,12 @@ import {
 export const ARCHITECT_CONTENT = {
   architect: {
     label: '/ THE ARCHITECT',
-    accent: 'text-[#9A1730]',
+    accent: 'text-red-solid',
     // Storing JSX directly in data allows for rich text formatting
     headline: (
       <>
         One person. <br className="hidden md:block" />
-        <span className="italic font-serif text-[#8B6914]">Ten person output.</span>
+        <span className="italic font-serif text-gold-on-cream">Ten person output.</span>
       </>
     ),
     subhead: "No account managers. No junior handoffs. No endless meetings. You talk directly to the person building your system. I use automation and AI to deliver what agencies charge a team for.",
@@ -31,11 +31,11 @@ export const ARCHITECT_CONTENT = {
   },
   human: {
     label: '/ THE HUMAN',
-    accent: 'text-[#8B6914]',
+    accent: 'text-gold-on-cream',
     headline: (
       <>
         I've run businesses. <br className="hidden md:block" />
-        <span className="italic font-serif text-[#8B6914]">Not just consulted them.</span>
+        <span className="italic font-serif text-gold-on-cream">Not just consulted them.</span>
       </>
     ),
     subhead: "Before I built systems for others, I ran my own café, managed international franchises, and worked factory floors. I know what it's like to chase invoices at midnight. I don't give you theory. I give you what actually works.",

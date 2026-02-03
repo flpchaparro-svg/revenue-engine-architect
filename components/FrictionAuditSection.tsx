@@ -53,17 +53,17 @@ interface AuditCubeVisualProps {
 const AuditCubeVisual: React.FC<AuditCubeVisualProps> = ({ scrollYProgress }) => {
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 720]);
   return (
-    <div className="relative w-24 h-24 md:w-32 md:h-32 mb-10 border-2 border-[#1a1a1a] bg-transparent">
+    <div className="relative w-24 h-24 md:w-32 md:h-32 mb-10 border-2 border-dark bg-transparent">
       <m.div 
-        className="absolute inset-0 border-2 border-[#1a1a1a] bg-transparent"
+        className="absolute inset-0 border-2 border-dark bg-transparent"
         style={{ rotate, willChange: "transform" }}
       >
-         <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-[#1a1a1a] -translate-x-1/2 -translate-y-1/2" />
+         <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-dark -translate-x-1/2 -translate-y-1/2" />
       </m.div>
       <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 pointer-events-none">
-        <div className="border-r border-b border-[#1a1a1a]/10"></div>
-        <div className="border-b border-[#1a1a1a]/10"></div>
-        <div className="border-r border-[#1a1a1a]/10"></div>
+        <div className="border-r border-b border-dark/10"></div>
+        <div className="border-b border-dark/10"></div>
+        <div className="border-r border-dark/10"></div>
         <div className=""></div>
       </div>
     </div>
@@ -93,14 +93,14 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
   return (
     <m.div
       style={{ opacity, rotateX, scale, y, zIndex, pointerEvents, transformStyle: "preserve-3d", backfaceVisibility: "hidden", willChange: "transform, opacity" }}
-      className="absolute inset-0 w-full h-full flex flex-col justify-center bg-[#FFF2EC] origin-center"
+      className="absolute inset-0 w-full h-full flex flex-col justify-center bg-cream origin-center"
     >
       <div className="w-full h-full p-6 md:p-12 lg:p-20 flex flex-col justify-center max-w-[1600px] mx-auto">
         {data.type === 'cta' ? (
            <div className="flex flex-col items-center justify-center text-center h-full max-w-4xl mx-auto">
               {/* FIXED: Reduced to text-7xl max to be smaller than Hero (8xl) */}
-              <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-[#1a1a1a] leading-tight tracking-tighter mb-10">
-                You've seen the <span className="text-[#9A1730]">leak</span>. Now call to see the <span className="text-[#8B6914]">fix</span>.
+              <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-dark leading-tight tracking-tighter mb-10">
+                You've seen the <span className="text-red-solid">leak</span>. Now call to see the <span className="text-gold-on-cream">fix</span>.
               </h2>
               <CTAButton theme="light" onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({ behavior: 'smooth' })}>
                 SEE THE SYSTEM
@@ -111,23 +111,23 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
               <div className="flex flex-col space-y-8 md:space-y-10">
                  <div className="flex items-center gap-4">
                     {/* Pain point number: text-4xl → text-6xl */}
-                    <span className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#1a1a1a]/10 italic font-bold">{data.id}</span>
-                    <div className="h-px flex-1 bg-[#1a1a1a]/20"></div>
+                    <span className="font-serif text-4xl md:text-5xl lg:text-6xl text-dark/10 italic font-bold">{data.id}</span>
+                    <div className="h-px flex-1 bg-dark/20"></div>
                     {/* Type B: Card Tag - font-mono, font-bold, text-[10px], tracking-[0.2em] */}
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#9A1730] border border-[#E21E3F]/20 px-2 py-1">{data.label}</span>
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-solid border border-red-solid/20 px-2 py-1">{data.label}</span>
                  </div>
                  <div>
                     {/* Pain point title: Standardized H3 -> H2 (Fixed Accessibility Hierarchy) */}
-                    <h2 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-8">
+                    <h2 className="font-serif text-3xl md:text-4xl text-dark leading-[1.1] tracking-tight mb-8">
                       {data.title}
                     </h2>
-                    <div className="inline-block bg-[#E21E3F]/10 px-6 py-3">
+                    <div className="inline-block bg-red-solid/10 px-6 py-3">
                        {/* Stat callouts: text-base → text-lg (labels like "NO VISIBILITY" should be smaller) */}
-                       <span className="font-mono text-xs md:text-sm text-[#9A1730] font-bold tracking-[0.2em] uppercase">{data.metric}</span>
+                       <span className="font-mono text-xs md:text-sm text-red-solid font-bold tracking-[0.2em] uppercase">{data.metric}</span>
                     </div>
                  </div>
                  {/* Pain point body: text-base → text-lg */}
-                 <p className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70 border-l-2 border-[#E21E3F]/20 pl-8 max-w-xl">{data.description}</p>
+                 <p className="font-sans text-base md:text-lg leading-relaxed text-dark/70 border-l-2 border-red-solid/20 pl-8 max-w-xl">{data.description}</p>
               </div>
               <div className="hidden lg:flex items-center justify-center h-full min-h-[400px]">
                  <AuditCubeVisual scrollYProgress={scrollYProgress} />
@@ -152,7 +152,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
   });
 
   return (
-    <section ref={containerRef} className="relative bg-[#FFF2EC] z-30">
+    <section ref={containerRef} className="relative bg-cream z-30">
        
       {/* DESKTOP LAYOUT */}
       <div className="hidden md:flex relative h-[500vh]">
@@ -162,34 +162,34 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
             ))}
          </div>
 
-         <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-row z-10 border-t border-[#1a1a1a]/10">
+         <div className="sticky top-0 w-full h-screen overflow-hidden flex flex-row z-10 border-t border-dark/10">
            {/* Desktop Left Panel */}
-           <div className="w-[450px] xl:w-[500px] h-full border-r border-[#1a1a1a]/10 bg-[#FFF2EC] p-12 xl:p-16 flex flex-col justify-between shrink-0 z-50">
+           <div className="w-[450px] xl:w-[500px] h-full border-r border-dark/10 bg-cream p-12 xl:p-16 flex flex-col justify-between shrink-0 z-50">
               <div>
-                 <div className="mb-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#9A1730] flex items-center gap-2">
+                 <div className="mb-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-red-solid flex items-center gap-2">
                     / THE FRICTION AUDIT
                  </div>
-                 <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] text-[#1a1a1a] tracking-tighter mb-10">
+                 <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] text-dark tracking-tighter mb-10">
                     Where your <br/>
-                    <span className="text-[#9A1730]">week</span> <br/>
-                    <span className="italic text-[#9A1730]">disappears.</span>
+                    <span className="text-red-solid">week</span> <br/>
+                    <span className="italic text-red-solid">disappears.</span>
                  </h1>
-                 <div className="w-16 h-1 bg-[#1a1a1a] mb-10"></div>
-                 <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-sm">
+                 <div className="w-16 h-1 bg-dark mb-10"></div>
+                 <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-sm">
                     Your business isn't broken, but it is leaking. These are the 4 places where time and money vanish before you notice.
                  </p>
               </div>
               
               <div>
                  {/* Type B: Card Tag - text-[10px], font-bold, tracking-[0.2em] */}
-                 <div className="font-mono text-[10px] font-bold text-[#1a1a1a]/40 uppercase tracking-[0.2em] mb-4">AUDIT PROGRESS</div>
-                 <div className="w-full h-1 bg-[#1a1a1a]/10 relative overflow-hidden">
+                 <div className="font-mono text-[10px] font-bold text-dark/40 uppercase tracking-[0.2em] mb-4">AUDIT PROGRESS</div>
+                 <div className="w-full h-1 bg-dark/10 relative overflow-hidden">
                     <m.div 
-                       className="h-full bg-[#E21E3F]" 
+                       className="h-full bg-red-solid" 
                        style={{ scaleX: scrollYProgress, transformOrigin: 'left' }}
                     />
                  </div>
-                 <div className="mt-3 text-right font-mono text-xs font-bold text-[#1a1a1a]">
+                 <div className="mt-3 text-right font-mono text-xs font-bold text-dark">
                     <m.span>
                        {useTransform(scrollYProgress, v => `${Math.min(100, Math.round(v * 100))}%`)}
                     </m.span>
@@ -198,7 +198,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
            </div>
 
            {/* Desktop Right Panel */}
-           <div className="flex-1 relative h-full bg-[#FFF2EC] overflow-hidden" style={{ perspective: "1000px" }}>
+           <div className="flex-1 relative h-full bg-cream overflow-hidden" style={{ perspective: "1000px" }}>
               {AUDIT_DATA.map((data, index) => (
                 <Card 
                   key={data.id}
@@ -210,26 +210,26 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                 />
               ))}
               <div className="absolute inset-0 pointer-events-none opacity-5 z-0" 
-                style={{ backgroundImage: `radial-gradient(#1a1a1a 1px, transparent 1px)`, backgroundSize: '24px 24px' }} 
+                style={{ backgroundImage: 'radial-gradient(var(--dark) 1px, transparent 1px)', backgroundSize: '24px 24px' }} 
               />
            </div>
          </div>
       </div>
 
       {/* MOBILE LAYOUT */}
-      <div className="md:hidden relative border-t border-[#1a1a1a]/10">
+      <div className="md:hidden relative border-t border-dark/10">
          
          {/* HEADER */}
-         <div className="sticky top-0 h-[45vh] w-full bg-[#FFF2EC] border-b border-[#1a1a1a]/10 p-6 flex flex-col justify-center z-10">
-            <div className="mb-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#9A1730] flex items-center gap-2">
+         <div className="sticky top-0 h-[45vh] w-full bg-cream border-b border-dark/10 p-6 flex flex-col justify-center z-10">
+            <div className="mb-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-red-solid flex items-center gap-2">
                / THE FRICTION AUDIT
             </div>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-dark mb-6">
                Where your <br/>
-               <span className="text-[#9A1730]">week</span> <br/>
-               <span className="italic text-[#9A1730]">disappears.</span>
+               <span className="text-red-solid">week</span> <br/>
+               <span className="italic text-red-solid">disappears.</span>
             </h1>
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-sm">
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-sm">
                Your business isn't broken, but it is leaking. These are the 4 places where time and money vanish before you notice.
             </p>
          </div>
@@ -239,41 +239,41 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
             {AUDIT_DATA.map((data, index) => (
                <div 
                   key={data.id}
-                  className="sticky top-[45vh] h-[55vh] w-full bg-[#FFF2EC] border-b border-[#1a1a1a]/10 flex flex-col shadow-[-10px_0_20px_rgba(0,0,0,0.05)]"
+                  className="sticky top-[45vh] h-[55vh] w-full bg-cream border-b border-dark/10 flex flex-col shadow-[-10px_0_20px_rgba(0,0,0,0.05)]"
                   style={{ zIndex: 20 + index }}
                >
                   {data.type === 'cta' ? (
-                     <div className="flex flex-col items-center justify-center text-center h-full px-6 bg-[#FFF2EC]">
-                        <h2 className="font-serif text-3xl text-[#1a1a1a] leading-tight tracking-tighter mb-8">
-                           You've seen the <span className="text-[#9A1730]">leak</span>. Now call to see the <span className="text-[#8B6914]">fix</span>.
+                     <div className="flex flex-col items-center justify-center text-center h-full px-6 bg-cream">
+                        <h2 className="font-serif text-3xl text-dark leading-tight tracking-tighter mb-8">
+                           You've seen the <span className="text-red-solid">leak</span>. Now call to see the <span className="text-gold-on-cream">fix</span>.
                         </h2>
                         <CTAButton theme="light" onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({ behavior: 'smooth' })} className="w-full">
                            SEE THE SYSTEM
                         </CTAButton>
                      </div>
                   ) : (
-                     <div className="flex flex-col h-full px-6 pt-8 pb-6 bg-[#FFF2EC]">
+                     <div className="flex flex-col h-full px-6 pt-8 pb-6 bg-cream">
                         <div className="flex items-center gap-3 mb-6 opacity-80">
                            {/* Mobile: Pain point number should scale too */}
-                           <span className="font-serif text-4xl md:text-5xl italic font-bold text-[#9A1730]">{data.id}</span>
-                           <div className="w-8 h-px bg-[#E21E3F]/30"></div>
+                           <span className="font-serif text-4xl md:text-5xl italic font-bold text-red-solid">{data.id}</span>
+                           <div className="w-8 h-px bg-red-solid/30"></div>
                            {/* Type B: Card Tag (inside mobile card) */}
-                           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#9A1730]">
+                           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-solid">
                               {data.label}
                            </span>
                         </div>
                         {/* Pain point title: Standardized H3 -> H2 (Fixed Accessibility Hierarchy) */}
-                        <h2 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-[1.1] tracking-tight mb-4">
+                        <h2 className="font-serif text-3xl md:text-4xl text-dark leading-[1.1] tracking-tight mb-4">
                           {data.title}
                         </h2>
                         <div className="mb-6">
                            {/* Mobile: Stat callouts: text-base → text-lg (labels like "NO VISIBILITY" should be smaller) */}
-                           <span className="font-mono text-xs md:text-sm text-[#9A1730] font-bold tracking-[0.2em] uppercase bg-[#E21E3F]/5 px-3 py-1">
+                           <span className="font-mono text-xs md:text-sm text-red-solid font-bold tracking-[0.2em] uppercase bg-red-solid/5 px-3 py-1">
                               {data.metric}
                            </span>
                         </div>
                         {/* Mobile: Pain point body: text-base → text-lg */}
-                        <p className="font-sans text-base md:text-lg leading-relaxed text-[#1a1a1a]/70 border-l-2 border-[#E21E3F]/20 pl-8 max-w-xl">
+                        <p className="font-sans text-base md:text-lg leading-relaxed text-dark/70 border-l-2 border-red-solid/20 pl-8 max-w-xl">
                            {data.description}
                         </p>
                      </div>

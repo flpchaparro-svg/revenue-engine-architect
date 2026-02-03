@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { colors } from '../constants/theme';
 
 const PillarVisual_Helix: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -110,7 +111,7 @@ const PillarVisual_Helix: React.FC = () => {
             ctx.moveTo(aProj.x, aProj.y);
             ctx.lineTo(bProj.x, bProj.y);
             // Gold connector
-            ctx.strokeStyle = '#C5A059'; 
+            ctx.strokeStyle = colors.gold; 
             ctx.lineWidth = 1.5 * midAlpha;
             ctx.globalAlpha = midAlpha * 0.6;
             ctx.stroke();
@@ -120,14 +121,14 @@ const PillarVisual_Helix: React.FC = () => {
             // Node A
             ctx.beginPath();
             ctx.arc(aProj.x, aProj.y, 3 * aProj.scale, 0, Math.PI * 2);
-            ctx.fillStyle = '#1a1a1a';
+            ctx.fillStyle = colors.dark;
             ctx.globalAlpha = alphaA;
             ctx.fill();
 
             // Node B
             ctx.beginPath();
             ctx.arc(bProj.x, bProj.y, 3 * bProj.scale, 0, Math.PI * 2);
-            ctx.fillStyle = '#1a1a1a';
+            ctx.fillStyle = colors.dark;
             ctx.globalAlpha = alphaB;
             ctx.fill();
             
@@ -162,7 +163,7 @@ const PillarVisual_Helix: React.FC = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-full relative overflow-hidden bg-[#FFF2EC] flex items-center justify-center cursor-move">
+    <div ref={containerRef} className="w-full h-full relative overflow-hidden bg-cream flex items-center justify-center cursor-move">
         <canvas ref={canvasRef} className="block" />
         
     </div>

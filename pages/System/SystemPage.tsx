@@ -11,6 +11,7 @@ import GlobalFooter from '../../components/GlobalFooter';
 import HeroVisual_Suspension from '../../components/HeroVisual_Suspension';
 import FAQSection from '../../components/FAQSection';
 import { getSystemPageFAQs } from '../../constants/faqData';
+import { colors } from '../../constants/theme';
 import BackButton from '../../components/BackButton';
 import SystemGrid from '../../components/SystemGrid';
 import { usePageTitle } from '../../hooks/usePageTitle';
@@ -67,7 +68,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
   const heroItem = { hidden: { y: 30, opacity: 0 }, visible: { y: 0, opacity: 1, transition: { type: "spring", stiffness: 40, damping: 20 } } };
 
   return (
-    <div className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-0 pb-0 px-0 relative z-[150] flex flex-col font-sans">
+    <div className="min-h-screen bg-cream text-dark pt-0 pb-0 px-0 relative z-[150] flex flex-col font-sans">
       
       {/* 1. HERO SECTION (Static Props, Self-Contained Animation) */}
       <section className="relative h-[100dvh] w-full flex flex-col overflow-hidden">
@@ -82,13 +83,13 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
           >
             <div className="flex flex-col justify-center">
               <m.div variants={heroItem} className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-start">
-                <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
-                <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">THE SYSTEM</span>
+                <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-dark">/</span>
+                <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-dark">THE SYSTEM</span>
               </m.div>
-              <m.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10 break-words">
-                How It All <span className="italic font-serif text-[#8B6914] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Connects.</span>
+              <m.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-dark mb-6 md:mb-10 break-words">
+                How It All <span className="italic font-serif text-gold drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Connects.</span>
               </m.h1>
-              <m.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
+              <m.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl border-l-2 border-gold pl-6 mb-8">
                 Most consultants sell you a website. Or a CRM. Or some automation. Separate pieces that don't talk to each other. I build systems where everything connects. Your website feeds your CRM. Your CRM triggers your automation. Your dashboard shows you if it's working. One system. Not seven tools.
               </m.p>
             </div>
@@ -99,40 +100,40 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
             </m.div>
           </m.div>
         </div>
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-30" aria-hidden="true">
-          <m.div style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }} className="absolute inset-0 bg-[#1a1a1a]/40 w-full h-full" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-dark/10 overflow-hidden z-30" aria-hidden="true">
+          <m.div style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }} className="absolute inset-0 bg-dark/40 w-full h-full" />
         </div>
       </section>
 
       {/* 2. SCROLLYTELLING INTRO */}
-      <section className="w-full bg-[#FFF2EC] py-24 md:py-32 px-6 md:px-12 lg:px-20 border-t border-[#1a1a1a]/10">
+      <section className="w-full bg-cream py-24 md:py-32 px-6 md:px-12 lg:px-20 border-t border-dark/10">
         <div className="max-w-[1400px] mx-auto text-center">
-          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#7A5D12] mb-6 block">
+          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-gold-muted mb-6 block">
             / THE 3 SYSTEMS
           </span>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
-            Three Systems. <span className="italic text-[#8B6914]">One Flow.</span>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-dark mb-6">
+            Three Systems. <span className="italic text-gold">One Flow.</span>
           </h2>
-          <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto">
+          <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl mx-auto">
             Every pillar belongs to one of three systems. Each system solves a different problem. But the magic is in how they connect.
           </p>
         </div>
       </section>
 
       {/* 3. SCROLLYTELLING (Lazy Loaded) */}
-      <Suspense fallback={<div className="h-[50vh] bg-[#FFF2EC]" />}>
+      <Suspense fallback={<div className="h-[50vh] bg-cream" />}>
         <section className="relative z-0 mb-32">
            <SystemArchitecture />
         </section>
       </Suspense>
 
       {/* 3. GRID BLUEPRINT (Isolated State) */}
-      <section className="w-full bg-[#FFF2EC] pb-32 relative z-10">
+      <section className="w-full bg-cream pb-32 relative z-10">
         <SystemGrid onNavigate={onNavigate} />
       </section>
 
       {/* 4. STATIC FOOTER CONTENT */}
-      <FAQSection faqs={systemFAQs} accentColor="#8B6914" title="Questions?" subtitle="Common questions about how this works." onNavigate={onNavigate} />
+      <FAQSection faqs={systemFAQs} accentColor={colors.goldOnCream} title="Questions?" subtitle="Common questions about how this works." onNavigate={onNavigate} />
       <GlobalFooter onNavigate={onNavigate} />
     </div>
   );

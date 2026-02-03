@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { colors } from '../constants/theme';
 
 const PillarVisual_MediaGrid: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -25,7 +26,7 @@ const PillarVisual_MediaGrid: React.FC = () => {
         '#C13584', // Instagram Deep Magenta
         '#0077B5', // LinkedIn Blue
         '#D00000', // YouTube Deep Red
-        '#C5A059'  // System Gold
+        colors.gold  // System Gold
     ];
 
     // Generate Column Data (Speed & Offset)
@@ -45,7 +46,7 @@ const PillarVisual_MediaGrid: React.FC = () => {
             const isBranded = Math.random() < 0.4;
             const color = isBranded 
                 ? BRAND_COLORS[Math.floor(Math.random() * BRAND_COLORS.length)] 
-                : '#1a1a1a';
+                : colors.dark;
 
             tiles.push({
                 col: c,
@@ -59,7 +60,7 @@ const PillarVisual_MediaGrid: React.FC = () => {
 
     const animate = () => {
       // Clear with Cream Background
-      ctx.fillStyle = '#FFF2EC'; 
+      ctx.fillStyle = colors.cream; 
       ctx.fillRect(0, 0, width, height);
 
       const time = Date.now() * 0.001;
@@ -110,7 +111,7 @@ const PillarVisual_MediaGrid: React.FC = () => {
              const isActive = Math.sin(time * 3 + cIdx + y*0.01) > 0.95;
              if (isActive && !tile.isBranded) {
                  // Only flash the black tiles gold
-                 ctx.fillStyle = '#2a2a2a'; 
+                 ctx.fillStyle = colors.gray700; 
                  ctx.shadowBlur = 15;
                  ctx.shadowColor = 'rgba(197, 160, 89, 0.4)';
              } else {
@@ -126,7 +127,7 @@ const PillarVisual_MediaGrid: React.FC = () => {
              // Draw "Content" (UI Lines inside the tile)
              // If colored tile -> White lines
              // If dark tile -> Dark Grey lines
-             ctx.fillStyle = tile.isBranded ? 'rgba(255,255,255,0.4)' : '#333';
+             ctx.fillStyle = tile.isBranded ? 'rgba(255,255,255,0.4)' : colors.gray700;
              
              if (tile.type === 0) { // Text lines
                  ctx.fillRect(drawX + 10, y + 20, drawW - 40, 4);
@@ -135,7 +136,7 @@ const PillarVisual_MediaGrid: React.FC = () => {
              } else if (tile.type === 1) { // Image placeholder
                  ctx.fillRect(drawX + 10, y + 10, drawW - 20, drawH - 20);
                  // Inner box
-                 ctx.fillStyle = tile.isBranded ? 'rgba(255,255,255,0.2)' : '#222';
+                 ctx.fillStyle = tile.isBranded ? 'rgba(255,255,255,0.2)' : colors.gray800;
                  ctx.fillRect(drawX + 15, y + 15, drawW - 30, drawH - 30);
              } else if (tile.type === 2) { // Play Button / Video
                  ctx.beginPath();
@@ -176,7 +177,7 @@ const PillarVisual_MediaGrid: React.FC = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-full bg-[#FFF2EC] relative overflow-hidden">
+    <div ref={containerRef} className="w-full h-full bg-cream relative overflow-hidden">
         <canvas ref={canvasRef} className="block w-full h-full" />
         {/* Subtle Scanline Overlay */}
         <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(255,242,236,0)_50%,rgba(0,0,0,0.02)_50%)] z-10 bg-[length:100%_2px]" />

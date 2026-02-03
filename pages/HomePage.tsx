@@ -132,27 +132,27 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
         <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 relative z-20">
           <div className="lg:col-span-12 flex flex-col justify-start md:justify-center items-center lg:items-start text-center lg:text-left pt-8 md:pt-0">
             <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-center lg:justify-start">
-              <span className="hidden md:inline font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
+              <span className="hidden md:inline font-mono text-xs font-bold uppercase tracking-[0.2em] text-dark">/</span>
               <div className="flex items-center gap-2">
-                <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
+                <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-dark">
                   SYDNEY BUSINESS AUTOMATION 
                 </span>
                 <ScrambleTitle />
               </div>
             </div>
 
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-[6.5rem] leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-10">
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-[6.5rem] leading-[1.1] lg:leading-[0.9] tracking-tighter text-dark mb-8 md:mb-10">
               <div className="overflow-hidden">
                 <span className="block reveal-text tracking-tighter font-serif" style={{ letterSpacing: '-0.04em' }}>Stop Doing</span>
               </div>
               <div className="overflow-hidden">
                 <span className="block reveal-text tracking-tighter" style={{ animationDelay: '0.2s', letterSpacing: '-0.04em' }}>
-                  <span className="italic font-serif text-[#8B6914] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Everyone's Job.</span>
+                  <span className="italic font-serif text-gold-on-cream drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Everyone's Job.</span>
                 </span>
               </div>
             </h1>
 
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 animate-fade-in text-left mx-auto lg:mx-0 mb-12 md:mb-0" style={{ animationDelay: '0.6s' }}>
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl border-l-2 border-gold pl-6 animate-fade-in text-left mx-auto lg:mx-0 mb-12 md:mb-0" style={{ animationDelay: '0.6s' }}>
               You didn't start a business to chase invoices, re-type data, and answer the same questions all day. I build the systems that do it for you, so you can get back to the work that actually grows revenue.
             </p>
 
@@ -167,47 +167,47 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
           </div>
         </div>
         
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-[#1a1a1a]/10 overflow-hidden z-0">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-dark/10 overflow-hidden z-0">
           <m.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
-            className="absolute inset-0 bg-[#1a1a1a]/40 w-full h-full" 
+            className="absolute inset-0 bg-dark/40 w-full h-full" 
           />
         </div>
       </section>
 
-      <div className="w-full bg-[#1a1a1a]/5 py-12 border-y border-black/5 overflow-hidden relative z-30" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }} onMouseEnter={() => setIsTickerHovered(true)} onMouseLeave={() => setIsTickerHovered(false)}>
+      <div className="w-full bg-dark/5 py-12 border-y border-black/5 overflow-hidden relative z-30" style={{ maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)', WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)' }} onMouseEnter={() => setIsTickerHovered(true)} onMouseLeave={() => setIsTickerHovered(false)}>
         <div className="flex whitespace-nowrap">
           <m.div className="flex items-center pr-0" style={{ x: xPercent, willChange: 'transform' }}>
             {[...TECH_STACK, ...TECH_STACK, ...TECH_STACK, ...TECH_STACK].map((tech, i) => (
               <div key={i} className="flex items-center group cursor-default">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#1a1a1a] opacity-80 group-hover:text-[#8B6914] group-hover:opacity-100 transition-all duration-300 px-12">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-dark opacity-80 group-hover:text-gold-on-cream group-hover:opacity-100 transition-all duration-300 px-12">
                   {tech}
                 </span>
-                <span className="text-[#7A5D12] font-mono text-[10px] font-bold">/</span>
+                <span className="text-gold-muted font-mono text-[10px] font-bold">/</span>
               </div>
             ))}
           </m.div>
         </div>
       </div>
 
-      <Suspense fallback={<div className="min-h-[500px] bg-[#FFF2EC]" />}>
+      <Suspense fallback={<div className="min-h-[500px] bg-cream" />}>
         <ProblemSection />
         
-        <section id="friction-audit" aria-label="Friction Audit Section" className="relative bg-[#FFF2EC] z-30">
+        <section id="friction-audit" aria-label="Friction Audit Section" className="relative bg-cream z-30">
           <FrictionAuditSection onNavigate={onNavigate} />
         </section>
 
-        <section id="seven-pillars" className="relative bg-[#FFF2EC] z-30">
+        <section id="seven-pillars" className="relative bg-cream z-30">
           <SystemPhases onNavigate={onNavigate} />
         </section>
-        <section id="about" className="relative bg-[#FFF2EC] z-30">
+        <section id="about" className="relative bg-cream z-30">
           <TheArchitect />
         </section>
-        <section id="case-study" className="relative bg-[#FFF2EC] z-30">
+        <section id="case-study" className="relative bg-cream z-30">
           <Feature_Group7 />
         </section>
 
-        <section id="cta" aria-label="Call to Action Section" className="relative bg-[#FFF2EC] z-30">
+        <section id="cta" aria-label="Call to Action Section" className="relative bg-cream z-30">
           <BookingCTA />
         </section>
       </Suspense>

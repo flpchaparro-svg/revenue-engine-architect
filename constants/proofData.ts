@@ -80,9 +80,9 @@ export const SOLUTION_ITEMS = [
 
 export const EVIDENCE_METRICS = [
   { label: "PageSpeed Score", val: 94, suffix: "/100", icon: Activity, note: "Top 5% of websites", color: "text-green-600" },
-  { label: "Load Time", val: 0.4, suffix: "s", prefix: "", icon: Zap, note: "Was 4.2s. Now 0.4s.", color: "text-[#C5A059]" },
-  { label: "Lead Attribution", val: 100, suffix: "%", icon: Database, note: "Every enquiry tracked", color: "text-[#C5A059]" },
-  { label: "Sydney Visibility", val: 1, suffix: "", prefix: "Page ", icon: MapPin, note: "Ranking for Sydney searches", color: "text-[#C5A059]" },
+  { label: "Load Time", val: 0.4, suffix: "s", prefix: "", icon: Zap, note: "Was 4.2s. Now 0.4s.", color: "text-gold" },
+  { label: "Lead Attribution", val: 100, suffix: "%", icon: Database, note: "Every enquiry tracked", color: "text-gold" },
+  { label: "Sydney Visibility", val: 1, suffix: "", prefix: "Page ", icon: MapPin, note: "Ranking for Sydney searches", color: "text-gold" },
   { label: "Core Web Vitals", val: 100, suffix: "%", icon: ShieldCheck, note: "All Google speed tests passed", color: "text-green-600" },
-  { label: "Page Weight", val: 89, suffix: "%", prefix: "-", icon: ArrowRight, note: "Site is 89% lighter", color: "text-[#C5A059]" },
+  { label: "Page Weight", val: 89, suffix: "%", prefix: "-", icon: ArrowRight, note: "Site is 89% lighter", color: "text-gold" },
 ];

@@ -6,8 +6,19 @@
   :root {
     --bg: #FFF2EC;
     --ink: #1a1a1a;
-    --signal-red: #E21E3F;
+    --cream: #FFF2EC;
+    --dark: #1a1a1a;
+    --off-white: #FAFAFA;
+    --red: #9A1730;
+    --red-solid: #E21E3F;
+    --red-on-dark: #FF6B6B;
     --gold: #C5A059;
+    --gold-on-cream: #8B6914;
+    --gold-on-dark: #D4A84B;
+    --gold-muted: #7A5D12;
+    --white: #FFFFFF;
+    --terminal-bg: #111;
+    --terminal-inner: #0d0d0d;
   }
 
   body {

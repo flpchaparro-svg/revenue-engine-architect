@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-// PERFORMANCE: Named imports allow tree-shaking (removing unused code)
 import { timer, line, curveBasis } from 'd3';
 import { useInView } from 'framer-motion';
+import { colors } from '../constants/theme';
 
 interface ViewportVizProps {
   type: string;
@@ -9,7 +9,7 @@ interface ViewportVizProps {
   lineWidthScale?: number;
 }
 
-const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = '#C5A059', lineWidthScale = 1 }) => {
+const ViewportViz: React.FC<ViewportVizProps> = ({ type, color = colors.gold, lineWidthScale = 1 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   // Type as any to avoid complex d3 typing issues during build

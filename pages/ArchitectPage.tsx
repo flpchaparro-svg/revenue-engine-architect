@@ -61,7 +61,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
   };
 
   return (
-    <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] relative z-[150] flex flex-col selection:bg-[#C5A059]/30">
+    <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="min-h-screen bg-cream text-dark relative z-[150] flex flex-col selection:bg-gold/30">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow relative z-10">
         
         <div className="flex justify-between items-center mb-12 md:mb-20 pt-24 relative z-[200]">
@@ -75,11 +75,11 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em]">{current.label.replace('/', '').trim()}</span>
            </div>
            
-           <div className="flex items-center gap-0 mb-12 border border-[#1a1a1a]/10 bg-white p-1 rounded-sm w-fit shadow-lg mx-auto lg:mx-0">
+           <div className="flex items-center gap-0 mb-12 border border-dark/10 bg-white p-1 rounded-sm w-fit shadow-lg mx-auto lg:mx-0">
               <button 
                 onClick={() => setMode('architect')}
                 className={`px-5 md:px-8 py-3.5 text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-sm flex items-center gap-2 ${
-                  mode === 'architect' ? 'text-[#FFF2EC] bg-[#1a1a1a] shadow-md' : 'text-[#1a1a1a]/40'
+                  mode === 'architect' ? 'text-cream bg-dark shadow-md' : 'text-dark/40'
                 }`}
               >
                 {mode === 'architect' && <Terminal className="w-3 h-3" />} THE ARCHITECT
@@ -87,7 +87,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
               <button 
                 onClick={() => setMode('human')}
                 className={`px-5 md:px-8 py-3.5 text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-sm flex items-center gap-2 ${
-                  mode === 'human' ? 'text-[#1a1a1a] bg-[#C5A059] shadow-md' : 'text-[#1a1a1a]/40'
+                  mode === 'human' ? 'text-dark bg-gold shadow-md' : 'text-dark/40'
                 }`}
               >
                 {mode === 'human' && <Fingerprint className="w-3 h-3" />} THE HUMAN
@@ -98,7 +98,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
              <m.h1
                key={mode}
                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-               className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] max-w-5xl mb-6 md:mb-10 mx-auto lg:mx-0"
+               className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-dark max-w-5xl mb-6 md:mb-10 mx-auto lg:mx-0"
              >
                {current.headline}
              </m.h1>
@@ -111,7 +111,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                 <AnimatePresence mode="wait">
                   <m.div key={mode} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="relative w-full max-w-[400px] mx-auto lg:max-w-none">
                     <div className={`aspect-[9/16] relative overflow-hidden transition-all duration-500 shadow-2xl ${
-                        mode === 'architect' ? 'rounded-sm border-2 border-[#1a1a1a]' : 'rounded-t-full border-4 border-[#C5A059]/20'
+                        mode === 'architect' ? 'rounded-sm border-2 border-dark' : 'rounded-t-full border-4 border-gold/20'
                     }`}>
                       
                       {/* MAIN VIDEO PLAYER - COLOR (no grayscale), with seamless loop */}
@@ -154,20 +154,20 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
               <AnimatePresence mode="wait">
                 <m.div key={mode} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-16">
                   <Section>
-                    <p className={`font-sans text-lg md:text-xl font-light leading-relaxed border-l-2 pl-6 mb-8 ${mode === 'architect' ? 'border-[#E21E3F]' : 'border-[#C5A059]'}`}>
+                    <p className={`font-sans text-lg md:text-xl font-light leading-relaxed border-l-2 pl-6 mb-8 ${mode === 'architect' ? 'border-red-solid' : 'border-gold'}`}>
                       {current.subhead}
                     </p>
                   </Section>
 
                   <div className="relative ml-3 md:ml-6 space-y-0">
-                    <div className="absolute left-0 top-4 bottom-4 w-px bg-[#1a1a1a]/10" />
+                    <div className="absolute left-0 top-4 bottom-4 w-px bg-dark/10" />
                     {current.timeline.map((step, idx) => (
                       <Section key={step.id} delay={idx * 0.1} className="relative pl-12 md:pl-16 pb-16 group last:pb-0">
-                         <div className={`absolute -left-3 md:-left-4 top-0 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-[#FFF2EC] z-10 ${mode === 'architect' ? 'bg-[#1a1a1a] text-white' : 'bg-[#C5A059] text-white'}`}>
+                         <div className={`absolute -left-3 md:-left-4 top-0 w-6 h-6 md:w-8 md:h-8 rounded-full flex items-center justify-center border-4 border-cream z-10 ${mode === 'architect' ? 'bg-dark text-white' : 'bg-gold text-white'}`}>
                             <step.icon className="w-3 h-3 md:w-4 md:h-4" />
                          </div>
                          <h2 className="font-serif text-2xl md:text-3xl mb-4">{step.title}</h2>
-                         <p className="font-sans text-base text-[#1a1a1a]/70 leading-relaxed max-w-lg">{step.text}</p>
+                         <p className="font-sans text-base text-dark/70 leading-relaxed max-w-lg">{step.text}</p>
                       </Section>
                     ))}
                   </div>
@@ -178,7 +178,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                       <div className="grid grid-cols-2 gap-4">
                         {ARCHITECT_CONTENT.architect.credentials.map((cred, i) => (
                           <div key={i} className="flex items-center gap-3">
-                             <cred.icon className="w-4 h-4 text-[#1a1a1a]/40" />
+                             <cred.icon className="w-4 h-4 text-dark/40" />
                              <span className="font-mono text-xs font-bold uppercase">{cred.label}</span>
                           </div>
                         ))}
@@ -193,7 +193,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
         {/* FOOTER CTA */}
         <Section className="border-t border-black/10 py-32 flex flex-col items-center text-center">
            <h2 className="font-serif text-4xl md:text-7xl tracking-tighter mb-12">
-             Ready to build your <span className="italic font-serif text-[#8B6914]">system?</span>
+             Ready to build your <span className="italic font-serif text-gold-on-cream">system?</span>
            </h2>
            <CTAButton theme={mode === 'architect' ? 'light' : 'dark'} onClick={() => onNavigate('contact')}>
              [ BOOK A CALL ]

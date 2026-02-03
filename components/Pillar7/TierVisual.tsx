@@ -46,7 +46,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
                 <m.path
                     d="M 0 60 L 40 40 L 70 50"
                     fill="none"
-                    stroke="#FFFFFF"
+                    stroke="var(--white)"
                     strokeWidth="2"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
@@ -56,7 +56,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
                 <m.path
                     d="M 70 50 L 100 20 L 130 10"
                     fill="none"
-                    stroke="#FFFFFF"
+                    stroke="var(--white)"
                     strokeWidth="2"
                     strokeDasharray="4 4"
                     initial={{ opacity: 0 }}
@@ -72,7 +72,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
         // ANIMATION: "The Control Tower" - White structure
         <div className="relative flex items-center justify-center w-24 h-24">
             {/* Center */}
-            <div className="w-6 h-6 border border-white bg-[#1a1a1a] z-10 flex items-center justify-center">
+            <div className="w-6 h-6 border border-white bg-dark z-10 flex items-center justify-center">
                 <div className="w-2 h-2 bg-white" />
             </div>
             

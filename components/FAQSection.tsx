@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Cpu, Plus, Minus } from 'lucide-react';
 import { FAQ } from '../constants/faqData';
+import { colors } from '../constants/theme';
 import CTAButton from './CTAButton';
 
 // --- HELPER: Format Answers ---
@@ -87,7 +88,7 @@ interface FAQSectionProps {
 
 const FAQSection: React.FC<FAQSectionProps> = ({
   faqs,
-  accentColor = '#8B6914',
+  accentColor = colors.goldOnCream,
   title = 'Questions?',
   subtitle = 'Everything you need to know before we start.',
   showBookingCTA = true,
@@ -102,7 +103,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
   };
 
   return (
-    <section id="faq" className="py-24 px-6 md:px-12 lg:px-20 bg-[#FFF2EC]">
+    <section id="faq" className="py-24 px-6 md:px-12 lg:px-20 bg-cream">
       <div className="max-w-[1600px] mx-auto">
         
         {/* HEADER */}
@@ -110,11 +111,11 @@ const FAQSection: React.FC<FAQSectionProps> = ({
           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] mb-4 block" style={{ color: accentColor }}>
             / FAQ
           </span>
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a]">
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-dark">
             {title} <span className="italic" style={{ color: accentColor }}>Answered.</span>
           </h2>
           {subtitle && (
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-xl mt-4">
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-xl mt-4">
               {subtitle}
             </p>
           )}
@@ -142,26 +143,26 @@ const FAQSection: React.FC<FAQSectionProps> = ({
 
                       {/* Content Wrapper */}
                       <div className="relative z-10 flex items-baseline gap-2 flex-1">
-                        {/* FIX: Added 'lg:group-hover:!text-[#1a1a1a]'
+                        {/* FIX: Added 'lg:group-hover:!text-dark'
                            This forces the text to Black on hover, overriding the inline Gold color 
                            so it doesn't disappear against the Gold background.
                         */}
                         <span 
-                          className={`font-mono text-xs font-bold uppercase tracking-[0.2em] mt-1 shrink-0 transition-colors duration-300 ${isActive ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/40 lg:group-hover:!text-[#1a1a1a]'}`}
+                          className={`font-mono text-xs font-bold uppercase tracking-[0.2em] mt-1 shrink-0 transition-colors duration-300 ${isActive ? 'text-dark' : 'text-dark/40 lg:group-hover:!text-dark'}`}
                           style={!isActive ? { color: accentColor } : {}}
                         >
                           {String(index + 1).padStart(2, '0')}.
                         </span>
                         
                         <span 
-                          className={`font-serif italic text-lg md:text-xl leading-tight tracking-tight transition-colors duration-300 ${isActive ? 'text-[#1a1a1a]' : 'text-[#1a1a1a]/80 lg:group-hover:text-[#1a1a1a]'}`}
+                          className={`font-serif italic text-lg md:text-xl leading-tight tracking-tight transition-colors duration-300 ${isActive ? 'text-dark' : 'text-dark/80 lg:group-hover:text-dark'}`}
                         >
                           {faq.question}
                         </span>
                       </div>
                       
                       {/* Icon */}
-                      <div className="relative z-10 text-[#1a1a1a] pt-1">
+                      <div className="relative z-10 text-dark pt-1">
                          <div className="hidden lg:block">
                            <ArrowRight className={`w-5 h-5 transition-transform duration-300 ${isActive ? 'translate-x-0' : '-translate-x-2 group-hover:translate-x-0'}`} />
                          </div>
@@ -179,9 +180,9 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
                             exit={{ height: 0, opacity: 0 }}
-                            className="overflow-hidden bg-[#1a1a1a]"
+                            className="overflow-hidden bg-dark"
                           >
-                             <div className="p-8 text-[#FFF2EC]">
+                             <div className="p-8 text-cream">
                                 <div className="font-sans text-base leading-relaxed opacity-80 border-l-2 pl-4" style={{ borderColor: accentColor }}>
                                   {formatFAQAnswer(faq.answer, accentColor)}
                                 </div>
@@ -196,7 +197,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
             </div>
 
             {/* RIGHT: DESKTOP ANSWER DISPLAY (Sticky/Fixed Area) */}
-            <div className="hidden lg:flex lg:col-span-7 bg-[#1a1a1a] text-[#FFF2EC] p-16 flex-col justify-center relative border-b border-black/10">
+            <div className="hidden lg:flex lg:col-span-7 bg-dark text-cream p-16 flex-col justify-center relative border-b border-black/10">
               <AnimatePresence mode="wait">
                 {activeIndex !== null ? (
                   <m.div
@@ -213,13 +214,13 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                       </span>
                     </div>
                     
-                    <h3 className="font-serif italic text-3xl md:text-4xl leading-tight tracking-tight text-[#FFF2EC] mb-8">
+                    <h3 className="font-serif italic text-3xl md:text-4xl leading-tight tracking-tight text-cream mb-8">
                       {faqs[activeIndex].question}
                     </h3>
                     
                     <div className="w-16 h-1 mb-8" style={{ backgroundColor: accentColor }} />
                     
-                    <div className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#FFF2EC]/70 border-l pl-6 space-y-4" style={{ borderColor: accentColor }}>
+                    <div className="font-sans text-lg md:text-xl font-light leading-relaxed text-cream/70 border-l pl-6 space-y-4" style={{ borderColor: accentColor }}>
                       {formatFAQAnswer(faqs[activeIndex].answer, accentColor)}
                     </div>
                   </m.div>
@@ -237,7 +238,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
         {/* FOOTER CTA */}
         {showBookingCTA && (
           <div className="py-24 flex flex-col items-center text-center">
-            <h2 className="font-serif text-4xl md:text-5xl leading-tight tracking-tighter mb-8 text-[#1a1a1a]">
+            <h2 className="font-serif text-4xl md:text-5xl leading-tight tracking-tighter mb-8 text-dark">
               Still have questions?
             </h2>
             <CTAButton theme="light" onClick={() => onNavigate?.('contact')}>

@@ -96,14 +96,14 @@ const App: React.FC = () => {
 
   return (
     <LazyMotion features={domAnimation}>
-      <div className="bg-[#FFF2EC] font-sans selection:bg-[#1a1a1a] selection:text-[#FFF2EC] min-h-screen flex flex-col relative">
+      <div className="bg-cream font-sans selection:bg-dark selection:text-cream min-h-screen flex flex-col relative">
         
         {location.pathname !== '/contact' && (
           <GlobalHeader currentView={getCurrentView()} onNavigate={handleGlobalNavigate} scrolled={scrolled} />
         )}
 
         <div className="relative min-h-screen w-full">
-          <Suspense fallback={<div className="h-screen w-full bg-[#FFF2EC]" />}>
+          <Suspense fallback={<div className="h-screen w-full bg-cream" />}>
             <AnimatePresence mode="wait">
               <div key={location.pathname} className="w-full">
                 <Routes location={location}>

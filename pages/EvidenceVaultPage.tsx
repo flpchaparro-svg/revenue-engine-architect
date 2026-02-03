@@ -32,11 +32,11 @@ const TerminalLog: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full bg-[#1a1a1a] p-8 border-t border-black/10 font-mono text-sm overflow-hidden">
+    <div className="w-full bg-dark p-8 border-t border-black/10 font-mono text-sm overflow-hidden">
       <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
-        <Terminal className="w-4 h-4 text-[#8B6914]" />
+        <Terminal className="w-4 h-4 text-gold-on-cream" />
         {/* FIX: Bumped to text-xs */}
-        <span className="text-[#8B6914] uppercase tracking-[0.2em] font-bold text-xs">Build Log // What I Did</span>
+        <span className="text-gold-on-cream uppercase tracking-[0.2em] font-bold text-xs">Build Log // What I Did</span>
       </div>
       <div className="space-y-3">
         {lines.map((line, i) => (
@@ -46,14 +46,14 @@ const TerminalLog: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             className="text-white/80"
           >
-            <span className="text-[#0F766E] mr-3">➜</span>
+            <span className="text-teal mr-3">➜</span>
             {line}
           </m.div>
         ))}
         <m.div 
           animate={{ opacity: [0, 1] }} 
           transition={{ repeat: Infinity, duration: 0.8 }}
-          className="w-2 h-4 bg-[#C5A059] inline-block align-middle ml-2"
+          className="w-2 h-4 bg-gold inline-block align-middle ml-2"
         />
       </div>
     </div>
@@ -131,7 +131,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
       initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }} 
       exit={{ opacity: 0 }}
-      className="relative min-h-screen w-full bg-[#FFF2EC] text-[#1a1a1a] overflow-x-hidden content-layer"
+      className="relative min-h-screen w-full bg-cream text-dark overflow-x-hidden content-layer"
     >
       {/* FORENSIC ARCHIVE BACKGROUND */}
       <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden h-full">
@@ -150,7 +150,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
           <BackButton onClick={onBack} label="Return to Overview" />
           
           <div className="hidden md:flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
+            <div className="w-2 h-2 rounded-full bg-gold animate-pulse" />
             {/* FIX: Bumped to text-[10px] */}
             <span className="font-mono text-[10px] text-black/40 uppercase tracking-[0.4em]">LOG FILE STATUS: READ ONLY</span>
           </div>
@@ -159,13 +159,13 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
         {/* HERO SECTION */}
         <section className="mb-40">
           <m.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <span className="font-mono text-xs text-[#9A1730] tracking-[0.4em] mb-6 block uppercase">/ Verification_Repository</span>
+            <span className="font-mono text-xs text-red-solid tracking-[0.4em] mb-6 block uppercase">/ Verification_Repository</span>
             <h1 className="font-serif text-6xl md:text-8xl lg:text-[8.5rem] leading-[0.9] tracking-tighter mb-10">
               The Forensic <br />
-              <span className="italic text-[#8B6914]">Archive</span> <br />
+              <span className="italic text-gold-on-cream">Archive</span> <br />
               of Results.
             </h1>
-            <p className="font-sans text-xl md:text-2xl font-light text-[#1a1a1a]/70 max-w-3xl leading-relaxed border-l border-black/20 pl-8">
+            <p className="font-sans text-xl md:text-2xl font-light text-dark/70 max-w-3xl leading-relaxed border-l border-black/20 pl-8">
               We don’t sell promises. We sell verified architectural outcomes. This is the evidence of systems that scale without headcount.
             </p>
           </m.div>
@@ -177,15 +177,15 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
             <h2 className="font-serif text-4xl md:text-5xl mb-8 italic">Truth is found in the logs.</h2>
             <div className="space-y-6 text-lg text-black/60 font-light leading-relaxed max-w-2xl">
               <p>Testimonials are subjective. Clients are nice. But architecture is objective. It either performs or it fails. We don't rely on "reviews"—we present Case Audits where the code and the data prove the ROI.</p>
-              <p className="font-serif text-2xl text-[#1a1a1a] italic border-b border-[#C5A059]/30 pb-4 inline-block">
+              <p className="font-serif text-2xl text-dark italic border-b border-gold/30 pb-4 inline-block">
                 "Subjectivity is for artists. Precision is for architects."
               </p>
             </div>
           </div>
           <div className="lg:col-span-5 flex justify-center">
              <div className="w-full aspect-square max-w-[400px] border border-black/5 bg-white p-12 flex flex-col justify-center items-center relative overflow-hidden shadow-sm">
-                <div className="absolute top-0 left-0 w-full h-1 bg-[#C5A059]"></div>
-                <ShieldCheck className="w-24 h-24 text-[#8B6914] mb-8 stroke-[0.5]" />
+                <div className="absolute top-0 left-0 w-full h-1 bg-gold"></div>
+                <ShieldCheck className="w-24 h-24 text-gold-on-cream mb-8 stroke-[0.5]" />
                 {/* FIX: Bumped to text-[10px] */}
                 <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-center text-black/40">RESULT AUTHENTICATED / SYSTEM ID 0X44</span>
              </div>
@@ -212,18 +212,18 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                 key={audit.id}
                 variants={itemVariants as any}
                 onClick={() => setIsModalOpen(true)}
-                className="bg-[#FFF2EC] p-12 flex flex-col justify-between hover:bg-[#1a1a1a] hover:text-[#FFF2EC] transition-colors duration-500 group min-h-[550px] cursor-pointer"
+                className="bg-cream p-12 flex flex-col justify-between hover:bg-dark hover:text-cream transition-colors duration-500 group min-h-[550px] cursor-pointer"
               >
                 <div>
                   <div className="flex justify-between items-start mb-12">
                     {/* FIX: Bumped to text-[10px] */}
                     <span className="font-mono text-[10px] text-black/60 tracking-widest uppercase">{audit.id}</span>
-                    <audit.icon className="w-6 h-6 text-[#8B6914] opacity-30 group-hover:opacity-100 transition-opacity" />
+                    <audit.icon className="w-6 h-6 text-gold-on-cream opacity-30 group-hover:opacity-100 transition-opacity" />
                   </div>
                   <h3 className="font-serif text-3xl mb-4 leading-none">{audit.title}</h3>
                   {/* FIX: Bumped to text-[10px] */}
-                  <p className="font-mono text-[10px] text-[#9A1730] uppercase tracking-widest mb-6">{audit.client}</p>
-                  <div className="text-4xl font-sans font-light text-[#8B6914] mb-8">{audit.impact}</div>
+                  <p className="font-mono text-[10px] text-red-solid uppercase tracking-widest mb-6">{audit.client}</p>
+                  <div className="text-4xl font-sans font-light text-gold-on-cream mb-8">{audit.impact}</div>
                   <p className="font-sans text-sm text-black/50 leading-relaxed mb-10 group-hover:text-white/60 transition-colors">{audit.desc}</p>
                 </div>
                 
@@ -233,7 +233,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                    <ul className="space-y-2">
                      {audit.metrics.map((m, i) => (
                        <li key={i} className="flex items-center gap-3">
-                         <div className="w-1 h-1 bg-[#C5A059] rounded-full" />
+                         <div className="w-1 h-1 bg-gold rounded-full" />
                          <span className="font-sans text-[11px] font-bold uppercase tracking-tight">{m}</span>
                        </li>
                      ))}
@@ -257,7 +257,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
 
         {/* CALL TO ACTION */}
         <section className="py-32 flex flex-col items-center text-center mb-24">
-          <h2 className="font-serif text-5xl md:text-7xl mb-12 italic max-w-4xl leading-tight">Your company is the next <span className="text-[#8B6914]">evidence log.</span></h2>
+          <h2 className="font-serif text-5xl md:text-7xl mb-12 italic max-w-4xl leading-tight">Your company is the next <span className="text-gold-on-cream">evidence log.</span></h2>
           
           <CTAButton theme="light" onClick={() => window.open("https://meetings-ap1.hubspot.com/felipe", "_blank")}>
              [ AUDIT MY SYSTEM ]
@@ -267,7 +267,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
         {/* BOTTOM FOOTER SEPARATOR */}
         <div className="py-12 border-t border-black/10 flex flex-col md:flex-row items-center justify-between gap-8 mt-20 opacity-60">
           <div className="flex items-center gap-4">
-            <CheckCircle2 className="w-5 h-5 text-[#8B6914]" />
+            <CheckCircle2 className="w-5 h-5 text-gold-on-cream" />
             {/* FIX: Bumped to text-[10px] */}
             <span className="font-mono text-[10px] uppercase tracking-widest text-black/40">EVIDENCE VERIFIED / LOGS NOMINAL</span>
           </div>
@@ -292,16 +292,16 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-6xl bg-[#FFF2EC] overflow-hidden shadow-2xl rounded-sm max-h-[90vh] flex flex-col z-10"
+              className="relative w-full max-w-6xl bg-cream overflow-hidden shadow-2xl rounded-sm max-h-[90vh] flex flex-col z-10"
             >
                
                {/* MODAL HEADER */}
                <div className="flex justify-between items-center p-6 border-b border-black/10 bg-white shrink-0">
                   <div>
-                    <h3 className="font-serif text-3xl md:text-4xl text-[#1a1a1a] leading-tight tracking-tight">
+                    <h3 className="font-serif text-3xl md:text-4xl text-dark leading-tight tracking-tight">
                        Case Study: Group 7 Security
                     </h3>
-                    <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]/50 mt-1">
+                    <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-dark/50 mt-1">
                        [ WEBSITE + SEO OVERHAUL ]
                     </p>
                   </div>
@@ -310,7 +310,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                     aria-label="Close modal"
                     className="p-2 hover:bg-black/5 rounded-full transition-colors"
                   >
-                    <X className="w-6 h-6 text-[#1a1a1a]" />
+                    <X className="w-6 h-6 text-dark" />
                   </button>
                </div>
 
@@ -325,26 +325,26 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                   {/* MODAL GRID */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 md:p-12 bg-white border-t border-black/10">
                       <div>
-                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#9A1730] mb-3 block">
+                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-red-solid mb-3 block">
                            The Problem
                         </span>
-                        <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
+                        <p className="font-sans text-base md:text-lg text-dark/70 leading-relaxed">
                           They had a slow <strong>.com</strong> website with no local SEO. Google thought they were a global tech company, not a Sydney security firm. Local customers couldn't find them.
                         </p>
                       </div>
                       <div>
-                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#8B6914] mb-3 block">
+                        <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-gold-on-cream mb-3 block">
                            What I Did
                         </span>
-                        <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
+                        <p className="font-sans text-base md:text-lg text-dark/70 leading-relaxed">
                           I migrated them to <strong>.com.au</strong> and rebuilt the site from scratch — fast, mobile-first, with proper Sydney location tags so Google knows exactly where they operate.
                         </p>
                       </div>
                       <div>
-                        <span className="font-mono text-xs font-bold text-[#8B6914] mb-3 uppercase tracking-[0.2em] block">
+                        <span className="font-mono text-xs font-bold text-gold-on-cream mb-3 uppercase tracking-[0.2em] block">
                            The Result
                         </span>
-                        <p className="font-sans text-base md:text-lg text-[#1a1a1a]/70 leading-relaxed">
+                        <p className="font-sans text-base md:text-lg text-dark/70 leading-relaxed">
                           Page load dropped from <strong>4.2s to 0.4s</strong>. Local search rankings improved. The site now converts visitors instead of losing them.
                         </p>
                       </div>

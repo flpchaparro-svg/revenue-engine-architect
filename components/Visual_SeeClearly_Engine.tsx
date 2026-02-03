@@ -1,14 +1,14 @@
 import React, { useRef, useEffect } from 'react';
+import { colors } from '../constants/theme';
 
-// --- Configuration & Constants ---
 const COLORS = {
-  bg: '#FFF2EC',    // Cream
-  ink: '#1a1a1a',   // Black
-  accent: '#1a1a1a',// Black (Phase 3 Accent)
+  bg: colors.cream,
+  ink: colors.dark,
+  accent: colors.dark,
   accentDim: 'rgba(26, 26, 26, 0.1)',
   inkDim: 'rgba(26, 26, 26, 0.05)',
-  white: '#FFFFFF',
-  grid: '#E5E5E5'
+  white: colors.white,
+  grid: colors.gray200
 };
 
 const STATES = [
@@ -69,7 +69,7 @@ const drawBrowserFrame = (ctx: CanvasRenderingContext2D, w: number, h: number) =
   ctx.beginPath(); ctx.arc(60, 22, 4, 0, Math.PI * 2); ctx.fill();
 
   // URL Bar placeholder
-  ctx.fillStyle = '#F0F0F0';
+  ctx.fillStyle = colors.gray50;
   ctx.fillRect(90, 12, w - 110, 20);
 };
 
@@ -179,7 +179,7 @@ const drawPie = (ctx: CanvasRenderingContext2D, w: number, h: number, progress: 
 
   const slices = [
     { percent: 0.40, color: COLORS.ink, style: 'fill' },
-    { percent: 0.35, color: '#999999', style: 'fill' },
+    { percent: 0.35, color: colors.gray400, style: 'fill' },
     { percent: 0.25, color: COLORS.ink, style: 'stroke' }
   ];
 
@@ -277,7 +277,7 @@ const drawBars = (ctx: CanvasRenderingContext2D, w: number, h: number, progress:
 
     const isLast = i === data.length - 1;
     
-    ctx.fillStyle = isLast ? COLORS.ink : '#999999';
+    ctx.fillStyle = isLast ? COLORS.ink : colors.gray400;
     
     // Draw Bar
     ctx.fillRect(x, y, barWidth, currentH);

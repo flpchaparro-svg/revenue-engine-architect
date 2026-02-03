@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { colors } from '../constants/theme';
 
 const PillarVisual_Dashboard: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -14,10 +15,10 @@ const PillarVisual_Dashboard: React.FC = () => {
     let height = canvas.height = 450;
 
     // --- CONFIG (LIGHT THEME) ---
-    const COLOR_BG = '#FFF2EC'; // Cream
-    const COLOR_RED = '#E21E3F';
-    const COLOR_GOLD = '#C5A059';
-    const COLOR_INK = '#1a1a1a';
+    const COLOR_BG = colors.cream;
+    const COLOR_RED = colors.redSolid;
+    const COLOR_GOLD = colors.gold;
+    const COLOR_INK = colors.dark;
     const COLOR_TEXT_DIM = 'rgba(26, 26, 26, 0.4)';
 
     // --- DATA SIMULATION ---
@@ -107,7 +108,7 @@ const PillarVisual_Dashboard: React.FC = () => {
         // Header bar for console
         ctx.fillStyle = COLOR_INK;
         ctx.fillRect(20, height - 120, 220, 20);
-        ctx.fillStyle = '#FFF';
+        ctx.fillStyle = colors.white;
         ctx.font = 'bold 9px monospace';
         ctx.fillText("LIVE_TELEMETRY // STREAM_01", 30, height - 108);
         
@@ -157,7 +158,7 @@ const PillarVisual_Dashboard: React.FC = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full h-full bg-[#FFF2EC] relative overflow-hidden border border-[#1a1a1a]/10 shadow-lg">
+    <div ref={containerRef} className="w-full h-full bg-cream relative overflow-hidden border border-dark/10 shadow-lg">
         <canvas ref={canvasRef} className="block w-full h-full" />
         {/* Subtle Scanline Overlay (Darkened for Light Mode) */}
         <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(255,255,255,0)_50%,rgba(0,0,0,0.05)_50%)] z-10 bg-[length:100%_2px]" />

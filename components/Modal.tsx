@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { m, AnimatePresence } from 'framer-motion';
 import { X, ArrowRight } from 'lucide-react';
 import { ServiceDetail } from '../types';
+import { colors } from '../constants/theme';
 import ViewportViz from './ViewportViz';
 import CTAButton from './CTAButton';
 
@@ -60,13 +61,13 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
   if (!service || !mounted) return null;
 
   const currentTheme = theme || { 
-    bg: 'bg-[#FFF2EC]', 
-    text: 'text-[#1a1a1a]', 
-    accent: 'text-[#9A1730]', 
+    bg: 'bg-cream', 
+    text: 'text-dark', 
+    accent: 'text-red-solid', 
     dark: false 
   };
 
-  const accentHex = currentTheme.dark ? '#C5A059' : '#E21E3F';
+  const accentHex = currentTheme.dark ? colors.gold : colors.redSolid;
   
   // Define content separately to wrap in Portal
   const modalContent = (
@@ -94,7 +95,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
             >
               
               {/* 1. TOP VISUALIZATION */}
-              <div className="h-48 md:h-64 relative bg-[#1a1a1a] border-b border-black/10 shrink-0">
+              <div className="h-48 md:h-64 relative bg-dark border-b border-black/10 shrink-0">
                  <button 
                     onClick={onClose} 
                     aria-label="Close modal"
@@ -114,15 +115,15 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                 
                 {/* QUESTION BOX */}
                 <div className={`mb-10 p-6 border rounded-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4
-                    ${currentTheme.dark ? 'bg-white/5 border-white/10' : 'bg-[#E21E3F]/5 border-[#E21E3F]/10'}`}
+                    ${currentTheme.dark ? 'bg-white/5 border-white/10' : 'bg-red-solid/5 border-red-solid/10'}`}
                 >
                    <div>
-                      <span className="font-mono text-[9px] uppercase tracking-widest opacity-60 block mb-2 text-[#9A1730]">THE QUESTION</span>
+                      <span className="font-mono text-[9px] uppercase tracking-widest opacity-60 block mb-2 text-red-solid">THE QUESTION</span>
                       <h3 className="font-serif text-xl md:text-2xl italic">
                         "{service.symptom || "Are you losing leads in spreadsheets?"}"
                       </h3>
                    </div>
-                   <div className="px-3 py-1 bg-[#E21E3F] text-white text-[9px] font-bold tracking-widest uppercase rounded-full shrink-0">
+                   <div className="px-3 py-1 bg-red-solid text-white text-[9px] font-bold tracking-widest uppercase rounded-full shrink-0">
                       PROBLEM DETECTED
                    </div>
                 </div>

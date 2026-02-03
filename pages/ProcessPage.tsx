@@ -36,7 +36,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
       initial={{ opacity: 0 }} 
       animate={{ opacity: 1 }} 
       exit={{ opacity: 0 }}
-      className="min-h-screen bg-[#FFF2EC] text-[#1a1a1a] pt-0 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col selection:bg-[#C5A059]/30"
+      className="min-h-screen bg-cream text-dark pt-0 pb-0 px-0 relative z-[150] overflow-x-hidden flex flex-col selection:bg-gold/30"
     >
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 w-full flex-grow relative z-10">
         
@@ -49,15 +49,15 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         <div className="mb-24 lg:mb-32 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative">
           <Section className="text-center lg:text-left flex flex-col items-center lg:items-start">
             <div className="flex items-center gap-2 md:gap-4 mb-6 md:mb-10 overflow-hidden justify-center lg:justify-start">
-              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">/</span>
-              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-dark">/</span>
+              <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-dark">
                 THE PROCESS
               </span>
             </div>
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-8 md:mb-12">
-              How I <span className="italic font-serif text-[#8B6914]">Work.</span>
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-dark mb-8 md:mb-12">
+              How I <span className="italic font-serif text-gold-on-cream">Work.</span>
             </h1>
-            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-8 py-2 text-left lg:mx-0">
+            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl border-l-2 border-gold pl-8 py-2 text-left lg:mx-0">
               A clear path from chaos to order. <br className="hidden md:block" />
               No mystery. No jargon. Just results.
             </p>
@@ -73,28 +73,28 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* SECTION: PHILOSOPHY CARDS */}
         <div className="mb-24 md:mb-40">
           <Section className="mb-16 text-center lg:text-left">
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#9A1730] mb-6 block">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-red-solid mb-6 block">
               / OPERATING SYSTEM
             </span>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
-              Core <span className="italic font-serif text-[#8B6914]">Principles.</span>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-dark mb-6">
+              Core <span className="italic font-serif text-gold-on-cream">Principles.</span>
             </h2>
           </Section>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
              {PRINCIPLES.map((principle, idx) => (
-               <Section key={principle.id} delay={idx * 0.1} className="group bg-white p-8 md:p-12 border border-[#1a1a1a]/5 hover:border-[#1a1a1a]/20 shadow-sm hover:shadow-xl transition-all duration-500 rounded-sm relative overflow-hidden">
-                 <div className="absolute top-0 left-0 w-full h-1 bg-[#1a1a1a] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left will-change-transform" />
+               <Section key={principle.id} delay={idx * 0.1} className="group bg-white p-8 md:p-12 border border-dark/5 hover:border-dark/20 shadow-sm hover:shadow-xl transition-all duration-500 rounded-sm relative overflow-hidden">
+                 <div className="absolute top-0 left-0 w-full h-1 bg-dark transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left will-change-transform" />
                  <div className="flex justify-between items-start mb-8">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold text-[#1a1a1a]/80 group-hover:text-[#1a1a1a] transition-colors">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold text-dark/80 group-hover:text-dark transition-colors">
                       {principle.label}
                     </span>
-                    <principle.icon className="w-6 h-6 text-[#1a1a1a]/20 group-hover:text-[#8B6914] transition-colors" />
+                    <principle.icon className="w-6 h-6 text-dark/20 group-hover:text-gold-on-cream transition-colors" />
                  </div>
-                 <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-4 leading-tight tracking-tighter group-hover:translate-x-2 transition-transform duration-300">
+                 <h3 className="font-serif text-2xl md:text-3xl text-dark mb-4 leading-tight tracking-tighter group-hover:translate-x-2 transition-transform duration-300">
                    {principle.title}
                  </h3>
-                 <p className="font-sans text-lg font-light text-[#1a1a1a]/70 leading-relaxed">
+                 <p className="font-sans text-lg font-light text-dark/70 leading-relaxed">
                    {principle.body}
                  </p>
                </Section>
@@ -105,24 +105,24 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* SECTION: THE EXECUTION PATH */}
         <div className="mb-32">
           <Section className="mb-20 text-center lg:text-left">
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#7A5D12] mb-6 block">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-gold-muted mb-6 block">
               / THE 4 PHASES
             </span>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
-              How Every Project <span className="italic font-serif text-[#8B6914]">Works.</span>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-dark mb-6">
+              How Every Project <span className="italic font-serif text-gold-on-cream">Works.</span>
             </h2>
           </Section>
 
           <div className="relative px-4 md:px-0">
              {/* Center Line on Desktop */}
-             <div className="absolute left-[19px] md:left-[50%] top-0 bottom-0 w-px bg-gradient-to-b from-[#E21E3F] via-[#C5A059] to-[#1a1a1a] hidden md:block" />
+             <div className="absolute left-[19px] md:left-[50%] top-0 bottom-0 w-px bg-gradient-to-b from-red-solid via-gold to-dark hidden md:block" />
              {/* Left Line on Mobile */}
-             <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-[#E21E3F] via-[#C5A059] to-[#1a1a1a] md:hidden" />
+             <div className="absolute left-[19px] top-0 bottom-0 w-px bg-gradient-to-b from-red-solid via-gold to-dark md:hidden" />
 
              {STEPS.map((step, idx) => (
                <Section key={step.id} delay={idx * 0.1} className={`relative flex flex-col md:flex-row gap-4 md:gap-24 py-12 ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                   {/* Icon Node */}
-                  <div className="absolute left-0 md:left-[50%] top-12 -translate-x-1/2 md:-translate-x-1/2 z-10 bg-[#FFF2EC] p-2">
+                  <div className="absolute left-0 md:left-[50%] top-12 -translate-x-1/2 md:-translate-x-1/2 z-10 bg-cream p-2">
                      <div className={`w-10 h-10 rounded-full border-2 bg-white flex items-center justify-center shadow-md transition-transform duration-300 ${step.borderColor}`}>
                         <step.icon className={`w-4 h-4 ${step.color}`} />
                      </div>
@@ -133,13 +133,13 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                      <span className={`font-mono text-[10px] uppercase tracking-[0.2em] font-bold mb-2 block ${step.color}`}>
                        {step.phase}
                      </span>
-                     <h3 className="font-serif text-2xl md:text-4xl text-[#1a1a1a] mb-4 leading-tight tracking-tighter">
+                     <h3 className="font-serif text-2xl md:text-4xl text-dark mb-4 leading-tight tracking-tighter">
                        {step.title}
                      </h3>
                   </div>
                   
                   <div className={`flex-1 pl-12 md:pl-0 ${idx % 2 !== 0 ? 'md:text-right' : 'md:text-left'}`}>
-                     <p className="font-sans text-base md:text-lg font-light text-[#1a1a1a]/70 leading-relaxed max-w-md mx-auto md:mx-0">
+                     <p className="font-sans text-base md:text-lg font-light text-dark/70 leading-relaxed max-w-md mx-auto md:mx-0">
                        {step.text}
                      </p>
                   </div>
@@ -150,13 +150,13 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
 
         {/* BOTTOM CTA */}
         <Section className="mb-24">
-          <div className="bg-[#1a1a1a] text-white p-12 md:p-24 text-center relative overflow-hidden rounded-sm group cursor-default">
+          <div className="bg-dark text-white p-12 md:p-24 text-center relative overflow-hidden rounded-sm group cursor-default">
              <div className="relative z-10 flex flex-col items-center">
-                <span className="font-mono text-xs font-bold text-[#7A5D12] uppercase tracking-[0.2em] mb-6 block">
+                <span className="font-mono text-xs font-bold text-gold-muted uppercase tracking-[0.2em] mb-6 block">
                   / PROJECT INITIATION
                 </span>
                 <h2 className="font-serif text-5xl md:text-7xl leading-[0.9] tracking-tighter text-white mb-12">
-                  Ready to <span className="italic font-serif text-[#8B6914]">Start?</span>
+                  Ready to <span className="italic font-serif text-gold-on-cream">Start?</span>
                 </h2>
                 
                 <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
@@ -164,7 +164,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                 </CTAButton>
                 
                 <div className="flex items-center gap-2 opacity-50 mt-8">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#C5A059] animate-pulse" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-gold animate-pulse" />
                   <p className="font-mono text-[10px] font-bold text-zinc-400 uppercase tracking-[0.2em]">
                     NOW ACCEPTING PROJECTS
                   </p>

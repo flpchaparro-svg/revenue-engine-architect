@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { m, AnimatePresence, useAnimationFrame } from 'framer-motion';
+import { colors } from '../constants/theme';
 
 const PHI = (1 + Math.sqrt(5)) / 2;
 
@@ -74,11 +75,11 @@ const ProtocolVisual_Geodesic: React.FC = () => {
             // VISUAL STYLES
             // Hover: Red, active. Passive: Dark, subtle.
             // Occasional Gold faces for texture.
-            const strokeColor = isHovered ? '#E21E3F' : '#1a1a1a';
+            const strokeColor = isHovered ? colors.redSolid : colors.dark;
             const strokeWidth = isHovered ? 1.2 : 0.4;
             const strokeOpacity = isHovered ? 1 : (zDepth > 0.5 ? 0.1 : 0.3);
             
-            const fillColor = isHovered ? '#E21E3F' : (i % 5 === 0 ? '#C5A059' : 'transparent');
+            const fillColor = isHovered ? colors.redSolid : (i % 5 === 0 ? colors.gold : 'transparent');
             const fillOpacity = isHovered ? 0.1 : (i % 5 === 0 ? 0.05 : 0);
 
             const pathData = `M ${p1.x},${p1.y} L ${p2.x},${p2.y} L ${p3.x},${p3.y} Z`;
@@ -113,18 +114,18 @@ const ProtocolVisual_Geodesic: React.FC = () => {
                       pointerEvents="none"
                     >
                       {/* Center Target */}
-                      <circle cx={cx} cy={cy} r="1.5" fill="#E21E3F" />
-                      <circle cx={cx} cy={cy} r="4" stroke="#E21E3F" strokeWidth="0.5" fill="none" opacity="0.6" />
+                      <circle cx={cx} cy={cy} r="1.5" fill={colors.redSolid} />
+                      <circle cx={cx} cy={cy} r="4" stroke={colors.redSolid} strokeWidth="0.5" fill="none" opacity="0.6" />
                       
                       {/* Triangulation Lines (Connecting center to vertices) */}
-                      <m.line x1={cx} y1={cy} x2={p1.x} y2={p1.y} stroke="#E21E3F" strokeWidth="0.5" opacity="0.4" />
-                      <m.line x1={cx} y1={cy} x2={p2.x} y2={p2.y} stroke="#E21E3F" strokeWidth="0.5" opacity="0.4" />
-                      <m.line x1={cx} y1={cy} x2={p3.x} y2={p3.y} stroke="#E21E3F" strokeWidth="0.5" opacity="0.4" />
+                      <m.line x1={cx} y1={cy} x2={p1.x} y2={p1.y} stroke={colors.redSolid} strokeWidth="0.5" opacity="0.4" />
+                      <m.line x1={cx} y1={cy} x2={p2.x} y2={p2.y} stroke={colors.redSolid} strokeWidth="0.5" opacity="0.4" />
+                      <m.line x1={cx} y1={cy} x2={p3.x} y2={p3.y} stroke={colors.redSolid} strokeWidth="0.5" opacity="0.4" />
                       
                       {/* Vertex Markers */}
-                      <circle cx={p1.x} cy={p1.y} r="1" fill="#E21E3F" opacity="0.5" />
-                      <circle cx={p2.x} cy={p2.y} r="1" fill="#E21E3F" opacity="0.5" />
-                      <circle cx={p3.x} cy={p3.y} r="1" fill="#E21E3F" opacity="0.5" />
+                      <circle cx={p1.x} cy={p1.y} r="1" fill={colors.redSolid} opacity="0.5" />
+                      <circle cx={p2.x} cy={p2.y} r="1" fill={colors.redSolid} opacity="0.5" />
+                      <circle cx={p3.x} cy={p3.y} r="1" fill={colors.redSolid} opacity="0.5" />
                     </m.g>
                   )}
                 </AnimatePresence>

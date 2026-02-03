@@ -206,7 +206,7 @@ const HeroVisual_Suspension: React.FC = () => {
            <ellipse 
              ref={shadowRef}
              cx="0" cy="280" rx="60" ry="10" 
-             fill="#1a1a1a" opacity="0.1" 
+             fill="var(--dark)" opacity="0.1" 
              style={{ filter: 'blur(8px)', transition: 'transform 0.1s linear' }} 
            />
 
@@ -216,7 +216,7 @@ const HeroVisual_Suspension: React.FC = () => {
                key={i}
                ref={(el) => { cubeRefs.current[i] = el; }}
                fill="none"
-               stroke="#1a1a1a"
+               stroke="var(--dark)"
                strokeWidth="1.2"
                strokeLinecap="round"
                strokeLinejoin="round"
@@ -227,7 +227,7 @@ const HeroVisual_Suspension: React.FC = () => {
            <path 
              ref={coreRef}
              fill="none"
-             stroke="#C5A059"
+             stroke="var(--gold)"
              strokeWidth="1.5"
              strokeLinecap="round"
              strokeLinejoin="round"

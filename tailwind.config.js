@@ -44,8 +44,19 @@ export default {
       },
       colors: {
         cream: '#FFF2EC',
+        'cream-light': '#FFF8F5',
+        'cream-warm': '#FFF9F0',
         dark: '#1a1a1a',
+        'off-white': '#FAFAFA',
+        white: '#FFFFFF',
+        red: '#9A1730',
+        'red-solid': '#E21E3F',
+        'red-on-dark': '#FF6B6B',
         gold: '#C5A059',
+        'gold-on-cream': '#8B6914',
+        'gold-on-dark': '#D4A84B',
+        'gold-muted': '#7A5D12',
+        teal: '#0F766E',
       },
       keyframes: {
         'fade-in': {

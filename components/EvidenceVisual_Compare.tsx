@@ -89,10 +89,10 @@ const EvidenceVisual_Compare: React.FC<EvidenceVisualCompareProps> = ({
       </div>
 
       <div 
-        className="absolute top-4 right-4 z-40 px-3 py-1.5 rounded-full bg-[#FFF2EC]/90 backdrop-blur-sm transition-opacity duration-200"
+        className="absolute top-4 right-4 z-40 px-3 py-1.5 rounded-full bg-cream/90 backdrop-blur-sm transition-opacity duration-200"
         style={{ opacity: afterLabelOpacity }}
       >
-        <span className="text-[#8B6914] text-xs font-mono uppercase tracking-wider font-semibold">
+        <span className="text-gold-on-cream text-xs font-mono uppercase tracking-wider font-semibold">
           {afterLabel}
         </span>
       </div>

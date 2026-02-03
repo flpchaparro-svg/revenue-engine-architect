@@ -1,5 +1,5 @@
-
 import React, { useEffect, useRef } from 'react';
+import { colors } from '../constants/theme';
 
 const PillarVisual_Magnet: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -169,7 +169,7 @@ const PillarVisual_Magnet: React.FC = () => {
                 ctx.fillRect(photoCX - photoRad, photoCY + photoRad - fillH, photoRad * 2, fillH);
                 
                 if (progress > 0.6) {
-                    ctx.fillStyle = '#1a1a1a';
+                    ctx.fillStyle = colors.dark;
                     // Head
                     ctx.beginPath(); ctx.arc(photoCX, photoCY - (5*scale), 12*scale, 0, Math.PI*2); ctx.fill();
                     // Body
@@ -177,7 +177,7 @@ const PillarVisual_Magnet: React.FC = () => {
                 }
                 ctx.restore();
                 
-                ctx.strokeStyle = '#C5A059';
+                ctx.strokeStyle = colors.gold;
                 ctx.lineWidth = 2;
                 ctx.beginPath();
                 ctx.arc(photoCX, photoCY, photoRad, -Math.PI/2, (-Math.PI/2) + (Math.PI*2 * progress));
@@ -186,11 +186,11 @@ const PillarVisual_Magnet: React.FC = () => {
 
             // B. Text Lines
             if (progress > 0.2) {
-                ctx.fillStyle = '#1a1a1a';
+                ctx.fillStyle = colors.dark;
                 ctx.fillRect(x + (40 * scale), startY, (CARD_W - 80 * scale) * Math.min(1, (progress - 0.2)*3), 2 * scale);
             }
             if (progress > 0.3) {
-                ctx.fillStyle = '#C5A059';
+                ctx.fillStyle = colors.gold;
                 ctx.fillRect(x + (70 * scale), startY + (24 * scale), (CARD_W - 140 * scale) * Math.min(1, (progress - 0.3)*3), 2 * scale);
             }
 
@@ -200,10 +200,10 @@ const PillarVisual_Magnet: React.FC = () => {
                 const threshold = 0.4 + (i * 0.15);
                 
                 if (progress > threshold) {
-                    ctx.fillStyle = '#C5A059';
+                    ctx.fillStyle = colors.gold;
                     ctx.fillRect(x + (27 * scale), ly + (2 * scale), 12 * scale, 12 * scale);
                     
-                    ctx.fillStyle = '#1a1a1a';
+                    ctx.fillStyle = colors.dark;
                     const barProg = Math.min(1, (progress - threshold) * 5);
                     ctx.fillRect(x + (50 * scale), ly + (6 * scale), (CARD_W - 90 * scale) * barProg, 4 * scale);
                 }
@@ -215,7 +215,7 @@ const PillarVisual_Magnet: React.FC = () => {
                 ctx.translate(CENTER_X, CENTER_Y);
                 ctx.rotate(-0.15);
                 
-                ctx.strokeStyle = '#C5A059';
+                ctx.strokeStyle = colors.gold;
                 ctx.lineWidth = 2;
                 const sw = 140 * scale; 
                 const sh = 40 * scale;
@@ -225,7 +225,7 @@ const PillarVisual_Magnet: React.FC = () => {
                 ctx.moveTo(sw/2 - 10, -sh/2); ctx.lineTo(sw/2, -sh/2); ctx.lineTo(sw/2, sh/2); ctx.lineTo(sw/2 - 10, sh/2);
                 ctx.stroke();
                 
-                ctx.fillStyle = '#C5A059';
+                ctx.fillStyle = colors.gold;
                 ctx.font = `bold ${12 * scale}px monospace`;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
@@ -248,11 +248,11 @@ const PillarVisual_Magnet: React.FC = () => {
                 ctx.fillStyle = 'rgba(226, 30, 63, 0.1)';
                 ctx.fill();
                 
-                ctx.strokeStyle = '#E21E3F';
+                ctx.strokeStyle = colors.redSolid;
                 ctx.lineWidth = 1;
                 ctx.stroke();
                 
-                ctx.fillStyle = '#E21E3F';
+                ctx.fillStyle = colors.redSolid;
                 ctx.font = `bold ${8 * scale}px monospace`;
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';

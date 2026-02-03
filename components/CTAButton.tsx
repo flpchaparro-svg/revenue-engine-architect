@@ -28,7 +28,7 @@ const CTAButton: React.FC<CTAButtonProps> = ({
   // ============================================
   if (variant === 'bracket') {
     // idleText: Black on Cream, White on Black.
-    const idleText = isLightTheme ? 'text-[#1a1a1a]' : 'text-white';
+    const idleText = isLightTheme ? 'text-dark' : 'text-white';
     
     // Size Logic
     const fontSize = size === 'sm' ? 'text-[10px]' : 'text-xs';
@@ -45,7 +45,7 @@ const CTAButton: React.FC<CTAButtonProps> = ({
           transition-colors duration-300
           max-w-full whitespace-normal text-center leading-tight
           ${idleText} ${fontSize} ${padding} ${className}
-          hover:text-[#8B6914]
+          hover:text-gold-on-cream
         `}
       >
         {/* Left Bracket - Squeezes In */}
@@ -69,10 +69,10 @@ const CTAButton: React.FC<CTAButtonProps> = ({
   // ============================================
   // VARIANT: SOLID (Fixed for Responsive)
   // ============================================
-  const initialBg = isLightTheme ? 'bg-[#1a1a1a]' : 'bg-[#C5A059]';
-  const initialText = isLightTheme ? 'text-[#FFF2EC]' : 'text-[#1a1a1a]';
-  const initialBorder = isLightTheme ? 'border-[#1a1a1a]' : 'border-[#C5A059]';
-  const hoverBg = isLightTheme ? 'bg-[#C5A059]' : 'bg-[#FFF2EC]';
+  const initialBg = isLightTheme ? 'bg-dark' : 'bg-gold';
+  const initialText = isLightTheme ? 'text-cream' : 'text-dark';
+  const initialBorder = isLightTheme ? 'border-dark' : 'border-gold';
+  const hoverBg = isLightTheme ? 'bg-gold' : 'bg-cream';
   const solidSize = size === 'sm' ? 'px-6 py-3 text-[10px]' : 'px-8 py-4 text-xs';
 
   return (
@@ -91,7 +91,7 @@ const CTAButton: React.FC<CTAButtonProps> = ({
       <div className={`absolute inset-0 ${initialBg} group-hover:-translate-y-full transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)`} />
       <div className={`absolute inset-0 ${hoverBg} translate-y-full group-hover:translate-y-0 transition-transform duration-500 cubic-bezier(0.23, 1, 0.32, 1)`} />
       
-      <span className={`relative z-10 flex items-center justify-center gap-3 transition-colors duration-500 group-hover:text-[#1a1a1a] flex-wrap text-center`}>
+      <span className={`relative z-10 flex items-center justify-center gap-3 transition-colors duration-500 group-hover:text-dark flex-wrap text-center`}>
         <span className="whitespace-normal leading-relaxed">{children}</span>
         <ArrowRight className="w-4 h-4 shrink-0" />
       </span>

@@ -24,8 +24,8 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
 
   // Accent Logic
   const accentColor = pillar.categoryHex;
-  const displayAccent = (isSelected && isPillar7) ? '#FFFFFF' : accentColor;
-  const bgClass = isSelected ? "bg-[#1a1a1a]" : "bg-white hover:bg-[#FFF2EC]";
+  const displayAccent = (isSelected && isPillar7) ? 'var(--white)' : accentColor;
+  const bgClass = isSelected ? "bg-dark" : "bg-white hover:bg-cream";
   
   const borderStyle = {
       borderColor: isSelected 
@@ -77,7 +77,7 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
       {!isSelected && (
         <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 p-6 md:p-8 flex flex-col justify-between">
           <div className="flex justify-between items-start">
-              <span className="font-serif text-3xl md:text-4xl text-[#1a1a1a]/10 font-bold absolute top-4 right-6 group-hover:text-[#1a1a1a]/20 transition-colors">
+              <span className="font-serif text-3xl md:text-4xl text-dark/10 font-bold absolute top-4 right-6 group-hover:text-dark/20 transition-colors">
                  {pillar.number}
               </span>
            </div>
@@ -87,7 +87,7 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
                 className="w-6 h-6 md:w-8 md:h-8 mb-4 opacity-100 group-hover:scale-110 transition-all duration-300" 
                 style={{ color: accentColor }}
               />
-              <h3 className="font-serif text-2xl md:text-3xl text-[#1a1a1a] mb-2 leading-none tracking-tight group-hover:translate-x-1 transition-transform duration-300">
+              <h3 className="font-serif text-2xl md:text-3xl text-dark mb-2 leading-none tracking-tight group-hover:translate-x-1 transition-transform duration-300">
                  {pillar.title}
               </h3>
               <p className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-bold mb-3 md:mb-4" style={{ color: `${accentColor}80` }}>
@@ -95,13 +95,13 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
                  <span className="hidden md:inline">{pillar.subtitle}</span>
               </p>
               
-              <p className="font-sans text-xs md:text-sm text-[#1a1a1a]/70 leading-relaxed line-clamp-2 md:line-clamp-none">
+              <p className="font-sans text-xs md:text-sm text-dark/70 leading-relaxed line-clamp-2 md:line-clamp-none">
                  {pillar.body}
               </p>
            </div>
 
-           <div className="flex justify-between items-center border-t border-[#1a1a1a]/10 pt-4 mt-auto">
-              <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-[#1a1a1a]/50 transition-colors font-bold group-hover:text-black">
+           <div className="flex justify-between items-center border-t border-dark/10 pt-4 mt-auto">
+              <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-dark/50 transition-colors font-bold group-hover:text-black">
                  PILLAR {pillar.number}
               </span>
               <div 
@@ -175,7 +175,7 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
                   <div className="mt-auto" onClick={(e) => e.stopPropagation()}>
                      <button 
                         onClick={() => onNavigate(pillar.id)}
-                        className="w-full py-4 bg-white text-[#1a1a1a] font-mono text-xs uppercase tracking-[0.2em] font-bold hover:bg-opacity-90 transition-all flex items-center justify-center gap-2"
+                        className="w-full py-4 bg-white text-dark font-mono text-xs uppercase tracking-[0.2em] font-bold hover:bg-opacity-90 transition-all flex items-center justify-center gap-2"
                      >
                         SEE HOW IT WORKS <ArrowRight className="w-4 h-4" />
                      </button>
