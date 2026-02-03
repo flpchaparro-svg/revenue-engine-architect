@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
-import { ArrowDownRight } from 'lucide-react';
+import { ArrowDownRight, ChevronRight, ChevronLeft } from 'lucide-react'; // Added ChevronLeft
 import { SERVICES } from '../constants';
 import { ServiceDetail } from '../types';
 import ViewportViz from './ViewportViz';
 import CTAButton from './CTAButton';
 
-// Added Prop Interface
 interface SystemPhasesProps {
   onNavigate?: (view: string, id?: string) => void;
 }
@@ -19,9 +18,9 @@ const PHASES = [
     text: 'text-[#1a1a1a]', 
     accent: '#E21E3F', // Red
     accentClass: 'text-[#9A1730]',
-    borderAccent: 'border-[#E21E3F]',
+    btnBg: 'bg-[#E21E3F]',
+    btnText: 'text-white',
     vizType: 'geometric',
-    dark: false
   },
   { 
     id: 'SCALE FASTER', 
@@ -30,9 +29,9 @@ const PHASES = [
     text: 'text-[#1a1a1a]', 
     accent: '#C5A059', // Gold
     accentClass: 'text-[#8B6914]',
-    borderAccent: 'border-[#C5A059]',
+    btnBg: 'bg-[#C5A059]',
+    btnText: 'text-[#1a1a1a]',
     vizType: 'neural',
-    dark: false
   },
   { 
     id: 'SEE CLEARLY', 
@@ -41,11 +40,22 @@ const PHASES = [
     text: 'text-[#1a1a1a]', 
     accent: '#1a1a1a', // Black
     accentClass: 'text-[#1a1a1a]',
-    borderAccent: 'border-[#1a1a1a]',
+    btnBg: 'bg-[#1a1a1a]',
+    btnText: 'text-white',
     vizType: 'dashboard',
-    dark: false
   }
 ];
+
+// --- NAVIGATION MAPPING ---
+const PILLAR_ROUTES: Record<string, string> = {
+  'pillar1': 'pillar1', // Websites
+  'pillar2': 'pillar2', // CRM
+  'pillar3': 'pillar3', // Automation
+  'pillar4': 'pillar4', // AI
+  'pillar5': 'pillar5', // Content
+  'pillar6': 'pillar6', // Training
+  'pillar7': 'pillar7', // Dashboards
+};
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -61,7 +71,6 @@ const textVariants = {
   hidden: { opacity: 0, x: -10 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: "easeOut" } }
 };
-
 
 // SYSTEM CARD DATA
 const SYSTEM_CARDS: Record<string, { 
@@ -118,6 +127,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
 
   const displayService = activeService || currentServices[0];
   const systemCard = SYSTEM_CARDS[activePhase.id];
+  
   const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
   
   const getDisplayTitle = (title: string) => {
@@ -130,18 +140,53 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
   };
 
   const changePhase = (newIndex: number) => {
-    setPage([newIndex, newIndex > activeIndex ? 1 : -1]);
+    let adjustedIndex = newIndex;
+    if (newIndex < 0) adjustedIndex = PHASES.length - 1;
+    if (newIndex >= PHASES.length) adjustedIndex = 0;
+
+    setPage([adjustedIndex, adjustedIndex > activeIndex ? 1 : -1]);
     
     if (window.innerWidth < 1024 && sectionRef.current) {
-      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const yOffset = -80; 
+      const element = sectionRef.current;
+      const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
     }
   };
 
   const handleCardClick = (service: ServiceDetail | any) => {
     if (!onNavigate) return;
-    // All cards now navigate to /system to force consideration stage
-    onNavigate('system');
+    
+    if (service.id === 'system-overview') {
+        onNavigate('system');
+    } else {
+        const route = PILLAR_ROUTES[service.id];
+        if (route) {
+            onNavigate(route);
+        } else {
+            onNavigate('system');
+        }
+    }
   };
+
+  // Helper for mobile buttons
+  const MobileNavButton = ({ phaseIdx, direction, label }: { phaseIdx: number, direction: 'prev' | 'next', label: string }) => {
+      const targetPhase = PHASES[phaseIdx];
+      const Icon = direction === 'next' ? ChevronRight : ChevronLeft;
+      
+      return (
+        <button 
+            onClick={() => changePhase(phaseIdx)}
+            // FIX: Square corners, bold mono font, specific color scheme based on target phase
+            className={`flex-1 flex items-center justify-center gap-3 px-4 py-4 ${targetPhase.btnBg} ${targetPhase.btnText} shadow-sm active:scale-[0.98] transition-transform border border-[#1a1a1a]/10`}
+        >
+            {direction === 'prev' && <Icon className="w-4 h-4" />}
+            <span className="font-mono text-[10px] font-bold uppercase tracking-widest whitespace-nowrap">{label}</span>
+            {direction === 'next' && <Icon className="w-4 h-4" />}
+        </button>
+      );
+  }
+
 
   return (
     <section 
@@ -152,7 +197,6 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       <aside className="lg:hidden sticky top-0 h-screen w-14 shrink-0 flex flex-col items-center justify-center gap-8 z-[70] border-r border-[#1a1a1a]/10 bg-white/95 backdrop-blur-xl">
         {PHASES.map((phase, idx) => {
           const isActive = idx === activeIndex;
-          
           return (
             <button key={phase.id} onClick={() => changePhase(idx)} className="relative flex items-center justify-center w-10 h-10 group">
               <div 
@@ -178,7 +222,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
              7 Pillars. <span className="italic text-[#8B6914]">3 Outcomes.</span>
            </h2>
            <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto px-4">
-              I don't sell isolated tools. I build connected systems. Websites feed your CRM. Your CRM triggers automation. Dashboards show you what's working. Everything talks to everything else.
+              I don't sell isolated tools. I build connected systems. Websites feed your CRM. Your CRM triggers automation. Dashboards show you what's working.
            </p>
         </div>
 
@@ -187,9 +231,6 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
            <div className="flex gap-0 bg-white border border-[#1a1a1a]/10 p-1 shadow-sm">
               {PHASES.map((phase, idx) => {
                 const isActive = idx === activeIndex;
-                // FIX: Check if phase 3 (Black) to invert text color when active
-                const isBlackPhase = phase.id === 'SEE CLEARLY'; 
-                
                 return (
                     <button 
                       key={phase.id} 
@@ -203,12 +244,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       }`}
                     >
                       <span className="flex items-center gap-3">
-                        {/* Number always uses accent color, text changes to accent on hover */}
-                        <span 
-                          style={{ 
-                            color: isActive ? 'inherit' : phase.accent
-                          }}
-                        >
+                        <span style={{ color: isActive ? 'inherit' : phase.accent }}>
                           0{idx + 1}
                         </span>
                         <span className="hidden xl:inline">/</span>
@@ -236,14 +272,13 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
            </div>
         </nav>
 
-        {/* DASHBOARD AREA */}
+        {/* MAIN DISPLAY AREA */}
         <main className="flex-1 px-6 lg:px-12 pb-24 w-full max-w-screen-2xl mx-auto z-10">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch min-h-[600px]">
               
-              {/* LEFT DISPLAY */}
+              {/* LEFT DISPLAY (Dynamic Black/White Panel) */}
               <div className="hidden lg:flex lg:col-span-6 flex-col">
                 {(() => {
-                  const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
                   return (
                     <div className={`relative flex-1 overflow-hidden flex flex-col transition-all duration-500 
                       ${isBlueprint 
@@ -319,33 +354,31 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         </AnimatePresence>
                         
                         <div className={`mt-auto pt-8 border-t ${isBlueprint ? 'border-white/10' : 'border-[#1a1a1a]/10'}`}>
-                             {isBlueprint && (
+                             {isBlueprint ? (
                                  <CTAButton 
                                     theme="dark"
-                                    onClick={() => {
-                                      const systemCardService = {
-                                        id: 'system-overview',
-                                        title: systemCard.title,
-                                        subtitle: systemCard.subtitle,
-                                        description: systemCard.description,
-                                        technicalLabel: systemCard.label,
-                                      };
-                                      handleCardClick(systemCardService as any);
-                                    }}
+                                    onClick={() => handleCardClick({ id: 'system-overview' })}
                                     className="w-full"
                                  >
                                     [ EXPLORE THE SYSTEM ]
                                  </CTAButton>
+                             ) : (
+                                 <CTAButton
+                                    variant="bracket"
+                                    theme="light"
+                                    onClick={() => activeService && handleCardClick(activeService)}
+                                 >
+                                    VIEW DETAILS
+                                 </CTAButton>
                              )}
                         </div>
-
                       </div>
                     </div>
                   );
                 })()}
               </div>
 
-              {/* RIGHT GRID - SERVICE LIST */}
+              {/* RIGHT GRID (Interactive Service List) */}
               <m.div 
                 key={activePhase.id} 
                 variants={containerVariants}
@@ -362,7 +395,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       key={service.id}
                       variants={cardVariants}
                       onMouseEnter={() => setActiveService(service)}
-                      className={`relative bg-white border transition-all duration-300 group flex flex-col
+                      onClick={() => handleCardClick(service)}
+                      className={`relative bg-white border transition-all duration-300 group cursor-pointer flex flex-col
                         ${isActive 
                            ? 'border-l-4 shadow-lg' 
                            : 'border-[#1a1a1a]/10 hover:border-l-4 hover:shadow-md'
@@ -395,7 +429,6 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                       </div>
 
                       <div className="p-6 flex flex-col flex-1 h-full min-h-[200px]">
-                         
                          <div className="flex justify-between items-center mb-4">
                             <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]"
                                   style={{ color: isActive ? activePhase.accent : 'rgba(26,26,26,0.3)' }}>
@@ -425,11 +458,23 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                             </p>
                          </div>
 
+                         <div className="mt-6 pt-4 border-t border-[#1a1a1a]/5 flex justify-start">
+                            <button
+                              className="font-mono text-[10px] font-bold uppercase tracking-widest hover:text-[#8B6914] transition-colors"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleCardClick(service);
+                              }}
+                            >
+                              VIEW DETAILS
+                            </button>
+                         </div>
                       </div>
                     </m.div>
                   );
                 })}
 
+                {/* THE SYSTEM CARD (Black Card Logic Trigger) */}
                 {(() => {
                   const systemCardData = SYSTEM_CARDS[activePhase.id];
                   const isBlueprint = displayService?.id === 'system-overview' || displayService?.id === 'blueprint-architecture';
@@ -468,21 +513,12 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                            <p className="font-mono text-[10px] text-[#D4A84B] mb-4 uppercase tracking-[0.2em] font-bold">
                              {systemCardData.subtitle}
                            </p>
-                           <p className="font-sans text-sm text-white/50 leading-relaxed">
-                             <span className="lg:hidden">{systemCardData.description}</span>
-                             <span className="hidden lg:inline">{systemCardData.smallCardBody}</span>
-                           </p>
                         </div>
 
                         <div className="mt-6 pt-4 border-t border-white/10">
-                          <CTAButton 
-                            variant="bracket"
-                            size="sm"
-                            theme="dark"
-                            onClick={() => onNavigate && onNavigate('system')}
-                          >
-                            VIEW ALL PILLARS
-                          </CTAButton>
+                          <span className="font-mono text-[10px] font-bold text-white/50 group-hover:text-white transition-colors uppercase tracking-widest">
+                            VIEW BLUEPRINT
+                          </span>
                         </div>
                       </div>
                     </m.div>
@@ -490,6 +526,28 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                 })()}
               </m.div>
             </div>
+            
+            {/* FIX: PROFESSIONAL MOBILE NAVIGATOR (Square, Color-Coded) */}
+            <div className="lg:hidden mt-8 flex gap-4">
+               {activeIndex === 0 && (
+                 // Phase 1 (Red) -> Next is Scale Faster (Gold)
+                 <MobileNavButton phaseIdx={1} direction="next" label="Next: Scale Faster" />
+               )}
+               
+               {activeIndex === 1 && (
+                 // Phase 2 (Gold) -> Prev is Get Clients (Red), Next is See Clearly (Black)
+                 <>
+                  <MobileNavButton phaseIdx={0} direction="prev" label="Prev: Get Clients" />
+                  <MobileNavButton phaseIdx={2} direction="next" label="Next: See Clearly" />
+                 </>
+               )}
+
+               {activeIndex === 2 && (
+                 // Phase 3 (Black) -> Prev is Scale Faster (Gold)
+                 <MobileNavButton phaseIdx={1} direction="prev" label="Prev: Scale Faster" />
+               )}
+            </div>
+
         </main>
       </div>
     </section>

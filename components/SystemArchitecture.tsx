@@ -84,34 +84,34 @@ export const SystemArchitecture: React.FC = () => {
   return (
     <div className="relative w-full bg-[#FFF2EC] z-10">
       
-      {/* PHASE 1: IGNITION */}
+      {/* PHASE 1: THE CAPTURE LOOP */}
       <NarrativeSection 
         phase="PHASE 01 / GET CLIENTS"
-        title="Get"
-        subtitle="Clients."
-        body="We build the entire capture mechanism. High-performance websites that build trust, coupled with a CRM that ensures no lead is ever left behind."
+        title="The Capture"
+        subtitle="Loop."
+        body="Right now, leads land in your inbox and sit there. You reply when you can. Sometimes that's too late. Here's how it should work. Someone fills out your form and lands in your CRM instantly. The system texts them within seconds. You get a reminder to call. If you forget, it reminds you again. Website catches. CRM holds. Automation chases. No more lost leads."
         color="#E21E3F"
         align="left"
         visual={<VisualGetClientsEngine />} 
       />
 
-      {/* PHASE 2: MOMENTUM */}
+      {/* PHASE 2: THE MULTIPLIER */}
       <NarrativeSection 
         phase="PHASE 02 / SCALE FASTER"
-        title="Scale"
-        subtitle="Faster."
-        body="Once the foundation is set, we turn up the volume. Automated workflows and data-driven campaigns to multiply your output without multiplying your effort."
+        title="The"
+        subtitle="Multiplier."
+        body="Your marketing works. More calls come in. But you can't answer them all. Here's how it should work. Content brings people to your site without you posting every day. When they call, AI picks up, qualifies them, and books the good ones. Your team knows how to use it because I train them properly. Content fills. AI handles. Training keeps everyone moving. You grow without burning out."
         color="#C5A059"
         align="right"
         visual={<VisualScaleFasterEngine />} 
       />
 
-      {/* PHASE 3: VISION */}
+      {/* PHASE 3: THE FEEDBACK LOOP */}
       <NarrativeSection 
         phase="PHASE 03 / SEE CLEARLY"
-        title="See"
-        subtitle="Clearly."
-        body="The final piece is intelligence. Unified dashboards that give you a God's-eye view of your entire revenue operation in real-time."
+        title="The Feedback"
+        subtitle="Loop."
+        body="Right now, you find out about problems after the damage is done. Here's how it should work. Every part of your system feeds into one dashboard. Where did leads come from? Which ones converted? Did follow up happen? All on one screen. Updated live. You see what's working. You fix what's broken. Before it costs you money."
         color="#1a1a1a"
         align="left"
         visual={<VisualSeeClearlyEngine />} 

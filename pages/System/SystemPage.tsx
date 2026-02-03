@@ -86,10 +86,10 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
                 <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#1a1a1a]">THE SYSTEM</span>
               </m.div>
               <m.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-[#1a1a1a] mb-6 md:mb-10 break-words">
-                How I Fix Your <span className="italic font-serif text-[#8B6914] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Business.</span>
+                How It All <span className="italic font-serif text-[#8B6914] drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Connects.</span>
               </m.h1>
               <m.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl border-l-2 border-[#C5A059] pl-6 mb-8">
-                Most consultants sell you one piece at a time. A website here, a CRM there. I build connected systems where everything talks to everything else. That's how you stop the leaks.
+                Most consultants sell you a website. Or a CRM. Or some automation. Separate pieces that don't talk to each other. I build systems where everything connects. Your website feeds your CRM. Your CRM triggers your automation. Your dashboard shows you if it's working. One system. Not seven tools.
               </m.p>
             </div>
             <m.div variants={heroItem} className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end -mt-16 md:mt-0">
@@ -104,9 +104,24 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
         </div>
       </section>
 
-      {/* 2. SCROLLYTELLING (Lazy Loaded) */}
+      {/* 2. SCROLLYTELLING INTRO */}
+      <section className="w-full bg-[#FFF2EC] py-24 md:py-32 px-6 md:px-12 lg:px-20 border-t border-[#1a1a1a]/10">
+        <div className="max-w-[1400px] mx-auto text-center">
+          <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-[#7A5D12] mb-6 block">
+            / THE 3 SYSTEMS
+          </span>
+          <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-[#1a1a1a] mb-6">
+            Three Systems. <span className="italic text-[#8B6914]">One Flow.</span>
+          </h2>
+          <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-[#1a1a1a]/70 max-w-2xl mx-auto">
+            Every pillar belongs to one of three systems. Each system solves a different problem. But the magic is in how they connect.
+          </p>
+        </div>
+      </section>
+
+      {/* 3. SCROLLYTELLING (Lazy Loaded) */}
       <Suspense fallback={<div className="h-[50vh] bg-[#FFF2EC]" />}>
-        <section className="relative z-0 mb-32 border-t border-[#1a1a1a]/10">
+        <section className="relative z-0 mb-32">
            <SystemArchitecture />
         </section>
       </Suspense>
