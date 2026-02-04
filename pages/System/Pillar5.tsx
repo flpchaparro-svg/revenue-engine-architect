@@ -9,7 +9,7 @@ import {
 import { 
   CheckCircle, ChevronDown, ChevronRight, HelpCircle
 } from 'lucide-react';
-import PillarVisual_MediaGrid from '../../components/PillarVisual_MediaGrid';
+import PillarVisual_MediaGrid from '../../components/Pillar5/PillarVisual_MediaGrid';
 import FAQSection from '../../components/FAQSection';
 import { getPillarFAQs } from '../../constants/faqData';
 import { colors } from '../../constants/theme';

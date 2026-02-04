@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { colors } from '../constants/theme';
+import { colors } from '../../constants/theme';
 
 const PillarVisual_Helix: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);

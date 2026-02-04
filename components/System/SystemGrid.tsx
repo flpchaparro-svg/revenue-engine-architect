@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { m } from 'framer-motion';
 import GridItem from './SystemGridItem';
-import { getAllPillars } from '../constants/systemPillars';
+import { getAllPillars } from '../../constants/systemPillars';
 
 const ALL_PILLARS = getAllPillars();
 

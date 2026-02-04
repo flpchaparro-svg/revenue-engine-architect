@@ -1,21 +1,21 @@
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { m, useScroll, useMotionValueEvent, useAnimationFrame, useMotionValue, useTransform } from 'framer-motion';
 import CTAButton from '../components/CTAButton';
-import ScrambleTitle from '../components/ScrambleTitle';
+import ScrambleTitle from '../components/HomePage/ScrambleTitle';
 import { usePageTitle } from '../hooks/usePageTitle';
 
 // Lazy load BookingCTA (at bottom of page)
-const BookingCTA = lazy(() => import('../components/BookingCTA'));
+const BookingCTA = lazy(() => import('../components/HomePage/BookingCTA'));
 
 // FIX: Lazy load HeroVisual so text paints FIRST
-const HeroVisual = lazy(() => import('../components/HeroVisual'));
+const HeroVisual = lazy(() => import('../components/HomePage/HeroVisual'));
 
 // Lazy load below-the-fold content
 const ProblemSection = lazy(() => import('../components/HomePage/ProblemSection'));
-const FrictionAuditSection = lazy(() => import('../components/FrictionAuditSection'));
-const SystemPhases = lazy(() => import('../components/SystemPhases'));
-const TheArchitect = lazy(() => import('../components/TheArchitect'));
-const Feature_Group7 = lazy(() => import('../components/Feature_Group7'));
+const FrictionAuditSection = lazy(() => import('../components/HomePage/FrictionAuditSection'));
+const SystemPhases = lazy(() => import('../components/HomePage/SystemPhases'));
+const TheArchitect = lazy(() => import('../components/HomePage/TheArchitect'));
+const Feature_Group7 = lazy(() => import('../components/HomePage/Feature_Group7'));
 
 const TECH_STACK = [
   'WEBSITES', 'CRM', 'AUTOMATION', 'AI ASSISTANTS', 'CONTENT', 'DASHBOARDS'

@@ -9,7 +9,7 @@ import {
 import { 
   CheckCircle, ChevronDown, ChevronRight, HelpCircle
 } from 'lucide-react';
-import PillarVisual_Catchment from '../../components/PillarVisual_Catchment';
+import PillarVisual_Catchment from '../../components/Pillar1/PillarVisual_Catchment';
 import FAQSection from '../../components/FAQSection';
 import { getPillarFAQs } from '../../constants/faqData';
 import { colors } from '../../constants/theme';

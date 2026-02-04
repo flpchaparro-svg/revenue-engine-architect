@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { colors } from '../constants/theme';
+import { colors } from '../../constants/theme';
 const GOLD_COLOR = colors.gold;
 const INK_COLOR = colors.dark;
 const DESKTOP_COUNT = 100;

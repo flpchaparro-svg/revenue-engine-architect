@@ -1,6 +1,6 @@
 import React, { useRef, useMemo } from 'react';
 import { useAnimationFrame } from 'framer-motion';
-import { colors } from '../constants/theme';
+import { colors } from '../../constants/theme';
 
 const FL = 800; // Focal Length
 const LAYER_COUNT = 10;

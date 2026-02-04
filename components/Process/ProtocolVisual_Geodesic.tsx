@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { m, AnimatePresence, useAnimationFrame } from 'framer-motion';
-import { colors } from '../constants/theme';
+import { colors } from '../../constants/theme';
 
 const PHI = (1 + Math.sqrt(5)) / 2;
 
-const getVertices = () => {
-  const v = [];
+const getVertices = (): number[][] => {
+  const v: number[][] = [];
   v.push([-1, PHI, 0], [1, PHI, 0], [-1, -PHI, 0], [1, -PHI, 0]);
   v.push([0, -1, PHI], [0, 1, PHI], [0, -1, -PHI], [0, 1, -PHI]);
   v.push([PHI, 0, -1], [PHI, 0, 1], [-PHI, 0, -1], [-PHI, 0, 1]);

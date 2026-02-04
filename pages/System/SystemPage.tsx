@@ -8,16 +8,16 @@ import {
   useTransform 
 } from 'framer-motion';
 import GlobalFooter from '../../components/GlobalFooter';
-import HeroVisual_Suspension from '../../components/HeroVisual_Suspension';
+import HeroVisual_Suspension from '../../components/System/HeroVisual_Suspension';
 import FAQSection from '../../components/FAQSection';
 import { getSystemPageFAQs } from '../../constants/faqData';
 import { colors } from '../../constants/theme';
 import BackButton from '../../components/BackButton';
-import SystemGrid from '../../components/SystemGrid';
+import SystemGrid from '../../components/System/SystemGrid';
 import { usePageTitle } from '../../hooks/usePageTitle';
 
 // Lazy load the scroll-heavy section
-const SystemArchitecture = lazy(() => import('../../components/SystemArchitecture').then(module => ({ default: module.SystemArchitecture })));
+const SystemArchitecture = lazy(() => import('../../components/System/SystemArchitecture').then(module => ({ default: module.SystemArchitecture })));
 
 interface SystemPageProps {
   onBack: () => void;

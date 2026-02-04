@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { colors } from '../constants/theme';
+import { colors } from '../../constants/theme';
 
 const PillarVisual_Magnet: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);

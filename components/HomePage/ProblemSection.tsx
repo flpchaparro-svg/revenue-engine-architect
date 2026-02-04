@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { XCircle } from 'lucide-react';
 import { m } from 'framer-motion';
 // FIX 1: Import Type only (saves bundle size)
-import type { GraphState } from '../GrowthGraph';
+import type { GraphState } from './GrowthGraph';
 import CTAButton from '../CTAButton';
 
 // FIX 2: Lazy load the heavy component to stop "Forced Reflow" on load
-const GrowthGraph = lazy(() => import('../GrowthGraph'));
+const GrowthGraph = lazy(() => import('./GrowthGraph'));
 
 const ProblemSection: React.FC = () => {
   const [graphState, setGraphState] = useState<GraphState>('idle');

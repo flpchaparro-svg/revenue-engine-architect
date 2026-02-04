@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { colors } from '../constants/theme';
+import { colors } from '../../constants/theme';
 
 // --- CONFIGURATION ---
 const FL = 1000; // Focal Length (Depth perception)

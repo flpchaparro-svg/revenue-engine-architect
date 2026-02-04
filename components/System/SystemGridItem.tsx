@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Minus, Plus } from 'lucide-react';
-import { SystemPillarDetail } from '../types';
-import { getDesktopGridClass, getTabletGridClass } from '../utils/gridHelpers';
+import { SystemPillarDetail } from '../../types';
+import { getDesktopGridClass, getTabletGridClass } from '../../utils/gridHelpers';
 
 interface GridItemProps {
   pillar: SystemPillarDetail;

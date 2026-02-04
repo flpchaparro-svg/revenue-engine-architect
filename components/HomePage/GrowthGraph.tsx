@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { select, easeCubicInOut } from 'd3';
 import { useInView } from 'framer-motion';
-import { colors } from '../constants/theme';
+import { colors } from '../../constants/theme';
 
 export type GraphState = 'idle' | 'bottleneck' | 'tax' | 'grind' | 'cost' | 'fix';
 

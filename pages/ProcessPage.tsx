@@ -2,7 +2,7 @@ import React from 'react';
 import { m } from 'framer-motion';
 
 // COMPONENTS
-import ProtocolVisual_Geodesic from '../components/ProtocolVisual_Geodesic';
+import ProtocolVisual_Geodesic from '../components/Process/ProtocolVisual_Geodesic';
 import CTAButton from '../components/CTAButton'; 
 import BackButton from '../components/BackButton'; 
 

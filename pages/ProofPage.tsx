@@ -9,7 +9,7 @@ import EvidenceVisual_Compare from '../components/EvidenceVisual_Compare';
 import CTAButton from '../components/CTAButton'; 
 import BackButton from '../components/BackButton'; 
 import TerminalLog from '../components/Proof/TerminalLog';
-import CountUp from '../components/CountUp';
+import CountUp from '../components/Proof/CountUp';
 
 // HOOKS & DATA
 import { usePageTitle } from '../hooks/usePageTitle';

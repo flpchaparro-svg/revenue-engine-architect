@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Box } from 'lucide-react';
-import { SERVICES } from '../constants';
-import { colors } from '../constants/theme';
-import { ServiceDetail } from '../types';
-import ViewportViz from './ViewportViz';
-import CTAButton from './CTAButton';
+import { SERVICES } from '~/constants';
+import { colors } from '~/constants/theme';
+import { ServiceDetail } from '~/types';
+import ViewportViz from '~/components/ViewportViz';
+import CTAButton from '~/components/CTAButton';
 
 interface SystemPhasesProps {
   onNavigate?: (view: string, id?: string) => void;

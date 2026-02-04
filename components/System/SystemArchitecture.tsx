@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { m, useScroll, useTransform } from 'framer-motion';
-import { colors } from '../constants/theme';
+import { colors } from '../../constants/theme';
 import VisualGetClientsEngine from './Visual_GetClients_Engine';
 import VisualScaleFasterEngine from './Visual_ScaleFaster_Engine';
 import VisualSeeClearlyEngine from './Visual_SeeClearly_Engine';

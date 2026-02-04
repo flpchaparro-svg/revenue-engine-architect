@@ -1,6 +1,6 @@
 import React from 'react';
 import { Clock, CheckCircle2 } from 'lucide-react';
-import CTAButton from './CTAButton'; // IMPORT
+import CTAButton from '../CTAButton';
 
 const BookingCTA: React.FC = () => {
   return (

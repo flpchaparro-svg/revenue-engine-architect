@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { colors } from '../constants/theme';
+import { colors } from '../../constants/theme';
 
 const COLORS = {
   bg: colors.cream,

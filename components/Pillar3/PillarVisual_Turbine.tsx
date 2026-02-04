@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { colors } from '../constants/theme';
+import { colors } from '../../constants/theme';
 
 interface PillarVisual_TurbineProps {
   color?: string;

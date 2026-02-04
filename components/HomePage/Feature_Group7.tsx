@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { m, AnimatePresence } from 'framer-motion';
 import { ShieldCheck, AlertTriangle, Activity, Zap, X, Terminal } from 'lucide-react';
-import { colors } from '../constants/theme';
-import EvidenceVisual_Compare from './EvidenceVisual_Compare';
-import CTAButton from './CTAButton';
+import { colors } from '../../constants/theme';
+import EvidenceVisual_Compare from '../EvidenceVisual_Compare';
+import CTAButton from '../CTAButton';
 
 const TerminalLog: React.FC = () => {
   const [lines, setLines] = useState<string[]>([]);
