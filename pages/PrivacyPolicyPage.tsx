@@ -5,7 +5,7 @@ import GlobalFooter from '../components/GlobalFooter';
 
 interface PrivacyPolicyPageProps {
   onBack: () => void;
-  onNavigate: (view: string) => void;
+  onNavigate?: (view: string) => void;
 }
 
 const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onBack, onNavigate }) => {
@@ -69,14 +69,12 @@ const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onBack, onNavigat
           <section>
             <h3 className="font-serif text-2xl mb-4">4. Contact</h3>
             <p className="font-sans text-base text-dark/70 leading-relaxed">
-              If you want your data deleted from our CRM, just email felipe@revenuearchitect.com and we will wipe it. No questions asked.
+              If you want your data deleted from our CRM, just email help@felipechaparro.com and we will wipe it. No questions asked.
             </p>
           </section>
 
         </div>
       </div>
-
-      <GlobalFooter onNavigate={onNavigate} />
     </m.div>
   );
 };
