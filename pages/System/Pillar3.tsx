@@ -296,7 +296,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                   </div>
                                   <div className="flex-grow">
                                      <h3 className={`font-serif text-lg leading-tight ${isPersonaExpanded ? 'text-red-text' : 'text-black/70'}`}>{p.title}</h3>
-                                     <span className="text-[10px] text-black/40 block mt-1 line-clamp-1">{p.examples}</span>
+                                     <span className="text-[10px] text-black/60 block mt-1 line-clamp-1">{p.examples}</span>
                                   </div>
                                   <ChevronDown className={`w-4 h-4 transition-transform ${isPersonaExpanded ? 'rotate-180 text-red-solid' : 'text-black/20'}`} />
                                </button>

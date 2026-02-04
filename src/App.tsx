@@ -102,7 +102,7 @@ const App: React.FC = () => {
           <GlobalHeader currentView={getCurrentView()} onNavigate={handleGlobalNavigate} scrolled={scrolled} />
         )}
 
-        <div className="relative min-h-screen w-full">
+        <main className="relative min-h-screen w-full flex-1">
           <Suspense fallback={<div className="h-screen w-full bg-cream" />}>
             <AnimatePresence mode="wait">
               <div key={location.pathname} className="w-full">
@@ -129,7 +129,7 @@ const App: React.FC = () => {
               </div>
             </AnimatePresence>
           </Suspense>
-        </div>
+        </main>
 
         {location.pathname !== '/system' && location.pathname !== '/contact' && <GlobalFooter onNavigate={handleGlobalNavigate} />}
         <Modal service={selectedService} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onViewPillar={(id) => handleGlobalNavigate(id)} />

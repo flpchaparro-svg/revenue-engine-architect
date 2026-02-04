@@ -79,7 +79,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
               <button 
                 onClick={() => setMode('architect')}
                 className={`px-5 md:px-8 py-3.5 text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-sm flex items-center gap-2 ${
-                  mode === 'architect' ? 'text-cream bg-dark shadow-md' : 'text-dark/40'
+                  mode === 'architect' ? 'text-cream bg-dark shadow-md' : 'text-dark/60'
                 }`}
               >
                 {mode === 'architect' && <Terminal className="w-3 h-3" />} THE ARCHITECT
@@ -87,7 +87,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
               <button 
                 onClick={() => setMode('human')}
                 className={`px-5 md:px-8 py-3.5 text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-sm flex items-center gap-2 ${
-                  mode === 'human' ? 'text-dark bg-gold shadow-md' : 'text-dark/40'
+                  mode === 'human' ? 'text-dark bg-gold shadow-md' : 'text-dark/60'
                 }`}
               >
                 {mode === 'human' && <Fingerprint className="w-3 h-3" />} THE HUMAN

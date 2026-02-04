@@ -115,7 +115,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
               </div>
 
               <div className="lg:col-span-8 p-8 md:p-12">
-                <h3 className="font-serif text-3xl mb-6">The Brief</h3>
+                <h2 className="font-serif text-3xl mb-6">The Brief</h2>
                 <p className="font-sans text-lg md:text-xl text-dark/70 leading-relaxed max-w-3xl">
                   Group 7 Security protects some of Sydney's most valuable assets, including properties worth over $3.2 billion. But their website made them look like a 1990s template, not a professional security operation. Google didn't know they were in Sydney, and their competitors were taking all the local search traffic.
                 </p>
