@@ -20,15 +20,14 @@ type GridItem =
       label: string; 
       title: string; 
       body: string; 
-      accentColor: string; // For Borders & Icons (Graphics)
-      textColor: string;   // For Text (Accessibility)
+      accentColor: string; 
+      textColor: string;   
       buttonText: string;
       targetPillarId: string;
     };
 
 const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
   const [activeId, setActiveId] = useState<string>('pillar1'); 
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
   const itemRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
   // 1. CONSTRUCT ITEMS
@@ -42,8 +41,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       type: 'header', 
       id: 'HEADER_ACQ', 
       label: 'PHASE 01 / GET CLIENTS', 
-      title: 'The Capture Loop.', 
-      body: "Right now, leads land in your inbox and sit there. You reply when you can. Sometimes that's too late. Here's how it should work. Someone fills out your form. They land in your CRM instantly. The system texts them within seconds. You get a reminder to call. Website catches. CRM holds. Automation chases. No more lost leads.", 
+      title: 'The Capture Loop', 
+      body: "Website catches. CRM holds. Automation chases. A closed loop where no lead is left behind.", 
       accentColor: colors.redSolid,
       textColor: colors.redSolid,
       buttonText: 'VIEW SYSTEM',
@@ -59,8 +58,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       type: 'header', 
       id: 'HEADER_VEL', 
       label: 'PHASE 02 / SCALE FASTER', 
-      title: 'The Multiplier.', 
-      body: "Your marketing works. More calls come in. But you can't answer them all. Here's how it should work. Content brings people to you without posting every day. AI picks up, qualifies, and books the good ones. Training keeps your team using the tools properly. Content fills. AI handles. Training keeps everyone moving. You grow without burning out.", 
+      title: 'The Multiplier', 
+      body: "Content fills the funnel. AI handles the volume. Training aligns the team. You grow without burning out.", 
       accentColor: colors.gold,        
       textColor: colors.goldOnCream,   
       buttonText: 'VIEW SYSTEM',
@@ -74,8 +73,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       type: 'header', 
       id: 'HEADER_INT', 
       label: 'PHASE 03 / SEE CLEARLY', 
-      title: "The Control Room.", 
-      body: "Right now, you find out about problems after the damage is done. Here's how it should work. Every part of your system feeds into one dashboard. Where did leads come from? Which ones converted? All on one screen. Updated live. You see what's working. You fix what's broken. Before it costs you money.", 
+      title: "The Feedback Loop", 
+      body: "One dashboard. Real-time data. You see what's working and fix what's broken before it costs you money.", 
       accentColor: colors.dark,
       textColor: colors.dark,
       buttonText: 'VIEW SYSTEM',
@@ -137,10 +136,9 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
         <div className="flex flex-col lg:flex-row h-auto lg:h-[600px] w-full select-none border border-dark/10 bg-white shadow-xl">
             {ITEMS.map((item, idx) => {
                 
-                // === TYPE A: HEADER CARD (PHASES) ===
+                // === TYPE A: HEADER CARD ===
                 if (item.type === 'header') {
                     const isHeaderActive = activeId === item.id;
-                    
                     return (
                         <motion.div
                             key={item.id}
@@ -154,11 +152,14 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                     ? 'lg:flex-[5] flex-[10] h-auto min-h-[400px]' 
                                     : 'lg:flex-[0.8] flex-[1] min-h-[60px]'
                                 }
-                                flex flex-col
+                                flex flex-col group
                             `}
+                            // Inject accent color as CSS var for hover effects
                             style={{ 
                                 backgroundColor: colors.cream, 
-                                borderTop: isHeaderActive ? `4px solid ${item.accentColor}` : 'none'
+                                borderTop: isHeaderActive ? `4px solid ${item.accentColor}` : 'none',
+                                // @ts-ignore
+                                '--accent': item.accentColor 
                             }}
                         >
                             {isHeaderActive ? (
@@ -170,17 +171,11 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                     <div>
                                         <div className="flex items-center gap-3 mb-8 opacity-100">
                                             <LucideIcons.LayoutGrid className="w-4 h-4" style={{ color: item.accentColor }} />
-                                            <span 
-                                                className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold"
-                                                style={{ color: item.textColor }}
-                                            >
+                                            <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: item.textColor }}>
                                                 {item.label}
                                             </span>
                                         </div>
-                                        <h3 
-                                            className="font-serif text-3xl md:text-5xl leading-[0.95] mb-6 tracking-tighter"
-                                            style={{ color: item.textColor }}
-                                        >
+                                        <h3 className="font-serif text-3xl md:text-5xl leading-[0.95] mb-6 tracking-tighter" style={{ color: item.textColor }}>
                                             {item.title}
                                         </h3>
                                         <p className="font-sans text-lg md:text-xl font-light leading-relaxed max-w-xl text-dark/80">
@@ -188,16 +183,13 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                         </p>
                                     </div>
                                     <div className="mt-8">
-                                        <CTAButton 
-                                            theme='light'
-                                            onClick={() => onNavigate && onNavigate(item.targetPillarId)}
-                                        >
+                                        <CTAButton theme='light' onClick={() => onNavigate && onNavigate(item.targetPillarId)}>
                                             {item.buttonText}
                                         </CTAButton>
                                     </div>
                                 </motion.div>
                             ) : (
-                                <div className="absolute inset-0 flex items-center justify-center bg-cream hover:bg-cream-light transition-colors">
+                                <div className="absolute inset-0 flex items-center justify-center bg-cream hover:bg-cream-light transition-colors group-hover:bg-[var(--accent)]/10">
                                     <span 
                                         className="font-mono text-[10px] uppercase tracking-[0.3em] font-bold lg:-rotate-90 whitespace-nowrap flex items-center gap-3"
                                         style={{ color: item.textColor }}
@@ -217,7 +209,6 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                 const sysGroup = service.systemGroup || 'GET CLIENTS';
                 const Icon = getIcon(service.icon);
                 
-                // --- COLOR LOGIC ---
                 let accentColor: string = colors.redSolid; 
                 let textColor: string = colors.redSolid;
 
@@ -236,18 +227,21 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         ref={(el) => (itemRefs.current[service.id] = el)}
                         layout
                         onClick={() => handleItemClick(service.id)}
-                        onMouseEnter={() => setHoveredId(service.id)}
-                        onMouseLeave={() => setHoveredId(null)}
                         className={`
                             relative overflow-hidden cursor-pointer transition-colors duration-500 
                             border-b lg:border-b-0 lg:border-r border-dark/10
                             ${isActive 
-                                ? 'lg:flex-[12] flex-[12] h-auto min-h-[600px] lg:min-h-auto' // Active
-                                : 'lg:flex-[0.6] flex-[1] min-h-[60px]' // Inactive
+                                ? 'lg:flex-[12] flex-[12] h-auto min-h-[600px] lg:min-h-auto' 
+                                : 'lg:flex-[0.6] flex-[1] min-h-[60px]'
                             }
-                            ${isActive ? 'bg-off-white' : 'bg-white hover:bg-cream-light'}
+                            ${isActive ? 'bg-off-white' : 'bg-white'}
                             flex flex-col lg:flex-row group
                         `}
+                        // Inject Accent Color into CSS Variable for Pure CSS Hovers
+                        style={{ 
+                            // @ts-ignore
+                            '--accent': accentColor 
+                        }}
                     >
                         {isActive && (
                             <motion.div 
@@ -263,24 +257,15 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                 >
                                     <div>
                                         <div className="flex items-center gap-3 mb-6">
-                                            <span 
-                                                className="font-mono text-[9px] uppercase tracking-widest px-2 py-1 border"
-                                                style={{ borderColor: accentColor, color: textColor }}
-                                            >
+                                            <span className="font-mono text-[9px] uppercase tracking-widest px-2 py-1 border" style={{ borderColor: accentColor, color: textColor }}>
                                                 {sysGroup}
                                             </span>
-                                            <span 
-                                                className="font-mono text-[9px] uppercase tracking-widest"
-                                                style={{ color: textColor }}
-                                            >
+                                            <span className="font-mono text-[9px] uppercase tracking-widest" style={{ color: textColor }}>
                                                 0{Number(service.id.replace('pillar', ''))}
                                             </span>
                                         </div>
                                         
-                                        <h3 
-                                            className="font-serif text-3xl md:text-4xl leading-[1.0] mb-6 tracking-tight"
-                                            style={{ color: textColor }}
-                                        >
+                                        <h3 className="font-serif text-3xl md:text-4xl leading-[1.0] mb-6 tracking-tight" style={{ color: textColor }}>
                                             {service.title}
                                         </h3>
                                         
@@ -299,11 +284,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                     </div>
 
                                     <div className="mt-8 lg:mt-auto">
-                                        <CTAButton 
-                                            theme="light"
-                                            variant="bracket"
-                                            onClick={(e) => { e.stopPropagation(); handleServiceClick(service); }}
-                                        >
+                                        <CTAButton theme="light" variant="bracket" onClick={(e) => { e.stopPropagation(); handleServiceClick(service); }}>
                                             EXPLORE PILLAR
                                         </CTAButton>
                                     </div>
@@ -323,38 +304,26 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
 
                         {!isActive && (
                             <div className="absolute inset-0 w-full h-full flex flex-row lg:flex-col items-center justify-center p-4">
-                                {/* DYNAMIC HOVER BACKGROUND (Faint) */}
-                                <div 
-                                    className="absolute inset-0 transition-colors duration-300"
-                                    style={{ 
-                                        backgroundColor: hoveredId === service.id ? accentColor : 'transparent', 
-                                        opacity: hoveredId === service.id ? 0.05 : 0 
-                                    }}
-                                />
+                                {/* CSS-BASED HOVER BACKGROUND */}
+                                <div className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-10 bg-[var(--accent)] pointer-events-none" />
                                 
-                                {/* HOVER BAR INDICATOR */}
-                                <div 
-                                    className="absolute bottom-0 left-0 w-1 lg:w-full h-full lg:h-1 transition-colors duration-300"
-                                    style={{ backgroundColor: hoveredId === service.id ? accentColor : 'transparent' }} 
-                                />
+                                {/* CSS-BASED HOVER BAR */}
+                                <div className="absolute bottom-0 left-0 w-1 lg:w-full h-full lg:h-1 transition-colors duration-300 bg-transparent group-hover:bg-[var(--accent)] pointer-events-none" />
                                 
-                                {/* TITLE */}
                                 <div className="flex-1 flex items-center justify-center">
                                     <div className="lg:-rotate-90 lg:whitespace-nowrap">
                                         <span 
-                                            className="font-mono text-[10px] uppercase tracking-[0.25em] font-bold transition-colors flex items-center gap-2"
-                                            style={{ color: hoveredId === service.id ? textColor : 'rgba(26,26,26,0.4)' }}
+                                            className="font-mono text-[10px] uppercase tracking-[0.25em] font-bold transition-colors flex items-center gap-2 text-dark/40 group-hover:text-[var(--accent)]"
                                         >
                                             {service.title}
                                         </span>
                                     </div>
                                 </div>
 
-                                {/* NUMBER (MOBILE: Left, DESKTOP: Bottom) */}
+                                {/* NUMBER: LEFT ON MOBILE, BOTTOM CENTER ON DESKTOP */}
                                 <div className="absolute left-6 top-1/2 -translate-y-1/2 lg:translate-y-0 lg:top-auto lg:left-0 lg:right-0 lg:bottom-6 text-left lg:text-center pointer-events-none">
                                     <span 
-                                        className="font-mono text-[10px] font-bold transition-colors"
-                                        style={{ color: hoveredId === service.id ? textColor : 'rgba(26,26,26,0.2)' }}
+                                        className="font-mono text-[10px] font-bold transition-colors text-dark/20 group-hover:text-[var(--accent)]"
                                     >
                                         0{Number(service.id.replace('pillar', ''))}
                                     </span>
