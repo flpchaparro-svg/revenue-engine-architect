@@ -324,7 +324,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                          onClick={() => setIsMobileSystemOpen(!isMobileSystemOpen)}
                          aria-label="Toggle system menu"
                          aria-expanded={isMobileSystemOpen}
-                         className="p-2 -mr-2 text-dark/40 hover:text-dark transition-colors"
+                         className="p-2 -mr-2 text-dark/60 hover:text-dark transition-colors"
                        >
                          <ChevronDown className={`w-8 h-8 transition-transform duration-300 ${isMobileSystemOpen ? 'rotate-180' : ''}`} />
                        </button>
@@ -380,7 +380,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
              
              <div className="mb-8 border-t border-dark/10 pt-4 shrink-0">
                <div className="flex justify-between items-center">
-                 <span className="font-mono text-[10px] uppercase tracking-widest text-dark/40">Response Time</span>
+                 <span className="font-mono text-[10px] uppercase tracking-widest text-dark/60">Response Time</span>
                  <div className="flex items-center gap-2 text-gold-on-cream font-mono text-xs uppercase tracking-widest">
                    <div className="w-2 h-2 rounded-full bg-gold animate-pulse" />
                    &lt; 24 HRS

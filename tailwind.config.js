@@ -59,6 +59,14 @@ export default {
         'gold-muted': '#7A5D12',
         teal: '#0F766E',
       },
+      transitionDuration: {
+        snap: '200ms',
+        flow: '600ms',
+        reveal: '1000ms',
+      },
+      transitionTimingFunction: {
+        luxury: 'cubic-bezier(0.16, 1, 0.3, 1)',
+      },
       keyframes: {
         'fade-in': {
           '0%': { opacity: '0', transform: 'translateY(10px)' },

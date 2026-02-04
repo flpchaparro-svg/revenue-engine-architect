@@ -34,9 +34,9 @@ const TerminalLog: React.FC = () => {
   return (
     <div className="w-full bg-dark p-8 border-t border-black/10 font-mono text-sm overflow-hidden">
       <div className="flex items-center gap-2 text-white/20 mb-4 border-b border-white/10 pb-2">
-        <Terminal className="w-4 h-4 text-gold-on-cream" />
-        {/* FIX: Bumped to text-xs */}
-        <span className="text-gold-on-cream uppercase tracking-[0.2em] font-bold text-xs">Build Log // What I Did</span>
+        <Terminal className="w-4 h-4 text-gold-on-dark" />
+        {/* On dark background use gold-on-dark per design spec */}
+        <span className="text-gold-on-dark uppercase tracking-[0.2em] font-bold text-xs">Build Log // What I Did</span>
       </div>
       <div className="space-y-3">
         {lines.map((line, i) => (
@@ -152,7 +152,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
           <div className="hidden md:flex items-center gap-3">
             <div className="w-2 h-2 rounded-full bg-gold animate-pulse" />
             {/* FIX: Bumped to text-[10px] */}
-            <span className="font-mono text-[10px] text-black/40 uppercase tracking-[0.4em]">LOG FILE STATUS: READ ONLY</span>
+            <span className="font-mono text-[10px] text-dark/60 uppercase tracking-[0.4em]">LOG FILE STATUS: READ ONLY</span>
           </div>
         </div>
 
@@ -187,7 +187,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                 <div className="absolute top-0 left-0 w-full h-1 bg-gold"></div>
                 <ShieldCheck className="w-24 h-24 text-gold-on-cream mb-8 stroke-[0.5]" />
                 {/* FIX: Bumped to text-[10px] */}
-                <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-center text-black/40">RESULT AUTHENTICATED / SYSTEM ID 0X44</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.4em] text-center text-dark/60">RESULT AUTHENTICATED / SYSTEM ID 0X44</span>
              </div>
           </div>
         </section>
@@ -224,7 +224,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                   {/* FIX: Bumped to text-[10px] */}
                   <p className="font-mono text-[10px] text-red-text uppercase tracking-widest mb-6">{audit.client}</p>
                   <div className="text-4xl font-sans font-light text-gold-on-cream mb-8">{audit.impact}</div>
-                  <p className="font-sans text-sm text-black/50 leading-relaxed mb-10 group-hover:text-white/60 transition-colors">{audit.desc}</p>
+                  <p className="font-sans text-sm text-dark/60 leading-relaxed mb-10 group-hover:text-white/80 transition-colors">{audit.desc}</p>
                 </div>
                 
                 <div className="pt-8 border-t border-black/5 group-hover:border-white/10 transition-colors">
@@ -269,7 +269,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
           <div className="flex items-center gap-4">
             <CheckCircle2 className="w-5 h-5 text-gold-on-cream" />
             {/* FIX: Bumped to text-[10px] */}
-            <span className="font-mono text-[10px] uppercase tracking-widest text-black/40">EVIDENCE VERIFIED / LOGS NOMINAL</span>
+            <span className="font-mono text-[10px] uppercase tracking-widest text-dark/60">EVIDENCE VERIFIED / LOGS NOMINAL</span>
           </div>
         </div>
       </div>
@@ -301,7 +301,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                     <h3 className="font-serif text-3xl md:text-4xl text-dark leading-tight tracking-tight">
                        Case Study: Group 7 Security
                     </h3>
-                    <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-dark/50 mt-1">
+                    <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-dark/60 mt-1">
                        [ WEBSITE + SEO OVERHAUL ]
                     </p>
                   </div>

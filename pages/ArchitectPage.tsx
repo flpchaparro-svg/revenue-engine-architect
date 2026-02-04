@@ -172,7 +172,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                       <div className="grid grid-cols-2 gap-4">
                         {ARCHITECT_CONTENT.architect.credentials.map((cred, i) => (
                           <div key={i} className="flex items-center gap-3">
-                             <cred.icon className="w-4 h-4 text-dark/40" />
+                             <cred.icon className="w-4 h-4 text-dark/60" />
                              <span className="font-mono text-xs font-bold uppercase">{cred.label}</span>
                           </div>
                         ))}

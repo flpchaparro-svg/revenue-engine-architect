@@ -101,7 +101,7 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
            </div>
 
            <div className="flex justify-between items-center border-t border-dark/10 pt-4 mt-auto">
-              <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-dark/50 transition-colors font-bold group-hover:text-black">
+              <span className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-dark/60 transition-colors font-bold group-hover:text-black">
                  PILLAR {pillar.number}
               </span>
               <div 
@@ -123,7 +123,7 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
           <m.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.1 } }} exit={{ opacity: 0 }} className="relative w-full p-6 md:p-10 lg:p-16 flex flex-col">
             <button 
                onClick={(e) => { e.stopPropagation(); handleToggle(); }}
-               className="absolute top-4 right-4 md:top-6 md:right-6 p-3 rounded-full border border-white/20 text-white/60 hover:text-white hover:border-white transition-all z-20"
+               className="absolute top-4 right-4 md:top-6 md:right-6 p-3 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white transition-all z-20"
             >
                <Minus className="w-5 h-5 md:w-6 md:h-6" />
             </button>

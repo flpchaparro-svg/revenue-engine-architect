@@ -153,7 +153,7 @@ const Feature_Group7: React.FC = () => {
                   </span>
               </div>
               {/* Type B: Card Tag */}
-              <span className="font-mono text-[10px] font-bold text-white/60 uppercase tracking-[0.2em] flex items-center gap-2">
+              <span className="font-mono text-[10px] font-bold text-white/70 uppercase tracking-[0.2em] flex items-center gap-2">
                   SEE THE TRANSFORMATION
                   <Zap className="w-3 h-3 text-gold-on-dark" />
               </span>
@@ -189,7 +189,7 @@ const Feature_Group7: React.FC = () => {
                       {/* Type B: Card Tag */}
                       <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-text mb-2">BEFORE</div>
                       {/* Node A */}
-                      <div className="font-serif text-white/60 text-2xl md:text-3xl tracking-tight mb-2">group7security.com</div>
+                      <div className="font-serif text-white/70 text-2xl md:text-3xl tracking-tight mb-2">group7security.com</div>
                       {/* Type B: Card Tag */}
                       <div className="flex items-center justify-center gap-2 font-mono text-[10px] font-bold tracking-[0.2em] text-red-text bg-red-solid/10 px-3 py-1.5 rounded">
                           <Activity className="w-3 h-3" />
@@ -311,7 +311,7 @@ idle: { borderColor: colors.gray700, backgroundColor: 'rgba(0,0,0,0)' },
                          Case Study: Group 7 Security
                       </h3>
                       {/* Type B: Card Tag */}
-                      <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-dark/50 mt-1">
+                      <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-dark/60 mt-1">
                          WEBSITE + SEO OVERHAUL
                       </p>
                     </div>

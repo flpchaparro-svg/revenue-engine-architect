@@ -137,7 +137,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                   key={key}
                   onClick={() => setActiveTier(key as keyof typeof TIERS)}
                   className={`py-6 px-4 text-center transition-all duration-300 relative group overflow-hidden flex flex-col justify-center min-h-[100px] ${
-                    activeTier === key ? 'bg-white' : 'hover:bg-white/50 text-black/40'
+                    activeTier === key ? 'bg-white' : 'hover:bg-white/50 text-black/60'
                   }`}
                 >
                   <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-2 ${activeTier === key ? 'text-gold-on-cream' : 'text-inherit'}`}>
@@ -177,7 +177,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                            activePersonaIndex === idx ? 'bg-white border-gold shadow-md' : 'bg-transparent border-transparent hover:bg-white hover:border-black/5'
                         }`}
                       >
-                         <div className={`p-2 rounded-full ${activePersonaIndex === idx ? 'bg-gold/10 text-gold-on-cream' : 'bg-black/5 text-black/40'}`}>
+                         <div className={`p-2 rounded-full ${activePersonaIndex === idx ? 'bg-gold/10 text-gold-on-cream' : 'bg-black/5 text-black/60'}`}>
                            <p.icon className="w-4 h-4" />
                          </div>
                          <div>
@@ -311,12 +311,12 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                  }}
                                  className="w-full flex items-center gap-4 p-4 text-left hover:bg-black/5 transition-colors"
                                >
-                                  <div className={`p-2 rounded-full ${isPersonaExpanded ? 'bg-gold text-dark' : 'bg-black/5 text-black/40'}`}>
+                                  <div className={`p-2 rounded-full ${isPersonaExpanded ? 'bg-gold text-dark' : 'bg-black/5 text-black/60'}`}>
                                      <p.icon className="w-4 h-4" />
                                   </div>
                                   <div className="flex-grow">
                                      <h3 className={`font-serif text-lg leading-tight ${isPersonaExpanded ? 'text-gold-on-cream' : 'text-black/70'}`}>{p.title}</h3>
-                                     <span className="text-[10px] text-black/40 block mt-1 line-clamp-1">{p.examples}</span>
+                                     <span className="text-[10px] text-black/60 block mt-1 line-clamp-1">{p.examples}</span>
                                   </div>
                                   <ChevronDown className={`w-4 h-4 transition-transform ${isPersonaExpanded ? 'rotate-180 text-gold-on-cream' : 'text-black/20'}`} />
                                </button>

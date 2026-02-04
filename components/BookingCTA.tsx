@@ -59,7 +59,7 @@ const BookingCTA: React.FC = () => {
                 </CTAButton>
              </div>
              
-             <p className="text-center mt-4 font-mono text-xs font-bold text-white/60 uppercase tracking-[0.2em]">
+             <p className="text-center mt-4 font-mono text-xs font-bold text-white/70 uppercase tracking-[0.2em]">
                 No sales pitch. Just a conversation about your system.
              </p>
           </div>

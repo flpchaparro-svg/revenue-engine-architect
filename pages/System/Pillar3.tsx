@@ -131,7 +131,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                   key={key}
                   onClick={() => setActiveTier(key as keyof typeof TIERS)}
                   className={`py-6 px-4 text-center transition-all duration-300 relative group overflow-hidden flex flex-col justify-center min-h-[100px] ${
-                    activeTier === key ? 'bg-white' : 'hover:bg-white/50 text-black/40'
+                    activeTier === key ? 'bg-white' : 'hover:bg-white/50 text-black/60'
                   }`}
                 >
                   <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-2 ${activeTier === key ? 'text-red-text' : 'text-inherit'}`}>
@@ -169,7 +169,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                            activePersonaIndex === idx ? 'bg-white border-red-solid shadow-md' : 'bg-transparent border-transparent hover:bg-white hover:border-black/5'
                         }`}
                       >
-                         <div className={`p-2 rounded-full ${activePersonaIndex === idx ? 'bg-red-solid/10 text-red-text' : 'bg-black/5 text-black/40'}`}>
+                         <div className={`p-2 rounded-full ${activePersonaIndex === idx ? 'bg-red-solid/10 text-red-text' : 'bg-black/5 text-black/60'}`}>
                            <p.icon className="w-4 h-4" />
                          </div>
                          <div>
@@ -291,7 +291,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                  }}
                                  className="w-full flex items-center gap-4 p-4 text-left hover:bg-black/5 transition-colors"
                                >
-                                  <div className={`p-2 rounded-full ${isPersonaExpanded ? 'bg-red-solid text-dark' : 'bg-black/5 text-black/40'}`}>
+                                  <div className={`p-2 rounded-full ${isPersonaExpanded ? 'bg-red-solid text-dark' : 'bg-black/5 text-black/60'}`}>
                                      <p.icon className="w-4 h-4" />
                                   </div>
                                   <div className="flex-grow">

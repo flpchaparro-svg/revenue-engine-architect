@@ -182,7 +182,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
               
               <div>
                  {/* Type B: Card Tag - text-[10px], font-bold, tracking-[0.2em] */}
-                 <div className="font-mono text-[10px] font-bold text-dark/40 uppercase tracking-[0.2em] mb-4">AUDIT PROGRESS</div>
+                 <div className="font-mono text-[10px] font-bold text-dark/60 uppercase tracking-[0.2em] mb-4">AUDIT PROGRESS</div>
                  <div className="w-full h-1 bg-dark/10 relative overflow-hidden">
                     <m.div 
                        className="h-full bg-red-solid" 

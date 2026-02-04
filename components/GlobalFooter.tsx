@@ -62,7 +62,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
                  <div className="font-mono text-[10px] font-bold border border-white/20 px-1.5 py-0.5 text-white/80">
                     [FC)
                  </div>
-                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">
+                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/70">
                     Felipe Consultancy
                  </span>
               </div>
@@ -91,7 +91,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
                        <li key={link.label}>
                          <button 
                            onClick={link.action}
-                           className="font-sans text-sm text-white/60 hover:text-white transition-colors text-left"
+                           className="font-sans text-sm text-white/70 hover:text-white transition-colors text-left"
                          >
                            {link.label}
                          </button>

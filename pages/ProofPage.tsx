@@ -271,11 +271,11 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           <div className="mt-8 grid grid-cols-2 gap-8 text-center">
             <div className="border-t border-red-500/20 pt-4">
               <span className="font-mono text-xs font-bold text-red-text uppercase tracking-[0.2em] block mb-2">LEGACY</span>
-              <p className="font-sans text-sm text-dark/50">Slow. Generic. Invisible.</p>
+              <p className="font-sans text-sm text-dark/60">Slow. Generic. Invisible.</p>
             </div>
             <div className="border-t border-gold/20 pt-4">
                <span className="font-mono text-xs font-bold text-gold-muted uppercase tracking-[0.2em] block mb-2">NEW SYSTEM</span>
-               <p className="font-sans text-sm text-dark/50">Fast. Professional. Findable.</p>
+               <p className="font-sans text-sm text-dark/60">Fast. Professional. Findable.</p>
             </div>
           </div>
         </Section>
@@ -288,13 +288,13 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/20 rounded-full blur-[100px] opacity-0 group-hover:opacity-30 transition-opacity duration-700" />
 
             <div className="relative z-10 flex flex-col items-center">
-              <span className="font-mono text-xs font-bold text-gold-on-cream uppercase tracking-[0.2em] mb-6 block">
+              <span className="font-mono text-xs font-bold text-gold-on-dark uppercase tracking-[0.2em] mb-6 block">
                 / YOUR TURN
               </span>
               <h2 className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tighter mb-8 text-white">
-                Want Results Like <span className="italic font-serif text-gold-on-cream">This?</span>
+                Want Results Like <span className="italic font-serif text-gold-on-dark">This?</span>
               </h2>
-              <p className="font-sans text-lg md:text-xl text-white/60 mb-12 max-w-2xl mx-auto leading-relaxed">
+              <p className="font-sans text-lg md:text-xl text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed">
                 Group 7 went from invisible to indexed, from slow to instant. 
                 <br/>If your website is holding you back, let's fix it.
               </p>
