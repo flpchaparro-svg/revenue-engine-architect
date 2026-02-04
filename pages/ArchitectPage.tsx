@@ -109,7 +109,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                         mode === 'architect' ? 'rounded-sm border-2 border-dark' : 'rounded-t-full border-4 border-gold/20'
                     }`}>
                       
-                      {/* MAIN VIDEO PLAYER - COLOR (no grayscale), with seamless loop */}
+                      {/* MAIN VIDEO PLAYER - seamless loop via CUT_OFF_TIME + onEnded only (no native loop to avoid conflict) */}
                       {/* scale-[1.15] zooms in slightly to crop out the VEO watermark */}
                       {/* aria-hidden & role="presentation" for decorative video with no speech */}
                       <video
@@ -117,7 +117,6 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                         key={mode}
                         className="w-full h-full object-cover contrast-110 scale-[1.15]"
                         autoPlay
-                        loop
                         muted
                         playsInline
                         preload="metadata"
