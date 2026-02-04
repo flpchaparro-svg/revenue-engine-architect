@@ -121,7 +121,6 @@
     <script type="module" src="/src/index.tsx"></script>
     <!-- HubSpot - Delayed load to not block initial render -->
     <script>
-      // Load HubSpot after page is interactive (3 second delay)
       window.addEventListener('load', function() {
         setTimeout(function() {
           var script = document.createElement('script');

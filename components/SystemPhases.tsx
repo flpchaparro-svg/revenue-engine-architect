@@ -310,7 +310,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                 <div className="flex-1 flex items-center justify-center">
                                     <div className="lg:-rotate-90 lg:whitespace-nowrap">
                                         <span 
-                                            className="font-mono text-[10px] uppercase tracking-[0.25em] font-bold transition-colors flex items-center gap-2 text-dark/40 group-hover:text-[var(--accent)]"
+                                            className="font-mono text-[10px] uppercase tracking-[0.25em] font-bold transition-colors flex items-center gap-2 text-dark/60 group-hover:text-[var(--accent)]"
                                         >
                                             {service.title}
                                         </span>
@@ -320,7 +320,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                 {/* NUMBER: LEFT ON MOBILE, BOTTOM CENTER ON DESKTOP */}
                                 <div className="absolute left-6 top-1/2 -translate-y-1/2 lg:translate-y-0 lg:top-auto lg:left-0 lg:right-0 lg:bottom-6 text-left lg:text-center pointer-events-none">
                                     <span 
-                                        className="font-mono text-[10px] font-bold transition-colors text-dark/20 group-hover:text-[var(--accent)]"
+                                        className="font-mono text-[10px] font-bold transition-colors text-dark/50 group-hover:text-[var(--accent)]"
                                     >
                                         0{Number(service.id.replace('pillar', ''))}
                                     </span>
