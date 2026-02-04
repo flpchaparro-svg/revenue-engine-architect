@@ -1,5 +1,5 @@
 import React from 'react';
-import { Target, Zap, BarChart3, ArrowUpRight } from 'lucide-react';
+import { Target, TrendingUp, BarChart3, ArrowUpRight } from 'lucide-react';
 import CTAButton from './CTAButton';
 
 interface GlobalFooterProps {
@@ -32,7 +32,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
     },
     {
       title: 'SCALE FASTER',
-      icon: Zap,
+      icon: TrendingUp,
       color: 'text-gold-on-dark',
       links: [
         { label: 'AI Agents', action: () => onNavigate('pillar4') },

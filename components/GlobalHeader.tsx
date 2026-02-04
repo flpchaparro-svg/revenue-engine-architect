@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown, Target, Zap, BarChart3 } from 'lucide-react';
+import { Menu, X, ChevronDown, Target, TrendingUp, BarChart3 } from 'lucide-react';
 import CTAButton from './CTAButton';
 
 interface GlobalHeaderProps {
@@ -37,7 +37,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
     },
     { 
       system: 'SCALE FASTER', 
-      icon: Zap, 
+      icon: TrendingUp, 
       color: 'text-gold-on-cream', 
       hoverClass: 'hover:text-gold-on-cream',
       items: [

@@ -87,7 +87,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
                 <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-dark">THE SYSTEM</span>
               </m.div>
               <m.h1 variants={heroItem} className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-dark mb-6 md:mb-10 break-words">
-                How It All <span className="italic font-serif text-gold drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Connects.</span>
+                How It All <span className="italic font-serif text-gold-on-cream">Connects.</span>
               </m.h1>
               <m.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl border-l-2 border-gold pl-6 mb-8">
                 Every service works on its own. But they're built to connect. Depending on where you are in your business, you might need one piece, one group, or the full system.

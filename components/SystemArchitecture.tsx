@@ -91,7 +91,7 @@ export const SystemArchitecture: React.FC = () => {
         title="The Capture"
         subtitle="Loop."
         body="Right now, leads land in your inbox and sit there. You reply when you can. Sometimes that's too late. Here's how it should work. Someone fills out your form. They land in your CRM instantly. The system texts them within seconds. You get a reminder to call. Website catches. CRM holds. Automation chases. No more lost leads."
-        color={colors.redSolid}
+        color={colors.redText}
         align="left"
         visual={<VisualGetClientsEngine />} 
       />
@@ -102,7 +102,7 @@ export const SystemArchitecture: React.FC = () => {
         title="The"
         subtitle="Multiplier."
         body="Your marketing works. More calls come in. But you can't answer them all. Here's how it should work. Content brings people to you without posting every day. AI picks up, qualifies, and books the good ones. Training keeps your team using the tools properly. Content fills. AI handles. Training keeps everyone moving. You grow without burning out."
-        color={colors.gold}
+        color={colors.goldOnCream}
         align="right"
         visual={<VisualScaleFasterEngine />} 
       />
