@@ -42,8 +42,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       type: 'header', 
       id: 'HEADER_ACQ', 
       label: 'PHASE 01 / GET CLIENTS', 
-      title: 'The Capture Loop', 
-      body: "Website catches. CRM holds. Automation chases. A closed loop where no lead is left behind.", 
+      title: 'The Capture Loop.', 
+      body: "Right now, leads land in your inbox and sit there. You reply when you can. Sometimes that's too late. Here's how it should work. Someone fills out your form. They land in your CRM instantly. The system texts them within seconds. You get a reminder to call. Website catches. CRM holds. Automation chases. No more lost leads.", 
       accentColor: colors.redSolid,
       textColor: colors.redSolid,
       buttonText: 'VIEW SYSTEM',
@@ -59,8 +59,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       type: 'header', 
       id: 'HEADER_VEL', 
       label: 'PHASE 02 / SCALE FASTER', 
-      title: 'The Multiplier', 
-      body: "Content fills the funnel. AI handles the volume. Training aligns the team. You grow without burning out.", 
+      title: 'The Multiplier.', 
+      body: "Your marketing works. More calls come in. But you can't answer them all. Here's how it should work. Content brings people to you without posting every day. AI picks up, qualifies, and books the good ones. Training keeps your team using the tools properly. Content fills. AI handles. Training keeps everyone moving. You grow without burning out.", 
       accentColor: colors.gold,        
       textColor: colors.goldOnCream,   
       buttonText: 'VIEW SYSTEM',
@@ -74,8 +74,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       type: 'header', 
       id: 'HEADER_INT', 
       label: 'PHASE 03 / SEE CLEARLY', 
-      title: "The Feedback Loop", 
-      body: "One dashboard. Real-time data. You see what's working and fix what's broken before it costs you money.", 
+      title: "The Control Room.", 
+      body: "Right now, you find out about problems after the damage is done. Here's how it should work. Every part of your system feeds into one dashboard. Where did leads come from? Which ones converted? All on one screen. Updated live. You see what's working. You fix what's broken. Before it costs you money.", 
       accentColor: colors.dark,
       textColor: colors.dark,
       buttonText: 'VIEW SYSTEM',
@@ -151,8 +151,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                 relative overflow-hidden cursor-pointer transition-all duration-500 
                                 border-b lg:border-b-0 lg:border-r border-dark/10
                                 ${isHeaderActive 
-                                    ? 'lg:flex-[5] flex-[10] h-auto min-h-[400px]' // Active
-                                    : 'lg:flex-[0.8] flex-[1] min-h-[60px]' // Inactive
+                                    ? 'lg:flex-[5] flex-[10] h-auto min-h-[400px]' 
+                                    : 'lg:flex-[0.8] flex-[1] min-h-[60px]'
                                 }
                                 flex flex-col
                             `}
@@ -242,11 +242,11 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                             relative overflow-hidden cursor-pointer transition-colors duration-500 
                             border-b lg:border-b-0 lg:border-r border-dark/10
                             ${isActive 
-                                ? 'lg:flex-[12] flex-[12] h-auto min-h-[600px] lg:min-h-auto' // Active Mobile: h-auto to fit content
+                                ? 'lg:flex-[12] flex-[12] h-auto min-h-[600px] lg:min-h-auto' // Active
                                 : 'lg:flex-[0.6] flex-[1] min-h-[60px]' // Inactive
                             }
                             ${isActive ? 'bg-off-white' : 'bg-white hover:bg-cream-light'}
-                            flex flex-col lg:flex-row
+                            flex flex-col lg:flex-row group
                         `}
                     >
                         {isActive && (
@@ -254,13 +254,11 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                 initial={{ opacity: 0 }} 
                                 animate={{ opacity: 1 }} 
                                 transition={{ duration: 0.4, delay: 0.1 }}
-                                // MOBILE: Relative + Flex-Col (Stack) | DESKTOP: Absolute + Flex-Row
                                 className="relative lg:absolute inset-0 w-full h-full flex flex-col lg:flex-row"
                             >
-                                {/* LEFT: CONTENT (45%) */}
+                                {/* LEFT: CONTENT */}
                                 <motion.div 
                                     layout
-                                    // MOBILE: w-full, h-auto (grows with text) | DESKTOP: w-[45%], h-full
                                     className="w-full lg:w-[45%] h-auto lg:h-full p-8 lg:p-12 flex flex-col justify-between relative z-20 bg-white border-b lg:border-b-0 lg:border-r border-dark/5"
                                 >
                                     <div>
@@ -311,10 +309,9 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                     </div>
                                 </motion.div>
 
-                                {/* RIGHT: VISUALIZER (55%) */}
+                                {/* RIGHT: VISUALIZER */}
                                 <motion.div 
                                     layout
-                                    // MOBILE: w-full, fixed height 350px (Visual below text) | DESKTOP: w-[55%], h-full
                                     className="w-full lg:w-[55%] h-[350px] lg:h-full relative bg-gray-100 overflow-hidden border-l border-dark/5"
                                 >
                                     <div className="w-full h-full flex items-center justify-center">
@@ -326,15 +323,22 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
 
                         {!isActive && (
                             <div className="absolute inset-0 w-full h-full flex flex-row lg:flex-col items-center justify-center p-4">
+                                {/* DYNAMIC HOVER BACKGROUND (Faint) */}
                                 <div 
-                                    className="absolute bottom-0 left-0 w-1 lg:w-full h-full lg:h-1 bg-transparent transition-colors duration-300"
-                                    style={{ backgroundColor: hoveredId === service.id ? accentColor : 'transparent', opacity: 0.1 }}
+                                    className="absolute inset-0 transition-colors duration-300"
+                                    style={{ 
+                                        backgroundColor: hoveredId === service.id ? accentColor : 'transparent', 
+                                        opacity: hoveredId === service.id ? 0.05 : 0 
+                                    }}
                                 />
+                                
+                                {/* HOVER BAR INDICATOR */}
                                 <div 
                                     className="absolute bottom-0 left-0 w-1 lg:w-full h-full lg:h-1 transition-colors duration-300"
                                     style={{ backgroundColor: hoveredId === service.id ? accentColor : 'transparent' }} 
                                 />
                                 
+                                {/* TITLE */}
                                 <div className="flex-1 flex items-center justify-center">
                                     <div className="lg:-rotate-90 lg:whitespace-nowrap">
                                         <span 
@@ -346,7 +350,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                     </div>
                                 </div>
 
-                                <div className="absolute bottom-6 lg:left-0 lg:right-0 text-center">
+                                {/* NUMBER (MOBILE: Left, DESKTOP: Bottom) */}
+                                <div className="absolute left-6 top-1/2 -translate-y-1/2 lg:translate-y-0 lg:top-auto lg:left-0 lg:right-0 lg:bottom-6 text-left lg:text-center pointer-events-none">
                                     <span 
                                         className="font-mono text-[10px] font-bold transition-colors"
                                         style={{ color: hoveredId === service.id ? textColor : 'rgba(26,26,26,0.2)' }}

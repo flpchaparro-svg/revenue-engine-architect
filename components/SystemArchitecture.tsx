@@ -90,7 +90,7 @@ export const SystemArchitecture: React.FC = () => {
         phase="PHASE 01 / GET CLIENTS"
         title="The Capture"
         subtitle="Loop."
-        body="Right now, leads land in your inbox and sit there. You reply when you can. Sometimes that's too late. Here's how it should work. Someone fills out your form and lands in your CRM instantly. The system texts them within seconds. You get a reminder to call. If you forget, it reminds you again. Website catches. CRM holds. Automation chases. No more lost leads."
+        body="Right now, leads land in your inbox and sit there. You reply when you can. Sometimes that's too late. Here's how it should work. Someone fills out your form. They land in your CRM instantly. The system texts them within seconds. You get a reminder to call. Website catches. CRM holds. Automation chases. No more lost leads."
         color={colors.redSolid}
         align="left"
         visual={<VisualGetClientsEngine />} 
@@ -101,18 +101,18 @@ export const SystemArchitecture: React.FC = () => {
         phase="PHASE 02 / SCALE FASTER"
         title="The"
         subtitle="Multiplier."
-        body="Your marketing works. More calls come in. But you can't answer them all. Here's how it should work. Content brings people to your site without you posting every day. When they call, AI picks up, qualifies them, and books the good ones. Your team knows how to use it because I train them properly. Content fills. AI handles. Training keeps everyone moving. You grow without burning out."
+        body="Your marketing works. More calls come in. But you can't answer them all. Here's how it should work. Content brings people to you without posting every day. AI picks up, qualifies, and books the good ones. Training keeps your team using the tools properly. Content fills. AI handles. Training keeps everyone moving. You grow without burning out."
         color={colors.gold}
         align="right"
         visual={<VisualScaleFasterEngine />} 
       />
 
-      {/* PHASE 3: THE FEEDBACK LOOP */}
+      {/* PHASE 3: THE CONTROL ROOM */}
       <NarrativeSection 
         phase="PHASE 03 / SEE CLEARLY"
-        title="The Feedback"
-        subtitle="Loop."
-        body="Right now, you find out about problems after the damage is done. Here's how it should work. Every part of your system feeds into one dashboard. Where did leads come from? Which ones converted? Did follow up happen? All on one screen. Updated live. You see what's working. You fix what's broken. Before it costs you money."
+        title="The Control"
+        subtitle="Room."
+        body="Right now, you find out about problems after the damage is done. Here's how it should work. Every part of your system feeds into one dashboard. Where did leads come from? Which ones converted? All on one screen. Updated live. You see what's working. You fix what's broken. Before it costs you money."
         color={colors.dark}
         align="left"
         visual={<VisualSeeClearlyEngine />} 

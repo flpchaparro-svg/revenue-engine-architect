@@ -90,7 +90,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
                 How It All <span className="italic font-serif text-gold drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Connects.</span>
               </m.h1>
               <m.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl border-l-2 border-gold pl-6 mb-8">
-                Most consultants sell you a website. Or a CRM. Or some automation. Separate pieces that don't talk to each other. I build systems where everything connects. Your website feeds your CRM. Your CRM triggers your automation. Your dashboard shows you if it's working. One system. Not seven tools.
+                Every service works on its own. But they're built to connect. Depending on where you are in your business, you might need one piece, one group, or the full system.
               </m.p>
             </div>
             <m.div variants={heroItem} className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end -mt-16 md:mt-0">
@@ -112,10 +112,10 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
             / THE 3 SYSTEMS
           </span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-dark mb-6">
-            Three Systems. <span className="italic text-gold">One Flow.</span>
+            Where Are You Right Now?
           </h2>
           <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl mx-auto">
-            Every pillar belongs to one of three systems. Each system solves a different problem. But the magic is in how they connect.
+            Most businesses fit into one of three stages. Find yours.
           </p>
         </div>
       </section>
