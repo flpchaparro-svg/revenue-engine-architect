@@ -137,7 +137,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                 <button 
                   key={key}
                   onClick={() => setActiveTier(key as keyof typeof TIERS)}
-                  className={`py-6 px-4 text-center transition-all duration-300 relative group overflow-hidden flex flex-col justify-center min-h-[100px] ${
+                  className={`py-6 px-4 text-center transition-all duration-snap relative group overflow-hidden flex flex-col justify-center min-h-[100px] ${
                     activeTier === key ? 'bg-white' : 'hover:bg-white/50 text-black/60'
                   }`}
                 >
@@ -174,7 +174,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                       <button
                         key={p.id}
                         onClick={() => setActivePersonaIndex(idx)}
-                        className={`w-full text-left p-4 border rounded-sm transition-all duration-300 flex items-center gap-4 group ${
+                        className={`w-full text-left p-4 border rounded-sm transition-all duration-snap flex items-center gap-4 group ${
                            activePersonaIndex === idx ? 'bg-white border-dark shadow-md' : 'bg-transparent border-transparent hover:bg-white hover:border-black/5'
                         }`}
                       >
@@ -250,7 +250,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
               <div 
                 key={key} 
                 id={`tier-mobile-${key}`} 
-                className={`border rounded-sm overflow-hidden transition-all duration-300 ${isTierExpanded ? 'border-dark bg-white shadow-xl scale-[1.02] z-10' : 'border-black/10 bg-white'}`}
+                className={`border rounded-sm overflow-hidden transition-all duration-snap ${isTierExpanded ? 'border-dark bg-white shadow-xl scale-[1.02] z-10' : 'border-black/10 bg-white'}`}
               >
                 
                 {/* LEVEL 1: TIER HEADER */}
@@ -263,7 +263,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                         handleScrollTo(`tier-mobile-${key}`);
                     }
                   }}
-                  className={`w-full flex items-center justify-between p-6 text-left transition-colors duration-300 ${isTierExpanded ? 'bg-dark text-white' : 'bg-white text-black'}`}
+                  className={`w-full flex items-center justify-between p-6 text-left transition-colors duration-snap ${isTierExpanded ? 'bg-dark text-white' : 'bg-white text-black'}`}
                 >
                   <div>
                     <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${isTierExpanded ? 'text-white' : 'text-black/60'}`}>
@@ -271,7 +271,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                     </span>
                     <span className={`font-serif text-lg leading-tight ${isTierExpanded ? 'text-white' : 'text-black'}`}>"{tier.hook}"</span>
                   </div>
-                  <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isTierExpanded ? 'rotate-180 text-white' : 'text-black/60'}`} />
+                  <ChevronDown className={`w-5 h-5 transition-transform duration-snap ${isTierExpanded ? 'rotate-180 text-white' : 'text-black/60'}`} />
                 </button>
 
                 {/* LEVEL 1 CONTENT */}
@@ -298,7 +298,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                              <div 
                                 key={p.id} 
                                 id={`persona-mobile-${p.id}`} 
-                                className={`border rounded-sm overflow-hidden transition-all duration-300 ${isPersonaExpanded ? 'border-dark bg-white shadow-md' : 'border-black/5 bg-white'}`}
+                                className={`border rounded-sm overflow-hidden transition-all duration-snap ${isPersonaExpanded ? 'border-dark bg-white shadow-md' : 'border-black/5 bg-white'}`}
                              >
                                
                                {/* LEVEL 2: PERSONA HEADER */}

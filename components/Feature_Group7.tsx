@@ -116,7 +116,7 @@ const Feature_Group7: React.FC = () => {
           whileInView="scan"
           viewport={{ once: true, amount: 0.5 }}
           onClick={() => setIsModalOpen(true)}
-          className="w-full bg-dark border border-black/10 p-1 rounded-sm overflow-hidden relative cursor-pointer hover:border-gold/50 transition-colors duration-500 shadow-2xl"
+          className="w-full bg-dark border border-black/10 p-1 rounded-sm overflow-hidden relative cursor-pointer hover:border-gold/50 transition-colors duration-flow shadow-2xl"
         >
           
           {/* THE FORENSIC SCANNER OVERLAY */}
@@ -187,7 +187,7 @@ const Feature_Group7: React.FC = () => {
                   </div>
                   <div className="text-center">
                       {/* Type B: Card Tag */}
-                      <div className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-text mb-2">BEFORE</div>
+                      <div className="type-eyebrow text-red-text mb-2">BEFORE</div>
                       {/* Node A */}
                       <div className="font-serif text-white/70 text-2xl md:text-3xl tracking-tight mb-2">group7security.com</div>
                       {/* Type B: Card Tag */}
@@ -248,7 +248,7 @@ idle: { borderColor: colors.gray700, backgroundColor: 'rgba(0,0,0,0)' },
                   </m.div>
                   <div className="text-center">
                       <m.div 
-                        className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] mb-2"
+                        className="type-eyebrow mb-2"
                         variants={{
                           idle: { color: colors.gold },
                           scan: { color: colors.teal, transition: { delay: 1.2 } }
@@ -311,7 +311,7 @@ idle: { borderColor: colors.gray700, backgroundColor: 'rgba(0,0,0,0)' },
                          Case Study: Group 7 Security
                       </h3>
                       {/* Type B: Card Tag */}
-                      <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-dark/60 mt-1">
+                      <p className="type-eyebrow text-dark/60 mt-1">
                          WEBSITE + SEO OVERHAUL
                       </p>
                     </div>
@@ -336,7 +336,7 @@ idle: { borderColor: colors.gray700, backgroundColor: 'rgba(0,0,0,0)' },
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 p-8 md:p-12 bg-white border-t border-black/10">
                         <div>
                           {/* Type B: Card Tag - using span since this is a label, not a heading */}
-                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-text mb-3 block">
+                          <span className="type-eyebrow text-red-text mb-3 block">
                              THE PROBLEM
                           </span>
                           <p className="font-sans text-base md:text-lg text-dark/70 leading-relaxed">
@@ -345,7 +345,7 @@ idle: { borderColor: colors.gray700, backgroundColor: 'rgba(0,0,0,0)' },
                         </div>
                         <div>
                           {/* Type B: Card Tag - using span since this is a label, not a heading */}
-                          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-gold-on-cream mb-3 block">
+                          <span className="type-eyebrow text-gold-on-cream mb-3 block">
                              WHAT I DID
                           </span>
                           <p className="font-sans text-base md:text-lg text-dark/70 leading-relaxed">

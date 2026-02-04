@@ -180,7 +180,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
           <m.div className="flex items-center pr-0" style={{ x: xPercent, willChange: 'transform' }}>
             {[...TECH_STACK, ...TECH_STACK, ...TECH_STACK, ...TECH_STACK].map((tech, i) => (
               <div key={i} className="flex items-center group cursor-default">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-dark opacity-80 group-hover:text-gold-on-cream group-hover:opacity-100 transition-all duration-300 px-12">
+                <span className="type-eyebrow text-dark opacity-80 group-hover:text-gold-on-cream group-hover:opacity-100 transition-all duration-snap px-12">
                   {tech}
                 </span>
                 <span className="text-gold-muted font-mono text-[10px] font-bold">/</span>

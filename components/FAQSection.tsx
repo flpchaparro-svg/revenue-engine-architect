@@ -137,7 +137,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                     >
                       {/* Hover Wipe Effect */}
                       <div 
-                        className={`hidden lg:block absolute inset-0 transition-transform duration-500 origin-left ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
+                        className={`hidden lg:block absolute inset-0 transition-transform duration-flow origin-left ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`}
                         style={{ backgroundColor: accentColor }}
                       />
 
@@ -148,14 +148,14 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                            so it doesn't disappear against the Gold background.
                         */}
                         <span 
-                          className={`font-mono text-xs font-bold uppercase tracking-[0.2em] mt-1 shrink-0 transition-colors duration-300 ${isActive ? 'text-dark' : 'text-dark/60 lg:group-hover:!text-dark'}`}
+                          className={`font-mono text-xs font-bold uppercase tracking-[0.2em] mt-1 shrink-0 transition-colors duration-snap ${isActive ? 'text-dark' : 'text-dark/60 lg:group-hover:!text-dark'}`}
                           style={!isActive ? { color: accentColor } : {}}
                         >
                           {String(index + 1).padStart(2, '0')}.
                         </span>
                         
                         <span 
-                          className={`font-serif italic text-lg md:text-xl leading-tight tracking-tight transition-colors duration-300 ${isActive ? 'text-dark' : 'text-dark/80 lg:group-hover:text-dark'}`}
+                          className={`font-serif italic text-lg md:text-xl leading-tight tracking-tight transition-colors duration-snap ${isActive ? 'text-dark' : 'text-dark/80 lg:group-hover:text-dark'}`}
                         >
                           {faq.question}
                         </span>
@@ -164,7 +164,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
                       {/* Icon */}
                       <div className="relative z-10 text-dark pt-1">
                          <div className="hidden lg:block">
-                           <ArrowRight className={`w-5 h-5 transition-transform duration-300 ${isActive ? 'translate-x-0' : '-translate-x-2 group-hover:translate-x-0'}`} />
+                           <ArrowRight className={`w-5 h-5 transition-transform duration-snap ${isActive ? 'translate-x-0' : '-translate-x-2 group-hover:translate-x-0'}`} />
                          </div>
                          <div className="lg:hidden">
                             {isActive ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4 opacity-50" />}

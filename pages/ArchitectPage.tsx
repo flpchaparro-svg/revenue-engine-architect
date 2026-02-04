@@ -73,7 +73,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
            <div className="flex items-center gap-0 mb-12 border border-dark/10 bg-white p-1 rounded-sm w-fit shadow-lg mx-auto lg:mx-0">
               <button 
                 onClick={() => setMode('architect')}
-                className={`px-5 md:px-8 py-3.5 text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-sm flex items-center gap-2 ${
+                className={`px-5 md:px-8 py-3.5 text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-snap rounded-sm flex items-center gap-2 ${
                   mode === 'architect' ? 'text-cream bg-dark shadow-md' : 'text-dark/60'
                 }`}
               >
@@ -81,7 +81,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
               </button>
               <button 
                 onClick={() => setMode('human')}
-                className={`px-5 md:px-8 py-3.5 text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-300 rounded-sm flex items-center gap-2 ${
+                className={`px-5 md:px-8 py-3.5 text-xs font-mono uppercase tracking-[0.2em] font-bold transition-all duration-snap rounded-sm flex items-center gap-2 ${
                   mode === 'human' ? 'text-dark bg-gold shadow-md' : 'text-dark/60'
                 }`}
               >
@@ -105,7 +105,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
               <div className="sticky top-32">
                 <AnimatePresence mode="wait">
                   <m.div key={mode} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="relative w-full max-w-[400px] mx-auto lg:max-w-none">
-                    <div className={`aspect-[9/16] relative overflow-hidden transition-all duration-500 shadow-2xl ${
+                    <div className={`aspect-[9/16] relative overflow-hidden transition-all duration-flow shadow-2xl ${
                         mode === 'architect' ? 'rounded-sm border-2 border-dark' : 'rounded-t-full border-4 border-gold/20'
                     }`}>
                       

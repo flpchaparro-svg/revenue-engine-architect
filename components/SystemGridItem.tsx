@@ -55,7 +55,7 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
       layout
       ref={itemRef}
       onClick={handleToggle}
-      className={`relative ${spanClasses} ${bgClass} border transition-all duration-500 ease-in-out overflow-hidden group cursor-pointer`}
+      className={`relative ${spanClasses} ${bgClass} border transition-all duration-500 ease-luxury overflow-hidden group cursor-pointer`}
       style={{ 
           minHeight: isSelected ? 'auto' : '280px',
           ...borderStyle
@@ -84,10 +84,10 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
 
            <div className="relative z-10 mt-4">
               <pillar.icon 
-                className="w-6 h-6 md:w-8 md:h-8 mb-4 opacity-100 group-hover:scale-110 transition-all duration-300" 
+                className="w-6 h-6 md:w-8 md:h-8 mb-4 opacity-100 group-hover:scale-110 transition-all duration-snap" 
                 style={{ color: accentColor }}
               />
-              <h3 className="font-serif text-2xl md:text-3xl text-dark mb-2 leading-none tracking-tight group-hover:translate-x-1 transition-transform duration-300">
+              <h3 className="font-serif text-2xl md:text-3xl text-dark mb-2 leading-none tracking-tight group-hover:translate-x-1 transition-transform duration-snap">
                  {pillar.title}
               </h3>
               <p className="font-mono text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-bold mb-3 md:mb-4" style={{ color: `${accentColor}80` }}>
@@ -109,7 +109,7 @@ const GridItem: React.FC<GridItemProps> = ({ pillar, isSelected, selectedId, onT
                 style={{ backgroundColor: `${accentColor}10` }}
               >
                  <Plus 
-                    className="w-4 h-4 group-hover:rotate-90 transition-all duration-300" 
+                    className="w-4 h-4 group-hover:rotate-90 transition-all duration-snap" 
                     style={{ color: accentColor }}
                  />
               </div>

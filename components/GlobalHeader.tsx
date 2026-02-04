@@ -82,14 +82,14 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                 [FC)
               </div>
               <div className="hidden md:flex items-center h-4 text-dark">
-                 <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] whitespace-nowrap">
+                 <span className="type-eyebrow whitespace-nowrap">
                    Felipe
                  </span>
                  <div className="relative h-4 overflow-hidden ml-2 w-[120px]">
-                   <span className="absolute inset-0 font-mono text-[10px] font-bold uppercase tracking-[0.2em] flex items-center group-hover:-translate-y-full transition-transform duration-300 whitespace-nowrap">
+                   <span className="absolute inset-0 type-eyebrow flex items-center group-hover:-translate-y-full transition-transform duration-snap whitespace-nowrap">
                      Consultancy
                    </span>
-                   <span className="absolute inset-0 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-gold-on-cream flex items-center translate-y-full group-hover:translate-y-0 transition-transform duration-300 whitespace-nowrap">
+                   <span className="absolute inset-0 type-eyebrow text-gold-on-cream flex items-center translate-y-full group-hover:translate-y-0 transition-transform duration-snap whitespace-nowrap">
                      Home
                    </span>
                  </div>
@@ -136,12 +136,12 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
 
                      <button 
                        onClick={() => onNavigate(item.id)}
-                       className="relative z-10 flex items-center gap-3 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-dark whitespace-nowrap"
+                       className="relative z-10 flex items-center gap-3 type-eyebrow text-dark whitespace-nowrap"
                      >
-                       <span className={`w-1.5 h-1.5 rounded-full bg-gold transition-all duration-300 ${isActive ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`} />
+                       <span className={`w-1.5 h-1.5 rounded-full bg-gold transition-all duration-snap ${isActive ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`} />
                        {item.fullLabel}
                        {item.hasDropdown && (
-                         <ChevronDown className={`w-3 h-3 transition-transform duration-300 ${isArchHovered ? 'rotate-180' : ''}`} />
+                         <ChevronDown className={`w-3 h-3 transition-transform duration-snap ${isArchHovered ? 'rotate-180' : ''}`} />
                        )}
                      </button>
 
@@ -214,7 +214,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
              <button 
                onClick={() => onNavigate('homepage')} 
                aria-label="Go to Homepage"
-               className={`p-4 transition-all duration-300 border-b border-white/10 ${
+               className={`p-4 transition-all duration-snap border-b border-white/10 ${
                  currentView === 'homepage' 
                    ? 'bg-gold text-dark' 
                    : 'text-cream hover:bg-white/5'
@@ -230,7 +230,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                     <button 
                       key={item.id}
                       onClick={() => onNavigate(item.id)}
-                      className={`group relative h-24 w-full flex items-center justify-center transition-all duration-300 border-b border-white/5 ${
+                      className={`group relative h-24 w-full flex items-center justify-center transition-all duration-snap border-b border-white/5 ${
                         isActive 
                           ? 'bg-white/10 text-gold-on-cream' 
                           : 'text-cream/60 hover:text-cream hover:bg-white/5'
@@ -247,9 +247,9 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
 
              <button 
                onClick={() => onNavigate('contact')}
-               className="h-32 w-full bg-gold flex items-center justify-center hover:bg-white hover:text-dark transition-colors duration-300 group"
+               className="h-32 w-full bg-gold flex items-center justify-center hover:bg-white hover:text-dark transition-colors duration-snap group"
              >
-                <span className="block -rotate-90 whitespace-nowrap font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-dark">
+                <span className="block -rotate-90 whitespace-nowrap type-eyebrow text-dark">
                    [ TALK ]
                 </span>
              </button>
@@ -260,11 +260,11 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
       {/* =======================
           3. MOBILE NAVIGATION
       ======================== */}
-      <div className={`lg:hidden fixed top-0 w-full z-[310] h-20 flex items-center justify-end px-6 pointer-events-none transition-opacity duration-300 ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}>
+      <div className={`lg:hidden fixed top-0 w-full z-[310] h-20 flex items-center justify-end px-6 pointer-events-none transition-opacity duration-snap ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}>
          <div className="flex items-center gap-3 pointer-events-auto">
             <button 
               onClick={() => onNavigate('contact')}
-              className={`px-3 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] border border-dark bg-dark text-cream whitespace-nowrap ${scrolled ? 'shadow-lg' : ''}`}
+              className={`px-3 py-2 type-eyebrow border border-dark bg-dark text-cream whitespace-nowrap ${scrolled ? 'shadow-lg' : ''}`}
             >
               [ TALK ]
             </button>
@@ -326,7 +326,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                          aria-expanded={isMobileSystemOpen}
                          className="p-2 -mr-2 text-dark/60 hover:text-dark transition-colors"
                        >
-                         <ChevronDown className={`w-8 h-8 transition-transform duration-300 ${isMobileSystemOpen ? 'rotate-180' : ''}`} />
+                         <ChevronDown className={`w-8 h-8 transition-transform duration-snap ${isMobileSystemOpen ? 'rotate-180' : ''}`} />
                        </button>
                      )}
                    </div>

@@ -83,15 +83,15 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
              {PRINCIPLES.map((principle, idx) => (
-               <Section key={principle.id} delay={idx * 0.1} className="group bg-white p-8 md:p-12 border border-dark/5 hover:border-dark/20 shadow-sm hover:shadow-xl transition-all duration-500 rounded-sm relative overflow-hidden">
-                 <div className="absolute top-0 left-0 w-full h-1 bg-dark transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left will-change-transform" />
+               <Section key={principle.id} delay={idx * 0.1} className="group bg-white p-8 md:p-12 border border-dark/5 hover:border-dark/20 shadow-sm hover:shadow-xl transition-all duration-flow rounded-sm relative overflow-hidden">
+                 <div className="absolute top-0 left-0 w-full h-1 bg-dark transform scale-x-0 group-hover:scale-x-100 transition-transform duration-flow origin-left will-change-transform" />
                  <div className="flex justify-between items-start mb-8">
                     <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold text-dark/80 group-hover:text-dark transition-colors">
                       {principle.label}
                     </span>
                     <principle.icon className="w-6 h-6 text-dark/20 group-hover:text-gold-on-cream transition-colors" />
                  </div>
-                 <h3 className="font-serif text-2xl md:text-3xl text-dark mb-4 leading-tight tracking-tighter group-hover:translate-x-2 transition-transform duration-300">
+                 <h3 className="font-serif text-2xl md:text-3xl text-dark mb-4 leading-tight tracking-tighter group-hover:translate-x-2 transition-transform duration-snap">
                    {principle.title}
                  </h3>
                  <p className="font-sans text-lg font-light text-dark/70 leading-relaxed">
@@ -123,7 +123,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                <Section key={step.id} delay={idx * 0.1} className={`relative flex flex-col md:flex-row gap-4 md:gap-24 py-12 ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
                   {/* Icon Node */}
                   <div className="absolute left-0 md:left-[50%] top-12 -translate-x-1/2 md:-translate-x-1/2 z-10 bg-cream p-2">
-                     <div className={`w-10 h-10 rounded-full border-2 bg-white flex items-center justify-center shadow-md transition-transform duration-300 ${step.borderColor}`}>
+                     <div className={`w-10 h-10 rounded-full border-2 bg-white flex items-center justify-center shadow-md transition-transform duration-snap ${step.borderColor}`}>
                         <step.icon className={`w-4 h-4 ${step.color}`} />
                      </div>
                   </div>

@@ -55,7 +55,7 @@ const TheArchitect: React.FC = () => {
               {/* Technical Overlay */}
               <div className="absolute top-6 left-6 z-20">
                 {/* Type B: Card Tag */}
-                <div className={`font-mono text-[10px] font-bold uppercase tracking-[0.2em] flex items-center gap-3 transition-colors duration-500 ${mode === 'architect' ? 'text-white/80' : 'text-gold-on-cream'}`}>
+                <div className={`type-eyebrow flex items-center gap-3 transition-colors duration-flow ${mode === 'architect' ? 'text-white/80' : 'text-gold-on-cream'}`}>
                    <span className="w-1.5 h-1.5 rounded-full bg-red-solid animate-pulse" />
                    FELIPE CHAPARRO / SYDNEY
                 </div>
@@ -80,7 +80,7 @@ const TheArchitect: React.FC = () => {
               <div className="flex bg-dark/5 p-1.5 rounded-sm w-fit">
                 <button 
                   onClick={() => setMode('architect')}
-                  className={`relative px-8 py-3 font-mono text-xs uppercase tracking-[0.25em] font-bold transition-all duration-300 rounded-sm ${
+                  className={`relative px-8 py-3 font-mono text-xs uppercase tracking-[0.25em] font-bold transition-all duration-snap rounded-sm ${
                     mode === 'architect' 
                       ? 'bg-dark text-cream shadow-lg' 
                       : 'text-dark/70 hover:text-dark hover:bg-black/5'
@@ -91,7 +91,7 @@ const TheArchitect: React.FC = () => {
             
                 <button 
                   onClick={() => setMode('human')}
-                  className={`relative px-8 py-3 font-mono text-xs uppercase tracking-[0.25em] font-bold transition-all duration-300 rounded-sm ${
+                  className={`relative px-8 py-3 font-mono text-xs uppercase tracking-[0.25em] font-bold transition-all duration-snap rounded-sm ${
                     mode === 'human' 
                       ? 'bg-gold text-white shadow-lg' 
                       : 'text-dark/70 hover:text-dark hover:bg-black/5'
@@ -133,10 +133,10 @@ const TheArchitect: React.FC = () => {
                     <div className="flex items-center gap-8 mb-8">
                       <div>
                           {/* Type B: Card Tag */}
-                          <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-black/60 mb-1">
+                          <p className="type-eyebrow text-black/60 mb-1">
                              {mode === 'architect' ? 'THE ARCHITECT' : 'THE HUMAN'}
                           </p>
-                          <p className={`font-serif text-2xl transition-colors duration-500 ${mode === 'architect' ? 'text-dark' : 'text-gold-on-cream'}`}>
+                          <p className={`font-serif text-2xl transition-colors duration-flow ${mode === 'architect' ? 'text-dark' : 'text-gold-on-cream'}`}>
                              Felipe Chaparro
                           </p>
                       </div>
@@ -145,9 +145,9 @@ const TheArchitect: React.FC = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label="Visit Felipe Chaparro's LinkedIn Profile"
-                        className={`group/arrow flex items-center justify-center w-14 h-14 border transition-all duration-300 ${mode === 'architect' ? 'border-black/10 hover:bg-dark hover:text-white' : 'border-gold/30 hover:bg-gold hover:text-white'}`}
+                        className={`group/arrow flex items-center justify-center w-14 h-14 border transition-all duration-snap ${mode === 'architect' ? 'border-black/10 hover:bg-dark hover:text-white' : 'border-gold/30 hover:bg-gold hover:text-white'}`}
                       >
-                          <ArrowUpRight className="w-6 h-6 stroke-[1.5] group-hover/arrow:translate-x-1 group-hover/arrow:-translate-y-1 transition-transform duration-300 ease-out" />
+                          <ArrowUpRight className="w-6 h-6 stroke-[1.5] group-hover/arrow:translate-x-1 group-hover/arrow:-translate-y-1 transition-transform duration-snap ease-out" />
                       </a>
                     </div>
                  </div>

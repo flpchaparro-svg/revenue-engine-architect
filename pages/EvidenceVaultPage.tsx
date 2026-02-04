@@ -212,7 +212,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                 key={audit.id}
                 variants={itemVariants as any}
                 onClick={() => setIsModalOpen(true)}
-                className="bg-cream p-12 flex flex-col justify-between hover:bg-dark hover:text-cream transition-colors duration-500 group min-h-[550px] cursor-pointer"
+                className="bg-cream p-12 flex flex-col justify-between hover:bg-dark hover:text-cream transition-colors duration-flow group min-h-[550px] cursor-pointer"
               >
                 <div>
                   <div className="flex justify-between items-start mb-12">

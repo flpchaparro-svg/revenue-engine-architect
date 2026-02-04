@@ -51,7 +51,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
         <div className="hidden lg:block flex-none opacity-40">
            <div className="w-12 h-[1px] bg-gold mb-4" />
-           <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-dark">
+           <p className="type-eyebrow text-dark">
              DIRECT LINE OPEN
            </p>
         </div>

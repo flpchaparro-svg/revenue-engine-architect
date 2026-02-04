@@ -124,6 +124,11 @@
   .text-on-dark-gold {
     @apply text-gold-on-dark; /* #D4A84B - 8.1:1 contrast */
   }
+
+  /* Eyebrow label - section labels, nav hints, form labels */
+  .type-eyebrow {
+    @apply font-mono text-[10px] font-bold uppercase tracking-[0.2em];
+  }
   
   
   /* ============================================

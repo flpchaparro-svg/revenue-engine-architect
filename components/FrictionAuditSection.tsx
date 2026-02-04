@@ -114,7 +114,7 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
                     <span className="font-serif text-4xl md:text-5xl lg:text-6xl text-dark/10 italic font-bold">{data.id}</span>
                     <div className="h-px flex-1 bg-dark/20"></div>
                     {/* Type B: Card Tag - font-mono, font-bold, text-[10px], tracking-[0.2em] */}
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-text border border-red-solid/20 px-2 py-1">{data.label}</span>
+                    <span className="type-eyebrow text-red-text border border-red-solid/20 px-2 py-1">{data.label}</span>
                  </div>
                  <div>
                     {/* Pain point title: Standardized H3 -> H2 (Fixed Accessibility Hierarchy) */}
@@ -258,7 +258,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                            <span className="font-serif text-4xl md:text-5xl italic font-bold text-red-text">{data.id}</span>
                            <div className="w-8 h-px bg-red-solid/30"></div>
                            {/* Type B: Card Tag (inside mobile card) */}
-                           <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-text">
+                           <span className="type-eyebrow text-red-text">
                               {data.label}
                            </span>
                         </div>

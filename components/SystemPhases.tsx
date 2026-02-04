@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { LayoutGrid, Box } from 'lucide-react';
+import { Box } from 'lucide-react';
 import { SERVICES } from '../constants';
 import { colors } from '../constants/theme';
 import { ServiceDetail } from '../types';
@@ -143,7 +143,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                             layout
                             onClick={() => handleItemClick(item.id)}
                             className={`
-                                relative overflow-hidden cursor-pointer transition-all duration-500 
+                                relative overflow-hidden cursor-pointer transition-all duration-flow 
                                 border-b lg:border-b-0 lg:border-r border-dark/10
                                 ${isHeaderActive 
                                     ? 'lg:flex-[5] flex-[10] h-auto min-h-[400px]' 
@@ -166,12 +166,9 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                     className="p-8 lg:p-10 h-full flex flex-col justify-between"
                                 >
                                     <div>
-                                        <div className="flex items-center gap-3 mb-8 opacity-100">
-                                            <LayoutGrid className="w-4 h-4" style={{ color: item.accentColor }} />
-                                            <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: item.textColor }}>
-                                                {item.label}
-                                            </span>
-                                        </div>
+                                        <span className="type-eyebrow block mb-8" style={{ color: item.textColor }}>
+                                            {item.label}
+                                        </span>
                                         <h3 className="font-serif text-3xl md:text-5xl leading-[0.95] mb-6 tracking-tighter" style={{ color: item.textColor }}>
                                             {item.title}
                                         </h3>
@@ -225,7 +222,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         layout
                         onClick={() => handleItemClick(service.id)}
                         className={`
-                            relative overflow-hidden cursor-pointer transition-colors duration-500 
+                            relative overflow-hidden cursor-pointer transition-colors duration-flow 
                             border-b lg:border-b-0 lg:border-r border-dark/10
                             ${isActive 
                                 ? 'lg:flex-[12] flex-[12] h-auto min-h-[600px] lg:min-h-auto' 
@@ -302,10 +299,10 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                         {!isActive && (
                             <div className="absolute inset-0 w-full h-full flex flex-row lg:flex-col items-center justify-center p-4">
                                 {/* CSS-BASED HOVER BACKGROUND */}
-                                <div className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-10 bg-[var(--accent)] pointer-events-none" />
+                                <div className="absolute inset-0 transition-opacity duration-snap opacity-0 group-hover:opacity-10 bg-[var(--accent)] pointer-events-none" />
                                 
                                 {/* CSS-BASED HOVER BAR */}
-                                <div className="absolute bottom-0 left-0 w-1 lg:w-full h-full lg:h-1 transition-colors duration-300 bg-transparent group-hover:bg-[var(--accent)] pointer-events-none" />
+                                <div className="absolute bottom-0 left-0 w-1 lg:w-full h-full lg:h-1 transition-colors duration-snap bg-transparent group-hover:bg-[var(--accent)] pointer-events-none" />
                                 
                                 <div className="flex-1 flex items-center justify-center">
                                     <div className="lg:-rotate-90 lg:whitespace-nowrap">

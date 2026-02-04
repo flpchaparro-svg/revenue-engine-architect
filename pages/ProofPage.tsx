@@ -141,8 +141,8 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {PROBLEM_ITEMS.map((item, i) => (
-              <div key={i} className="group p-8 bg-white border border-red-solid/10 hover:border-red-solid hover:shadow-lg transition-all duration-300 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-1 h-full bg-red-solid transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300" />
+              <div key={i} className="group p-8 bg-white border border-red-solid/10 hover:border-red-solid hover:shadow-lg transition-all duration-snap relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-1 h-full bg-red-solid transform -translate-x-full group-hover:translate-x-0 transition-transform duration-snap" />
                 <div className="flex justify-between items-start mb-6">
                   <div className="p-3 bg-red-solid/5 rounded-sm">
                     <item.icon className="w-6 h-6 text-red-solid" />
@@ -183,8 +183,8 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           <div className="relative border-l border-gold/20 ml-4 md:ml-8 space-y-12 pb-12">
             {SOLUTION_ITEMS.map((item, i) => (
               <div key={i} className="relative pl-8 md:pl-16 group">
-                <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-white border-2 border-gold z-10 group-hover:scale-125 transition-transform duration-300" />
-                <div className="bg-white p-8 border border-black/5 hover:border-gold/50 shadow-sm hover:shadow-xl transition-all duration-300 rounded-sm">
+                <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-white border-2 border-gold z-10 group-hover:scale-125 transition-transform duration-snap" />
+                <div className="bg-white p-8 border border-black/5 hover:border-gold/50 shadow-sm hover:shadow-xl transition-all duration-snap rounded-sm">
                   <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 mb-6">
                     <div className="w-12 h-12 bg-gold/10 flex items-center justify-center rounded-sm">
                       <item.icon className="w-6 h-6 text-gold-on-cream" />
@@ -219,12 +219,12 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {EVIDENCE_METRICS.map((m, i) => (
-              <div key={i} className="bg-white p-8 border border-dark/5 hover:border-gold transition-all duration-300 group shadow-sm flex flex-col justify-between min-h-[280px] h-auto">
+              <div key={i} className="bg-white p-8 border border-dark/5 hover:border-gold transition-all duration-snap group shadow-sm flex flex-col justify-between min-h-[280px] h-auto">
                 <div className="flex justify-between items-start">
                   <div className="p-3 bg-zinc-50 rounded-full group-hover:bg-gold/10 transition-colors">
                     <m.icon className="w-5 h-5 text-dark group-hover:text-gold-on-cream transition-colors" />
                   </div>
-                  <ArrowRight className="w-4 h-4 text-dark/20 group-hover:-rotate-45 transition-transform duration-300" />
+                  <ArrowRight className="w-4 h-4 text-dark/20 group-hover:-rotate-45 transition-transform duration-snap" />
                 </div>
                 <div className="mt-auto">
                   <div className="font-mono text-xs font-bold text-dark/80 uppercase tracking-[0.2em] mb-3">{m.label}</div>
