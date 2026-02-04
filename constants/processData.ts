@@ -24,7 +24,7 @@ export const STEPS = [
     title: 'Find the Leaks',
     text: "I don't guess. I look for the repetitive tasks burning your team. Where data gets typed twice. Where leads go cold. Where profit disappears.",
     icon: Search,
-    color: 'text-red-solid',
+    color: 'text-red-text',
     borderColor: 'border-red-solid'
   },
   {

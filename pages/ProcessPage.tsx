@@ -73,7 +73,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
         {/* SECTION: PHILOSOPHY CARDS */}
         <div className="mb-24 md:mb-40">
           <Section className="mb-16 text-center lg:text-left">
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-red-solid mb-6 block">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-red-text mb-6 block">
               / OPERATING SYSTEM
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-dark mb-6">

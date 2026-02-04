@@ -8,11 +8,13 @@
  * =============================================================================
  *
  * --- RED (accent for GET CLIENTS / Phase 01) ---
- *   • Headlines & titles (e.g. "The Capture Loop", hero emphasis):
+ *   • Small text / labels on cream (readable, 4.5:1 contrast):
+ *     → redText   (#9A1730)  Tailwind: text-red-text
+ *   • Headlines & decorative (dots, icons, borders):
  *     → redSolid  (#E21E3F)  Tailwind: text-red-solid
  *   • On black/dark background (nav, footer, dark cards):
  *     → redOnDark (#FF6B6B)  Tailwind: text-red-on-dark
- *   • Do NOT use "red" (#9A1730) for UI — it's a darker maroon, kept for legacy only.
+ *   Rule: If humans READ it → text-red-text. If decorative → text-red-solid.
  *
  * --- GOLD (accent for SCALE FASTER / Phase 02, and general highlight) ---
  *   • Headlines & titles on cream/light (e.g. "The Multiplier", "One Flow."):
@@ -45,9 +47,10 @@ export const colors = {
   white: '#FFFFFF',
   dark: '#1a1a1a',
 
-  // Red: use redSolid for titles/accents; redOnDark on black
+  // Red: redText for readable text on cream; redSolid for decorative; redOnDark on black
   red: '#9A1730',
   redSolid: '#E21E3F',
+  redText: '#9A1730', // Accessible red for text on cream (4.5:1 contrast)
   redOnDark: '#FF6B6B',
 
   // Gold: use gold for titles; goldOnCream for labels on cream; goldOnDark on black

@@ -88,24 +88,24 @@ const ProblemSection: React.FC = () => {
             
           {/* 01: THE PROBLEM */}
           <div className="col-span-1 md:col-span-2 p-8 md:p-12 lg:p-16 border-r border-b border-dark/10 flex flex-col justify-center min-h-[300px] md:min-h-[400px] transition-colors duration-300 hover:bg-dark/5 group">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-solid mb-6 md:mb-10 block">01 / THE PROBLEM</span>
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-text mb-6 md:mb-10 block">01 / THE PROBLEM</span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] text-dark tracking-tighter">
               You didn't start your business to become an <br className="hidden md:block" />
-              <span className="italic text-dark/80 group-hover:text-red-solid transition-colors duration-300">administrative hostage.</span>
+              <span className="italic text-dark/80 group-hover:text-red-text transition-colors duration-300">administrative hostage.</span>
             </h2>
           </div>
 
           {/* GRAPH CONTAINER */}
           <div className="col-span-1 border-r border-b border-dark/10 bg-transparent flex items-center justify-center p-8">
             {/* FIX 3: Suspense Wrapper - Keeps layout intact but loads graph later */}
-            <Suspense fallback={<div className="w-full h-full min-h-[300px] flex items-center justify-center font-mono text-xs text-red-solid/30 tracking-widest">LOADING DATA...</div>}>
+            <Suspense fallback={<div className="w-full h-full min-h-[300px] flex items-center justify-center font-mono text-xs text-red-text/30 tracking-widest">LOADING DATA...</div>}>
                <GrowthGraph currentState={graphState} />
             </Suspense>
           </div>
 
           {/* 02: SYMPTOMS */}
           <div className="col-span-1 p-8 md:p-12 border-r border-b border-dark/10 min-h-[300px] md:min-h-[400px] flex flex-col">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-solid mb-6 md:mb-8 block">02 / SYMPTOMS</span>
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-text mb-6 md:mb-8 block">02 / SYMPTOMS</span>
             <ul className="space-y-6">
               <li onMouseEnter={() => handleGraphHover('bottleneck')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-dark/5 transition-colors duration-200">
                 <XCircle className="w-5 h-5 text-red-solid shrink-0 mt-1 pointer-events-none" />
@@ -134,10 +134,10 @@ const ProblemSection: React.FC = () => {
           {/* 03: THE COST */}
           <div onMouseEnter={() => handleGraphHover('cost')} onMouseLeave={handleGraphLeave} className="col-span-1 p-8 md:p-12 border-r border-b border-dark/10 bg-red-solid/5 min-h-[250px] md:min-h-[400px] hover:bg-red-solid/10 transition-colors duration-300 relative overflow-hidden group flex flex-col justify-center">
             <div className="absolute inset-0 bg-red-solid/0 group-hover:bg-red-solid/10 transition-colors duration-500" />
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-solid mb-6 block relative z-10">03 / THE COST</span>
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-red-text mb-6 block relative z-10">03 / THE COST</span>
             <div className="space-y-4 relative z-10">
-              <div className="font-mono text-3xl md:text-4xl font-bold text-red-solid uppercase tracking-tighter">BURNING YOUR BEST PEOPLE</div>
-              <p className="font-mono text-sm md:text-base text-red-solid/80 leading-relaxed uppercase tracking-[0.15em] font-medium max-w-xs">
+              <div className="font-mono text-3xl md:text-4xl font-bold text-red-text uppercase tracking-tighter">BURNING YOUR BEST PEOPLE</div>
+              <p className="font-mono text-sm md:text-base text-red-text/80 leading-relaxed uppercase tracking-[0.15em] font-medium max-w-xs">
                 You're paying skilled staff to do unskilled work. They get bored. They leave. You start again.
               </p>
             </div>

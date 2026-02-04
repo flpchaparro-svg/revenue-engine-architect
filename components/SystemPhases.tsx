@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import * as LucideIcons from 'lucide-react';
+import { LayoutGrid, Box } from 'lucide-react';
 import { SERVICES } from '../constants';
 import { colors } from '../constants/theme';
 import { ServiceDetail } from '../types';
@@ -44,7 +44,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       title: 'The Capture Loop', 
       body: "Website catches. CRM holds. Automation chases. A closed loop where no lead is left behind.", 
       accentColor: colors.redSolid,
-      textColor: colors.redSolid,
+      textColor: colors.redText,
       buttonText: 'VIEW SYSTEM',
       targetPillarId: 'system'
     },
@@ -82,11 +82,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
     },
   ];
 
-  const getIcon = (iconName: string) => {
-    // @ts-ignore
-    const Icon = LucideIcons[iconName] || LucideIcons.Box;
-    return Icon;
-  };
+  // SERVICES don't include icon names; use Box as default for service cards
+  const getIcon = (_iconName?: string) => Box;
 
   const handleServiceClick = (service: ServiceDetail) => {
     if (onNavigate) onNavigate(service.id);
@@ -170,7 +167,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                 >
                                     <div>
                                         <div className="flex items-center gap-3 mb-8 opacity-100">
-                                            <LucideIcons.LayoutGrid className="w-4 h-4" style={{ color: item.accentColor }} />
+                                            <LayoutGrid className="w-4 h-4" style={{ color: item.accentColor }} />
                                             <span className="font-mono text-[10px] uppercase tracking-[0.2em] font-bold" style={{ color: item.textColor }}>
                                                 {item.label}
                                             </span>
@@ -210,7 +207,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                 const Icon = getIcon(service.icon);
                 
                 let accentColor: string = colors.redSolid; 
-                let textColor: string = colors.redSolid;
+                let textColor: string = colors.redText;
 
                 if (sysGroup === 'SCALE FASTER') {
                     accentColor = colors.gold;

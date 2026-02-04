@@ -83,7 +83,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                </div>
 
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-dark mb-6 md:mb-10">
-                 CRM & <span className="italic font-serif text-red-solid drop-shadow-[0_0_20px_rgba(226,30,63,0.2)]">Lead Tracking.</span>
+                 CRM & <span className="italic font-serif text-red-text drop-shadow-[0_0_20px_rgba(226,30,63,0.2)]">Lead Tracking.</span>
                </h1>
 
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl border-l-2 border-red-solid pl-6 mb-8">
@@ -111,11 +111,11 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
       <section className="w-full px-6 md:px-12 lg:px-20 pt-24 pb-32 max-w-[1400px] mx-auto border-t border-dark/10">
 
         <div className="mb-16">
-           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-red-solid mb-4 block">
+           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-red-text mb-4 block">
               / SYSTEM CONFIGURATION
            </span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-dark leading-[0.95] tracking-tighter mb-6">
-             Select your <span className="italic text-red-solid font-serif">Situation.</span>
+             Select your <span className="italic text-red-text font-serif">Situation.</span>
            </h2>
            <div className="font-sans text-lg md:text-xl text-dark/70 leading-relaxed max-w-3xl space-y-4">
              <p>
@@ -136,7 +136,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                     activeTier === key ? 'bg-white' : 'hover:bg-white/50 text-black/40'
                   }`}
                 >
-                  <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-2 ${activeTier === key ? 'text-red-solid' : 'text-inherit'}`}>
+                  <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-2 ${activeTier === key ? 'text-red-text' : 'text-inherit'}`}>
                     {tier.label}
                   </span>
                   <span className={`font-serif text-lg leading-tight ${activeTier === key ? 'text-black' : 'text-inherit opacity-60'}`}>
@@ -171,7 +171,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                            activePersonaIndex === idx ? 'bg-white border-red-solid shadow-md' : 'bg-transparent border-transparent hover:bg-white hover:border-black/5'
                         }`}
                       >
-                         <div className={`p-2 rounded-full ${activePersonaIndex === idx ? 'bg-red-solid/10 text-red-solid' : 'bg-black/5 text-black/40'}`}>
+                         <div className={`p-2 rounded-full ${activePersonaIndex === idx ? 'bg-red-solid/10 text-red-text' : 'bg-black/5 text-black/40'}`}>
                            <p.icon className="w-4 h-4" />
                          </div>
                          <div>
@@ -204,7 +204,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                        className="flex-grow flex flex-col"
                     >
                        <div className="mb-10">
-                          <span className="text-red-solid font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">The Problem</span>
+                          <span className="text-red-text font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">The Problem</span>
                           <h2 className="font-serif text-3xl md:text-4xl mb-6 text-dark leading-tight">{currentPersona.painTitle}</h2>
                           <p className="font-sans text-xl text-dark/70 leading-relaxed border-l-2 border-red-solid pl-6 italic">"{currentPersona.painText}"</p>
                        </div>
@@ -213,7 +213,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                           <div className="absolute top-0 right-0 w-48 h-48 bg-red-solid/10 rounded-full blur-3xl" />
                           <div className="relative z-10 flex gap-8">
                              <div className="flex-grow">
-                                <span className="font-mono text-[9px] text-red-solid uppercase tracking-widest block mb-4 font-bold">The Fix</span>
+                                <span className="font-mono text-[9px] text-red-text uppercase tracking-widest block mb-4 font-bold">The Fix</span>
                                 <p className="font-sans text-lg leading-relaxed mb-8">{currentPersona.solution}</p>
                                 
                                 <div className="w-fit">
@@ -253,7 +253,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                   className={`w-full flex items-center justify-between p-6 text-left transition-colors duration-300 ${isTierExpanded ? 'bg-dark text-white' : 'bg-white text-black'}`}
                 >
                   <div>
-                    <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${isTierExpanded ? 'text-red-solid' : 'text-black/60'}`}>
+                    <span className={`font-mono text-[10px] uppercase tracking-widest font-bold block mb-1 ${isTierExpanded ? 'text-red-text' : 'text-black/60'}`}>
                       {tier.label}
                     </span>
                     <span className={`font-serif text-lg leading-tight ${isTierExpanded ? 'text-white' : 'text-black'}`}>"{tier.hook}"</span>
@@ -270,7 +270,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                       <div className="p-4 space-y-2">
                          <div className="mb-6 p-4 bg-white border border-black/5 rounded-sm">
                             <p className="font-sans text-sm text-black/70 leading-relaxed">
-                               <strong className="text-red-solid block mb-1 font-bold uppercase text-[9px] tracking-widest">Is this you?</strong>
+                               <strong className="text-red-text block mb-1 font-bold uppercase text-[9px] tracking-widest">Is this you?</strong>
                                {tier.summary}
                             </p>
                          </div>
@@ -297,7 +297,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                      <p.icon className="w-4 h-4" />
                                   </div>
                                   <div className="flex-grow">
-                                     <h3 className={`font-serif text-lg leading-tight ${isPersonaExpanded ? 'text-red-solid' : 'text-black/70'}`}>{p.title}</h3>
+                                     <h3 className={`font-serif text-lg leading-tight ${isPersonaExpanded ? 'text-red-text' : 'text-black/70'}`}>{p.title}</h3>
                                      <span className="text-[10px] text-black/40 block mt-1 line-clamp-1">{p.examples}</span>
                                   </div>
                                   <ChevronDown className={`w-4 h-4 transition-transform ${isPersonaExpanded ? 'rotate-180 text-red-solid' : 'text-black/20'}`} />
@@ -311,14 +311,14 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                    >
                                       <div className="p-6">
                                          <div className="mb-6">
-                                            <span className="text-red-solid font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Problem</span>
+                                            <span className="text-red-text font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Problem</span>
                                             <h5 className="font-serif text-2xl mb-2 text-dark">{p.painTitle}</h5>
                                             <p className="font-sans text-base text-dark/70 leading-relaxed italic border-l-2 border-red-solid pl-4">"{p.painText}"</p>
                                          </div>
 
                                          <div className="bg-dark p-6 text-white rounded-sm mb-6 relative overflow-hidden">
                                             <div className="absolute top-0 right-0 w-24 h-24 bg-red-solid/20 rounded-full blur-2xl" />
-                                            <span className="font-mono text-[9px] text-red-solid uppercase tracking-widest block mb-3 font-bold relative z-10">The Fix</span>
+                                            <span className="font-mono text-[9px] text-red-text uppercase tracking-widest block mb-3 font-bold relative z-10">The Fix</span>
                                             <p className="font-sans text-base leading-relaxed mb-6 relative z-10">{p.solution}</p>
                                             
                                             <div className="w-full flex justify-center py-4 bg-transparent relative z-10">

@@ -331,7 +331,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                       <div className="p-6">
                                          {/* Pain */}
                                          <div className="mb-6">
-                                            <span className="text-red-solid font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Problem</span>
+                                            <span className="text-red-text font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Problem</span>
                                             <h5 className="font-serif text-2xl mb-2 text-dark">{p.painTitle}</h5>
                                             <p className="font-sans text-base text-dark/70 leading-relaxed italic border-l-2 border-red-solid pl-4">"{p.painText}"</p>
                                          </div>

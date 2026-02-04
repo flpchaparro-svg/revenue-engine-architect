@@ -51,6 +51,7 @@ export default {
         white: '#FFFFFF',
         red: '#9A1730',
         'red-solid': '#E21E3F',
+        'red-text': '#9A1730', // Accessible red for text on cream (4.5:1 contrast)
         'red-on-dark': '#FF6B6B',
         gold: '#C5A059',
         'gold-on-cream': '#8B6914',

@@ -35,7 +35,7 @@ const ScrambleTitle: React.FC = () => {
   }, []);
 
   return (
-    <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-red-solid">
+    <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-red-text">
       [ <span aria-hidden="true">{text}</span> ]
       <span className="sr-only">REVENUE ENGINE ARCHITECT</span>
     </span>

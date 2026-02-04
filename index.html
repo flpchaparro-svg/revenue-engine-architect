@@ -119,8 +119,18 @@
       </section>
     </div>
     <script type="module" src="/src/index.tsx"></script>
-    <!-- Start of HubSpot Embed Code -->
-<script type="text/javascript" id="hs-script-loader" async defer src="//js-ap1.hs-scripts.com/442493227.js"></script>
-<!-- End of HubSpot Embed Code -->
+    <!-- HubSpot - Delayed load to not block initial render -->
+    <script>
+      // Load HubSpot after page is interactive (3 second delay)
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          var script = document.createElement('script');
+          script.src = '//js-ap1.hs-scripts.com/442493227.js';
+          script.id = 'hs-script-loader';
+          script.async = true;
+          document.body.appendChild(script);
+        }, 3000);
+      });
+    </script>
   </body>
 </html>

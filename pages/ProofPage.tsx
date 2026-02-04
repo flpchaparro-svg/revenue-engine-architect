@@ -127,15 +127,15 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
         {/* THE PROBLEM */}
         <Section className="mb-20 md:mb-32">
           <div className="mb-12">
-            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-red-solid mb-6 block">
+            <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-red-text mb-6 block">
               / THE PROBLEM
             </span>
             <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-dark mb-8">
-              The Old <span className="italic font-serif text-red-solid">Site.</span>
+              The Old <span className="italic font-serif text-red-text">Site.</span>
             </h2>
             <div className="inline-flex items-center gap-3 px-4 py-2 bg-red-solid/5 border border-red-solid/20 rounded-sm">
                <span className="font-sans text-sm md:text-base font-medium text-dark/80">group7security.com</span>
-               <span className="font-mono text-xs text-red-solid uppercase tracking-[0.2em] font-bold">DECOMMISSIONED</span>
+               <span className="font-mono text-xs text-red-text uppercase tracking-[0.2em] font-bold">DECOMMISSIONED</span>
             </div>
           </div>
 
@@ -147,17 +147,17 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                   <div className="p-3 bg-red-solid/5 rounded-sm">
                     <item.icon className="w-6 h-6 text-red-solid" />
                   </div>
-                  <span className="font-mono text-xs font-bold text-red-solid/60 uppercase tracking-[0.2em] border border-red-solid/20 px-2 py-1 rounded-sm">
+                  <span className="font-mono text-xs font-bold text-red-text/60 uppercase tracking-[0.2em] border border-red-solid/20 px-2 py-1 rounded-sm">
                     CRITICAL ERROR
                   </span>
                 </div>
                 <div className="mb-6">
                   <div className="font-mono text-xs font-bold text-dark/80 uppercase tracking-[0.2em] mb-1">{item.label}</div>
-                  <div className="text-4xl font-serif text-red-solid mb-4">{item.metric}</div>
+                  <div className="text-4xl font-serif text-red-text mb-4">{item.metric}</div>
                   <p className="font-sans text-base text-dark/70 leading-relaxed mb-4">{item.desc}</p>
                 </div>
                 <div className="pt-4 border-t border-red-solid/10 flex items-center gap-2">
-                  <span className="text-red-solid text-xs font-bold uppercase tracking-wide">Impact:</span>
+                  <span className="text-red-text text-xs font-bold uppercase tracking-wide">Impact:</span>
                   <span className="text-sm font-medium text-dark">{item.impact}</span>
                 </div>
               </div>
@@ -270,7 +270,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
           </div>
           <div className="mt-8 grid grid-cols-2 gap-8 text-center">
             <div className="border-t border-red-500/20 pt-4">
-              <span className="font-mono text-xs font-bold text-red-solid uppercase tracking-[0.2em] block mb-2">LEGACY</span>
+              <span className="font-mono text-xs font-bold text-red-text uppercase tracking-[0.2em] block mb-2">LEGACY</span>
               <p className="font-sans text-sm text-dark/50">Slow. Generic. Invisible.</p>
             </div>
             <div className="border-t border-gold/20 pt-4">

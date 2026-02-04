@@ -27,8 +27,8 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
     { 
       system: 'GET CLIENTS', 
       icon: Target, 
-      color: 'text-red-solid', 
-      hoverClass: 'hover:text-red-solid',
+      color: 'text-red-text', 
+      hoverClass: 'hover:text-red-text',
       items: [
         { id: 'pillar1', name: '01 / Websites & E-commerce' },
         { id: 'pillar2', name: '02 / CRM & Lead Tracking' },
