@@ -1,0 +1,10 @@
+# Not Found (404) Page — Copy
+
+## Heading
+- `Page Not Found`
+
+## Body
+- `The page you are looking for does not exist. It might have been moved, deleted, or you may have typed the address incorrectly.`
+
+## Action
+- Button: `Go Back Home`
