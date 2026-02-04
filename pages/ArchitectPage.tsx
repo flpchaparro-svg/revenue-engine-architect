@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { Terminal, Fingerprint } from 'lucide-react';
 
@@ -33,6 +33,27 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
   usePageTitle('The Architect');
   const [mode, setMode] = useState<'architect' | 'human'>('architect');
   const current = ARCHITECT_CONTENT[mode];
+
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const CUT_OFF_TIME = mode === 'human' ? 0.8 : 0.7;
+
+  const handleTimeUpdate = () => {
+    const video = videoRef.current;
+    if (video && video.duration) {
+      if (video.currentTime >= video.duration - CUT_OFF_TIME) {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+      }
+    }
+  };
+
+  const handleEnded = () => {
+    const video = videoRef.current;
+    if (video) {
+      video.currentTime = 0;
+      video.play().catch(() => {});
+    }
+  };
 
   return (
     <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="min-h-screen bg-cream text-dark relative z-[150] flex flex-col selection:bg-gold/30">
@@ -92,6 +113,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                       {/* scale-[1.15] zooms in slightly to crop out the VEO watermark */}
                       {/* aria-hidden & role="presentation" for decorative video with no speech */}
                       <video
+                        ref={videoRef}
                         key={mode}
                         className="w-full h-full object-cover contrast-110 scale-[1.15]"
                         autoPlay
@@ -100,6 +122,8 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
                         playsInline
                         preload="metadata"
                         poster={mode === 'architect' ? "/images/revenue-engine-system-architecture-strategy.webp" : "/images/felipe-chaparro-business-consultant-profile.webp"}
+                        onTimeUpdate={handleTimeUpdate}
+                        onEnded={handleEnded}
                         aria-hidden="true"
                         role="presentation"
                       >
