@@ -320,7 +320,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
                                 {/* NUMBER: LEFT ON MOBILE, BOTTOM CENTER ON DESKTOP */}
                                 <div className="absolute left-6 top-1/2 -translate-y-1/2 lg:translate-y-0 lg:top-auto lg:left-0 lg:right-0 lg:bottom-6 text-left lg:text-center pointer-events-none">
                                     <span 
-                                        className="font-mono text-[10px] font-bold transition-colors text-dark/50 group-hover:text-[var(--accent)]"
+                                        className="font-mono text-[10px] font-bold transition-colors text-dark/70 group-hover:text-[var(--accent)]"
                                     >
                                         0{Number(service.id.replace('pillar', ''))}
                                     </span>
