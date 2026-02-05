@@ -84,7 +84,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
               </span>
               <div className="flex gap-2">
                  <div className="w-2 h-2 rounded-full bg-red-solid" title="High Friction (Before)" />
-                 <ArrowRight className="w-3 h-3 text-white/60" />
+                 <ArrowRight className="w-3 h-3 text-white/70" />
                  <div className="w-2 h-2 rounded-full bg-gold" title="High Performance (After)" />
               </div>
             </div>

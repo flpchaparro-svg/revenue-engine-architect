@@ -135,11 +135,7 @@
      TYPOGRAPHY SYSTEM
      ============================================ */
   
-  /* 1. EYEBROWS */
-  .type-eyebrow {
-    @apply font-mono text-xs font-bold uppercase tracking-[0.2em];
-  }
-
+  /* 1. EYEBROWS — single definition (text-[10px] per DESIGN_GUIDELINES.md) */
   /* 2. HEADINGS */
   
   /* H1: HERO ONLY */

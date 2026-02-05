@@ -69,9 +69,9 @@ const CTAButton: React.FC<CTAButtonProps> = ({
   // ============================================
   // VARIANT: SOLID (Fixed for Responsive)
   // ============================================
-  const initialBg = isLightTheme ? 'bg-dark' : 'bg-gold';
+  const initialBg = isLightTheme ? 'bg-dark' : 'bg-gold-on-dark';
   const initialText = isLightTheme ? 'text-cream' : 'text-dark';
-  const initialBorder = isLightTheme ? 'border-dark' : 'border-gold';
+  const initialBorder = isLightTheme ? 'border-dark' : 'border-gold-on-dark';
   const hoverBg = isLightTheme ? 'bg-gold' : 'bg-cream';
   const solidSize = size === 'sm' ? 'px-6 py-3 text-[10px]' : 'px-8 py-4 text-xs';
 

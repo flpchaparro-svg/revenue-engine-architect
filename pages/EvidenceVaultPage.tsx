@@ -229,7 +229,7 @@ const EvidenceVaultPage: React.FC<EvidenceVaultPageProps> = ({ onBack }) => {
                 
                 <div className="pt-8 border-t border-black/5 group-hover:border-white/10 transition-colors">
                    {/* FIX: Changed to span for proper heading hierarchy */}
-                   <span className="font-mono text-[10px] uppercase tracking-widest text-black/60 group-hover:text-white/60 mb-4 block">Verified Metrics:</span>
+                   <span className="font-mono text-[10px] uppercase tracking-widest text-black/60 group-hover:text-white/70 mb-4 block">Verified Metrics:</span>
                    <ul className="space-y-2">
                      {audit.metrics.map((m, i) => (
                        <li key={i} className="flex items-center gap-3">
