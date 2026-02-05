@@ -206,13 +206,13 @@ const HeroVisual: React.FC = () => {
           ctx.moveTo(p1.x, p1.y);
           ctx.lineTo(p2.x, p2.y);
         }
-        ctx.globalAlpha = lineOp * (isMobile ? 0.19 : 0.15); 
+        ctx.globalAlpha = lineOp * (isMobileOrTablet ? 0.177 : 0.15); 
         ctx.stroke();
       }
 
       projected.sort((a, b) => a.z - b.z); 
-      const baseOpacity = isMobileOrTablet ? 0.33 : 0.414; 
-      const opacityRange = isMobileOrTablet ? 0.22 : 0.279; 
+      const baseOpacity = isMobileOrTablet ? 0.28 : 0.414; 
+      const opacityRange = isMobileOrTablet ? 0.19 : 0.279; 
       for (let i = 0; i < projected.length; i++) {
         const p = projected[i];
         const scale = 1 + (p.z * 0.3);
