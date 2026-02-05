@@ -208,8 +208,8 @@ const HeroVisual: React.FC = () => {
       }
 
       projected.sort((a, b) => a.z - b.z); 
-      const baseOpacity = isMobile ? 0.48 : 0.6; 
-      const opacityRange = isMobile ? 0.32 : 0.4; 
+      const baseOpacity = isMobile ? 0.432 : 0.54; 
+      const opacityRange = isMobile ? 0.288 : 0.36; 
       for (let i = 0; i < projected.length; i++) {
         const p = projected[i];
         const scale = 1 + (p.z * 0.3);
