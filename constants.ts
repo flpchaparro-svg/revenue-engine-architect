@@ -10,7 +10,7 @@ export const SERVICES: ServiceDetail[] = [
     symptom: 'Are you losing leads in spreadsheets?',
     description: 'Most websites just sit there. Yours should be catching leads while you sleep. I build sites that capture enquiries, process sales, and feed your CRM automatically.',
     smallCardBody: 'Most websites just sit there. Yours should be catching leads while you sleep. I build sites that capture enquiries, process sales, and feed your CRM automatically.',
-    features: ['Smart Lead Forms', 'Inventory Connected to Sales', 'Fast, Mobile-First Design'],
+    features: ['Smart Lead Forms', 'Inventory Synced to Sales', 'Fast, Mobile-First Design'],
     visualPrompt: 'geometric',
   },
   {

@@ -17,4 +17,4 @@
 ## FAQ
 - Title: `Questions about AI?`
 - Subtitle: `Common questions about privacy, accuracy, and replacing humans.`
-- Q&A: See `constants/faqData.ts` — `pillarFAQs.pillar4`
+- Q&A: **Full copy in `copy/faq-pillar4.md`** · Data: `constants/faqData.ts` → `pillarFAQs.pillar4`

@@ -17,4 +17,4 @@
 ## FAQ
 - Title: `Questions about automation?`
 - Subtitle: `Common questions about workflows and bots.`
-- Q&A: See `constants/faqData.ts` — `pillarFAQs.pillar3`
+- Q&A: **Full copy in `copy/faq-pillar3.md`** · Data: `constants/faqData.ts` → `pillarFAQs.pillar3`

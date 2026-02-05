@@ -202,7 +202,7 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                        className="flex-grow flex flex-col"
                     >
                        <div className="mb-10">
-                          <span className="text-gold-on-cream font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">The Pain</span>
+                          <span className="text-gold-on-cream font-mono text-[9px] uppercase tracking-widest font-bold mb-3 block">The Problem</span>
                           <h2 className="font-serif text-3xl md:text-4xl mb-6 text-dark leading-tight">{currentPersona.painTitle}</h2>
                           <p className="font-sans text-xl text-dark/70 leading-relaxed border-l-2 border-gold pl-6 italic">"{currentPersona.painText}"</p>
                        </div>
@@ -309,7 +309,7 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                    >
                                       <div className="p-6">
                                          <div className="mb-6">
-                                            <span className="text-gold-on-cream font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Pain</span>
+                                            <span className="text-gold-on-cream font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Problem</span>
                                             <h5 className="font-serif text-2xl mb-2 text-dark">{p.painTitle}</h5>
                                             <p className="font-sans text-base text-dark/70 leading-relaxed italic border-l-2 border-gold pl-4">"{p.painText}"</p>
                                          </div>

@@ -30,7 +30,7 @@
 
 ## The Architect
 - THE ARCHITECT: Headline `One person. Ten person output.` — Body: `Automation and AI let me deliver what agencies charge a team for.`
-- THE HUMAN: Headline `I've run businesses. Not just consulted them.` — Body: `No theory. Just what actually works.`
+- THE HUMAN: Headline `I've run businesses. Not just advised them.` — Body: `No theory. Just what actually works.`
 
 ## Booking CTA
 - Eyebrow: `Now Accepting Projects`

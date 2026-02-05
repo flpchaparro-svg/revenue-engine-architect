@@ -17,4 +17,4 @@
 ## FAQ
 - Title: `Questions about CRM?`
 - Subtitle: `Common questions about sales pipelines and lead tracking.`
-- Q&A: See `constants/faqData.ts` — `pillarFAQs.pillar2`
+- Q&A: **Full copy in `copy/faq-pillar2.md`** · Data: `constants/faqData.ts` → `pillarFAQs.pillar2`

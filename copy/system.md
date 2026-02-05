@@ -25,3 +25,4 @@
 ## FAQ
 - Title: `Questions?`
 - Subtitle: `Common questions about how this works.`
+- Q&A: **Full copy in `copy/faq-system.md`** · Data: `constants/faqData.ts` → `systemPageFAQs`

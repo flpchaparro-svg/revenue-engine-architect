@@ -17,4 +17,4 @@
 ## FAQ
 - Title: `Questions about dashboards?`
 - Subtitle: `Common questions about dashboards and reporting.`
-- Q&A: See `constants/faqData.ts` — `pillarFAQs.pillar7`
+- Q&A: **Full copy in `copy/faq-pillar7.md`** · Data: `constants/faqData.ts` → `pillarFAQs.pillar7`

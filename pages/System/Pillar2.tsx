@@ -366,7 +366,7 @@ const Pillar2: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
         faqs={pillarFAQs}
         accentColor={colors.goldOnCream}
         title="Questions about CRM?"
-        subtitle="Common questions about sales pipelines and automation."
+        subtitle="Common questions about sales pipelines and lead tracking."
         onNavigate={onNavigate}
       />
     </m.div>

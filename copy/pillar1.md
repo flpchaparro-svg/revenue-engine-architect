@@ -55,4 +55,4 @@
 ## FAQ
 - Title: `Questions about websites?`
 - Subtitle: `Common questions about websites and e-commerce.`
-- Q&A: See `constants/faqData.ts` — `pillarFAQs.pillar1`
+- Q&A: **Full copy in `copy/faq-pillar1.md`** · Data: `constants/faqData.ts` → `pillarFAQs.pillar1`

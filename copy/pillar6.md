@@ -17,4 +17,4 @@
 ## FAQ
 - Title: `Questions about training?`
 - Subtitle: `Common questions about team training and adoption.`
-- Q&A: See `constants/faqData.ts` — `pillarFAQs.pillar6`
+- Q&A: **Full copy in `copy/faq-pillar6.md`** · Data: `constants/faqData.ts` → `pillarFAQs.pillar6`

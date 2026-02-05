@@ -17,4 +17,4 @@
 ## FAQ
 - Title: `Questions about content?`
 - Subtitle: `Common questions about video, SEO, and content scaling.`
-- Q&A: See `constants/faqData.ts` — `pillarFAQs.pillar5`
+- Q&A: **Full copy in `copy/faq-pillar5.md`** · Data: `constants/faqData.ts` → `pillarFAQs.pillar5`

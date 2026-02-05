@@ -9,7 +9,7 @@ export const AUDIT_DATA = [
     title: 'Leads Go Cold',
     metric: 'HOURS, NOT MINUTES',
     label: 'REVENUE LEAK',
-    description: "Someone fills out your contact form. You see it the next day. By then, they've already called your competitor. Speed wins jobs, and you're too slow.",
+    description: "Someone fills out your contact form. You see it the next day. By then, they've called your competitor. Speed wins jobs. You're too slow.",
     type: 'data'
   },
   {

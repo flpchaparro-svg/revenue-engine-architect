@@ -42,7 +42,7 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     body: 'Your CRM is the memory.',
     systemPurpose: 'Stop losing leads.',
     subServices: [
-      { title: 'How it connects', description: 'Your CRM is the memory. Everything your website catches lands here. Move a deal forward and automation knows. Win a job and invoices get sent. Something stalls and you get reminded.' },
+      { title: 'How it connects', description: 'Your CRM is the memory. Everything your website catches lands here. When you move a deal forward, automation knows. When you win a job, invoices get sent. When something stalls, you get reminded.' },
       { title: 'What this unlocks', description: 'Your AI assistant can read the CRM before a call and know who\'s ringing. Your dashboard can show pipeline and forecast. Nothing lives in your head anymore.' }
     ]
   },
@@ -69,10 +69,10 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     subtitleMobile: 'AI Bots',
     categoryHex: colors.gold,
     categoryLabel: 'SCALE FASTER',
-    body: 'AI handles the overflow.',
+    body: 'AI handles overflow.',
     systemPurpose: 'Do more without hiring more.',
     subServices: [
-      { title: 'How it connects', description: 'AI handles the overflow. When your content brings traffic and your website captures leads, AI picks up the phone. It reads your CRM to know who\'s calling. After the call, it updates the record. You never touched it.' },
+      { title: 'How it connects', description: 'AI handles overflow. When your content brings traffic and your website captures leads, AI picks up the phone. It reads your CRM to know who\'s calling. After the call, it updates the record. You never touched it.' },
       { title: 'What this unlocks', description: 'You double your lead volume without hiring. Your CRM stays updated without your team doing data entry. Nights and weekends are covered.' }
     ]
   },

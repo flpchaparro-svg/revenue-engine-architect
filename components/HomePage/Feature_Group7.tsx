@@ -340,7 +340,7 @@ idle: { borderColor: colors.gray700, backgroundColor: 'rgba(0,0,0,0)' },
                              THE PROBLEM
                           </span>
                           <p className="font-sans text-base md:text-lg text-dark/70 leading-relaxed">
-                            They had a slow <strong>.com</strong> website with no local SEO. Google thought they were a global tech company, not a Sydney security firm. Local customers couldn't find them.
+                            Slow .com website with no local SEO. Google thought they were a global tech company, not a Sydney security firm. Local customers couldn't find them.
                           </p>
                         </div>
                         <div>
@@ -349,7 +349,7 @@ idle: { borderColor: colors.gray700, backgroundColor: 'rgba(0,0,0,0)' },
                              WHAT I DID
                           </span>
                           <p className="font-sans text-base md:text-lg text-dark/70 leading-relaxed">
-                            I migrated them to <strong>.com.au</strong> and rebuilt the site from scratch. Fast, mobile-first, with proper Sydney location tags so Google knows exactly where they operate.
+                            Migrated to .com.au. Rebuilt from scratch. Fast, mobile-first, with Sydney location tags so Google knows exactly where they operate.
                           </p>
                         </div>
                         <div>
@@ -358,7 +358,7 @@ idle: { borderColor: colors.gray700, backgroundColor: 'rgba(0,0,0,0)' },
                              THE RESULT
                           </span>
                           <p className="font-sans text-base md:text-lg text-dark/70 leading-relaxed">
-                            Page load dropped from <strong>4.2s to 0.4s</strong>. Local search rankings improved. The site now converts visitors instead of losing them.
+                            Page load dropped from <strong>4.2s to 0.4s</strong>. Local rankings improved. The site now converts visitors instead of losing them.
                           </p>
                         </div>
                     </div>
