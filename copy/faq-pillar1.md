@@ -7,47 +7,47 @@ Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar1`.
 
 ## 1. What's the difference between your website tiers?
 
-It comes down to what you need and how long it takes:
+It comes down to speed and need. You pick based on your deadline.
 
-• Starter (7 days): A simple site that captures leads. For tradies and local service businesses.
-• E-commerce (14 days): An online store with inventory, payments, and shipping.
-• Professional (21 days): A fast, secure site for high-ticket services.
-• Flagship (30+ days): Custom builds with 3D, animation, and special features.
+• Starter (7 days): Captures leads. Simple. For tradies and local service businesses.
+• E-commerce (14 days): Inventory. Payments. Shipping. The full store.
+• Professional (21 days): Fast. Secure. Built for high-ticket services.
+• Flagship (30+ days): Custom builds. 3D features. Animation.
 
-I'll help you pick the right one. I don't upsell.
+I help you choose. I never upsell.
 
 ---
 
 ## 2. Will my website work properly on mobile?
 
-Yes — and not as an afterthought. I design mobile-first because that's where most of your visitors are (often 70%+).
+Yes. I design for phones first.
 
-Your site will load fast, look good, and work properly on phones. If someone fills out a form on their phone at 11pm, it works.
+Most visitors are on mobile. Often 70% or more. So we start there. Your site will load fast. It will look good. If someone fills out a form at 11pm on an iPhone, it works.
 
 ---
 
 ## 3. Do you handle SEO?
 
-I build with SEO foundations baked in — fast loading, proper structure, local business tags, mobile-friendly.
+I build the foundation. Fast loading. Proper structure. Local tags.
 
-I don't do ongoing SEO campaigns (content writing, link building, monthly reporting). But if you need that, I can recommend specialists who do it properly.
+I do not do ongoing campaigns. No monthly link building or blog writing. I build the race car. You drive it. If you need a driver, I can introduce you to a specialist.
 
 ---
 
 ## 4. Can my website connect to Xero / MYOB?
 
-Yes. That's one of the most valuable integrations I build.
+Yes. This integration saves massive amounts of time.
 
-When someone buys from your site, the order can flow directly into your accounting system — no re-typing, no manual invoices. For e-commerce especially, this saves hours every week.
+Someone buys from your site. The order flows straight into your accounting system. No re-typing. No manual invoices. It just happens.
 
 ---
 
 ## 5. Do you use WordPress, Shopify, or something else?
 
-It depends on your needs:
+I use the right tool for the job.
 
-• WordPress: Great for service businesses and content-heavy sites
-• Shopify: Best for e-commerce with inventory and payments
-• Custom builds: For high-performance or special requirements
+• WordPress: Best for service businesses.
+• Shopify: Best for selling products.
+• Custom builds: Best for high performance.
 
-I recommend what fits your business, not what pays me the most.
+I recommend what fits your business. Not what pays me a commission.

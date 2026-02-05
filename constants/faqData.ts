@@ -26,113 +26,108 @@ export const systemPageFAQs: FAQ[] = [
   {
     id: 'need-all-pillars',
     question: 'Do I need all 7 pillars?',
-    answer: `No. Most businesses start with one or two.
+    answer: `No. Most start with one or two.
 
-Each pillar works on its own. You pick what you need now and add more later if it makes sense. Think of it like renovating a house. You don't redo everything at once. Start where the pain is worst.`
+Each pillar works alone. You pick what you need. Add more later. Think of it like a renovation. You don't redo the whole house at once. Start with the pain.`
   },
   {
     id: 'which-pillar-first',
     question: 'Which pillar should I start with?',
-    answer: `Depends on where you're losing time or money:
+    answer: `Start where you lose money.
 
-- Losing leads? Pillar 01 (Website) or Pillar 02 (CRM)
-- Drowning in admin? Pillar 03 (Automation)
-- Missing calls after hours? Pillar 04 (AI Assistants)
-- No time for marketing? Pillar 05 (Content)
-- Team not using your tools? Pillar 06 (Training)
-- Flying blind on numbers? Pillar 07 (Dashboards)
+- Losing leads? Fix the Website or CRM.
+- Drowning in admin? Automation.
+- Missing calls? AI Assistants.
+- No time for marketing? Content.
+- Team confused? Training.
+- Flying blind? Dashboards.
 
-Not sure? Book a call and I'll help you figure it out.`
+If you aren't sure, book a call. We will figure it out.`
   },
   {
     id: 'combine-services',
     question: 'Can I combine services into one project?',
-    answer: `Yes, and it's often smarter to do so.
+    answer: `Yes. It is often smarter.
 
-If you need a website and a CRM, building them together means they're connected from day one. No awkward integration later. I'll tell you honestly if combining makes sense or if you should do one first.`
+Building a website and CRM together makes sense. They connect from day one. No awkward integration later. I will tell you if combining helps or hurts.`
   },
   {
     id: 'project-timeline',
     question: 'How long does a project take?',
-    answer: `Most projects are delivered in sprints:
+    answer: `I work in sprints.
 
-- Quick wins: 3 to 7 days (lead forms, basic automations)
-- Core builds: 7 to 14 days (websites, CRM setup, AI bots)
-- Complex projects: 21 to 30+ days (multi-system integration)
+- Quick wins: 3 to 7 days.
+- Core builds: 7 to 14 days.
+- Complex projects: 21 to 30+ days.
 
-I don't do 6-month projects that drain your budget before you see results. You'll see progress in weeks, not quarters.`
+I don't do 6-month projects. You see results in weeks. Not quarters.`
   },
   {
     id: 'pricing',
     question: 'How much does this cost?',
-    answer: `Every project is different, so I don't list prices.
+    answer: `I don't list prices because every project varies.
 
-What I can tell you: I work in fixed-price sprints. You know the cost before we start, and it doesn't change mid-project. Book a call, tell me what you need, and I'll give you a straight answer.`
+But I work in fixed-price sprints. You know the cost before we start. It doesn't change. Book a call. Tell me what you need. I'll give you a number.`
   },
   {
     id: 'after-project',
     question: 'Do I own the systems you build?',
-    answer: `You own everything. I hand over:
+    answer: `You own everything.
 
-- Full access to all systems
-- Training videos so your team knows how to use it
-- Documentation for future reference
-
-I'm not trying to lock you in. If you want ongoing support, we can arrange that. If you want to run it yourself, you'll be fully equipped.`
+I hand over access. I hand over training. I hand over docs. I don't lock you in. You will be fully equipped to run it yourself.`
   },
   {
     id: 'burned-before',
     question: "I've been burned by tech projects before. How is this different?",
-    answer: `I get it. Most tech projects fail because the scope creeps, the team doesn't use the new system, or you get locked into a vendor who disappears.
+    answer: `Most projects fail because of scope creep. Or the vendor disappears.
 
-Here's how I work differently:
-
-- Fixed sprints: Scope and price are locked
-- Adoption built-in: I don't leave until your team actually uses it
-- You own everything: No lock-in, no surprise fees`
+I work differently.
+- Fixed sprints. Price is locked.
+- Adoption is built-in. I stay until you use it.
+- No lock-in. You own it.`
   },
   {
     id: 'small-test',
     question: 'Can we start with a small test project?',
     answer: `Absolutely. I recommend it.
 
-Start with something contained: a lead capture form, a simple automation, a quick dashboard. See how I work and whether the results are real. If it works, we do more. If it doesn't, you've risked very little.`
+Start small. A lead form. A simple bot. See how I work. Verify the results. If it works, we do more. If not, you risked very little.`
   },
   {
     id: 'how-systems-connect',
     question: 'How do the 3 systems work together?',
-    answer: `Think of it as a flow:
+    answer: `It is a flow.
 
-- GET CLIENTS (Pillars 1 to 3): Brings people in and captures their details
-- SCALE FASTER (Pillars 4 to 6): Multiplies your output without multiplying your hours
-- SEE CLEARLY (Pillar 7): Shows you what's working and what's not
+- GET CLIENTS: Brings people in.
+- SCALE FASTER: Multiplies output.
+- SEE CLEARLY: Shows what works.
 
-You don't need all three to start. But when they're connected, leads flow in, work gets done automatically, and you see the results in real time.`
+You don't need all three to start. But when they connect, work gets done automatically.`
   },
   {
     id: 'existing-systems',
     question: 'What if I already have a CRM or website?',
     answer: `I work with what you have.
 
-If your current CRM is fine but you need automation on top of it, I build that. If your website is decent but not capturing leads properly, I fix the forms and tracking. I'm not trying to replace everything. I fix what's broken.`
+If your CRM is good, we keep it. I just add automation. If your website works, I just fix the tracking. I fix what is broken. I don't replace what works.`
   },
   {
     id: 'how-involved',
     question: 'How involved do I need to be?',
-    answer: `For the initial setup: a few focused sessions where I learn your business, your workflow, and your pain points.
+    answer: `At the start, I need you. I need to learn your business.
 
-After that: as involved as you want to be. Some clients want weekly check-ins. Others just want me to build it and hand it over. Both work.`
+After that, it is up to you. Weekly check-ins? Fine. Just want it done? Also fine.`
   },
   {
     id: 'after-project-done',
     question: 'What happens after the project is done?',
-    answer: `Three options:
+    answer: `Three options.
 
-1. You run it yourself (I give you training and docs)
-2. Monthly support retainer (I monitor, maintain, and improve)
-3. Call me when something breaks (ad-hoc support)
+1. You run it yourself.
+2. Monthly support.
+3. Ad-hoc support.
 
-Most clients start with option 1 and move to option 2 once they see the value of ongoing optimisation.`
+Most clients start with option 1. Many move to option 2 when they see the value.`
   }
 ];
 
@@ -153,46 +148,46 @@ export const pillarFAQs = {
     {
       id: 'p1-tiers',
       question: "What's the difference between your website tiers?",
-      answer: `It comes down to what you need and how long it takes:
+      answer: `It comes down to speed and need. You pick based on your deadline.
 
-• Starter (7 days): A simple site that captures leads. For tradies and local service businesses.
-• E-commerce (14 days): An online store with inventory, payments, and shipping.
-• Professional (21 days): A fast, secure site for high-ticket services.
-• Flagship (30+ days): Custom builds with 3D, animation, and special features.
+• Starter (7 days): Captures leads. Simple. For tradies and local service businesses.
+• E-commerce (14 days): Inventory. Payments. Shipping. The full store.
+• Professional (21 days): Fast. Secure. Built for high-ticket services.
+• Flagship (30+ days): Custom builds. 3D features. Animation.
 
-I'll help you pick the right one. I don't upsell.`
+I help you choose. I never upsell.`
     },
     {
       id: 'p1-mobile',
       question: 'Will my website work properly on mobile?',
-      answer: `Yes — and not as an afterthought. I design mobile-first because that's where most of your visitors are (often 70%+).
+      answer: `Yes. I design for phones first.
 
-Your site will load fast, look good, and work properly on phones. If someone fills out a form on their phone at 11pm, it works.`
+Most visitors are on mobile. Often 70% or more. So we start there. Your site will load fast. It will look good. If someone fills out a form at 11pm on an iPhone, it works.`
     },
     {
       id: 'p1-seo',
       question: 'Do you handle SEO?',
-      answer: `I build with SEO foundations baked in — fast loading, proper structure, local business tags, mobile-friendly.
+      answer: `I build the foundation. Fast loading. Proper structure. Local tags.
 
-I don't do ongoing SEO campaigns (content writing, link building, monthly reporting). But if you need that, I can recommend specialists who do it properly.`
+I do not do ongoing campaigns. No monthly link building or blog writing. I build the race car. You drive it. If you need a driver, I can introduce you to a specialist.`
     },
     {
       id: 'p1-accounting',
       question: 'Can my website connect to Xero / MYOB?',
-      answer: `Yes. That's one of the most valuable integrations I build.
+      answer: `Yes. This integration saves massive amounts of time.
 
-When someone buys from your site, the order can flow directly into your accounting system — no re-typing, no manual invoices. For e-commerce especially, this saves hours every week.`
+Someone buys from your site. The order flows straight into your accounting system. No re-typing. No manual invoices. It just happens.`
     },
     {
       id: 'p1-platform',
       question: 'Do you use WordPress, Shopify, or something else?',
-      answer: `It depends on your needs:
+      answer: `I use the right tool for the job.
 
-• WordPress: Great for service businesses and content-heavy sites
-• Shopify: Best for e-commerce with inventory and payments
-• Custom builds: For high-performance or special requirements
+• WordPress: Best for service businesses.
+• Shopify: Best for selling products.
+• Custom builds: Best for high performance.
 
-I recommend what fits your business, not what pays me the most.`
+I recommend what fits your business. Not what pays me a commission.`
     }
   ],
 
@@ -204,39 +199,39 @@ I recommend what fits your business, not what pays me the most.`
     {
       id: 'p2-team-hated',
       question: "My team hated our last CRM. What's different?",
-      answer: `Most CRM setups fail because they add MORE work instead of removing it.
+      answer: `Most CRMs fail because they create work. I design systems that remove it.
 
-I design systems where data enters automatically (from forms, emails, calls) so your team isn't typing things twice. When the CRM saves them time instead of costing it, they actually use it.
+Data enters automatically. From forms. From emails. From calls. Your team won't type things twice. When the system saves them time, they use it.
 
-Plus, I include training. Your team will know exactly what to do — no guessing.`
+And I include training. Everyone will know what to do. No guessing.`
     },
     {
       id: 'p2-xero',
       question: 'Can you connect the CRM to Xero / MYOB?',
-      answer: `Yes. That's one of the most common automations I build.
+      answer: `Yes. It is a standard automation.
 
-When a deal closes in your CRM, it can automatically create an invoice in Xero — no re-typing names, amounts, or details. One source of truth, no double-entry.`
+A deal closes in your CRM. The system creates an invoice in Xero. No re-typing names. No error. One source of truth.`
     },
     {
       id: 'p2-which-crm',
       question: 'Which CRM do you recommend?',
-      answer: `I'm tool-agnostic, but my go-to is usually HubSpot for small-to-medium businesses. It's powerful, has a free tier, and integrates with almost everything.
+      answer: `I use what works. Usually HubSpot for small-to-medium businesses.
 
-For larger or more complex needs, we might look at Salesforce, Pipedrive, or industry-specific tools. I'll recommend what fits your situation, not what pays me the biggest commission.`
+It is powerful. It has a free tier. It integrates with everything. For complex needs, we might look at Pipedrive or Salesforce. I recommend the best fit for you.`
     },
     {
       id: 'p2-staff-leaves',
       question: 'What happens to our data if a staff member quits?',
-      answer: `This is exactly why CRM matters. If leads live in someone's personal notebook or email, they leave when that person does.
+      answer: `This is why you need a CRM.
 
-With a proper CRM, every lead, every conversation, every deal is logged in the system. Staff come and go — your data stays.`
+If leads live in a notebook or personal email, they leave when the person leaves. With a proper system, every lead is logged. Staff come and go. Your data stays.`
     },
     {
       id: 'p2-migration',
       question: 'Can you migrate my existing contacts from spreadsheets?',
-      answer: `Yes. Data migration is part of the setup.
+      answer: `Yes. Migration is part of the deal.
 
-I'll help you consolidate contacts from wherever they live — spreadsheets, old systems, email exports — and clean them up before importing. You start with a tidy database, not a mess.`
+I help you consolidate contacts. We pull them from spreadsheets or old systems. We clean them up. Then we import. You start with a tidy database.`
     }
   ],
 
@@ -248,52 +243,48 @@ I'll help you consolidate contacts from wherever they live — spreadsheets, old
     {
       id: 'p3-what-automate',
       question: 'What kinds of things can you actually automate?',
-      answer: `Anything repetitive. Common examples:
+      answer: `Anything repetitive.
 
-• Sending follow-up emails after an enquiry
-• Creating invoices when a job is marked complete
-• Notifying your team when a high-value lead comes in
-• Syncing data between systems (CRM → accounting → project management)
-• Sending appointment reminders via SMS
-• Generating quotes from form submissions
+• Sending follow-up emails.
+• Creating invoices.
+• Notifying your team of new leads.
+• Syncing data between systems.
+• SMS reminders.
 
-If you're doing the same task more than 5 times a week, it's probably automatable.`
+If you do it more than 5 times a week, a bot should do it.`
     },
     {
       id: 'p3-breaks',
       question: 'What happens if the automation breaks?',
-      answer: `It can — which is why I build with monitoring and alerts.
+      answer: `It can happen. So I build with monitoring.
 
-If something fails (like an API connection drops), you'll know immediately. Most issues are quick fixes. And because you own the system, you can hire anyone to maintain it — including me if you want ongoing support.`
+If a connection drops, I get an alert. We fix it immediately. You own the system. You can hire anyone to maintain it. Or I can handle it.`
     },
     {
       id: 'p3-what-first',
       question: 'How do I know which task to automate first?',
-      answer: `We start with the highest-impact, lowest-risk automation:
+      answer: `We look for high impact and low risk.
 
-• High impact: Saves the most time or prevents the most errors
-• Low risk: Won't break critical business processes if something goes wrong
-
-Usually that's something like auto-replies to enquiries, invoice generation, or data sync between two systems. Quick wins build confidence.`
+High impact saves time. Low risk means your business won't stop if the bot pauses. We usually start with auto-replies or invoice generation. Quick wins build confidence.`
     },
     {
       id: 'p3-robotic-emails',
       question: 'Will automated emails sound generic and robotic?',
-      answer: `Not if they're written properly. I write email sequences that sound like a human wrote them — because the content comes from you, I just automate the delivery.
+      answer: `Only if you write like a robot.
 
-We can personalise based on name, company, what page they visited, how they enquired. The recipient won't know it was automated.`
+The content comes from you. I just automate the delivery. We personalize based on names and actions. The recipient won't know a machine sent it.`
     },
     {
       id: 'p3-tools',
       question: 'What automation tools do you work with?',
-      answer: `My go-to stack is:
+      answer: `I use the best stack for the job.
 
-• Make.com (formerly Integromat) — Visual workflow builder
-• Zapier — Simple integrations
-• n8n — For more complex, custom workflows
-• Native integrations — Direct connections built into tools like HubSpot
+• Make.com (formerly Integromat).
+• Zapier.
+• n8n.
+• Native integrations.
 
-I pick the tool that fits the job. Sometimes a $20/month Zapier plan is enough. Sometimes you need something more powerful.`
+Sometimes a cheap Zapier plan is enough. Sometimes you need power. I choose what fits.`
     }
   ],
 
@@ -305,51 +296,41 @@ I pick the tool that fits the job. Sometimes a $20/month Zapier plan is enough. 
     {
       id: 'p4-chatbot-vs-ai',
       question: "What's the difference between a chatbot and an AI assistant?",
-      answer: `Old chatbots followed scripts: "Press 1 for sales, press 2 for support." They felt robotic because they were.
+      answer: `Old chatbots were dumb. They followed scripts. "Press 1 for sales."
 
-AI assistants understand language. They can answer "What time do you open on weekends?" even if you never programmed that exact question. They learn from your FAQ, your website, and your business rules.
-
-The difference is frustrating vs helpful.`
+AI assistants understand language. They answer specific questions. "What time do you open on Sunday?" They learn from your business rules. One is frustrating. The other is helpful.`
     },
     {
       id: 'p4-book-appointments',
       question: 'Can the AI actually book real appointments?',
-      answer: `Yes. It connects to your calendar (Google, Outlook, Calendly, etc.) and books real appointments in real-time.
+      answer: `Yes.
 
-A customer asks "Can I see you Tuesday afternoon?" — the AI checks your availability and confirms the booking. No back-and-forth, no manual entry.`
+It connects to your calendar. Google. Outlook. Calendly. It checks availability in real-time. A customer asks for a slot. The AI confirms it. No back-and-forth.`
     },
     {
       id: 'p4-phone-calls',
       question: 'Can I have an AI that answers my phone?',
-      answer: `Yes — this is one of the most powerful applications.
+      answer: `Yes. This is powerful.
 
-An AI voice agent can answer your phone 24/7, handle FAQs, qualify leads, and book appointments. It sounds human (not robotic) and hands off to a real person when needed.
-
-It's like having a receptionist who never sleeps, never gets sick, and never puts someone on hold.`
+An AI voice agent answers 24/7. It handles FAQs. It qualifies leads. It books meetings. It sounds human. And it hands off to a real person when needed. It is a receptionist that never sleeps.`
     },
     {
       id: 'p4-cant-answer',
       question: "What happens if someone asks something the AI doesn't know?",
-      answer: `It hands off gracefully. I build "escape routes" so the AI knows when to say:
+      answer: `It hands off. Gracefully.
 
-• "Let me connect you with [Name] who can help with that"
-• "I'll have someone call you back within [timeframe]"
-• "Here's a form to submit your question for a human response"
-
-The AI isn't trying to fake knowledge — it knows its limits.`
+I build escape routes. The AI knows its limits. It will say: "Let me connect you with someone who can help." It does not fake knowledge.`
     },
     {
       id: 'p4-train-ai',
       question: 'How does the AI learn about my specific business?',
-      answer: `I feed it your:
+      answer: `I feed it your data.
 
-• FAQ document (or I create one from your answers)
-• Website content
-• Product/service information
-• Common questions you get asked
-• Business rules (hours, pricing, policies)
+• FAQ documents.
+• Website content.
+• Pricing and policies.
 
-We test it together, find gaps, and refine. Most businesses are "launch-ready" within a few days of setup.`
+We test it. We find gaps. We refine. Most businesses are ready to launch in a few days.`
     }
   ],
 
@@ -361,58 +342,54 @@ We test it together, find gaps, and refine. Most businesses are "launch-ready" w
     {
       id: 'p5-hate-camera',
       question: 'Do I have to be on camera for this to work?',
-      answer: `No. Content systems work with whatever you're comfortable with:
+      answer: `No. We work with your strengths.
 
-• Voice notes: You talk, I turn it into blogs and social posts
-• Written notes: You send bullet points, I expand them
-• Interviews: I ask questions, you answer, we create from that
+• Voice notes: You talk. I turn it into text.
+• Written notes: You send bullets. I expand them.
+• Interviews: I ask. You answer.
 
-The goal is extracting your expertise with minimum friction. If you hate video, we won't do video.`
+We extract your expertise. If you hate video, we don't do video.`
     },
     {
       id: 'p5-voice-style',
       question: 'Can you create content that sounds like me?',
-      answer: `Yes — that's the whole point. AI can now clone your voice (for audio) and writing style (for text) so content sounds like you, not a generic marketing agency.
+      answer: `Yes. That is the point.
 
-We'll calibrate the tone based on examples you like. If something doesn't sound right, we adjust.`
+AI can clone your voice and your writing style. The content will sound like you. Not like a marketing agency. We calibrate the tone until it fits.`
     },
     {
       id: 'p5-how-much',
       question: 'How much content can this system produce?',
-      answer: `From a single 30-minute interview or voice note, we can create:
+      answer: `A lot. Fast.
 
-• 1 long-form blog post
-• 5-10 social media posts
-• 1 email newsletter
-• 1 YouTube script or podcast episode
-• Quote graphics and snippets
+One 30-minute interview can become:
+• 1 blog post.
+• 5 social posts.
+• 1 newsletter.
+• 1 script.
 
-One input → many outputs. That's the "supply chain" approach to content.`
+One input. Many outputs. It is a supply chain for content.`
     },
     {
       id: 'p5-replace-marketing',
       question: 'Does this replace my marketing team or agency?',
-      answer: `It depends on what they do:
+      answer: `It depends.
 
-• Content creation: This system handles that
-• Strategy and planning: You still need a human brain for that
-• Paid ads: Separate skillset, not covered here
-• Social engagement: Responding to comments is still human work
-
-Think of this as a content production line, not a full marketing department.`
+It replaces the grunt work of creation. It does not replace high-level strategy. It does not replace community management. Think of this as a production line. Not a department.`
     },
     {
       id: 'p5-platforms',
       question: 'Which social platforms can this post to?',
-      answer: `Most major platforms:
+      answer: `Most of them.
 
-• LinkedIn, Facebook, Instagram, Twitter/X
-• YouTube (videos and shorts)
-• TikTok
-• Your blog/website
-• Email newsletters
+• LinkedIn.
+• Facebook.
+• Instagram.
+• Twitter/X.
+• YouTube.
+• Your blog.
 
-We set up auto-posting so you approve once and it distributes everywhere.`
+We set up auto-posting. You approve once. It goes everywhere.`
     }
   ],
 
@@ -424,56 +401,45 @@ We set up auto-posting so you approve once and it distributes everywhere.`
     {
       id: 'p6-resists-change',
       question: 'My team hates new software. How do you get them to use it?',
-      answer: `Resistance usually comes from fear, not laziness. People worry they'll look stupid, or that the new system is just more work.
+      answer: `Resistance comes from fear. They worry it means more work.
 
-I handle this by:
-• Making it easy: Bite-sized videos, not 3-hour training sessions
-• Showing the benefit: "This saves you 2 hours a week" not "This is the new process"
-• Supporting the rollout: I don't disappear after the training — I check that it sticks
-
-Change is hard. But people adopt tools that make their life easier, and resist tools that don't. I build for adoption.`
+I make it easy. Bite-sized videos. No long seminars. I show them the benefit. "This saves you two hours a week." I don't disappear after training. I make sure it sticks.`
     },
     {
       id: 'p6-who-trained',
       question: 'Do you train everyone, or just the manager?',
-      answer: `Everyone who needs to use the system gets trained.
+      answer: `Everyone who uses the system gets trained.
 
-Usually that means:
-• Managers get the full picture (strategy, reporting, admin)
-• Staff get their specific workflows (what they do day-to-day)
-• You get documentation to onboard future hires
-
-Nobody gets left behind wondering "what button do I click?"`
+Managers get the strategy view. Staff get the workflow view. You get documentation for new hires. No one gets left behind.`
     },
     {
       id: 'p6-format',
       question: 'Is training live, or videos, or documents?',
-      answer: `Mix of all three:
+      answer: `A mix.
 
-• Short videos (2-5 min): For specific tasks, rewatchable anytime
-• Live walkthrough: For initial rollout, Q&A, edge cases
-• Documentation: Step-by-step guides for reference
+• Short videos: Rewatchable. Specific.
+• Live walkthrough: For Q&A and rollout.
+• Documentation: For reference.
 
-I don't do 3-hour webinars. Bite-sized is better. Your team can watch a 3-minute video when they're stuck, not schedule a meeting.`
+I don't do 3-hour webinars. Your team can watch a 3-minute video when they are stuck.`
     },
     {
       id: 'p6-new-hires',
       question: 'What happens when I hire someone new after the project?',
-      answer: `They get the same training materials:
+      answer: `They use the same materials.
 
-• Video library
-• Documentation
-• Access to the knowledge base
+• Video library.
+• Docs.
+• Knowledge base.
 
-You can onboard new staff without re-hiring me. The training is yours to keep and reuse.`
+You onboard new staff without paying me again. The training is yours.`
     },
     {
       id: 'p6-how-long',
       question: 'How long until my team is comfortable with new systems?',
-      answer: `For simple tools: 1-2 weeks of regular use.
-For complex systems: 4-6 weeks with ongoing support.
+      answer: `Simple tools take a week or two. Complex systems take a month.
 
-The key is starting with the minimum they need to do their job, then adding features over time. Don't overwhelm them with everything on day one.`
+We start small. We add features over time. We don't overwhelm them on day one.`
     }
   ],
 
@@ -485,59 +451,42 @@ The key is starting with the minimum they need to do their job, then adding feat
     {
       id: 'p7-vs-accounting',
       question: 'How is a dashboard different from reports in Xero or MYOB?',
-      answer: `Accounting software shows you money in, money out. That's history.
+      answer: `Accounting software shows history. Money in. Money out.
 
-A dashboard shows you:
-• Where leads are coming from (so you know what marketing works)
-• How long deals take to close (so you spot bottlenecks)
-• Who your best customers are (so you focus on them)
-• Forecasts based on your pipeline (so you plan ahead)
-
-It's the difference between looking in the rearview mirror and looking through the windshield.`
+A dashboard shows the future. It shows where leads come from. It shows bottlenecks. It shows pipeline forecasts. It is the windshield. Not the rearview mirror.`
     },
     {
       id: 'p7-mobile',
       question: 'Can I check my dashboard from my phone?',
-      answer: `Yes. I build dashboards that work on desktop, tablet, and mobile.
+      answer: `Yes.
 
-You can check your business health from anywhere — on the train, at a café, on holiday (if you must). Real-time numbers, no laptop required.`
+I build for desktop, tablet, and mobile. Check your numbers from a café. Or the train. Real-time data. No laptop needed.`
     },
     {
       id: 'p7-data-sources',
       question: 'What systems can feed into the dashboard?',
-      answer: `Almost anything:
+      answer: `Almost anything.
 
-• CRM (HubSpot, Salesforce, Pipedrive)
-• Accounting (Xero, MYOB, QuickBooks)
-• E-commerce (Shopify, WooCommerce)
-• Marketing (Google Analytics, Meta Ads, Mailchimp)
-• Spreadsheets (Google Sheets, Excel)
-• Custom databases
+• CRM (HubSpot, Salesforce).
+• Accounting (Xero, MYOB).
+• Ads (Google, Meta).
+• Spreadsheets.
 
-If it has an API or exports data, it can feed your dashboard.`
+If it has data, we can visualize it.`
     },
     {
       id: 'p7-update-frequency',
       question: 'Is the data live, or does it update once a day?',
-      answer: `It depends on the source and your needs:
+      answer: `It depends on you.
 
-• Real-time: For sales pipelines, website traffic, critical metrics
-• Hourly: For most business metrics
-• Daily: For slower-moving data like financial summaries
-
-We decide together what needs to be instant vs what can be daily. More frequent updates = higher complexity/cost.`
+Sales pipelines should be real-time. Financial summaries can be daily. We decide what needs to be instant. More frequency means more complexity.`
     },
     {
       id: 'p7-role-views',
       question: 'Can I have different views for different people?',
-      answer: `Yes. Role-based dashboards are common:
+      answer: `Yes. Role-based dashboards are standard.
 
-• Owner/CEO: High-level metrics, cash flow, overall health
-• Sales manager: Pipeline, deals, rep performance
-• Marketing: Lead sources, campaign performance
-• Operations: Workload, capacity, delivery metrics
-
-Everyone sees what they need — no more, no less.`
+The CEO sees cash flow. The Sales Manager sees deals. Marketing sees lead sources. Everyone sees what they need. Nothing more.`
     }
   ]
 };

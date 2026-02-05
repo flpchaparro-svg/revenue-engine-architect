@@ -7,53 +7,49 @@ Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar3`.
 
 ## 1. What kinds of things can you actually automate?
 
-Anything repetitive. Common examples:
+Anything repetitive.
 
-• Sending follow-up emails after an enquiry
-• Creating invoices when a job is marked complete
-• Notifying your team when a high-value lead comes in
-• Syncing data between systems (CRM → accounting → project management)
-• Sending appointment reminders via SMS
-• Generating quotes from form submissions
+• Sending follow-up emails.
+• Creating invoices.
+• Notifying your team of new leads.
+• Syncing data between systems.
+• SMS reminders.
 
-If you're doing the same task more than 5 times a week, it's probably automatable.
+If you do it more than 5 times a week, a bot should do it.
 
 ---
 
 ## 2. What happens if the automation breaks?
 
-It can — which is why I build with monitoring and alerts.
+It can happen. So I build with monitoring.
 
-If something fails (like an API connection drops), you'll know immediately. Most issues are quick fixes. And because you own the system, you can hire anyone to maintain it — including me if you want ongoing support.
+If a connection drops, I get an alert. We fix it immediately. You own the system. You can hire anyone to maintain it. Or I can handle it.
 
 ---
 
 ## 3. How do I know which task to automate first?
 
-We start with the highest-impact, lowest-risk automation:
+We look for high impact and low risk.
 
-• High impact: Saves the most time or prevents the most errors
-• Low risk: Won't break critical business processes if something goes wrong
-
-Usually that's something like auto-replies to enquiries, invoice generation, or data sync between two systems. Quick wins build confidence.
+High impact saves time. Low risk means your business won't stop if the bot pauses. We usually start with auto-replies or invoice generation. Quick wins build confidence.
 
 ---
 
 ## 4. Will automated emails sound generic and robotic?
 
-Not if they're written properly. I write email sequences that sound like a human wrote them — because the content comes from you, I just automate the delivery.
+Only if you write like a robot.
 
-We can personalise based on name, company, what page they visited, how they enquired. The recipient won't know it was automated.
+The content comes from you. I just automate the delivery. We personalize based on names and actions. The recipient won't know a machine sent it.
 
 ---
 
 ## 5. What automation tools do you work with?
 
-My go-to stack is:
+I use the best stack for the job.
 
-• Make.com (formerly Integromat) — Visual workflow builder
-• Zapier — Simple integrations
-• n8n — For more complex, custom workflows
-• Native integrations — Direct connections built into tools like HubSpot
+• Make.com (formerly Integromat).
+• Zapier.
+• n8n.
+• Native integrations.
 
-I pick the tool that fits the job. Sometimes a $20/month Zapier plan is enough. Sometimes you need something more powerful.
+Sometimes a cheap Zapier plan is enough. Sometimes you need power. I choose what fits.

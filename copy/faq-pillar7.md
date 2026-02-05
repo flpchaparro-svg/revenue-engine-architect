@@ -7,60 +7,43 @@ Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar7`.
 
 ## 1. How is a dashboard different from reports in Xero or MYOB?
 
-Accounting software shows you money in, money out. That's history.
+Accounting software shows history. Money in. Money out.
 
-A dashboard shows you:
-• Where leads are coming from (so you know what marketing works)
-• How long deals take to close (so you spot bottlenecks)
-• Who your best customers are (so you focus on them)
-• Forecasts based on your pipeline (so you plan ahead)
-
-It's the difference between looking in the rearview mirror and looking through the windshield.
+A dashboard shows the future. It shows where leads come from. It shows bottlenecks. It shows pipeline forecasts. It is the windshield. Not the rearview mirror.
 
 ---
 
 ## 2. Can I check my dashboard from my phone?
 
-Yes. I build dashboards that work on desktop, tablet, and mobile.
+Yes.
 
-You can check your business health from anywhere — on the train, at a café, on holiday (if you must). Real-time numbers, no laptop required.
+I build for desktop, tablet, and mobile. Check your numbers from a café. Or the train. Real-time data. No laptop needed.
 
 ---
 
 ## 3. What systems can feed into the dashboard?
 
-Almost anything:
+Almost anything.
 
-• CRM (HubSpot, Salesforce, Pipedrive)
-• Accounting (Xero, MYOB, QuickBooks)
-• E-commerce (Shopify, WooCommerce)
-• Marketing (Google Analytics, Meta Ads, Mailchimp)
-• Spreadsheets (Google Sheets, Excel)
-• Custom databases
+• CRM (HubSpot, Salesforce).
+• Accounting (Xero, MYOB).
+• Ads (Google, Meta).
+• Spreadsheets.
 
-If it has an API or exports data, it can feed your dashboard.
+If it has data, we can visualize it.
 
 ---
 
 ## 4. Is the data live, or does it update once a day?
 
-It depends on the source and your needs:
+It depends on you.
 
-• Real-time: For sales pipelines, website traffic, critical metrics
-• Hourly: For most business metrics
-• Daily: For slower-moving data like financial summaries
-
-We decide together what needs to be instant vs what can be daily. More frequent updates = higher complexity/cost.
+Sales pipelines should be real-time. Financial summaries can be daily. We decide what needs to be instant. More frequency means more complexity.
 
 ---
 
 ## 5. Can I have different views for different people?
 
-Yes. Role-based dashboards are common:
+Yes. Role-based dashboards are standard.
 
-• Owner/CEO: High-level metrics, cash flow, overall health
-• Sales manager: Pipeline, deals, rep performance
-• Marketing: Lead sources, campaign performance
-• Operations: Workload, capacity, delivery metrics
-
-Everyone sees what they need — no more, no less.
+The CEO sees cash flow. The Sales Manager sees deals. Marketing sees lead sources. Everyone sees what they need. Nothing more.

@@ -6,76 +6,71 @@ Used on **SystemPage.tsx** only. Source of truth for `constants/faqData.ts` → 
 
 ## 1. Do I need all 7 pillars?
 
-No. Most businesses start with one or two.
+No. Most start with one or two.
 
-Each pillar works on its own. You pick what you need now and add more later if it makes sense. Think of it like renovating a house. You don't redo everything at once. Start where the pain is worst.
+Each pillar works alone. You pick what you need. Add more later. Think of it like a renovation. You don't redo the whole house at once. Start with the pain.
 
 ---
 
 ## 2. Which pillar should I start with?
 
-Depends on where you're losing time or money:
+Start where you lose money.
 
-- Losing leads? Pillar 01 (Website) or Pillar 02 (CRM)
-- Drowning in admin? Pillar 03 (Automation)
-- Missing calls after hours? Pillar 04 (AI Assistants)
-- No time for marketing? Pillar 05 (Content)
-- Team not using your tools? Pillar 06 (Training)
-- Flying blind on numbers? Pillar 07 (Dashboards)
+- Losing leads? Fix the Website or CRM.
+- Drowning in admin? Automation.
+- Missing calls? AI Assistants.
+- No time for marketing? Content.
+- Team confused? Training.
+- Flying blind? Dashboards.
 
-Not sure? Book a call and I'll help you figure it out.
+If you aren't sure, book a call. We will figure it out.
 
 ---
 
 ## 3. Can I combine services into one project?
 
-Yes, and it's often smarter to do so.
+Yes. It is often smarter.
 
-If you need a website and a CRM, building them together means they're connected from day one. No awkward integration later. I'll tell you honestly if combining makes sense or if you should do one first.
+Building a website and CRM together makes sense. They connect from day one. No awkward integration later. I will tell you if combining helps or hurts.
 
 ---
 
 ## 4. How long does a project take?
 
-Most projects are delivered in sprints:
+I work in sprints.
 
-- Quick wins: 3 to 7 days (lead forms, basic automations)
-- Core builds: 7 to 14 days (websites, CRM setup, AI bots)
-- Complex projects: 21 to 30+ days (multi-system integration)
+- Quick wins: 3 to 7 days.
+- Core builds: 7 to 14 days.
+- Complex projects: 21 to 30+ days.
 
-I don't do 6-month projects that drain your budget before you see results. You'll see progress in weeks, not quarters.
+I don't do 6-month projects. You see results in weeks. Not quarters.
 
 ---
 
 ## 5. How much does this cost?
 
-Every project is different, so I don't list prices.
+I don't list prices because every project varies.
 
-What I can tell you: I work in fixed-price sprints. You know the cost before we start, and it doesn't change mid-project. Book a call, tell me what you need, and I'll give you a straight answer.
+But I work in fixed-price sprints. You know the cost before we start. It doesn't change. Book a call. Tell me what you need. I'll give you a number.
 
 ---
 
 ## 6. Do I own the systems you build?
 
-You own everything. I hand over:
+You own everything.
 
-- Full access to all systems
-- Training videos so your team knows how to use it
-- Documentation for future reference
-
-I'm not trying to lock you in. If you want ongoing support, we can arrange that. If you want to run it yourself, you'll be fully equipped.
+I hand over access. I hand over training. I hand over docs. I don't lock you in. You will be fully equipped to run it yourself.
 
 ---
 
 ## 7. I've been burned by tech projects before. How is this different?
 
-I get it. Most tech projects fail because the scope creeps, the team doesn't use the new system, or you get locked into a vendor who disappears.
+Most projects fail because of scope creep. Or the vendor disappears.
 
-Here's how I work differently:
-
-- Fixed sprints: Scope and price are locked
-- Adoption built-in: I don't leave until your team actually uses it
-- You own everything: No lock-in, no surprise fees
+I work differently.
+- Fixed sprints. Price is locked.
+- Adoption is built-in. I stay until you use it.
+- No lock-in. You own it.
 
 ---
 
@@ -83,19 +78,19 @@ Here's how I work differently:
 
 Absolutely. I recommend it.
 
-Start with something contained: a lead capture form, a simple automation, a quick dashboard. See how I work and whether the results are real. If it works, we do more. If it doesn't, you've risked very little.
+Start small. A lead form. A simple bot. See how I work. Verify the results. If it works, we do more. If not, you risked very little.
 
 ---
 
 ## 9. How do the 3 systems work together?
 
-Think of it as a flow:
+It is a flow.
 
-- GET CLIENTS (Pillars 1 to 3): Brings people in and captures their details
-- SCALE FASTER (Pillars 4 to 6): Multiplies your output without multiplying your hours
-- SEE CLEARLY (Pillar 7): Shows you what's working and what's not
+- GET CLIENTS: Brings people in.
+- SCALE FASTER: Multiplies output.
+- SEE CLEARLY: Shows what works.
 
-You don't need all three to start. But when they're connected, leads flow in, work gets done automatically, and you see the results in real time.
+You don't need all three to start. But when they connect, work gets done automatically.
 
 ---
 
@@ -103,24 +98,24 @@ You don't need all three to start. But when they're connected, leads flow in, wo
 
 I work with what you have.
 
-If your current CRM is fine but you need automation on top of it, I build that. If your website is decent but not capturing leads properly, I fix the forms and tracking. I'm not trying to replace everything. I fix what's broken.
+If your CRM is good, we keep it. I just add automation. If your website works, I just fix the tracking. I fix what is broken. I don't replace what works.
 
 ---
 
 ## 11. How involved do I need to be?
 
-For the initial setup: a few focused sessions where I learn your business, your workflow, and your pain points.
+At the start, I need you. I need to learn your business.
 
-After that: as involved as you want to be. Some clients want weekly check-ins. Others just want me to build it and hand it over. Both work.
+After that, it is up to you. Weekly check-ins? Fine. Just want it done? Also fine.
 
 ---
 
 ## 12. What happens after the project is done?
 
-Three options:
+Three options.
 
-1. You run it yourself (I give you training and docs)
-2. Monthly support retainer (I monitor, maintain, and improve)
-3. Call me when something breaks (ad-hoc support)
+1. You run it yourself.
+2. Monthly support.
+3. Ad-hoc support.
 
-Most clients start with option 1 and move to option 2 once they see the value of ongoing optimisation.
+Most clients start with option 1. Many move to option 2 when they see the value.

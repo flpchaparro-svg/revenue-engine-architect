@@ -7,40 +7,40 @@ Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar2`.
 
 ## 1. My team hated our last CRM. What's different?
 
-Most CRM setups fail because they add MORE work instead of removing it.
+Most CRMs fail because they create work. I design systems that remove it.
 
-I design systems where data enters automatically (from forms, emails, calls) so your team isn't typing things twice. When the CRM saves them time instead of costing it, they actually use it.
+Data enters automatically. From forms. From emails. From calls. Your team won't type things twice. When the system saves them time, they use it.
 
-Plus, I include training. Your team will know exactly what to do — no guessing.
+And I include training. Everyone will know what to do. No guessing.
 
 ---
 
 ## 2. Can you connect the CRM to Xero / MYOB?
 
-Yes. That's one of the most common automations I build.
+Yes. It is a standard automation.
 
-When a deal closes in your CRM, it can automatically create an invoice in Xero — no re-typing names, amounts, or details. One source of truth, no double-entry.
+A deal closes in your CRM. The system creates an invoice in Xero. No re-typing names. No error. One source of truth.
 
 ---
 
 ## 3. Which CRM do you recommend?
 
-I'm tool-agnostic, but my go-to is usually HubSpot for small-to-medium businesses. It's powerful, has a free tier, and integrates with almost everything.
+I use what works. Usually HubSpot for small-to-medium businesses.
 
-For larger or more complex needs, we might look at Salesforce, Pipedrive, or industry-specific tools. I'll recommend what fits your situation, not what pays me the biggest commission.
+It is powerful. It has a free tier. It integrates with everything. For complex needs, we might look at Pipedrive or Salesforce. I recommend the best fit for you.
 
 ---
 
 ## 4. What happens to our data if a staff member quits?
 
-This is exactly why CRM matters. If leads live in someone's personal notebook or email, they leave when that person does.
+This is why you need a CRM.
 
-With a proper CRM, every lead, every conversation, every deal is logged in the system. Staff come and go — your data stays.
+If leads live in a notebook or personal email, they leave when the person leaves. With a proper system, every lead is logged. Staff come and go. Your data stays.
 
 ---
 
 ## 5. Can you migrate my existing contacts from spreadsheets?
 
-Yes. Data migration is part of the setup.
+Yes. Migration is part of the deal.
 
-I'll help you consolidate contacts from wherever they live — spreadsheets, old systems, email exports — and clean them up before importing. You start with a tidy database, not a mess.
+I help you consolidate contacts. We pull them from spreadsheets or old systems. We clean them up. Then we import. You start with a tidy database.

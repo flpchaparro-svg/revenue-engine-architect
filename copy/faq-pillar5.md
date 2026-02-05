@@ -7,59 +7,55 @@ Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar5`.
 
 ## 1. Do I have to be on camera for this to work?
 
-No. Content systems work with whatever you're comfortable with:
+No. We work with your strengths.
 
-• Voice notes: You talk, I turn it into blogs and social posts
-• Written notes: You send bullet points, I expand them
-• Interviews: I ask questions, you answer, we create from that
+• Voice notes: You talk. I turn it into text.
+• Written notes: You send bullets. I expand them.
+• Interviews: I ask. You answer.
 
-The goal is extracting your expertise with minimum friction. If you hate video, we won't do video.
+We extract your expertise. If you hate video, we don't do video.
 
 ---
 
 ## 2. Can you create content that sounds like me?
 
-Yes — that's the whole point. AI can now clone your voice (for audio) and writing style (for text) so content sounds like you, not a generic marketing agency.
+Yes. That is the point.
 
-We'll calibrate the tone based on examples you like. If something doesn't sound right, we adjust.
+AI can clone your voice and your writing style. The content will sound like you. Not like a marketing agency. We calibrate the tone until it fits.
 
 ---
 
 ## 3. How much content can this system produce?
 
-From a single 30-minute interview or voice note, we can create:
+A lot. Fast.
 
-• 1 long-form blog post
-• 5-10 social media posts
-• 1 email newsletter
-• 1 YouTube script or podcast episode
-• Quote graphics and snippets
+One 30-minute interview can become:
+• 1 blog post.
+• 5 social posts.
+• 1 newsletter.
+• 1 script.
 
-One input → many outputs. That's the "supply chain" approach to content.
+One input. Many outputs. It is a supply chain for content.
 
 ---
 
 ## 4. Does this replace my marketing team or agency?
 
-It depends on what they do:
+It depends.
 
-• Content creation: This system handles that
-• Strategy and planning: You still need a human brain for that
-• Paid ads: Separate skillset, not covered here
-• Social engagement: Responding to comments is still human work
-
-Think of this as a content production line, not a full marketing department.
+It replaces the grunt work of creation. It does not replace high-level strategy. It does not replace community management. Think of this as a production line. Not a department.
 
 ---
 
 ## 5. Which social platforms can this post to?
 
-Most major platforms:
+Most of them.
 
-• LinkedIn, Facebook, Instagram, Twitter/X
-• YouTube (videos and shorts)
-• TikTok
-• Your blog/website
-• Email newsletters
+• LinkedIn.
+• Facebook.
+• Instagram.
+• Twitter/X.
+• YouTube.
+• Your blog.
 
-We set up auto-posting so you approve once and it distributes everywhere.
+We set up auto-posting. You approve once. It goes everywhere.
