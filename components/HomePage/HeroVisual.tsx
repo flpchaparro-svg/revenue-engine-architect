@@ -108,6 +108,7 @@ const HeroVisual: React.FC = () => {
     let cachedWidth = 0;
     let cachedHeight = 0;
     let cachedIsMobile = false;
+    let cachedIsMobileOrTablet = false;
     let cachedWindowWidth = window.innerWidth;
     let cachedWindowHeight = window.innerHeight;
 
@@ -116,6 +117,7 @@ const HeroVisual: React.FC = () => {
       cachedWidth = rect.width; 
       cachedHeight = rect.height;
       cachedIsMobile = cachedWidth < 768;
+      cachedIsMobileOrTablet = cachedWidth < 1024;
       cachedWindowWidth = window.innerWidth;
       cachedWindowHeight = window.innerHeight;
       canvas.width = cachedWidth * dpr;
@@ -146,7 +148,8 @@ const HeroVisual: React.FC = () => {
       // Use cached dimensions instead of getBoundingClientRect() every frame
       const w = cachedWidth;
       const h = cachedHeight;
-      const isMobile = cachedIsMobile; 
+      const isMobile = cachedIsMobile;
+      const isMobileOrTablet = cachedIsMobileOrTablet; 
       
       const cx = w / 2;
       const cy = isMobile ? h * 0.35 : h * 0.45;
@@ -208,8 +211,8 @@ const HeroVisual: React.FC = () => {
       }
 
       projected.sort((a, b) => a.z - b.z); 
-      const baseOpacity = isMobile ? 0.367 : 0.46; 
-      const opacityRange = isMobile ? 0.245 : 0.31; 
+      const baseOpacity = isMobileOrTablet ? 0.33 : 0.414; 
+      const opacityRange = isMobileOrTablet ? 0.22 : 0.279; 
       for (let i = 0; i < projected.length; i++) {
         const p = projected[i];
         const scale = 1 + (p.z * 0.3);
