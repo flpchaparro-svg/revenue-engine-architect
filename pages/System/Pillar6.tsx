@@ -89,7 +89,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                </h1>
 
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl border-l-2 border-gold pl-6 mb-8">
-                 New software only works if your team actually uses it. I build short training videos and SOPs that make adoption easy — no 3-hour Zoom calls, no confusion.
+                 Bought software your team never uses? You're not alone. Most tech fails at adoption. Short videos. Clear guides. Support until they actually use it.
                </p>
             </div>
             
@@ -101,7 +101,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-dark/10 overflow-hidden z-0">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-dark/10 overflow-hidden z-30" aria-hidden="true">
           <m.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
             className="absolute inset-0 bg-dark/40 w-full h-full" 

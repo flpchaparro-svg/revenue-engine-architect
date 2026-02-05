@@ -87,7 +87,7 @@ export const SystemArchitecture: React.FC = () => {
         phase="PHASE 01 / GET CLIENTS"
         title="The Capture"
         subtitle="Loop."
-        body="Right now, leads land in your inbox and sit there. You reply when you can. Sometimes that's too late. Here's how it should work. Someone fills out your form. They land in your CRM instantly. The system texts them within seconds. You get a reminder to call. Website catches. CRM holds. Automation chases. No more lost leads."
+        body="Right now, your leads land in an inbox and sit there. You reply when you can. Sometimes that's too late. Here's how it should work. Someone fills out your form. They land in your CRM instantly. The system texts them within seconds. You get a reminder to call. Website catches. CRM holds. Automation chases. No more lost leads."
         color={colors.redText}
         align="left"
         visual={<VisualGetClientsEngine />} 
@@ -109,7 +109,7 @@ export const SystemArchitecture: React.FC = () => {
         phase="PHASE 03 / SEE CLEARLY"
         title="The Control"
         subtitle="Room."
-        body="Right now, you find out about problems after the damage is done. Here's how it should work. Every part of your system feeds into one dashboard. Where did leads come from? Which ones converted? All on one screen. Updated live. You see what's working. You fix what's broken. Before it costs you money."
+        body="Right now, you find out about problems after the damage is done. Here's how it should work. Every part of your system feeds into one dashboard. Where did your leads come from? Which ones converted? All on one screen. Updated live. You see what's working. You fix what's broken. Before it costs you money."
         color={colors.dark}
         align="left"
         visual={<VisualSeeClearlyEngine />} 

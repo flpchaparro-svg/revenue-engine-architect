@@ -111,21 +111,21 @@ const ProblemSection: React.FC = () => {
                 <XCircle className="w-5 h-5 text-red-solid shrink-0 mt-1 pointer-events-none" />
                 <div className="pointer-events-none leading-relaxed">
                   <strong className="font-serif text-xl md:text-2xl text-dark tracking-tight block mb-1">The Bottleneck Boss</strong>
-                  <span className="font-sans text-base md:text-lg leading-relaxed text-dark/70">Your team asks you 20 questions a day instead of just doing the work.</span>
+                  <span className="font-sans text-base md:text-lg leading-relaxed text-dark/70">Your team asks you 20 questions a day. They could just do the work. But they wait for you instead.</span>
                 </div>
               </li>
               <li onMouseEnter={() => handleGraphHover('tax')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-dark/5 transition-colors duration-200">
                 <XCircle className="w-5 h-5 text-red-solid shrink-0 mt-1 pointer-events-none" />
                 <div className="pointer-events-none leading-relaxed">
                   <strong className="font-serif text-xl md:text-2xl text-dark tracking-tight block mb-1">The Double-Entry Tax</strong>
-                  <span className="font-sans text-base md:text-lg leading-relaxed text-dark/70">The same data gets typed into three different apps by three different people.</span>
+                  <span className="font-sans text-base md:text-lg leading-relaxed text-dark/70">The same customer details get typed into three apps by three people. Every. Single. Day.</span>
                 </div>
               </li>
               <li onMouseEnter={() => handleGraphHover('grind')} onMouseLeave={handleGraphLeave} className="flex items-start gap-4 p-3 -ml-3 rounded-lg hover:bg-dark/5 transition-colors duration-200">
                 <XCircle className="w-5 h-5 text-red-solid shrink-0 mt-1 pointer-events-none" />
                 <div className="pointer-events-none leading-relaxed">
                   <strong className="font-serif text-xl md:text-2xl text-dark tracking-tight block mb-1">The Sunday Dread</strong>
-                  <span className="font-sans text-base md:text-lg leading-relaxed text-dark/70">You spend weekends on invoicing and admin instead of with your family.</span>
+                  <span className="font-sans text-base md:text-lg leading-relaxed text-dark/70">Your weekend disappears into invoicing and admin. Your family waits.</span>
                 </div>
               </li>
             </ul>
@@ -136,9 +136,9 @@ const ProblemSection: React.FC = () => {
             <div className="absolute inset-0 bg-red-solid/0 group-hover:bg-red-solid/10 transition-colors duration-flow" />
             <span className="type-eyebrow text-red-text mb-6 block relative z-10">03 / THE COST</span>
             <div className="space-y-4 relative z-10">
-              <div className="font-mono text-3xl md:text-4xl font-bold text-red-text uppercase tracking-tighter">BURNING YOUR BEST PEOPLE</div>
+              <div className="font-mono text-3xl md:text-4xl font-bold text-red-text uppercase tracking-tighter">YOUR BEST PEOPLE ARE BORED</div>
               <p className="font-mono text-sm md:text-base text-red-text/80 leading-relaxed uppercase tracking-[0.15em] font-medium max-w-xs">
-                You're paying skilled staff to do unskilled work. They get bored. They leave. You start again.
+                You're paying skilled staff to do unskilled work. They get bored. They leave. You hire again. The cycle repeats.
               </p>
             </div>
           </div>
@@ -147,7 +147,7 @@ const ProblemSection: React.FC = () => {
           <div onMouseEnter={() => handleGraphHover('fix')} onMouseLeave={handleGraphLeave} className="col-span-1 p-8 md:p-12 border-r border-b border-dark/10 bg-dark text-white min-h-[250px] md:min-h-[400px] flex flex-col justify-between border-l-2 border-l-gold">
             <span className="type-eyebrow text-gold-on-dark block mb-4 md:mb-0">04 / THE FIX</span>
             <p className="font-serif text-3xl md:text-4xl leading-tight mb-6 md:mb-8 hover:text-gold-on-dark transition-colors duration-snap">
-              I build the systems that do the boring work automatically. Your team gets their time back. You get your business back.
+              Your team gets their time back. You get your business back. The boring work runs itself.
             </p>
             <CTAButton 
               variant="bracket" 

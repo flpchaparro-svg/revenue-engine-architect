@@ -3,16 +3,16 @@
 ## Hero
 - Back: `Return to The System`
 - Eyebrow: `/` — `THE SYSTEM / SEE CLEARLY`
-- Headline: `Dashboards &` + `Reporting.` (dark, italic)
-- Sub: `Stop guessing. I build dashboards that show revenue, margins, and pipeline on one screen — updated live — so you can steer the business with confidence.`
+- Headline: `Dashboards &` + `Reporting.` ("Reporting." dark, italic)
+- Sub: `Do you actually know your margin right now? Or are you waiting for the accountant? Revenue, margin, and pipeline on one screen. Updated live. No more guessing.`
 
 ## Section: System Configuration
 - Eyebrow: `/ SYSTEM CONFIGURATION`
-- Headline: `Select your Situation.` ("Situation." dark, italic for See Clearly)
-- Same UI labels; CTA: `[ BOOK A CALL ]`
+- Headline: `Select your Situation.` ("Situation." dark, italic)
+- UI labels: "Is this you?", "Select Profile", "The Pain", "The Fix", "Included Specs", `[ BOOK A CALL ]`
 
 ## Tiers & personas
-- **Source:** `constants/pillar7Data.ts`
+- **Source:** `constants/pillar7Data.ts` — TIERS: PULSE ("I need to stop guessing.", 7 DAYS), LAB ("I see what your customers see.", 14 DAYS), ORACLE ("I need to predict the future.", 21 DAYS), TOWER ("I need total command.", 30+ DAYS). Personas and copy as in data file.
 
 ## FAQ
 - Title: `Questions about dashboards?`

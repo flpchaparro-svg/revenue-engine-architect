@@ -84,7 +84,7 @@ const Pillar1: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                  Pick Your <span className="italic font-serif text-red-text drop-shadow-[0_0_20px_rgba(226,30,63,0.2)]">Situation.</span>
                </h1>
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl border-l-2 border-red-solid pl-6 mb-8">
-                 Different businesses need different websites. Find yours below and see exactly what I build for it.
+                 Different businesses need different websites. Find yours below. See exactly what you get.
                </p>
             </div>
             <div className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end -mt-8 md:mt-0">

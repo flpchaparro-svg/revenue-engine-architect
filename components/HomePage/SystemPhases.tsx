@@ -42,7 +42,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       id: 'HEADER_ACQ', 
       label: 'PHASE 01 / GET CLIENTS', 
       title: 'The Capture Loop', 
-      body: "Website catches. CRM holds. Automation chases. A closed loop where no lead is left behind.", 
+      body: "Your website catches leads. Your CRM holds them. Automation chases them. Nothing slips through.", 
       accentColor: colors.redSolid,
       textColor: colors.redText,
       buttonText: 'VIEW SYSTEM',
@@ -59,7 +59,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       id: 'HEADER_VEL', 
       label: 'PHASE 02 / SCALE FASTER', 
       title: 'The Multiplier', 
-      body: "Content fills the funnel. AI handles the volume. Training aligns the team. You grow without burning out.", 
+      body: "Content fills your funnel. AI handles the overflow. Training keeps your team sharp. You grow without burning out.", 
       accentColor: colors.gold,        
       textColor: colors.goldOnCream,   
       buttonText: 'VIEW SYSTEM',
@@ -73,8 +73,8 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
       type: 'header', 
       id: 'HEADER_INT', 
       label: 'PHASE 03 / SEE CLEARLY', 
-      title: "The Feedback Loop", 
-      body: "One dashboard. Real-time data. You see what's working and fix what's broken before it costs you money.", 
+      title: "The Control Room",
+      body: "One dashboard. Live data. You see what's working. You fix what's broken. Before it costs you money.",
       accentColor: colors.dark,
       textColor: colors.dark,
       buttonText: 'VIEW SYSTEM',
@@ -125,7 +125,7 @@ const SystemPhases: React.FC<SystemPhasesProps> = ({ onNavigate }) => {
               7 Pillars. <span className="italic text-gold-on-cream">3 Outcomes.</span>
             </h2>
             <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl mx-auto">
-              I don't sell isolated tools. I build connected systems. Websites feed your CRM. Your CRM triggers automation. Dashboards show you what's working.
+              Some businesses need everything built from scratch. Some just need one piece fixed. Each service works alone. But they're built to connect when you're ready.
             </p>
         </div>
 

@@ -86,7 +86,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                </h1>
 
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl border-l-2 border-red-solid pl-6 mb-8">
-                 You're copying and pasting between apps all day. Invoices, follow-ups, data entry. I build the systems that do that work automatically.
+                 Still typing the same data into three different apps? Still sending follow-up emails manually? There's a better way. The boring work runs itself.
                </p>
             </div>
             
@@ -98,7 +98,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-dark/10 overflow-hidden z-0">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-dark/10 overflow-hidden z-30" aria-hidden="true">
           <m.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
             className="absolute inset-0 bg-dark/40 w-full h-full" 
@@ -113,7 +113,7 @@ const Pillar3: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
               / SYSTEM CONFIGURATION
            </span>
            <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl text-dark leading-[0.95] tracking-tighter mb-6">
-             Select your <span className="italic text-red-text font-serif">Situation.</span>
+             Select your <span className="italic text-red-text font-serif">Complexity.</span>
            </h2>
            <div className="font-sans text-lg md:text-xl text-dark/70 leading-relaxed max-w-3xl space-y-4">
              <p>

@@ -1,152 +1,152 @@
-import { Truck, HardHat, Heart, Coffee, Package, TrendingUp, Briefcase, AlertTriangle, Calculator, Clock, Store, ShieldCheck, LucideIcon } from 'lucide-react';
+import { Truck, HardHat, ShieldCheck, Coffee, Package, TrendingUp, Briefcase, AlertTriangle, MessageSquare, BookOpen, HelpCircle, LucideIcon } from 'lucide-react';
 import { Persona, Tier } from '../types';
 
 export const TIERS: Record<string, Tier> = {
   media: {
     id: 'media',
-    label: "AUDIO TRAINING",
-    hook: "My team doesn't read emails.",
-    summary: "Choose this if your team is on the road and never reads emails. They can listen while they drive.",
-    sprint: "5 DAYS",
-    specs: ['Your voice, cloned', 'Private podcast for your team', 'Professional editing', 'Sent automatically'],
+    label: "MEDIA",
+    hook: "I need them to listen.",
+    summary: "Your team is on the road. They ignore written emails. You need training they can consume while driving.",
+    sprint: "7 DAYS",
+    specs: ['Audio training', 'Podcast-style updates', 'Mobile-first delivery', 'Bite-sized content'],
     personas: [
       {
         id: "fleet",
         icon: Truck,
         title: "The Fleet Manager",
         examples: "Logistics Companies, Removalists, Couriers",
-        painTitle: "The Ignored Email",
-        painText: "You send important updates by email. 90% of your drivers never open them because they're on the road. The information never lands.",
-        solution: "I turn your updates into a 3-minute podcast. They listen while they drive. You can see who listened."
+        painTitle: "The Unread Bulletin",
+        painText: "You send critical safety updates via email knowing 90% of your drivers never open them. Important information hits the bin, not the brain.",
+        solution: "Audio bulletins they listen to in the truck. Same information, actually consumed."
       },
       {
         id: "field",
         icon: HardHat,
-        title: "The Tech Lead",
-        examples: "Solar Installers, Electricians, HVAC",
-        painTitle: "The Van Search",
-        painText: "Your techs sit in their vans for 15 minutes looking for the installation guide. That's billable time wasted.",
-        solution: "I create audio briefs they listen to on the way to the job. They arrive knowing what to do."
+        title: "The Field Director",
+        examples: "Solar Installers, Multi-Site Teams",
+        painTitle: "Scattered Teams",
+        painText: "Your team is spread across 10 sites. Getting everyone in one room is impossible.",
+        solution: "Training that travels with them. On their phone, in their ear, on their schedule."
       },
       {
-        id: "care",
-        icon: Heart,
-        title: "The Remote Manager",
-        examples: "NDIS, Aged Care, Disability Services",
-        painTitle: "The Disconnected Team",
-        painText: "Your remote team only gets cold emails from HQ. They feel disconnected. Culture fades.",
-        solution: "I clone your voice and create weekly updates. Hearing the founder builds connection in a way email never can."
+        id: "safety",
+        icon: ShieldCheck,
+        title: "The Safety Officer",
+        examples: "Construction, Industrial",
+        painTitle: "Compliance Theatre",
+        painText: "You tick the box on training but nobody actually learns. It's paperwork, not education.",
+        solution: "Engaging content they actually remember. Quizzes that prove they understood it."
       }
     ]
   },
   matrix: {
     id: 'matrix',
-    label: "VIDEO GUIDES",
-    hook: "I'm sick of explaining the same thing.",
-    summary: "Choose this if you're explaining the same thing to every new hire. I record it once so you never have to say it again.",
-    sprint: "7 DAYS",
-    specs: ['AI presenter videos', 'Scan to watch', 'Watch when needed', 'Works on phones'],
+    label: "MATRIX",
+    hook: "I need them to do it right.",
+    summary: "Your team needs clear step-by-step processes. No confusion. No variation.",
+    sprint: "14 DAYS",
+    specs: ['Screen recordings', 'SOPs', 'Process documentation', 'Knowledge base'],
     personas: [
       {
-        id: "retail",
+        id: "process",
         icon: Coffee,
-        title: "The Repeat Trainer",
-        examples: "Cafe Groups, Gyms, Retail Chains",
-        painTitle: "The 50th Explanation",
-        painText: "You've explained how to close the register 50 times this year. Every new casual. Same speech. You're a manager, not a trainer.",
-        solution: "I create a QR code behind the counter. New hire scans it, watches the video, does it right. You never explain it again."
+        title: "The Process Owner",
+        examples: "Cafe Groups, Gyms, Retail",
+        painTitle: "Tribal Knowledge",
+        painText: "Only one person knows how to run the billing process. If they're sick, everything stops.",
+        solution: "Documented SOPs with recordings. Anyone can follow the steps. No single point of failure."
       },
       {
-        id: "warehouse",
+        id: "quality",
         icon: Package,
-        title: "The Line Stopper",
-        examples: "Wholesale Distributors, Manufacturing, 3PLs",
-        painTitle: "The Forgotten Process",
-        painText: "A packer forgets how to label a dangerous good. The line stops. Everyone waits.",
-        solution: "I put a QR code on the bench. They scan, watch the 30-second video, and keep packing. No line stoppage."
+        title: "The Quality Controller",
+        examples: "Manufacturing, 3PLs",
+        painTitle: "Inconsistent Work",
+        painText: "Same task, 5 different approaches. Quality depends on who's working that day.",
+        solution: "One documented method. Everyone follows the same steps. Consistent output."
       },
       {
-        id: "sales",
+        id: "frustrated",
         icon: TrendingUp,
-        title: "The Data Cleaner",
-        examples: "Real Estate, Finance Brokers, B2B Sales",
-        painTitle: "The Dirty Data",
-        painText: "You spend 5 hours a week cleaning up CRM data because reps forget the process. That's not your job.",
-        solution: "I create pop-up video guides inside your CRM. When a rep moves a deal, they see exactly what to fill in. Clean data without nagging."
+        title: "The Frustrated Manager",
+        examples: "Operations, Team Leads",
+        painTitle: "Repeated Mistakes",
+        painText: "You've explained the same process 50 times. They still get it wrong.",
+        solution: "Video they can rewatch. Reference they can check. You explain once. They learn forever."
       }
     ]
   },
   visuals: {
     id: 'visuals',
-    label: "VISUAL EXPLAINERS",
-    hook: "I need to explain something complicated.",
-    summary: "Choose this if you need to explain something complicated and text isn't working. I turn complexity into simple visuals.",
-    sprint: "5 DAYS",
-    specs: ['Simple diagrams', 'Process flowcharts', 'Quick reference guides', 'Visual safety guides'],
+    label: "VISUALS",
+    hook: "I need to explain the complex.",
+    summary: "Complex systems need clear explanations. Diagrams. Animations. Visual guides that make sense.",
+    sprint: "21 DAYS",
+    specs: ['Animated explainers', 'Interactive guides', 'Visual SOPs', 'System maps'],
     personas: [
       {
-        id: "exec",
+        id: "launcher",
         icon: Briefcase,
-        title: "The Confused Approver",
-        examples: "CEOs, Board Members, Business Owners",
-        painTitle: "The Rejected Proposal",
-        painText: "IT pitches a $50k automation project. You don't understand what it does. You reject it. A good project dies because of bad explanation.",
-        solution: "I turn the technical mess into a simple diagram. \"Customer pays → Invoice created → Team notified.\" When you see it, you approve it."
+        title: "The System Launcher",
+        examples: "IT, Change Management",
+        painTitle: "Rollout Resistance",
+        painText: "You're launching new software. Staff are already dreading it. They don't understand why things are changing.",
+        solution: "Launch video that explains the \"why.\" Visual walkthrough of the \"how.\" Buy-in before day one."
       },
       {
-        id: "safety",
+        id: "technical",
         icon: AlertTriangle,
-        title: "The Safety Lead",
-        examples: "Construction, Mining, Industrial Sites",
-        painTitle: "The Unread Binder",
-        painText: "Your 500-page safety manual is a doorstop. Nobody reads it. They guess the protocol. One day someone guesses wrong.",
-        solution: "I create visual posters with icons. A worker sees exactly what to do without reading anything. Safety becomes obvious."
+        title: "The Technical Trainer",
+        examples: "CRM, ERP Implementations",
+        painTitle: "Glazed Eyes",
+        painText: "You explain the CRM. Their eyes glaze over. A week later, they're asking the same questions.",
+        solution: "Animated walkthrough they can pause and replay. Visual memory beats verbal explanation."
       },
       {
-        id: "estimator",
-        icon: Calculator,
-        title: "The Junior Estimator",
-        examples: "Civil Engineering, Commercial Fit-outs",
-        painTitle: "The Missed Variable",
-        painText: "Your junior estimator misses a variable buried on page 10. One missed line costs you $50k.",
-        solution: "I create a visual decision tree. 3 questions, one answer. Juniors can't miss a variable."
+        id: "integrator",
+        icon: MessageSquare,
+        title: "The Integrator",
+        examples: "Multi-Tool Businesses",
+        painTitle: "System Confusion",
+        painText: "You have 5 tools. They connect somehow. Nobody knows how data flows between them.",
+        solution: "System map that shows how everything connects. One visual. Total clarity."
       }
     ]
   },
   analyst: {
     id: 'analyst',
-    label: "KNOWLEDGE BOT",
-    hook: "My team keeps asking me questions.",
-    summary: "Choose this if you're answering the same questions every day. The answers are in the handbook but nobody reads it. An AI will.",
-    sprint: "10 DAYS",
-    specs: ['AI trained on your docs', 'Works in your chat app', 'Only answers from your docs', 'Shows where it found the answer'],
+    label: "ANALYST",
+    hook: "I need them to stop asking me.",
+    summary: "Your team relies on you for every answer. You need to build their independence.",
+    sprint: "30+ DAYS",
+    specs: ['Q&A library', 'Decision trees', 'Self-serve resources', 'Ongoing support'],
     personas: [
       {
-        id: "billable",
-        icon: Clock,
-        title: "The Expensive Answerer",
-        examples: "Senior Lawyers, Consultants, Accountants",
-        painTitle: "The $500/hr Question",
-        painText: "Your $500/hr time gets eaten by questions like \"Where's the precedent for X?\" That's $50/hr work.",
-        solution: "I build an AI that knows every document in your firm. Juniors ask the bot, not you. You get your billable hours back."
+        id: "answer",
+        icon: BookOpen,
+        title: "The Answer Machine",
+        examples: "Managers, Team Leads",
+        painTitle: "Constant Questions",
+        painText: "Your day is interrupted 20 times with questions your team could answer themselves.",
+        solution: "Searchable knowledge base. They type the question, they get the answer. You do real work."
       },
       {
-        id: "franchise",
-        icon: Store,
-        title: "The Consistency Keeper",
-        examples: "Franchise Groups, Retail Chains",
-        painTitle: "The Rogue Location",
-        painText: "Every location does things differently because the official guide is too hard to find. Consistency is impossible.",
-        solution: "I build an AI that knows your operations manual. Any manager can ask \"How do I set up the promo?\" and get the exact answer. One way, everywhere."
+        id: "escalation",
+        icon: HelpCircle,
+        title: "The Escalation Point",
+        examples: "Support, Operations",
+        painTitle: "False Escalations",
+        painText: "Every problem lands on your desk. 80% could be solved without you.",
+        solution: "Decision trees that guide them to solutions. Only real problems reach you."
       },
       {
-        id: "compliance",
-        icon: ShieldCheck,
-        title: "The Regulation Expert",
-        examples: "Property Managers, Strata, Insurance",
-        painTitle: "The Risky Answer",
-        painText: "Your junior asks a compliance question. You stop work to look it up. One wrong answer and you're in trouble.",
-        solution: "I build a bot that knows the legislation. Your junior asks in Slack, gets the answer with a citation. No guessing, no risk."
+        id: "bottleneck",
+        icon: TrendingUp,
+        title: "The Bottleneck Boss",
+        examples: "Founders, Senior Leaders",
+        painTitle: "Dependence",
+        painText: "Nothing moves without your input. You can't take a holiday without your phone blowing up.",
+        solution: "Team capability that lets you step back. They handle problems. You handle strategy."
       }
     ]
   }

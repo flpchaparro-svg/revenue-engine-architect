@@ -23,7 +23,7 @@ const BookingCTA: React.FC = () => {
           </h2>
           
           <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/80 border-l-2 border-dark/10 pl-6 max-w-lg">
-            You've seen how it works. You know what the chaos is costing you. I take on a limited number of projects each quarter so every build gets my full attention.
+            You've seen how it works. You know what the chaos is costing you. Limited spots each quarter so every build gets full attention.
           </p>
 
           <div className="flex items-center gap-8 mt-8 font-mono text-xs font-bold uppercase tracking-[0.2em] text-dark/70">

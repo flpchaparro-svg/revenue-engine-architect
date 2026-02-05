@@ -1,152 +1,152 @@
-import { Activity, TrendingDown, Database, Droplets, EyeOff, MousePointerClick, Flag, Repeat, ShieldAlert, Layers, Scale, Globe, LucideIcon } from 'lucide-react';
+import { Activity, TrendingDown, Database, Droplets, EyeOff, MousePointerClick, Flag, Repeat, Layers, BarChart3, Globe, Scale, LucideIcon } from 'lucide-react';
 import { Persona, Tier } from '../types';
 
 export const TIERS: Record<string, Tier> = {
   pulse: {
     id: 'pulse',
-    label: "BASIC DASHBOARD",
-    hook: "I want to see my numbers.",
-    summary: "Choose this if your numbers are scattered across Xero, Google Ads, and your CRM. You need everything on one screen.",
+    label: "PULSE",
+    hook: "I need to stop guessing.",
+    summary: "You're flying blind. You have data in Xero, Google Ads, and your CRM but no single screen that tells you if you're winning or losing today.",
     sprint: "7 DAYS",
-    specs: ['Tracking setup', 'Dashboard built in Looker Studio', 'Know where leads come from', 'Know your profit per customer'],
+    specs: ['Google Tag Manager', 'Looker Studio', 'Attribution modelling', 'Basic KPIs'],
     personas: [
       {
         id: "scaler",
         icon: Activity,
-        title: "The Ad-Spend Guesser",
-        examples: "Multi-Site Businesses, E-commerce",
-        painTitle: "The ROI Mystery",
-        painText: "You spend $20k a month on ads. You don't know which channel is actually making you money. You're guessing.",
-        solution: "I build a dashboard that shows which ads are profitable. You see cost per lead, cost per sale, and ROI by channel. Guessing stops."
+        title: "The Blind Scaler",
+        examples: "High-Volume Businesses",
+        painTitle: "Operational Blindness",
+        painText: "High volume, thin margins. You don't know your real profit until the accountant finishes the books at end of quarter. By then, the damage is done.",
+        solution: "Real-time margin tracking. Inventory links to finance so you see the net profit on every single order the moment it happens. No more quarter-end surprises."
       },
       {
         id: "wholesaler",
         icon: TrendingDown,
-        title: "The Quarter Waiter",
+        title: "The Margin Squeeze",
         examples: "Distributors, Wholesalers",
-        painTitle: "The Quarterly Surprise",
-        painText: "You don't know if last month was profitable until the accountant tells you. By then, it's too late to fix.",
-        solution: "I build a dashboard that shows your real margin in real time. You see profit per order as it happens, not 3 months later."
+        painTitle: "Hidden Costs",
+        painText: "Revenue is up. Profit isn't. Something is eating your margin but you don't know what.",
+        solution: "Margin breakdown by product, service, and customer. You see where money disappears."
       },
       {
         id: "visionary",
         icon: Database,
-        title: "The Spreadsheet Addict",
+        title: "The Data Hoarder",
         examples: "Founders with Multiple Systems",
-        painTitle: "The Unanswered Question",
-        painText: "You've got data everywhere. But you still can't answer \"if I spend $1,000 more on ads, what happens?\" Data without insight.",
-        solution: "I build one dashboard that combines everything. Revenue, leads, margins, pipeline. One screen, all answers."
+        painTitle: "Too Many Numbers",
+        painText: "You have 12 reports across 5 systems. Information overload. No clarity.",
+        solution: "One dashboard. The 6 numbers that actually matter. Everything else is noise."
       }
     ]
   },
   lab: {
     id: 'lab',
-    label: "WEBSITE ANALYTICS",
-    hook: "I want to know what's happening on my site.",
-    summary: "Choose this if you're getting traffic but not conversions. I install tools that show exactly where people drop off and why.",
+    label: "LAB",
+    hook: "I see what your customers see.",
+    summary: "You need to understand customer behaviour. What are they clicking? Where do they drop off? What converts?",
     sprint: "14 DAYS",
-    specs: ['Session recording', 'See where people get frustrated', 'Understand user behaviour', 'Fix what\'s broken'],
+    specs: ['Heat mapping', 'Funnel analysis', 'A/B testing', 'Conversion tracking'],
     personas: [
       {
         id: "leaky",
         icon: Droplets,
-        title: "The Traffic Waster",
-        examples: "E-commerce Stores, Lead Gen Sites",
-        painTitle: "The Broken Button",
-        painText: "You spend money on ads. 40% of visitors leave because the contact button doesn't work on mobile. You're paying for broken traffic.",
-        solution: "I install session recording so you can watch real visitors use your site. You see exactly where they struggle. I give you a fix list."
+        title: "The Conversion Hunter",
+        examples: "E-commerce, Lead Gen Sites",
+        painTitle: "Website Leaks",
+        painText: "People visit your site. Most leave without enquiring. You don't know why.",
+        solution: "Heat maps show where they click. Funnel analysis shows where they drop off. You fix the leaks."
       },
       {
         id: "blind",
         icon: EyeOff,
-        title: "The Design Debater",
-        examples: "Marketing Teams, Designers",
-        painTitle: "The Button Colour Meeting",
-        painText: "Your team argues about button colours. Nobody has data. Meetings waste hours debating opinions.",
-        solution: "I install heatmaps. You see exactly where people click and where they don't. Debates end. Data wins."
+        title: "The Ad Spender",
+        examples: "Marketing Teams, Advertisers",
+        painTitle: "Wasted Budget",
+        painText: "You spend $5k/month on ads. Something works. You don't know what.",
+        solution: "Attribution tracking. You see which ad, which keyword, which audience actually generates revenue."
       },
       {
         id: "friction",
         icon: MousePointerClick,
-        title: "The Form Dropout",
-        examples: "Lead Gen Agencies, Service Biz",
-        painTitle: "The Abandoned Form",
-        painText: "70% of people who start your form don't finish it. They wanted to contact you. Something stopped them.",
-        solution: "I track which field makes people quit. You rewrite that question. More people finish the form."
+        title: "The Price Tester",
+        examples: "E-commerce, Service Biz",
+        painTitle: "Pricing Guesswork",
+        painText: "You think you could charge more. But you're scared to test it.",
+        solution: "A/B testing. Show different prices to different visitors. Data tells you the answer."
       }
     ]
   },
   oracle: {
     id: 'oracle',
-    label: "FORECASTING",
-    hook: "I want to see what's coming.",
-    summary: "Choose this if you're tired of finding out about bad months after they happen. I build dashboards that show you what's coming.",
+    label: "ORACLE",
+    hook: "I need to predict the future.",
+    summary: "Looking backwards isn't enough. You need to see what's coming. Forecasting, projections, early warnings.",
     sprint: "21 DAYS",
-    specs: ['Predictive analytics', 'Know who\'s about to leave', 'Know customer lifetime value', 'Know who\'s likely to buy'],
+    specs: ['Revenue forecasting', 'Pipeline predictions', 'Trend analysis', 'Alert systems'],
     personas: [
       {
         id: "exit",
         icon: Flag,
-        title: "The Sale Prepper",
-        examples: "Founders Preparing for Sale",
-        painTitle: "The Multiple Gap",
-        painText: "Buyers pay 4x for predictable revenue, 2x for unpredictable. You need to prove your numbers are solid.",
-        solution: "I build dashboards that prove your revenue is predictable. Net retention, churn rates, forecasted revenue. Buyers pay more for certainty."
+        title: "The Cash Flow Guesser",
+        examples: "CFOs, Finance Directors",
+        painTitle: "Runway Anxiety",
+        painText: "\"Will we make payroll next month?\" You're never quite sure.",
+        solution: "Cash flow projection based on pipeline, payment terms, and seasonal trends. You see problems before they hit."
       },
       {
         id: "sub",
         icon: Repeat,
-        title: "The Surprise Cancellation",
-        examples: "Subscription Businesses, Gyms",
-        painTitle: "The Sudden Goodbye",
-        painText: "You don't know a customer is unhappy until they cancel. By then it's too late.",
-        solution: "I build a system that spots at-risk customers 30 days before they cancel. You reach out before they leave."
+        title: "The Pipeline Dreamer",
+        examples: "Sales Leaders, RevOps",
+        painTitle: "Wishful Forecasting",
+        painText: "Your sales forecast is fiction. Deals that were \"closing this week\" last month are still \"closing this week.\"",
+        solution: "Reality-based forecasting. Weighted by probability, adjusted by historical conversion. Numbers you can trust."
       },
       {
         id: "risk",
-        icon: ShieldAlert,
-        title: "The Rear-View Driver",
-        examples: "CFOs, Finance Directors",
-        painTitle: "The Rear-View Problem",
-        painText: "You find out about bad months after they happen. You're driving while looking in the rear-view mirror.",
-        solution: "I build forecasts that show your cash position 90 days out. You see problems before they happen."
+        icon: Layers,
+        title: "The Trend Spotter",
+        examples: "Strategy, Leadership",
+        painTitle: "Late Reactions",
+        painText: "You notice problems after they've hurt you. Slow sales, rising costs, churn. Always reactive.",
+        solution: "Early warning indicators. Spot downturns before they become disasters. Act while you can still fix it."
       }
     ]
   },
   tower: {
     id: 'tower',
-    label: "COMMAND CENTRE",
-    hook: "I run multiple departments or locations.",
-    summary: "Choose this if you run multiple locations or departments and need to see everything in one place.",
+    label: "TOWER",
+    hook: "I need total command.",
+    summary: "Full operational visibility. Every team, every metric, every system. Command centre view.",
     sprint: "30+ DAYS",
-    specs: ['Strategic data leadership', 'Clean, trusted data', 'All systems connected', 'One screen for leadership'],
+    specs: ['Multi-source integration', 'Real-time feeds', 'Executive dashboards', 'Team scorecards'],
     personas: [
       {
         id: "silo",
-        icon: Layers,
-        title: "The Department Wrangler",
-        examples: "Established Businesses ($20M+)",
-        painTitle: "The Three Versions",
-        painText: "Sales, Ops, and Finance all have different numbers. You spend meetings arguing about which is right.",
-        solution: "I build one dashboard that pulls from all departments. One set of numbers. No more arguments about whose spreadsheet is right."
+        icon: Globe,
+        title: "The Multi-Location Owner",
+        examples: "Multi-Site Businesses",
+        painTitle: "Site Blindness",
+        painText: "You have 5 locations. Each runs differently. You only see problems when you visit.",
+        solution: "Location-by-location dashboards. Compare performance. Spot issues from your desk."
       },
       {
         id: "governance",
-        icon: Scale,
-        title: "The Spreadsheet Nightmare",
-        examples: "Financial Services, Medical",
-        painTitle: "The Security Gap",
-        painText: "Sensitive client data is scattered across 50 spreadsheets. One breach and you're in serious trouble.",
-        solution: "I centralise your data into a secure warehouse with proper access controls. Auditable, compliant, safe."
+        icon: BarChart3,
+        title: "The Team Manager",
+        examples: "Sales Directors, Ops",
+        painTitle: "Performance Guessing",
+        painText: "Who's your best performer? Who's struggling? You go by gut, not data.",
+        solution: "Team scorecards. Activity, outcomes, trends. You manage with facts, not feelings."
       },
       {
         id: "global",
-        icon: Globe,
-        title: "The Remote HQ",
-        examples: "Franchise Groups, Nationals",
-        painTitle: "The Monthly Lag",
-        painText: "You don't know what the Perth branch is doing until the monthly report. Problems grow for weeks before you see them.",
-        solution: "I build a dashboard showing every location in real time. You see problems when they start, not a month later."
+        icon: Scale,
+        title: "The Acquisition Target",
+        examples: "Founders, Exit Planning",
+        painTitle: "Due Diligence Readiness",
+        painText: "You want to sell in 3 years. But you can't prove your numbers clearly.",
+        solution: "Investor-ready dashboards. Clean data. Clear trends. You look professional when it matters."
       }
     ]
   }

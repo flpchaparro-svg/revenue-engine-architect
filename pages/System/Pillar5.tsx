@@ -25,9 +25,9 @@ interface PillarPageProps {
 
 const Pillar5: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   // STATE
-  const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('synthetic');
+  const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('media');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
-  const [expandedTier, setExpandedTier] = useState<keyof typeof TIERS | null>('synthetic');
+  const [expandedTier, setExpandedTier] = useState<keyof typeof TIERS | null>('media');
   const [expandedPersona, setExpandedPersona] = useState<string | null>(null);
 
   // DATA HELPERS
@@ -82,11 +82,11 @@ const Pillar5: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                </div>
 
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-dark mb-6 md:mb-10">
-                 <span className="italic font-serif text-dark">Content</span> <span className="italic font-serif text-gold-on-cream drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Systems.</span>
+                 Content <span className="italic font-serif text-gold-on-cream drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Systems.</span>
                </h1>
 
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl border-l-2 border-gold pl-6 mb-8">
-                 You know you should be posting. But when? I turn one voice note into a month of content. You talk for 10 minutes, the system does the rest.
+                 You know you should be posting. But when? You're running a business. Talk for 10 minutes. Get a month of content. The system does the rest.
                </p>
             </div>
             
@@ -98,7 +98,7 @@ const Pillar5: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-dark/10 overflow-hidden z-0">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-dark/10 overflow-hidden z-30" aria-hidden="true">
           <m.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
             className="absolute inset-0 bg-dark/40 w-full h-full" 

@@ -39,10 +39,10 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     subtitleMobile: 'CRM',
     categoryHex: colors.redSolid,
     categoryLabel: 'GET CLIENTS',
-    body: 'The CRM is the memory.',
+    body: 'Your CRM is the memory.',
     systemPurpose: 'Stop losing leads.',
     subServices: [
-      { title: 'How it connects', description: 'The CRM is the memory. Everything your website catches lands here. When you move a deal forward, automation knows. When you win a job, invoices get sent. When something stalls, you get reminded.' },
+      { title: 'How it connects', description: 'Your CRM is the memory. Everything your website catches lands here. Move a deal forward and automation knows. Win a job and invoices get sent. Something stalls and you get reminded.' },
       { title: 'What this unlocks', description: 'Your AI assistant can read the CRM before a call and know who\'s ringing. Your dashboard can show pipeline and forecast. Nothing lives in your head anymore.' }
     ]
   },
@@ -102,8 +102,8 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     body: 'Training protects everything else.',
     systemPurpose: 'Do more without hiring more.',
     subServices: [
-      { title: 'How it connects', description: 'Training protects everything else. Your CRM only works if the team uses it. Your automation only works if the data is clean. Your AI only works if people trust it. Training makes sure they do.' },
-      { title: 'What this unlocks', description: 'The tools you paid for actually get used. Data stays clean. The dashboard tells the truth. Nothing becomes expensive shelfware.' }
+      { title: 'How it connects', description: 'Training protects everything else. Your CRM only works if your team uses it. Your automation only works if your data is clean. Your AI only works if people trust it. Training makes sure they do.' },
+      { title: 'What this unlocks', description: 'The tools you paid for actually get used. Data stays clean. Your dashboard tells the truth. Nothing becomes expensive shelfware.' }
     ]
   },
   pillar7: {
@@ -114,10 +114,10 @@ const SYSTEM_PILLAR_VIEW_DATA: Record<string, {
     subtitleMobile: 'Dashboards',
     categoryHex: colors.dark,
     categoryLabel: 'SEE CLEARLY',
-    body: 'The dashboard pulls from everything.',
+    body: 'Your dashboard pulls from everything.',
     systemPurpose: 'Know your numbers.',
     subServices: [
-      { title: 'How it connects', description: 'The dashboard pulls from everything. Website traffic. CRM pipeline. Automation logs. AI call stats. Training adoption. It shows you the whole system on one screen.' },
+      { title: 'How it connects', description: 'Your dashboard pulls from everything. Website traffic. CRM pipeline. Automation logs. AI call stats. Training adoption. It shows you the whole system on one screen.' },
       { title: 'What this unlocks', description: 'You see problems before they cost you money. You know which marketing works. You stop guessing and start steering.' }
     ]
   }

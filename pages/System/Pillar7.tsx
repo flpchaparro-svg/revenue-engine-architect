@@ -89,7 +89,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                </h1>
 
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl border-l-2 border-dark pl-6 mb-8">
-                 Stop guessing. I build dashboards that show revenue, margins, and pipeline on one screen — updated live — so you can steer the business with confidence.
+                 Do you actually know your margin right now? Or are you waiting for the accountant? Revenue, margin, and pipeline on one screen. Updated live. No more guessing.
                </p>
             </div>
             
@@ -332,7 +332,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                       <div className="p-6">
                                          {/* Pain */}
                                          <div className="mb-6">
-                                            <span className="text-dark font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Problem</span>
+                                            <span className="text-dark font-mono text-[9px] uppercase tracking-widest font-bold mb-2 block">The Pain</span>
                                             <h5 className="font-serif text-2xl mb-2 text-dark">{p.painTitle}</h5>
                                             <p className="font-sans text-base text-dark/70 leading-relaxed italic border-l-2 border-dark pl-4">"{p.painText}"</p>
                                          </div>

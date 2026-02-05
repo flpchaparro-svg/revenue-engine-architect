@@ -71,7 +71,7 @@ const TierVisual = ({ tierKey }: { tierKey: string }) => {
         </div>
       )}
 
-      {tierKey === 'autonomous' && (
+      {tierKey === 'agentic' && (
         // ANIMATION: AI Network
         <div className="relative w-24 h-24 grid grid-cols-3 gap-2">
             {[...Array(9)].map((_, i) => (

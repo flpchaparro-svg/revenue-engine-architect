@@ -1,23 +1,23 @@
-# Contact Page — Copy
+# Contact Page — Copy (FIXED)
 
 ## Left column (cream)
 - Back: `Back`
 - Eyebrow: `/ THE PROMISE`
 - Headline: `This is not a` (line break) `Sales Call.` (italic, gold)
-- Body 1: `I don't have salespeople. When you fill this out, you're starting a conversation directly with me.`
+- Body 1: `No salespeople here. When you fill this out, you're starting a conversation directly with me.`
 - Body 2: `I'll personally review your situation and tell you honestly if I can help.`
 - Footer (desktop): `DIRECT LINE OPEN`
 
 ## Right column (form)
 - Eyebrow: `/ YOUR DETAILS`
 - Headline: `Tell Me About Your Business.` ("Business." italic, gold)
-- Sub: `Fill this out and I'll get back to you within 24 hours.`
+- Sub: `Fill this out. I'll get back to you within 24 hours.`
 
 ### Form labels & placeholders
 - **YOUR NAME** — placeholder: `Your name`
 - **EMAIL** — placeholder: `Your email`
 - **BUSINESS** — placeholder: `Company name or website`
-- **WHAT DO YOU NEED HELP WITH?** — options (from contactData):
+- **WHAT DO YOU NEED HELP WITH?** — options:
   - `Website & Leads — I need more enquiries`
   - `CRM & Sales — I'm losing track of leads`
   - `Automation — Too much manual work`

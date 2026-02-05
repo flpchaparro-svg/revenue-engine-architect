@@ -3,16 +3,16 @@
 ## Hero
 - Back: `Return to The System`
 - Eyebrow: `/` — `THE SYSTEM / SCALE FASTER`
-- Headline: `AI Assistants.` (gold, italic)
-- Sub: `I build AI that answers your phone, chats with customers, and handles questions 24/7. It sounds human, works around the clock, and never calls in sick.`
+- Headline: `AI` + `Assistants.` ("Assistants." gold, italic)
+- Sub: `How many calls did you miss last month? Each one could've been a job. AI answers your phone, qualifies leads, and books appointments. 24/7. Sounds human. Never calls in sick.`
 
 ## Section: System Configuration
 - Eyebrow: `/ SYSTEM CONFIGURATION`
-- Headline: `Select your Situation.` ("Situation." gold, italic for Scale Faster)
-- Same UI labels; CTA: `[ BOOK A CALL ]`
+- Headline: `Select your Situation.` ("Situation." gold, italic)
+- UI labels: "Is this you?", "Select Profile", "The Problem", "The Fix", "Included Specs", `[ BOOK A CALL ]`
 
 ## Tiers & personas
-- **Source:** `constants/pillar4Data.ts`
+- **Source:** `constants/pillar4Data.ts` — TIERS: RESPONDER ("I need to catch missed calls.", 7 DAYS), QUALIFIER ("I need to filter leads.", 14 DAYS), ASSISTANT ("I need AI that knows my business.", 21 DAYS), WORKFORCE ("I need AI employees.", 30+ DAYS). Personas and copy as in data file.
 
 ## FAQ
 - Title: `Questions about AI?`

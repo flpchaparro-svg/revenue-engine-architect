@@ -71,7 +71,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
             <span className="italic font-serif text-gold-on-cream">Verify.</span>
           </h1>
           <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl border-l-2 border-gold pl-8 py-2">
-            I don't show testimonials. I show data. Here's what happened when I rebuilt a Sydney security company's website.
+            No testimonials. Just data. Here's what happened when I rebuilt a Sydney security company's website.
           </p>
         </Section>
 
@@ -117,7 +117,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
               <div className="lg:col-span-8 p-8 md:p-12">
                 <h2 className="font-serif text-3xl mb-6">The Brief</h2>
                 <p className="font-sans text-lg md:text-xl text-dark/70 leading-relaxed max-w-3xl">
-                  Group 7 Security protects some of Sydney's most valuable assets, including properties worth over $3.2 billion. But their website made them look like a 1990s template, not a professional security operation. Google didn't know they were in Sydney, and their competitors were taking all the local search traffic.
+                  Group 7 Security protects some of Sydney's most valuable assets. Properties worth over $3.2 billion. But their website made them look like a 1990s template, not a serious security operation. Google didn't know they were in Sydney. Their competitors were taking all the local traffic.
                 </p>
               </div>
             </div>
@@ -295,8 +295,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                 Want Results Like <span className="italic font-serif text-gold-on-dark">This?</span>
               </h2>
               <p className="font-sans text-lg md:text-xl text-white/80 mb-12 max-w-2xl mx-auto leading-relaxed">
-                Group 7 went from invisible to indexed, from slow to instant. 
-                <br/>If your website is holding you back, let's fix it.
+                Group 7 went from invisible to indexed. From slow to instant. If your website is holding you back, let's fix it.
               </p>
               
               <CTAButton 

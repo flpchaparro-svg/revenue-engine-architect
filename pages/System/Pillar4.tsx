@@ -25,9 +25,9 @@ interface PillarPageProps {
 
 const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
   // STATE
-  const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('concierge');
+  const [activeTier, setActiveTier] = useState<keyof typeof TIERS>('responder');
   const [activePersonaIndex, setActivePersonaIndex] = useState(0);
-  const [expandedTier, setExpandedTier] = useState<keyof typeof TIERS | null>('concierge');
+  const [expandedTier, setExpandedTier] = useState<keyof typeof TIERS | null>('responder');
   const [expandedPersona, setExpandedPersona] = useState<string | null>(null);
 
   // DATA HELPERS
@@ -82,11 +82,11 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                </div>
 
                <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-8xl leading-[1.1] lg:leading-[0.9] tracking-tighter text-dark mb-6 md:mb-10">
-                 <span className="italic font-serif text-gold-on-cream drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">AI Assistants.</span>
+                 AI <span className="italic font-serif text-gold-on-cream drop-shadow-[0_0_20px_rgba(197,160,89,0.2)]">Assistants.</span>
                </h1>
 
                <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl border-l-2 border-gold pl-6 mb-8">
-                 I build AI that answers your phone, chats with customers, and handles questions 24/7. It sounds human, works around the clock, and never calls in sick.
+                 How many calls did you miss last month? Each one could've been a job. AI answers your phone, qualifies leads, and books appointments. 24/7. Sounds human. Never calls in sick.
                </p>
             </div>
             
@@ -98,7 +98,7 @@ const Pillar4: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-dark/10 overflow-hidden z-0">
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-10 md:h-12 w-[1px] bg-dark/10 overflow-hidden z-30" aria-hidden="true">
           <m.div 
             style={{ y: useTransform(scrollLineY, (v) => `${v}%`) }}
             className="absolute inset-0 bg-dark/40 w-full h-full" 

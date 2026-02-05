@@ -90,7 +90,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
                 How It All <span className="italic font-serif text-gold-on-cream">Connects.</span>
               </m.h1>
               <m.p variants={heroItem} className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl border-l-2 border-gold pl-6 mb-8">
-                Every service works on its own. But they're built to connect. Depending on where you are in your business, you might need one piece, one group, or the full system.
+                Every service works alone. But they're built to connect. Depending on where your business is right now, you might need one piece, one group, or the full system.
               </m.p>
             </div>
             <m.div variants={heroItem} className="w-full h-auto lg:h-full flex items-center justify-center lg:justify-end -mt-16 md:mt-0">
@@ -112,7 +112,7 @@ const SystemPage: React.FC<SystemPageProps> = ({ onBack, onNavigate }) => {
             / THE 3 SYSTEMS
           </span>
           <h2 className="font-serif text-4xl md:text-5xl lg:text-7xl leading-[0.95] tracking-tighter text-dark mb-6">
-            Where Are You Right Now?
+            Where Are You <span className="italic font-serif text-gold-on-cream">Right Now?</span>
           </h2>
           <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-2xl mx-auto">
             Most businesses fit into one of three stages. Find yours.

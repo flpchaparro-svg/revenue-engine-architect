@@ -17,7 +17,7 @@ export const AUDIT_DATA = [
     title: 'The Copy-Paste Loop',
     metric: 'SAME DATA, THREE TIMES',
     label: 'TIME LEAK',
-    description: "Sales types it. Ops types it again. Finance types it a third time. You're paying three people to do one job, and the errors multiply.",
+    description: "Sales types it. Ops types it again. Finance types it a third time. You're paying three salaries for one job. The errors multiply.",
     type: 'data'
   },
   {
@@ -25,7 +25,7 @@ export const AUDIT_DATA = [
     title: 'You Are The Bottleneck',
     metric: 'EVERYTHING WAITS FOR YOU',
     label: 'GROWTH BLOCKER',
-    description: "Your phone buzzes all day with questions only you can answer. You can't do deep work because you're too busy being everyone's helpdesk.",
+    description: "Your phone buzzes all day with questions only you can answer. Deep work? Forget it. You're everyone's helpdesk.",
     type: 'data'
   },
   {
@@ -33,12 +33,12 @@ export const AUDIT_DATA = [
     title: 'Flying Without Instruments',
     metric: 'NO REAL-TIME NUMBERS',
     label: 'BLIND SPOT',
-    description: "You know your revenue, but not your real margin. You wait for the accountant to tell you if last month was good or bad. By then, it's too late to fix it.",
+    description: "You know your revenue. But not your real margin. You wait for your accountant to tell you if last month was good or bad. Too late to fix it by then.",
     type: 'data'
   },
   {
     id: '05',
-    title: "You've seen the leak. Now call to see the fix.",
+    title: "You've seen the leak.",
     metric: '',
     description: "",
     type: 'cta'
@@ -100,10 +100,10 @@ const Card: React.FC<CardProps> = ({ data, index, total, scrollYProgress, onNavi
            <div className="flex flex-col items-center justify-center text-center h-full max-w-4xl mx-auto">
               {/* FIXED: Reduced to text-7xl max to be smaller than Hero (8xl) */}
               <h2 className="font-serif text-4xl md:text-6xl lg:text-7xl text-dark leading-tight tracking-tighter mb-10">
-                You've seen the <span className="text-red-text">leak</span>. Now call to see the <span className="text-gold-on-cream">fix</span>.
+                You've seen the <span className="text-red-text">leak</span>.
               </h2>
               <CTAButton theme="light" onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({ behavior: 'smooth' })}>
-                SEE THE SYSTEM
+                SEE THE FIX
               </CTAButton>
            </div>
         ) : (
@@ -176,7 +176,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                  </h1>
                  <div className="w-16 h-1 bg-dark mb-10"></div>
                  <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-sm">
-                    Your business isn't broken, but it is leaking. These are the 4 places where time and money vanish before you notice.
+                    Your business isn't broken. But it is leaking. These are the 4 places where time and money vanish before you notice.
                  </p>
               </div>
               
@@ -230,7 +230,7 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                <span className="italic text-red-text">disappears.</span>
             </h1>
             <p className="font-sans text-lg md:text-xl font-light leading-relaxed text-dark/70 max-w-sm">
-               Your business isn't broken, but it is leaking. These are the 4 places where time and money vanish before you notice.
+               Your business isn't broken. But it is leaking. These are the 4 places where time and money vanish before you notice.
             </p>
          </div>
 
@@ -245,10 +245,10 @@ const FrictionAuditSection: React.FC<FrictionAuditSectionProps> = ({ onNavigate 
                   {data.type === 'cta' ? (
                      <div className="flex flex-col items-center justify-center text-center h-full px-6 bg-cream">
                         <h2 className="font-serif text-3xl text-dark leading-tight tracking-tighter mb-8">
-                           You've seen the <span className="text-red-text">leak</span>. Now call to see the <span className="text-gold-on-cream">fix</span>.
+                           You've seen the <span className="text-red-text">leak</span>.
                         </h2>
                         <CTAButton theme="light" onClick={() => document.getElementById('seven-pillars')?.scrollIntoView({ behavior: 'smooth' })} className="w-full">
-                           SEE THE SYSTEM
+                           SEE THE FIX
                         </CTAButton>
                      </div>
                   ) : (

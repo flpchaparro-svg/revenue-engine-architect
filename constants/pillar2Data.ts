@@ -6,36 +6,36 @@ export const TIERS: Record<string, Tier> = {
     id: 'capture',
     label: "CAPTURE",
     hook: "I keep losing leads.",
-    summary: "Choose this if leads come in but disappear into your inbox. You need a system that catches every enquiry in one place.",
-    sprint: "5 DAYS",
-    specs: ['CRM setup (HubSpot or Pipedrive)', 'Track where leads come from', 'Automatic reply to every enquiry', 'Get notified when a lead comes in'],
+    summary: "You have a website but no idea where your leads go. They land in an inbox. Sometimes you remember to check it.",
+    sprint: "7 DAYS",
+    specs: ['HubSpot or Pipedrive setup', 'Lead source tracking', 'Auto-reply email', 'Admin notification'],
     personas: [
       {
         id: "inbox",
         icon: MessageSquare,
-        title: "The Inbox Juggler",
+        title: "The Inbox Manager",
         examples: "Solo Consultants, Small Agencies",
-        painTitle: "The Buried Enquiry",
-        painText: "You run your business from your inbox. Last month you forgot to reply to an enquiry worth $5k because it got buried under newsletters.",
-        solution: "I set up a CRM. Every lead goes into one place. You can see who's enquired, when, and whether you've replied. Nothing gets buried."
+        painTitle: "Unknown ROI",
+        painText: "You spend $1,000 on ads but don't know if the phone rang because of the ad or a referral. You're guessing with your wallet.",
+        solution: "Source tracking. The CRM tells you \"John Smith came from Google Ads.\" You know exactly which marketing pays your bills."
       },
       {
         id: "blind",
         icon: Filter,
-        title: "The Ad Spender",
+        title: "The Blind Advertiser",
         examples: "Local Services, Tradies",
-        painTitle: "The Guessing Game",
-        painText: "You spend $1,000 a month on ads. Someone calls. You have no idea if they came from the ad or a referral. You're guessing where your money goes.",
-        solution: "I set up tracking so you know exactly where each lead came from. Google Ads, Facebook, referral, whatever. You stop guessing."
+        painTitle: "Lost Attribution",
+        painText: "You run Facebook ads, Google ads, referrals, and word of mouth. Something works. You just don't know what.",
+        solution: "Every lead tagged with where they came from. You stop wasting money on channels that don't convert."
       },
       {
         id: "slow",
         icon: Magnet,
-        title: "The Monday Replier",
+        title: "The Slow Responder",
         examples: "Real Estate, Finance Brokers",
-        painTitle: "The Weekend Delay",
-        painText: "Someone enquires on Saturday. You reply Monday. By then, they've already hired your competitor.",
-        solution: "I set up instant auto-replies. They enquire, they get a text and email within 10 seconds. You look responsive even when you're offline."
+        painTitle: "Cold Leads",
+        painText: "Leads come in. You reply when you can. Sometimes that's 3 days later. By then, they've hired someone else.",
+        solution: "Auto-reply within 10 seconds. They know you got their message. You get time to call back properly."
       }
     ]
   },
@@ -43,110 +43,110 @@ export const TIERS: Record<string, Tier> = {
     id: 'nurture',
     label: "NURTURE",
     hook: "My leads go cold.",
-    summary: "Choose this if people enquire but don't buy straight away. You need a system that keeps in touch until they're ready.",
-    sprint: "10 DAYS",
-    specs: ['5-email follow-up sequence', 'Separate lists for different types', 'Newsletter setup', 'Flag hot leads automatically'],
+    summary: "You capture leads but they go quiet. No follow-up system. Deals die in silence.",
+    sprint: "14 DAYS",
+    specs: ['Email sequences', 'Task reminders', 'Deal pipeline', 'Activity tracking'],
     personas: [
       {
         id: "educator",
-        icon: Users,
-        title: "The Trusted Advisor",
-        examples: "Coaches, Course Creators",
-        painTitle: "The First-Call Flop",
-        painText: "You get on a call and try to sell. But they don't trust you yet. They ghost you. You wasted an hour on someone who was never going to buy.",
-        solution: "I build an email sequence that sends your best advice over 2 weeks. By the time they get on a call, they already trust you."
+        icon: Calendar,
+        title: "The Forgetter",
+        examples: "Solar Sales, Enterprise SaaS",
+        painTitle: "Lost Follow-ups",
+        painText: "You quoted someone last month. Meant to follow up. Forgot. They went with your competitor.",
+        solution: "Automatic reminders. If you haven't touched a deal in 7 days, the system nudges you. Nothing falls through."
       },
       {
         id: "lister",
-        icon: UserPlus,
-        title: "The Dusty List",
+        icon: FileText,
+        title: "The Spreadsheet Warrior",
         examples: "E-commerce, Authors",
-        painTitle: "The Ignored Database",
-        painText: "You have 5,000 emails in your list. You never email them because you don't know what to say. That's money sitting there doing nothing.",
-        solution: "I set up a re-engagement sequence. People who haven't opened in 90 days get a \"still interested?\" email. Dead leads come back to life."
+        painTitle: "Chaos Management",
+        painText: "Your leads live in a spreadsheet, your emails, sticky notes, and your head. Good luck finding that quote from March.",
+        solution: "One place. Every lead, every email, every note. Search \"plumber Bondi\" and find them in 2 seconds."
       },
       {
         id: "segment",
-        icon: FileText,
-        title: "The Blaster",
+        icon: Users,
+        title: "The Ghost Hunter",
         examples: "Multi-Service Agencies",
-        painTitle: "The Unsubscribe",
-        painText: "You send your whole list the same email. Half of them don't care about that topic. They unsubscribe.",
-        solution: "I set up segments based on what people click. If they clicked \"SEO\", they get SEO emails. Relevant emails don't get unsubscribes."
+        painTitle: "Silent Prospects",
+        painText: "People enquire, you send a quote, then silence. You don't know if they're thinking or they've moved on.",
+        solution: "Automatic follow-up emails at day 3, 7, and 14. Gentle nudges that bring deals back from the dead."
       }
     ]
   },
   pipeline: {
     id: 'pipeline',
     label: "PIPELINE",
-    hook: "I forget to follow up.",
-    summary: "Choose this if you're managing deals worth thousands and things fall through the cracks. You need to see where every deal is and get reminded to follow up.",
+    hook: "I can't see my deals.",
+    summary: "You have leads but no visibility. How much is in your pipeline? What's closing this month? You're guessing.",
     sprint: "14 DAYS",
-    specs: ['See all your deals on one screen', 'Automatic reminders to follow up', 'Contracts sent automatically', 'See what\'s closing and what\'s stuck'],
+    specs: ['Visual pipeline', 'Revenue forecasting', 'Win/loss tracking', 'Team visibility'],
     personas: [
       {
         id: "closer",
         icon: Calendar,
-        title: "The Forgetter",
+        title: "The Revenue Guesser",
         examples: "Solar Sales, Enterprise SaaS",
-        painTitle: "The Missed Callback",
-        painText: "You promised to call Mike on Tuesday. You forgot. Mike signed with your competitor. That's $10k gone because of a missed reminder.",
-        solution: "I set up automatic reminders. The CRM tells you to call Mike. If you don't, it reminds you again. Nothing slips."
+        painTitle: "No Forecast",
+        painText: "\"How much will we close this month?\" You shrug. You genuinely don't know.",
+        solution: "A pipeline that shows every deal, its value, and its probability. You know what's coming before it lands."
       },
       {
         id: "manager",
         icon: Phone,
-        title: "The Pipeline Blind",
+        title: "The Manager in the Dark",
         examples: "Teams of 3+ Reps",
-        painTitle: "The \"It's Going Well\"",
-        painText: "You ask your sales rep how things are going. They say \"good.\" You have no idea what that means in dollars.",
-        solution: "I set up a visual pipeline. You see every deal, its value, and its stage. \"Good\" becomes \"$450k closing next month.\""
+        painTitle: "Team Blindness",
+        painText: "Your sales team says they're busy. But are they? You have no idea what they're actually working on.",
+        solution: "Full visibility. See every deal, every activity, every conversation. No more \"trust me, I'm on it.\""
       },
       {
         id: "admin",
         icon: FileText,
-        title: "The Contract Dragger",
+        title: "The One-Man Band",
         examples: "Construction, Events",
-        painTitle: "The Proposal Delay",
-        painText: "You win the deal. Then you spend 45 minutes copying details into a Word doc to send the contract. By then, the excitement has faded.",
-        solution: "I set up one-click contracts. You mark a deal as won, the system generates the contract and sends it. 45 minutes becomes 4 seconds."
+        painTitle: "Head Storage",
+        painText: "Everything lives in your head. If you got hit by a bus tomorrow, the business stops.",
+        solution: "Everything documented. Deals, contacts, history. Your business survives without your memory."
       }
     ]
   },
   revops: {
     id: 'revops',
-    label: "OPERATIONS",
-    hook: "My team works in silos.",
-    summary: "Choose this if your departments don't talk to each other. Sales doesn't tell delivery. Marketing doesn't know what's closing. You need one source of truth.",
+    label: "REVOPS",
+    hook: "I need everything connected.",
+    summary: "You have systems but they don't talk to each other. CRM here, accounting there, operations somewhere else.",
     sprint: "21 DAYS",
-    specs: ['Connect your departments', 'See the full customer journey', 'Know which marketing is working', 'Clean up your messy data'],
+    specs: ['CRM to accounting sync', 'Inventory integration', 'Custom dashboards', 'Multi-team workflows'],
     personas: [
       {
         id: "silo",
         icon: RefreshCw,
-        title: "The Handover Mess",
+        title: "The Double-Entry Victim",
         examples: "Mid-Market Companies ($5M+)",
-        painTitle: "The Angry Customer",
-        painText: "Sales closes the deal on Friday. Nobody tells delivery. The customer waits 3 days wondering what's happening. They're already annoyed before you start.",
-        solution: "I connect sales to delivery. When a deal closes, the project is automatically created and assigned. No more \"did anyone tell the team?\""
+        painTitle: "Data Everywhere",
+        painText: "A deal closes in the CRM. Someone types it into Xero. Someone else types it into the project system. Three chances for error.",
+        solution: "Close a deal, invoice auto-generates in Xero, project auto-creates in Monday. One entry. Zero mistakes."
       },
       {
         id: "leak",
         icon: Filter,
-        title: "The Churn Fighter",
+        title: "The Information Silo",
         examples: "SaaS, Membership Sites",
-        painTitle: "The Revolving Door",
-        painText: "Marketing brings 100 leads. Sales closes 20. But you lose 10 customers out the back door. You're filling a leaky bucket.",
-        solution: "I track why customers leave and feed that back to marketing. You stop paying to acquire people who were never going to stay."
+        painTitle: "Disconnected Teams",
+        painText: "Sales doesn't know what operations promised. Operations doesn't know what sales sold. Clients get caught in the middle.",
+        solution: "One source of truth. Deal notes flow to operations. Everyone sees the same information."
       },
       {
         id: "data",
         icon: Users,
-        title: "The Duplicate Nightmare",
+        title: "The Scaling Business",
         examples: "Financial Services, Insurance",
-        painTitle: "The Three Johns",
-        painText: "You've got \"John Smith\" in Xero, \"J. Smith\" in HubSpot, and \"John\" in your help desk. Is that 3 customers or 1? You have no idea.",
-        solution: "I clean up your data and make the CRM the single source of truth. One customer, one record, everywhere."
+        painTitle: "Breaking Systems",
+        painText: "What worked with 5 staff breaks with 15. Your processes can't handle the growth.",
+        solution: "Systems built to scale. Add staff, add deals, add complexity. The CRM handles it."
       }
     ]
   }

@@ -38,7 +38,7 @@ export const PROBLEM_ITEMS = [
     title: "Amateur Perception", 
     metric: "Template", 
     label: "Trust Score", 
-    desc: "For a company protecting $3.2B in assets, the site looked like a weekend project. First impressions were killing them.",
+    desc: "A company protecting $3.2B in assets. A website that looked like a weekend project. First impressions were killing them.",
     impact: "Failed due diligence."
   },
   { 
@@ -46,7 +46,7 @@ export const PROBLEM_ITEMS = [
     title: "No Lead Capture", 
     metric: "0%", 
     label: "Attribution", 
-    desc: "Enquiries went to a generic inbox. No tracking, no automation. They had no idea which marketing was working.",
+    desc: "Enquiries went to a generic inbox. No tracking. No automation. They had no idea which marketing was working.",
     impact: "Marketing blindness."
   }
 ];
@@ -73,7 +73,7 @@ export const SOLUTION_ITEMS = [
   {
     title: "Lead Intelligence",
     what: "Smart forms with source tracking.",
-    why: "They now know exactly which marketing is generating enquiries.",
+    why: "They now know exactly which marketing generates enquiries.",
     icon: Target
   }
 ];
