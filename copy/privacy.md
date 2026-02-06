@@ -1,12 +1,20 @@
 # Privacy Policy Page — Copy
 
+All copy from PrivacyPolicyPage.tsx.
+
+---
+
 ## Nav
 - Back: `Return to Home`
 
+---
+
 ## Header
 - Eyebrow: `/ LEGAL`
-- Headline: `Privacy Policy.` ("Policy." italic, gold)
+- Headline: `Privacy` (space) `Policy.` (italic, gold)
 - Intro: `I don't sell your data. I use it to build your system. Here is the plain English explanation of how we handle information.`
+
+---
 
 ## Sections
 ### 1. The Basics
