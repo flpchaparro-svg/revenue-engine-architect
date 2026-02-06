@@ -55,7 +55,7 @@ const formatFAQAnswer = (answer: string, accentColor: string) => {
             {currentList.map((item, idx) => (
               <li key={idx} className="flex items-start gap-3">
                 <span className="text-lg leading-none mt-1 shrink-0" style={{ color: accentColor }}>•</span>
-                <span className="flex-1">{parseBold(item.replace(/^[•\-\*]\s*/, '').trim())}</span>
+                <span className="flex-1">{parseBold(item.replace(/^[•\-]\s*/, '').trim())}</span>
               </li>
             ))}
           </ul>
@@ -73,7 +73,7 @@ const formatFAQAnswer = (answer: string, accentColor: string) => {
       isNumberedList = true;
       flushParagraph();
       currentList.push(trimmed);
-    } else if (trimmed.startsWith('•') || trimmed.startsWith('-') || trimmed.startsWith('*')) {
+    } else if (trimmed.startsWith('•') || trimmed.startsWith('-')) {
       if (currentList.length > 0 && isNumberedList) flushList();
       isNumberedList = false;
       flushParagraph();

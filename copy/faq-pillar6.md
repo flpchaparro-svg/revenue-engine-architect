@@ -1,7 +1,8 @@
 # FAQ — Pillar 6: Team Training
 
 Used on **Pillar6.tsx**. Section title: `Questions about training?` · Subtitle: `Common questions about team training and adoption.`  
-Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar6`.
+Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar6`.  
+**Bold** phrases are rendered as `<strong>` in the UI for SEO and readability.
 
 ---
 
@@ -9,7 +10,7 @@ Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar6`.
 
 Resistance comes from fear. They worry it means more work.
 
-I make it easy. Bite-sized videos. No long seminars. I show them the benefit. "This saves you two hours a week." I don't disappear after training. I make sure it sticks.
+I make it easy. **Bite-sized videos**. No long seminars. I show them the benefit. "This saves you two hours a week." I don't disappear after training. I ensure **software adoption**.
 
 ---
 
@@ -17,7 +18,7 @@ I make it easy. Bite-sized videos. No long seminars. I show them the benefit. "T
 
 Everyone who uses the system gets trained.
 
-Managers get the strategy view. Staff get the workflow view. You get documentation for new hires. No one gets left behind.
+Managers get the strategy view. Staff get the workflow view. You get **SOPs** (Standard Operating Procedures) for new hires. No one gets left behind.
 
 ---
 
@@ -25,9 +26,9 @@ Managers get the strategy view. Staff get the workflow view. You get documentati
 
 A mix.
 
-• Short videos: Rewatchable. Specific.
-• Live walkthrough: For Q&A and rollout.
-• Documentation: For reference.
+• **Short videos**: Rewatchable. Specific.
+• **Live walkthrough**: For Q&A and rollout.
+• **Documentation**: For reference.
 
 I don't do 3-hour webinars. Your team can watch a 3-minute video when they are stuck.
 
@@ -39,9 +40,9 @@ They use the same materials.
 
 • Video library.
 • Docs.
-• Knowledge base.
+• **Knowledge base**.
 
-You onboard new staff without paying me again. The training is yours.
+You **onboard new staff** without paying me again. The training is yours.
 
 ---
 

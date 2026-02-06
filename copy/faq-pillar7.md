@@ -1,7 +1,8 @@
 # FAQ — Pillar 7: Dashboards & Reporting
 
 Used on **Pillar7.tsx**. Section title: `Questions about dashboards?` · Subtitle: `Common questions about dashboards and reporting.`  
-Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar7`.
+Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar7`.  
+**Bold** phrases are rendered as `<strong>` in the UI for SEO and readability.
 
 ---
 
@@ -9,7 +10,7 @@ Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar7`.
 
 Accounting software shows history. Money in. Money out.
 
-A dashboard shows the future. It shows where leads come from. It shows bottlenecks. It shows pipeline forecasts. It is the windshield. Not the rearview mirror.
+A **dashboard** shows the future. It shows where leads come from. It shows bottlenecks. It shows **pipeline forecasts**. It is the windshield. Not the rearview mirror.
 
 ---
 
@@ -17,7 +18,7 @@ A dashboard shows the future. It shows where leads come from. It shows bottlenec
 
 Yes.
 
-I build for desktop, tablet, and mobile. Check your numbers from a café. Or the train. Real-time data. No laptop needed.
+I build for desktop, tablet, and mobile. Check your **business KPIs** from a café. Or the train. **Real-time data**. No laptop needed.
 
 ---
 
@@ -30,7 +31,7 @@ Almost anything.
 • Ads (Google, Meta).
 • Spreadsheets.
 
-If it has data, we can visualize it.
+If it has data, we can **visualize it**.
 
 ---
 
@@ -38,12 +39,12 @@ If it has data, we can visualize it.
 
 It depends on you.
 
-Sales pipelines should be real-time. Financial summaries can be daily. We decide what needs to be instant. More frequency means more complexity.
+Sales pipelines should be **real-time**. Financial summaries can be daily. We decide what needs to be instant. More frequency means more complexity.
 
 ---
 
 ## 5. Can I have different views for different people?
 
-Yes. Role-based dashboards are standard.
+Yes. **Role-based dashboards** are standard.
 
 The CEO sees cash flow. The Sales Manager sees deals. Marketing sees lead sources. Everyone sees what they need. Nothing more.

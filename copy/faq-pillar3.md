@@ -1,7 +1,8 @@
 # FAQ — Pillar 3: Automation
 
 Used on **Pillar3.tsx**. Section title: `Questions about automation?` · Subtitle: `Common questions about workflows and bots.`  
-Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar3`.
+Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar3`.  
+**Bold** phrases are rendered as `<strong>` in the UI for SEO and readability.
 
 ---
 
@@ -9,19 +10,19 @@ Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar3`.
 
 Anything repetitive.
 
-• Sending follow-up emails.
-• Creating invoices.
+• Sending **follow-up emails**.
+• **Automated invoicing**.
 • Notifying your team of new leads.
 • Syncing data between systems.
-• SMS reminders.
+• **SMS reminders**.
 
-If you do it more than 5 times a week, a bot should do it.
+If you do it more than 5 times a week, a **bot** should do it.
 
 ---
 
 ## 2. What happens if the automation breaks?
 
-It can happen. So I build with monitoring.
+It can happen. So I build with **error monitoring**.
 
 If a connection drops, I get an alert. We fix it immediately. You own the system. You can hire anyone to maintain it. Or I can handle it.
 
@@ -29,9 +30,9 @@ If a connection drops, I get an alert. We fix it immediately. You own the system
 
 ## 3. How do I know which task to automate first?
 
-We look for high impact and low risk.
+We look for **high impact** and **low risk**.
 
-High impact saves time. Low risk means your business won't stop if the bot pauses. We usually start with auto-replies or invoice generation. Quick wins build confidence.
+High impact saves time. Low risk means your business won't stop if the bot pauses. We usually start with **auto-replies** or **invoice generation**. Quick wins build confidence.
 
 ---
 
@@ -39,7 +40,7 @@ High impact saves time. Low risk means your business won't stop if the bot pause
 
 Only if you write like a robot.
 
-The content comes from you. I just automate the delivery. We personalize based on names and actions. The recipient won't know a machine sent it.
+The content comes from you. I just **automate the delivery**. We personalize based on names and actions. The recipient won't know a machine sent it.
 
 ---
 
@@ -47,9 +48,9 @@ The content comes from you. I just automate the delivery. We personalize based o
 
 I use the best stack for the job.
 
-• Make.com (formerly Integromat).
-• Zapier.
-• n8n.
-• Native integrations.
+• **Make.com** (formerly Integromat) for complex flows.
+• **Zapier** for simple connections.
+• **n8n** for custom workflows.
+• **Native integrations**.
 
 Sometimes a cheap Zapier plan is enough. Sometimes you need power. I choose what fits.
