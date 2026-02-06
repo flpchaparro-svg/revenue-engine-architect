@@ -5,6 +5,19 @@ import { FAQ } from '../constants/faqData';
 import { colors } from '../constants/theme';
 import CTAButton from './CTAButton';
 
+// --- HELPER: Parse **bold** segments for SEO / readability (no copy change) ---
+const parseBold = (str: string): React.ReactNode => {
+  const parts = str.split(/(\*\*[^*]+\*\*)/g);
+  return (
+    <>
+      {parts.map((part, i) => {
+        const m = part.match(/^\*\*(.*)\*\*$/);
+        return m ? <strong key={i}>{m[1]}</strong> : part;
+      })}
+    </>
+  );
+};
+
 // --- HELPER: Format Answers ---
 const formatFAQAnswer = (answer: string, accentColor: string) => {
   const lines = answer.split('\n').filter(line => line.trim() !== '');
@@ -17,7 +30,7 @@ const formatFAQAnswer = (answer: string, accentColor: string) => {
     if (currentParagraph.length > 0) {
       elements.push(
         <p key={`p-${elements.length}`} className="mb-4 last:mb-0">
-          {currentParagraph.join(' ')}
+          {parseBold(currentParagraph.join(' '))}
         </p>
       );
       currentParagraph = [];
@@ -31,7 +44,7 @@ const formatFAQAnswer = (answer: string, accentColor: string) => {
           <ol key={`ol-${elements.length}`} className="list-decimal space-y-2 mb-4 last:mb-0 pl-6" style={{ listStyleColor: accentColor }}>
             {currentList.map((item, idx) => (
               <li key={idx} className="pl-2">
-                <span>{item.replace(/^\d+\.\s*/, '').trim()}</span>
+                <span>{parseBold(item.replace(/^\d+\.\s*/, '').trim())}</span>
               </li>
             ))}
           </ol>
@@ -42,7 +55,7 @@ const formatFAQAnswer = (answer: string, accentColor: string) => {
             {currentList.map((item, idx) => (
               <li key={idx} className="flex items-start gap-3">
                 <span className="text-lg leading-none mt-1 shrink-0" style={{ color: accentColor }}>•</span>
-                <span className="flex-1">{item.replace(/^[•\-\*]\s*/, '').trim()}</span>
+                <span className="flex-1">{parseBold(item.replace(/^[•\-\*]\s*/, '').trim())}</span>
               </li>
             ))}
           </ul>

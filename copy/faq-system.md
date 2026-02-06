@@ -1,76 +1,82 @@
 # FAQ — System Page (The System)
 
-Used on **SystemPage.tsx** only. Source of truth for `constants/faqData.ts` → `systemPageFAQs`.
+Used on **SystemPage.tsx** only. Source of truth for `constants/faqData.ts` → `systemPageFAQs`.  
+**Bold** phrases are rendered as `<strong>` in the UI for SEO and readability.
 
 ---
 
 ## 1. Do I need all 7 pillars?
 
-No. Most start with one or two.
+No. Most businesses **start with one or two**.
 
-Each pillar works alone. You pick what you need. Add more later. Think of it like a renovation. You don't redo the whole house at once. Start with the pain.
+Each pillar works on its own. You pick what you need now and add more later if it makes sense. Think of it like renovating a house. You don't redo everything at once. Start where the pain is worst.
 
 ---
 
 ## 2. Which pillar should I start with?
 
-Start where you lose money.
+Depends on where you're losing time or money:
 
-- Losing leads? Fix the Website or CRM.
-- Drowning in admin? Automation.
-- Missing calls? AI Assistants.
-- No time for marketing? Content.
-- Team confused? Training.
-- Flying blind? Dashboards.
+- Losing leads? Pillar 01 (**Website**) or Pillar 02 (**CRM**)
+- Drowning in admin? Pillar 03 (**Business Automation**)
+- Missing calls after hours? Pillar 04 (**AI Assistants**)
+- No time for marketing? Pillar 05 (**Content Systems**)
+- Team not using your tools? Pillar 06 (**Staff Training**)
+- Flying blind on numbers? Pillar 07 (**Dashboards**)
 
-If you aren't sure, book a call. We will figure it out.
+Not sure? Book a call and I'll help you figure it out.
 
 ---
 
 ## 3. Can I combine services into one project?
 
-Yes. It is often smarter.
+Yes, and it's often smarter to do so.
 
-Building a website and CRM together makes sense. They connect from day one. No awkward integration later. I will tell you if combining helps or hurts.
+If you need a **custom website** and a **HubSpot CRM**, building them together means they're **connected from day one**. No awkward integration later. I'll tell you honestly if combining makes sense or if you should do one first.
 
 ---
 
 ## 4. How long does a project take?
 
-I work in sprints.
+Most projects are delivered in **agile sprints**:
 
-- Quick wins: 3 to 7 days.
-- Core builds: 7 to 14 days.
-- Complex projects: 21 to 30+ days.
+- **Quick wins**: 3 to 7 days (lead forms, basic automations)
+- **Core builds**: 7 to 14 days (websites, CRM setup, AI bots)
+- **Complex projects**: 21 to 30+ days (multi-system integration)
 
-I don't do 6-month projects. You see results in weeks. Not quarters.
+I don't do 6-month projects that drain your budget before you see results. You'll see progress in weeks, not quarters.
 
 ---
 
 ## 5. How much does this cost?
 
-I don't list prices because every project varies.
+Every project is different, so I don't list prices.
 
-But I work in fixed-price sprints. You know the cost before we start. It doesn't change. Book a call. Tell me what you need. I'll give you a number.
+What I can tell you: I work in **fixed-price sprints**. You know the cost before we start, and it doesn't change mid-project. Book a call, tell me what you need, and I'll give you a straight answer.
 
 ---
 
 ## 6. Do I own the systems you build?
 
-You own everything.
+**You own everything**. I hand over:
 
-I hand over access. I hand over training. I hand over docs. I don't lock you in. You will be fully equipped to run it yourself.
+- **Full access** to all systems (no vendor lock-in)
+- **Training videos** so your team knows how to use it
+- **Documentation** for future reference
+
+I'm not trying to lock you in. If you want ongoing support, we can arrange that. If you want to run it yourself, you'll be fully equipped.
 
 ---
 
 ## 7. I've been burned by tech projects before. How is this different?
 
-Most projects fail because of scope creep. Or the vendor disappears.
+I get it. Most tech projects fail because the scope creeps, the team doesn't use the new system, or you get locked into a vendor who disappears.
 
-I work differently.
-- Fixed sprints. Price is locked.
-- Adoption is built-in. I stay until you use it.
-- No lock-in. You own it.
+Here's how I work differently:
+
+- **Fixed sprints**: Scope and price are locked
+- **Adoption built-in**: I don't leave until your team actually uses it
+- **No lock-in**: You own the code and the accounts
 
 ---
 
@@ -78,19 +84,19 @@ I work differently.
 
 Absolutely. I recommend it.
 
-Start small. A lead form. A simple bot. See how I work. Verify the results. If it works, we do more. If not, you risked very little.
+Start with something contained: a **lead capture form**, a simple **automation workflow**, or a quick **sales dashboard**. See how I work and whether the results are real. If it works, we do more. If it doesn't, you've risked very little.
 
 ---
 
 ## 9. How do the 3 systems work together?
 
-It is a flow.
+Think of it as a **revenue flow**:
 
-- GET CLIENTS: Brings people in.
-- SCALE FASTER: Multiplies output.
-- SEE CLEARLY: Shows what works.
+- **GET CLIENTS** (Pillars 1 to 3): Brings people in and captures their details
+- **SCALE FASTER** (Pillars 4 to 6): Multiplies your output without multiplying your hours
+- **SEE CLEARLY** (Pillar 7): Shows you what's working and what's not
 
-You don't need all three to start. But when they connect, work gets done automatically.
+You don't need all three to start. But when they're connected, leads flow in, work gets done automatically, and you see the results in real time.
 
 ---
 
@@ -98,24 +104,24 @@ You don't need all three to start. But when they connect, work gets done automat
 
 I work with what you have.
 
-If your CRM is good, we keep it. I just add automation. If your website works, I just fix the tracking. I fix what is broken. I don't replace what works.
+If your current **CRM setup** is fine but you need **automation** on top of it, I build that. If your website is decent but not capturing leads properly, I fix the forms and tracking. I'm not trying to replace everything. I fix what's broken.
 
 ---
 
 ## 11. How involved do I need to be?
 
-At the start, I need you. I need to learn your business.
+For the **initial setup**: a few focused sessions where I learn your business, your workflow, and your pain points.
 
-After that, it is up to you. Weekly check-ins? Fine. Just want it done? Also fine.
+After that: as involved as you want to be. Some clients want weekly check-ins. Others just want me to build it and hand it over. Both work.
 
 ---
 
 ## 12. What happens after the project is done?
 
-Three options.
+Three options:
 
-1. You run it yourself.
-2. Monthly support.
-3. Ad-hoc support.
+1. **You run it yourself** (I give you training and docs)
+2. **Monthly support retainer** (I monitor, maintain, and improve)
+3. Call me when something breaks (**ad-hoc support**)
 
-Most clients start with option 1. Many move to option 2 when they see the value.
+Most clients start with option 1 and move to option 2 once they see the value of **ongoing optimisation**.
