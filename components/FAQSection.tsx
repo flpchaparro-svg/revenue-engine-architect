@@ -12,7 +12,13 @@ const parseBold = (str: string): React.ReactNode => {
     <>
       {parts.map((part, i) => {
         const m = part.match(/^\*\*(.*)\*\*$/);
-        return m ? <strong key={i}>{m[1]}</strong> : part;
+        return m ? (
+          <strong key={i} className="font-bold text-cream opacity-100">
+            {m[1]}
+          </strong>
+        ) : (
+          part
+        );
       })}
     </>
   );

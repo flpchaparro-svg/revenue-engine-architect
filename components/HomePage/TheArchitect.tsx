@@ -41,10 +41,14 @@ const TheArchitect: React.FC = () => {
                     playsInline
                     preload="metadata"
                     poster="/images/felipe-chaparro-revenue-engine-architect-sydney.webp"
-                    aria-hidden="true"
-                    role="presentation"
+                    aria-label="AI-generated video clone of Felipe Chaparro, demonstrating the Pillar 5 Content System."
                   >
                     <source src="/videos/revenue-engine-architecture-system-About-video.webm" type="video/webm" />
+                    <img
+                      src="/images/felipe-chaparro-revenue-engine-architect-sydney.webp"
+                      alt="Felipe Chaparro - Revenue Engine Architect Sydney - AI Avatar Video Clone"
+                      style={{ display: 'none' }}
+                    />
                     Your browser does not support the video tag.
                   </video>
                   {/* Vignette Overlay */}

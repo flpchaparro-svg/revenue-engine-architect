@@ -51,6 +51,15 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
     }
   ];
 
+  const capabilitiesList = [
+    'Sydney Business Automation',
+    'HubSpot CRM Implementation',
+    'Next.js Web Development',
+    'AI Voice Receptionists',
+    'Lead Generation Systems',
+    'Revenue Operations (RevOps)',
+  ];
+
   return (
     <footer className="bg-dark text-white pt-24 pb-12 px-6 md:px-12 border-t border-white/10">
       <div className="max-w-[1400px] mx-auto">
@@ -75,13 +84,12 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
               </CTAButton>
            </div>
 
-           {/* LINKS GRID */}
-           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 lg:gap-16">
+           {/* LINKS GRID + CAPABILITIES (non-clickable for SEO) */}
+           <div className="grid grid-cols-2 md:grid-cols-5 gap-12 lg:gap-16">
               {footerLinks.map((group) => (
                 <div key={group.title}>
                    <div className={`flex items-center gap-2 mb-6 ${group.color}`}>
                       {group.icon && <group.icon className="w-4 h-4" />}
-                      {/* FIX: Bumped to text-[10px] */}
                       <span className="font-mono text-[10px] font-bold uppercase tracking-[0.1em]">
                         {group.title}
                       </span>
@@ -100,6 +108,23 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
                    </ul>
                 </div>
               ))}
+              {/* CAPABILITIES: keyword list for SEO; non-clickable text */}
+              <div>
+                <div className="flex items-center gap-2 mb-6 text-white/80">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-[0.1em]">
+                    / CAPABILITIES
+                  </span>
+                </div>
+                <ul className="space-y-4" aria-label="Capabilities and services">
+                  {capabilitiesList.map((item) => (
+                    <li key={item}>
+                      <span className="font-sans text-sm text-white/70">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
            </div>
         </div>
 
