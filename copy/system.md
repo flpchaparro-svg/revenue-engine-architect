@@ -1,10 +1,10 @@
-# System Page
+# System Page — Copy
 
-Return to Home
-
-/ THE SYSTEM
-How It All Connects.
-Every service works alone. But they're built to connect. Depending on where your business is right now, you might need one piece, one group, or the full system.
+## Hero
+- Back: `Return to Home`
+- Eyebrow: `/` — `THE SYSTEM`
+- Headline: `How It All Connects.`
+- Sub: `Every service works alone. But they're built to connect. Depending on where your business is right now, you might need one piece, one group, or the full system.`
 
 ## The 3 Systems
 / THE 3 SYSTEMS
@@ -39,6 +39,6 @@ Click any pillar to see how it works and how it connects to the others.
 SEE HOW IT WORKS (per pillar)
 
 ## FAQ
-Questions? Answered.
-Common questions about how this works.
-(Full Q&A in faq-system.md)
+- Title: `Questions? Answered.`
+- Subtitle: `Common questions about how this works.`
+- Q&A: **Full copy in `copy/faq-system.md`**
