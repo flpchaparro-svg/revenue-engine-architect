@@ -1,22 +1,16 @@
-# Pillar 1 — Websites & E-commerce — Copy
+# Pillar 1 — Websites & E-commerce
 
 ## Hero
-- Back: `Return to The System`
-- Eyebrow: `/` — `THE SYSTEM / GET CLIENTS`
-- Headline: `Pick Your Situation.` ("Situation." red, italic)
-- Sub: `Different businesses need different websites. Find yours below. See exactly what you get.`
+Return to The System
+/ THE SYSTEM / GET CLIENTS
+Pick Your Situation.
+Different businesses need different websites. Find yours below. See exactly what you get.
 
-## Section: System Configuration
-- Eyebrow: `/ SYSTEM CONFIGURATION`
-- Headline: `Select your Situation.` ("Situation." red, italic)
+## System Configuration
+/ SYSTEM CONFIGURATION
+Select your Situation.
 
-## UI labels (configurator)
-- "Is this you?" (sidebar)
-- "Select Profile" / "Select Profile:"
-- "The Problem"
-- "The Fix"
-- "Included Specs"
-- Button: `[ BOOK A CALL ]`
+Is this you? | Select Profile | The Problem | The Fix | Included Specs | [ BOOK A CALL ]
 
 ## Tiers & personas (full copy)
 

@@ -1,26 +1,21 @@
-# Global Footer — Copy
+# Footer
 
-All copy from GlobalFooter.tsx (shared across pages that show the footer).
+[FC) Felipe Consultancy
+Stop guessing. Start building.
+[ BOOK A CALL ]
 
----
+THE ARCHITECT — Philosophy | The Process | Case Studies
+GET CLIENTS — Websites | CRM Systems | Automation
+SCALE FASTER — AI Agents | Content Systems | Team Training
+SEE CLEARLY — Dashboards
 
-## Brand & CTA
-- Badge: `[FC)` (as in component; label beside it: Felipe Consultancy)
-- Label: `Felipe Consultancy`
-- Headline: `Stop guessing.` (line break) `Start` (space) `building.` (italic, gold)
-- Button: `[ BOOK A CALL ]` (navigates to contact)
+/ CAPABILITIES
+Sydney Business Automation
+HubSpot CRM Implementation
+Next.js Web Development
+AI Voice Receptionists
+Lead Generation Systems
+Revenue Operations (RevOps)
 
----
-
-## Link groups
-- **THE ARCHITECT** (no icon) — Philosophy | The Process | Case Studies
-- **GET CLIENTS** (Target icon) — Websites | CRM Systems | Automation
-- **SCALE FASTER** (TrendingUp icon) — AI Agents | Content Systems | Team Training
-- **SEE CLEARLY** (BarChart3 icon) — Dashboards
-
----
-
-## Bottom bar
-- Copyright: `© {currentYear} Felipe Chaparro. Sydney, Australia.`
-- Links: `Privacy Policy` (navigates to privacy page) | `LinkedIn` (with ArrowUpRight, external)
-- LinkedIn aria-label: `Visit Felipe Chaparro's LinkedIn Profile`
+© {year} Felipe Chaparro. Sydney, Australia.
+Privacy Policy | LinkedIn

@@ -1,11 +1,5 @@
 # FAQ — Pillar 4: AI Assistants
 
-Used on **Pillar4.tsx**. Section title: `Questions about AI?` · Subtitle: `Common questions about privacy, accuracy, and replacing humans.`  
-Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar4`.  
-**Bold** phrases are rendered as `<strong>` in the UI for SEO and readability.
-
----
-
 ## 1. What's the difference between a chatbot and an AI assistant?
 
 Old chatbots were dumb. They followed scripts. "Press 1 for sales."

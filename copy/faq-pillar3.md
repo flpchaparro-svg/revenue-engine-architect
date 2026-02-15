@@ -1,11 +1,5 @@
 # FAQ — Pillar 3: Automation
 
-Used on **Pillar3.tsx**. Section title: `Questions about automation?` · Subtitle: `Common questions about workflows and bots.`  
-Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar3`.  
-**Bold** phrases are rendered as `<strong>` in the UI for SEO and readability.
-
----
-
 ## 1. What kinds of things can you actually automate?
 
 Anything repetitive.

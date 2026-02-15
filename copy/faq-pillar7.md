@@ -1,11 +1,5 @@
 # FAQ — Pillar 7: Dashboards & Reporting
 
-Used on **Pillar7.tsx**. Section title: `Questions about dashboards?` · Subtitle: `Common questions about dashboards and reporting.`  
-Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar7`.  
-**Bold** phrases are rendered as `<strong>` in the UI for SEO and readability.
-
----
-
 ## 1. How is a dashboard different from reports in Xero or MYOB?
 
 Accounting software shows history. Money in. Money out.

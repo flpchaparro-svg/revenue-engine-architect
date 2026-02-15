@@ -1,11 +1,5 @@
 # FAQ — Pillar 5: Content Systems
 
-Used on **Pillar5.tsx**. Section title: `Questions about content?` · Subtitle: `Common questions about video, SEO, and content scaling.`  
-Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar5`.  
-**Bold** phrases are rendered as `<strong>` in the UI for SEO and readability.
-
----
-
 ## 1. Do I have to be on camera for this to work?
 
 No. We work with your strengths.

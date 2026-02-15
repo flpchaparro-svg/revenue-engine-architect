@@ -1,9 +1,4 @@
-# FAQ — System Page (The System)
-
-Used on **SystemPage.tsx** only. Source of truth for `constants/faqData.ts` → `systemPageFAQs`.  
-**Bold** phrases are rendered as `<strong>` in the UI for SEO and readability.
-
----
+# FAQ — System Page
 
 ## 1. Do I need all 7 pillars?
 

@@ -1,18 +1,5 @@
-# Not Found (404) Page — Copy
+# Not Found (404) Page
 
-All copy from NotFoundPage.tsx.
-
----
-
-## Heading
-- `Page Not Found`
-
----
-
-## Body
-- `The page you are looking for does not exist. It might have been moved, deleted, or you may have typed the address incorrectly.`
-
----
-
-## Action
-- Button: `Go Back Home` (navigates to homepage)
+Page Not Found
+The page you are looking for does not exist. It might have been moved, deleted, or you may have typed the address incorrectly.
+Go Back Home

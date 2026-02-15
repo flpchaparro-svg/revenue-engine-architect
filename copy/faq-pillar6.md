@@ -1,11 +1,5 @@
 # FAQ — Pillar 6: Team Training
 
-Used on **Pillar6.tsx**. Section title: `Questions about training?` · Subtitle: `Common questions about team training and adoption.`  
-Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar6`.  
-**Bold** phrases are rendered as `<strong>` in the UI for SEO and readability.
-
----
-
 ## 1. My team hates new software. How do you get them to use it?
 
 Resistance comes from fear. They worry it means more work.

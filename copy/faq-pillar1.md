@@ -1,11 +1,5 @@
 # FAQ — Pillar 1: Websites & E-commerce
 
-Used on **Pillar1.tsx**. Section title: `Questions about websites?` · Subtitle: `Common questions about websites and e-commerce.`  
-Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar1`.  
-**Bold** phrases are rendered as `<strong>` in the UI for SEO and readability.
-
----
-
 ## 1. What's the difference between your website tiers?
 
 It comes down to speed and need. You pick based on your deadline.

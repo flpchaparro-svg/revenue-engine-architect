@@ -1,11 +1,5 @@
 # FAQ — Pillar 2: CRM & Lead Tracking
 
-Used on **Pillar2.tsx**. Section title: `Questions about CRM?` · Subtitle: `Common questions about sales pipelines and lead tracking.`  
-Source of truth for `constants/faqData.ts` → `pillarFAQs.pillar2`.  
-**Bold** phrases are rendered as `<strong>` in the UI for SEO and readability.
-
----
-
 ## 1. My team hated our last CRM. What's different?
 
 Most CRMs fail because they create work. I design systems that remove it.
