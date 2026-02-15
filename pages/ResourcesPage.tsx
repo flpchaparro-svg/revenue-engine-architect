@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 import BackButton from '../components/BackButton';
-import { downloadCopyFilesAsZip } from '../utils/downloadCopyFiles';
+import { downloadCopyFilesAsZip, COPY_FILES } from '../utils/downloadCopyFiles';
 
 interface ResourcesPageProps {
   onBack: () => void;
@@ -62,7 +62,7 @@ const ResourcesPage: React.FC<ResourcesPageProps> = ({ onBack }) => {
                 </p>
                 
                 <div className="space-y-2 text-sm text-dark/60 mb-6">
-                  <p>📄 25 markdown files</p>
+                  <p>📄 {COPY_FILES.length} markdown files</p>
                   <p>📦 Includes: Home, System, Pillars 1-7, FAQs, and more</p>
                 </div>
 

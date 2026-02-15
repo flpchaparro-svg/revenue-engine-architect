@@ -1,6 +1,39 @@
 import JSZip from 'jszip';
 
 /**
+ * List of all copy files in the /copy directory.
+ * Note: This list must be kept synchronized with the copy directory.
+ * When adding or removing files, update this list accordingly.
+ */
+export const COPY_FILES = [
+  'architect.md',
+  'contact.md',
+  'evidence-vault.md',
+  'faq-pillar1.md',
+  'faq-pillar2.md',
+  'faq-pillar3.md',
+  'faq-pillar4.md',
+  'faq-pillar5.md',
+  'faq-pillar6.md',
+  'faq-pillar7.md',
+  'faq-system.md',
+  'footer.md',
+  'home.md',
+  'not-found.md',
+  'pillar1.md',
+  'pillar2.md',
+  'pillar3.md',
+  'pillar4.md',
+  'pillar5.md',
+  'pillar6.md',
+  'pillar7.md',
+  'privacy.md',
+  'process.md',
+  'proof.md',
+  'system.md',
+];
+
+/**
  * Downloads all copy files (markdown files) as a ZIP archive
  */
 export async function downloadCopyFilesAsZip(): Promise<void> {
@@ -12,37 +45,8 @@ export async function downloadCopyFilesAsZip(): Promise<void> {
       throw new Error('Failed to create copy folder in ZIP');
     }
 
-    // List of all copy files in the /copy directory
-    const copyFiles = [
-      'architect.md',
-      'contact.md',
-      'evidence-vault.md',
-      'faq-pillar1.md',
-      'faq-pillar2.md',
-      'faq-pillar3.md',
-      'faq-pillar4.md',
-      'faq-pillar5.md',
-      'faq-pillar6.md',
-      'faq-pillar7.md',
-      'faq-system.md',
-      'footer.md',
-      'home.md',
-      'not-found.md',
-      'pillar1.md',
-      'pillar2.md',
-      'pillar3.md',
-      'pillar4.md',
-      'pillar5.md',
-      'pillar6.md',
-      'pillar7.md',
-      'privacy.md',
-      'process.md',
-      'proof.md',
-      'system.md',
-    ];
-
     // Fetch all copy files
-    const fetchPromises = copyFiles.map(async (fileName) => {
+    const fetchPromises = COPY_FILES.map(async (fileName) => {
       try {
         const response = await fetch(`/copy/${fileName}`);
         if (!response.ok) {
