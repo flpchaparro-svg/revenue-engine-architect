@@ -25,7 +25,6 @@ const Pillar4 = lazy(() => import('../pages/System/Pillar4'));
 const Pillar5 = lazy(() => import('../pages/System/Pillar5'));
 const Pillar6 = lazy(() => import('../pages/System/Pillar6'));
 const Pillar7 = lazy(() => import('../pages/System/Pillar7'));
-const ResourcesPage = lazy(() => import('../pages/ResourcesPage'));
 
 const App: React.FC = () => {
   const location = useLocation();
@@ -57,7 +56,6 @@ const App: React.FC = () => {
       'evidence-vault': '/evidence-vault',
       'contact': '/contact',
       'privacy': '/privacy',
-      'resources': '/resources',
       'pillar1': '/pillar1',
       'pillar2': '/pillar2',
       'pillar3': '/pillar3',
@@ -117,7 +115,6 @@ const App: React.FC = () => {
                   <Route path="/evidence-vault" element={<EvidenceVaultPage onBack={() => handleGlobalNavigate('homepage')} />} />
                   <Route path="/contact" element={<ContactPage onBack={() => handleGlobalNavigate('homepage')} />} />
                   <Route path="/privacy" element={<PrivacyPolicyPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
-                  <Route path="/resources" element={<ResourcesPage onBack={() => handleGlobalNavigate('homepage')} />} />
                   
                   <Route path="/pillar1" element={<Pillar1 onNavigate={handleGlobalNavigate} />} />
                   <Route path="/pillar2" element={<Pillar2 onNavigate={handleGlobalNavigate} />} />
