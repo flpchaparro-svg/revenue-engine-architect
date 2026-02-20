@@ -14,7 +14,7 @@ export default function RobotPeek() {
   return (
     <motion.div
       style={{ x: xPos }}
-      className="fixed top-[5%] right-0 z-[100] pointer-events-none drop-shadow-2xl flex items-center"
+      className="fixed top-[18%] lg:top-[5%] right-0 z-[100] pointer-events-none drop-shadow-2xl flex items-center"
     >
       {/* The Live System Watcher SVG */}
       <svg
