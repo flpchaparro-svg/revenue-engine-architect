@@ -225,7 +225,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                 
                                 <div className="w-fit">
                                   <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
-                                    [ BOOK A CALL ]
+                                    BOOK A CALL
                                   </CTAButton>
                                 </div>
                              </div>
@@ -353,7 +353,7 @@ const Pillar6: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                          {/* STANDARDIZED CTA BUTTON MOBILE */}
                                          <div className="w-full">
                                             <CTAButton theme="dark" onClick={() => onNavigate('contact')} className="w-full">
-                                                [ BOOK A CALL ]
+                                                BOOK A CALL
                                             </CTAButton>
                                          </div>
 

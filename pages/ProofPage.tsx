@@ -302,7 +302,7 @@ const ProofPage: React.FC<ProofPageProps> = ({ onBack, onNavigate }) => {
                 theme="dark" 
                 onClick={() => onNavigate('contact')}
               >
-                [ BOOK A CALL ]
+                BOOK A CALL
               </CTAButton>
             </div>
           </div>

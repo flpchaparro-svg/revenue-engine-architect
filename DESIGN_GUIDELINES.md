@@ -341,20 +341,24 @@ Use Tailwind classes for color so icons follow theme:
 
 ### CTAButton (`components/CTAButton.tsx`)
 
+**Rule — Primary and colored buttons:** Primary and colored buttons (like Gold, solid dark) MUST NOT use brackets. They should feature clean text followed by the arrow → (e.g. `Book a Call →`). Reserve brackets for transparent/ghost buttons only.
+
 | Prop | Options | Default |
 |------|---------|---------|
 | `variant` | `solid`, `bracket` | `solid` |
 | `theme` | `light`, `dark` | `light` |
 | `size` | `default`, `sm` | `default` |
 
-**Solid Button Styles:**
+**Solid Button Styles (primary/colored — no brackets):**
 
 | Theme | Background | Text | Hover |
 |-------|------------|------|-------|
 | Light (on cream) | `bg-dark` | `text-cream` | Slide animation |
 | Dark (on dark bg) | `bg-gold-on-dark` | `text-dark` | Slide animation |
 
-**Bracket Button:** `[ LABEL ]` with hover color change to gold.
+Use clean label + arrow → for solid/primary CTAs. Example: `Book a Call →`.
+
+**Bracket Button (transparent/ghost only):** Use `variant="bracket"` for secondary, ghost-style buttons only. Renders as `[ LABEL ]` with hover color change to gold. Do not use brackets on primary or colored (e.g. Gold) buttons.
 
 **Typography:** `font-mono font-bold uppercase tracking-[0.2em]`
 
@@ -365,8 +369,10 @@ Use Tailwind classes for color so icons follow theme:
 **Usage:**
 ```jsx
 <CTAButton theme="light" onClick={handleClick}>
-  Book a Call
+  Book a Call →
 </CTAButton>
+
+<CTAButton theme="dark">Book a Call →</CTAButton>
 
 <CTAButton variant="bracket" size="sm">
   View Details
@@ -512,7 +518,7 @@ import { m, useScroll, useTransform } from 'framer-motion';
         <p className="type-body-lg text-dark/70 border-l-2 border-gold pl-6 mb-8">
           Lead paragraph text.
         </p>
-        <CTAButton>Call to Action</CTAButton>
+        <CTAButton>Call to Action →</CTAButton>
       </div>
       
       {/* Right: Visual */}
@@ -546,7 +552,7 @@ import { m, useScroll, useTransform } from 'framer-motion';
     <p className="type-body-lg text-white/80 mb-10">
       Supporting text.
     </p>
-    <CTAButton theme="dark">Call to Action</CTAButton>
+    <CTAButton theme="dark">Call to Action →</CTAButton>
   </div>
 </section>
 ```

@@ -158,7 +158,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onServiceClick }) => {
 
             <div className="mt-10 md:mt-16 flex flex-col sm:flex-row items-center gap-6 md:gap-12 animate-fade-in relative z-30" style={{ animationDelay: '0.8s' }}>
               <CTAButton theme="light" onClick={() => onNavigate('contact')}>
-                {isMobile ? "LET'S TALK" : "[ LET'S TALK ]"}
+                LET'S TALK
               </CTAButton>
               <CTAButton variant="bracket" theme="light" onClick={() => onNavigate('system')}>
                 SEE THE SYSTEM

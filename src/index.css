@@ -337,6 +337,56 @@
   }
 }
 
+/* Live border — marching dashed lines (raw, technical) */
+@keyframes march {
+  0% {
+    background-position: 0 0, 100% 0, 0 100%, 0 0;
+  }
+  100% {
+    background-position: 24px 0, 100% 24px, -24px 100%, 0 -24px;
+  }
+}
+
+.animate-border-march {
+  --march-dash: 6px;
+  --march-gap: 18px;
+  --march-period: 24px;
+  --march-width: 3px;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      #000 0,
+      #000 var(--march-dash),
+      transparent var(--march-dash),
+      transparent var(--march-period)
+    ),
+    repeating-linear-gradient(
+      0deg,
+      #000 0,
+      #000 var(--march-dash),
+      transparent var(--march-dash),
+      transparent var(--march-period)
+    ),
+    repeating-linear-gradient(
+      90deg,
+      #000 0,
+      #000 var(--march-dash),
+      transparent var(--march-dash),
+      transparent var(--march-period)
+    ),
+    repeating-linear-gradient(
+      0deg,
+      #000 0,
+      #000 var(--march-dash),
+      transparent var(--march-dash),
+      transparent var(--march-period)
+    );
+  background-size: 100% var(--march-width), var(--march-width) 100%, 100% var(--march-width), var(--march-width) 100%;
+  background-position: 0 0, 100% 0, 0 100%, 0 0;
+  background-repeat: repeat-x, repeat-y, repeat-x, repeat-y;
+  animation: march 0.8s linear infinite;
+}
+
 
 /* ============================================
    ACCESSIBILITY REFERENCE (DO NOT DELETE)

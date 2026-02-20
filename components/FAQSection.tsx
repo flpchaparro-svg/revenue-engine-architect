@@ -261,7 +261,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({
               Still have questions?
             </h2>
             <CTAButton theme="light" onClick={() => onNavigate?.('contact')}>
-              [ BOOK A 15-MIN CALL ]
+              BOOK A 15-MIN CALL
             </CTAButton>
           </div>
         )}

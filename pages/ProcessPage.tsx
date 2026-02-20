@@ -159,7 +159,7 @@ const ProcessPage: React.FC<ProcessPageProps> = ({ onBack, onNavigate }) => {
                 </h2>
                 
                 <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
-                  [ BOOK A CALL ]
+                  BOOK A CALL
                 </CTAButton>
                 
                 <div className="flex items-center gap-2 opacity-50 mt-8">

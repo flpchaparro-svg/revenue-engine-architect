@@ -226,7 +226,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
                                 
                                 <div className="w-fit">
                                   <CTAButton theme="light" onClick={() => onNavigate('contact')}>
-                                    [ BOOK A CALL ]
+                                    BOOK A CALL
                                   </CTAButton>
                                 </div>
                              </div>
@@ -353,7 +353,7 @@ const Pillar7: React.FC<PillarPageProps> = ({ onBack, onNavigate }) => {
 
                                          <div className="w-full">
                                             <CTAButton theme="light" onClick={() => onNavigate('contact')} className="w-full">
-                                                [ BOOK A CALL ]
+                                                BOOK A CALL
                                             </CTAButton>
                                          </div>
 

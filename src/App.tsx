@@ -16,6 +16,8 @@ const EvidenceVaultPage = lazy(() => import('../pages/EvidenceVaultPage'));
 const ContactPage = lazy(() => import('../pages/ContactPage'));
 const PrivacyPolicyPage = lazy(() => import('../pages/PrivacyPolicyPage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
+const BlogPage = lazy(() => import('../pages/BlogPage'));
+const BlogPostPage = lazy(() => import('../pages/BlogPostPage'));
 
 const SystemPage = lazy(() => import('../pages/System/SystemPage'));
 const Pillar1 = lazy(() => import('../pages/System/Pillar1'));
@@ -49,6 +51,7 @@ const App: React.FC = () => {
   const handleGlobalNavigate = (path: string, sectionId?: string) => {
     const routeMap: Record<string, string> = {
       'homepage': '/',
+      'blog': '/blog',
       'architect': '/architect',
       'system': '/system',
       'process': '/process',
@@ -99,7 +102,12 @@ const App: React.FC = () => {
       <div className="bg-cream font-sans selection:bg-dark selection:text-cream min-h-screen flex flex-col relative">
         
         {location.pathname !== '/contact' && (
-          <GlobalHeader currentView={getCurrentView()} onNavigate={handleGlobalNavigate} scrolled={scrolled} />
+          <GlobalHeader
+            currentView={getCurrentView()}
+            onNavigate={handleGlobalNavigate}
+            scrolled={scrolled}
+            solidBackground={/^\/blog\/[^/]+$/.test(location.pathname)}
+          />
         )}
 
         <main className="relative min-h-screen w-full flex-1">
@@ -115,6 +123,8 @@ const App: React.FC = () => {
                   <Route path="/evidence-vault" element={<EvidenceVaultPage onBack={() => handleGlobalNavigate('homepage')} />} />
                   <Route path="/contact" element={<ContactPage onBack={() => handleGlobalNavigate('homepage')} />} />
                   <Route path="/privacy" element={<PrivacyPolicyPage onBack={() => handleGlobalNavigate('homepage')} onNavigate={handleGlobalNavigate} />} />
+                  <Route path="/blog" element={<BlogPage onNavigate={handleGlobalNavigate} />} />
+                  <Route path="/blog/:slug" element={<BlogPostPage onNavigate={handleGlobalNavigate} />} />
                   
                   <Route path="/pillar1" element={<Pillar1 onNavigate={handleGlobalNavigate} />} />
                   <Route path="/pillar2" element={<Pillar2 onNavigate={handleGlobalNavigate} />} />

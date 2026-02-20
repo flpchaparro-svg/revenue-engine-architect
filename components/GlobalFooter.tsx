@@ -18,6 +18,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
         { label: 'Philosophy', action: () => onNavigate('architect') },
         { label: 'The Process', action: () => onNavigate('process') },
         { label: 'Case Studies', action: () => onNavigate('proof') },
+        { label: 'System Logs', action: () => onNavigate('blog') },
       ]
     },
     {
@@ -80,7 +81,7 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
                 Start <span className="italic text-gold-on-dark">building.</span>
               </h2>
               <CTAButton theme="dark" onClick={() => onNavigate('contact')}>
-                [ BOOK A CALL ]
+                BOOK A CALL
               </CTAButton>
            </div>
 

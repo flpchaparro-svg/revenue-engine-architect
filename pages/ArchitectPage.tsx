@@ -190,7 +190,7 @@ const ArchitectPage: React.FC<ArchitectPageProps> = ({ onBack, onNavigate }) => 
              Ready to build your <span className="italic font-serif text-gold-on-cream">system?</span>
            </h2>
            <CTAButton theme={mode === 'architect' ? 'light' : 'dark'} onClick={() => onNavigate('contact')}>
-             [ BOOK A CALL ]
+             BOOK A CALL
            </CTAButton>
         </Section>
       </div>

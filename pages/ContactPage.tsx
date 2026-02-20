@@ -155,7 +155,7 @@ const ContactPage: React.FC<ContactPageProps> = ({ onBack }) => {
 
               <div className="pt-6 pb-8 lg:pt-4 lg:pb-0">
                 <CTAButton theme="dark" type="submit" className={`w-full ${status === 'submitting' ? 'opacity-50 cursor-wait' : ''}`}>
-                  {status === 'submitting' ? 'SENDING...' : '[ SEND ]'}
+                  {status === 'submitting' ? 'SENDING...' : 'SEND'}
                 </CTAButton>
               </div>
             </form>

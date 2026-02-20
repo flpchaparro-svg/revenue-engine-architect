@@ -179,7 +179,7 @@ const Modal: React.FC<ModalProps> = ({ service, isOpen, onClose, theme }) => {
                      onClick={() => window.location.href='/system'}
                      className="w-full md:w-auto"
                    >
-                     [ SEE FULL DETAILS ]
+                     SEE FULL DETAILS
                    </CTAButton>
                 </div>
 

@@ -7,9 +7,11 @@ interface GlobalHeaderProps {
   currentView: string;
   onNavigate: (view: string, sectionId?: string) => void;
   scrolled: boolean;
+  /** When true, use solid cream background (e.g. on dark pages like blog post) */
+  solidBackground?: boolean;
 }
 
-const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, scrolled }) => {
+const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, scrolled, solidBackground = false }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isArchHovered, setIsArchHovered] = useState(false);
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
@@ -69,7 +71,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -100, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-0 w-full z-[300] px-6 md:px-12 h-20 md:h-24 flex justify-between items-center bg-transparent pointer-events-none md:pointer-events-auto"
+            className={`fixed top-0 w-full z-[300] px-6 md:px-12 h-20 md:h-24 flex justify-between items-center ${solidBackground ? 'bg-cream' : 'bg-transparent'} pointer-events-none md:pointer-events-auto`}
             onMouseLeave={() => { setIsArchHovered(false); setHoveredNav(null); }}
           >
             {/* LOGO */}
@@ -191,7 +193,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                  onClick={() => onNavigate('contact')}
                  className="py-3 px-6 whitespace-nowrap"
                >
-                 [ TALK ]
+                 TALK
                </CTAButton>
             </div>
           </m.nav>
@@ -250,7 +252,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                className="h-32 w-full bg-gold flex items-center justify-center hover:bg-white hover:text-dark transition-colors duration-snap group"
              >
                 <span className="block -rotate-90 whitespace-nowrap type-eyebrow text-dark">
-                   [ TALK ]
+                   TALK
                 </span>
              </button>
           </m.div>
@@ -266,7 +268,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
               onClick={() => onNavigate('contact')}
               className={`px-3 py-2 type-eyebrow border border-dark bg-dark text-cream whitespace-nowrap ${scrolled ? 'shadow-lg' : ''}`}
             >
-              [ TALK ]
+              TALK
             </button>
             <button 
               onClick={() => setIsMenuOpen(true)} 
@@ -373,7 +375,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                    onClick={() => { onNavigate('contact'); setIsMenuOpen(false); }}
                    className="w-full whitespace-nowrap"
                  >
-                   [ LET'S TALK ]
+                   LET'S TALK
                  </CTAButton>
                </div>
              </div>
