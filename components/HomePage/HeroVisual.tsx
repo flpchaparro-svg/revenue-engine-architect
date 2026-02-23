@@ -152,9 +152,11 @@ const HeroVisual: React.FC = () => {
       const isMobileOrTablet = cachedIsMobileOrTablet; 
       
       const cx = w / 2;
-      const cy = isMobile ? h * 0.35 : h * 0.45;
+      // Center vertically so sphere + shadow fit with room top and bottom
+      const cy = isMobile ? h * 0.42 : h * 0.5;
       const minDimension = Math.min(w, h);
-      const adaptiveScale = minDimension * (isMobile ? 0.45 : 0.35); 
+      // Slightly smaller so sphere and shadow both fit in canvas without clipping
+      const adaptiveScale = minDimension * (isMobile ? 0.40 : 0.30); 
       
       ctx.clearRect(0, 0, w, h);
 
@@ -261,7 +263,7 @@ const HeroVisual: React.FC = () => {
   }, [geometry]);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 z-0 w-full h-full pointer-events-none select-none overflow-hidden">
+    <div ref={containerRef} className="absolute inset-0 z-0 w-full h-full pointer-events-none select-none overflow-visible">
       <canvas ref={canvasRef} className="block w-full h-full" />
     </div>
   );
