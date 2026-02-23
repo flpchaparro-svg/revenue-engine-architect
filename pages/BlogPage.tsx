@@ -73,6 +73,7 @@ const BlogCard: React.FC<{ post: any; featured?: boolean }> = ({ post, featured 
 
 export default function BlogPage() {
   const [posts, setPosts] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true); // FIX: Added a true loading state
   const [activeFilter, setActiveFilter] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>(''); 
   const [email, setEmail] = useState('');
@@ -85,10 +86,18 @@ export default function BlogPage() {
   const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true); // Start loading
     client
       .fetch(`*[_type == "post"] | order(publishedAt desc) { title, slug, mainImage, publishedAt, "authorName": author->name, servicePillar, isFeatured, seoDescription }`)
-      .then((data) => setPosts(data || []))
-      .catch(console.error);
+      .then((data) => {
+        setPosts(data || []);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch posts:", error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Stop loading no matter what
+      });
   }, []);
 
   // Typewriter Animation Logic
@@ -164,7 +173,6 @@ export default function BlogPage() {
               
               <div className="flex items-stretch shadow-[8px_8px_0px_0px_#09090b] transition-shadow hover:shadow-[12px_12px_0px_0px_#09090b]">
                 
-                {/* FIX: Wrapper strictly confines the input and typewriter so it never overlaps the button */}
                 <div className="relative flex-1 flex min-w-0 bg-white border-2 border-r-0 border-black overflow-hidden">
                   
                   {/* Search Input */}
@@ -177,7 +185,7 @@ export default function BlogPage() {
                     className="w-full px-4 py-4 md:px-6 md:py-6 text-base md:text-xl font-mono uppercase tracking-widest text-black focus:outline-none focus:bg-cream transition-colors relative z-10 bg-transparent" 
                   />
 
-                  {/* Simulated Placeholder (Typewriter Effect) trapped inside the box */}
+                  {/* Simulated Placeholder (Typewriter Effect) */}
                   {!searchQuery && !isFocused && (
                     <div className="absolute inset-0 flex items-center pl-4 md:pl-6 pr-4 pointer-events-none z-20 overflow-hidden whitespace-nowrap">
                       <span className="text-base md:text-xl font-mono uppercase tracking-widest text-black/40 truncate">
@@ -228,10 +236,14 @@ export default function BlogPage() {
           </div>
         </div>
 
-        {/* RESULTS GRID */}
-        {posts.length === 0 ? (
+        {/* RESULTS GRID (FIXED LOADING LOGIC) */}
+        {isLoading ? (
           <div className="font-mono text-sm uppercase tracking-widest text-black/60 border-2 border-black p-6 inline-block">
             Loading Insights...
+          </div>
+        ) : posts.length === 0 ? (
+          <div className="font-mono text-sm uppercase tracking-widest text-black/60 border-2 border-black p-6 inline-block">
+            No insights published yet.
           </div>
         ) : filteredPosts.length === 0 ? (
           <div className="font-mono text-sm uppercase tracking-widest text-red-500 border-2 border-red-500 p-6 inline-block bg-red-500/10">
