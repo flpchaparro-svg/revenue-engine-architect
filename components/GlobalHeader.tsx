@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, Target, TrendingUp, BarChart3 } from 'lucide-react';
 import CTAButton from './CTAButton';
+import { SysbiltLogo } from './SysbiltLogo'; // Your new animated logo!
 
 interface GlobalHeaderProps {
   currentView: string;
@@ -74,28 +75,13 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
             className={`fixed top-0 w-full z-[300] px-6 md:px-12 h-20 md:h-24 flex justify-between items-center ${solidBackground ? 'bg-cream' : 'bg-transparent'} pointer-events-none md:pointer-events-auto`}
             onMouseLeave={() => { setIsArchHovered(false); setHoveredNav(null); }}
           >
-            {/* LOGO */}
+            {/* NEW SYSBILT LOGO */}
             <button 
               onClick={() => onNavigate('homepage')} 
               aria-label="Go to Homepage"
-              className="flex items-center gap-3 group z-[310] pointer-events-auto"
+              className="group z-[310] pointer-events-auto flex items-center"
             >
-              <div className="font-mono text-[10px] font-bold border border-dark px-1.5 py-0.5 bg-dark text-cream transition-colors whitespace-nowrap">
-                [FC)
-              </div>
-              <div className="hidden md:flex items-center h-4 text-dark">
-                 <span className="type-eyebrow whitespace-nowrap">
-                   Felipe
-                 </span>
-                 <div className="relative h-4 overflow-hidden ml-2 w-[120px]">
-                   <span className="absolute inset-0 type-eyebrow flex items-center group-hover:-translate-y-full transition-transform duration-snap whitespace-nowrap">
-                     Consultancy
-                   </span>
-                   <span className="absolute inset-0 type-eyebrow text-gold-on-cream flex items-center translate-y-full group-hover:translate-y-0 transition-transform duration-snap whitespace-nowrap">
-                     Home
-                   </span>
-                 </div>
-              </div>
+              <SysbiltLogo />
             </button>
 
             {/* DESKTOP NAV */}
@@ -160,7 +146,6 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                             >
                               {archPillars.map((group) => (
                                 <div key={group.system} className="space-y-4">
-                                  {/* FIX: Changed <h4> to <div> to prevent Accessibility "Skipped Heading Level" Error */}
                                   <div className={`flex items-center gap-2 text-[9px] font-bold uppercase tracking-[0.2em] ${group.color} border-b border-black/5 pb-2`}>
                                      <group.icon className="w-3 h-3" /> {group.system}
                                   </div>
@@ -222,7 +207,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
                    : 'text-cream hover:bg-white/5'
                }`}
              >
-                <span className="font-mono text-[10px] font-bold whitespace-nowrap">[FC)</span>
+                <span className="font-mono text-[10px] font-bold whitespace-nowrap">[SYS]</span>
              </button>
 
              <div className="flex flex-col">
@@ -294,7 +279,7 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
              <div className="h-20 w-full flex items-center justify-between shrink-0">
                <button onClick={() => { setIsMenuOpen(false); onNavigate('homepage'); }} aria-label="Go to Homepage">
                   <div className="font-mono text-[10px] font-bold border border-dark px-1.5 py-0.5 bg-dark text-cream whitespace-nowrap">
-                    [FC)
+                    [SYS]
                   </div>
                </button>
                <button 

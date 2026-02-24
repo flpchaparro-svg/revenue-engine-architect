@@ -1,6 +1,7 @@
 import React from 'react';
 import { Target, TrendingUp, BarChart3, ArrowUpRight } from 'lucide-react';
 import CTAButton from './CTAButton';
+import { SysbiltLogo } from './SysbiltLogo'; // 1. Imported the logo
 
 interface GlobalFooterProps {
   onNavigate: (view: string, sectionId?: string) => void;
@@ -68,14 +69,12 @@ const GlobalFooter: React.FC<GlobalFooterProps> = ({ onNavigate }) => {
         {/* TOP SECTION: CTA & BRAND */}
         <div className="flex flex-col lg:flex-row justify-between items-start mb-24 gap-16">
            <div className="max-w-lg">
-              <div className="flex items-center gap-3 mb-8">
-                 <div className="font-mono text-[10px] font-bold border border-white/20 px-1.5 py-0.5 text-white/80">
-                    [FC)
-                 </div>
-                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/70">
-                    Felipe Consultancy
-                 </span>
+              
+              {/* 2. REPLACED THE OLD FC TEXT WITH THE LOGO */}
+              <div className="mb-8">
+                 <SysbiltLogo isDarkBg={true} />
               </div>
+              
               <h2 className="font-serif text-4xl md:text-5xl leading-[0.95] tracking-tight mb-8">
                 Stop guessing. <br />
                 Start <span className="italic text-gold-on-dark">building.</span>
