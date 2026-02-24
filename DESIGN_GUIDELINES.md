@@ -1,4 +1,4 @@
-# Design Guidelines — Revenue Engine Architect
+# Design Guidelines — SYSBILT
 
 **Version:** 2.0 (Accessibility Compliant)  
 **Last Updated:** February 4, 2026  
@@ -601,7 +601,7 @@ import { m, useScroll, useTransform } from 'framer-motion';
 
 ```
 ╔═══════════════════════════════════════════════════════════════╗
-║       REVENUE ENGINE ARCHITECT — DESIGN CHEAT SHEET           ║
+║                SYSBILT — DESIGN CHEAT SHEET                   ║
 ╠═══════════════════════════════════════════════════════════════╣
 ║                                                               ║
 ║  TEXT ON CREAM (#FFF2EC):                                    ║
