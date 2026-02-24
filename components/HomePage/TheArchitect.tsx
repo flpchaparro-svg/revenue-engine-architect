@@ -40,13 +40,13 @@ const TheArchitect: React.FC = () => {
                     muted
                     playsInline
                     preload="metadata"
-                    poster="/images/felipe-chaparro-revenue-engine-architect-sydney.webp"
-                    aria-label="AI-generated video clone of Felipe Chaparro, demonstrating the Pillar 5 Content System."
+                    poster="/images/felipe-chaparro-sysbilt-sydney.webp"
+                    aria-label="AI-generated video clone of Felipe Chaparro, demonstrating the SYSBILT system."
                   >
-                    <source src="/videos/revenue-engine-architecture-system-About-video.webm" type="video/webm" />
+                    <source src="/videos/sysbilt-system-About-video.webm" type="video/webm" />
                     <img
-                      src="/images/felipe-chaparro-revenue-engine-architect-sydney.webp"
-                      alt="Felipe Chaparro - Revenue Engine Architect Sydney - AI Avatar Video Clone"
+                      src="/images/felipe-chaparro-sysbilt-sydney.webp"
+                      alt="Felipe Chaparro - SYSBILT architect in Sydney - AI avatar video clone"
                       style={{ display: 'none' }}
                     />
                     Your browser does not support the video tag.
