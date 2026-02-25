@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { Menu, X, ChevronDown, Target, TrendingUp, BarChart3 } from 'lucide-react';
 import CTAButton from './CTAButton';
-import { SysbiltLogo } from './SysbiltLogo'; // Your new animated logo!
+import { SysbiltLogo } from './SysbiltLogo'; 
 
 interface GlobalHeaderProps {
   currentView: string;
@@ -17,6 +17,9 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
   const [isArchHovered, setIsArchHovered] = useState(false);
   const [hoveredNav, setHoveredNav] = useState<string | null>(null);
   const [isMobileSystemOpen, setIsMobileSystemOpen] = useState(false);
+
+  // --- NEW: Identify if we are in the Editorial/Blog section
+  const isBlogView = currentView.startsWith('blog');
 
   // --- DATA ---
   const navItems = [
@@ -66,16 +69,21 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
           1. TOP NAVIGATION
       ======================== */}
       <AnimatePresence>
-        {!scrolled && (
+        {/* FIX: If it's a Blog View, keep the top nav visible even when scrolled */}
+        {(!scrolled || isBlogView) && (
           <m.nav 
             initial={{ y: -100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -100, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className={`fixed top-0 w-full z-[300] px-6 md:px-12 h-20 md:h-24 flex justify-between items-center ${solidBackground ? 'bg-cream' : 'bg-transparent'} pointer-events-none md:pointer-events-auto`}
+            className={`fixed top-0 w-full z-[300] px-6 md:px-12 transition-all duration-300 flex justify-between items-center pointer-events-none md:pointer-events-auto ${
+              isBlogView && scrolled 
+                ? 'h-16 md:h-20 bg-cream/95 backdrop-blur-md shadow-sm border-b border-dark/10' // Contrast Background when scrolling on Blog
+                : `h-20 md:h-24 ${solidBackground ? 'bg-cream' : 'bg-transparent'}` // Default Background
+            }`}
             onMouseLeave={() => { setIsArchHovered(false); setHoveredNav(null); }}
           >
-            {/* NEW SYSBILT LOGO */}
+            {/* SYSBILT LOGO */}
             <button 
               onClick={() => onNavigate('homepage')} 
               aria-label="Go to Homepage"
@@ -189,7 +197,8 @@ const GlobalHeader: React.FC<GlobalHeaderProps> = ({ currentView, onNavigate, sc
           2. SIDE DOCK (Desktop Scroll)
       ======================== */}
       <AnimatePresence>
-        {scrolled && (
+        {/* FIX: Prevent the Side Dock from appearing on the Blog */}
+        {scrolled && !isBlogView && (
           <m.div 
             initial={{ x: 100, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}

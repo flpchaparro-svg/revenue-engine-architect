@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { colors } from '../../constants/theme';
 
 // BRUTALIST OVERRIDES
-const INK_COLOR = '#09090b'; // Pitch black
+const INK_COLOR = '##1a1a1a'; // Pitch black
 const DESKTOP_COUNT = 60; // Less dots = more primitive/geometric
 const DESKTOP_DIST = 0.65;
 const MOBILE_COUNT = 40; 
