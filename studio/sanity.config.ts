@@ -2,15 +2,22 @@ import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
+import {table} from '@sanity/table'
+import {codeInput} from '@sanity/code-input'
 
 export default defineConfig({
   name: 'default',
-  title: 'revenue-engine-blog',
+  title: 'Sysbilt',
 
-  projectId: 'wdlc9pg8',
+  projectId: 'wdlc9pg8', // <-- Fixed here
   dataset: 'production',
 
-  plugins: [structureTool(), visionTool()],
+  plugins: [
+    structureTool(), 
+    visionTool(),
+    table(), 
+    codeInput() 
+  ],
 
   schema: {
     types: schemaTypes,
