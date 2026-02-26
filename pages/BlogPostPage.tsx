@@ -3,13 +3,180 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { client, urlFor } from '../src/sanityClient';
 import { PortableText } from '@portabletext/react';
-import { ArrowLeft, ArrowUpRight, Share2, MessageSquare, Eye } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Share2, MessageSquare, Eye, Quote, Copy, Check, Info, AlertTriangle } from 'lucide-react';
 
 // Helper function to extract YouTube ID
 const getYouTubeId = (url: string) => {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = url.match(regExp);
   return (match && match[2].length === 11) ? match[2] : null;
+};
+
+// Parser to allow **bold** and !!red!! in Sanity Table cells
+const renderCellText = (text: string, theme: any) => {
+  if (!text || typeof text !== 'string') return text;
+  const parts = text.split(/(\*\*.*?\*\*|!!.*?!!)/g);
+  return parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) {
+      return (
+        <strong key={i} className={theme.isBw ? "bg-white text-dark px-1.5 py-0.5 mx-0.5 font-black inline-block leading-none uppercase tracking-wider shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)]" : "font-bold text-white"}>
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    if (part.startsWith('!!') && part.endsWith('!!')) {
+      return <span key={i} className={`${theme.textMain} font-bold`}>{part.slice(2, -2)}</span>;
+    }
+    return <span key={i}>{part}</span>;
+  });
+};
+
+// ---------------------------------------------------------
+// THEME ENGINE
+// ---------------------------------------------------------
+const THEMES: Record<string, any> = {
+  red: {
+    textMain: 'text-red-solid',
+    bgMain: 'bg-red-solid',
+    borderMain: 'border-red-solid',
+    textInverse: 'text-dark',
+    bgHover: 'group-hover:bg-red-solid',
+    textHover: 'group-hover:text-red-solid hover:text-red-solid',
+    borderHover: 'group-hover:border-red-solid hover:border-red-solid',
+    linkHover: 'hover:text-red-solid hover:decoration-red-solid',
+    borderFocus: 'focus:border-red-solid',
+    bgSubtle: 'bg-red-solid/5',
+    borderSubtle: 'border-red-solid/20',
+    bgMedium: 'bg-red-solid/30',
+    textMuted20: 'text-red-solid/20',
+    textMuted50: 'text-red-solid/50',
+    textMuted80: 'text-red-solid/80',
+    btnPrimary: 'bg-red-solid text-white border-red-solid hover:bg-transparent hover:text-red-solid',
+    btnInlineCta: 'border-white bg-white text-dark hover:bg-red-solid hover:text-white hover:border-red-solid',
+    ytShadow: 'shadow-[0_0_0_0_rgba(226,30,63,0.4)] group-hover:shadow-[0_0_0_20px_rgba(226,30,63,0)]',
+    playIcon: 'border-l-white',
+    pulse: 'bg-red-solid animate-pulse',
+    isBw: false
+  },
+  gold: {
+    textMain: 'text-gold-on-dark',
+    bgMain: 'bg-gold-on-dark',
+    borderMain: 'border-gold-on-dark',
+    textInverse: 'text-dark',
+    bgHover: 'group-hover:bg-gold-on-dark',
+    textHover: 'group-hover:text-gold-on-dark hover:text-gold-on-dark',
+    borderHover: 'group-hover:border-gold-on-dark hover:border-gold-on-dark',
+    linkHover: 'hover:text-gold-on-dark hover:decoration-gold-on-dark',
+    borderFocus: 'focus:border-gold-on-dark',
+    bgSubtle: 'bg-gold-on-dark/5',
+    borderSubtle: 'border-gold-on-dark/20',
+    bgMedium: 'bg-gold-on-dark/30',
+    textMuted20: 'text-gold-on-dark/20',
+    textMuted50: 'text-gold-on-dark/50',
+    textMuted80: 'text-gold-on-dark/80',
+    btnPrimary: 'bg-gold-on-dark text-dark border-gold-on-dark hover:bg-transparent hover:text-gold-on-dark',
+    btnInlineCta: 'border-white bg-white text-dark hover:bg-gold-on-dark hover:text-dark hover:border-gold-on-dark',
+    ytShadow: 'shadow-[0_0_0_0_rgba(212,168,75,0.4)] group-hover:shadow-[0_0_0_20px_rgba(212,168,75,0)]',
+    playIcon: 'border-l-dark',
+    pulse: 'bg-gold-on-dark animate-pulse',
+    isBw: false
+  },
+  bw: {
+    textMain: 'text-white',
+    bgMain: 'bg-white',
+    borderMain: 'border-white',
+    textInverse: 'text-dark',
+    bgHover: 'group-hover:bg-white',
+    textHover: 'group-hover:text-white hover:text-white',
+    borderHover: 'group-hover:border-white hover:border-white',
+    linkHover: 'hover:bg-white hover:text-dark px-1 hover:no-underline transition-colors',
+    borderFocus: 'focus:border-white',
+    bgSubtle: 'bg-white/5',
+    borderSubtle: 'border-white/20',
+    bgMedium: 'bg-white/30',
+    textMuted20: 'text-white/20',
+    textMuted50: 'text-white/50',
+    textMuted80: 'text-white/80',
+    btnPrimary: 'bg-white text-dark border-white hover:bg-dark hover:text-white hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all',
+    btnInlineCta: 'border-white bg-white text-dark hover:bg-dark hover:text-white hover:shadow-[4px_4px_0px_0px_rgba(255,255,255,1)] transition-all',
+    ytShadow: 'shadow-[0_0_0_0_rgba(255,255,255,0.4)] group-hover:shadow-[0_0_0_20px_rgba(255,255,255,0)]',
+    playIcon: 'border-l-dark',
+    pulse: 'bg-white animate-pulse',
+    isBw: true
+  }
+};
+
+// Custom Facade YouTube Player
+const CustomYouTube = ({ value, theme }: any) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const id = value?.url ? getYouTubeId(value.url) : null;
+  if (!id) return null;
+
+  if (!isPlaying) {
+    return (
+      <div 
+        className="my-16 relative aspect-video w-full max-w-4xl mx-auto border border-white/10 bg-dark overflow-hidden cursor-pointer group flex items-center justify-center shadow-2xl"
+        onClick={() => setIsPlaying(true)}
+      >
+        <img 
+          src={`https://img.youtube.com/vi/${id}/maxresdefault.jpg`} 
+          alt="Video thumbnail" 
+          className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-all duration-700 group-hover:grayscale scale-105 group-hover:scale-100" 
+        />
+        <div className={`relative z-10 w-16 md:w-20 h-16 md:h-20 ${theme.bgMain} flex items-center justify-center rounded-full ${theme.ytShadow} transition-shadow duration-700`}>
+          <div className={`w-0 h-0 border-y-[8px] md:border-y-[10px] border-y-transparent border-l-[12px] md:border-l-[16px] ${theme.playIcon} ml-1 md:ml-1.5`}></div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="my-16 relative aspect-video w-full max-w-4xl mx-auto border border-white/20 bg-dark overflow-hidden shadow-2xl">
+      <iframe
+        src={`https://www.youtube.com/embed/${id}?autoplay=1&controls=1&rel=0&modestbranding=1`}
+        title="YouTube Video"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen
+        className="absolute top-0 left-0 w-full h-full"
+      />
+    </div>
+  );
+};
+
+// Custom Interactive Code Block Component
+const CodeBlock = ({ value, theme }: any) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    if (value?.code) {
+      navigator.clipboard.writeText(value.code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  return (
+    <div className="bg-[#18181b] rounded-lg p-4 md:p-5 border border-white/5 font-mono text-sm relative group my-12 shadow-2xl">
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex gap-1.5">
+          <div className={`w-2.5 h-2.5 rounded-full ${theme.bgMedium}`}></div>
+          <div className="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+          <div className="w-2.5 h-2.5 rounded-full bg-white/10"></div>
+        </div>
+        {value.language && <span className="text-[10px] text-white/30 uppercase tracking-widest">{value.language}</span>}
+      </div>
+      <pre className="overflow-x-auto text-white/80 leading-relaxed text-sm scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent pb-2">
+        <code>{value.code}</code>
+      </pre>
+      <button 
+        onClick={handleCopy}
+        className="absolute top-4 right-4 text-white/30 hover:text-white opacity-0 group-hover:opacity-100 transition-all p-2 rounded-md hover:bg-white/5"
+        title="Copy Code"
+      >
+        {copied ? <Check className="w-4 h-4 text-green-500" /> : <Copy className="w-4 h-4" />}
+      </button>
+    </div>
+  );
 };
 
 export default function BlogPostPage() {
@@ -33,7 +200,11 @@ export default function BlogPostPage() {
             body,
             servicePillar,
             seoDescription,
-            "authorName": author->name
+            "author": author->{
+              name,
+              image,
+              bio
+            }
           },
           "allOtherPosts": *[_type == "post" && slug.current != $slug] | order(publishedAt desc) {
             title,
@@ -62,38 +233,66 @@ export default function BlogPostPage() {
       .catch(console.error);
   }, [slug]);
 
+  // SMART THEME SELECTOR
+  const activeThemeKey = useMemo(() => {
+    if (!post?.servicePillar) return 'red';
+    const p = post.servicePillar.toLowerCase();
+    
+    if (['ai', 'content', 'training'].some(word => p.includes(word))) return 'gold';
+    if (['dashboard'].some(word => p.includes(word))) return 'bw';
+    return 'red';
+  }, [post?.servicePillar]);
+
+  const theme = THEMES[activeThemeKey];
+
   const toc = useMemo(() => {
     if (!post?.body) return [];
     return post.body
       .filter((block: any) => block.style === 'h2')
       .map((block: any) => {
-        const text = block.children?.map((c: any) => c.text).join('') || '';
-        return {
-          text,
-          id: text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '')
-        };
+        const rawText = block.children?.map((c: any) => c.text).join('') || '';
+        const id = rawText.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+        
+        const numMatch = rawText.match(/^0?(\d+)[\.\-\/]\s*(.*)/);
+        const slashMatch = rawText.match(/^\/\/\s*(.*)/);
+        
+        let text = rawText;
+        let num = null;
+
+        if (numMatch) {
+          num = numMatch[1].padStart(2, '0');
+          text = numMatch[2];
+        } else if (slashMatch) {
+          text = slashMatch[1];
+        }
+
+        return { text, id, num };
       });
   }, [post?.body]);
 
   useEffect(() => {
-    const observers = toc.map((item: any) => {
-      const element = document.getElementById(item.id);
-      if (!element) return null;
+    const handleScroll = () => {
+      if (!toc.length) return;
       
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveToc(item.id);
-          }
-        },
-        { rootMargin: '-100px 0px -80% 0px' }
-      );
-      observer.observe(element);
-      return observer;
-    });
+      const headingElements = toc.map((t: any) => document.getElementById(t.id)).filter(Boolean);
+      let currentActiveId = toc[0]?.id;
+      
+      for (const el of headingElements) {
+        const rect = el.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.3) {
+          currentActiveId = el.id;
+        }
+      }
+      
+      if (currentActiveId !== activeToc) {
+        setActiveToc(currentActiveId);
+      }
+    };
 
-    return () => observers.forEach(obs => obs?.disconnect());
-  }, [toc]);
+    window.addEventListener('scroll', handleScroll);
+    setTimeout(handleScroll, 100);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [toc, activeToc]);
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -105,8 +304,8 @@ export default function BlogPostPage() {
     }, 1500);
   };
 
-  if (loading) return <div className="min-h-screen bg-dark text-white pt-32 px-6 text-center type-eyebrow animate-pulse">DECRYPTING FILE...</div>;
-  if (!post) return <div className="min-h-screen bg-dark text-red-solid pt-32 px-6 text-center type-eyebrow">DOSSIER NOT FOUND</div>;
+  if (loading) return <div className="min-h-screen bg-dark text-white pt-32 px-6 text-center type-eyebrow animate-pulse tracking-widest">DECRYPTING FILE...</div>;
+  if (!post) return <div className="min-h-screen bg-dark text-red-solid pt-32 px-6 text-center type-eyebrow tracking-widest">DOSSIER NOT FOUND</div>;
 
   const systemTags = ["#HubSpot", "#Clay", "#Zapier", "#RevOps"];
 
@@ -115,141 +314,313 @@ export default function BlogPostPage() {
       image: ({ value }: any) => {
         if (!value?.asset?._ref) return null;
         return (
-          <figure className="relative my-16 group cursor-pointer">
-            <div className="absolute -inset-2 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity transform -skew-x-6"></div>
+          <figure className={`relative my-16 group cursor-pointer border-l-4 ${theme.borderMain} pl-6`}>
+            <div className={`absolute -inset-2 ${theme.bgSubtle} opacity-0 group-hover:opacity-100 transition-opacity transform -skew-x-6`}></div>
             <img 
               src={urlFor(value).width(1200).url()} 
               alt={value.alt || 'System Visual'} 
-              className="w-full h-auto object-cover relative z-10 border border-white/10"
+              className={`w-full h-auto object-cover relative z-10 border border-white/10 opacity-90 hover:opacity-100 hover:grayscale transition-all duration-500`}
             />
             {value.caption && (
-              <figcaption className="font-mono text-xs mt-3 text-right opacity-50 uppercase tracking-widest relative z-10">
-                FIG. , {value.caption}
+              <figcaption className={`font-mono text-xs mt-4 text-right opacity-60 uppercase tracking-widest relative z-10 ${theme.textMain}`}>
+                FIG. // {value.caption}
               </figcaption>
             )}
           </figure>
         );
       },
-      youtube: ({ value }: any) => {
-        if (!value?.url) return null;
-        const id = getYouTubeId(value.url);
-        if (!id) return null;
+      youtube: (props: any) => <CustomYouTube {...props} theme={theme} />,
+      code: (props: any) => <CodeBlock {...props} theme={theme} />,
+      divider: () => (
+        <div className="flex items-center justify-center gap-4 py-12 md:py-16">
+          <div className="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+          <div className={`w-1.5 h-1.5 rounded-full ${theme.bgMain}`}></div>
+          <div className="w-1.5 h-1.5 rounded-full bg-white/20"></div>
+        </div>
+      ),
+      callout: ({ value }: any) => {
+        if (value.type === 'warning') {
+          return (
+            <div className={`my-12 bg-white p-5 flex gap-5 items-start shadow-xl max-w-3xl ${theme.isBw ? 'border-[3px] border-white' : 'border border-white/10'} rounded-sm`}>
+              <div className={`${theme.bgMain} ${theme.textInverse} p-2 shrink-0 mt-0.5`}>
+                <AlertTriangle size={20} />
+              </div>
+              <div>
+                <h4 className={`${theme.isBw ? 'bg-dark text-white inline-block px-2 py-0.5 font-black uppercase tracking-widest text-xs' : 'text-black font-bold uppercase tracking-wider text-xs'} mb-1`}>
+                  {value.title || 'Warning'}
+                </h4>
+                <p className="text-zinc-800 text-sm font-medium leading-relaxed">
+                  {value.text}
+                </p>
+              </div>
+            </div>
+          );
+        }
+        
         return (
-          <div className="my-16 relative aspect-video w-full border border-white/20 bg-dark shadow-[8px_8px_0px_0px_rgba(255,255,255,0.05)] overflow-hidden">
-            <iframe
-              src={`https://www.youtube.com/embed/${id}`}
-              title="YouTube Video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="absolute top-0 left-0 w-full h-full"
-            />
+          <div className={`my-12 ${theme.bgSubtle} border ${theme.borderSubtle} rounded-lg p-5 flex gap-4 items-start max-w-3xl`}>
+            <Info className={`${theme.textMuted80} shrink-0 mt-0.5`} size={20} />
+            <div>
+              <h4 className={`${theme.isBw ? 'bg-white text-dark inline-block px-2 py-0.5 font-bold uppercase tracking-widest text-xs shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)]' : theme.textMain + ' font-medium text-sm tracking-wide'} mb-1.5`}>
+                {value.title || 'Important Note'}
+              </h4>
+              <p className="text-white/70 text-sm leading-relaxed">
+                {value.text}
+              </p>
+            </div>
           </div>
         );
       },
-      code: ({ value }: any) => (
-        <div className="my-12 border border-white/20 bg-[#0a0a0a] relative overflow-hidden group">
-          <div className="flex border-b border-white/20 bg-white/5 px-4 py-3 items-center justify-between">
-            <span className="font-mono text-[10px] text-white/50 uppercase tracking-widest">{value.language || 'TERMINAL'}</span>
-            <div className="flex gap-1.5">
-               <div className="w-2 h-2 rounded-full bg-red-solid/50"></div>
-               <div className="w-2 h-2 rounded-full bg-white/20"></div>
-               <div className="w-2 h-2 rounded-full bg-white/20"></div>
-            </div>
+      cta: ({ value }: any) => {
+        const isPrimary = value.variant === 'primary';
+        return (
+          <div className="my-12 flex">
+            <a 
+              href={value.url} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className={`font-mono text-xs md:text-sm font-bold uppercase tracking-widest px-8 py-4 transition-all duration-300 inline-flex items-center gap-3 border group ${
+                isPrimary 
+                  ? theme.btnPrimary 
+                  : 'bg-transparent text-white border-white/30 hover:border-white hover:bg-white/5'
+              }`}
+            >
+              {value.text} 
+              <ArrowUpRight className="w-4 h-4 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </a>
           </div>
-          <pre className="p-6 overflow-x-auto text-sm md:text-base font-mono leading-relaxed">
-            <code className="text-white/80">{value.code}</code>
-          </pre>
-        </div>
-      ),
-      table: ({ value }: any) => (
-        <div className="my-16 overflow-x-auto border border-white/20 relative">
-          <table className="w-full text-left border-collapse min-w-[600px]">
-            <tbody>
-              {value.rows?.map((row: any, rIndex: number) => (
-                <tr key={row._key} className="border-b border-white/10 last:border-0 hover:bg-white/5 transition-colors">
-                  {row.cells?.map((cell: any, cIndex: number) => {
-                    const isHeader = rIndex === 0;
-                    const CellTag = isHeader ? 'th' : 'td';
-                    return (
-                      <CellTag key={cIndex} className={`p-5 ${isHeader ? 'font-mono text-xs uppercase tracking-widest text-red-solid bg-dark/50 border-r border-white/10 last:border-r-0' : 'font-sans text-white/80 border-r border-white/10 last:border-r-0'}`}>
-                        {cell}
-                      </CellTag>
-                    );
-                  })}
+        );
+      },
+      table: ({ value }: any) => {
+        if (!value?.rows?.length) return null;
+        const [head, ...body] = value.rows;
+        return (
+          <div className="my-12 overflow-x-auto max-w-3xl mx-auto">
+            <table className="w-full text-left border-collapse font-mono text-sm md:text-base">
+              <thead className={theme.isBw ? "bg-white text-dark uppercase tracking-wider" : "border-b-2 border-white text-white uppercase tracking-wider"}>
+                <tr>
+                  {head.cells?.map((cell: any, cIndex: number) => (
+                    <th key={cIndex} className={`py-4 px-4 font-bold ${cIndex === head.cells.length - 1 ? (theme.isBw ? 'text-dark' : theme.textMain) : ''}`}>
+                      {renderCellText(cell, theme)}
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ),
+              </thead>
+              <tbody className="divide-y divide-white/10">
+                {body.map((row: any, rIndex: number) => (
+                  <tr key={row._key} className="group hover:bg-white/5 transition-colors">
+                    {row.cells?.map((cell: any, cIndex: number) => {
+                      let baseClass = "py-4 px-4 text-white/80";
+                      if (cIndex === 0) baseClass = "py-4 px-4 font-bold text-white";
+                      if (cIndex === 1) baseClass = "py-4 px-4 text-white/50";
+                      
+                      return (
+                        <td key={cIndex} className={baseClass}>
+                          {renderCellText(cell, theme)}
+                        </td>
+                      );
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+      },
     },
     block: {
       normal: ({ children }: any) => <p className="font-sans text-lg md:text-xl text-white/70 leading-relaxed mb-8 font-light">{children}</p>,
       
       h2: ({ children, value }: any) => {
-        const text = value.children?.map((c: any) => c.text).join('') || '';
-        const id = text.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
-        
-        const index = toc.findIndex((t: any) => t.id === id) + 1;
-        const displayNum = index > 0 ? index.toString().padStart(2, '0') : '//';
+        const rawText = value.children?.map((c: any) => c.text).join('') || '';
+        const id = rawText.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+
+        const numMatch = rawText.match(/^0?(\d+)[\.\-\/]\s*(.*)/);
+        const slashMatch = rawText.match(/^\/\/\s*(.*)/);
+
+        if (numMatch) {
+           const num = numMatch[1].padStart(2, '0');
+           const cleanText = numMatch[2];
+           return (
+             <h2 id={id} className="font-sans font-bold text-2xl md:text-3xl uppercase mt-20 mb-10 flex items-center gap-4 scroll-mt-32">
+                <span className={`${theme.bgMain} ${theme.textInverse} px-3 py-1 leading-none font-black text-xl md:text-2xl shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)]`}>
+                  {num}
+                </span>
+                <span className="flex-1 text-white">{cleanText}</span>
+             </h2>
+           );
+        }
+
+        if (slashMatch) {
+           return (
+             <h2 id={id} className="font-sans font-bold text-2xl md:text-3xl uppercase mt-20 mb-10 flex items-center gap-4 scroll-mt-32">
+                <span className={`${theme.textMain} font-black text-xl md:text-2xl opacity-70`}>
+                  //
+                </span>
+                <span className="flex-1 text-white">{slashMatch[1]}</span>
+             </h2>
+           );
+        }
 
         return (
           <h2 id={id} className="font-sans font-bold text-2xl md:text-3xl uppercase mt-20 mb-10 flex items-center gap-4 scroll-mt-32">
-             <span className="bg-red-solid text-dark px-3 py-1 leading-none font-black text-xl md:text-2xl">
-               {displayNum}
-             </span>
-             <span className="flex-1">{children}</span>
+             <span className="flex-1 text-white">{rawText}</span>
           </h2>
         );
       },
-      h3: ({ children }: any) => <h3 className="font-sans font-bold text-xl md:text-2xl text-white/90 mt-16 mb-6 uppercase tracking-tight flex items-center gap-3"><span className="w-2 h-2 bg-white/20 block"></span>{children}</h3>,
+
+      h3: ({ children, value }: any) => {
+        const rawText = value.children?.map((c: any) => c.text).join('') || '';
+        const numMatch = rawText.match(/^0?(\d+)[\.\-\/]\s*(.*)/);
+        const slashMatch = rawText.match(/^\/\/\s*(.*)/);
+
+        if (numMatch) {
+           return (
+             <h3 className="font-sans font-bold text-xl md:text-2xl text-white/90 mt-16 mb-6 uppercase tracking-tight flex items-center gap-3">
+                <span className={`${theme.bgMain} ${theme.textInverse} px-2 py-0.5 leading-none font-black text-lg`}>
+                  {numMatch[1].padStart(2, '0')}
+                </span>
+                {numMatch[2]}
+             </h3>
+           );
+        }
+
+        if (slashMatch) {
+           return (
+             <h3 className="font-sans font-bold text-xl md:text-2xl text-white/90 mt-16 mb-6 uppercase tracking-tight flex items-center gap-3">
+                <span className={`${theme.textMain} opacity-70`}>//</span>
+                {slashMatch[1]}
+             </h3>
+           );
+        }
+
+        return (
+          <h3 className="font-sans font-bold text-xl md:text-2xl text-white/90 mt-16 mb-6 uppercase tracking-tight">
+            {rawText}
+          </h3>
+        );
+      },
+
       h4: ({ children }: any) => <h4 className="font-sans font-bold text-lg md:text-xl text-white/80 mt-12 mb-4 uppercase tracking-widest">{children}</h4>,
       
-      blockquote: ({ children }: any) => (
-        <div className="my-16 border-l-4 border-red-solid pl-6 py-2 bg-gradient-to-r from-red-solid/5 to-transparent">
-          <p className="font-serif italic text-2xl md:text-3xl text-white/90 leading-relaxed">
-            {children}
-          </p>
-        </div>
-      ),
+      blockquote: ({ value }: any) => {
+        const rawText = value.children?.map((c: any) => c.text).join('') || '';
+        const lastDashIndex = Math.max(rawText.lastIndexOf(' - '), rawText.lastIndexOf('\n-'));
+        
+        let quoteText = rawText;
+        let author = null;
+
+        if (lastDashIndex !== -1) {
+          quoteText = rawText.substring(0, lastDashIndex).trim();
+          author = rawText.substring(lastDashIndex).replace(/^[\s\n-]+/, '').trim();
+        }
+
+        return (
+          <div className="relative pt-8 my-16 max-w-4xl group">
+            <Quote className={`absolute top-0 left-0 w-12 h-12 ${theme.textMuted20} fill-current transform -scale-x-100`} />
+            <blockquote className="relative z-10 pl-6 md:pl-10">
+              <p className="text-xl md:text-2xl font-serif text-white leading-relaxed mb-6">
+                {quoteText}
+              </p>
+              {author && (
+                <div className="flex items-center gap-3">
+                  <div className={`h-px w-8 ${theme.bgMain}`}></div>
+                  <footer className={`text-xs font-bold uppercase tracking-widest ${theme.textMain}`}>
+                    {author}
+                  </footer>
+                </div>
+              )}
+            </blockquote>
+          </div>
+        );
+      },
     },
     list: {
-      bullet: ({ children }: any) => <ul className="font-sans text-lg md:text-xl text-white/70 leading-relaxed list-none pl-0 mb-12 space-y-4 font-light">{children}</ul>,
-      number: ({ children }: any) => <ol className="font-sans text-lg md:text-xl text-white/70 leading-relaxed list-none pl-0 mb-12 space-y-8 font-light counter-reset-list">{children}</ol>,
+      bullet: ({ children, value }: any) => {
+        const level = value?.level || 1;
+        if (level > 1) {
+          return <ul className="font-sans text-base md:text-lg text-white/60 leading-relaxed list-none pl-6 mt-4 mb-2 space-y-3">{children}</ul>;
+        }
+        return <ul className="font-sans text-lg md:text-xl text-white/70 leading-relaxed list-none pl-0 mb-12 space-y-4 font-light">{children}</ul>;
+      },
+      number: ({ children, value }: any) => {
+        const level = value?.level || 1;
+        if (level === 2) {
+          return <ol className="list-[lower-alpha] text-white/60 text-base md:text-lg pl-8 mt-6 mb-2 space-y-3">{children}</ol>;
+        }
+        if (level >= 3) {
+          return <ol className="list-[lower-roman] text-white/50 text-sm md:text-base pl-8 mt-4 mb-2 space-y-2">{children}</ol>;
+        }
+        return <ol className="font-mono text-sm md:text-base space-y-4 my-12 list-none pl-0">{children}</ol>;
+      },
     },
     listItem: {
-      bullet: ({ children }: any) => (
-        <li className="relative pl-8">
-          <span className="absolute left-2 top-2.5 w-1.5 h-1.5 bg-red-solid rounded-sm" />
-          {children}
-        </li>
-      ),
-      number: ({ children, index }: any) => (
-        <li className="relative pl-12 md:pl-16">
-          <span className="absolute left-0 top-0 font-sans text-3xl md:text-4xl font-black text-red-solid/20 border-b-2 border-red-solid leading-none pb-1">
-            {(index + 1).toString().padStart(2, '0')}
-          </span>
-          <div className="pt-2">{children}</div>
-        </li>
-      )
+      bullet: ({ children, value }: any) => {
+        const level = value?.level || 1;
+        if (level > 1) {
+          return <li className="relative pl-6 before:content-['○'] before:absolute before:left-0 before:text-white/30">{children}</li>;
+        }
+        return (
+          <li className="relative pl-8 group">
+            <span className={`absolute left-2 top-[10px] w-2 h-2 bg-white/20 ${theme.bgHover} transition-colors duration-300`} />
+            <span className="font-sans">{children}</span>
+          </li>
+        );
+      },
+      number: ({ children, index, value }: any) => {
+        const level = value?.level || 1;
+        if (level > 1) {
+          return <li className="pl-2 font-sans">{children}</li>;
+        }
+        return (
+          <li className="flex items-baseline gap-4 group">
+            <span className={`${theme.textMain} font-bold shrink-0`}>
+              {(index + 1).toString().padStart(2, '0')}
+            </span>
+            <span className={`text-white/60 border-b border-white/10 pb-1 w-full group-hover:text-white ${theme.borderHover} transition-all cursor-default font-sans leading-relaxed`}>
+              {children}
+            </span>
+          </li>
+        );
+      }
     },
     marks: {
-      strong: ({ children }: any) => <strong className="font-semibold text-white">{children}</strong>,
+      strong: ({ children }: any) => {
+        if (theme.isBw) {
+          return (
+            <strong className="bg-white text-dark px-1.5 py-0.5 mx-0.5 font-black inline-block leading-none uppercase tracking-wider shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)]">
+              {children}
+            </strong>
+          );
+        }
+        return <strong className="font-semibold text-white">{children}</strong>;
+      },
       link: ({ children, value }: any) => (
-        <a href={value.href} className="text-white underline decoration-white/30 hover:text-red-solid hover:decoration-red-solid underline-offset-4 transition-colors" target="_blank" rel="noopener noreferrer">
+        <a href={value.href} className={`text-white underline decoration-white/30 ${theme.linkHover} underline-offset-4 transition-colors`} target="_blank" rel="noopener noreferrer">
           {children}
         </a>
       ),
     },
   };
 
+  // Animation Variants for Tags
+  const tagContainerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.6 }
+    }
+  };
+  const tagItemVariants = {
+    hidden: { opacity: 0, x: -10 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+  };
+
   return (
-    <main className="min-h-screen bg-dark text-white font-sans selection:bg-white selection:text-dark pb-24 border-t border-white/10 relative overflow-x-hidden">
+    <main className="min-h-screen bg-dark text-white font-sans selection:bg-white selection:text-dark pb-24 border-t border-white/10 relative">
       
-      {/* pt-32 clears the fixed global header */}
       <div className="pt-32 px-4 md:px-8 max-w-7xl mx-auto">
         
-        {/* Navigation Return Button */}
         <nav className="mb-8 relative z-20">
           <Link to="/blog" className="inline-flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors">
             <ArrowLeft className="w-4 h-4" /> THE VAULT
@@ -257,51 +628,55 @@ export default function BlogPostPage() {
         </nav>
 
         {/* --- 1. HERO SECTION --- */}
-        <div className="relative mb-12 md:mb-16">
+        <div className="relative mb-12 md:mb-16 overflow-hidden lg:overflow-visible">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
-            {/* Title Area - Left Side */}
             <div className="lg:col-span-7 flex flex-col justify-center z-20">
+              {/* Title Slide from Left with Dynamic Sizing */}
               <motion.h1 
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="font-sans font-black text-[clamp(2rem,4vw,4.5rem)] leading-[1.1] text-balance uppercase tracking-tighter text-white mb-6 break-words"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                className={`font-sans font-black ${
+                  post?.title?.length < 20 ? 'text-[clamp(3rem,9vw,8.5rem)] leading-[0.9]' :
+                  post?.title?.length < 40 ? 'text-[clamp(2.5rem,6vw,6rem)] leading-[1]' :
+                  'text-[clamp(2rem,4vw,4.5rem)] leading-[1.1]'
+                } text-balance uppercase tracking-tighter text-white mb-6 break-words`}
               >
-                {post.title}
+                {post?.title}
               </motion.h1>
 
-              {/* Tags Column */}
+              {/* Tags Staggered Slide */}
               <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
+                variants={tagContainerVariants}
+                initial="hidden"
+                animate="show"
                 className="flex flex-wrap gap-3 font-mono text-[10px] md:text-xs uppercase tracking-widest"
               >
-                <span className="border border-white/20 px-3 py-1.5 hover:bg-white hover:text-dark transition-colors cursor-pointer bg-white/5">
-                  #{post.servicePillar?.replace(/\s+/g, '') || 'SYSTEM'}
-                </span>
+                <motion.span variants={tagItemVariants} className="border border-white/20 px-3 py-1.5 hover:bg-white hover:text-dark transition-colors cursor-pointer bg-white/5">
+                  #{post?.servicePillar?.replace(/\s+/g, '') || 'SYSTEM'}
+                </motion.span>
                 {systemTags.map((tag, idx) => (
-                  <span key={idx} className="border border-white/20 px-3 py-1.5 hover:bg-white hover:text-dark transition-colors cursor-pointer bg-white/5">
+                  <motion.span key={idx} variants={tagItemVariants} className="border border-white/20 px-3 py-1.5 hover:bg-white hover:text-dark transition-colors cursor-pointer bg-white/5">
                     {tag}
-                  </span>
+                  </motion.span>
                 ))}
               </motion.div>
             </div>
 
-            {/* Image Area - Right Side */}
             <div className="lg:col-span-5 relative z-10 w-full max-w-[450px] mx-auto lg:mx-0 lg:ml-auto">
-              {post.mainImage && (
+              {/* Image Slide from Right */}
+              {post?.mainImage && (
                 <motion.div 
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.8, delay: 0.1 }}
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
                   className="relative aspect-square w-full border border-white/10 overflow-hidden bg-dark"
                 >
                   <img 
                     src={urlFor(post.mainImage).width(1000).height(1000).url()} 
                     alt={post.title} 
-                    className="w-full h-full object-cover grayscale opacity-90 hover:grayscale-0 hover:opacity-100 hover:scale-105 transition-all duration-700 ease-in-out"
+                    className="w-full h-full object-cover opacity-90 hover:opacity-100 hover:grayscale hover:scale-105 transition-all duration-700 ease-in-out"
                   />
                 </motion.div>
               )}
@@ -311,74 +686,133 @@ export default function BlogPostPage() {
         </div>
 
         {/* --- 2. ARTICLE META GRID --- */}
-        <div className="border-y border-white/20 grid grid-cols-2 md:grid-cols-4 divide-x divide-white/20 mb-16 md:mb-24 bg-white/5 relative z-20">
-          <div className="p-4 md:p-6 type-eyebrow text-white">
+        <div className="grid grid-cols-2 md:grid-cols-4 border-t border-l border-white/20 mb-16 md:mb-24 bg-white/5 relative z-20">
+          <div className="p-4 md:p-6 type-eyebrow text-white border-b border-r border-white/20">
             <span className="block opacity-40 mb-2">AUTHOR</span>
-            {post.authorName || 'SYSBILT TEAM'}
+            {post?.author?.name || 'SYSBILT TEAM'}
           </div>
-          <div className="p-4 md:p-6 type-eyebrow text-white">
+          <div className="p-4 md:p-6 type-eyebrow text-white border-b border-r border-white/20">
             <span className="block opacity-40 mb-2">DATE</span>
-            {post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).toUpperCase() : 'DRAFT'}
+            {post?.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).toUpperCase() : 'DRAFT'}
           </div>
-          <div className="p-4 md:p-6 type-eyebrow text-white">
+          <div className="p-4 md:p-6 type-eyebrow text-white border-b border-r border-white/20">
             <span className="block opacity-40 mb-2">READ TIME</span>
             12 MIN
           </div>
-          <div className="p-4 md:p-6 flex items-center justify-center gap-6 text-white/50">
-            <Share2 className="w-4 h-4 cursor-pointer hover:text-white transition-colors" />
-            <MessageSquare className="w-4 h-4 cursor-pointer hover:text-white transition-colors" />
-            <Eye className="w-4 h-4 cursor-pointer hover:text-white transition-colors" />
+          <div className="p-4 md:p-6 flex items-center justify-center gap-6 text-white/50 border-b border-r border-white/20">
+            <Share2 className={`w-4 h-4 cursor-pointer ${theme.textHover} transition-colors`} />
+            <MessageSquare className={`w-4 h-4 cursor-pointer ${theme.textHover} transition-colors`} />
+            <Eye className={`w-4 h-4 cursor-pointer ${theme.textHover} transition-colors`} />
           </div>
         </div>
 
         {/* --- 3. CONTENT BODY --- */}
         <article className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
+          {/* DESKTOP INDEX SIDEBAR */}
           <aside className="lg:col-span-3 hidden lg:block relative">
-            <div className="sticky top-32 h-fit">
-              <div className="font-mono text-xs border-l border-white/20 pl-5 space-y-5">
-                <p className="type-eyebrow opacity-40 mb-8">CONTENTS // INDEX</p>
-                {toc.length > 0 ? (
-                  toc.map((item: any, idx: number) => (
-                    <a 
-                      key={item.id}
-                      href={`#${item.id}`} 
-                      onClick={(e) => {
-                        e.preventDefault();
-                        document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
-                      }}
-                      className={`block hover:translate-x-2 transition-all duration-300 ${
-                        activeToc === item.id 
-                          ? 'text-red-solid font-bold opacity-100' 
-                          : 'text-white opacity-50 hover:opacity-100'
-                      }`}
-                    >
-                      0{idx + 1}. {item.text}
-                    </a>
-                  ))
-                ) : (
-                  <span className="opacity-30">NO INDEX DETECTED</span>
-                )}
-              </div>
+            <div className="sticky top-32 h-fit pb-12">
+              <p className={`type-eyebrow ${theme.textMain} tracking-widest mb-8 flex items-center gap-2`}>
+                <span className={`w-1.5 h-1.5 ${theme.pulse}`}></span>
+                {theme.isBw ? <span className="bg-white text-dark px-1.5 py-0.5 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)]">INDEX</span> : 'INDEX'} // CONTENTS
+              </p>
+              
+              <nav className="relative pl-4">
+                <div className="absolute left-0 top-0 bottom-0 w-px bg-white/10"></div>
+                
+                <ul className="space-y-4 relative">
+                  {toc.length > 0 ? (
+                    toc.map((item: any) => {
+                      const isActive = activeToc === item.id;
+                      return (
+                        <li key={item.id} className="relative">
+                          {isActive && (
+                            <motion.div 
+                              layoutId="active-toc-line"
+                              className={`absolute -left-4 top-0 bottom-0 w-[2px] ${theme.bgMain}`}
+                              initial={false}
+                              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            />
+                          )}
+                          <a 
+                            href={`#${item.id}`} 
+                            onClick={(e) => {
+                              e.preventDefault();
+                              document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                            }}
+                            className={`block text-sm transition-all duration-300 ${
+                              isActive 
+                                ? (theme.isBw ? 'bg-white text-dark font-bold px-2 py-1 -ml-2 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)]' : 'text-white font-medium pl-2') 
+                                : 'text-white/50 hover:text-white pl-0'
+                            }`}
+                          >
+                            {item.num ? <span className={`${theme.textMain} mr-1`}>{item.num}.</span> : ''}
+                            {item.text}
+                          </a>
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <span className="opacity-30 text-xs font-mono">NO INDEX DETECTED</span>
+                  )}
+                </ul>
+              </nav>
             </div>
           </aside>
 
           <div className="lg:col-span-8 lg:col-start-5 prose-sysbilt">
-            {post.seoDescription && (
-              <p className="font-sans font-light text-2xl md:text-3xl leading-tight mb-16 text-white border-l-2 border-white pl-6 py-1">
+            {post?.seoDescription && (
+              <p className={`font-sans font-light text-2xl md:text-3xl leading-tight mb-16 text-white border-l-2 ${theme.borderMain} pl-6 py-1`}>
                 {post.seoDescription}
               </p>
             )}
+
+            {/* MOBILE ONLY INDEX */}
+            {toc.length > 0 && (
+              <div className="block lg:hidden mb-16 border border-white/10 bg-white/5 p-6 rounded-sm">
+                <p className={`type-eyebrow ${theme.textMain} tracking-widest mb-6 flex items-center gap-2`}>
+                  <span className={`w-1.5 h-1.5 ${theme.pulse}`}></span>
+                  {theme.isBw ? <span className="bg-white text-dark px-1.5 py-0.5 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)]">INDEX</span> : 'INDEX'} // CONTENTS
+                </p>
+                <ul className="space-y-4 font-mono text-sm">
+                  {toc.map((item: any) => {
+                    const isActive = activeToc === item.id;
+                    return (
+                      <li key={`mobile-${item.id}`}>
+                        <a 
+                          href={`#${item.id}`} 
+                          onClick={(e) => {
+                            e.preventDefault();
+                            document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                          }} 
+                          className={`flex items-start gap-3 transition-colors ${isActive ? (theme.isBw ? 'bg-white text-dark font-bold p-2 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)]' : 'text-white') : 'text-white/60 hover:text-white'}`}
+                        >
+                          {item.num ? <span className={`${theme.textMain} shrink-0`}>{item.num}.</span> : <span className={`${theme.textMuted50} shrink-0`}>//</span>}
+                          <span>{item.text}</span>
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+
             <div className="relative z-10 w-full overflow-hidden">
-              <PortableText value={post.body} components={components} />
+              <PortableText value={post?.body} components={components} />
             </div>
 
             {/* --- INLINE CALL TO ACTION --- */}
-            <div className="mt-20 border border-white/20 bg-white/5 p-8 md:p-12 relative overflow-hidden group">
-              <div className="absolute top-0 left-0 w-full h-1 bg-red-solid scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-700 ease-out" />
+            <div className={`mt-20 border ${theme.borderSubtle} ${theme.bgSubtle} p-8 md:p-12 relative overflow-hidden group ${theme.isBw ? 'shadow-[8px_8px_0px_0px_rgba(255,255,255,0.1)]' : ''}`}>
+              <div className={`absolute top-0 left-0 w-full h-1 ${theme.bgMain} scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-700 ease-out`} />
               
-              <h3 className="font-sans font-black text-3xl md:text-4xl text-white uppercase tracking-tight mb-4">
-                Deploy The <span className="text-red-solid">System.</span>
+              <h3 className="font-sans font-black text-3xl md:text-4xl text-white uppercase tracking-tight mb-4 flex flex-wrap gap-2 items-center">
+                {theme.isBw ? (
+                  <span className="bg-white text-dark px-3 py-1 shadow-[4px_4px_0px_0px_rgba(255,255,255,0.3)]">
+                    DEPLOY THE SYSTEM.
+                  </span>
+                ) : (
+                  <>Deploy The <span className={theme.textMain}>System.</span></>
+                )}
               </h3>
               <p className="font-sans text-white/70 font-light mb-8 max-w-md">
                 Get architectural blueprints and technical teardowns delivered directly to your inbox. No noise, just raw intelligence.
@@ -396,19 +830,55 @@ export default function BlogPostPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={formStatus === 'loading'}
                     placeholder="CORPORATE EMAIL..."
-                    className="flex-1 bg-dark border border-white/20 text-white px-4 py-4 font-mono text-xs uppercase focus:outline-none focus:border-red-solid placeholder:text-white/30 transition-all"
+                    className={`flex-1 bg-dark border border-white/20 text-white px-4 py-4 font-mono text-xs uppercase focus:outline-none ${theme.borderFocus} placeholder:text-white/30 transition-all`}
                     required
                   />
                   <button
                     type="submit"
                     disabled={formStatus === 'loading'}
-                    className="font-mono text-xs font-bold uppercase border border-white bg-white text-dark px-8 py-4 hover:bg-red-solid hover:text-white hover:border-red-solid transition-all duration-200"
+                    className={`font-mono text-xs font-bold uppercase transition-all duration-300 ${theme.btnInlineCta} px-8 py-4`}
                   >
                     {formStatus === 'loading' ? 'PROCESSING...' : 'INITIALIZE'}
                   </button>
                 </form>
               )}
             </div>
+
+            {/* --- AUTHOR BIO BLOCK --- */}
+            {post?.author && (
+              <div className="mt-20 pt-12 border-t border-white/10 flex flex-col sm:flex-row gap-6 md:gap-8 items-start">
+                {post.author.image ? (
+                  <div className="shrink-0 relative">
+                    <div className={`absolute -inset-1 ${theme.bgSubtle} rounded-full`}></div>
+                    <img 
+                      src={urlFor(post.author.image).width(200).height(200).url()} 
+                      alt={post.author.name} 
+                      className={`relative w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-2 ${theme.borderSubtle} opacity-90 hover:opacity-100 hover:grayscale transition-all duration-500`}
+                    />
+                  </div>
+                ) : (
+                  <div className={`shrink-0 w-20 h-20 md:w-24 md:h-24 rounded-full ${theme.bgSubtle} border-2 ${theme.borderSubtle} flex items-center justify-center`}>
+                    <span className={`font-mono text-2xl ${theme.textMain}`}>{post.author.name?.charAt(0) || 'S'}</span>
+                  </div>
+                )}
+                <div className="flex-1">
+                  <p className="type-eyebrow text-white/40 mb-2">WRITTEN BY</p>
+                  <h4 className={`font-sans font-bold text-xl md:text-2xl text-white uppercase tracking-widest mb-4`}>
+                    {post.author.name}
+                  </h4>
+                  <div className="font-sans text-white/60 font-light leading-relaxed max-w-2xl text-base md:text-lg">
+                    {post.author.bio ? (
+                      <PortableText 
+                        value={post.author.bio} 
+                        components={{ block: { normal: ({children}:any) => <p className="mb-4">{children}</p> } }} 
+                      />
+                    ) : (
+                      <p>Systems Architect & Operations Specialist.</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
 
           </div>
         </article>
@@ -417,11 +887,11 @@ export default function BlogPostPage() {
         {relatedPosts.length > 0 && (
           <div className="mt-24 border-t border-white/20 pt-16">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
-              <h3 className="type-eyebrow text-white/50 flex items-center gap-3">
-                <div className="w-2 h-2 bg-red-solid animate-pulse" />
-                RELATED BLUEPRINTS
+              <h3 className={`type-eyebrow ${theme.textMain} flex items-center gap-3`}>
+                <div className={`w-2 h-2 ${theme.pulse}`} />
+                {theme.isBw ? <span className="bg-white text-dark px-2 py-0.5 font-bold shadow-[2px_2px_0px_0px_rgba(255,255,255,0.3)]">RELATED BLUEPRINTS</span> : 'RELATED BLUEPRINTS'}
               </h3>
-              <Link to="/blog" className="type-eyebrow text-white hover:text-red-solid transition-colors">
+              <Link to="/blog" className={`type-eyebrow text-white ${theme.textHover} transition-colors`}>
                 VIEW ALL →
               </Link>
             </div>
@@ -439,20 +909,20 @@ export default function BlogPostPage() {
                       <img 
                         src={urlFor(relatedPost.mainImage).width(600).url()} 
                         alt={relatedPost.title}
-                        className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" 
+                        className="w-full h-full object-cover opacity-80 group-hover:grayscale group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" 
                       />
                     </div>
                   )}
                   <div className="p-6 flex flex-col flex-1">
-                    <span className="type-eyebrow text-red-solid mb-4">
+                    <span className={`type-eyebrow ${theme.textMain} mb-4`}>
                       // {relatedPost.servicePillar || 'STRATEGY'}
                     </span>
-                    <h4 className="font-sans font-black text-xl text-white uppercase leading-tight mb-4 group-hover:text-red-solid transition-colors line-clamp-3">
+                    <h4 className={`font-sans font-black text-xl text-white uppercase leading-tight mb-4 ${theme.textHover} transition-colors line-clamp-3`}>
                       {relatedPost.title}
                     </h4>
                     <div className="mt-auto pt-4 border-t border-white/10 flex items-center justify-between type-eyebrow text-white/50">
                       <span>{relatedPost.publishedAt ? new Date(relatedPost.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.') : 'DRAFT'}</span>
-                      <ArrowUpRight className="w-4 h-4 group-hover:text-white transition-colors" />
+                      <ArrowUpRight className={`w-4 h-4 ${theme.textHover} transition-colors`} />
                     </div>
                   </div>
                 </Link>

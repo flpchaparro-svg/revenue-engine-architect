@@ -54,6 +54,86 @@ export default defineType({
     }),
     defineArrayMember({ type: 'code' }),
     defineArrayMember({ type: 'table' }),
-    defineArrayMember({ type: 'youtube' })
+    defineArrayMember({ type: 'youtube' }),
+    defineArrayMember({
+      name: 'divider',
+      type: 'object',
+      title: 'Divider (Dots)',
+      fields: [
+        {
+          name: 'style',
+          type: 'string',
+          title: 'Style',
+          initialValue: 'dots',
+          readOnly: true,
+          description: 'Adds the 3 minimal dots divider to the page.'
+        }
+      ]
+    }),
+    defineArrayMember({
+      name: 'callout',
+      type: 'object',
+      title: 'Callout Box',
+      fields: [
+        {
+          name: 'type',
+          type: 'string',
+          title: 'Type',
+          options: {
+            list: [
+              { title: 'Info (Soft Glow)', value: 'info' },
+              { title: 'Warning (High Contrast)', value: 'warning' }
+            ],
+            layout: 'radio'
+          },
+          initialValue: 'info'
+        },
+        {
+          name: 'title',
+          type: 'string',
+          title: 'Title',
+          validation: (Rule) => Rule.required()
+        },
+        {
+          name: 'text',
+          type: 'text',
+          title: 'Text',
+          validation: (Rule) => Rule.required()
+        }
+      ]
+    }),
+    // NEW: Call To Action Button
+    defineArrayMember({
+      name: 'cta',
+      type: 'object',
+      title: 'Call to Action Button',
+      fields: [
+        {
+          name: 'text',
+          type: 'string',
+          title: 'Button Text',
+          validation: (Rule) => Rule.required()
+        },
+        {
+          name: 'url',
+          type: 'url',
+          title: 'Link URL',
+          validation: (Rule) => Rule.required()
+        },
+        {
+          name: 'variant',
+          type: 'string',
+          title: 'Button Style',
+          options: {
+            list: [
+              { title: 'Primary (Solid Red)', value: 'primary' },
+              { title: 'Secondary (Ghost Border)', value: 'secondary' }
+            ],
+            layout: 'radio'
+          },
+          initialValue: 'primary'
+        }
+      ]
+    })
   ],
 })
