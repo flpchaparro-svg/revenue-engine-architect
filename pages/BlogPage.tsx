@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { m, motion, useMotionValue, useSpring } from 'framer-motion';
 import { ArrowRight, ArrowDown, Hash } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { client, urlFor } from '../src/sanityClient';
 import { getAllPillars } from '../constants/systemPillars';
 import HeroVisualBrutalist from '../components/Blog/HeroVisualBrutalist';
@@ -10,14 +11,6 @@ const RED_PILLARS = ['Websites & E-commerce', 'CRM & Lead Tracking', 'Automation
 const GOLD_PILLARS = ['AI Assistants', 'Content Systems', 'Team Training', 'Dashboards & Reporting'];
 
 const FILTER_OPTIONS = ['ALL', ...getAllPillars().map((p) => p.subtitle)];
-
-const SEARCH_PHRASES = [
-  "AUTOMATE ONBOARDING...",
-  "INTEGRATE HUBSPOT...",
-  "AI SALES AGENTS...",
-  "FRICTIONLESS FUNNELS...",
-  "SCALE B2B REVENUE...",
-];
 
 function getPillarBadgeClass(servicePillar: string | null | undefined): string {
   if (!servicePillar) return 'border-dark/20 bg-dark/5 text-dark/70';
@@ -29,7 +22,7 @@ function getPillarBadgeClass(servicePillar: string | null | undefined): string {
 function formatDate(dateString: string | null | undefined): string {
   if (!dateString) return 'DRAFT';
   const date = new Date(dateString);
-  return date.toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.');
+  return date.toLocaleDateString('en-AU', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.');
 }
 
 // --- FEATURED CARDS ---
@@ -39,8 +32,8 @@ const FeaturedCardLead: React.FC<{ post: any }> = ({ post }) => {
   const href = `/blog/${slug}`;
 
   return (
-    <a href={href} className="col-span-1 lg:col-span-12 border-2 border-dark bg-cream flex flex-col lg:flex-row group cursor-pointer hover:shadow-[8px_8px_0px_0px_#1a1a1a] transition-all duration-300 hover:-translate-y-1">
-      <div className="relative w-full lg:w-2/3 aspect-[16/9] lg:aspect-auto border-b-2 lg:border-b-0 lg:border-r-2 border-dark overflow-hidden bg-dark">
+    <Link to={href} className="col-span-1 lg:col-span-12 border-2 border-dark bg-cream flex flex-col lg:flex-row group cursor-pointer hover:shadow-[8px_8px_0px_0px_#1a1a1a] transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+      <div className="relative w-full lg:w-2/3 aspect-[16/9] lg:aspect-auto border-b-2 lg:border-b-0 lg:border-r-2 border-dark overflow-hidden bg-dark shrink-0">
         <div className="absolute top-4 left-4 z-20 bg-red-solid text-white px-3 py-1 type-eyebrow border-2 border-dark shadow-[4px_4px_0px_0px_#1a1a1a]">
           LEAD DOSSIER
         </div>
@@ -53,25 +46,25 @@ const FeaturedCardLead: React.FC<{ post: any }> = ({ post }) => {
         )}
       </div>
 
-      <div className="w-full lg:w-1/3 p-8 lg:p-12 flex flex-col justify-center bg-white transition-colors duration-300">
+      <div className="w-full lg:w-1/3 p-8 lg:p-12 flex flex-col justify-center bg-white transition-colors duration-300 min-w-0">
         <div className="flex justify-between items-center mb-6">
           <span className="type-eyebrow text-red-text border-b-2 border-red-solid/20 pb-1">
             // {post.servicePillar || 'STRATEGY'}
           </span>
-          <span className="type-eyebrow text-dark/50">{formatDate(post.publishedAt)}</span>
+          <span className="type-eyebrow text-dark/50 shrink-0 ml-4">{formatDate(post.publishedAt)}</span>
         </div>
-        <h3 className="font-sans font-black tracking-tighter text-4xl lg:text-6xl text-dark uppercase leading-[0.9] mb-6 group-hover:text-gold-on-cream transition-colors duration-300">
+        <h3 className="font-sans font-black tracking-tighter text-4xl lg:text-6xl text-dark uppercase leading-[0.9] mb-6 group-hover:text-gold-on-cream transition-colors duration-300 break-words text-balance">
           {post.title}
         </h3>
-        <p className="type-body text-dark/70 border-l-4 border-gold pl-4 line-clamp-3 mb-8">
+        <p className="type-body text-dark/70 border-l-4 border-gold pl-4 line-clamp-3 mb-8 break-words text-pretty">
           {post.seoDescription || "Explore this architectural blueprint and case study to understand the systemic implementation."}
         </p>
         <div className="mt-auto flex items-center justify-between border-t-2 border-dark pt-4">
           <span className="type-eyebrow text-dark group-hover:text-gold-on-cream transition-colors">ACCESS FILE</span>
-          <ArrowRight className="w-6 h-6 text-dark group-hover:translate-x-2 transition-transform duration-300" />
+          <ArrowRight className="w-6 h-6 text-dark group-hover:translate-x-2 transition-transform duration-300 shrink-0" />
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
 
@@ -80,8 +73,8 @@ const FeaturedCardTall: React.FC<{ post: any }> = ({ post }) => {
   const href = `/blog/${slug}`;
 
   return (
-    <a href={href} className="col-span-1 lg:col-span-4 border-2 border-dark bg-cream flex flex-col group cursor-pointer hover:shadow-[8px_8px_0px_0px_#1a1a1a] transition-all duration-300 hover:-translate-y-1">
-      <div className="relative w-full aspect-[4/3] border-b-2 border-dark overflow-hidden bg-dark">
+    <Link to={href} className="col-span-1 lg:col-span-4 border-2 border-dark bg-cream flex flex-col group cursor-pointer hover:shadow-[8px_8px_0px_0px_#1a1a1a] transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+      <div className="relative w-full aspect-[4/3] border-b-2 border-dark overflow-hidden bg-dark shrink-0">
         {post.mainImage && (
            <img
              src={urlFor(post.mainImage).width(600).url()}
@@ -90,19 +83,19 @@ const FeaturedCardTall: React.FC<{ post: any }> = ({ post }) => {
            />
         )}
       </div>
-      <div className="p-6 md:p-8 flex flex-col flex-1 bg-white">
+      <div className="p-6 md:p-8 flex flex-col flex-1 bg-white min-w-0">
         <span className="type-eyebrow text-dark/50 mb-3 block">{formatDate(post.publishedAt)}</span>
-        <h3 className="font-sans font-black tracking-tight text-2xl text-dark uppercase leading-snug mb-4 group-hover:text-gold-on-cream transition-colors duration-300 line-clamp-3">
+        <h3 className="font-sans font-black tracking-tight text-2xl text-dark uppercase leading-snug mb-4 group-hover:text-gold-on-cream transition-colors duration-300 line-clamp-3 break-words text-balance">
           {post.title}
         </h3>
-        <p className="type-body text-dark/70 line-clamp-2 mb-6">
+        <p className="type-body text-dark/70 line-clamp-2 mb-6 break-words text-pretty">
           {post.seoDescription || "Access the blueprint."}
         </p>
         <div className="mt-auto pt-4 border-t-2 border-dark/10 flex justify-between items-center">
            <span className="type-eyebrow text-red-text">VIEW →</span>
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
 
@@ -111,8 +104,8 @@ const FeaturedCardHalf: React.FC<{ post: any }> = ({ post }) => {
   const href = `/blog/${slug}`;
 
   return (
-    <a href={href} className="col-span-1 lg:col-span-6 border-2 border-dark bg-cream flex flex-col sm:flex-row group cursor-pointer hover:shadow-[8px_8px_0px_0px_#1a1a1a] transition-all duration-300 hover:-translate-y-1">
-      <div className="relative w-full sm:w-1/2 aspect-[4/3] sm:aspect-auto border-b-2 sm:border-b-0 sm:border-r-2 border-dark overflow-hidden bg-dark">
+    <Link to={href} className="col-span-1 lg:col-span-6 border-2 border-dark bg-cream flex flex-col sm:flex-row group cursor-pointer hover:shadow-[8px_8px_0px_0px_#1a1a1a] transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+      <div className="relative w-full sm:w-1/2 aspect-[4/3] sm:aspect-auto border-b-2 sm:border-b-0 sm:border-r-2 border-dark overflow-hidden bg-dark shrink-0">
         {post.mainImage && (
            <img
              src={urlFor(post.mainImage).width(600).url()}
@@ -121,16 +114,16 @@ const FeaturedCardHalf: React.FC<{ post: any }> = ({ post }) => {
            />
         )}
       </div>
-      <div className="w-full sm:w-1/2 p-6 md:p-8 flex flex-col justify-center bg-white">
+      <div className="w-full sm:w-1/2 p-6 md:p-8 flex flex-col justify-center bg-white min-w-0">
         <span className="type-eyebrow text-dark/50 mb-3 block">{formatDate(post.publishedAt)}</span>
-        <h3 className="font-sans font-black tracking-tight text-2xl md:text-3xl text-dark uppercase leading-snug mb-4 group-hover:text-gold-on-cream transition-colors duration-300 line-clamp-3">
+        <h3 className="font-sans font-black tracking-tight text-2xl md:text-3xl text-dark uppercase leading-snug mb-4 group-hover:text-gold-on-cream transition-colors duration-300 line-clamp-3 break-words text-balance">
           {post.title}
         </h3>
         <div className="mt-auto pt-4 border-t-2 border-dark/10">
            <span className="type-eyebrow text-dark group-hover:text-red-text transition-colors">READ BRIEFING →</span>
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
 
@@ -155,8 +148,8 @@ const LedgerRow: React.FC<{ post: any }> = ({ post }) => {
   };
 
   return (
-    <a 
-      href={href}
+    <Link 
+      to={href}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onMouseMove={handleMouseMove}
@@ -167,16 +160,16 @@ const LedgerRow: React.FC<{ post: any }> = ({ post }) => {
       </div>
       
       <div className="col-span-3 md:col-span-2 hidden md:block">
-         <span className={`inline-block px-2 py-1 border text-[10px] font-mono uppercase tracking-wider ${getPillarBadgeClass(post.servicePillar)} group-hover:border-cream/20 group-hover:bg-cream/5 group-hover:text-cream/70`}>
+         <span className={`inline-block px-2 py-1 border text-[10px] font-mono uppercase tracking-wider ${getPillarBadgeClass(post.servicePillar)} group-hover:border-cream/20 group-hover:bg-cream/5 group-hover:text-cream/70 whitespace-nowrap overflow-hidden text-ellipsis max-w-full`}>
           {post.servicePillar || 'GENERAL'}
          </span>
       </div>
       
-      <div className="col-span-6 md:col-span-6 font-sans font-black tracking-tight text-lg md:text-2xl uppercase leading-none group-hover:text-gold-on-dark transition-colors duration-300 line-clamp-2">
+      <div className="col-span-6 md:col-span-6 font-sans font-black tracking-tight text-lg md:text-2xl uppercase leading-none group-hover:text-gold-on-dark transition-colors duration-300 line-clamp-2 break-words text-balance pr-4">
         {post.title}
       </div>
       
-      <div className="col-span-3 md:col-span-2 flex justify-end">
+      <div className="col-span-3 md:col-span-2 flex justify-end shrink-0">
         <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center space-x-2 type-eyebrow border-2 border-cream px-4 py-2">
           <span>ACCESS</span>
           <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
@@ -192,7 +185,7 @@ const LedgerRow: React.FC<{ post: any }> = ({ post }) => {
             top: 0,
             x: springX,
             y: springY,
-            pointerEvents: 'none', // Prevents the image from blocking clicks
+            pointerEvents: 'none', 
             zIndex: 9999,
           }}
           initial={{ opacity: 0, scale: 0.5, rotate: -10 }}
@@ -202,7 +195,6 @@ const LedgerRow: React.FC<{ post: any }> = ({ post }) => {
             rotate: isHovered ? 0 : -10 
           }}
           transition={{ duration: 0.2 }}
-          // Hide on mobile (md:block) to prevent glitching on touch screens
           className="hidden md:block w-36 h-36 lg:w-48 lg:h-48 rounded-full overflow-hidden border-2 border-dark shadow-2xl"
         >
           <img
@@ -212,7 +204,7 @@ const LedgerRow: React.FC<{ post: any }> = ({ post }) => {
           />
         </motion.div>
       )}
-    </a>
+    </Link>
   );
 };
 
@@ -242,6 +234,7 @@ export default function BlogPage() {
   ], []);
 
   useEffect(() => {
+    document.title = "Insights & Strategy | Sysbilt";
     setIsLoading(true); 
     client
       .fetch(`*[_type == "post"] | order(publishedAt desc) { title, slug, mainImage, publishedAt, "authorName": author->name, servicePillar, isFeatured, seoDescription }`)
@@ -316,7 +309,7 @@ export default function BlogPage() {
         
         <header className="mb-12 md:mb-20 flex flex-col md:flex-row md:items-start justify-between gap-12 border-b-4 border-dark pb-12 md:pb-16 relative w-full">
           <div className="max-w-3xl flex-1 relative z-30 pt-8 md:pt-0">
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-6 uppercase flex items-baseline text-dark">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-6 uppercase flex items-baseline text-dark break-words text-balance">
               Insights & Strategy<span className="animate-pulse text-dark ml-1">_</span>
             </h1>
             <p className="type-body-lg text-dark/70 max-w-2xl border-l-2 border-gold pl-6 mb-8 md:mb-12">
@@ -424,7 +417,7 @@ export default function BlogPage() {
               </div>
             )}
 
-            {/* --- LEDGER SECTION (With Custom Cursors) --- */}
+            {/* --- LEDGER SECTION --- */}
             <div className="mb-24">
               <div className="flex items-center justify-between mb-8 border-b-4 border-dark pb-6">
                 <div className="flex items-center space-x-4">
@@ -463,12 +456,10 @@ export default function BlogPage() {
             {/* --- REFINED LEAD CAPTURE - BOXED MODULE --- */}
             <div className="w-full">
               <div className="bg-dark text-white border-2 border-dark shadow-[12px_12px_0px_0px_#1a1a1a] relative overflow-hidden flex flex-col lg:flex-row gap-12 lg:gap-16 items-center p-8 md:p-12 lg:p-16 group">
-                {/* Accent Line */}
                 <div className="absolute top-0 left-0 w-full h-1.5 bg-red-solid scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-700 ease-out" />
                 
-                {/* Copy Side */}
                 <div className="flex-1 w-full relative z-10">
-                  <h2 className="font-sans font-black text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter mb-4 text-white leading-[0.9]">
+                  <h2 className="font-sans font-black text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter mb-4 text-white leading-[0.9] break-words text-balance">
                     Join the <span className="text-gold">Private List.</span>
                   </h2>
                   <p className="font-mono text-xs md:text-sm tracking-widest text-white/70 border-l-2 border-gold pl-4 leading-relaxed max-w-md">
@@ -476,7 +467,6 @@ export default function BlogPage() {
                   </p>
                 </div>
                 
-                {/* Form Side */}
                 <div className="w-full lg:w-[480px] bg-cream border-2 border-dark p-6 md:p-8 shadow-[8px_8px_0px_0px_#1a1a1a] text-dark shrink-0 relative z-10">
                   {formStatus === 'success' ? (
                      <div className="font-mono text-gold-on-cream font-bold text-sm md:text-base uppercase tracking-widest border-2 border-gold/50 p-6 bg-gold/10 text-center">

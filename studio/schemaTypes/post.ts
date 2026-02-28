@@ -2,20 +2,23 @@ import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'post',
-  title: 'Insight (Blog Post)', // Renamed from System Log
+  title: 'Insight (Blog Post)', 
   type: 'document',
   groups: [
     {name: 'core', title: 'Core Setup', default: true},
     {name: 'content', title: 'Article Content'},
-    {name: 'seo', title: 'Targeting & Funnel'}, 
+    {name: 'seo', title: 'SEO & Targeting'}, 
+    {name: 'marketing', title: 'Marketing & Conversion'},
     {name: 'meta', title: 'Meta & Author'},
   ],
   fields: [
+    // --- 1. CORE SETUP ---
     defineField({
       name: 'title',
-      title: 'Article Title',
+      title: 'Article Title (H1)',
       type: 'string',
       group: 'core',
+      description: 'The main headline of the article. Make it catchy and human-focused.',
       validation: (Rule) => Rule.required().max(90),
     }),
     defineField({
@@ -23,10 +26,10 @@ export default defineType({
       title: 'URL Slug',
       type: 'slug',
       group: 'core',
+      description: 'Click "Generate" to create the URL from the title.',
       options: { source: 'title', maxLength: 96 },
       validation: (Rule) => Rule.required(),
     }),
-    // --- THE NEW FEATURED TOGGLE ---
     defineField({
       name: 'isFeatured',
       title: '🌟 Featured Insight (High Converter)',
@@ -40,6 +43,7 @@ export default defineType({
       title: 'Service Pillar',
       type: 'string',
       group: 'core',
+      description: 'Which core service does this article relate to? This changes the color theme of the page.',
       options: {
         list: [
           'Websites & E-commerce', 'CRM & Lead Tracking', 'Automation', 
@@ -49,10 +53,24 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'tags',
+      title: 'Internal Tags & Technologies',
+      type: 'array',
+      group: 'core',
+      description: 'Type a keyword (e.g., HubSpot, Make.com, B2B) and hit Enter. This links related posts together.',
+      of: [{type: 'string'}],
+      options: {
+        layout: 'tags',
+      },
+    }),
+
+    // --- 2. ARTICLE CONTENT ---
+    defineField({
       name: 'mainImage',
-      title: 'Main Visual (Optional)',
+      title: 'Main Visual',
       type: 'image',
       group: 'content',
+      description: 'The hero image at the top of the article. Use high-contrast, brutalist graphics.',
       options: { hotspot: true },
     }),
     defineField({
@@ -61,68 +79,103 @@ export default defineType({
       type: 'blockContent',
       group: 'content',
     }),
+
+    // --- 3. SEO & TARGETING ---
     defineField({
-      name: 'marketingFunnelStage',
-      title: 'Marketing Funnel Stage',
+      name: 'focusKeyword',
+      title: 'Focus SEO Keyword',
       type: 'string',
       group: 'seo',
-      options: {
-        list: ['Awareness', 'Consideration', 'Decision', 'Retention'],
-        layout: 'radio',
-      },
+      description: 'What exactly is the user Googling to find this? (e.g., "HubSpot audit Sydney").',
+    }),
+    defineField({
+      name: 'seoTitle',
+      title: 'SEO Title Override (Optional)',
+      type: 'string',
+      group: 'seo',
+      description: 'If your main article title is too long for Google, write a punchy, keyword-rich 60-character title here.',
+      validation: (Rule) => Rule.max(60).warning('Keep under 60 characters for Google.'),
+    }),
+    defineField({
+      name: 'seoDescription',
+      title: 'SEO Meta Description',
+      type: 'text',
+      group: 'seo',
+      description: 'The 160-character snippet that appears on Google under the title. Sell the click!',
+      validation: (Rule) => Rule.max(160),
     }),
     defineField({
       name: 'businessPhase',
       title: 'Client Business Phase',
       type: 'string',
       group: 'seo',
+      description: 'At what stage of the journey is the reader?',
       options: {
-        list: ['Get Clients', 'Scale Faster', 'See Clearly'],
+        list: ['Get Clients (Foundation)', 'Scale Faster (Growth)', 'See Clearly (Maturity)'],
         layout: 'radio',
       },
     }),
     defineField({
       name: 'targetPersona',
-      title: 'Target Persona',
-      type: 'string',
+      title: 'Target Personas',
+      type: 'array',
       group: 'seo',
+      description: 'Tick all the buyer personas this article speaks to. This helps us track which content converts which buyer.',
+      of: [{type: 'string'}],
       options: {
         list: [
-          { title: '--- MACRO: BUSINESS STAGE PERSONAS ---', value: '' },
-          { title: 'Stage 1: The Growth Seeker (Get Clients)', value: 'The Growth Seeker' },
-          { title: 'Stage 2: The Scaling Bottleneck (Scale Faster)', value: 'The Scaling Bottleneck' },
-          { title: 'Stage 3: The Blind Enterprise (See Clearly)', value: 'The Blind Enterprise' },
-          { title: '--- PILLAR 1: THE FACE ---', value: '' },
+          { title: '--- THE MASTER PERSONA ---', value: 'HEADER_MASTER' },
+          { title: 'MASTER: The Visionary Operator', value: 'The Visionary Operator' },
+          
+          { title: '--- PHASE PERSONAS (THE JOURNEY) ---', value: 'HEADER_PHASE' },
+          { title: 'PHASE 1: The Foundation Builder', value: 'The Foundation Builder' },
+          { title: 'PHASE 2: The Bottlenecked Visionary', value: 'The Bottlenecked Visionary' },
+          { title: 'PHASE 3: The Blind Navigator', value: 'The Blind Navigator' },
+          
+          { title: '--- PILLAR 1: THE FACE ---', value: 'HEADER_P1' },
+          { title: 'P1 OVERARCHING: The Authority Seeker', value: 'The Authority Seeker' },
           { title: 'P1: The Urgency Operator', value: 'The Urgency Operator' },
           { title: 'P1: The Inventory Chaos Founder', value: 'The Inventory Chaos Founder' },
           { title: 'P1: The Precision Builder', value: 'The Precision Builder' },
           { title: 'P1: The Aesthetic Absolutist', value: 'The Aesthetic Absolutist' },
-          { title: '--- PILLAR 2: THE BRAIN ---', value: '' },
+          
+          { title: '--- PILLAR 2: THE BRAIN ---', value: 'HEADER_P2' },
+          { title: 'P2 OVERARCHING: The Revenue Protector', value: 'The Revenue Protector' },
           { title: 'P2: The Overwhelmed Operator', value: 'The Overwhelmed Operator' },
           { title: 'P2: The Blind Scaler', value: 'The Blind Scaler' },
           { title: 'P2: The Hamster Wheel Merchant', value: 'The Hamster Wheel Merchant' },
           { title: 'P2: The Tangled Executive', value: 'The Tangled Executive' },
-          { title: '--- PILLAR 3: THE MUSCLE ---', value: '' },
+          
+          { title: '--- PILLAR 3: THE MUSCLE ---', value: 'HEADER_P3' },
+          { title: 'P3 OVERARCHING: The Leverage Seeker', value: 'The Leverage Seeker' },
           { title: 'P3: The Paperwork Prisoner', value: 'The Paperwork Prisoner' },
           { title: 'P3: The Blind Signal Hunter', value: 'The Blind Signal Hunter' },
           { title: 'P3: The Time-Poor Thought Leader', value: 'The Time-Poor Thought Leader' },
           { title: 'P3: The Onboarding Bottleneck', value: 'The Onboarding Bottleneck' },
-          { title: '--- PILLAR 4: THE VOICE ---', value: '' },
+          
+          { title: '--- PILLAR 4: THE VOICE ---', value: 'HEADER_P4' },
+          { title: 'P4 OVERARCHING: The Cognitive Scaler', value: 'The Cognitive Scaler' },
           { title: 'P4: The High-Ticket Architect', value: 'The High-Ticket Architect' },
           { title: 'P4: The Bottleneck Boss', value: 'The Bottleneck Boss' },
           { title: 'P4: The Compliance Stronghold', value: 'The Compliance Stronghold' },
           { title: 'P4: The Muddy Hands Operator', value: 'The Muddy Hands Operator' },
-          { title: '--- PILLAR 5: THE PRESENCE ---', value: '' },
+          
+          { title: '--- PILLAR 5: THE PRESENCE ---', value: 'HEADER_P5' },
+          { title: 'P5 OVERARCHING: The Omnipresence Seeker', value: 'The Omnipresence Seeker' },
           { title: 'P5: The Technical Artisan', value: 'The Technical Artisan' },
           { title: 'P5: The Frustrated Authority', value: 'The Frustrated Authority' },
           { title: 'P5: The Sunday Grind Victim', value: 'The Sunday Grind Victim' },
           { title: 'P5: The Campaign Velocity Lead', value: 'The Campaign Velocity Lead' },
-          { title: '--- PILLAR 6: THE SOUL ---', value: '' },
+          
+          { title: '--- PILLAR 6: THE SOUL ---', value: 'HEADER_P6' },
+          { title: 'P6 OVERARCHING: The Adoption Seeker', value: 'The Adoption Seeker' },
           { title: 'P6: The Deskless Fleet Manager', value: 'The Deskless Fleet Manager' },
           { title: 'P6: The High-Churn Operator', value: 'The High-Churn Operator' },
           { title: 'P6: The Operational Clarity Seeker', value: 'The Operational Clarity Seeker' },
           { title: 'P6: The Burned-Out Ops Manager', value: 'The Burned-Out Ops Manager' },
-          { title: '--- PILLAR 7: THE EYES ---', value: '' },
+          
+          { title: '--- PILLAR 7: THE EYES ---', value: 'HEADER_P7' },
+          { title: 'P7 OVERARCHING: The Executive Navigator', value: 'The Executive Navigator' },
           { title: 'P7: The Blinded Executive', value: 'The Blinded Executive' },
           { title: 'P7: The Traffic-Rich, Profit-Poor Owner', value: 'The Traffic-Rich, Profit-Poor Owner' },
           { title: 'P7: The Anxious CFO', value: 'The Anxious CFO' },
@@ -147,13 +200,44 @@ export default defineType({
         ],
       },
     }),
+
+    // --- 4. MARKETING & CONVERSION (NEW) ---
     defineField({
-      name: 'seoDescription',
-      title: 'SEO Meta Description',
-      type: 'text',
-      group: 'seo',
-      validation: (Rule) => Rule.max(160),
+      name: 'contentType',
+      title: 'Content Format',
+      type: 'string',
+      group: 'marketing',
+      description: 'What kind of article is this? Helps with filtering the vault later.',
+      options: {
+        list: ['System Log (Standard)', 'Case Study / Proof', 'Technical Guide', 'Opinion / Strategy'],
+      },
+      initialValue: 'System Log (Standard)',
     }),
+    defineField({
+      name: 'customCTA',
+      title: 'Custom Call-To-Action Text',
+      type: 'string',
+      group: 'marketing',
+      description: 'Override the default "Book a Call" button. E.g., "Audit Your HubSpot Setup".',
+    }),
+    defineField({
+      name: 'relatedPosts',
+      title: 'Read Next (Sticky Links)',
+      type: 'array',
+      group: 'marketing',
+      description: 'Manually select 2-3 specific articles to show at the bottom of this post to keep them reading.',
+      of: [{type: 'reference', to: {type: 'post'}}],
+      validation: (Rule) => Rule.max(3),
+    }),
+    defineField({
+      name: 'ogImage',
+      title: 'Social Share Image (Open Graph)',
+      type: 'image',
+      group: 'marketing',
+      description: 'Upload a specific 1200x630 image for when this is shared on LinkedIn or Slack so the cropping is perfect.',
+    }),
+
+    // --- 5. META & AUTHOR ---
     defineField({
       name: 'author',
       title: 'Author',

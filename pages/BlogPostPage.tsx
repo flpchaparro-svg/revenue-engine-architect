@@ -200,6 +200,11 @@ export default function BlogPostPage() {
             body,
             servicePillar,
             seoDescription,
+            tags,
+            customCTA,
+            "relatedPosts": relatedPosts[]->{
+              title, slug, mainImage, servicePillar, publishedAt
+            },
             "author": author->{
               name,
               image,
@@ -219,15 +224,28 @@ export default function BlogPostPage() {
       .then((data) => {
         setPost(data.post);
         
-        let related = data.allOtherPosts.filter((p: any) => p.servicePillar === data.post?.servicePillar);
-        if (related.length < 3) {
-          const others = data.allOtherPosts.filter((p: any) => p.servicePillar !== data.post?.servicePillar);
-          related = [...related, ...others].slice(0, 3);
-        } else {
-          related = related.slice(0, 3);
+        // Dynamically update the browser tab title for SEO and usability
+        if (data.post?.title) {
+          document.title = `${data.post.title} | Sysbilt Strategy`;
         }
-        setRelatedPosts(related);
         
+        let related = [];
+        
+        // Priority 1: Use manually selected related posts if they exist
+        if (data.post?.relatedPosts && data.post.relatedPosts.length > 0) {
+            related = data.post.relatedPosts;
+        } else {
+            // Priority 2: Fallback to logic (matching pillar first)
+            related = data.allOtherPosts.filter((p: any) => p.servicePillar === data.post?.servicePillar);
+            if (related.length < 3) {
+              const others = data.allOtherPosts.filter((p: any) => p.servicePillar !== data.post?.servicePillar);
+              related = [...related, ...others].slice(0, 3);
+            } else {
+              related = related.slice(0, 3);
+            }
+        }
+        
+        setRelatedPosts(related);
         setLoading(false);
       })
       .catch(console.error);
@@ -306,8 +324,6 @@ export default function BlogPostPage() {
 
   if (loading) return <div className="min-h-screen bg-dark text-white pt-32 px-6 text-center type-eyebrow animate-pulse tracking-widest">DECRYPTING FILE...</div>;
   if (!post) return <div className="min-h-screen bg-dark text-red-solid pt-32 px-6 text-center type-eyebrow tracking-widest">DOSSIER NOT FOUND</div>;
-
-  const systemTags = ["#HubSpot", "#Clay", "#Zapier", "#RevOps"];
 
   const components = {
     types: {
@@ -637,11 +653,11 @@ export default function BlogPostPage() {
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className={`font-sans font-black ${
+                className={`font-sans font-black break-words text-balance ${
                   post?.title?.length < 20 ? 'text-[clamp(3rem,9vw,8.5rem)] leading-[0.9]' :
                   post?.title?.length < 40 ? 'text-[clamp(2.5rem,6vw,6rem)] leading-[1]' :
                   'text-[clamp(2rem,4vw,4.5rem)] leading-[1.1]'
-                } text-balance uppercase tracking-tighter text-white mb-6 break-words`}
+                } uppercase tracking-tighter text-white mb-6`}
               >
                 {post?.title}
               </motion.h1>
@@ -656,9 +672,9 @@ export default function BlogPostPage() {
                 <motion.span variants={tagItemVariants} className="border border-white/20 px-3 py-1.5 hover:bg-white hover:text-dark transition-colors cursor-pointer bg-white/5">
                   #{post?.servicePillar?.replace(/\s+/g, '') || 'SYSTEM'}
                 </motion.span>
-                {systemTags.map((tag, idx) => (
+                {post?.tags?.map((tag: string, idx: number) => (
                   <motion.span key={idx} variants={tagItemVariants} className="border border-white/20 px-3 py-1.5 hover:bg-white hover:text-dark transition-colors cursor-pointer bg-white/5">
-                    {tag}
+                    #{tag.replace(/\s+/g, '')}
                   </motion.span>
                 ))}
               </motion.div>
@@ -693,7 +709,7 @@ export default function BlogPostPage() {
           </div>
           <div className="p-4 md:p-6 type-eyebrow text-white border-b border-r border-white/20">
             <span className="block opacity-40 mb-2">DATE</span>
-            {post?.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).toUpperCase() : 'DRAFT'}
+            {post?.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-AU', { year: 'numeric', month: 'short', day: '2-digit' }).toUpperCase() : 'DRAFT'}
           </div>
           <div className="p-4 md:p-6 type-eyebrow text-white border-b border-r border-white/20">
             <span className="block opacity-40 mb-2">READ TIME</span>
@@ -762,7 +778,7 @@ export default function BlogPostPage() {
 
           <div className="lg:col-span-8 lg:col-start-5 prose-sysbilt">
             {post?.seoDescription && (
-              <p className={`font-sans font-light text-2xl md:text-3xl leading-tight mb-16 text-white border-l-2 ${theme.borderMain} pl-6 py-1`}>
+              <p className={`font-sans font-light text-2xl md:text-3xl leading-tight mb-16 text-white border-l-2 ${theme.borderMain} pl-6 py-1 break-words text-pretty`}>
                 {post.seoDescription}
               </p>
             )}
@@ -838,7 +854,7 @@ export default function BlogPostPage() {
                     disabled={formStatus === 'loading'}
                     className={`font-mono text-xs font-bold uppercase transition-all duration-300 ${theme.btnInlineCta} px-8 py-4`}
                   >
-                    {formStatus === 'loading' ? 'PROCESSING...' : 'INITIALIZE'}
+                    {formStatus === 'loading' ? 'PROCESSING...' : (post?.customCTA || 'INITIALIZE')}
                   </button>
                 </form>
               )}
@@ -899,12 +915,12 @@ export default function BlogPostPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {relatedPosts.map((relatedPost) => (
                 <Link 
-                  key={relatedPost.slug.current} 
-                  to={`/blog/${relatedPost.slug.current}`} 
-                  className="group flex flex-col h-full bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all duration-300"
+                  key={relatedPost.slug?.current || Math.random()} 
+                  to={`/blog/${relatedPost.slug?.current}`} 
+                  className="group flex flex-col h-full bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all duration-300 overflow-hidden"
                 >
                   {relatedPost.mainImage && (
-                    <div className="aspect-[16/9] border-b border-white/10 overflow-hidden relative">
+                    <div className="aspect-[16/9] border-b border-white/10 overflow-hidden relative shrink-0">
                       <div className="absolute inset-0 bg-dark/20 group-hover:bg-transparent transition-colors z-10" />
                       <img 
                         src={urlFor(relatedPost.mainImage).width(600).url()} 
@@ -913,16 +929,16 @@ export default function BlogPostPage() {
                       />
                     </div>
                   )}
-                  <div className="p-6 flex flex-col flex-1">
+                  <div className="p-6 flex flex-col flex-1 min-w-0">
                     <span className={`type-eyebrow ${theme.textMain} mb-4`}>
                       // {relatedPost.servicePillar || 'STRATEGY'}
                     </span>
-                    <h4 className={`font-sans font-black text-xl text-white uppercase leading-tight mb-4 ${theme.textHover} transition-colors line-clamp-3`}>
+                    <h4 className={`font-sans font-black text-xl text-white uppercase leading-tight mb-4 ${theme.textHover} transition-colors line-clamp-3 break-words text-balance`}>
                       {relatedPost.title}
                     </h4>
                     <div className="mt-auto pt-4 border-t border-white/10 flex items-center justify-between type-eyebrow text-white/50">
-                      <span>{relatedPost.publishedAt ? new Date(relatedPost.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.') : 'DRAFT'}</span>
-                      <ArrowUpRight className={`w-4 h-4 ${theme.textHover} transition-colors`} />
+                      <span>{relatedPost.publishedAt ? new Date(relatedPost.publishedAt).toLocaleDateString('en-AU', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.') : 'DRAFT'}</span>
+                      <ArrowUpRight className={`w-4 h-4 ${theme.textHover} transition-colors shrink-0`} />
                     </div>
                   </div>
                 </Link>
