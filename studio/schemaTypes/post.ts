@@ -18,7 +18,7 @@ export default defineType({
       title: 'Article Title (H1)',
       type: 'string',
       group: 'core',
-      description: 'The main headline of the article. Make it catchy and human-focused.',
+      description: 'The main headline. Brand Rule: End with a period. No exclamation marks. Problem-first or Command style.',
       validation: (Rule) => Rule.required().max(90),
     }),
     defineField({
@@ -70,7 +70,7 @@ export default defineType({
       title: 'Main Visual',
       type: 'image',
       group: 'content',
-      description: 'The hero image at the top of the article. Use high-contrast, brutalist graphics.',
+      description: 'The hero image at the top of the article. Brand Rule: No stock imagery. Real tools, real screens, real results.',
       options: { hotspot: true },
     }),
     defineField({
@@ -78,6 +78,7 @@ export default defineType({
       title: 'Article Body',
       type: 'blockContent',
       group: 'content',
+      description: 'Brand Rule: Short sentences (5-15 words). One idea per paragraph. Use "you" relentlessly. No passive voice.',
     }),
 
     // --- 3. SEO & TARGETING ---
@@ -111,7 +112,7 @@ export default defineType({
       group: 'seo',
       description: 'At what stage of the journey is the reader?',
       options: {
-        list: ['Get Clients (Foundation)', 'Scale Faster (Growth)', 'See Clearly (Maturity)'],
+        list: ['Phase 01: Get Clients', 'Phase 02: Scale Faster', 'Phase 03: See Clearly'],
         layout: 'radio',
       },
     }),
@@ -120,66 +121,26 @@ export default defineType({
       title: 'Target Personas',
       type: 'array',
       group: 'seo',
-      description: 'Tick all the buyer personas this article speaks to. This helps us track which content converts which buyer.',
+      description: 'Select the specific persona this piece is written for. Do not mix Phase and Pillar personas in the same piece.',
       of: [{type: 'string'}],
       options: {
         list: [
-          { title: '--- THE MASTER PERSONA ---', value: 'HEADER_MASTER' },
-          { title: 'MASTER: The Visionary Operator', value: 'The Visionary Operator' },
+          { title: '--- LEVEL 0: MASTER ---', value: 'HEADER_MASTER' },
+          { title: 'The Visionary Operator (Full Ecosystem)', value: 'The Visionary Operator' },
           
-          { title: '--- PHASE PERSONAS (THE JOURNEY) ---', value: 'HEADER_PHASE' },
-          { title: 'PHASE 1: The Foundation Builder', value: 'The Foundation Builder' },
-          { title: 'PHASE 2: The Bottlenecked Visionary', value: 'The Bottlenecked Visionary' },
-          { title: 'PHASE 3: The Blind Navigator', value: 'The Blind Navigator' },
+          { title: '--- LEVEL A: PHASE PERSONAS (MARKETING) ---', value: 'HEADER_PHASE' },
+          { title: 'The Builder (Phase 01)', value: 'The Builder' },
+          { title: 'The Scaler (Phase 02)', value: 'The Scaler' },
+          { title: 'The Controller (Phase 03)', value: 'The Controller' },
           
-          { title: '--- PILLAR 1: THE FACE ---', value: 'HEADER_P1' },
-          { title: 'P1 OVERARCHING: The Authority Seeker', value: 'The Authority Seeker' },
-          { title: 'P1: The Urgency Operator', value: 'The Urgency Operator' },
-          { title: 'P1: The Inventory Chaos Founder', value: 'The Inventory Chaos Founder' },
-          { title: 'P1: The Precision Builder', value: 'The Precision Builder' },
-          { title: 'P1: The Aesthetic Absolutist', value: 'The Aesthetic Absolutist' },
-          
-          { title: '--- PILLAR 2: THE BRAIN ---', value: 'HEADER_P2' },
-          { title: 'P2 OVERARCHING: The Revenue Protector', value: 'The Revenue Protector' },
-          { title: 'P2: The Overwhelmed Operator', value: 'The Overwhelmed Operator' },
-          { title: 'P2: The Blind Scaler', value: 'The Blind Scaler' },
-          { title: 'P2: The Hamster Wheel Merchant', value: 'The Hamster Wheel Merchant' },
-          { title: 'P2: The Tangled Executive', value: 'The Tangled Executive' },
-          
-          { title: '--- PILLAR 3: THE MUSCLE ---', value: 'HEADER_P3' },
-          { title: 'P3 OVERARCHING: The Leverage Seeker', value: 'The Leverage Seeker' },
-          { title: 'P3: The Paperwork Prisoner', value: 'The Paperwork Prisoner' },
-          { title: 'P3: The Blind Signal Hunter', value: 'The Blind Signal Hunter' },
-          { title: 'P3: The Time-Poor Thought Leader', value: 'The Time-Poor Thought Leader' },
-          { title: 'P3: The Onboarding Bottleneck', value: 'The Onboarding Bottleneck' },
-          
-          { title: '--- PILLAR 4: THE VOICE ---', value: 'HEADER_P4' },
-          { title: 'P4 OVERARCHING: The Cognitive Scaler', value: 'The Cognitive Scaler' },
-          { title: 'P4: The High-Ticket Architect', value: 'The High-Ticket Architect' },
-          { title: 'P4: The Bottleneck Boss', value: 'The Bottleneck Boss' },
-          { title: 'P4: The Compliance Stronghold', value: 'The Compliance Stronghold' },
-          { title: 'P4: The Muddy Hands Operator', value: 'The Muddy Hands Operator' },
-          
-          { title: '--- PILLAR 5: THE PRESENCE ---', value: 'HEADER_P5' },
-          { title: 'P5 OVERARCHING: The Omnipresence Seeker', value: 'The Omnipresence Seeker' },
-          { title: 'P5: The Technical Artisan', value: 'The Technical Artisan' },
-          { title: 'P5: The Frustrated Authority', value: 'The Frustrated Authority' },
-          { title: 'P5: The Sunday Grind Victim', value: 'The Sunday Grind Victim' },
-          { title: 'P5: The Campaign Velocity Lead', value: 'The Campaign Velocity Lead' },
-          
-          { title: '--- PILLAR 6: THE SOUL ---', value: 'HEADER_P6' },
-          { title: 'P6 OVERARCHING: The Adoption Seeker', value: 'The Adoption Seeker' },
-          { title: 'P6: The Deskless Fleet Manager', value: 'The Deskless Fleet Manager' },
-          { title: 'P6: The High-Churn Operator', value: 'The High-Churn Operator' },
-          { title: 'P6: The Operational Clarity Seeker', value: 'The Operational Clarity Seeker' },
-          { title: 'P6: The Burned-Out Ops Manager', value: 'The Burned-Out Ops Manager' },
-          
-          { title: '--- PILLAR 7: THE EYES ---', value: 'HEADER_P7' },
-          { title: 'P7 OVERARCHING: The Executive Navigator', value: 'The Executive Navigator' },
-          { title: 'P7: The Blinded Executive', value: 'The Blinded Executive' },
-          { title: 'P7: The Traffic-Rich, Profit-Poor Owner', value: 'The Traffic-Rich, Profit-Poor Owner' },
-          { title: 'P7: The Anxious CFO', value: 'The Anxious CFO' },
-          { title: 'P7: The Siloed Organization Lead', value: 'The Siloed Organization Lead' }
+          { title: '--- LEVEL B: PILLAR PERSONAS (SPECIFIC SOLUTIONS) ---', value: 'HEADER_PILLAR' },
+          { title: 'P1: The Authority Seeker', value: 'The Authority Seeker' },
+          { title: 'P2: The Revenue Protector', value: 'The Revenue Protector' },
+          { title: 'P3: The Leverage Seeker', value: 'The Leverage Seeker' },
+          { title: 'P4: The Cognitive Scaler', value: 'The Cognitive Scaler' },
+          { title: 'P5: The Omnipresence Seeker', value: 'The Omnipresence Seeker' },
+          { title: 'P6: The Adoption Seeker', value: 'The Adoption Seeker' },
+          { title: 'P7: The Executive Navigator', value: 'The Executive Navigator' }
         ],
       },
     }),
@@ -201,7 +162,7 @@ export default defineType({
       },
     }),
 
-    // --- 4. MARKETING & CONVERSION (NEW) ---
+    // --- 4. MARKETING & CONVERSION ---
     defineField({
       name: 'contentType',
       title: 'Content Format',
@@ -218,7 +179,7 @@ export default defineType({
       title: 'Custom Call-To-Action Text',
       type: 'string',
       group: 'marketing',
-      description: 'Override the default "Book a Call" button. E.g., "Audit Your HubSpot Setup".',
+      description: 'Override the default form button. Brand Rule: Use action words like "Audit My CRM", not "Learn More".',
     }),
     defineField({
       name: 'relatedPosts',
